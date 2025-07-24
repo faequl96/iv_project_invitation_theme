@@ -16,11 +16,11 @@ class TryThemeCoverPage extends StatelessWidget {
       builder: (_, _) => Stack(
         children: [
           ColoredBox(
-            color: Colors.green,
+            color: Colors.blue,
             child: Image.asset(
               // 'https://iv-project-web-app.vercel.app/assets/packages/iv_project_invitation_theme/assets/dummys/try_theme_cover_image.jpg',
               'assets/dummys/try_theme_cover_image.jpg',
-              package: 'iv_project_invitation_theme',
+              // package: 'iv_project_invitation_theme',
               height: ScreenUtil.size.height / 1.2,
               width: ScreenUtil.size.width,
               fit: BoxFit.cover,
