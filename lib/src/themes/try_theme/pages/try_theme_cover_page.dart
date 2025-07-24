@@ -17,10 +17,10 @@ class TryThemeCoverPage extends StatelessWidget {
         children: [
           ColoredBox(
             color: Colors.red,
-            child: Image.asset(
-              // 'https://raw.githubusercontent.com/faequl96/iv_project_invitation_theme/refs/heads/main/assets/dummys/try_theme_cover_image.jpg',
-              'assets/dummys/try_theme_cover_image.jpg',
-              package: 'iv_project_invitation_theme',
+            child: Image.network(
+              'https://iv-project-web-app.vercel.app/assets/packages/iv_project_invitation_theme/assets/dummys/try_theme_cover_image.jpg',
+              // 'assets/dummys/try_theme_cover_image.jpg',
+              // package: 'iv_project_invitation_theme',
               height: ScreenUtil.size.height / 1.2,
               width: ScreenUtil.size.width,
               fit: BoxFit.cover,
