@@ -15,12 +15,16 @@ class TryThemeCoverPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          Image.asset(
-            'assets/dummys/try_theme_cover_image.jpg',
-            package: 'iv_project_invitation_theme',
-            height: ScreenUtil.size.height / 1.2,
-            width: ScreenUtil.size.width,
-            fit: BoxFit.cover,
+          ColoredBox(
+            color: Colors.amber,
+            child: Image.network(
+              'https://raw.githubusercontent.com/faequl96/iv_project_invitation_theme/refs/heads/main/assets/dummys/try_theme_cover_image.jpg',
+              // 'assets/dummys/try_theme_cover_image.jpg',
+              // package: 'iv_project_invitation_theme',
+              height: ScreenUtil.size.height / 1.2,
+              width: ScreenUtil.size.width,
+              fit: BoxFit.cover,
+            ),
           ),
           Positioned(
             bottom: 0,
