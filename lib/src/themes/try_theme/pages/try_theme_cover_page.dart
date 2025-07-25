@@ -18,7 +18,7 @@ class TryThemeCoverPage extends StatelessWidget {
           ColoredBox(
             color: Colors.blue,
             child: Image.asset(
-              'assets/tes_image_jpeg.jpg.jpg',
+              'assets/tes_image_jpeg.jpg',
               package: 'iv_project_invitation_theme',
               height: ScreenUtil.size.height / 1.2,
               width: ScreenUtil.size.width,
