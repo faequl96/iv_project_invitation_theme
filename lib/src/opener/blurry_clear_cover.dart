@@ -33,7 +33,7 @@ class BlurryClearCover extends StatelessWidget {
                   width: ScreenUtil.size.width / 2,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade600.withValues(alpha: 0.4),
+                      color: Colors.grey.shade400.withValues(alpha: 0.1),
                       border: Border(
                         left: isLeft ? BorderSide.none : BorderSide(color: Colors.grey.shade500, width: .5),
                         right: isLeft ? BorderSide(color: Colors.grey.shade500, width: .5) : BorderSide.none,
@@ -44,7 +44,7 @@ class BlurryClearCover extends StatelessWidget {
               ),
             ),
             Align(
-              alignment: Alignment(isLeft ? 1 : -1, -.2),
+              alignment: Alignment(isLeft ? 1 : -1, -.3),
               child: Transform.translate(
                 offset: Offset(isLeft ? 1 : -1, 0),
                 child: SizedBox(
@@ -83,7 +83,7 @@ class _BrideInitialBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.grey.shade400.withValues(alpha: .2),
+        // color: Colors.grey.shade200.withValues(alpha: .2),
         borderRadius: isLeft
             ? const BorderRadius.only(topLeft: Radius.circular(120), bottomLeft: Radius.circular(120))
             : const BorderRadius.only(topRight: Radius.circular(120), bottomRight: Radius.circular(120)),

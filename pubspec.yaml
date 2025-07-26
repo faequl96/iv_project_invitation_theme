@@ -20,21 +20,13 @@ dependencies:
       url: https://github.com/faequl96/iv_project_model.git
       ref: 0.0.4
 
-  # iv_project_data:
-  #   path: ../iv_project_data
-
-  iv_project_data:
-    git:
-      url: https://github.com/faequl96/iv_project_data.git
-      ref: 0.0.4
-  
   # iv_project_core:
   #   path: ../iv_project_core
 
   iv_project_core:
     git:
       url: https://github.com/faequl96/iv_project_core.git
-      ref: 0.0.4
+      ref: 0.0.5
   
   # quick_dev_sdk:
   #   path: ../quick_dev_sdk

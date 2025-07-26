@@ -44,30 +44,46 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
             ),
             if (!_onOpenedStarted) ...[
               Align(
-                alignment: const Alignment(0, -.85),
-                child: Text(
-                  'Undangan Pernikahan',
-                  style: GoogleFonts.pacifico(
-                    fontSize: FontScale.x6l,
-                    fontWeight: FontWeight.w900,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1
-                      ..color = Colors.grey.shade300,
+                alignment: const Alignment(0, -.8),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    border: Border.all(width: .5, color: Colors.grey.shade500),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    child: Text(
+                      'Undangan Pernikahan',
+                      style: GoogleFonts.pacifico(
+                        fontSize: FontScale.x7l,
+                        fontWeight: FontWeight.w900,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 1
+                          ..color = Colors.grey.shade300,
+                      ),
+                    ),
                   ),
                 ),
               ),
               Align(
-                alignment: const Alignment(0, -.85),
-                child: Text(
-                  'Undangan Pernikahan',
-                  style: GoogleFonts.pacifico(fontSize: FontScale.x6l, fontWeight: FontWeight.w900, color: Colors.grey.shade800),
+                alignment: const Alignment(0, -.8),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  child: Text(
+                    'Undangan Pernikahan',
+                    style: GoogleFonts.pacifico(
+                      fontSize: FontScale.x7l,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.grey.shade800,
+                    ),
+                  ),
                 ),
               ),
             ],
             if (!_onOpenedStarted)
               Align(
-                alignment: const Alignment(0, -.2),
+                alignment: const Alignment(0, -.3),
                 child: SizedBox(
                   height: ShapeScale.heightX14l,
                   child: Center(
