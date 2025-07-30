@@ -33,7 +33,7 @@ class BlurryClearCover extends StatelessWidget {
                   width: ScreenUtil.size.width / 2,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade400.withValues(alpha: 0.1),
+                      color: Colors.grey.shade500.withValues(alpha: 0.2),
                       border: Border(
                         left: isLeft ? BorderSide.none : BorderSide(color: Colors.grey.shade500, width: .5),
                         right: isLeft ? BorderSide(color: Colors.grey.shade500, width: .5) : BorderSide.none,
@@ -48,9 +48,9 @@ class BlurryClearCover extends StatelessWidget {
               child: Transform.translate(
                 offset: Offset(isLeft ? 1 : -1, 0),
                 child: SizedBox(
-                  height: ShapeScale.heightX14l,
-                  width: ShapeScale.heightX14l / 2,
-                  child: _BrideInitialBox(isLeft: isLeft, initialLeftName: 'R', initialRightName: 'F'),
+                  height: ShapeScale.heightX17l,
+                  width: ShapeScale.heightX13l,
+                  child: _BrideInitialBox(isLeft: isLeft, initialLeftName: 'M', initialRightName: 'D'),
                 ),
               ),
             ),
@@ -81,49 +81,20 @@ class _BrideInitialBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        // color: Colors.grey.shade200.withValues(alpha: .2),
-        borderRadius: isLeft
-            ? const BorderRadius.only(topLeft: Radius.circular(120), bottomLeft: Radius.circular(120))
-            : const BorderRadius.only(topRight: Radius.circular(120), bottomRight: Radius.circular(120)),
-        border: Border(
-          top: BorderSide(width: .5, color: Colors.grey.shade500),
-          left: isLeft ? BorderSide(width: .5, color: Colors.grey.shade500) : BorderSide.none,
-          right: isLeft ? BorderSide.none : BorderSide(width: .5, color: Colors.grey.shade500),
-          bottom: BorderSide(width: .5, color: Colors.grey.shade500),
-        ),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (!isLeft) SizedBox(height: EdgeInsetsScale.x8l),
-          Stack(
-            children: [
-              Text(
-                isLeft ? initialLeftName : initialRightName,
-                style: GoogleFonts.pacifico(
-                  fontSize: FontScale.xs + ShapeScale.heightSm,
-                  fontWeight: FontWeight.w900,
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 2
-                    ..color = Colors.grey.shade700,
-                ),
-              ),
-              Text(
-                isLeft ? initialLeftName : initialRightName,
-                style: GoogleFonts.pacifico(
-                  fontSize: FontScale.xs + ShapeScale.heightSm,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.grey.shade300,
-                ),
-              ),
-            ],
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (!isLeft) SizedBox(height: ShapeScale.heightX9l),
+        Text(
+          isLeft ? initialLeftName : initialRightName,
+          style: GoogleFonts.parisienne(
+            fontSize: FontScale.x2l + ShapeScale.heightX2l,
+            fontWeight: FontWeight.w900,
+            color: Colors.grey.shade100.withValues(alpha: .6),
           ),
-          if (isLeft) SizedBox(height: EdgeInsetsScale.x8l),
-        ],
-      ),
+        ),
+        if (isLeft) SizedBox(height: ShapeScale.heightX9l),
+      ],
     );
   }
 }
@@ -137,7 +108,7 @@ class _RecipientBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.grey.shade800,
+        color: Colors.grey.shade800.withValues(alpha: .6),
         borderRadius: isLeft
             ? const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))
             : const BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20)),

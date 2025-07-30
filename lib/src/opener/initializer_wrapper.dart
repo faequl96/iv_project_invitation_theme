@@ -22,6 +22,9 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
   @override
   Widget build(BuildContext context) {
     if (_isOpenedProcessCompleted) return const SizedBox.shrink();
+
+    final tryThemeCubit = context.read<TryThemeCubit>();
+
     return BlocSelector<TryThemeCubit, TryThemeState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
@@ -47,15 +50,15 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 alignment: const Alignment(0, -.8),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(60),
                     border: Border.all(width: .5, color: Colors.grey.shade500),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                    padding: const EdgeInsets.only(top: 12, bottom: 16, left: 28, right: 28),
                     child: Text(
                       'Undangan Pernikahan',
                       style: GoogleFonts.pacifico(
-                        fontSize: FontScale.x7l,
+                        fontSize: FontScale.x6l,
                         fontWeight: FontWeight.w900,
                         foreground: Paint()
                           ..style = PaintingStyle.stroke
@@ -69,11 +72,11 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
               Align(
                 alignment: const Alignment(0, -.8),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+                  padding: const EdgeInsets.only(top: 12, bottom: 16, left: 28, right: 28),
                   child: Text(
                     'Undangan Pernikahan',
                     style: GoogleFonts.pacifico(
-                      fontSize: FontScale.x7l,
+                      fontSize: FontScale.x6l,
                       fontWeight: FontWeight.w900,
                       color: Colors.grey.shade800,
                     ),
@@ -85,14 +88,14 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
               Align(
                 alignment: const Alignment(0, -.3),
                 child: SizedBox(
-                  height: ShapeScale.heightX14l,
+                  height: ShapeScale.heightX17l,
                   child: Center(
                     child: Text(
                       '&',
                       style: GoogleFonts.pacifico(
                         fontSize: FontScale.x5s + ShapeScale.heightX4s,
                         fontWeight: FontWeight.w900,
-                        color: Colors.grey.shade300,
+                        color: Colors.grey.shade400,
                       ),
                     ),
                   ),
@@ -151,6 +154,8 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                   await Future.delayed(const Duration(milliseconds: 500));
                   setState(() => _isOpenedProcessCompleted = true);
+
+                  tryThemeCubit.state.copyWith(countdownsTimerAnimationTrigger: 1).emitState();
                 },
               ),
             ),

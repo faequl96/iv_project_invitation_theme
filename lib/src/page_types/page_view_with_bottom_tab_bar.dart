@@ -61,10 +61,10 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
         finalSize = Size(size.width, size.height - (padding.top + padding.bottom));
       }
 
-      ScreenUtil.set(size);
-      FontScale.set(size.width);
-      ShapeScale.set(size);
-      EdgeInsetsScale.set(size.width);
+      ScreenUtil.set(finalSize);
+      FontScale.set(finalSize.width);
+      ShapeScale.set(finalSize);
+      EdgeInsetsScale.set(finalSize.width);
 
       _tryThemeCubit.state.copyWith(size: finalSize).emitState();
     });
@@ -118,7 +118,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                 width: ScreenUtil.size.width,
                 child: Card(
                   margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
-                  color: Colors.grey.shade800,
+                  color: Colors.grey.shade800.withValues(alpha: .3),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),
                   clipBehavior: Clip.hardEdge,
                   child: TabBar(
@@ -137,7 +137,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                     tabAlignment: TabAlignment.start,
                     indicator: UnderlineTabIndicator(
                       borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(3), bottomRight: Radius.circular(3)),
-                      borderSide: BorderSide(width: 4, color: Colors.grey.shade300),
+                      borderSide: BorderSide(width: 4, color: Colors.grey.shade200),
                       insets: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 48.0),
                     ),
                     tabs: _tabs,

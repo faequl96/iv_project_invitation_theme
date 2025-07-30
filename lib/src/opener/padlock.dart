@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/shape_scale.dart';
+import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 // import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 // import 'package:just_audio/just_audio.dart';
@@ -17,15 +19,22 @@ class Padlock extends StatelessWidget {
         await Future.delayed(const Duration(seconds: 2));
         // Audio.player.play();
       },
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+      height: ShapeScale.heightX2l,
+      width: ShapeScale.widthX12l,
+      // padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
       borderRadius: BorderRadius.circular(30),
       color: Colors.grey.shade900.withValues(alpha: .2),
       border: Border.all(width: .5, color: Colors.grey.shade500),
-      child: Center(
-        child: Text(
-          'Buka Undangan',
-          style: TextStyle(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.bold),
-        ),
+      child: Stack(
+        children: [
+          GlassEffectBox(width: ShapeScale.widthX12l, height: ShapeScale.heightX2l, borderRadius: 40),
+          Center(
+            child: Text(
+              'Buka Undangan',
+              style: TextStyle(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
     // return StreamBuilder<PlayerState>(
