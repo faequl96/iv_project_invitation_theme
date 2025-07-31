@@ -23,15 +23,26 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   late PageController _pageController;
 
   List<Widget> _tabs = [];
-  void _buildTabs(int tabActive) {
-    _tabs = widget.tabsBuilder(tabActive);
-  }
+  void _buildTabs(int tabActive) => _tabs = widget.tabsBuilder(tabActive);
 
   final ValueNotifier<int> _indexActive = ValueNotifier(0);
   bool _isTabTaped = false;
   int _tabIndexTaped = 0;
 
   late final TryThemeCubit _tryThemeCubit;
+
+  void _scrollListener() {
+    final offset = _pageController.page ?? 0;
+    if ((offset - offset.floor()).abs() < 0.01) {
+      if (_tryThemeCubit.state.countdownsTimerAnimationTrigger == 0) {
+        _tryThemeCubit.state.copyWith(countdownsTimerAnimationTrigger: 1).emitState();
+      }
+    } else {
+      if (_tryThemeCubit.state.countdownsTimerAnimationTrigger == 1) {
+        _tryThemeCubit.state.copyWith(countdownsTimerAnimationTrigger: 0).emitState();
+      }
+    }
+  }
 
   @override
   void initState() {
@@ -44,6 +55,8 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
     _pageController = PageController();
 
     _tryThemeCubit = context.read<TryThemeCubit>();
+
+    _pageController.addListener(_scrollListener);
   }
 
   @override
@@ -73,6 +86,8 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+
+    _pageController.removeListener(_scrollListener);
 
     _tabController.dispose();
     _pageController.dispose();

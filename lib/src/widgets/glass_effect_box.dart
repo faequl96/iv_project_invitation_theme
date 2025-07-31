@@ -6,8 +6,7 @@ class GlassEffectBox extends StatefulWidget {
     required this.width,
     required this.height,
     this.borderRadius = 6,
-    this.enableSlider = true,
-    this.animationSpeed = const Duration(milliseconds: 500),
+    this.animationSpeed = const Duration(milliseconds: 400),
     this.animationInterval = const Duration(milliseconds: 1500),
     this.sliderWidth = 60,
   });
@@ -15,7 +14,6 @@ class GlassEffectBox extends StatefulWidget {
   final double width;
   final double height;
   final double borderRadius;
-  final bool enableSlider;
   final Duration animationSpeed;
   final Duration animationInterval;
   final double sliderWidth;
@@ -65,18 +63,34 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
             alignment: AlignmentDirectional.center,
             children: [
               SizedBox(width: widget.width, height: widget.height),
-              if (widget.enableSlider)
-                Positioned(
-                  left: slide,
-                  child: Transform.rotate(
-                    angle: .1,
-                    child: SizedBox(
-                      width: widget.sliderWidth,
-                      height: widget.height * 10,
-                      child: ColoredBox(color: Colors.grey.shade200.withValues(alpha: .5)),
+              Positioned(
+                left: slide,
+                child: Transform.rotate(
+                  angle: .1,
+                  child: SizedBox(
+                    width: widget.sliderWidth,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(
+                            height: widget.height * 10,
+                            child: ColoredBox(color: Colors.grey.shade200.withValues(alpha: .5)),
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          flex: 5,
+                          child: SizedBox(
+                            height: widget.height * 10,
+                            child: ColoredBox(color: Colors.grey.shade200.withValues(alpha: .5)),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
+              ),
             ],
           ),
         );

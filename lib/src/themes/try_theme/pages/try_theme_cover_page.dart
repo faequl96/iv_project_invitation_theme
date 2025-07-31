@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,7 +5,8 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/shape_scale.dart';
-import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
+import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class TryThemeCoverPage extends StatelessWidget {
@@ -20,7 +19,7 @@ class TryThemeCoverPage extends StatelessWidget {
       builder: (_, _) => Stack(
         children: [
           Image.asset(
-            'assets/dummys/try_theme_image.jpg',
+            'assets/dummys/try_theme_cover_image.png',
             package: 'iv_project_invitation_theme',
             height: ScreenUtil.size.height / 1.2,
             width: ScreenUtil.size.width,
@@ -44,7 +43,7 @@ class TryThemeCoverPage extends StatelessWidget {
             ),
           ),
           Align(
-            alignment: const Alignment(0, .4),
+            alignment: const Alignment(0, .35),
             child: SizedBox(
               width: ScreenUtil.size.width,
               child: Padding(
@@ -70,9 +69,32 @@ class TryThemeCoverPage extends StatelessWidget {
           ),
           Align(
             alignment: const Alignment(0, .7),
-            child: SizedBox(
-              height: ShapeScale.widthX2l,
-              child: _CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Menuju dalam waktu',
+                  style: TextStyle(fontSize: FontScale.sm, color: Colors.grey.shade300),
+                ),
+                const SizedBox(height: 10),
+                SizedBox(
+                  height: ShapeScale.widthX2l,
+                  child: CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
+                ),
+              ],
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0, .92),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                DoubleArrowSlider(arrowSize: ShapeScale.widthLg, sliderPathLength: ShapeScale.heightX2l),
+                Text(
+                  'Geser ke atas',
+                  style: TextStyle(fontSize: FontScale.xs, color: Colors.grey.shade300),
+                ),
+              ],
             ),
           ),
         ],
@@ -95,7 +117,7 @@ class _BrideNameState extends State<_BrideName> with SingleTickerProviderStateMi
   late Animation<Offset> _groomAnimation;
 
   void _initAnimation() {
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 2000));
+    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1600));
 
     _brideAnimation = Tween<Offset>(begin: const Offset(-4, 0), end: Offset.zero).animate(
       CurvedAnimation(
@@ -106,13 +128,13 @@ class _BrideNameState extends State<_BrideName> with SingleTickerProviderStateMi
     _andAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.6, .8, curve: Curves.easeOut),
+        curve: const Interval(.7, .9, curve: Curves.easeOut),
       ),
     );
-    _groomAnimation = Tween<Offset>(begin: const Offset(2, 0), end: Offset.zero).animate(
+    _groomAnimation = Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.5, .9, curve: Curves.easeOut),
+        curve: const Interval(.6, .9, curve: Curves.easeOut),
       ),
     );
   }
@@ -137,6 +159,7 @@ class _BrideNameState extends State<_BrideName> with SingleTickerProviderStateMi
       selector: (state) => state.countdownsTimerAnimationTrigger,
       builder: (_, countdownsTimerAnimationTrigger) {
         if (countdownsTimerAnimationTrigger == 1) _controller.forward();
+        if (countdownsTimerAnimationTrigger == 0) _controller.reverse();
         return Stack(
           children: [
             Align(
@@ -217,182 +240,6 @@ class _BrideNameState extends State<_BrideName> with SingleTickerProviderStateMi
           ],
         );
       },
-    );
-  }
-}
-
-class _CountdownTimers extends StatefulWidget {
-  const _CountdownTimers({required this.time});
-
-  final DateTime time;
-
-  @override
-  State<_CountdownTimers> createState() => _CountdownTimersState();
-}
-
-class _CountdownTimersState extends State<_CountdownTimers> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _daysAnimation;
-  late Animation<Offset> _hoursAnimation;
-  late Animation<Offset> _minutesAnimation;
-  late Animation<Offset> _secondsAnimation;
-
-  late Timer _timer;
-  late Duration _remaining;
-
-  final ValueNotifier<int> _days = ValueNotifier(0);
-  final ValueNotifier<int> _hours = ValueNotifier(0);
-  final ValueNotifier<int> _minutes = ValueNotifier(0);
-  final ValueNotifier<int> _seconds = ValueNotifier(0);
-
-  void _initAnimation() {
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
-
-    _daysAnimation = Tween<Offset>(
-      begin: const Offset(0, 4),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _hoursAnimation = Tween<Offset>(
-      begin: const Offset(-6, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _minutesAnimation = Tween<Offset>(
-      begin: const Offset(6, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _secondsAnimation = Tween<Offset>(
-      begin: const Offset(0, 4),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-  }
-
-  void _formatDuration(Duration d) {
-    final days = d.inDays;
-    final hours = d.inHours % 24;
-    final minutes = d.inMinutes % 60;
-    final seconds = d.inSeconds % 60;
-
-    _days.value = days;
-    _hours.value = hours;
-    _minutes.value = minutes;
-    _seconds.value = seconds;
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _remaining = widget.time.difference(DateTime.now());
-      if (_remaining.isNegative) {
-        _remaining = Duration.zero;
-        _timer.cancel();
-      }
-      _formatDuration(_remaining);
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _startTimer();
-    _initAnimation();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    _controller.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocSelector<TryThemeCubit, TryThemeState, int>(
-      selector: (state) => state.countdownsTimerAnimationTrigger,
-      builder: (_, countdownsTimerAnimationTrigger) {
-        if (countdownsTimerAnimationTrigger == 1) _controller.forward();
-        return Stack(
-          children: [
-            Align(
-              alignment: const Alignment(-.6, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _days,
-                builder: (_, days, _) => SlideTransition(
-                  position: _daysAnimation,
-                  child: _CountdownTimer(number: days, unit: 'hari'),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(-.2, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _hours,
-                builder: (_, hours, _) => SlideTransition(
-                  position: _hoursAnimation,
-                  child: _CountdownTimer(number: hours, unit: 'jam'),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(.2, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _minutes,
-                builder: (_, minutes, _) => SlideTransition(
-                  position: _minutesAnimation,
-                  child: _CountdownTimer(number: minutes, unit: 'menit'),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(.6, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _seconds,
-                builder: (_, seconds, _) => SlideTransition(
-                  position: _secondsAnimation,
-                  child: _CountdownTimer(number: seconds, unit: 'detik'),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-}
-
-class _CountdownTimer extends StatelessWidget {
-  const _CountdownTimer({required this.number, required this.unit});
-
-  final int number;
-  final String unit;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          width: ShapeScale.widthX2l,
-          height: ShapeScale.widthX2l,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey.shade500, width: .5),
-              color: Colors.grey.shade600.withValues(alpha: .2),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  '$number',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade200, height: 1.1),
-                ),
-                Text(unit, style: TextStyle(color: Colors.grey.shade200, height: 1.1)),
-              ],
-            ),
-          ),
-        ),
-        LightningEffectBox(width: ShapeScale.widthX2l, height: ShapeScale.widthX2l, borderRadius: 8),
-      ],
     );
   }
 }
