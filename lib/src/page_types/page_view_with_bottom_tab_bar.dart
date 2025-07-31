@@ -68,8 +68,12 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
       final padding = MediaQuery.of(GlobalContextService.value).padding;
 
       late final Size finalSize;
-      if (size.width > 500) {
-        finalSize = const Size(375, 812);
+      if (size.width > 440) {
+        if (size.height < 812) {
+          finalSize = Size(375, size.height - (padding.top + padding.bottom));
+        } else {
+          finalSize = const Size(375, 812);
+        }
       } else {
         finalSize = Size(size.width, size.height - (padding.top + padding.bottom));
       }

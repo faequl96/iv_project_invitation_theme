@@ -40,8 +40,12 @@ class _TryThemeState extends State<TryTheme> {
     _padding = MediaQuery.of(GlobalContextService.value).padding;
 
     late final Size size;
-    if (_size.width > 500) {
-      size = const Size(375, 812);
+    if (_size.width > 440) {
+      if (_size.height < 812) {
+        size = Size(375, _size.height - (_padding.top + _padding.bottom));
+      } else {
+        size = const Size(375, 812);
+      }
     } else {
       size = Size(_size.width, _size.height - (_padding.top + _padding.bottom));
     }

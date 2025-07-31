@@ -45,13 +45,10 @@ class BlurryClearCover extends StatelessWidget {
             ),
             Align(
               alignment: Alignment(isLeft ? 1 : -1, -.3),
-              child: Transform.translate(
-                offset: Offset(isLeft ? 1 : -1, 0),
-                child: SizedBox(
-                  height: ShapeScale.heightX17l,
-                  width: ShapeScale.heightX13l,
-                  child: _BrideInitialBox(isLeft: isLeft, initialLeftName: 'M', initialRightName: 'D'),
-                ),
+              child: SizedBox(
+                height: ShapeScale.heightX17l,
+                width: ShapeScale.heightX13l,
+                child: _BrideInitialBox(isLeft: isLeft, initialLeftName: 'M', initialRightName: 'D'),
               ),
             ),
             Align(

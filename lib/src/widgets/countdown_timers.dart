@@ -16,13 +16,13 @@ class CountdownTimers extends StatefulWidget {
 }
 
 class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Offset> _daysAnimation;
-  late Animation<Offset> _hoursAnimation;
-  late Animation<Offset> _minutesAnimation;
-  late Animation<Offset> _secondsAnimation;
+  late final AnimationController _controller;
+  late final Animation<Offset> _daysAnimation;
+  late final Animation<Offset> _hoursAnimation;
+  late final Animation<Offset> _minutesAnimation;
+  late final Animation<Offset> _secondsAnimation;
 
-  late Timer _timer;
+  late final Timer _timer;
   late Duration _remaining;
 
   final ValueNotifier<int> _days = ValueNotifier(0);
@@ -100,7 +100,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
         return Stack(
           children: [
             Align(
-              alignment: const Alignment(-.6, 0),
+              alignment: const Alignment(-.69, 0),
               child: ValueListenableBuilder(
                 valueListenable: _days,
                 builder: (_, days, _) => SlideTransition(
@@ -110,7 +110,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
               ),
             ),
             Align(
-              alignment: const Alignment(-.2, 0),
+              alignment: const Alignment(-.23, 0),
               child: ValueListenableBuilder(
                 valueListenable: _hours,
                 builder: (_, hours, _) => SlideTransition(
@@ -120,7 +120,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
               ),
             ),
             Align(
-              alignment: const Alignment(.2, 0),
+              alignment: const Alignment(.23, 0),
               child: ValueListenableBuilder(
                 valueListenable: _minutes,
                 builder: (_, minutes, _) => SlideTransition(
@@ -130,7 +130,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
               ),
             ),
             Align(
-              alignment: const Alignment(.6, 0),
+              alignment: const Alignment(.69, 0),
               child: ValueListenableBuilder(
                 valueListenable: _seconds,
                 builder: (_, seconds, _) => SlideTransition(
@@ -157,13 +157,13 @@ class _CountdownTimer extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          width: ShapeScale.widthX2l,
-          height: ShapeScale.widthX2l,
+          width: ShapeScale.widthX4l,
+          height: ShapeScale.widthX4l,
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.shade500, width: .5),
-              color: Colors.grey.shade600.withValues(alpha: .2),
+              color: Colors.grey.shade500.withValues(alpha: .3),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +177,7 @@ class _CountdownTimer extends StatelessWidget {
             ),
           ),
         ),
-        LightningEffectBox(width: ShapeScale.widthX2l, height: ShapeScale.widthX2l, borderRadius: 8),
+        LightningEffectBox(width: ShapeScale.widthX4l, height: ShapeScale.widthX4l, borderRadius: 8),
       ],
     );
   }
