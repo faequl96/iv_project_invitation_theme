@@ -18,72 +18,16 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           Positioned(
             top: 0,
             child: SizedBox(
-              height: ScreenUtil.size.height,
+              height: ScreenUtil.size.height / 1.2,
               width: ScreenUtil.size.width,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.grey.shade900, Colors.grey.shade50],
-                    stops: const [.1, .7],
+                    colors: [Colors.grey.shade900, Colors.transparent],
+                    stops: const [.1, .8],
                   ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: -100,
-            bottom: -140,
-            child: SizedBox(
-              width: SizeScale.widthX19l,
-              height: SizeScale.widthX19l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  borderRadius: BorderRadius.circular(SizeScale.widthX19l / 2),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            right: -220,
-            bottom: -240,
-            child: SizedBox(
-              width: SizeScale.widthX22l,
-              height: SizeScale.widthX22l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300.withValues(alpha: .7),
-                  borderRadius: BorderRadius.circular(SizeScale.widthX22l / 2),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 4,
-            bottom: SizeScale.heightX18l,
-            child: SizedBox(
-              width: SizeScale.widthX10l,
-              height: SizeScale.widthX10l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade800,
-                  borderRadius: BorderRadius.circular(SizeScale.widthX10l / 2),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            left: 80,
-            bottom: SizeScale.heightX20l,
-            child: SizedBox(
-              width: SizeScale.widthX5l,
-              height: SizeScale.widthX5l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300.withValues(alpha: .5),
-                  borderRadius: BorderRadius.circular(SizeScale.widthX5l / 2),
                 ),
               ),
             ),

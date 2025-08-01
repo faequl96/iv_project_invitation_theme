@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 class SizeScale {
   const SizeScale._();
 
+  static late double heightX16s;
+  static late double heightX15s;
+  static late double heightX14s;
+  static late double heightX13s;
+  static late double heightX12s;
+  static late double heightX11s;
+  static late double heightX10s;
   static late double heightX9s;
   static late double heightX8s;
   static late double heightX7s;
@@ -38,6 +45,13 @@ class SizeScale {
   static late double heightX21l;
   static late double heightX22l;
 
+  static late double widthX16s;
+  static late double widthX15s;
+  static late double widthX14s;
+  static late double widthX13s;
+  static late double widthX12s;
+  static late double widthX11s;
+  static late double widthX10s;
   static late double widthX9s;
   static late double widthX8s;
   static late double widthX7s;
@@ -75,6 +89,13 @@ class SizeScale {
 
   static void set(Size screenSize) {
     final heightFactor = screenSize.height / 812;
+    heightX16s = 1 * heightFactor;
+    heightX15s = 2 * heightFactor;
+    heightX14s = 3 * heightFactor;
+    heightX13s = 4 * heightFactor;
+    heightX12s = 5 * heightFactor;
+    heightX11s = 6 * heightFactor;
+    heightX10s = 7 * heightFactor;
     heightX9s = 8 * heightFactor;
     heightX8s = 10 * heightFactor;
     heightX7s = 12 * heightFactor;
@@ -111,6 +132,13 @@ class SizeScale {
     heightX22l = 512 * heightFactor;
 
     final widthFactor = screenSize.width / 375;
+    widthX16s = 1 * widthFactor;
+    widthX15s = 2 * widthFactor;
+    widthX14s = 3 * widthFactor;
+    widthX13s = 4 * widthFactor;
+    widthX12s = 5 * widthFactor;
+    widthX11s = 6 * widthFactor;
+    widthX10s = 7 * widthFactor;
     widthX9s = 8 * widthFactor;
     widthX8s = 10 * widthFactor;
     widthX7s = 12 * widthFactor;

@@ -7,6 +7,7 @@ import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
 class PageViewWithBottomTabBar extends StatefulWidget {
@@ -104,6 +105,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        const ElegantBlackAndWhiteGlassBackground(),
         SizedBox(
           height: ScreenUtil.size.height,
           width: ScreenUtil.size.width,

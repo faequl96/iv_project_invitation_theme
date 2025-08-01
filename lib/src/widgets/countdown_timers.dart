@@ -18,10 +18,14 @@ class CountdownTimers extends StatefulWidget {
 
 class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  late final Animation<Offset> _daysAnimation;
-  late final Animation<Offset> _hoursAnimation;
-  late final Animation<Offset> _minutesAnimation;
-  late final Animation<Offset> _secondsAnimation;
+  late final Animation<Offset> _daysSlideAnimation;
+  late final Animation<Offset> _hoursSlideAnimation;
+  late final Animation<Offset> _minutesSlideAnimation;
+  late final Animation<Offset> _secondsSlideAnimation;
+  late final Animation<double> _daysFadeAnimation;
+  late final Animation<double> _hoursFadeAnimation;
+  late final Animation<double> _minutesFadeAnimation;
+  late final Animation<double> _secondsFadeAnimation;
 
   late final Timer _timer;
   late Duration _remaining;
@@ -34,22 +38,33 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
   void _initAnimation() {
     _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
 
-    _daysAnimation = Tween<Offset>(
-      begin: const Offset(0, 4),
+    _daysSlideAnimation = Tween<Offset>(
+      begin: Offset(0, SizeScale.heightX13s),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _hoursAnimation = Tween<Offset>(
-      begin: const Offset(-6, 0),
+    _hoursSlideAnimation = Tween<Offset>(
+      begin: Offset(-SizeScale.widthX13s, 0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _minutesAnimation = Tween<Offset>(
-      begin: const Offset(6, 0),
+    _minutesSlideAnimation = Tween<Offset>(
+      begin: Offset(SizeScale.widthX13s, 0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _secondsAnimation = Tween<Offset>(
-      begin: const Offset(0, 4),
+    _secondsSlideAnimation = Tween<Offset>(
+      begin: Offset(0, SizeScale.heightX13s),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
+
+    _daysFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    _hoursFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    _minutesFadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    _secondsFadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
   }
 
   void _formatDuration(Duration d) {
@@ -102,41 +117,53 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
           children: [
             Align(
               alignment: const Alignment(-.66, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _days,
-                builder: (_, days, _) => SlideTransition(
-                  position: _daysAnimation,
-                  child: _CountdownTimer(number: days, unit: 'hari'),
+              child: FadeTransition(
+                opacity: _daysFadeAnimation,
+                child: SlideTransition(
+                  position: _daysSlideAnimation,
+                  child: ValueListenableBuilder(
+                    valueListenable: _days,
+                    builder: (_, days, _) => _CountdownTimer(number: days, unit: 'hari'),
+                  ),
                 ),
               ),
             ),
             Align(
               alignment: const Alignment(-.22, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _hours,
-                builder: (_, hours, _) => SlideTransition(
-                  position: _hoursAnimation,
-                  child: _CountdownTimer(number: hours, unit: 'jam'),
+              child: FadeTransition(
+                opacity: _hoursFadeAnimation,
+                child: SlideTransition(
+                  position: _hoursSlideAnimation,
+                  child: ValueListenableBuilder(
+                    valueListenable: _hours,
+                    builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'jam'),
+                  ),
                 ),
               ),
             ),
             Align(
               alignment: const Alignment(.22, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _minutes,
-                builder: (_, minutes, _) => SlideTransition(
-                  position: _minutesAnimation,
-                  child: _CountdownTimer(number: minutes, unit: 'menit'),
+              child: FadeTransition(
+                opacity: _minutesFadeAnimation,
+                child: SlideTransition(
+                  position: _minutesSlideAnimation,
+                  child: ValueListenableBuilder(
+                    valueListenable: _minutes,
+                    builder: (_, minutes, _) => _CountdownTimer(number: minutes, unit: 'menit'),
+                  ),
                 ),
               ),
             ),
             Align(
               alignment: const Alignment(.66, 0),
-              child: ValueListenableBuilder(
-                valueListenable: _seconds,
-                builder: (_, seconds, _) => SlideTransition(
-                  position: _secondsAnimation,
-                  child: _CountdownTimer(number: seconds, unit: 'detik'),
+              child: FadeTransition(
+                opacity: _secondsFadeAnimation,
+                child: SlideTransition(
+                  position: _secondsSlideAnimation,
+                  child: ValueListenableBuilder(
+                    valueListenable: _seconds,
+                    builder: (_, seconds, _) => _CountdownTimer(number: seconds, unit: 'detik'),
+                  ),
                 ),
               ),
             ),
