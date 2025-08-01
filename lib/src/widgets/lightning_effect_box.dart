@@ -8,7 +8,8 @@ class LightningEffectBox extends StatefulWidget {
     this.borderRadius = 6,
     this.animationSpeed = const Duration(milliseconds: 500),
     this.animationInterval = const Duration(milliseconds: 2000),
-    this.ligthningWidth = .2,
+    this.ligthningLength = .2,
+    this.ligthningWidth = .5,
     this.ligthningColor = Colors.white,
   });
 
@@ -17,6 +18,7 @@ class LightningEffectBox extends StatefulWidget {
   final double borderRadius;
   final Duration animationSpeed;
   final Duration animationInterval;
+  final double ligthningLength;
   final double ligthningWidth;
   final Color ligthningColor;
 
@@ -58,6 +60,7 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
       painter: _LightningPainter(
         animation: _animation,
         borderRadius: widget.borderRadius,
+        ligthningLength: widget.ligthningLength,
         ligthningWidth: widget.ligthningWidth,
         ligthningColor: widget.ligthningColor,
       ),
@@ -70,12 +73,14 @@ class _LightningPainter extends CustomPainter {
   _LightningPainter({
     required this.animation,
     required this.borderRadius,
+    required this.ligthningLength,
     required this.ligthningWidth,
     required this.ligthningColor,
   }) : super(repaint: animation);
 
   final Animation<double> animation;
   final double borderRadius;
+  final double ligthningLength;
   final double ligthningWidth;
   final Color ligthningColor;
 
@@ -91,14 +96,14 @@ class _LightningPainter extends CustomPainter {
     final length = metric.length;
     final progress = animation.value;
 
-    final lightningLength = length * ligthningWidth; // panjang kilatan (10% dari keliling)
+    final lightningLength = length * ligthningLength; // panjang kilatan (10% dari keliling)
 
     final extractPath = metric.extractPath(length * progress, length * progress + lightningLength);
 
     final paint = Paint()
-      ..color = Colors.white
+      ..color = ligthningColor
       ..style = PaintingStyle.stroke
-      ..strokeWidth = .5;
+      ..strokeWidth = ligthningWidth;
 
     // Draw full border
     canvas.drawPath(
@@ -106,7 +111,7 @@ class _LightningPainter extends CustomPainter {
       Paint()
         ..color = Colors.transparent
         ..style = PaintingStyle.stroke
-        ..strokeWidth = .5,
+        ..strokeWidth = ligthningWidth,
     );
 
     // Draw moving lightning

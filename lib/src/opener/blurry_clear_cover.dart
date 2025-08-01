@@ -3,11 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/edge_insets_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/shape_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class BlurryClearCover extends StatelessWidget {
   const BlurryClearCover({super.key, required this.isLeft});
@@ -16,7 +15,7 @@ class BlurryClearCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<TryThemeCubit, TryThemeState, Size>(
+    return BlocSelector<CoreCubit, CoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
         height: ScreenUtil.size.height,
@@ -46,8 +45,8 @@ class BlurryClearCover extends StatelessWidget {
             Align(
               alignment: Alignment(isLeft ? 1 : -1, -.3),
               child: SizedBox(
-                height: ShapeScale.heightX17l,
-                width: ShapeScale.heightX13l,
+                height: SizeScale.heightX17l,
+                width: SizeScale.heightX13l,
                 child: _BrideInitialBox(isLeft: isLeft, initialLeftName: 'M', initialRightName: 'D'),
               ),
             ),
@@ -56,8 +55,8 @@ class BlurryClearCover extends StatelessWidget {
               child: Transform.translate(
                 offset: Offset(isLeft ? 1 : -1, 0),
                 child: SizedBox(
-                  height: ShapeScale.heightX10l,
-                  width: (ScreenUtil.size.width / 2) - EdgeInsetsScale.x8l,
+                  height: SizeScale.heightX10l,
+                  width: (ScreenUtil.size.width / 2) - SizeScale.widthLg,
                   child: _RecipientBox(isLeft: isLeft),
                 ),
               ),
@@ -81,16 +80,16 @@ class _BrideInitialBox extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if (!isLeft) SizedBox(height: ShapeScale.heightX9l),
+        if (!isLeft) SizedBox(height: SizeScale.heightX9l),
         Text(
           isLeft ? initialLeftName : initialRightName,
           style: GoogleFonts.parisienne(
-            fontSize: FontScale.x2l + ShapeScale.heightX2l,
+            fontSize: FontScale.x2l + SizeScale.heightX2l,
             fontWeight: FontWeight.w900,
             color: Colors.grey.shade100.withValues(alpha: .6),
           ),
         ),
-        if (isLeft) SizedBox(height: ShapeScale.heightX9l),
+        if (isLeft) SizedBox(height: SizeScale.heightX9l),
       ],
     );
   }

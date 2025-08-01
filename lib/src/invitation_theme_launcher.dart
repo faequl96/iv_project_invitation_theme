@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/models/invitation.dart';
-import 'package:iv_project_invitation_theme/src/themes/try_theme/try_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass.dart';
 
 class InvitationThemeLauncher extends StatefulWidget {
   const InvitationThemeLauncher({super.key, required this.invitation});

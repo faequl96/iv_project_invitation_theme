@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/shape_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
 class CountdownTimers extends StatefulWidget {
@@ -92,7 +93,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<TryThemeCubit, TryThemeState, int>(
+    return BlocSelector<CoreCubit, CoreState, int>(
       selector: (state) => state.countdownsTimerAnimationTrigger,
       builder: (_, countdownsTimerAnimationTrigger) {
         if (countdownsTimerAnimationTrigger == 1) _controller.forward();
@@ -100,7 +101,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
         return Stack(
           children: [
             Align(
-              alignment: const Alignment(-.69, 0),
+              alignment: const Alignment(-.66, 0),
               child: ValueListenableBuilder(
                 valueListenable: _days,
                 builder: (_, days, _) => SlideTransition(
@@ -110,7 +111,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
               ),
             ),
             Align(
-              alignment: const Alignment(-.23, 0),
+              alignment: const Alignment(-.22, 0),
               child: ValueListenableBuilder(
                 valueListenable: _hours,
                 builder: (_, hours, _) => SlideTransition(
@@ -120,7 +121,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
               ),
             ),
             Align(
-              alignment: const Alignment(.23, 0),
+              alignment: const Alignment(.22, 0),
               child: ValueListenableBuilder(
                 valueListenable: _minutes,
                 builder: (_, minutes, _) => SlideTransition(
@@ -130,7 +131,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
               ),
             ),
             Align(
-              alignment: const Alignment(.69, 0),
+              alignment: const Alignment(.66, 0),
               child: ValueListenableBuilder(
                 valueListenable: _seconds,
                 builder: (_, seconds, _) => SlideTransition(
@@ -156,14 +157,29 @@ class _CountdownTimer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: SizedBox(
+              width: SizeScale.widthX3l,
+              height: SizeScale.widthX3l,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.grey.shade500.withValues(alpha: .2),
+                ),
+              ),
+            ),
+          ),
+        ),
         SizedBox(
-          width: ShapeScale.widthX4l,
-          height: ShapeScale.widthX4l,
+          width: SizeScale.widthX3l,
+          height: SizeScale.widthX3l,
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey.shade500, width: .5),
-              color: Colors.grey.shade500.withValues(alpha: .3),
+              border: Border.all(color: Colors.grey.shade600),
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -177,7 +193,7 @@ class _CountdownTimer extends StatelessWidget {
             ),
           ),
         ),
-        LightningEffectBox(width: ShapeScale.widthX4l, height: ShapeScale.widthX4l, borderRadius: 8),
+        LightningEffectBox(width: SizeScale.widthX3l, height: SizeScale.widthX3l, borderRadius: 8),
       ],
     );
   }

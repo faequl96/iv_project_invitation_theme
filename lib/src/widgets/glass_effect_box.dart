@@ -9,6 +9,7 @@ class GlassEffectBox extends StatefulWidget {
     this.animationSpeed = const Duration(milliseconds: 400),
     this.animationInterval = const Duration(milliseconds: 1500),
     this.sliderWidth = 60,
+    required this.color,
   });
 
   final double width;
@@ -17,6 +18,7 @@ class GlassEffectBox extends StatefulWidget {
   final Duration animationSpeed;
   final Duration animationInterval;
   final double sliderWidth;
+  final Color color;
 
   @override
   State<GlassEffectBox> createState() => _GlassEffectBoxState();
@@ -75,7 +77,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
                           flex: 1,
                           child: SizedBox(
                             height: widget.height * 10,
-                            child: ColoredBox(color: Colors.grey.shade200.withValues(alpha: .5)),
+                            child: ColoredBox(color: widget.color),
                           ),
                         ),
                         const SizedBox(width: 4),
@@ -83,7 +85,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
                           flex: 5,
                           child: SizedBox(
                             height: widget.height * 10,
-                            child: ColoredBox(color: Colors.grey.shade200.withValues(alpha: .5)),
+                            child: ColoredBox(color: widget.color),
                           ),
                         ),
                       ],

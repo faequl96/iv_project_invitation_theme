@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class ShapeScale {
-  const ShapeScale._();
+class SizeScale {
+  const SizeScale._();
 
   static late double heightX9s;
   static late double heightX8s;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/shape_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 // import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
@@ -19,15 +19,20 @@ class Padlock extends StatelessWidget {
         await Future.delayed(const Duration(seconds: 2));
         // Audio.player.play();
       },
-      height: ShapeScale.heightX2l,
-      width: ShapeScale.widthX12l,
+      height: SizeScale.heightX2l,
+      width: SizeScale.widthX12l,
       // padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
       borderRadius: BorderRadius.circular(30),
       color: Colors.grey.shade900.withValues(alpha: .2),
       border: Border.all(width: .5, color: Colors.grey.shade500),
       child: Stack(
         children: [
-          GlassEffectBox(width: ShapeScale.widthX12l, height: ShapeScale.heightX2l, borderRadius: 40),
+          GlassEffectBox(
+            width: SizeScale.widthX12l,
+            height: SizeScale.heightX2l,
+            borderRadius: 40,
+            color: Colors.grey.shade200.withValues(alpha: .5),
+          ),
           Center(
             child: Text(
               'Buka Undangan',
