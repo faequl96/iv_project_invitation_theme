@@ -146,7 +146,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade900.withValues(alpha: .4),
+                              color: Colors.black.withValues(alpha: .5),
                               borderRadius: BorderRadius.circular(36),
                             ),
                             height: 52,
@@ -170,10 +170,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                               tabAlignment: TabAlignment.start,
                               indicatorWeight: 5,
                               indicator: UnderlineTabIndicator(
-                                borderRadius: const BorderRadius.only(
-                                  bottomLeft: Radius.circular(3),
-                                  bottomRight: Radius.circular(3),
-                                ),
+                                borderRadius: BorderRadius.circular(2),
                                 borderSide: BorderSide(width: 4, color: Colors.grey.shade200),
                                 insets: const EdgeInsets.fromLTRB(0, 0, 0, 47),
                               ),

@@ -116,9 +116,9 @@ class _TryThemeState extends State<TryTheme> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade300),
+                              Icon(Icons.drafts, color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Cover', style: TextStyle(color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade300)),
+                              Text('Cover', style: TextStyle(color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400)),
                             ],
                           ),
                         ),
@@ -135,9 +135,9 @@ class _TryThemeState extends State<TryTheme> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade300),
+                              Icon(Icons.drafts, color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 2', style: TextStyle(color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade300)),
+                              Text('Tab 2', style: TextStyle(color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400)),
                             ],
                           ),
                         ),
@@ -154,9 +154,9 @@ class _TryThemeState extends State<TryTheme> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade300),
+                              Icon(Icons.drafts, color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 3', style: TextStyle(color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade300)),
+                              Text('Tab 3', style: TextStyle(color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400)),
                             ],
                           ),
                         ),
@@ -173,9 +173,9 @@ class _TryThemeState extends State<TryTheme> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade300),
+                              Icon(Icons.drafts, color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 4', style: TextStyle(color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade300)),
+                              Text('Tab 4', style: TextStyle(color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400)),
                             ],
                           ),
                         ),
@@ -192,9 +192,9 @@ class _TryThemeState extends State<TryTheme> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade300),
+                              Icon(Icons.drafts, color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 5', style: TextStyle(color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade300)),
+                              Text('Tab 5', style: TextStyle(color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400)),
                             ],
                           ),
                         ),

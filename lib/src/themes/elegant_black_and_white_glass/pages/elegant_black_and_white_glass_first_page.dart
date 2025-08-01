@@ -25,7 +25,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.grey.shade800, Colors.grey.shade50],
+                    colors: [Colors.grey.shade900, Colors.grey.shade50],
                     stops: const [.1, .7],
                   ),
                 ),
@@ -34,7 +34,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             left: -100,
-            bottom: -100,
+            bottom: -140,
             child: SizedBox(
               width: SizeScale.widthX19l,
               height: SizeScale.widthX19l,
@@ -48,13 +48,13 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             right: -220,
-            bottom: -200,
+            bottom: -240,
             child: SizedBox(
               width: SizeScale.widthX22l,
               height: SizeScale.widthX22l,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200.withValues(alpha: .7),
+                  color: Colors.grey.shade300.withValues(alpha: .7),
                   borderRadius: BorderRadius.circular(SizeScale.widthX22l / 2),
                 ),
               ),
@@ -68,7 +68,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               height: SizeScale.widthX10l,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade700.withValues(alpha: .5),
+                  color: Colors.grey.shade800,
                   borderRadius: BorderRadius.circular(SizeScale.widthX10l / 2),
                 ),
               ),
@@ -101,7 +101,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: .5),
+                        color: Colors.white.withValues(alpha: .2),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),

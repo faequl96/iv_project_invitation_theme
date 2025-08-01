@@ -35,7 +35,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.grey.shade800],
+                    colors: [Colors.transparent, Colors.grey.shade900],
                     stops: const [.3, .8],
                   ),
                 ),
