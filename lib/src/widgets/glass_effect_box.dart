@@ -8,7 +8,9 @@ class GlassEffectBox extends StatefulWidget {
     this.borderRadius = 6,
     this.animationSpeed = const Duration(milliseconds: 400),
     this.animationInterval = const Duration(milliseconds: 1500),
+    this.animationEnd = 1,
     this.sliderWidth = 60,
+    this.sliderTilt = .2,
     required this.color,
   });
 
@@ -17,7 +19,9 @@ class GlassEffectBox extends StatefulWidget {
   final double borderRadius;
   final Duration animationSpeed;
   final Duration animationInterval;
+  final double animationEnd;
   final double sliderWidth;
+  final double sliderTilt;
   final Color color;
 
   @override
@@ -57,7 +61,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
     return AnimatedBuilder(
       animation: _animation,
       builder: (_, _) {
-        final slide = _controller.value * (widget.width + widget.sliderWidth) - (widget.sliderWidth - 2);
+        final slide = (_controller.value * widget.animationEnd) * (widget.width + widget.sliderWidth) - (widget.sliderWidth - 2);
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -68,7 +72,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
               Positioned(
                 left: slide,
                 child: Transform.rotate(
-                  angle: .1,
+                  angle: widget.sliderTilt,
                   child: SizedBox(
                     width: widget.sliderWidth,
                     child: Row(
@@ -80,7 +84,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
                             child: ColoredBox(color: widget.color),
                           ),
                         ),
-                        const SizedBox(width: 4),
+                        SizedBox(width: widget.sliderWidth * .03),
                         Expanded(
                           flex: 5,
                           child: SizedBox(

@@ -47,7 +47,11 @@ class _TryThemeState extends State<TryTheme> {
         size = const Size(375, 812);
       }
     } else {
-      size = Size(_size.width, _size.height - (_padding.top + _padding.bottom));
+      if (_size.height < 812) {
+        size = Size(_size.width, _size.height - (_padding.top + _padding.bottom));
+      } else {
+        size = Size(_size.width, 812);
+      }
     }
 
     ScreenUtil.set(size);

@@ -78,7 +78,11 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
           finalSize = const Size(375, 812);
         }
       } else {
-        finalSize = Size(size.width, size.height - (padding.top + padding.bottom));
+        if (size.height < 812) {
+          finalSize = Size(size.width, size.height - (padding.top + padding.bottom));
+        } else {
+          finalSize = Size(size.width, 812);
+        }
       }
 
       ScreenUtil.set(finalSize);
