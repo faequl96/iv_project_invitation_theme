@@ -37,12 +37,12 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   void _scrollListener() {
     final offset = _pageController.page ?? 0;
     if ((offset - offset.floor()).abs() < 0.01) {
-      if (_coreCubit.state.countdownsTimerAnimationTrigger == 0) {
-        _coreCubit.state.copyWith(countdownsTimerAnimationTrigger: 1).emitState();
+      if (_coreCubit.state.animationTrigger == 0) {
+        _coreCubit.state.copyWith(animationTrigger: 1).emitState();
       }
     } else {
-      if (_coreCubit.state.countdownsTimerAnimationTrigger == 1) {
-        _coreCubit.state.copyWith(countdownsTimerAnimationTrigger: 0).emitState();
+      if (_coreCubit.state.animationTrigger == 1) {
+        _coreCubit.state.copyWith(animationTrigger: 0).emitState();
       }
     }
   }
@@ -181,15 +181,16 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                           ),
                         ),
                       ),
-                      GlassEffectBox(
-                        width: ScreenUtil.size.width - 28,
-                        height: 52,
-                        borderRadius: 36,
-                        animationSpeed: const Duration(milliseconds: 600),
-                        animationInterval: const Duration(seconds: 3),
-                        color: Colors.grey.shade300.withValues(alpha: .5),
-                        sliderWidth: 100,
-                      ),
+                      if (indexActive > 0)
+                        GlassEffectBox(
+                          width: ScreenUtil.size.width - 28,
+                          height: 52,
+                          borderRadius: 36,
+                          animationSpeed: const Duration(milliseconds: 600),
+                          animationInterval: const Duration(seconds: 3),
+                          color: Colors.grey.shade300.withValues(alpha: .5),
+                          sliderWidth: 100,
+                        ),
                     ],
                   ),
                 ),

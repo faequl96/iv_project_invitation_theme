@@ -11,6 +11,7 @@ class LightningEffectBox extends StatefulWidget {
     this.ligthningLength = .2,
     this.ligthningWidth = .5,
     this.ligthningColor = Colors.white,
+    this.isFlash = false,
   });
 
   final double width;
@@ -21,6 +22,7 @@ class LightningEffectBox extends StatefulWidget {
   final double ligthningLength;
   final double ligthningWidth;
   final Color ligthningColor;
+  final bool isFlash;
 
   @override
   State<LightningEffectBox> createState() => _LightningEffectBoxState();
@@ -42,7 +44,7 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
     super.initState();
 
     _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _animation = Tween<double>(begin: 0, end: widget.isFlash ? 1 : 1.3).animate(_controller);
 
     _startAnimationLoop();
   }
@@ -56,15 +58,26 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: _LightningPainter(
-        animation: _animation,
-        borderRadius: widget.borderRadius,
-        ligthningLength: widget.ligthningLength,
-        ligthningWidth: widget.ligthningWidth,
-        ligthningColor: widget.ligthningColor,
+    return Padding(
+      padding: const EdgeInsets.all(.5),
+      child: CustomPaint(
+        painter: widget.isFlash
+            ? _LightningFlashPainter(
+                animation: _animation,
+                borderRadius: widget.borderRadius,
+                ligthningLength: widget.ligthningLength,
+                ligthningWidth: widget.ligthningWidth,
+                ligthningColor: widget.ligthningColor,
+              )
+            : _LightningPainter(
+                animation: _animation,
+                borderRadius: widget.borderRadius,
+                ligthningLength: widget.ligthningLength,
+                ligthningWidth: widget.ligthningWidth,
+                ligthningColor: widget.ligthningColor,
+              ),
+        child: SizedBox(width: widget.width - 1, height: widget.height - 1),
       ),
-      child: SizedBox(width: widget.width, height: widget.height),
     );
   }
 }
@@ -93,19 +106,18 @@ class _LightningPainter extends CustomPainter {
     final pathMetrics = path.computeMetrics().toList();
     final metric = pathMetrics.first;
 
-    final length = metric.length;
-    final progress = animation.value;
+    final totalLength = metric.length;
+    final headOffset = totalLength * animation.value; // posisi kepala
+    final lightningLength = totalLength * ligthningLength;
+    final tailOffset = (headOffset - lightningLength).clamp(.0, totalLength);
 
-    final lightningLength = length * ligthningLength; // panjang kilatan (10% dari keliling)
-
-    final extractPath = metric.extractPath(length * progress, length * progress + lightningLength);
+    final lightningPath = metric.extractPath(tailOffset, headOffset);
 
     final paint = Paint()
       ..color = ligthningColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = ligthningWidth;
 
-    // Draw full border
     canvas.drawPath(
       path,
       Paint()
@@ -114,10 +126,62 @@ class _LightningPainter extends CustomPainter {
         ..strokeWidth = ligthningWidth,
     );
 
-    // Draw moving lightning
-    canvas.drawPath(extractPath, paint);
+    canvas.drawPath(lightningPath, paint);
   }
 
   @override
   bool shouldRepaint(covariant _LightningPainter oldDelegate) => true;
+}
+
+class _LightningFlashPainter extends CustomPainter {
+  _LightningFlashPainter({
+    required this.animation,
+    required this.borderRadius,
+    required this.ligthningLength,
+    required this.ligthningWidth,
+    required this.ligthningColor,
+  }) : super(repaint: animation);
+
+  final Animation<double> animation;
+  final double borderRadius;
+  final double ligthningLength;
+  final double ligthningWidth;
+  final Color ligthningColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (animation.value >= .78) return;
+
+    final rect = Offset.zero & size;
+    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+
+    final path = Path()..addRRect(rrect);
+    final pathMetrics = path.computeMetrics().toList();
+    final metric = pathMetrics.first;
+
+    final length = metric.length;
+    final progress = animation.value;
+
+    final lightningLength = length * ligthningLength;
+
+    final extractPath = metric.extractPath(length * progress, length * progress + lightningLength);
+
+    final paint = Paint()
+      ..color = ligthningColor
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = ligthningWidth;
+
+    canvas.drawPath(
+      path,
+      Paint()
+        ..color = Colors.transparent
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = ligthningWidth,
+    );
+
+    canvas.drawPath(extractPath, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant _LightningFlashPainter oldDelegate) => true;
 }

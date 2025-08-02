@@ -77,7 +77,6 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                       height: SizeScale.widthX4l,
                       borderRadius: 60,
                       animationSpeed: const Duration(seconds: 2),
-                      ligthningWidth: .1,
                       ligthningColor: Colors.black,
                     ),
                   ],
@@ -154,7 +153,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   await Future.delayed(const Duration(milliseconds: 500));
                   setState(() => _isOpenedProcessCompleted = true);
 
-                  tryThemeCubit.state.copyWith(countdownsTimerAnimationTrigger: 1).emitState();
+                  tryThemeCubit.state.copyWith(animationTrigger: 1).emitState();
                 },
               ),
             ),

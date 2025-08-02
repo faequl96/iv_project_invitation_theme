@@ -109,10 +109,10 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     return BlocSelector<CoreCubit, CoreState, int>(
-      selector: (state) => state.countdownsTimerAnimationTrigger,
-      builder: (_, countdownsTimerAnimationTrigger) {
-        if (countdownsTimerAnimationTrigger == 1) _controller.forward();
-        if (countdownsTimerAnimationTrigger == 0) _controller.reverse();
+      selector: (state) => state.animationTrigger,
+      builder: (_, animationTrigger) {
+        if (animationTrigger == 1) _controller.forward();
+        if (animationTrigger == 0) _controller.reverse();
         return Stack(
           children: [
             Align(
@@ -123,7 +123,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   position: _daysSlideAnimation,
                   child: ValueListenableBuilder(
                     valueListenable: _days,
-                    builder: (_, days, _) => _CountdownTimer(number: days, unit: 'hari'),
+                    builder: (_, days, _) => _CountdownTimer(number: days, unit: 'hari', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -136,7 +136,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   position: _hoursSlideAnimation,
                   child: ValueListenableBuilder(
                     valueListenable: _hours,
-                    builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'jam'),
+                    builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'jam', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -149,7 +149,8 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   position: _minutesSlideAnimation,
                   child: ValueListenableBuilder(
                     valueListenable: _minutes,
-                    builder: (_, minutes, _) => _CountdownTimer(number: minutes, unit: 'menit'),
+                    builder: (_, minutes, _) =>
+                        _CountdownTimer(number: minutes, unit: 'menit', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -162,7 +163,8 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   position: _secondsSlideAnimation,
                   child: ValueListenableBuilder(
                     valueListenable: _seconds,
-                    builder: (_, seconds, _) => _CountdownTimer(number: seconds, unit: 'detik'),
+                    builder: (_, seconds, _) =>
+                        _CountdownTimer(number: seconds, unit: 'detik', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -174,11 +176,31 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
   }
 }
 
-class _CountdownTimer extends StatelessWidget {
-  const _CountdownTimer({required this.number, required this.unit});
+class _CountdownTimer extends StatefulWidget {
+  const _CountdownTimer({required this.number, required this.unit, required this.animationTrigger});
 
   final int number;
   final String unit;
+  final int animationTrigger;
+
+  @override
+  State<_CountdownTimer> createState() => _CountdownTimerState();
+}
+
+class _CountdownTimerState extends State<_CountdownTimer> {
+  final ValueNotifier<bool> showLightningEffectBox = ValueNotifier(false);
+
+  @override
+  void didUpdateWidget(covariant _CountdownTimer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.animationTrigger == 1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await Future.delayed(const Duration(seconds: 2));
+        showLightningEffectBox.value = true;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,15 +234,22 @@ class _CountdownTimer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '$number',
+                  '${widget.number}',
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade200, height: 1.1),
                 ),
-                Text(unit, style: TextStyle(color: Colors.grey.shade200, height: 1.1)),
+                Text(widget.unit, style: TextStyle(color: Colors.grey.shade200, height: 1.1)),
               ],
             ),
           ),
         ),
-        LightningEffectBox(width: SizeScale.widthX3l, height: SizeScale.widthX3l, borderRadius: 8),
+        if (widget.animationTrigger == 1)
+          ValueListenableBuilder(
+            valueListenable: showLightningEffectBox,
+            builder: (_, _, _) {
+              if (!showLightningEffectBox.value) return const SizedBox.shrink();
+              return LightningEffectBox(width: SizeScale.widthX3l, height: SizeScale.widthX3l, borderRadius: 8, isFlash: true);
+            },
+          ),
       ],
     );
   }

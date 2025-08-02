@@ -13,71 +13,50 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          Positioned(
-            top: 0,
-            child: SizedBox(
-              height: ScreenUtil.size.height,
-              width: ScreenUtil.size.width,
-              child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade50)),
-            ),
+          SizedBox(
+            height: ScreenUtil.size.height,
+            width: ScreenUtil.size.width,
+            child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade50)),
           ),
           Positioned(
             left: -100,
             bottom: -140,
-            child: SizedBox(
-              width: SizeScale.widthX19l,
-              height: SizeScale.widthX19l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade900,
-                  borderRadius: BorderRadius.circular(SizeScale.widthX19l / 2),
-                ),
-              ),
-            ),
+            child: Bubble(size: SizeScale.widthX19l, color: Colors.grey.shade900),
           ),
           Positioned(
             right: -220,
             bottom: -240,
-            child: SizedBox(
-              width: SizeScale.widthX22l,
-              height: SizeScale.widthX22l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300.withValues(alpha: .7),
-                  borderRadius: BorderRadius.circular(SizeScale.widthX22l / 2),
-                ),
-              ),
-            ),
+            child: Bubble(size: SizeScale.widthX22l, color: Colors.grey.shade300.withValues(alpha: .7)),
           ),
           Positioned(
             left: 4,
             bottom: SizeScale.heightX18l,
-            child: SizedBox(
-              width: SizeScale.widthX10l,
-              height: SizeScale.widthX10l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade800,
-                  borderRadius: BorderRadius.circular(SizeScale.widthX10l / 2),
-                ),
-              ),
-            ),
+            child: Bubble(size: SizeScale.widthX10l, color: Colors.grey.shade800),
           ),
           Positioned(
             left: 80,
             bottom: SizeScale.heightX20l,
-            child: SizedBox(
-              width: SizeScale.widthX5l,
-              height: SizeScale.widthX5l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade300.withValues(alpha: .5),
-                  borderRadius: BorderRadius.circular(SizeScale.widthX5l / 2),
-                ),
-              ),
-            ),
+            child: Bubble(size: SizeScale.widthX5l, color: Colors.grey.shade400.withValues(alpha: .5)),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Bubble extends StatelessWidget {
+  const Bubble({super.key, required this.size, required this.color});
+
+  final double size;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: size,
+      height: size,
+      child: DecoratedBox(
+        decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       ),
     );
   }

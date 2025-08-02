@@ -36,7 +36,10 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
     _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
 
-    _startAnimationLoop();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(seconds: 1));
+      _startAnimationLoop();
+    });
   }
 
   @override
