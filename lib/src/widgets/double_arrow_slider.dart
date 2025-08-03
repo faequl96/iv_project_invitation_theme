@@ -23,6 +23,7 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
   late final Animation<double> _animation;
 
   void _startAnimationLoop() async {
+    await Future.delayed(const Duration(seconds: 1));
     while (mounted) {
       await _controller.forward(from: 0);
       await Future.delayed(widget.animationInterval);
@@ -36,10 +37,7 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
     _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(seconds: 1));
-      _startAnimationLoop();
-    });
+    _startAnimationLoop();
   }
 
   @override

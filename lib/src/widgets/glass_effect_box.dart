@@ -8,6 +8,7 @@ class GlassEffectBox extends StatefulWidget {
     this.borderRadius = 6,
     this.animationSpeed = const Duration(milliseconds: 400),
     this.animationInterval = const Duration(milliseconds: 1500),
+    this.delayBeforeStart = const Duration(seconds: 1),
     this.animationEnd = 1,
     this.sliderWidth = 60,
     this.sliderTilt = .2,
@@ -19,6 +20,7 @@ class GlassEffectBox extends StatefulWidget {
   final double borderRadius;
   final Duration animationSpeed;
   final Duration animationInterval;
+  final Duration delayBeforeStart;
   final double animationEnd;
   final double sliderWidth;
   final double sliderTilt;
@@ -31,6 +33,8 @@ class GlassEffectBox extends StatefulWidget {
 class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
+
+  bool _isInitial = true;
 
   void _startAnimationLoop() async {
     while (mounted) {
@@ -46,7 +50,11 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
     _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
 
-    _startAnimationLoop();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(widget.delayBeforeStart);
+      if (mounted) setState(() => _isInitial = false);
+      _startAnimationLoop();
+    });
   }
 
   @override
@@ -58,10 +66,11 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    if (_isInitial) return const SizedBox.shrink();
     return AnimatedBuilder(
       animation: _animation,
       builder: (_, _) {
-        final slide = (_controller.value * widget.animationEnd) * (widget.width + widget.sliderWidth) - (widget.sliderWidth - 2);
+        final slide = (_controller.value * widget.animationEnd) * (widget.width + widget.sliderWidth) - widget.sliderWidth;
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(widget.borderRadius),

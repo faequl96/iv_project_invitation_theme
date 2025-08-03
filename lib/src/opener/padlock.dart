@@ -21,7 +21,6 @@ class Padlock extends StatelessWidget {
       },
       height: SizeScale.heightX2l,
       width: SizeScale.widthX12l,
-      // padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
       borderRadius: BorderRadius.circular(30),
       color: Colors.grey.shade900.withValues(alpha: .2),
       border: Border.all(width: .5, color: Colors.grey.shade500),
@@ -32,6 +31,7 @@ class Padlock extends StatelessWidget {
             height: SizeScale.heightX2l,
             borderRadius: 40,
             color: Colors.grey.shade200.withValues(alpha: .5),
+            animationEnd: 1.02,
           ),
           Center(
             child: Text(

@@ -16,7 +16,7 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
           SizedBox(
             height: ScreenUtil.size.height,
             width: ScreenUtil.size.width,
-            child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade600)),
+            child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade200)),
           ),
           Positioned(
             left: -110,
@@ -24,24 +24,39 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
             child: Bubble(size: SizeScale.widthX16l, color: Colors.grey.shade900),
           ),
           Positioned(
+            left: 80,
+            bottom: SizeScale.heightX9l,
+            child: Bubble(size: SizeScale.widthX5l, color: Colors.white),
+          ),
+          Positioned(
             right: -40,
             bottom: -90,
-            child: Bubble(size: SizeScale.widthX15l, color: Colors.grey.shade300.withValues(alpha: .9)),
+            child: Bubble(size: SizeScale.widthX15l, color: Colors.white),
+          ),
+          Positioned(
+            right: 90,
+            bottom: 120,
+            child: Bubble(size: SizeScale.widthX4l, color: Colors.grey.shade400),
           ),
           Positioned(
             right: 4,
             bottom: SizeScale.heightX18l,
-            child: Bubble(size: SizeScale.widthX10l, color: Colors.grey.shade800),
+            child: Bubble(size: SizeScale.widthX10l, color: Colors.grey.shade700),
           ),
           Positioned(
             right: 80,
             bottom: SizeScale.heightX20l,
-            child: Bubble(size: SizeScale.widthX5l, color: Colors.grey.shade100.withValues(alpha: .5)),
+            child: Bubble(size: SizeScale.widthX5l, color: Colors.white),
           ),
           Positioned(
             left: 4,
-            bottom: SizeScale.heightX18l,
-            child: Bubble(size: SizeScale.widthX5l, color: Colors.grey.shade100.withValues(alpha: .3)),
+            bottom: SizeScale.heightX20l,
+            child: Bubble(size: SizeScale.widthX6l, color: Colors.white),
+          ),
+          Positioned(
+            left: 40,
+            bottom: SizeScale.heightX20l - 20,
+            child: Bubble(size: SizeScale.widthXl, color: Colors.grey.shade700.withValues(alpha: .6)),
           ),
         ],
       ),

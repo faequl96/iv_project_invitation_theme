@@ -146,7 +146,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
       await Future.delayed(const Duration(milliseconds: 200));
       if (mounted) {
         _groomController.forward();
-        await Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 200));
         _andController.forward();
         await Future.delayed(const Duration(milliseconds: 200));
         if (_brideController.value != 1) _brideController.forward();
@@ -156,7 +156,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
       await Future.delayed(const Duration(milliseconds: 200));
       if (mounted) {
         _andController.reverse();
-        await Future.delayed(const Duration(milliseconds: 100));
+        await Future.delayed(const Duration(milliseconds: 200));
         _brideController.reverse();
       }
     }
@@ -164,7 +164,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
 
   void _initAnimation() {
     _brideController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    _andController = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
+    _andController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
     _groomController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _brideSlideAnimation = Tween<Offset>(
