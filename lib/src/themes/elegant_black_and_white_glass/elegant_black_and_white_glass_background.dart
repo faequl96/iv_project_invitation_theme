@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
+import 'package:iv_project_invitation_theme/src/widgets/random_slide_transition.dart';
 
 class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
   const ElegantBlackAndWhiteGlassBackground({super.key});
@@ -16,47 +17,66 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
           SizedBox(
             height: ScreenUtil.size.height,
             width: ScreenUtil.size.width,
-            child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade200)),
+            child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade300)),
           ),
           Positioned(
             left: -110,
             bottom: -80,
-            child: Bubble(size: SizeScale.widthX16l, color: Colors.grey.shade900),
+            child: RandomSlideTransition(
+              maxSlideOffset: .05,
+              child: Bubble(size: SizeScale.widthX16l, color: Colors.grey.shade900),
+            ),
           ),
           Positioned(
             left: 80,
             bottom: SizeScale.heightX9l,
-            child: Bubble(size: SizeScale.widthX5l, color: Colors.white),
+            child: RandomSlideTransition(
+              child: Bubble(size: SizeScale.widthX5l, color: Colors.white),
+            ),
           ),
           Positioned(
             right: -40,
             bottom: -90,
-            child: Bubble(size: SizeScale.widthX15l, color: Colors.white),
+            child: RandomSlideTransition(
+              maxSlideOffset: .04,
+              child: Bubble(size: SizeScale.widthX15l, color: Colors.white),
+            ),
           ),
           Positioned(
             right: 90,
             bottom: 120,
-            child: Bubble(size: SizeScale.widthX4l, color: Colors.grey.shade400),
+            child: RandomSlideTransition(
+              child: Bubble(size: SizeScale.widthX4l, color: Colors.grey.shade600),
+            ),
           ),
           Positioned(
             right: 4,
             bottom: SizeScale.heightX18l,
-            child: Bubble(size: SizeScale.widthX10l, color: Colors.grey.shade700),
+            child: RandomSlideTransition(
+              maxSlideOffset: .2,
+              child: Bubble(size: SizeScale.widthX9l, color: Colors.grey.shade700),
+            ),
           ),
           Positioned(
             right: 80,
             bottom: SizeScale.heightX20l,
-            child: Bubble(size: SizeScale.widthX5l, color: Colors.white),
+            child: RandomSlideTransition(
+              child: Bubble(size: SizeScale.widthX5l, color: Colors.white),
+            ),
           ),
           Positioned(
             left: 4,
             bottom: SizeScale.heightX20l,
-            child: Bubble(size: SizeScale.widthX6l, color: Colors.white),
+            child: RandomSlideTransition(
+              child: Bubble(size: SizeScale.widthX6l, color: Colors.white),
+            ),
           ),
           Positioned(
             left: 40,
             bottom: SizeScale.heightX20l - 20,
-            child: Bubble(size: SizeScale.widthXl, color: Colors.grey.shade700.withValues(alpha: .6)),
+            child: RandomSlideTransition(
+              child: Bubble(size: SizeScale.widthXl, color: Colors.grey.shade700.withValues(alpha: .6)),
+            ),
           ),
         ],
       ),

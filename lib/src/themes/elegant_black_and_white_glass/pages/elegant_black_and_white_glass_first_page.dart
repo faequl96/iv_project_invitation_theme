@@ -22,7 +22,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           Positioned(
             top: 0,
             child: SizedBox(
-              height: ScreenUtil.size.height / 1.2,
+              height: ScreenUtil.size.height / 1.4,
               width: ScreenUtil.size.width,
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -36,13 +36,26 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               ),
             ),
           ),
+          Align(
+            alignment: const Alignment(0, -.94),
+            child: FadeAndSlideTransition(
+              slideFromOffset: 1,
+              slideFrom: SlideFrom.top,
+              delayBeforeStart: Duration.zero,
+              animationSpeed: const Duration(milliseconds: 300),
+              child: Text(
+                'Maksud dan Tujuan',
+                style: TextStyle(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w900),
+              ),
+            ),
+          ),
           Positioned(
             bottom: 0,
             child: SizedBox(
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 14, right: 14, bottom: 76),
+                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: BackdropFilter(
@@ -69,11 +82,94 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 14, right: 14, bottom: 76),
+                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(width: .5, color: Colors.grey.shade500),
+                  ),
+                  child: ClipRect(
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: const Alignment(0, -.75),
+                          child: FadeAndSlideTransition(
+                            slideFromOffset: .4,
+                            slideFrom: SlideFrom.left,
+                            delayBeforeStart: const Duration(milliseconds: 600),
+                            child: Text(
+                              'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                              style: GoogleFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: const Alignment(0, -.3),
+                          child: FadeAndSlideTransition(
+                            slideFromOffset: .4,
+                            slideFrom: SlideFrom.right,
+                            delayBeforeStart: const Duration(milliseconds: 600),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 40),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
+                                    style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.md),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    '(Ar-Ruum Ayat 21)',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade100,
+                                      fontSize: FontScale.lg,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: const Alignment(0, .65),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 40),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                FadeAndSlideTransition(
+                                  slideFromOffset: .4,
+                                  slideFrom: SlideFrom.left,
+                                  delayBeforeStart: const Duration(milliseconds: 600),
+                                  child: Text(
+                                    'Assalamu\'alaikum Wr. Wb.',
+                                    style: TextStyle(
+                                      color: Colors.grey.shade100,
+                                      fontSize: FontScale.x2l,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: SizeScale.heightX3s),
+                                FadeAndSlideTransition(
+                                  slideFromOffset: .4,
+                                  slideFrom: SlideFrom.right,
+                                  delayBeforeStart: const Duration(milliseconds: 600),
+                                  child: Text(
+                                    'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
+                                    style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.md),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -85,105 +181,23 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 14, right: 14, bottom: 76),
+                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
                 child: BlocSelector<CoreCubit, CoreState, int>(
                   selector: (state) => state.animationTrigger,
                   builder: (_, animationTrigger) {
                     if (animationTrigger == 0) return const SizedBox.shrink();
                     return GlassEffectBox(
-                      width: ScreenUtil.size.width - 28,
+                      width: ScreenUtil.size.width - 32,
                       height: ScreenUtil.size.height - (76 + SizeScale.heightX7l),
                       borderRadius: 20,
-                      sliderWidth: 100,
-                      color: Colors.grey.shade300.withValues(alpha: .4),
+                      sliderWidth: 90,
+                      color: Colors.grey.shade300.withValues(alpha: .3),
                       animationEnd: 1.12,
                       animationSpeed: const Duration(milliseconds: 600),
                       animationInterval: const Duration(seconds: 3),
                     );
                   },
                 ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, -.94),
-            child: FadeAndSlideTransition(
-              slideFromOffset: 1,
-              slideFrom: SlideFrom.top,
-              delayBeforeStart: Duration.zero,
-              animationSpeed: const Duration(milliseconds: 300),
-              child: Text(
-                'Maksud dan Tujuan',
-                style: TextStyle(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w900),
-              ),
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, -.6),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: SlideFrom.left,
-              delayBeforeStart: const Duration(milliseconds: 1200),
-              child: Text(
-                'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                style: GoogleFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
-              ),
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, -.25),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: SlideFrom.right,
-              delayBeforeStart: const Duration(milliseconds: 1200),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
-                      style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.md),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      '(Ar-Ruum Ayat 21)',
-                      style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.lg, fontWeight: FontWeight.w900),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, .4),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  FadeAndSlideTransition(
-                    slideFromOffset: .5,
-                    slideFrom: SlideFrom.left,
-                    delayBeforeStart: const Duration(milliseconds: 1200),
-                    child: Text(
-                      'Assalamu\'alaikum Wr. Wb.',
-                      style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.x2l, fontWeight: FontWeight.w900),
-                    ),
-                  ),
-                  SizedBox(height: SizeScale.heightX3s),
-                  FadeAndSlideTransition(
-                    slideFromOffset: .5,
-                    slideFrom: SlideFrom.right,
-                    delayBeforeStart: const Duration(milliseconds: 1200),
-                    child: Text(
-                      'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                      style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.md),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
               ),
             ),
           ),

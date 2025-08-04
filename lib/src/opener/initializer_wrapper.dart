@@ -37,16 +37,16 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
-              left: _onOpenedStarted ? -(ScreenUtil.size.width / 2) : -1,
+              left: _onOpenedStarted ? -(ScreenUtil.size.width / 2) : -1.5,
               child: const BlurryClearCover(isLeft: true),
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
-              right: _onOpenedStarted ? -(ScreenUtil.size.width / 2) : -1,
+              right: _onOpenedStarted ? -(ScreenUtil.size.width / 2) : -1.5,
               child: const BlurryClearCover(isLeft: false),
             ),
-            if (!_onOpenedStarted)
+            if (!_onOpenedStarted) ...[
               Align(
                 alignment: const Alignment(0, -.8),
                 child: Stack(
@@ -82,34 +82,37 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   ],
                 ),
               ),
-            if (!_onOpenedStarted)
               Align(
-                alignment: const Alignment(0, -.3),
+                alignment: const Alignment(-.18, -.3),
                 child: SizedBox(
-                  height: SizeScale.heightX17l,
+                  height: SizeScale.heightX11l,
+                  width: SizeScale.heightX11l,
                   child: Center(
                     child: Text(
-                      '&',
-                      style: GoogleFonts.pacifico(
-                        fontSize: FontScale.x5s + SizeScale.heightX4s,
+                      'M',
+                      style: GoogleFonts.parisienne(
+                        fontSize: FontScale.x2l + SizeScale.heightX2l,
                         fontWeight: FontWeight.w900,
-                        color: Colors.grey.shade400,
+                        color: Colors.grey.shade100.withValues(alpha: .75),
                       ),
                     ),
                   ),
                 ),
               ),
-            if (!_onOpenedStarted) ...[
               Align(
-                alignment: const Alignment(0, .3),
-                child: Text(
-                  'Minggu, 17 Agustus 2025',
-                  style: TextStyle(
-                    fontSize: FontScale.md,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1
-                      ..color = Colors.grey.shade700,
+                alignment: const Alignment(.18, -.1),
+                child: SizedBox(
+                  height: SizeScale.heightX11l,
+                  width: SizeScale.heightX11l,
+                  child: Center(
+                    child: Text(
+                      'D',
+                      style: GoogleFonts.parisienne(
+                        fontSize: FontScale.x2l + SizeScale.heightX2l,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.grey.shade100.withValues(alpha: .75),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -120,8 +123,6 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   style: TextStyle(fontSize: FontScale.md, color: Colors.grey.shade300),
                 ),
               ),
-            ],
-            if (!_onOpenedStarted)
               Align(
                 alignment: const Alignment(0, .6),
                 child: SizedBox(
@@ -143,6 +144,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   ),
                 ),
               ),
+            ],
             AnimatedPositioned(
               duration: const Duration(milliseconds: 200),
               bottom: _onOpenedStarted ? -50 : 40,

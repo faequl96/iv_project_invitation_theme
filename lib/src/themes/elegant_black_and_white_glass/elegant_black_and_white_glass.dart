@@ -9,6 +9,7 @@ import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart'
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/field_view.dart';
 import 'package:iv_project_invitation_theme/src/widgets/text_field_sheet.dart';
 
@@ -61,7 +62,6 @@ class _TryThemeState extends State<TryTheme> {
 
   @override
   Widget build(BuildContext context) {
-    print(ScreenUtil.size.height);
     return Column(
       children: [
         SizedBox(height: _padding.top),
@@ -72,6 +72,7 @@ class _TryThemeState extends State<TryTheme> {
                 pages: [
                   const ElegantBlackAndWhiteGlassCoverPage(),
                   const ElegantBlackAndWhiteGlassFirstPage(),
+                  const ElegantBlackAndWhiteGlassSecondPage(),
                   SizedBox(
                     height: double.maxFinite,
                     width: double.maxFinite,
