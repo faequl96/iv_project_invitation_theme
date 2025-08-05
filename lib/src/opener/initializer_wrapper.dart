@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
@@ -66,7 +67,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                             style: GoogleFonts.pacifico(
                               fontSize: FontScale.x4l,
                               fontWeight: FontWeight.w900,
-                              color: Colors.grey.shade800,
+                              color: Colors.grey.shade900,
                             ),
                           ),
                         ),
@@ -90,10 +91,10 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   child: Center(
                     child: Text(
                       'M',
-                      style: GoogleFonts.parisienne(
-                        fontSize: FontScale.x2l + SizeScale.heightX2l,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.grey.shade100.withValues(alpha: .75),
+                      style: GoogleFonts.pacifico(
+                        fontSize: FontScale.xl + SizeScale.heightXl,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade300,
                       ),
                     ),
                   ),
@@ -107,10 +108,10 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   child: Center(
                     child: Text(
                       'D',
-                      style: GoogleFonts.parisienne(
-                        fontSize: FontScale.x2l + SizeScale.heightX2l,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.grey.shade100.withValues(alpha: .75),
+                      style: GoogleFonts.pacifico(
+                        fontSize: FontScale.xl + SizeScale.heightXl,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade300,
                       ),
                     ),
                   ),
@@ -120,7 +121,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 alignment: const Alignment(0, .3),
                 child: Text(
                   'Minggu, 17 Agustus 2025',
-                  style: TextStyle(fontSize: FontScale.md, color: Colors.grey.shade300),
+                  style: AppFonts.inter(fontSize: FontScale.md, color: Colors.grey.shade300, fontWeight: FontWeight.w300),
                 ),
               ),
               Align(
@@ -132,12 +133,12 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                     children: [
                       Text(
                         'Kepada :',
-                        style: TextStyle(fontSize: FontScale.xs, fontWeight: FontWeight.w900, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FontScale.sm, fontWeight: FontWeight.w300, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 6),
                       Text(
                         'Rizal (Voltras)',
-                        style: TextStyle(fontSize: FontScale.md, fontWeight: FontWeight.w900, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FontScale.md, fontWeight: FontWeight.w500, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 4),
                     ],

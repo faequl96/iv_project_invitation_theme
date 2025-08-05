@@ -3,7 +3,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
@@ -123,7 +125,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   position: _daysSlideAnimation,
                   child: ValueListenableBuilder(
                     valueListenable: _days,
-                    builder: (_, days, _) => _CountdownTimer(number: days, unit: 'hari', animationTrigger: animationTrigger),
+                    builder: (_, days, _) => _CountdownTimer(number: days, unit: 'Hari', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -136,7 +138,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   position: _hoursSlideAnimation,
                   child: ValueListenableBuilder(
                     valueListenable: _hours,
-                    builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'jam', animationTrigger: animationTrigger),
+                    builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'Jam', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -150,7 +152,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   child: ValueListenableBuilder(
                     valueListenable: _minutes,
                     builder: (_, minutes, _) =>
-                        _CountdownTimer(number: minutes, unit: 'menit', animationTrigger: animationTrigger),
+                        _CountdownTimer(number: minutes, unit: 'Menit', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -164,7 +166,7 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
                   child: ValueListenableBuilder(
                     valueListenable: _seconds,
                     builder: (_, seconds, _) =>
-                        _CountdownTimer(number: seconds, unit: 'detik', animationTrigger: animationTrigger),
+                        _CountdownTimer(number: seconds, unit: 'Detik', animationTrigger: animationTrigger),
                   ),
                 ),
               ),
@@ -226,9 +228,17 @@ class _CountdownTimerState extends State<_CountdownTimer> {
               children: [
                 Text(
                   '${widget.number}',
-                  style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey.shade200, height: 1.1),
+                  style: AppFonts.inter(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey.shade200,
+                    fontSize: FontScale.sm,
+                    height: 1.2,
+                  ),
                 ),
-                Text(widget.unit, style: TextStyle(color: Colors.grey.shade200, height: 1.1)),
+                Text(
+                  widget.unit,
+                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.xs, height: 1.2),
+                ),
               ],
             ),
           ),

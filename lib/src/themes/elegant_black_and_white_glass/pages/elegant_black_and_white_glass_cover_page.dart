@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
-import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
   const ElegantBlackAndWhiteGlassCoverPage({super.key});
@@ -30,13 +30,13 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
             child: SizedBox(
               height: ScreenUtil.size.height / 1.2,
               width: ScreenUtil.size.width,
-              child: DecoratedBox(
+              child: const DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.grey.shade900],
-                    stops: const [.3, .8],
+                    colors: [Colors.transparent, Colors.black],
+                    stops: [.3, .8],
                   ),
                 ),
               ),
@@ -55,11 +55,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                       duration: const Duration(milliseconds: 200),
                       child: Text(
                         'Pernikahan Dari',
-                        style: TextStyle(
-                          fontSize: FontScale.lg,
-                          fontWeight: FontWeight.w900,
-                          color: ColorConverter.darken(Colors.grey.shade300, 7),
-                        ),
+                        style: TextStyle(fontSize: FontScale.lg, fontWeight: FontWeight.w500, color: Colors.grey.shade300),
                       ),
                     );
                   },
@@ -83,7 +79,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                       curve: animationTrigger == 1 ? Curves.easeInCubic : Curves.easeOutCubic,
                       child: Text(
                         'Menuju dalam waktu',
-                        style: TextStyle(fontSize: FontScale.sm, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                       ),
                     );
                   },
@@ -109,7 +105,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                         DoubleArrowSlider(arrowSize: SizeScale.widthLg, sliderPathLength: SizeScale.heightX2l),
                       Text(
                         'Geser ke atas',
-                        style: TextStyle(fontSize: FontScale.xs, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                       ),
                     ],
                   ),
@@ -224,19 +220,19 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                         children: [
                           TextSpan(
                             text: 'Milea',
-                            style: TextStyle(fontSize: FontScale.x10l, color: Colors.grey.shade200.withValues(alpha: .8)),
+                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
                           ),
                           TextSpan(
                             text: ' & ',
-                            style: TextStyle(fontSize: FontScale.x10l, color: Colors.transparent),
+                            style: TextStyle(fontSize: FontScale.x5l, color: Colors.transparent),
                           ),
                           TextSpan(
                             text: 'Dilan',
-                            style: TextStyle(fontSize: FontScale.x10l, color: Colors.transparent),
+                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                           ),
                         ],
                       ),
-                      style: GoogleFonts.parisienne(fontSize: FontScale.x10l, fontWeight: FontWeight.w900, height: 1.1),
+                      style: GoogleFonts.pacifico(fontSize: FontScale.x8l, fontWeight: FontWeight.w500, height: 1.1),
                     ),
                   ),
                 ),
@@ -250,19 +246,19 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                       children: [
                         TextSpan(
                           text: 'Milea',
-                          style: TextStyle(fontSize: FontScale.x10l, color: Colors.transparent),
+                          style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                         ),
                         TextSpan(
                           text: ' & ',
-                          style: TextStyle(fontSize: FontScale.x10l, color: Colors.grey.shade200.withValues(alpha: .8)),
+                          style: TextStyle(fontSize: FontScale.x5l, color: Colors.grey.shade300),
                         ),
                         TextSpan(
                           text: 'Dilan',
-                          style: TextStyle(fontSize: FontScale.x10l, color: Colors.transparent),
+                          style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                         ),
                       ],
                     ),
-                    style: GoogleFonts.parisienne(fontSize: FontScale.x10l, fontWeight: FontWeight.w900, height: 1.1),
+                    style: GoogleFonts.pacifico(fontSize: FontScale.x8l, fontWeight: FontWeight.w500, height: 1.1),
                   ),
                 ),
               ),
@@ -277,19 +273,19 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                         children: [
                           TextSpan(
                             text: 'Milea',
-                            style: TextStyle(fontSize: FontScale.x10l, color: Colors.transparent),
+                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                           ),
                           TextSpan(
                             text: ' & ',
-                            style: TextStyle(fontSize: FontScale.x10l, color: Colors.transparent),
+                            style: TextStyle(fontSize: FontScale.x5l, color: Colors.transparent),
                           ),
                           TextSpan(
                             text: 'Dilan',
-                            style: TextStyle(fontSize: FontScale.x10l, color: Colors.grey.shade200.withValues(alpha: .8)),
+                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
                           ),
                         ],
                       ),
-                      style: GoogleFonts.parisienne(fontSize: FontScale.x10l, fontWeight: FontWeight.w900, height: 1.1),
+                      style: GoogleFonts.pacifico(fontSize: FontScale.x8l, fontWeight: FontWeight.w500, height: 1.1),
                     ),
                   ),
                 ),

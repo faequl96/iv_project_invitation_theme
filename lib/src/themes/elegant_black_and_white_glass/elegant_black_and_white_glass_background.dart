@@ -54,7 +54,7 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
             bottom: SizeScale.heightX18l,
             child: RandomSlideTransition(
               maxSlideOffset: .2,
-              child: Bubble(size: SizeScale.widthX9l, color: Colors.grey.shade700),
+              child: Bubble(size: SizeScale.widthX9l, color: Colors.grey.shade600),
             ),
           ),
           Positioned(
@@ -76,6 +76,22 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
             bottom: SizeScale.heightX20l - 20,
             child: RandomSlideTransition(
               child: Bubble(size: SizeScale.widthXl, color: Colors.grey.shade700.withValues(alpha: .6)),
+            ),
+          ),
+          Positioned(
+            left: 90,
+            top: SizeScale.heightX7l,
+            child: RandomSlideTransition(
+              maxSlideOffset: .2,
+              child: Bubble(size: SizeScale.widthX6l, color: Colors.grey.shade400),
+            ),
+          ),
+          Positioned(
+            left: 140,
+            top: SizeScale.heightX12l,
+            child: RandomSlideTransition(
+              maxSlideOffset: .4,
+              child: Bubble(size: SizeScale.widthMd, color: Colors.white),
             ),
           ),
         ],

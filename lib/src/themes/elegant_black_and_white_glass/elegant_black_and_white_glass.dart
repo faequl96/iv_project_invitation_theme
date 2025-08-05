@@ -13,16 +13,16 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/widgets/field_view.dart';
 import 'package:iv_project_invitation_theme/src/widgets/text_field_sheet.dart';
 
-class TryTheme extends StatefulWidget {
-  const TryTheme({super.key, required this.invitation});
+class ElegantBlackAndWhiteGlass extends StatefulWidget {
+  const ElegantBlackAndWhiteGlass({super.key, required this.invitation});
 
   final Invitation invitation;
 
   @override
-  State<TryTheme> createState() => _TryThemeState();
+  State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
 }
 
-class _TryThemeState extends State<TryTheme> {
+class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
   late final Size _size;
   late final EdgeInsets _padding;
 

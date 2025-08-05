@@ -16,7 +16,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   Widget build(BuildContext context) {
     switch (widget.invitation.themeId) {
       case 1:
-        return TryTheme(invitation: widget.invitation);
+        return ElegantBlackAndWhiteGlass(invitation: widget.invitation);
       default:
         return const SizedBox.shrink();
     }

@@ -91,14 +91,15 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (!widget.isLeft) SizedBox(height: SizeScale.widthX8l * 1.8, width: SizeScale.widthX8l),
+                      if (!widget.isLeft)
+                        SizedBox(height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4), width: SizeScale.widthX8l),
                       Stack(
                         alignment: AlignmentDirectional.center,
                         children: [
                           ScaleTransition(
                             scale: _frameScaleAnimation,
                             child: SizedBox(
-                              height: SizeScale.widthX8l * 1.8,
+                              height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                               width: SizeScale.widthX8l,
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 24),
@@ -113,7 +114,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                             ),
                           ),
                           SizedBox(
-                            height: SizeScale.widthX8l * 1.8,
+                            height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                             width: SizeScale.widthX8l,
                             child: const ColoredBox(
                               color: Colors.transparent,
@@ -125,7 +126,8 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                           ),
                         ],
                       ),
-                      if (widget.isLeft) SizedBox(height: SizeScale.widthX8l * 1.8, width: SizeScale.widthX8l),
+                      if (widget.isLeft)
+                        SizedBox(height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4), width: SizeScale.widthX8l),
                     ],
                   ),
                 ),

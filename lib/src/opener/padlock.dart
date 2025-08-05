@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -36,7 +37,7 @@ class Padlock extends StatelessWidget {
           Center(
             child: Text(
               'Buka Undangan',
-              style: TextStyle(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.bold),
+              style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.w600),
             ),
           ),
         ],

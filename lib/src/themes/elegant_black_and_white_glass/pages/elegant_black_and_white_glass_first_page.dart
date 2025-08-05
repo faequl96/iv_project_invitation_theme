@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
@@ -24,28 +25,28 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
             child: SizedBox(
               height: ScreenUtil.size.height / 1.4,
               width: ScreenUtil.size.width,
-              child: DecoratedBox(
+              child: const DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.grey.shade900, Colors.transparent],
-                    stops: const [.1, .8],
+                    colors: [Colors.black, Colors.transparent],
+                    stops: [.1, .8],
                   ),
                 ),
               ),
             ),
           ),
           Align(
-            alignment: const Alignment(0, -.94),
+            alignment: const Alignment(0, -.93),
             child: FadeAndSlideTransition(
               slideFromOffset: 1,
               slideFrom: SlideFrom.top,
               delayBeforeStart: Duration.zero,
               animationSpeed: const Duration(milliseconds: 300),
               child: Text(
-                'Maksud dan Tujuan',
-                style: TextStyle(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w900),
+                'Maksud Dan Tujuan',
+                style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w800),
               ),
             ),
           ),
@@ -59,13 +60,13 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.black.withValues(alpha: .3), Colors.black.withValues(alpha: .4)],
+                          colors: [Colors.black.withValues(alpha: .4), Colors.black.withValues(alpha: .5)],
                           stops: const [0, 1],
                         ),
                         borderRadius: BorderRadius.circular(20),
@@ -116,16 +117,21 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                 children: [
                                   Text(
                                     '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
-                                    style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.md),
+                                    style: AppFonts.inter(
+                                      color: Colors.grey.shade100,
+                                      fontSize: FontScale.md,
+                                      fontWeight: FontWeight.w400,
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                   const SizedBox(height: 8),
                                   Text(
                                     '(Ar-Ruum Ayat 21)',
-                                    style: TextStyle(
+                                    style: AppFonts.inter(
                                       color: Colors.grey.shade100,
                                       fontSize: FontScale.lg,
-                                      fontWeight: FontWeight.w900,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ],
@@ -134,7 +140,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           ),
                         ),
                         Align(
-                          alignment: const Alignment(0, .65),
+                          alignment: const Alignment(0, .6),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 40),
                             child: Column(
@@ -146,10 +152,10 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                   delayBeforeStart: const Duration(milliseconds: 600),
                                   child: Text(
                                     'Assalamu\'alaikum Wr. Wb.',
-                                    style: TextStyle(
+                                    style: AppFonts.inter(
                                       color: Colors.grey.shade100,
                                       fontSize: FontScale.x2l,
-                                      fontWeight: FontWeight.w900,
+                                      fontWeight: FontWeight.w700,
                                     ),
                                   ),
                                 ),
@@ -160,7 +166,11 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                   delayBeforeStart: const Duration(milliseconds: 600),
                                   child: Text(
                                     'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                                    style: TextStyle(color: Colors.grey.shade100, fontSize: FontScale.md),
+                                    style: AppFonts.inter(
+                                      color: Colors.grey.shade100,
+                                      fontSize: FontScale.md,
+                                      fontWeight: FontWeight.w400,
+                                    ),
                                     textAlign: TextAlign.center,
                                   ),
                                 ),

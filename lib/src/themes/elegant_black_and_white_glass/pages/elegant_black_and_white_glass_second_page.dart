@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
@@ -39,15 +40,15 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
           //   ),
           // ),
           Align(
-            alignment: const Alignment(0, -.94),
+            alignment: const Alignment(0, -.93),
             child: FadeAndSlideTransition(
               slideFromOffset: 1,
               slideFrom: SlideFrom.top,
               delayBeforeStart: Duration.zero,
               animationSpeed: const Duration(milliseconds: 300),
               child: Text(
-                'Kami yang Mengundang',
-                style: TextStyle(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w900),
+                'Kami Yang Mengundang',
+                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x2l, fontWeight: FontWeight.w800),
               ),
             ),
           ),
@@ -66,10 +67,10 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: .1),
+                        color: Colors.white.withValues(alpha: .5),
                         // gradient: LinearGradient(
                         //   begin: Alignment.topCenter,
                         //   end: Alignment.bottomCenter,
@@ -114,16 +115,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             children: [
                               Text(
                                 'Rahma Nur Istiqomah, M.Biomed.',
-                                style: GoogleFonts.parisienne(fontSize: FontScale.x3l, fontWeight: FontWeight.w900, height: 1.15),
+                                style: GoogleFonts.pacifico(fontSize: FontScale.x2l, fontWeight: FontWeight.w500, height: 1.15),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 'Putri dari',
-                                style: TextStyle(
-                                  fontSize: FontScale.xs + .5,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.grey.shade700,
-                                ),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
                               Text.rich(
                                 const TextSpan(
@@ -131,19 +128,15 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     TextSpan(text: 'Bapak '),
                                     TextSpan(
                                       text: 'Bagyo Trisno Ngulandoro, S.T.',
-                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                      style: TextStyle(fontWeight: FontWeight.w700),
                                     ),
                                   ],
                                 ),
-                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
                               ),
                               Text(
                                 'dan',
-                                style: TextStyle(
-                                  fontSize: FontScale.xs + .5,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.grey.shade700,
-                                ),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
                               Text.rich(
                                 const TextSpan(
@@ -151,11 +144,11 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     TextSpan(text: 'Ibu '),
                                     TextSpan(
                                       text: 'Peni Lestari, S.E.',
-                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                      style: TextStyle(fontWeight: FontWeight.w700),
                                     ),
                                   ],
                                 ),
-                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
                               ),
                             ],
                           ),
@@ -165,18 +158,14 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           child: AnimatedInviter.right(
                             children: [
                               Text(
-                                'Faiq Ulul Fahmi S.Pd.',
-                                style: GoogleFonts.parisienne(fontSize: FontScale.x3l, fontWeight: FontWeight.w900),
+                                'Faiq Ulul Fahmi, S.Pd.',
+                                style: GoogleFonts.pacifico(fontSize: FontScale.x2l, fontWeight: FontWeight.w500),
                                 textAlign: TextAlign.end,
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 'Putra dari',
-                                style: TextStyle(
-                                  fontSize: FontScale.xs + .5,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.grey.shade700,
-                                ),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
                               Text.rich(
                                 const TextSpan(
@@ -184,19 +173,15 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     TextSpan(text: 'Bapak '),
                                     TextSpan(
                                       text: 'Syamsuddin, S.Pd.',
-                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                      style: TextStyle(fontWeight: FontWeight.w700),
                                     ),
                                   ],
                                 ),
-                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
                               ),
                               Text(
                                 'dan',
-                                style: TextStyle(
-                                  fontSize: FontScale.xs + .5,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.grey.shade700,
-                                ),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
                               Text.rich(
                                 const TextSpan(
@@ -204,11 +189,11 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     TextSpan(text: 'Ibu '),
                                     TextSpan(
                                       text: 'Sa\'idah',
-                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                      style: TextStyle(fontWeight: FontWeight.w700),
                                     ),
                                   ],
                                 ),
-                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
                               ),
                             ],
                           ),

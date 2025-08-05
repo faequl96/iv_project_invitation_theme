@@ -64,15 +64,15 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
             return FadeTransition(
               opacity: _lineFadeAnimation,
               child: SizedBox(
-                height: SizeScale.widthX8l * 1.8,
+                height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                 child: Row(
                   children: [
                     if (!widget.isLeft) ...[
                       SizedBox(width: SizeScale.widthX11l - 6),
                       SizedBox(
-                        height: SizeScale.widthX8l * 1.8,
+                        height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                         width: .5,
-                        child: ColoredBox(color: Colors.grey.shade800),
+                        child: ColoredBox(color: Colors.grey.shade900),
                       ),
                     ],
                     Expanded(
@@ -98,9 +98,9 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                     ),
                     if (widget.isLeft) ...[
                       SizedBox(
-                        height: SizeScale.widthX8l * 1.8,
+                        height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                         width: .5,
-                        child: ColoredBox(color: Colors.grey.shade800),
+                        child: ColoredBox(color: Colors.grey.shade900),
                       ),
                       SizedBox(width: SizeScale.widthX11l - 6),
                     ],
