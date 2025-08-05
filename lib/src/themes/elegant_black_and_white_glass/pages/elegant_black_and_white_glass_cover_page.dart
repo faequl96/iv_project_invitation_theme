@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
@@ -142,14 +141,14 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
       await Future.delayed(const Duration(milliseconds: 200));
       if (mounted) {
         _groomController.forward();
-        await Future.delayed(const Duration(milliseconds: 200));
+        await Future.delayed(const Duration(milliseconds: 100));
         _andController.forward();
         await Future.delayed(const Duration(milliseconds: 200));
         if (_brideController.value != 1) _brideController.forward();
       }
     } else {
       _groomController.reverse();
-      await Future.delayed(const Duration(milliseconds: 200));
+      await Future.delayed(const Duration(milliseconds: 100));
       if (mounted) {
         _andController.reverse();
         await Future.delayed(const Duration(milliseconds: 200));
@@ -164,11 +163,11 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
     _groomController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
     _brideSlideAnimation = Tween<Offset>(
-      begin: const Offset(-.8, 0),
+      begin: const Offset(-.45, 0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _brideController, curve: Curves.easeIn));
     _groomSlideAnimation = Tween<Offset>(
-      begin: const Offset(.8, 0),
+      begin: const Offset(.45, 0),
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _groomController, curve: Curves.easeIn));
 
@@ -224,7 +223,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                           ),
                           TextSpan(
                             text: ' & ',
-                            style: TextStyle(fontSize: FontScale.x5l, color: Colors.transparent),
+                            style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
                           ),
                           TextSpan(
                             text: 'Dilan',
@@ -232,7 +231,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      style: GoogleFonts.pacifico(fontSize: FontScale.x8l, fontWeight: FontWeight.w500, height: 1.1),
+                      style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
                     ),
                   ),
                 ),
@@ -250,7 +249,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                         ),
                         TextSpan(
                           text: ' & ',
-                          style: TextStyle(fontSize: FontScale.x5l, color: Colors.grey.shade300),
+                          style: TextStyle(fontSize: FontScale.x4l, color: Colors.grey.shade300),
                         ),
                         TextSpan(
                           text: 'Dilan',
@@ -258,7 +257,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                    style: GoogleFonts.pacifico(fontSize: FontScale.x8l, fontWeight: FontWeight.w500, height: 1.1),
+                    style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
                   ),
                 ),
               ),
@@ -277,7 +276,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                           ),
                           TextSpan(
                             text: ' & ',
-                            style: TextStyle(fontSize: FontScale.x5l, color: Colors.transparent),
+                            style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
                           ),
                           TextSpan(
                             text: 'Dilan',
@@ -285,7 +284,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
                           ),
                         ],
                       ),
-                      style: GoogleFonts.pacifico(fontSize: FontScale.x8l, fontWeight: FontWeight.w500, height: 1.1),
+                      style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
                     ),
                   ),
                 ),

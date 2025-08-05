@@ -72,7 +72,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                       SizedBox(
                         height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                         width: .5,
-                        child: ColoredBox(color: Colors.grey.shade900),
+                        child: ColoredBox(color: Colors.grey.shade600),
                       ),
                     ],
                     Expanded(
@@ -100,7 +100,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                       SizedBox(
                         height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                         width: .5,
-                        child: ColoredBox(color: Colors.grey.shade900),
+                        child: ColoredBox(color: Colors.grey.shade600),
                       ),
                       SizedBox(width: SizeScale.widthX11l - 6),
                     ],

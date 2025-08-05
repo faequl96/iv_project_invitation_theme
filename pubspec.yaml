@@ -93,3 +93,14 @@ flutter:
         - asset: assets/fonts/Inter-ExtraBoldItalic.ttf
           weight: 800
           style: italic
+    
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico-Regular.ttf
+    
+    - family: ArefRuqaa
+      fonts:
+        - asset: assets/fonts/ArefRuqaa-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/ArefRuqaa-Bold.ttf
+          weight: 700

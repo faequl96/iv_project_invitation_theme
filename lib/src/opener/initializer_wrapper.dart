@@ -64,9 +64,9 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                         child: Center(
                           child: Text(
                             'Undangan Pernikahan',
-                            style: GoogleFonts.pacifico(
+                            style: AppFonts.pacifico(
                               fontSize: FontScale.x4l,
-                              fontWeight: FontWeight.w900,
+                              fontWeight: FontWeight.w700,
                               color: Colors.grey.shade900,
                             ),
                           ),

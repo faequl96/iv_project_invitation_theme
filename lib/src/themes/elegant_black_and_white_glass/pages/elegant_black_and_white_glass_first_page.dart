@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
@@ -100,7 +99,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                             delayBeforeStart: const Duration(milliseconds: 600),
                             child: Text(
                               'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                              style: GoogleFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
+                              style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
                             ),
                           ),
                         ),
@@ -202,7 +201,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                       borderRadius: 20,
                       sliderWidth: 90,
                       color: Colors.grey.shade300.withValues(alpha: .3),
-                      animationEnd: 1.12,
+                      animationEnd: 1.14,
                       animationSpeed: const Duration(milliseconds: 600),
                       animationInterval: const Duration(seconds: 3),
                     );

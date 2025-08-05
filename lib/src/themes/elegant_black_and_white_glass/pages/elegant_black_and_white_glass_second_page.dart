@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
@@ -70,13 +69,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: .5),
-                        // gradient: LinearGradient(
-                        //   begin: Alignment.topCenter,
-                        //   end: Alignment.bottomCenter,
-                        //   colors: [Colors.black.withValues(alpha: .9), Colors.black.withValues(alpha: .0)],
-                        //   stops: const [0, 1],
-                        // ),
+                        color: Colors.white.withValues(alpha: .7),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -115,13 +108,14 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             children: [
                               Text(
                                 'Rahma Nur Istiqomah, M.Biomed.',
-                                style: GoogleFonts.pacifico(fontSize: FontScale.x2l, fontWeight: FontWeight.w500, height: 1.15),
+                                style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
                               ),
-                              const SizedBox(height: 4),
+                              const SizedBox(height: 8),
                               Text(
                                 'Putri dari',
                                 style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
+                              const SizedBox(height: 2),
                               Text.rich(
                                 const TextSpan(
                                   children: [
@@ -132,12 +126,14 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
                               ),
+                              const SizedBox(height: 2),
                               Text(
                                 'dan',
                                 style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
+                              const SizedBox(height: 2),
                               Text.rich(
                                 const TextSpan(
                                   children: [
@@ -148,7 +144,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
                               ),
                             ],
                           ),
@@ -159,14 +155,15 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             children: [
                               Text(
                                 'Faiq Ulul Fahmi, S.Pd.',
-                                style: GoogleFonts.pacifico(fontSize: FontScale.x2l, fontWeight: FontWeight.w500),
+                                style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
                                 textAlign: TextAlign.end,
                               ),
-                              const SizedBox(height: 4),
+                              const SizedBox(height: 8),
                               Text(
                                 'Putra dari',
                                 style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
+                              const SizedBox(height: 2),
                               Text.rich(
                                 const TextSpan(
                                   children: [
@@ -177,12 +174,14 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
                               ),
+                              const SizedBox(height: 2),
                               Text(
                                 'dan',
                                 style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
                               ),
+                              const SizedBox(height: 2),
                               Text.rich(
                                 const TextSpan(
                                   children: [
@@ -193,7 +192,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.3),
+                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
                               ),
                             ],
                           ),
