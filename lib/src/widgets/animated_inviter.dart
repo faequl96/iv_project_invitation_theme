@@ -28,18 +28,18 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: const Duration(milliseconds: 3500), vsync: this);
+    _controller = AnimationController(duration: const Duration(milliseconds: 2800), vsync: this);
 
     _lineFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.75, .85, curve: Curves.easeIn),
+        curve: const Interval(.7, .82, curve: Curves.easeIn),
       ),
     );
     _textSlideHorizontalAnimation = Tween<Offset>(begin: Offset(widget.isLeft ? 1 : -1, 0), end: Offset.zero).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.85, 1, curve: Curves.easeIn),
+        curve: const Interval(.82, 1, curve: Curves.easeIn),
       ),
     );
   }
@@ -54,7 +54,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   @override
   Widget build(BuildContext context) {
     return SlideTransition(
-      position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isLeft ? -.9 : .9)),
+      position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isLeft ? -.75 : .75)),
       child: BlocSelector<CoreCubit, CoreState, Size>(
         selector: (state) => state.size,
         builder: (_, _) => BlocSelector<CoreCubit, CoreState, int>(
@@ -64,14 +64,14 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
             return FadeTransition(
               opacity: _lineFadeAnimation,
               child: SizedBox(
-                height: SizeScale.widthX9l * 1.3,
+                height: SizeScale.widthX8l * 1.8,
                 child: Row(
                   children: [
                     if (!widget.isLeft) ...[
-                      SizedBox(width: SizeScale.widthX11l + 8),
+                      SizedBox(width: SizeScale.widthX11l - 6),
                       SizedBox(
-                        height: SizeScale.widthX9l * 1.3,
-                        width: 1,
+                        height: SizeScale.widthX8l * 1.8,
+                        width: .5,
                         child: ColoredBox(color: Colors.grey.shade800),
                       ),
                     ],
@@ -98,11 +98,11 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                     ),
                     if (widget.isLeft) ...[
                       SizedBox(
-                        height: SizeScale.widthX9l * 1.3,
-                        width: 1,
+                        height: SizeScale.widthX8l * 1.8,
+                        width: .5,
                         child: ColoredBox(color: Colors.grey.shade800),
                       ),
-                      SizedBox(width: SizeScale.widthX11l + 8),
+                      SizedBox(width: SizeScale.widthX11l - 6),
                     ],
                   ],
                 ),

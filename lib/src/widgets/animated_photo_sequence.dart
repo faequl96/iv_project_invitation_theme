@@ -31,7 +31,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: const Duration(milliseconds: 2500), vsync: this);
+    _controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
 
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
@@ -42,19 +42,19 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
     _scaleAnimation = Tween<double>(begin: 5, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.0, .2, curve: Curves.ease),
+        curve: const Interval(.0, .25, curve: Curves.ease),
       ),
     );
-    _slideHorizontalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(widget.isLeft ? -.28 : .28, .0)).animate(
+    _slideHorizontalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(widget.isLeft ? -.38 : .38, .0)).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.3, .55, curve: Curves.easeIn),
+        curve: const Interval(.32, .58, curve: Curves.easeIn),
       ),
     );
-    _slideVerticalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .9 : -.9)).animate(
+    _slideVerticalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .75 : -.75)).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.65, 1, curve: Curves.easeIn),
+        curve: const Interval(.68, 1, curve: Curves.easeIn),
       ),
     );
     _frameScaleAnimation = Tween<double>(begin: 1, end: 1.15).animate(
@@ -91,43 +91,41 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (widget.isLeft)
-                        Stack(
-                          children: [
-                            ScaleTransition(
-                              scale: _frameScaleAnimation,
-                              child: SizedBox(
-                                height: SizeScale.widthX9l * 1.3,
-                                width: SizeScale.widthX9l,
-                                child: ColoredBox(color: Colors.grey.shade500.withValues(alpha: .5)),
+                      if (!widget.isLeft) SizedBox(height: SizeScale.widthX8l * 1.8, width: SizeScale.widthX8l),
+                      Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: [
+                          ScaleTransition(
+                            scale: _frameScaleAnimation,
+                            child: SizedBox(
+                              height: SizeScale.widthX8l * 1.8,
+                              width: SizeScale.widthX8l,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 24),
+                                child: DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade50.withValues(alpha: .3),
+                                    border: Border.all(width: .5, color: Colors.grey.shade500),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                ),
                               ),
                             ),
-                            SizedBox(
-                              height: SizeScale.widthX9l * 1.3,
-                              width: SizeScale.widthX9l,
-                              child: const ColoredBox(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      SizedBox(height: SizeScale.widthX9l * 1.3, width: SizeScale.widthX9l),
-                      if (!widget.isLeft)
-                        Stack(
-                          children: [
-                            ScaleTransition(
-                              scale: _frameScaleAnimation,
-                              child: SizedBox(
-                                height: SizeScale.widthX9l * 1.3,
-                                width: SizeScale.widthX9l,
-                                child: ColoredBox(color: Colors.grey.shade500.withValues(alpha: .5)),
+                          ),
+                          SizedBox(
+                            height: SizeScale.widthX8l * 1.8,
+                            width: SizeScale.widthX8l,
+                            child: const ColoredBox(
+                              color: Colors.transparent,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 24),
+                                child: ColoredBox(color: Colors.grey),
                               ),
                             ),
-                            SizedBox(
-                              height: SizeScale.widthX9l * 1.3,
-                              width: SizeScale.widthX9l,
-                              child: const ColoredBox(color: Colors.grey),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
+                      if (widget.isLeft) SizedBox(height: SizeScale.widthX8l * 1.8, width: SizeScale.widthX8l),
                     ],
                   ),
                 ),

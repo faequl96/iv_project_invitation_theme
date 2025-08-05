@@ -206,20 +206,11 @@ class _CountdownTimerState extends State<_CountdownTimer> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: SizedBox(
-              width: SizeScale.widthX3l,
-              height: SizeScale.widthX3l,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.grey.shade500.withValues(alpha: .2),
-                ),
-              ),
-            ),
+        SizedBox(
+          width: SizeScale.widthX3l,
+          height: SizeScale.widthX3l,
+          child: DecoratedBox(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey.shade500.withValues(alpha: .2)),
           ),
         ),
         SizedBox(

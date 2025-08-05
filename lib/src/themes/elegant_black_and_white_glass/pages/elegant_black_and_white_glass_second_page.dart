@@ -24,7 +24,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
           // Positioned(
           //   bottom: 0,
           //   child: SizedBox(
-          //     height: ScreenUtil.size.height / 1.8,
+          //     height: ScreenUtil.size.height / 1.4,
           //     width: ScreenUtil.size.width,
           //     child: DecoratedBox(
           //       decoration: BoxDecoration(
@@ -57,7 +57,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
+                padding: EdgeInsets.only(
+                  top: SizeScale.heightX7l,
+                  left: SizeScale.widthX6s,
+                  right: SizeScale.widthX6s,
+                  bottom: 76,
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: BackdropFilter(
@@ -65,6 +70,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: .1),
+                        // gradient: LinearGradient(
+                        //   begin: Alignment.topCenter,
+                        //   end: Alignment.bottomCenter,
+                        //   colors: [Colors.black.withValues(alpha: .9), Colors.black.withValues(alpha: .0)],
+                        //   stops: const [0, 1],
+                        // ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -79,7 +90,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
+                padding: EdgeInsets.only(
+                  top: SizeScale.heightX7l,
+                  left: SizeScale.widthX6s,
+                  right: SizeScale.widthX6s,
+                  bottom: 76,
+                ),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -87,18 +103,115 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: const Stack(
+                    child: Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        Align(alignment: Alignment(0, 0), child: AnimatedPhotoSequence.left()),
-                        Align(alignment: Alignment(0, 0), child: AnimatedPhotoSequence.right()),
+                        const Align(alignment: Alignment(0, 0), child: AnimatedPhotoSequence.left()),
+                        const Align(alignment: Alignment(0, 0), child: AnimatedPhotoSequence.right()),
                         Align(
-                          alignment: Alignment(0, 0),
-                          child: AnimatedInviter.left(children: [Text('Milea Pratiwi')]),
+                          alignment: const Alignment(0, 0),
+                          child: AnimatedInviter.left(
+                            children: [
+                              Text(
+                                'Rahma Nur Istiqomah, M.Biomed.',
+                                style: GoogleFonts.parisienne(fontSize: FontScale.x3l, fontWeight: FontWeight.w900, height: 1.15),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Putri dari',
+                                style: TextStyle(
+                                  fontSize: FontScale.xs + .5,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              Text.rich(
+                                const TextSpan(
+                                  children: [
+                                    TextSpan(text: 'Bapak '),
+                                    TextSpan(
+                                      text: 'Bagyo Trisno Ngulandoro, S.T.',
+                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                    ),
+                                  ],
+                                ),
+                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                              ),
+                              Text(
+                                'dan',
+                                style: TextStyle(
+                                  fontSize: FontScale.xs + .5,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              Text.rich(
+                                const TextSpan(
+                                  children: [
+                                    TextSpan(text: 'Ibu '),
+                                    TextSpan(
+                                      text: 'Peni Lestari, S.E.',
+                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                    ),
+                                  ],
+                                ),
+                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                              ),
+                            ],
+                          ),
                         ),
                         Align(
-                          alignment: Alignment(0, 0),
-                          child: AnimatedInviter.right(children: [Text('Dilan Pratama')]),
+                          alignment: const Alignment(0, 0),
+                          child: AnimatedInviter.right(
+                            children: [
+                              Text(
+                                'Faiq Ulul Fahmi S.Pd.',
+                                style: GoogleFonts.parisienne(fontSize: FontScale.x3l, fontWeight: FontWeight.w900),
+                                textAlign: TextAlign.end,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Putra dari',
+                                style: TextStyle(
+                                  fontSize: FontScale.xs + .5,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              Text.rich(
+                                const TextSpan(
+                                  children: [
+                                    TextSpan(text: 'Bapak '),
+                                    TextSpan(
+                                      text: 'Syamsuddin, S.Pd.',
+                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                    ),
+                                  ],
+                                ),
+                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                              ),
+                              Text(
+                                'dan',
+                                style: TextStyle(
+                                  fontSize: FontScale.xs + .5,
+                                  fontWeight: FontWeight.w900,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              Text.rich(
+                                const TextSpan(
+                                  children: [
+                                    TextSpan(text: 'Ibu '),
+                                    TextSpan(
+                                      text: 'Sa\'idah',
+                                      style: TextStyle(fontWeight: FontWeight.w900),
+                                    ),
+                                  ],
+                                ),
+                                style: TextStyle(fontSize: FontScale.xs + .5, height: 1.3),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -113,7 +226,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
+                padding: EdgeInsets.only(
+                  top: SizeScale.heightX7l,
+                  left: SizeScale.widthX6s,
+                  right: SizeScale.widthX6s,
+                  bottom: 76,
+                ),
                 child: BlocSelector<CoreCubit, CoreState, int>(
                   selector: (state) => state.animationTrigger,
                   builder: (_, animationTrigger) {
@@ -124,7 +242,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                       borderRadius: 20,
                       sliderWidth: 90,
                       color: Colors.grey.shade100.withValues(alpha: .5),
-                      animationEnd: 1.12,
+                      animationEnd: 1.14,
                       animationSpeed: const Duration(milliseconds: 600),
                       animationInterval: const Duration(seconds: 3),
                     );
