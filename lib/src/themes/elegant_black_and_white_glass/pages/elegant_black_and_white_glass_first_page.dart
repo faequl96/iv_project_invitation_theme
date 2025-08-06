@@ -24,28 +24,33 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
             child: SizedBox(
               height: ScreenUtil.size.height / 1.4,
               width: ScreenUtil.size.width,
-              child: const DecoratedBox(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.black, Colors.transparent],
-                    stops: [.1, .8],
+                    colors: [Colors.grey.shade900, Colors.transparent],
+                    stops: const [.1, .8],
                   ),
                 ),
               ),
             ),
           ),
-          Align(
-            alignment: const Alignment(0, -.93),
+          Positioned(
+            top: 0,
             child: FadeAndSlideTransition(
-              slideFromOffset: 1,
+              slideFromOffset: .5,
               slideFrom: SlideFrom.top,
-              delayBeforeStart: Duration.zero,
               animationSpeed: const Duration(milliseconds: 300),
-              child: Text(
-                'Maksud Dan Tujuan',
-                style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w800),
+              child: SizedBox(
+                height: SizeScale.heightX6l,
+                width: ScreenUtil.size.width,
+                child: Center(
+                  child: Text(
+                    'Maksud Dan Tujuan',
+                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w800),
+                  ),
+                ),
               ),
             ),
           ),
@@ -55,7 +60,12 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
+                padding: EdgeInsets.only(
+                  top: SizeScale.heightX6l,
+                  left: SizeScale.widthX6s,
+                  right: SizeScale.widthX6s,
+                  bottom: 76,
+                ),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: BackdropFilter(
@@ -82,7 +92,12 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
+                padding: EdgeInsets.only(
+                  top: SizeScale.heightX6l,
+                  left: SizeScale.widthX6s,
+                  right: SizeScale.widthX6s,
+                  bottom: 76,
+                ),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -96,7 +111,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           child: FadeAndSlideTransition(
                             slideFromOffset: .4,
                             slideFrom: SlideFrom.left,
-                            delayBeforeStart: const Duration(milliseconds: 600),
+                            delayBeforeStart: const Duration(milliseconds: 1200),
                             child: Text(
                               'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
                               style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
@@ -108,7 +123,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           child: FadeAndSlideTransition(
                             slideFromOffset: .4,
                             slideFrom: SlideFrom.right,
-                            delayBeforeStart: const Duration(milliseconds: 600),
+                            delayBeforeStart: const Duration(milliseconds: 1200),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 40),
                               child: Column(
@@ -148,7 +163,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                 FadeAndSlideTransition(
                                   slideFromOffset: .4,
                                   slideFrom: SlideFrom.left,
-                                  delayBeforeStart: const Duration(milliseconds: 600),
+                                  delayBeforeStart: const Duration(milliseconds: 1200),
                                   child: Text(
                                     'Assalamu\'alaikum Wr. Wb.',
                                     style: AppFonts.inter(
@@ -162,7 +177,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                 FadeAndSlideTransition(
                                   slideFromOffset: .4,
                                   slideFrom: SlideFrom.right,
-                                  delayBeforeStart: const Duration(milliseconds: 600),
+                                  delayBeforeStart: const Duration(milliseconds: 1200),
                                   child: Text(
                                     'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
                                     style: AppFonts.inter(
@@ -190,14 +205,19 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               height: ScreenUtil.size.height,
               width: ScreenUtil.size.width,
               child: Padding(
-                padding: EdgeInsets.only(top: SizeScale.heightX7l, left: 16, right: 16, bottom: 76),
+                padding: EdgeInsets.only(
+                  top: SizeScale.heightX6l,
+                  left: SizeScale.widthX6s,
+                  right: SizeScale.widthX6s,
+                  bottom: 76,
+                ),
                 child: BlocSelector<CoreCubit, CoreState, int>(
                   selector: (state) => state.animationTrigger,
                   builder: (_, animationTrigger) {
                     if (animationTrigger == 0) return const SizedBox.shrink();
                     return GlassEffectBox(
                       width: ScreenUtil.size.width - 32,
-                      height: ScreenUtil.size.height - (76 + SizeScale.heightX7l),
+                      height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
                       borderRadius: 20,
                       sliderWidth: 90,
                       color: Colors.grey.shade300.withValues(alpha: .3),

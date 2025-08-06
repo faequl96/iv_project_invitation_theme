@@ -30,13 +30,16 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
     }
   }
 
+  void _initAnimation() {
+    _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+  }
+
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
-
+    _initAnimation();
     _startAnimationLoop();
   }
 

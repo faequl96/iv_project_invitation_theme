@@ -8,7 +8,7 @@ class FadeAndSlideTransition extends StatefulWidget {
   const FadeAndSlideTransition({
     super.key,
     this.animationSpeed = const Duration(milliseconds: 500),
-    this.delayBeforeStart = const Duration(milliseconds: 500),
+    this.delayBeforeStart = Duration.zero,
     this.fadeBegin = 0,
     this.fadeEnd = 1,
     this.slideFrom = SlideFrom.bottom,
@@ -42,6 +42,7 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
 
   void _initAnimation() {
     _controller = AnimationController(vsync: this, duration: widget.animationSpeed);
+
     late final Offset beginOffset;
     switch (widget.slideFrom) {
       case SlideFrom.top:

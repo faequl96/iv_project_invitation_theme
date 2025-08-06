@@ -4,10 +4,11 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class AnimatedPhotoSequence extends StatefulWidget {
-  const AnimatedPhotoSequence.left({super.key}) : isLeft = true;
-  const AnimatedPhotoSequence.right({super.key}) : isLeft = false;
+  const AnimatedPhotoSequence.left({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200)}) : isLeft = true;
+  const AnimatedPhotoSequence.right({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200)}) : isLeft = false;
 
   final bool isLeft;
+  final Duration delayBeforeStart;
 
   @override
   State<AnimatedPhotoSequence> createState() => _AnimatedPhotoSequenceState();
@@ -22,15 +23,14 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
 
   late final Animation<double> _frameScaleAnimation;
 
+  bool _isInitial = true;
+
   void _runAnimation(int animationTrigger) {
     if (animationTrigger == 1) _controller.forward();
     if (animationTrigger == 0) _controller.reverse();
   }
 
-  @override
-  void initState() {
-    super.initState();
-
+  void _initAnimation() {
     _controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
 
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -66,6 +66,17 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _initAnimation();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(widget.delayBeforeStart);
+      if (mounted) setState(() => _isInitial = false);
+    });
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
 
@@ -74,6 +85,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
 
   @override
   Widget build(BuildContext context) {
+    if (_isInitial) return const Opacity(opacity: 0, child: SizedBox.shrink());
     return BlocSelector<CoreCubit, CoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => BlocSelector<CoreCubit, CoreState, int>(

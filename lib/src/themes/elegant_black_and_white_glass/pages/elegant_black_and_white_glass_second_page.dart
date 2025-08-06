@@ -38,16 +38,22 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
           //     ),
           //   ),
           // ),
-          Align(
-            alignment: const Alignment(0, -.93),
+          Positioned(
+            top: 0,
             child: FadeAndSlideTransition(
-              slideFromOffset: 1,
+              slideFromOffset: .5,
               slideFrom: SlideFrom.top,
               delayBeforeStart: Duration.zero,
               animationSpeed: const Duration(milliseconds: 300),
-              child: Text(
-                'Kami Yang Mengundang',
-                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x2l, fontWeight: FontWeight.w800),
+              child: SizedBox(
+                height: SizeScale.heightX6l,
+                width: ScreenUtil.size.width,
+                child: Center(
+                  child: Text(
+                    'Kami Yang Mengundang',
+                    style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x2l, fontWeight: FontWeight.w800),
+                  ),
+                ),
               ),
             ),
           ),
@@ -58,7 +64,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               width: ScreenUtil.size.width,
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeScale.heightX7l,
+                  top: SizeScale.heightX6l,
                   left: SizeScale.widthX6s,
                   right: SizeScale.widthX6s,
                   bottom: 76,
@@ -85,7 +91,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               width: ScreenUtil.size.width,
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeScale.heightX7l,
+                  top: SizeScale.heightX6l,
                   left: SizeScale.widthX6s,
                   right: SizeScale.widthX6s,
                   bottom: 76,
@@ -211,7 +217,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               width: ScreenUtil.size.width,
               child: Padding(
                 padding: EdgeInsets.only(
-                  top: SizeScale.heightX7l,
+                  top: SizeScale.heightX6l,
                   left: SizeScale.widthX6s,
                   right: SizeScale.widthX6s,
                   bottom: 76,
@@ -222,10 +228,10 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                     if (animationTrigger == 0) return const SizedBox.shrink();
                     return GlassEffectBox(
                       width: ScreenUtil.size.width - 32,
-                      height: ScreenUtil.size.height - (76 + SizeScale.heightX7l),
+                      height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
                       borderRadius: 20,
                       sliderWidth: 90,
-                      color: Colors.grey.shade100.withValues(alpha: .5),
+                      color: Colors.grey.shade50.withValues(alpha: .5),
                       animationEnd: 1.14,
                       animationSpeed: const Duration(milliseconds: 600),
                       animationInterval: const Duration(seconds: 3),

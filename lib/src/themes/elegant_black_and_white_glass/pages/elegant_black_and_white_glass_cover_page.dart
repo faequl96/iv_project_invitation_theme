@@ -29,13 +29,13 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
             child: SizedBox(
               height: ScreenUtil.size.height / 1.2,
               width: ScreenUtil.size.width,
-              child: const DecoratedBox(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.black],
-                    stops: [.3, .8],
+                    colors: [Colors.transparent, Colors.grey.shade900],
+                    stops: const [.3, .8],
                   ),
                 ),
               ),

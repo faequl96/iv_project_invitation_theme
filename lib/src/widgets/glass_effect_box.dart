@@ -43,13 +43,16 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
     }
   }
 
+  void _initAnimation() {
+    _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
+    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+  }
+
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
-
+    _initAnimation();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(widget.delayBeforeStart);
       if (mounted) setState(() => _isInitial = false);

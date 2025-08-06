@@ -39,13 +39,16 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
     }
   }
 
+  void _initAnimation() {
+    _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
+    _animation = Tween<double>(begin: 0, end: widget.isFlash ? 1 : 1.3).animate(_controller);
+  }
+
   @override
   void initState() {
     super.initState();
 
-    _controller = AnimationController(duration: widget.animationSpeed, vsync: this);
-    _animation = Tween<double>(begin: 0, end: widget.isFlash ? 1 : 1.3).animate(_controller);
-
+    _initAnimation();
     _startAnimationLoop();
   }
 

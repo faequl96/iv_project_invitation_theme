@@ -4,10 +4,13 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class AnimatedInviter extends StatefulWidget {
-  const AnimatedInviter.left({super.key, required this.children}) : isLeft = true;
-  const AnimatedInviter.right({super.key, required this.children}) : isLeft = false;
+  const AnimatedInviter.left({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200), required this.children})
+    : isLeft = true;
+  const AnimatedInviter.right({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200), required this.children})
+    : isLeft = false;
 
   final bool isLeft;
+  final Duration delayBeforeStart;
   final List<Widget> children;
 
   @override
@@ -19,15 +22,14 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   late final Animation<double> _lineFadeAnimation;
   late final Animation<Offset> _textSlideHorizontalAnimation;
 
+  bool _isInitial = true;
+
   void _runAnimation(int animationTrigger) {
     if (animationTrigger == 1) _controller.forward();
     if (animationTrigger == 0) _controller.reverse();
   }
 
-  @override
-  void initState() {
-    super.initState();
-
+  void _initAnimation() {
     _controller = AnimationController(duration: const Duration(milliseconds: 2800), vsync: this);
 
     _lineFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
@@ -45,6 +47,17 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    _initAnimation();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(widget.delayBeforeStart);
+      if (mounted) setState(() => _isInitial = false);
+    });
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
 
@@ -53,6 +66,8 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
+    if (_isInitial) return const SizedBox.shrink();
+
     return SlideTransition(
       position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isLeft ? -.75 : .75)),
       child: BlocSelector<CoreCubit, CoreState, Size>(
