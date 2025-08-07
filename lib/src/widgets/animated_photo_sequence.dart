@@ -4,8 +4,8 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class AnimatedPhotoSequence extends StatefulWidget {
-  const AnimatedPhotoSequence.left({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200)}) : isLeft = true;
-  const AnimatedPhotoSequence.right({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200)}) : isLeft = false;
+  const AnimatedPhotoSequence.left({super.key, this.delayBeforeStart = const Duration(milliseconds: 800)}) : isLeft = true;
+  const AnimatedPhotoSequence.right({super.key, this.delayBeforeStart = const Duration(milliseconds: 800)}) : isLeft = false;
 
   final bool isLeft;
   final Duration delayBeforeStart;
@@ -31,7 +31,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
   }
 
   void _initAnimation() {
-    _controller = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
+    _controller = AnimationController(duration: const Duration(milliseconds: 1600), vsync: this);
 
     _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
@@ -42,13 +42,13 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
     _scaleAnimation = Tween<double>(begin: 5, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.0, .25, curve: Curves.ease),
+        curve: const Interval(.0, .3, curve: Curves.ease),
       ),
     );
     _slideHorizontalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(widget.isLeft ? -.38 : .38, .0)).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.32, .58, curve: Curves.easeIn),
+        curve: const Interval(.36, .62, curve: Curves.easeIn),
       ),
     );
     _slideVerticalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .75 : -.75)).animate(
@@ -60,7 +60,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
     _frameScaleAnimation = Tween<double>(begin: 1, end: 1.15).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.65, 1, curve: Curves.ease),
+        curve: const Interval(.68, 1, curve: Curves.ease),
       ),
     );
   }

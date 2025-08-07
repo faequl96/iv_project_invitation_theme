@@ -10,6 +10,7 @@ import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/field_view.dart';
 import 'package:iv_project_invitation_theme/src/widgets/text_field_sheet.dart';
 
@@ -73,6 +74,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   const ElegantBlackAndWhiteGlassCoverPage(),
                   const ElegantBlackAndWhiteGlassFirstPage(),
                   const ElegantBlackAndWhiteGlassSecondPage(),
+                  const ElegantBlackAndWhiteGlassThirdPage(),
                   SizedBox(
                     height: double.maxFinite,
                     width: double.maxFinite,

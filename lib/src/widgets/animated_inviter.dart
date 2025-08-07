@@ -4,9 +4,9 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class AnimatedInviter extends StatefulWidget {
-  const AnimatedInviter.left({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200), required this.children})
+  const AnimatedInviter.left({super.key, this.delayBeforeStart = const Duration(milliseconds: 800), required this.children})
     : isLeft = true;
-  const AnimatedInviter.right({super.key, this.delayBeforeStart = const Duration(milliseconds: 1200), required this.children})
+  const AnimatedInviter.right({super.key, this.delayBeforeStart = const Duration(milliseconds: 800), required this.children})
     : isLeft = false;
 
   final bool isLeft;
@@ -30,12 +30,12 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   }
 
   void _initAnimation() {
-    _controller = AnimationController(duration: const Duration(milliseconds: 2800), vsync: this);
+    _controller = AnimationController(duration: const Duration(milliseconds: 2200), vsync: this);
 
     _lineFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.7, .82, curve: Curves.easeIn),
+        curve: const Interval(.7, .76, curve: Curves.easeIn),
       ),
     );
     _textSlideHorizontalAnimation = Tween<Offset>(begin: Offset(widget.isLeft ? 1 : -1, 0), end: Offset.zero).animate(

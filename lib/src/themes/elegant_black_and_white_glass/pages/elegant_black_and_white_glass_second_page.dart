@@ -113,7 +113,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           child: AnimatedInviter.left(
                             children: [
                               Text(
-                                'Rahma Nur Istiqomah, M.Biomed.',
+                                'Rahma Nur Istiqomah, M.Biomed',
                                 style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
                               ),
                               const SizedBox(height: 8),
@@ -127,8 +127,8 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   children: [
                                     const TextSpan(text: 'Bapak '),
                                     TextSpan(
-                                      text: 'Bagyo Trisno Ngulandoro, S.T.',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
+                                      text: 'Bagyo Trisno Ngulandoro, S.T',
+                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
@@ -145,8 +145,8 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   children: [
                                     const TextSpan(text: 'Ibu '),
                                     TextSpan(
-                                      text: 'Peni Lestari, S.E.',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
+                                      text: 'Peni Lestari, S.E',
+                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
@@ -160,7 +160,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           child: AnimatedInviter.right(
                             children: [
                               Text(
-                                'Faiq Ulul Fahmi, S.Pd.',
+                                'Faiq Ulul Fahmi, S.Pd',
                                 style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
                                 textAlign: TextAlign.end,
                               ),
@@ -175,8 +175,8 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   children: [
                                     const TextSpan(text: 'Bapak '),
                                     TextSpan(
-                                      text: 'Syamsuddin, S.Pd.',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
+                                      text: 'Syamsuddin, S.Pd',
+                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
@@ -192,10 +192,9 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 TextSpan(
                                   children: [
                                     const TextSpan(text: 'Ibu '),
-                                    const TextSpan(text: 'Sa\'idah'),
                                     TextSpan(
                                       text: 'Sa\'idah',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
