@@ -51,7 +51,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'Kami Yang Mengundang',
-                    style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x2l, fontWeight: FontWeight.w800),
+                    style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -123,12 +123,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 2),
                               Text.rich(
-                                const TextSpan(
+                                TextSpan(
                                   children: [
-                                    TextSpan(text: 'Bapak '),
+                                    const TextSpan(text: 'Bapak '),
                                     TextSpan(
                                       text: 'Bagyo Trisno Ngulandoro, S.T.',
-                                      style: TextStyle(fontWeight: FontWeight.w700),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
@@ -141,12 +141,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 2),
                               Text.rich(
-                                const TextSpan(
+                                TextSpan(
                                   children: [
-                                    TextSpan(text: 'Ibu '),
+                                    const TextSpan(text: 'Ibu '),
                                     TextSpan(
                                       text: 'Peni Lestari, S.E.',
-                                      style: TextStyle(fontWeight: FontWeight.w700),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
@@ -171,12 +171,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 2),
                               Text.rich(
-                                const TextSpan(
+                                TextSpan(
                                   children: [
-                                    TextSpan(text: 'Bapak '),
+                                    const TextSpan(text: 'Bapak '),
                                     TextSpan(
                                       text: 'Syamsuddin, S.Pd.',
-                                      style: TextStyle(fontWeight: FontWeight.w700),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),
@@ -189,12 +189,12 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 2),
                               Text.rich(
-                                const TextSpan(
+                                TextSpan(
                                   children: [
-                                    TextSpan(text: 'Ibu '),
+                                    const TextSpan(text: 'Ibu '),
                                     TextSpan(
                                       text: 'Sa\'idah',
-                                      style: TextStyle(fontWeight: FontWeight.w700),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
                                     ),
                                   ],
                                 ),

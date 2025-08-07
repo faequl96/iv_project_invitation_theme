@@ -57,8 +57,6 @@ flutter:
   fonts:
     - family: Inter
       fonts:
-        - asset: assets/fonts/Inter-ExtraLight.ttf
-          weight: 200
         - asset: assets/fonts/Inter-Light.ttf
           weight: 300
         - asset: assets/fonts/Inter-Regular.ttf
@@ -69,12 +67,7 @@ flutter:
           weight: 600
         - asset: assets/fonts/Inter-Bold.ttf
           weight: 700
-        - asset: assets/fonts/Inter-ExtraBold.ttf
-          weight: 800
 
-        - asset: assets/fonts/Inter-ExtraLightItalic.ttf
-          weight: 200
-          style: italic
         - asset: assets/fonts/Inter-LightItalic.ttf
           weight: 300
           style: italic
@@ -89,9 +82,6 @@ flutter:
           style: italic
         - asset: assets/fonts/Inter-BoldItalic.ttf
           weight: 700
-          style: italic
-        - asset: assets/fonts/Inter-ExtraBoldItalic.ttf
-          weight: 800
           style: italic
     
     - family: Pacifico

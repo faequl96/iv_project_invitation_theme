@@ -48,7 +48,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     'Maksud Dan Tujuan',
-                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w800),
+                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -169,7 +169,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     style: AppFonts.inter(
                                       color: Colors.grey.shade100,
                                       fontSize: FontScale.x2l,
-                                      fontWeight: FontWeight.w700,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
                                 ),
