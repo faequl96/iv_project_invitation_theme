@@ -128,7 +128,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     const TextSpan(text: 'Bapak '),
                                     TextSpan(
                                       text: 'Bagyo Trisno Ngulandoro, S.T.',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
@@ -146,7 +146,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     const TextSpan(text: 'Ibu '),
                                     TextSpan(
                                       text: 'Peni Lestari, S.E.',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
@@ -176,7 +176,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                     const TextSpan(text: 'Bapak '),
                                     TextSpan(
                                       text: 'Syamsuddin, S.Pd.',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
@@ -192,9 +192,10 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 TextSpan(
                                   children: [
                                     const TextSpan(text: 'Ibu '),
+                                    const TextSpan(text: 'Sa\'idah'),
                                     TextSpan(
                                       text: 'Sa\'idah',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w600),
+                                      style: AppFonts.inter(fontWeight: FontWeight.w600, fontStyle: FontStyle.italic),
                                     ),
                                   ],
                                 ),
