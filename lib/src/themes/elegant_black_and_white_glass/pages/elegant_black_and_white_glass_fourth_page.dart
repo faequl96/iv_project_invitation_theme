@@ -172,7 +172,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                                       style: AppFonts.inter(
                                         color: Colors.grey.shade100,
                                         fontSize: FontScale.md,
-                                        fontWeight: FontWeight.w600,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                     ),
                                   ],

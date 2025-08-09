@@ -75,7 +75,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
-                          colors: [Colors.black.withValues(alpha: .4), Colors.black.withValues(alpha: .5)],
+                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
                           stops: const [0, 1],
                         ),
                         borderRadius: BorderRadius.circular(20),

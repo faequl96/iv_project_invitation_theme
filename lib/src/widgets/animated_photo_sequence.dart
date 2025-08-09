@@ -57,7 +57,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
         curve: const Interval(.68, 1, curve: Curves.easeIn),
       ),
     );
-    _frameScaleAnimation = Tween<double>(begin: 1, end: 1.15).animate(
+    _frameScaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(.68, 1, curve: Curves.ease),
@@ -114,11 +114,11 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                               height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                               width: SizeScale.widthX8l,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 24),
+                                padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 2),
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade50.withValues(alpha: .3),
-                                    border: Border.all(width: .5, color: Colors.grey.shade500),
+                                    border: Border.all(width: .5, color: Colors.grey.shade900),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                 ),
@@ -128,12 +128,9 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                           SizedBox(
                             height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                             width: SizeScale.widthX8l,
-                            child: const ColoredBox(
-                              color: Colors.transparent,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 24),
-                                child: ColoredBox(color: Colors.grey),
-                              ),
+                            child: const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 24),
+                              child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey)),
                             ),
                           ),
                         ],
