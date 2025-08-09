@@ -20,25 +20,24 @@ class Padlock extends StatelessWidget {
         await Future.delayed(const Duration(seconds: 2));
         // Audio.player.play();
       },
-      height: SizeScale.heightX2l,
+      height: SizeScale.widthLg + SizeScale.heightX10s,
       width: SizeScale.widthX12l,
       borderRadius: BorderRadius.circular(30),
       color: Colors.grey.shade900.withValues(alpha: .2),
       border: Border.all(width: .5, color: Colors.grey.shade500),
       child: Stack(
+        alignment: AlignmentDirectional.center,
         children: [
           GlassEffectBox(
+            height: SizeScale.widthLg + SizeScale.heightX10s,
             width: SizeScale.widthX12l,
-            height: SizeScale.heightX2l,
             borderRadius: 40,
             color: Colors.grey.shade200.withValues(alpha: .5),
             animationEnd: 1.02,
           ),
-          Center(
-            child: Text(
-              'Buka Undangan',
-              style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.w600),
-            ),
+          Text(
+            'Buka Undangan',
+            style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.w600),
           ),
         ],
       ),

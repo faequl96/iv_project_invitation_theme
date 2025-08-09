@@ -9,10 +9,9 @@ import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart'
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
-import 'package:iv_project_invitation_theme/src/widgets/field_view.dart';
-import 'package:iv_project_invitation_theme/src/widgets/text_field_sheet.dart';
 
 class ElegantBlackAndWhiteGlass extends StatefulWidget {
   const ElegantBlackAndWhiteGlass({super.key, required this.invitation});
@@ -70,47 +69,12 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
           child: Stack(
             children: [
               PageViewWithBottomTabBar(
-                pages: [
-                  const ElegantBlackAndWhiteGlassCoverPage(),
-                  const ElegantBlackAndWhiteGlassFirstPage(),
-                  const ElegantBlackAndWhiteGlassSecondPage(),
-                  const ElegantBlackAndWhiteGlassThirdPage(),
-                  SizedBox(
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    child: FieldView<String>(
-                      sheetContentBuilder: (context, onCompleted) => TextFieldSheet(value: '', onCompleted: onCompleted),
-                      onCompleted: (value) {},
-                      child: const Text('TES'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    child: FieldView<String>(
-                      sheetContentBuilder: (context, onCompleted) => TextFieldSheet(value: '', onCompleted: onCompleted),
-                      onCompleted: (value) {},
-                      child: const Text('TES'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    child: FieldView<String>(
-                      sheetContentBuilder: (context, onCompleted) => TextFieldSheet(value: '', onCompleted: onCompleted),
-                      onCompleted: (value) {},
-                      child: const Text('TES'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: double.maxFinite,
-                    width: double.maxFinite,
-                    child: FieldView<String>(
-                      sheetContentBuilder: (context, onCompleted) => TextFieldSheet(value: '', onCompleted: onCompleted),
-                      onCompleted: (value) {},
-                      child: const Text('TES'),
-                    ),
-                  ),
+                pages: const [
+                  ElegantBlackAndWhiteGlassCoverPage(),
+                  ElegantBlackAndWhiteGlassFirstPage(),
+                  ElegantBlackAndWhiteGlassSecondPage(),
+                  ElegantBlackAndWhiteGlassThirdPage(),
+                  ElegantBlackAndWhiteGlassFourthPage(),
                 ],
                 tabsBuilder: (int tabActive) => [
                   Tab(
@@ -144,7 +108,10 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                             children: [
                               Icon(Icons.drafts, color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 2', style: TextStyle(color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400)),
+                              Text(
+                                'Maksud Dan Tujuan',
+                                style: TextStyle(color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              ),
                             ],
                           ),
                         ),
@@ -163,7 +130,10 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                             children: [
                               Icon(Icons.drafts, color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 3', style: TextStyle(color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400)),
+                              Text(
+                                'Mengundang',
+                                style: TextStyle(color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              ),
                             ],
                           ),
                         ),
@@ -182,7 +152,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                             children: [
                               Icon(Icons.drafts, color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 4', style: TextStyle(color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400)),
+                              Text('Waktu', style: TextStyle(color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400)),
                             ],
                           ),
                         ),
@@ -201,7 +171,10 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                             children: [
                               Icon(Icons.drafts, color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Tab 5', style: TextStyle(color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400)),
+                              Text(
+                                'Lokasi',
+                                style: TextStyle(color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              ),
                             ],
                           ),
                         ),
