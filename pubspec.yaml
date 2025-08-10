@@ -45,6 +45,9 @@ dependencies:
   flutter_widget_from_html_core: ^0.17.0
   fwfh_webview: ^0.15.5
 
+  flutter_map: ^8.2.1
+  latlong2: ^0.9.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

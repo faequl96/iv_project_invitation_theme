@@ -9,7 +9,7 @@ import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/google_maps_embed_iframe.dart';
+import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
@@ -156,7 +156,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const GoogleMapsEmbedIframe(),
+                              const Maps(),
                               SizedBox(height: SizeScale.heightX3s),
                               GeneralEffectsButton(
                                 onTap: () {},

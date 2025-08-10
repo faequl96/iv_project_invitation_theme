@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
-import 'package:fwfh_webview/fwfh_webview.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
-import 'package:iv_project_invitation_theme/src/models/google_maps_lat_long.dart';
 import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart';
+import 'package:latlong2/latlong.dart';
 
-class GoogleMapsEmbedIframe extends StatefulWidget {
-  const GoogleMapsEmbedIframe({super.key});
+class Maps extends StatefulWidget {
+  const Maps({super.key});
 
   @override
-  State<GoogleMapsEmbedIframe> createState() => _GoogleMapsEmbedIframeState();
+  State<Maps> createState() => _MapsState();
 }
 
-class _GoogleMapsEmbedIframeState extends State<GoogleMapsEmbedIframe> {
-  String? _iframe;
-
-  GoogleMapsLatLong _parseGoogleMapsUrl(String url) {
+class _MapsState extends State<Maps> {
+  LatLng? _getLatLngFromGoogleMaps(String url) {
     final uri = Uri.parse(url);
     final path = uri.path;
 
@@ -46,29 +43,12 @@ class _GoogleMapsEmbedIframeState extends State<GoogleMapsEmbedIframe> {
       markerLong = double.tryParse(match.group(3)!);
     }
 
-    return GoogleMapsLatLong(markerLat: markerLat, markerLong: markerLong, viewLat: viewLat, viewLong: viewLong);
-  }
-
-  String? _convertToGoogleMapsEmbedIframe(String googleMapsUrl, {double? width, double? height}) {
-    final result = _parseGoogleMapsUrl(googleMapsUrl);
-
-    final lat = result.markerLat ?? result.viewLat;
-    final lng = result.markerLong ?? result.viewLong;
+    final lat = markerLat ?? viewLat;
+    final lng = markerLong ?? viewLong;
 
     if (lat == null || lng == null) return null;
 
-    final embedUrl = 'https://maps.google.com/maps?q=$lat,$lng&z=15&output=embed';
-    return '''
-      <iframe
-        width="$width"
-        height="$height"
-        src="$embedUrl"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    ''';
+    return LatLng(lat, lng);
   }
 
   @override
@@ -76,13 +56,11 @@ class _GoogleMapsEmbedIframeState extends State<GoogleMapsEmbedIframe> {
     return BlocSelector<CoreCubit, CoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) {
-        _iframe = _convertToGoogleMapsEmbedIframe(
+        final latLng = _getLatLngFromGoogleMaps(
           'https://www.google.com/maps/place/Masjid+Raya+Bani+Umar+-+Tangerang+Selatan/@-6.2705383,106.6944082,16.87z/data=!4m6!3m5!1s0x2e69faf062460ed5:0xc46eba6617b311d6!8m2!3d-6.2703756!4d106.6893305!16s%2Fg%2F1pztc44x6?entry=ttu&g_ep=EgoyMDI1MDgwNS4wIKXMDSoASAFQAw%3D%3D',
-          width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-          height: ScreenUtil.size.width - (SizeScale.widthX6s * 12),
         );
 
-        if (_iframe == null) {
+        if (latLng == null) {
           return DecoratedBox(
             decoration: BoxDecoration(
               border: Border.all(width: .5, color: Colors.grey.shade500),
@@ -126,7 +104,12 @@ class _GoogleMapsEmbedIframeState extends State<GoogleMapsEmbedIframe> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(2),
                 clipBehavior: Clip.hardEdge,
-                child: HtmlWidget(_iframe!, factoryBuilder: () => GoogleMapsFactory()),
+                child: MapsWidget(
+                  latitude: latLng.latitude,
+                  longitude: latLng.longitude,
+                  width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
+                  height: ScreenUtil.size.height - (SizeScale.heightX22l),
+                ),
               ),
             ),
           ],
@@ -136,4 +119,58 @@ class _GoogleMapsEmbedIframeState extends State<GoogleMapsEmbedIframe> {
   }
 }
 
-class GoogleMapsFactory extends WidgetFactory with WebViewFactory {}
+class MapsWidget extends StatefulWidget {
+  const MapsWidget({super.key, required this.latitude, required this.longitude, required this.height, required this.width});
+
+  final double latitude;
+  final double longitude;
+  final double height;
+  final double width;
+
+  @override
+  State<MapsWidget> createState() => _MapsWidgetState();
+}
+
+class _MapsWidgetState extends State<MapsWidget> {
+  bool _initComplete = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 1800));
+      setState(() => _initComplete = true);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_initComplete) return const SizedBox.shrink();
+    return SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: FlutterMap(
+        options: MapOptions(initialCenter: LatLng(widget.latitude, widget.longitude), initialZoom: 15),
+        children: [
+          // Layer untuk tile peta
+          TileLayer(
+            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            userAgentPackageName: 'com.iv_project_web.app',
+          ),
+          // Layer untuk marker
+          MarkerLayer(
+            markers: [
+              Marker(
+                point: LatLng(widget.latitude, widget.longitude),
+                width: 80,
+                height: 80,
+                child: const Icon(Icons.location_pin, color: Colors.red, size: 50),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
