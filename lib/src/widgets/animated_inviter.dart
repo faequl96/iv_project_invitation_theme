@@ -87,7 +87,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                       SizedBox(
                         height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                         width: .5,
-                        child: ColoredBox(color: Colors.grey.shade900),
+                        child: ColoredBox(color: Colors.grey.shade700),
                       ),
                     ],
                     Expanded(
@@ -98,8 +98,8 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                             width: double.maxFinite,
                             child: Padding(
                               padding: EdgeInsets.only(
-                                left: widget.isLeft ? SizeScale.widthX4s : SizeScale.widthX8s,
-                                right: widget.isLeft ? SizeScale.widthX8s : SizeScale.widthX4s,
+                                left: widget.isLeft ? SizeScale.widthX5s : SizeScale.widthX8s,
+                                right: widget.isLeft ? SizeScale.widthX8s : SizeScale.widthX5s,
                               ),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -115,7 +115,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                       SizedBox(
                         height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                         width: .5,
-                        child: ColoredBox(color: Colors.grey.shade900),
+                        child: ColoredBox(color: Colors.grey.shade700),
                       ),
                       SizedBox(width: SizeScale.widthX11l - 6),
                     ],

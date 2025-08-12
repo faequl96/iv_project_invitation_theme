@@ -105,104 +105,113 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     child: Stack(
                       clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.center,
                       children: [
-                        const Align(alignment: Alignment(0, 0), child: AnimatedPhotoSequence.left()),
-                        const Align(alignment: Alignment(0, 0), child: AnimatedPhotoSequence.right()),
-                        Align(
-                          alignment: const Alignment(0, 0),
-                          child: AnimatedInviter.left(
-                            children: [
-                              Text(
-                                'Rahma Nur Istiqomah, M.Biomed',
-                                style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
+                        const AnimatedPhotoSequence.left(),
+                        const AnimatedPhotoSequence.right(),
+                        AnimatedInviter.left(
+                          children: [
+                            Text(
+                              'Rahma Nur Istiqomah, M.Biomed',
+                              style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: .5,
+                              width: SizeScale.widthX16l,
+                              child: ColoredBox(color: Colors.grey.shade600),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              'Putri dari',
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 2),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Bapak '),
+                                  TextSpan(
+                                    text: 'Bagyo Trisno Ngulandoro, S.T',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Putri dari',
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'dan',
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 2),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Ibu '),
+                                  TextSpan(
+                                    text: 'Peni Lestari, S.E',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 2),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    const TextSpan(text: 'Bapak '),
-                                    TextSpan(
-                                      text: 'Bagyo Trisno Ngulandoro, S.T',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
-                                    ),
-                                  ],
-                                ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                'dan',
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(height: 2),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    const TextSpan(text: 'Ibu '),
-                                    TextSpan(
-                                      text: 'Peni Lestari, S.E',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
-                                    ),
-                                  ],
-                                ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
-                              ),
-                            ],
-                          ),
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
+                            ),
+                          ],
                         ),
-                        Align(
-                          alignment: const Alignment(0, 0),
-                          child: AnimatedInviter.right(
-                            children: [
-                              Text(
-                                'Faiq Ulul Fahmi, S.Pd',
-                                style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
-                                textAlign: TextAlign.end,
+                        AnimatedInviter.right(
+                          children: [
+                            Text(
+                              'Faiq Ulul Fahmi, S.Pd',
+                              style: AppFonts.pacifico(fontSize: FontScale.x2l, height: 1.25),
+                              textAlign: TextAlign.end,
+                            ),
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: .5,
+                              width: SizeScale.widthX16l,
+                              child: ColoredBox(color: Colors.grey.shade600),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              'Putra dari',
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 2),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Bapak '),
+                                  TextSpan(
+                                    text: 'Syamsuddin, S.Pd',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                'Putra dari',
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              'dan',
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
+                            ),
+                            const SizedBox(height: 2),
+                            Text.rich(
+                              TextSpan(
+                                children: [
+                                  const TextSpan(text: 'Ibu '),
+                                  TextSpan(
+                                    text: 'Sa\'idah',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(height: 2),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    const TextSpan(text: 'Bapak '),
-                                    TextSpan(
-                                      text: 'Syamsuddin, S.Pd',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
-                                    ),
-                                  ],
-                                ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                'dan',
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontWeight: FontWeight.w500),
-                              ),
-                              const SizedBox(height: 2),
-                              Text.rich(
-                                TextSpan(
-                                  children: [
-                                    const TextSpan(text: 'Ibu '),
-                                    TextSpan(
-                                      text: 'Sa\'idah',
-                                      style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
-                                    ),
-                                  ],
-                                ),
-                                style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
-                              ),
-                            ],
-                          ),
+                              style: AppFonts.inter(fontSize: FontScale.xs + .5, fontStyle: FontStyle.italic, height: 1.2),
+                            ),
+                          ],
                         ),
+                        const _Border.left(),
+                        const _Border.right(),
                       ],
                     ),
                   ),
@@ -242,6 +251,93 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _Border extends StatefulWidget {
+  const _Border.left() : isLeft = true;
+  const _Border.right() : isLeft = false;
+
+  final bool isLeft;
+
+  @override
+  State<_Border> createState() => _BorderState();
+}
+
+class _BorderState extends State<_Border> with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _lineFadeAnimation;
+
+  bool _isInitial = true;
+
+  void _runAnimation(int animationTrigger) {
+    if (animationTrigger == 1) _controller.forward();
+    if (animationTrigger == 0) _controller.reverse();
+  }
+
+  void _initAnimation() {
+    _controller = AnimationController(duration: const Duration(milliseconds: 2200), vsync: this);
+
+    _lineFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.82, 1, curve: Curves.easeIn),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initAnimation();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 800));
+      if (mounted) setState(() => _isInitial = false);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isInitial) return const SizedBox.shrink();
+
+    return SlideTransition(
+      position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isLeft ? -.75 : .75)),
+      child: BlocSelector<CoreCubit, CoreState, Size>(
+        selector: (state) => state.size,
+        builder: (_, _) => BlocSelector<CoreCubit, CoreState, int>(
+          selector: (state) => state.animationTrigger,
+          builder: (_, animationTrigger) {
+            _runAnimation(animationTrigger);
+            return FadeTransition(
+              opacity: _lineFadeAnimation,
+              child: ScaleTransition(
+                scale: const AlwaysStoppedAnimation<double>(1.12),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      top: BorderSide(width: .5, color: Colors.grey.shade600),
+                      bottom: BorderSide(width: .5, color: Colors.grey.shade600),
+                    ),
+                  ),
+                  child: SizedBox(
+                    height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
+                    width: ScreenUtil.size.width - (SizeScale.widthX6s * 6),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
