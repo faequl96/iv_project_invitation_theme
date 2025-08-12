@@ -138,7 +138,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
           valueListenable: _indexActive,
           builder: (_, indexActive, _) {
             return AnimatedPositioned(
-              bottom: indexActive > 0 ? 0 : -58,
+              bottom: indexActive > 0 ? 0 : -55,
               duration: const Duration(milliseconds: 300),
               child: SizedBox(
                 width: ScreenUtil.size.width,
@@ -177,8 +177,8 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                               indicatorWeight: 5,
                               indicator: UnderlineTabIndicator(
                                 borderRadius: BorderRadius.circular(2),
-                                borderSide: BorderSide(width: 4, color: Colors.grey.shade200),
-                                insets: const EdgeInsets.fromLTRB(0, 0, 0, 47),
+                                borderSide: BorderSide(width: 4, color: Colors.grey.shade50),
+                                insets: const EdgeInsets.fromLTRB(0, 0, 0, 45),
                               ),
                               splashBorderRadius: BorderRadius.circular(36),
                             ),

@@ -112,24 +112,28 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                                 slideFromOffset: .0,
                                 slideFrom: SlideFrom.top,
                                 delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
-                              ),
-                              const SizedBox(height: 4),
-                              FadeAndSlideTransition(
-                                slideFromOffset: .8,
-                                slideFrom: SlideFrom.bottom,
-                                animationSpeed: const Duration(milliseconds: 300),
-                                delayBeforeStart: const Duration(milliseconds: 1200),
-                                child: Text(
-                                  'Masjid Raya Bani Umar',
-                                  style: AppFonts.inter(
-                                    color: Colors.grey.shade50,
-                                    fontSize: FontScale.xl,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                child: Column(
+                                  children: [
+                                    Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Masjid Raya Bani Umar',
+                                      style: AppFonts.inter(
+                                        color: Colors.grey.shade50,
+                                        fontSize: FontScale.xl,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    SizedBox(
+                                      height: .5,
+                                      width: SizeScale.widthX18l,
+                                      child: ColoredBox(color: Colors.grey.shade50),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              const SizedBox(height: 4),
+                              const SizedBox(height: 8),
                               FadeAndSlideTransition(
                                 slideFromOffset: .8,
                                 slideFrom: SlideFrom.bottom,
@@ -158,24 +162,31 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             children: [
                               const Maps(),
                               SizedBox(height: SizeScale.heightXs),
-                              GeneralEffectsButton(
-                                onTap: () {},
-                                padding: const EdgeInsets.symmetric(horizontal: 24),
-                                height: SizeScale.widthLg + SizeScale.heightX10s,
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.white.withValues(alpha: .7),
-                                child: Stack(
-                                  alignment: AlignmentDirectional.center,
-                                  children: [
-                                    Text(
-                                      'Dapatkan Petunjuk Arah',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade900,
-                                        fontSize: FontScale.md,
-                                        fontWeight: FontWeight.w500,
+                              FadeAndSlideTransition(
+                                slideFromOffset: .8,
+                                slideFrom: SlideFrom.bottom,
+                                animationSpeed: const Duration(milliseconds: 300),
+                                delayBeforeStart: const Duration(milliseconds: 1400),
+                                child: GeneralEffectsButton(
+                                  onTap: () {},
+                                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                                  height: SizeScale.widthLg + SizeScale.heightX10s,
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(width: .5, color: Colors.grey.shade600),
+                                  color: Colors.white.withValues(alpha: .3),
+                                  child: Stack(
+                                    alignment: AlignmentDirectional.center,
+                                    children: [
+                                      Text(
+                                        'Dapatkan Petunjuk Arah',
+                                        style: AppFonts.inter(
+                                          color: Colors.grey.shade900,
+                                          fontSize: FontScale.md,
+                                          fontWeight: FontWeight.w600,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

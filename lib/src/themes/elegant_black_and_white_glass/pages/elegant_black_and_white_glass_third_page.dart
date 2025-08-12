@@ -108,7 +108,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                     child: Column(
                       children: [
                         const Spacer(),
-                        const Spacer(),
+                        SizedBox(height: SizeScale.heightX3l),
                         FadeAndSlideTransition(
                           slideFromOffset: .0,
                           slideFrom: SlideFrom.left,
@@ -122,7 +122,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: SizeScale.heightLg),
+                        SizedBox(height: SizeScale.heightSm),
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -148,6 +148,12 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                               ),
                             ),
                           ],
+                        ),
+                        const Spacer(),
+                        SizedBox(
+                          height: .5,
+                          width: SizeScale.widthX18l,
+                          child: ColoredBox(color: Colors.grey.shade100),
                         ),
                         const Spacer(),
                         Column(
@@ -193,6 +199,12 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
+                        SizedBox(
+                          height: .5,
+                          width: SizeScale.widthX18l,
+                          child: ColoredBox(color: Colors.grey.shade100),
+                        ),
+                        const Spacer(),
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -236,7 +248,13 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-                        SizedBox(height: SizeScale.heightX3s),
+                        SizedBox(
+                          height: .5,
+                          width: SizeScale.widthX18l,
+                          child: ColoredBox(color: Colors.grey.shade100),
+                        ),
+                        const Spacer(),
+                        SizedBox(height: SizeScale.heightX4s),
                         SizedBox(
                           height: SizeScale.widthX3l,
                           child: CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),

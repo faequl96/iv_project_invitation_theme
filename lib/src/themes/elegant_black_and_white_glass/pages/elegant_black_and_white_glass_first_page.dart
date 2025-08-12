@@ -107,17 +107,27 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                   child: ClipRect(
                     child: Column(
                       children: [
-                        const Spacer(),
+                        SizedBox(height: SizeScale.heightX2l),
                         FadeAndSlideTransition(
                           slideFromOffset: .5,
                           slideFrom: SlideFrom.top,
-                          delayBeforeStart: const Duration(milliseconds: 1200),
-                          child: Text(
-                            'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                            style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
+                          // delayBeforeStart: const Duration(milliseconds: 1200),
+                          child: Column(
+                            children: [
+                              Text(
+                                'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                                style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
+                              ),
+                              SizedBox(height: SizeScale.heightXs),
+                              SizedBox(
+                                height: .5,
+                                width: SizeScale.widthX19l - 4,
+                                child: ColoredBox(color: Colors.grey.shade500),
+                              ),
+                            ],
                           ),
                         ),
-                        SizedBox(height: SizeScale.heightLg),
+                        const Spacer(),
                         FadeAndSlideTransition(
                           slideFromOffset: .4,
                           slideFrom: SlideFrom.left,
@@ -131,7 +141,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                               ),
                               child: Padding(
                                 padding: EdgeInsets.only(
-                                  top: SizeScale.heightSm,
+                                  top: SizeScale.heightMd,
                                   left: 20,
                                   right: 20,
                                   bottom: SizeScale.heightSm,
@@ -140,9 +150,9 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     FadeAndSlideTransition(
-                                      slideFromOffset: .4,
+                                      slideFromOffset: .3,
                                       slideFrom: SlideFrom.top,
-                                      delayBeforeStart: const Duration(milliseconds: 1200),
+                                      delayBeforeStart: const Duration(milliseconds: 1600),
                                       child: Text(
                                         '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
                                         style: AppFonts.inter(
@@ -154,11 +164,11 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    const SizedBox(height: 8),
+                                    const SizedBox(height: 12),
                                     FadeAndSlideTransition(
                                       slideFromOffset: 1,
                                       slideFrom: SlideFrom.bottom,
-                                      delayBeforeStart: const Duration(milliseconds: 1300),
+                                      delayBeforeStart: const Duration(milliseconds: 1600),
                                       child: Text(
                                         '(Ar-Ruum Ayat 21)',
                                         style: AppFonts.inter(
@@ -199,7 +209,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     FadeAndSlideTransition(
                                       slideFromOffset: 1,
                                       slideFrom: SlideFrom.top,
-                                      delayBeforeStart: const Duration(milliseconds: 1200),
+                                      delayBeforeStart: const Duration(milliseconds: 1600),
                                       child: Text(
                                         'Assalamu\'alaikum Wr. Wb.',
                                         style: AppFonts.inter(
@@ -213,7 +223,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     FadeAndSlideTransition(
                                       slideFromOffset: .4,
                                       slideFrom: SlideFrom.bottom,
-                                      delayBeforeStart: const Duration(milliseconds: 1300),
+                                      delayBeforeStart: const Duration(milliseconds: 1600),
                                       child: Text(
                                         'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
                                         style: AppFonts.inter(
@@ -230,6 +240,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(height: SizeScale.heightX6s),
                         const Spacer(),
                       ],
                     ),

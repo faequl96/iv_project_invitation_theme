@@ -9,6 +9,7 @@ import 'package:iv_project_invitation_theme/src/models/invitation.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
@@ -76,144 +77,71 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ElegantBlackAndWhiteGlassSecondPage(),
                   ElegantBlackAndWhiteGlassThirdPage(),
                   ElegantBlackAndWhiteGlassFourthPage(),
+                  ElegantBlackAndWhiteGlassFifthPage(),
                 ],
                 tabsBuilder: (int tabActive) => [
                   Tab(
                     height: 48,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 6),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: Row(
-                            children: [
-                              Icon(Icons.image, size: 20, color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Cover',
-                                style: AppFonts.inter(
-                                  color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _Tab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
                   ),
                   Tab(
                     height: 48,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 6),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: Row(
-                            children: [
-                              Icon(Icons.lightbulb, size: 20, color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Maksud Dan Tujuan',
-                                style: AppFonts.inter(
-                                  color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _Tab(title: 'Maksud Dan Tujuan', icon: Icons.lightbulb, tabIndex: 1, tabActive: tabActive),
                   ),
                   Tab(
                     height: 48,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 6),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.mark_email_unread,
-                                size: 20,
-                                color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Mengundang',
-                                style: AppFonts.inter(
-                                  color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _Tab(title: 'Mengundang', icon: Icons.mark_email_read, tabIndex: 2, tabActive: tabActive),
                   ),
                   Tab(
                     height: 48,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 6),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: Row(
-                            children: [
-                              Icon(Icons.event, size: 20, color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Waktu',
-                                style: AppFonts.inter(
-                                  color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _Tab(title: 'Waktu', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
                   ),
                   Tab(
                     height: 48,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 6),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 6),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.location_pin,
-                                size: 20,
-                                color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Lokasi',
-                                style: AppFonts.inter(
-                                  color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: _Tab(title: 'Lokasi', icon: Icons.location_pin, tabIndex: 4, tabActive: tabActive),
+                  ),
+                  Tab(
+                    height: 48,
+                    child: _Tab(title: 'Galeri', icon: Icons.photo_library_rounded, tabIndex: 5, tabActive: tabActive),
                   ),
                 ],
               ),
               const InitializerWrapper(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _Tab extends StatelessWidget {
+  const _Tab({required this.title, required this.icon, required this.tabIndex, required this.tabActive});
+
+  final String title;
+  final IconData icon;
+  final int tabIndex;
+  final int tabActive;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const SizedBox(height: 6),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          child: Row(
+            children: [
+              Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
+              const SizedBox(width: 8),
+              Text(
+                title,
+                style: AppFonts.inter(
+                  color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
             ],
           ),
         ),
