@@ -75,7 +75,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: .8),
+                        color: Colors.white.withValues(alpha: .1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -231,7 +231,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                       height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
                       borderRadius: 20,
                       sliderWidth: 90,
-                      color: Colors.grey.shade50.withValues(alpha: .5),
+                      color: Colors.white.withValues(alpha: .5),
                       animationEnd: 1.14,
                       animationSpeed: const Duration(milliseconds: 600),
                       animationInterval: const Duration(seconds: 3),

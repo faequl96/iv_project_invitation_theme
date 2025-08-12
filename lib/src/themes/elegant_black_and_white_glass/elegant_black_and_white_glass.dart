@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
@@ -87,9 +88,15 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              Icon(Icons.image, size: 20, color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Cover', style: TextStyle(color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400)),
+                              Text(
+                                'Cover',
+                                style: AppFonts.inter(
+                                  color: tabActive == 0 ? Colors.grey.shade50 : Colors.grey.shade400,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -106,11 +113,14 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              Icon(Icons.lightbulb, size: 20, color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
                               Text(
                                 'Maksud Dan Tujuan',
-                                style: TextStyle(color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400),
+                                style: AppFonts.inter(
+                                  color: tabActive == 1 ? Colors.grey.shade50 : Colors.grey.shade400,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
@@ -128,11 +138,18 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              Icon(
+                                Icons.mark_email_unread,
+                                size: 20,
+                                color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400,
+                              ),
                               const SizedBox(width: 8),
                               Text(
                                 'Mengundang',
-                                style: TextStyle(color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400),
+                                style: AppFonts.inter(
+                                  color: tabActive == 2 ? Colors.grey.shade50 : Colors.grey.shade400,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),
@@ -150,9 +167,15 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              Icon(Icons.event, size: 20, color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400),
                               const SizedBox(width: 8),
-                              Text('Waktu', style: TextStyle(color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400)),
+                              Text(
+                                'Waktu',
+                                style: AppFonts.inter(
+                                  color: tabActive == 3 ? Colors.grey.shade50 : Colors.grey.shade400,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -169,11 +192,18 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                           padding: const EdgeInsets.symmetric(horizontal: 6),
                           child: Row(
                             children: [
-                              Icon(Icons.drafts, color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400),
+                              Icon(
+                                Icons.location_pin,
+                                size: 20,
+                                color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400,
+                              ),
                               const SizedBox(width: 8),
                               Text(
                                 'Lokasi',
-                                style: TextStyle(color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400),
+                                style: AppFonts.inter(
+                                  color: tabActive == 4 ? Colors.grey.shade50 : Colors.grey.shade400,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ],
                           ),

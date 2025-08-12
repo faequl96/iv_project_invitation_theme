@@ -55,8 +55,6 @@ class _RandomSlideTransitionState extends State<RandomSlideTransition> with Sing
   Widget build(BuildContext context) {
     final animatedOffset = Offset.lerp(_startOffset, _targetOffset, _controller.value)!;
 
-    return Stack(
-      children: [FractionalTranslation(translation: animatedOffset, child: widget.child)],
-    );
+    return FractionalTranslation(translation: animatedOffset, child: widget.child);
   }
 }

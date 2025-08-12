@@ -105,155 +105,144 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                     border: Border.all(width: .5, color: Colors.grey.shade500),
                   ),
                   child: ClipRect(
-                    child: Stack(
+                    child: Column(
                       children: [
-                        Align(
-                          alignment: const Alignment(0, -.7),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FadeAndSlideTransition(
-                                slideFromOffset: .0,
-                                slideFrom: SlideFrom.left,
-                                delayBeforeStart: const Duration(milliseconds: 800),
-                                child: Text(
-                                  'Dilaksanakan pada :',
-                                  style: AppFonts.inter(
-                                    color: Colors.grey.shade100,
-                                    fontSize: FontScale.xl,
-                                    fontWeight: FontWeight.w300,
-                                  ),
-                                ),
-                              ),
-                            ],
+                        const Spacer(),
+                        const Spacer(),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .0,
+                          slideFrom: SlideFrom.left,
+                          delayBeforeStart: const Duration(milliseconds: 800),
+                          child: Text(
+                            'Dilaksanakan pada :',
+                            style: AppFonts.inter(
+                              color: Colors.grey.shade100,
+                              fontSize: FontScale.xl,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
                         ),
-                        Align(
-                          alignment: const Alignment(0, -.45),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FadeAndSlideTransition(
-                                slideFromOffset: .0,
-                                slideFrom: SlideFrom.top,
-                                delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: Icon(Icons.date_range_rounded, size: 32, color: Colors.grey.shade100),
-                              ),
-                              const SizedBox(height: 4),
-                              FadeAndSlideTransition(
-                                slideFromOffset: .8,
-                                slideFrom: SlideFrom.bottom,
-                                animationSpeed: const Duration(milliseconds: 300),
-                                delayBeforeStart: const Duration(milliseconds: 1200),
-                                child: Text(
-                                  'Minggu, 17 Agustus 2025',
-                                  style: AppFonts.inter(
-                                    color: Colors.grey.shade100,
-                                    fontSize: FontScale.xl,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                        SizedBox(height: SizeScale.heightLg),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FadeAndSlideTransition(
+                              slideFromOffset: .0,
+                              slideFrom: SlideFrom.top,
+                              delayBeforeStart: const Duration(milliseconds: 1000),
+                              child: Icon(Icons.date_range_rounded, size: 32, color: Colors.grey.shade100),
+                            ),
+                            const SizedBox(height: 4),
+                            FadeAndSlideTransition(
+                              slideFromOffset: .8,
+                              slideFrom: SlideFrom.bottom,
+                              animationSpeed: const Duration(milliseconds: 300),
+                              delayBeforeStart: const Duration(milliseconds: 1200),
+                              child: Text(
+                                'Minggu, 17 Agustus 2025',
+                                style: AppFonts.inter(
+                                  color: Colors.grey.shade100,
+                                  fontSize: FontScale.xl,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Align(
-                          alignment: const Alignment(0, -.05),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FadeAndSlideTransition(
-                                slideFromOffset: .0,
-                                slideFrom: SlideFrom.top,
-                                delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.volunteer_activism, color: Colors.grey.shade100),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      'Akad Nikah',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
-                                        fontSize: FontScale.x2l,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                        const Spacer(),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FadeAndSlideTransition(
+                              slideFromOffset: .0,
+                              slideFrom: SlideFrom.top,
+                              delayBeforeStart: const Duration(milliseconds: 1000),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.volunteer_activism, color: Colors.grey.shade100),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Akad Nikah',
+                                    style: AppFonts.inter(
+                                      color: Colors.grey.shade100,
+                                      fontSize: FontScale.x2l,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    const SizedBox(width: 8),
-                                    Icon(Icons.menu_book, color: Colors.grey.shade100),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              FadeAndSlideTransition(
-                                slideFromOffset: .8,
-                                slideFrom: SlideFrom.bottom,
-                                animationSpeed: const Duration(milliseconds: 300),
-                                delayBeforeStart: const Duration(milliseconds: 1200),
-                                child: Text(
-                                  'Pukul 08.00 WIB - Pukul 10.00 WIB',
-                                  style: AppFonts.inter(
-                                    color: Colors.grey.shade100,
-                                    fontSize: FontScale.md,
-                                    fontWeight: FontWeight.w400,
                                   ),
+                                  const SizedBox(width: 8),
+                                  Icon(Icons.menu_book, color: Colors.grey.shade100),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            FadeAndSlideTransition(
+                              slideFromOffset: .8,
+                              slideFrom: SlideFrom.bottom,
+                              animationSpeed: const Duration(milliseconds: 300),
+                              delayBeforeStart: const Duration(milliseconds: 1200),
+                              child: Text(
+                                'Pukul 08.00 WIB - Pukul 10.00 WIB',
+                                style: AppFonts.inter(
+                                  color: Colors.grey.shade100,
+                                  fontSize: FontScale.md,
+                                  fontWeight: FontWeight.w300,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Align(
-                          alignment: const Alignment(0, .35),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              FadeAndSlideTransition(
-                                slideFromOffset: .0,
-                                slideFrom: SlideFrom.top,
-                                delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(Icons.celebration, color: Colors.grey.shade100),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      'Resepsi',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
-                                        fontSize: FontScale.x2l,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                        const Spacer(),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FadeAndSlideTransition(
+                              slideFromOffset: .0,
+                              slideFrom: SlideFrom.top,
+                              delayBeforeStart: const Duration(milliseconds: 1000),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(Icons.celebration, color: Colors.grey.shade100),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Resepsi',
+                                    style: AppFonts.inter(
+                                      color: Colors.grey.shade100,
+                                      fontSize: FontScale.x2l,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                    const SizedBox(width: 8),
-                                    Icon(Icons.restaurant, color: Colors.grey.shade100),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 12),
-                              FadeAndSlideTransition(
-                                slideFromOffset: .8,
-                                slideFrom: SlideFrom.bottom,
-                                animationSpeed: const Duration(milliseconds: 300),
-                                delayBeforeStart: const Duration(milliseconds: 1200),
-                                child: Text(
-                                  'Pukul 11.00 WIB - Pukul 13.00 WIB',
-                                  style: AppFonts.inter(
-                                    color: Colors.grey.shade100,
-                                    fontSize: FontScale.md,
-                                    fontWeight: FontWeight.w400,
                                   ),
+                                  const SizedBox(width: 8),
+                                  Icon(Icons.restaurant, color: Colors.grey.shade100),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            FadeAndSlideTransition(
+                              slideFromOffset: .8,
+                              slideFrom: SlideFrom.bottom,
+                              animationSpeed: const Duration(milliseconds: 300),
+                              delayBeforeStart: const Duration(milliseconds: 1200),
+                              child: Text(
+                                'Pukul 11.00 WIB - Pukul 13.00 WIB',
+                                style: AppFonts.inter(
+                                  color: Colors.grey.shade100,
+                                  fontSize: FontScale.md,
+                                  fontWeight: FontWeight.w300,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Align(
-                          alignment: const Alignment(0, .8),
-                          child: SizedBox(
-                            height: SizeScale.widthX3l,
-                            child: CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
-                          ),
+                        const Spacer(),
+                        SizedBox(height: SizeScale.heightX3s),
+                        SizedBox(
+                          height: SizeScale.widthX3l,
+                          child: CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
                         ),
+                        SizedBox(height: SizeScale.heightX3s),
+                        const Spacer(),
                       ],
                     ),
                   ),

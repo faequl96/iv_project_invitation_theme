@@ -74,7 +74,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: .8),
+                        color: Colors.white.withValues(alpha: .1),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -112,7 +112,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                                 slideFromOffset: .0,
                                 slideFrom: SlideFrom.top,
                                 delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: Icon(Icons.location_pin, size: 32, color: Colors.grey.shade900),
+                                child: Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
                               ),
                               const SizedBox(height: 4),
                               FadeAndSlideTransition(
@@ -123,7 +123,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                                 child: Text(
                                   'Masjid Raya Bani Umar',
                                   style: AppFonts.inter(
-                                    color: Colors.grey.shade900,
+                                    color: Colors.grey.shade50,
                                     fontSize: FontScale.xl,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -140,7 +140,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                                   child: Text(
                                     'Jl. Graha Raya Bintaro Kv. GK 4 No. 2-4, Pondok Aren, Tangerang Selatan',
                                     style: AppFonts.inter(
-                                      color: Colors.grey.shade900,
+                                      color: Colors.grey.shade100,
                                       fontSize: FontScale.xs,
                                       fontWeight: FontWeight.w400,
                                     ),
@@ -157,20 +157,20 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               const Maps(),
-                              SizedBox(height: SizeScale.heightX3s),
+                              SizedBox(height: SizeScale.heightXs),
                               GeneralEffectsButton(
                                 onTap: () {},
                                 padding: const EdgeInsets.symmetric(horizontal: 24),
                                 height: SizeScale.widthLg + SizeScale.heightX10s,
                                 borderRadius: BorderRadius.circular(30),
-                                color: Colors.black.withValues(alpha: .6),
+                                color: Colors.white.withValues(alpha: .7),
                                 child: Stack(
                                   alignment: AlignmentDirectional.center,
                                   children: [
                                     Text(
                                       'Dapatkan Petunjuk Arah',
                                       style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
+                                        color: Colors.grey.shade900,
                                         fontSize: FontScale.md,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -209,7 +209,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                       height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
                       borderRadius: 20,
                       sliderWidth: 90,
-                      color: Colors.grey.shade50.withValues(alpha: .5),
+                      color: Colors.white.withValues(alpha: .5),
                       animationEnd: 1.14,
                       animationSpeed: const Duration(milliseconds: 600),
                       animationInterval: const Duration(seconds: 3),

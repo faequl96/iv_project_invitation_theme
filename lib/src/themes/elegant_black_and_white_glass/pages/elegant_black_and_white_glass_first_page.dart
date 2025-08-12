@@ -72,6 +72,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
+                        // color: Colors.white.withValues(alpha: .1),
                         gradient: LinearGradient(
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
@@ -104,94 +105,132 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                     border: Border.all(width: .5, color: Colors.grey.shade500),
                   ),
                   child: ClipRect(
-                    child: Stack(
+                    child: Column(
                       children: [
-                        Align(
-                          alignment: const Alignment(0, -.75),
-                          child: FadeAndSlideTransition(
-                            slideFromOffset: .4,
-                            slideFrom: SlideFrom.left,
-                            delayBeforeStart: const Duration(milliseconds: 1200),
-                            child: Text(
-                              'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                              style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
-                            ),
+                        const Spacer(),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .5,
+                          slideFrom: SlideFrom.top,
+                          delayBeforeStart: const Duration(milliseconds: 1200),
+                          child: Text(
+                            'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                            style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
                           ),
                         ),
-                        Align(
-                          alignment: const Alignment(0, -.3),
-                          child: FadeAndSlideTransition(
-                            slideFromOffset: .4,
-                            slideFrom: SlideFrom.right,
-                            delayBeforeStart: const Duration(milliseconds: 1200),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 40),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
-                                    style: AppFonts.inter(
-                                      color: Colors.grey.shade100,
-                                      fontSize: FontScale.md,
-                                      fontWeight: FontWeight.w400,
-                                      fontStyle: FontStyle.italic,
+                        SizedBox(height: SizeScale.heightLg),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .4,
+                          slideFrom: SlideFrom.bottom,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                border: Border.all(width: .5, color: Colors.grey.shade500),
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white.withValues(alpha: .1),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: SizeScale.heightXs,
+                                  left: 20,
+                                  right: 20,
+                                  bottom: SizeScale.heightSm,
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: .4,
+                                      slideFrom: SlideFrom.left,
+                                      delayBeforeStart: const Duration(milliseconds: 1200),
+                                      child: Text(
+                                        '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
+                                        style: AppFonts.inter(
+                                          color: Colors.grey.shade100,
+                                          fontSize: FontScale.md,
+                                          fontWeight: FontWeight.w500,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    '(Ar-Ruum Ayat 21)',
-                                    style: AppFonts.inter(
-                                      color: Colors.grey.shade100,
-                                      fontSize: FontScale.lg,
-                                      fontWeight: FontWeight.w600,
+                                    const SizedBox(height: 8),
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: .4,
+                                      slideFrom: SlideFrom.right,
+                                      delayBeforeStart: const Duration(milliseconds: 1200),
+                                      child: Text(
+                                        '(Ar-Ruum Ayat 21)',
+                                        style: AppFonts.inter(
+                                          color: Colors.grey.shade100,
+                                          fontSize: FontScale.lg,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        Align(
-                          alignment: const Alignment(0, .6),
+                        SizedBox(height: SizeScale.heightX2s),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .4,
+                          slideFrom: SlideFrom.bottom,
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 40),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                FadeAndSlideTransition(
-                                  slideFromOffset: .4,
-                                  slideFrom: SlideFrom.left,
-                                  delayBeforeStart: const Duration(milliseconds: 1200),
-                                  child: Text(
-                                    'Assalamu\'alaikum Wr. Wb.',
-                                    style: AppFonts.inter(
-                                      color: Colors.grey.shade100,
-                                      fontSize: FontScale.x2l,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                            padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                border: Border.all(width: .5, color: Colors.grey.shade500),
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white.withValues(alpha: .1),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                  top: SizeScale.heightXs,
+                                  left: 20,
+                                  right: 20,
+                                  bottom: SizeScale.heightSm,
                                 ),
-                                SizedBox(height: SizeScale.heightX3s),
-                                FadeAndSlideTransition(
-                                  slideFromOffset: .4,
-                                  slideFrom: SlideFrom.right,
-                                  delayBeforeStart: const Duration(milliseconds: 1200),
-                                  child: Text(
-                                    'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                                    style: AppFonts.inter(
-                                      color: Colors.grey.shade100,
-                                      fontSize: FontScale.md,
-                                      fontWeight: FontWeight.w400,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: .4,
+                                      slideFrom: SlideFrom.left,
+                                      delayBeforeStart: const Duration(milliseconds: 1200),
+                                      child: Text(
+                                        'Assalamu\'alaikum Wr. Wb.',
+                                        style: AppFonts.inter(
+                                          color: Colors.grey.shade100,
+                                          fontSize: FontScale.x2l,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                                     ),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                    SizedBox(height: SizeScale.heightX3s),
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: .4,
+                                      slideFrom: SlideFrom.right,
+                                      delayBeforeStart: const Duration(milliseconds: 1200),
+                                      child: Text(
+                                        'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
+                                        style: AppFonts.inter(
+                                          color: Colors.grey.shade100,
+                                          fontSize: FontScale.md,
+                                          fontWeight: FontWeight.w400,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
+                        const Spacer(),
                       ],
                     ),
                   ),

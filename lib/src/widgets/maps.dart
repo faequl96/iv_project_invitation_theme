@@ -80,7 +80,7 @@ class _MapsState extends State<Maps> {
           children: [
             DecoratedBox(
               decoration: BoxDecoration(
-                border: Border.all(width: .5, color: Colors.grey.shade500),
+                border: Border.all(width: 2, color: Colors.grey.shade400),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Padding(
