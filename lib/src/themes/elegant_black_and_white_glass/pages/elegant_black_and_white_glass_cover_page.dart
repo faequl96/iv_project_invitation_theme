@@ -142,9 +142,9 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
       if (mounted) {
         _groomController.forward();
         await Future.delayed(const Duration(milliseconds: 100));
-        _andController.forward();
+        if (mounted) _andController.forward();
         await Future.delayed(const Duration(milliseconds: 200));
-        if (_brideController.value != 1) _brideController.forward();
+        if (mounted) if (_brideController.value != 1) _brideController.forward();
       }
     } else {
       _groomController.reverse();
@@ -152,7 +152,7 @@ class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
       if (mounted) {
         _andController.reverse();
         await Future.delayed(const Duration(milliseconds: 200));
-        _brideController.reverse();
+        if (mounted) _brideController.reverse();
       }
     }
   }
