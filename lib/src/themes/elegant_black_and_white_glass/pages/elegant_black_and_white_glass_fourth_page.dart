@@ -173,7 +173,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                                   height: SizeScale.widthLg + SizeScale.heightX10s,
                                   borderRadius: BorderRadius.circular(30),
                                   border: Border.all(width: .5, color: Colors.grey.shade600),
-                                  color: Colors.white.withValues(alpha: .3),
+                                  color: Colors.white.withValues(alpha: .2),
                                   child: Stack(
                                     alignment: AlignmentDirectional.center,
                                     children: [

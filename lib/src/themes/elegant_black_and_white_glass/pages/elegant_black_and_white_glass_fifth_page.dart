@@ -9,6 +9,7 @@ import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
   const ElegantBlackAndWhiteGlassFifthPage({super.key});
@@ -84,267 +85,201 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(height: SizeScale.heightXs),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.left,
-                                  slideFromOffset: .3,
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: SizeScale.heightX4s),
+                        Row(
+                          children: [
+                            SizedBox(width: SizeScale.widthX4s),
+                            Expanded(
+                              flex: 5,
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.left,
+                                slideFromOffset: .3,
+                                child: SizedBox(
+                                  height: SizeScale.widthX11l + 4,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                width: .5,
-                                child: ColoredBox(color: Colors.grey.shade500),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.right,
-                                  slideFromOffset: .3,
-                                  delayBeforeStart: const Duration(milliseconds: 1400),
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            SizedBox(
+                              height: SizeScale.widthX11l + 4,
+                              width: .5,
+                              child: ColoredBox(color: Colors.grey.shade500),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            Expanded(
+                              flex: 3,
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.right,
+                                slideFromOffset: .3,
+                                delayBeforeStart: const Duration(milliseconds: 1400),
+                                child: SizedBox(
+                                  height: SizeScale.widthX11l + 4,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
                                   ),
                                 ),
                               ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
+                            ),
+                            SizedBox(width: SizeScale.widthX4s),
+                          ],
+                        ),
+                        SizedBox(height: SizeScale.widthX7s),
+                        Row(
+                          children: [
+                            SizedBox(width: SizeScale.widthX4s),
+                            Expanded(
+                              child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+                            ),
+                            SizedBox(width: SizeScale.widthX4s),
+                          ],
+                        ),
+                        SizedBox(height: SizeScale.widthX7s),
+                        Row(
+                          children: [
+                            SizedBox(width: SizeScale.widthX4s),
+                            Expanded(
+                              flex: 3,
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.right,
+                                slideFromOffset: .3,
+                                delayBeforeStart: const Duration(milliseconds: 1400),
+                                child: SizedBox(
+                                  height: SizeScale.widthX11l + 4,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            SizedBox(
+                              height: SizeScale.widthX11l + 4,
+                              width: .5,
+                              child: ColoredBox(color: Colors.grey.shade500),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            Expanded(
+                              flex: 5,
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.left,
+                                slideFromOffset: .3,
+                                child: SizedBox(
+                                  height: SizeScale.widthX11l + 4,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: SizeScale.widthX4s),
+                          ],
+                        ),
+                        SizedBox(height: SizeScale.widthX7s),
+                        Row(
+                          children: [
+                            SizedBox(width: SizeScale.widthX4s),
+                            Expanded(
+                              child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+                            ),
+                            SizedBox(width: SizeScale.widthX4s),
+                          ],
+                        ),
+                        SizedBox(height: SizeScale.widthX7s),
+                        Row(
+                          children: [
+                            SizedBox(width: SizeScale.widthX4s),
+                            Expanded(
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.bottom,
+                                slideFromOffset: .3,
+                                delayBeforeStart: const Duration(milliseconds: 2000),
+                                child: SizedBox(
+                                  height: SizeScale.widthX9l + 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            SizedBox(
+                              height: SizeScale.widthX9l + 8,
+                              width: .5,
+                              child: ColoredBox(color: Colors.grey.shade500),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            Expanded(
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.bottom,
+                                slideFromOffset: .3,
+                                delayBeforeStart: const Duration(milliseconds: 2000),
+                                child: SizedBox(
+                                  height: SizeScale.widthX9l + 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            SizedBox(
+                              height: SizeScale.widthX9l + 8,
+                              width: .5,
+                              child: ColoredBox(color: Colors.grey.shade500),
+                            ),
+                            SizedBox(width: SizeScale.widthX7s),
+                            Expanded(
+                              child: FadeAndSlideTransition(
+                                slideFrom: SlideFrom.bottom,
+                                slideFromOffset: .3,
+                                delayBeforeStart: const Duration(milliseconds: 2000),
+                                child: SizedBox(
+                                  height: SizeScale.widthX9l + 8,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: SizeScale.widthX4s),
+                          ],
+                        ),
+                        SizedBox(height: SizeScale.heightXs),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: SlideFrom.bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 2600),
+                          child: GeneralEffectsButton(
+                            onTap: () {},
+                            padding: const EdgeInsets.symmetric(horizontal: 48),
+                            height: SizeScale.widthLg + SizeScale.heightX10s,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(width: .5, color: Colors.grey.shade600),
+                            color: Colors.white.withValues(alpha: .2),
+                            child: Stack(
+                              alignment: AlignmentDirectional.center,
+                              children: [
+                                Text(
+                                  'Selengkapnya',
+                                  style: AppFonts.inter(
+                                    color: Colors.grey.shade900,
+                                    fontSize: FontScale.md,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.left,
-                                  slideFromOffset: .3,
-                                  delayBeforeStart: const Duration(milliseconds: 1400),
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                width: .5,
-                                child: ColoredBox(color: Colors.grey.shade500),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.right,
-                                  slideFromOffset: .3,
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.left,
-                                  slideFromOffset: .3,
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                width: .5,
-                                child: ColoredBox(color: Colors.grey.shade500),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.right,
-                                  slideFromOffset: .3,
-                                  delayBeforeStart: const Duration(milliseconds: 1400),
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.left,
-                                  slideFromOffset: .3,
-                                  delayBeforeStart: const Duration(milliseconds: 1400),
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                width: .5,
-                                child: ColoredBox(color: Colors.grey.shade500),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.right,
-                                  slideFromOffset: .3,
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightX4s),
-                          Row(
-                            children: [
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.left,
-                                  slideFromOffset: .3,
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                width: .5,
-                                child: ColoredBox(color: Colors.grey.shade500),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                              Expanded(
-                                child: FadeAndSlideTransition(
-                                  slideFrom: SlideFrom.right,
-                                  slideFromOffset: .3,
-                                  delayBeforeStart: const Duration(milliseconds: 1400),
-                                  child: SizedBox(
-                                    height: SizeScale.widthX9l + 8,
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: SizeScale.widthX6s),
-                            ],
-                          ),
-                          SizedBox(height: SizeScale.heightXs),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: SizeScale.heightXs),
+                      ],
                     ),
                   ),
                 ),
