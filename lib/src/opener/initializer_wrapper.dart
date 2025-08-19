@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
@@ -91,7 +90,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   child: Center(
                     child: Text(
                       'M',
-                      style: GoogleFonts.pacifico(
+                      style: AppFonts.pacifico(
                         fontSize: FontScale.xl + SizeScale.heightXl,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade300,
@@ -108,7 +107,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   child: Center(
                     child: Text(
                       'D',
-                      style: GoogleFonts.pacifico(
+                      style: AppFonts.pacifico(
                         fontSize: FontScale.xl + SizeScale.heightXl,
                         fontWeight: FontWeight.w500,
                         color: Colors.grey.shade300,

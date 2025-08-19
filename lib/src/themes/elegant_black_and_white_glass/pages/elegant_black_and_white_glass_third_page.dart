@@ -31,7 +31,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.transparent, Colors.grey.shade900],
-                    stops: const [.1, .8],
+                    stops: const [.2, .8],
                   ),
                 ),
               ),
@@ -46,11 +46,16 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
               child: SizedBox(
                 height: SizeScale.heightX6l,
                 width: ScreenUtil.size.width,
-                child: Center(
-                  child: Text(
-                    'Acara Pernikahan',
-                    style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.event, size: SizeScale.widthXs, color: Colors.grey.shade900),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Acara Pernikahan',
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                    ),
+                  ],
                 ),
               ),
             ),

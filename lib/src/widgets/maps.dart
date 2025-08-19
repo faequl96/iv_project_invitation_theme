@@ -140,7 +140,7 @@ class _MapsWidgetState extends State<MapsWidget> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.delayed(const Duration(milliseconds: 1000));
-      setState(() => _initComplete = true);
+      if (mounted) setState(() => _initComplete = true);
     });
   }
 

@@ -32,7 +32,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.grey.shade900, Colors.transparent],
-                    stops: const [.1, .8],
+                    stops: const [.2, .8],
                   ),
                 ),
               ),
@@ -47,11 +47,16 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
               child: SizedBox(
                 height: SizeScale.heightX6l,
                 width: ScreenUtil.size.width,
-                child: Center(
-                  child: Text(
-                    'Lokasi Acara',
-                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.location_pin, size: SizeScale.widthXs, color: Colors.grey.shade200),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Lokasi Acara',
+                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -101,97 +106,85 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                     border: Border.all(width: .5, color: Colors.grey.shade500),
                   ),
                   child: ClipRect(
-                    child: Stack(
+                    child: Column(
                       children: [
-                        Align(
-                          alignment: const Alignment(0, -.9),
+                        SizedBox(height: SizeScale.heightLg),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .0,
+                          slideFrom: SlideFrom.top,
+                          delayBeforeStart: const Duration(milliseconds: 1000),
                           child: Column(
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              FadeAndSlideTransition(
-                                slideFromOffset: .0,
-                                slideFrom: SlideFrom.top,
-                                delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: Column(
-                                  children: [
-                                    Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      'Masjid Raya Bani Umar',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade50,
-                                        fontSize: FontScale.xl,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    SizedBox(
-                                      height: .5,
-                                      width: SizeScale.widthX18l,
-                                      child: ColoredBox(color: Colors.grey.shade50),
-                                    ),
-                                  ],
+                              Icon(Icons.maps_home_work_rounded, size: 32, color: Colors.grey.shade50),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Masjid Raya Bani Umar',
+                                style: AppFonts.inter(
+                                  color: Colors.grey.shade50,
+                                  fontSize: FontScale.xl,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              FadeAndSlideTransition(
-                                slideFromOffset: .8,
-                                slideFrom: SlideFrom.bottom,
-                                animationSpeed: const Duration(milliseconds: 300),
-                                delayBeforeStart: const Duration(milliseconds: 1200),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                                  child: Text(
-                                    'Jl. Graha Raya Bintaro Kv. GK 4 No. 2-4, Pondok Aren, Tangerang Selatan',
-                                    style: AppFonts.inter(
-                                      color: Colors.grey.shade100,
-                                      fontSize: FontScale.xs,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
+                              SizedBox(
+                                height: .5,
+                                width: SizeScale.widthX18l,
+                                child: ColoredBox(color: Colors.grey.shade50),
                               ),
                             ],
                           ),
                         ),
-                        Align(
-                          alignment: Alignment(0, 1.4 - SizeScale.heightX16s),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Maps(),
-                              SizedBox(height: SizeScale.heightXs),
-                              FadeAndSlideTransition(
-                                slideFromOffset: .8,
-                                slideFrom: SlideFrom.bottom,
-                                animationSpeed: const Duration(milliseconds: 300),
-                                delayBeforeStart: const Duration(milliseconds: 1400),
-                                child: GeneralEffectsButton(
-                                  onTap: () {},
-                                  padding: const EdgeInsets.symmetric(horizontal: 24),
-                                  height: SizeScale.widthLg + SizeScale.heightX10s,
-                                  borderRadius: BorderRadius.circular(30),
-                                  border: Border.all(width: .5, color: Colors.grey.shade600),
-                                  color: Colors.white.withValues(alpha: .2),
-                                  child: Stack(
-                                    alignment: AlignmentDirectional.center,
-                                    children: [
-                                      Text(
-                                        'Dapatkan Petunjuk Arah',
-                                        style: AppFonts.inter(
-                                          color: Colors.grey.shade900,
-                                          fontSize: FontScale.md,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                        const SizedBox(height: 8),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: SlideFrom.bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 1200),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              'Jl. Graha Raya Bintaro Kv. GK 4 No. 2-4, Pondok Aren, Tangerang Selatan',
+                              style: AppFonts.inter(
+                                color: Colors.grey.shade50,
+                                fontSize: FontScale.xs,
+                                fontWeight: FontWeight.w400,
                               ),
-                            ],
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
+                        const Spacer(),
+                        const Maps(),
+                        SizedBox(height: SizeScale.heightX2s),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: SlideFrom.bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 1400),
+                          child: GeneralEffectsButton(
+                            onTap: () {},
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            height: SizeScale.widthLg + SizeScale.heightX10s,
+                            borderRadius: BorderRadius.circular(30),
+                            border: Border.all(width: .5, color: Colors.grey.shade600),
+                            color: Colors.white.withValues(alpha: .2),
+                            child: Stack(
+                              alignment: AlignmentDirectional.center,
+                              children: [
+                                Text(
+                                  'Dapatkan Petunjuk Arah',
+                                  style: AppFonts.inter(
+                                    color: Colors.grey.shade900,
+                                    fontSize: FontScale.md,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        const Spacer(),
                       ],
                     ),
                   ),

@@ -13,6 +13,7 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
 
 class ElegantBlackAndWhiteGlass extends StatefulWidget {
@@ -78,6 +79,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ElegantBlackAndWhiteGlassThirdPage(),
                   ElegantBlackAndWhiteGlassFourthPage(),
                   ElegantBlackAndWhiteGlassFifthPage(),
+                  ElegantBlackAndWhiteGlassSixthPage(),
                 ],
                 tabsBuilder: (int tabActive) => [
                   Tab(
@@ -90,11 +92,11 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ),
                   Tab(
                     height: 48,
-                    child: _Tab(title: 'Mengundang', icon: Icons.mark_email_read, tabIndex: 2, tabActive: tabActive),
+                    child: _Tab(title: 'Pengundang', icon: Icons.people, tabIndex: 2, tabActive: tabActive),
                   ),
                   Tab(
                     height: 48,
-                    child: _Tab(title: 'Waktu', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
+                    child: _Tab(title: 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
                   ),
                   Tab(
                     height: 48,
@@ -103,6 +105,10 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   Tab(
                     height: 48,
                     child: _Tab(title: 'Galeri', icon: Icons.photo_library_rounded, tabIndex: 5, tabActive: tabActive),
+                  ),
+                  Tab(
+                    height: 48,
+                    child: _Tab(title: 'Kado', icon: Icons.card_giftcard, tabIndex: 5, tabActive: tabActive),
                   ),
                 ],
               ),

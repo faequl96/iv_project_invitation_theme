@@ -30,11 +30,16 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
               child: SizedBox(
                 height: SizeScale.heightX6l,
                 width: ScreenUtil.size.width,
-                child: Center(
-                  child: Text(
-                    'Galeri Kami',
-                    style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.photo_library_rounded, size: SizeScale.widthXs, color: Colors.grey.shade900),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Galeri Kami',
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -57,7 +62,13 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                     filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: .1),
+                        // color: Colors.white.withValues(alpha: .1),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .5)],
+                          stops: const [0, 1],
+                        ),
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
@@ -88,7 +99,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: SizeScale.heightX4s),
+                        SizedBox(height: SizeScale.heightX2s),
                         Row(
                           children: [
                             SizedBox(width: SizeScale.widthX4s),
@@ -261,15 +272,15 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 48),
                             height: SizeScale.widthLg + SizeScale.heightX10s,
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(width: .5, color: Colors.grey.shade600),
-                            color: Colors.white.withValues(alpha: .2),
+                            border: Border.all(width: .5, color: Colors.grey.shade500),
+                            color: Colors.black.withValues(alpha: .5),
                             child: Stack(
                               alignment: AlignmentDirectional.center,
                               children: [
                                 Text(
                                   'Selengkapnya',
                                   style: AppFonts.inter(
-                                    color: Colors.grey.shade900,
+                                    color: Colors.grey.shade50,
                                     fontSize: FontScale.md,
                                     fontWeight: FontWeight.w600,
                                   ),

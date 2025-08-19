@@ -48,11 +48,16 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
               child: SizedBox(
                 height: SizeScale.heightX6l,
                 width: ScreenUtil.size.width,
-                child: Center(
-                  child: Text(
-                    'Kami Yang Mengundang',
-                    style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.people, size: SizeScale.widthXs, color: Colors.grey.shade900),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Kami Yang Mengundang',
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                    ),
+                  ],
                 ),
               ),
             ),

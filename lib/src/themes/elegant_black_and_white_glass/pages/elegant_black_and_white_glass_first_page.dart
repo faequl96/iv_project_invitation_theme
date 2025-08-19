@@ -30,7 +30,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [Colors.grey.shade900, Colors.transparent],
-                    stops: const [.1, .8],
+                    stops: const [.2, .8],
                   ),
                 ),
               ),
