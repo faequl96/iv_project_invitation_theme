@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
+import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class SharedPersonalize {
@@ -36,7 +37,7 @@ class SharedPersonalize {
           child: Text(
             '*',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 22, height: 1, color: ColorConverter.lighten(Colors.red), fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 22, height: 1, color: ColorConverter.lighten(Colors.red, 40), fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -45,7 +46,10 @@ class SharedPersonalize {
 
   static TextFieldValidator fieldCanNotEmpty() {
     return TextFieldValidator.failed(
-      message: Text(AppLocalization.translate('auth.error.validation.cannotBeEmpty'), style: const TextStyle(color: Colors.red)),
+      message: Text(
+        AppLocalization.translate('Tidak boleh kosong'),
+        style: AppFonts.inter(color: ColorConverter.lighten(Colors.red, 40)),
+      ),
     );
   }
 

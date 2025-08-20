@@ -13,6 +13,7 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
 
@@ -80,6 +81,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ElegantBlackAndWhiteGlassFourthPage(),
                   ElegantBlackAndWhiteGlassFifthPage(),
                   ElegantBlackAndWhiteGlassSixthPage(),
+                  ElegantBlackAndWhiteGlassSeventhPage(),
                 ],
                 tabsBuilder: (int tabActive) => [
                   Tab(
@@ -108,7 +110,11 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ),
                   Tab(
                     height: 48,
-                    child: _Tab(title: 'Kado', icon: Icons.card_giftcard, tabIndex: 5, tabActive: tabActive),
+                    child: _Tab(title: 'Kado', icon: Icons.card_giftcard, tabIndex: 6, tabActive: tabActive),
+                  ),
+                  Tab(
+                    height: 48,
+                    child: _Tab(title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),
                   ),
                 ],
               ),

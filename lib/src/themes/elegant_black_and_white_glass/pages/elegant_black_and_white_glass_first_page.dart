@@ -107,26 +107,17 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                   child: ClipRect(
                     child: Column(
                       children: [
-                        SizedBox(height: SizeScale.heightX2l),
+                        // SizedBox(height: SizeScale.heightX2l),
+                        const Spacer(),
                         FadeAndSlideTransition(
                           slideFromOffset: .5,
                           slideFrom: SlideFrom.top,
-                          // delayBeforeStart: const Duration(milliseconds: 1200),
-                          child: Column(
-                            children: [
-                              Text(
-                                'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                                style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
-                              ),
-                              SizedBox(height: SizeScale.heightXs),
-                              SizedBox(
-                                height: .5,
-                                width: SizeScale.widthX19l - 4,
-                                child: ColoredBox(color: Colors.grey.shade500),
-                              ),
-                            ],
+                          child: Text(
+                            'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+                            style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
                           ),
                         ),
+                        // SizedBox(height: SizeScale.heightXs),
                         const Spacer(),
                         FadeAndSlideTransition(
                           slideFromOffset: .4,
@@ -240,7 +231,8 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: SizeScale.heightX6s),
+                        // SizedBox(height: SizeScale.heightXs),
+                        const Spacer(),
                         const Spacer(),
                       ],
                     ),
