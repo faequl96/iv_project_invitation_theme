@@ -187,7 +187,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1200),
+            delayBeforeStart: const Duration(milliseconds: 1900),
             child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
           ),
         ),
@@ -197,7 +197,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 800),
+            delayBeforeStart: const Duration(milliseconds: 1600),
             child: ValueListenableBuilder(
               valueListenable: _avatar,
               builder: (_, _, _) {
@@ -273,7 +273,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 400),
+            delayBeforeStart: const Duration(milliseconds: 1300),
             child: ValueListenableBuilder(
               valueListenable: _attendance,
               builder: (_, _, _) {
@@ -337,6 +337,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
+            delayBeforeStart: const Duration(milliseconds: 1000),
             child: EnhancedGeneralTextField(
               textEditingController: _greetingController,
               labelTextBuilder: () => 'Ucapan',
@@ -352,7 +353,7 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFromOffset: .8,
             slideFrom: SlideFrom.bottom,
             animationSpeed: const Duration(milliseconds: 300),
-            delayBeforeStart: const Duration(milliseconds: 1600),
+            delayBeforeStart: const Duration(milliseconds: 2200),
             child: GeneralEffectsButton(
               onTap: () {},
               width: double.maxFinite,
