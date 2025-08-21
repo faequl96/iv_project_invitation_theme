@@ -14,3 +14,5 @@ enum Attendance {
 
   final String description;
 }
+
+enum Avatars { love, calm, unpleasant, worry, cry, happy, laughing, shock, pensive, angry }

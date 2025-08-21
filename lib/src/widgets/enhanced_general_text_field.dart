@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -36,25 +38,25 @@ class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
   Widget build(BuildContext context) {
     return GeneralTextField(
       controller: widget.textEditingController,
-      height: (widget.maxLines ?? 1) > 1 ? null : 52,
+      height: (widget.maxLines ?? 1) > 1 ? null : SizeScale.heightX3l,
       maxLines: widget.maxLines,
       enabled: widget.enabled,
-      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: 16),
+      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
       decoration: FieldDecoration(
         labelText: widget.labelTextBuilder?.call(),
-        labelStyle: AppFonts.inter(color: Colors.grey.shade300),
+        labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.md),
         filled: true,
         fillColor: Colors.grey.shade500.withValues(alpha: .3),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
+          borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
+          borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
+          borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         suffixIcon: () {

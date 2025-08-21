@@ -34,16 +34,13 @@ dependencies:
   quick_dev_sdk:
     git:
       url: https://github.com/faequl96/quick_dev_sdk.git
-      ref: 0.0.6
+      ref: 0.0.7
   
   flutter_bloc: ^9.1.1
 
   equatable: ^2.0.7
 
   just_audio: ^0.10.4
-
-  flutter_widget_from_html_core: ^0.17.0
-  fwfh_webview: ^0.15.5
 
   flutter_map: ^8.2.1
   latlong2: ^0.9.1
@@ -57,6 +54,7 @@ flutter:
   assets:
     - assets/
     - assets/dummys/
+    - assets/avatars/
 
   fonts:
     - family: Inter

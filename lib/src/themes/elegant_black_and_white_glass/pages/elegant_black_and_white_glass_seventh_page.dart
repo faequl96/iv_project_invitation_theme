@@ -113,7 +113,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(width: .5, color: Colors.grey.shade500),
                   ),
-                  child: const ClipRect(child: Column(children: [Spacer(), RSVPForm(), Spacer()])),
+                  child: const ClipRect(child: RSVPForm()),
                 ),
               ),
             ),
@@ -166,6 +166,7 @@ class _RSVPFormState extends State<RSVPForm> {
   final _nameController = TextEditingController();
   final _greetingController = TextEditingController();
 
+  final _avatar = ValueNotifier<String?>(null);
   final _attendance = ValueNotifier<String?>(null);
 
   @override
@@ -180,75 +181,214 @@ class _RSVPFormState extends State<RSVPForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(height: SizeScale.heightX2s),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: SlideFrom.left,
+            delayBeforeStart: const Duration(milliseconds: 1200),
+            child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
+          ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: ValueListenableBuilder(
-            valueListenable: _attendance,
-            builder: (_, _, _) {
-              return OverlayDropdownField(
-                height: 52,
-                style: AppFonts.inter(color: Colors.grey.shade100, fontSize: 16),
-                decoration: FieldDecoration(
-                  labelText: 'Kehadiran',
-                  labelStyle: AppFonts.inter(color: Colors.grey.shade300),
-                  filled: true,
-                  fillColor: Colors.grey.shade500.withValues(alpha: .3),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: SlideFrom.left,
+            delayBeforeStart: const Duration(milliseconds: 800),
+            child: ValueListenableBuilder(
+              valueListenable: _avatar,
+              builder: (_, _, _) {
+                return OverlayDropdownField(
+                  height: SizeScale.heightX3l,
+                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                  decoration: FieldDecoration(
+                    labelText: 'Avatar',
+                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.md),
+                    filled: true,
+                    fillColor: Colors.grey.shade500.withValues(alpha: .3),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    suffixIcon: () {
+                      return PreSufFixIcon(
+                        onTap: () {},
+                        child: Image.asset(
+                          'assets/avatars/${_avatar.value ?? 'avatars'}.png',
+                          package: 'iv_project_invitation_theme',
+                          height: 24,
+                          width: 24,
+                        ),
+                      );
+                    },
                   ),
-                  disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  overlayYOffset: 6,
+                  overlayBarrier: const ModalBarrier(),
+                  overlaydecoration: OverlayDecoration(
+                    height: SizeScale.heightX15l,
+                    color: Colors.grey.shade700.withValues(alpha: .95),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    border: Border.all(color: Colors.grey.shade500),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey.shade500, width: 1),
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                  dropdownItemDecoration: DropdownItemDecoration(
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                    selectedColor: Colors.grey.shade500,
+                    hoveredColor: Colors.grey.shade400,
+                    splashColor: Colors.grey.shade400,
                   ),
-                  suffixIcon: () {
-                    return PreSufFixIcon(
-                      onTap: () {},
-                      child: Icon(Icons.arrow_drop_down, color: Colors.grey.shade100),
+                  value: _avatar.value,
+                  dropdownItems: Avatars.values.map((item) => item.name).toList(),
+                  dropdownItemBuilder: (value) {
+                    return Row(
+                      children: [
+                        Image.asset('assets/avatars/$value.png', package: 'iv_project_invitation_theme', height: 28, width: 28),
+                        const SizedBox(width: 6),
+                        Text(
+                          value,
+                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                        ),
+                      ],
                     );
                   },
-                ),
-                overlayYOffset: 6,
-                overlaydecoration: OverlayDecoration(
-                  color: Colors.grey.shade700.withValues(alpha: .8),
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  border: Border.all(color: Colors.grey.shade500),
-                ),
-                dropdownItemDecoration: DropdownItemDecoration(
-                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
-                  selectedColor: Colors.grey.shade500,
-                  hoveredColor: Colors.grey.shade400,
-                  splashColor: Colors.grey.shade400,
-                ),
-                value: _attendance.value,
-                dropdownItems: Attendance.values.map((item) => item.description).toList(),
-                dropdownItemBuilder: (value) {
-                  return Text(value, style: AppFonts.inter(color: Colors.grey.shade100, fontSize: 16));
-                },
-                onSelected: (value) => _attendance.value = value,
-              );
-            },
+                  onSelected: (value) => _avatar.value = value,
+                );
+              },
+            ),
           ),
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: EnhancedGeneralTextField(
-            textEditingController: _greetingController,
-            labelTextBuilder: () => 'Ucapan',
-            maxLines: 3,
-            isMandatory: false,
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: SlideFrom.left,
+            delayBeforeStart: const Duration(milliseconds: 400),
+            child: ValueListenableBuilder(
+              valueListenable: _attendance,
+              builder: (_, _, _) {
+                return OverlayDropdownField(
+                  height: SizeScale.heightX3l,
+                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                  decoration: FieldDecoration(
+                    labelText: 'Kehadiran',
+                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.md),
+                    filled: true,
+                    fillColor: Colors.grey.shade500.withValues(alpha: .3),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    ),
+                    suffixIcon: () {
+                      return PreSufFixIcon(
+                        onTap: () {},
+                        child: Icon(Icons.arrow_drop_down, color: Colors.grey.shade100),
+                      );
+                    },
+                  ),
+                  overlayYOffset: 6,
+                  overlayBarrier: const ModalBarrier(),
+                  overlaydecoration: OverlayDecoration(
+                    color: Colors.grey.shade700.withValues(alpha: .95),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    border: Border.all(color: Colors.grey.shade500),
+                  ),
+                  dropdownItemDecoration: DropdownItemDecoration(
+                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+                    selectedColor: Colors.grey.shade500,
+                    hoveredColor: Colors.grey.shade400,
+                    splashColor: Colors.grey.shade400,
+                  ),
+                  value: _attendance.value,
+                  dropdownItems: Attendance.values.map((item) => item.description).toList(),
+                  dropdownItemBuilder: (value) {
+                    return Text(
+                      value,
+                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                    );
+                  },
+                  onSelected: (value) => _attendance.value = value,
+                );
+              },
+            ),
           ),
         ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: SlideFrom.left,
+            child: EnhancedGeneralTextField(
+              textEditingController: _greetingController,
+              labelTextBuilder: () => 'Ucapan',
+              maxLines: 2,
+              isMandatory: false,
+            ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .8,
+            slideFrom: SlideFrom.bottom,
+            animationSpeed: const Duration(milliseconds: 300),
+            delayBeforeStart: const Duration(milliseconds: 1600),
+            child: GeneralEffectsButton(
+              onTap: () {},
+              width: double.maxFinite,
+              height: SizeScale.widthLg + SizeScale.heightX10s,
+              borderRadius: BorderRadius.circular(30),
+              border: Border.all(width: .5, color: Colors.grey.shade500),
+              color: Colors.black.withValues(alpha: .3),
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Text(
+                    'Submit',
+                    style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: SizeScale.heightSm),
+        Expanded(
+          child: SizedBox(
+            width: double.maxFinite,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade500.withValues(alpha: .3),
+                  border: Border.all(color: Colors.grey.shade500, width: .5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SizedBox(height: SizeScale.heightX2s),
       ],
     );
   }
