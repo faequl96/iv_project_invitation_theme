@@ -7,6 +7,7 @@ import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
+import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 
 class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
   const ElegantBlackAndWhiteGlassCoverPage({super.key});
@@ -46,18 +47,12 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BlocSelector<CoreCubit, CoreState, int>(
-                  selector: (state) => state.animationTrigger,
-                  builder: (_, animationTrigger) {
-                    return AnimatedOpacity(
-                      opacity: animationTrigger.toDouble(),
-                      duration: const Duration(milliseconds: 200),
-                      child: Text(
-                        'Pernikahan Dari',
-                        style: TextStyle(fontSize: FontScale.lg, fontWeight: FontWeight.w500, color: Colors.grey.shade300),
-                      ),
-                    );
-                  },
+                FadeAndSlideTransition(
+                  slideFromOffset: 0,
+                  child: Text(
+                    'Pernikahan Dari',
+                    style: TextStyle(fontSize: FontScale.lg, fontWeight: FontWeight.w500, color: Colors.grey.shade300),
+                  ),
                 ),
                 SizedBox(height: SizeScale.heightX9s),
                 const _BrideName(),
@@ -69,48 +64,34 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BlocSelector<CoreCubit, CoreState, int>(
-                  selector: (state) => state.animationTrigger,
-                  builder: (_, animationTrigger) {
-                    return AnimatedOpacity(
-                      opacity: animationTrigger.toDouble(),
-                      duration: const Duration(milliseconds: 1000),
-                      curve: animationTrigger == 1 ? Curves.easeInCubic : Curves.easeOutCubic,
-                      child: Text(
-                        'Menuju dalam waktu',
-                        style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
-                      ),
-                    );
-                  },
+                FadeAndSlideTransition(
+                  slideFromOffset: 0,
+                  child: Text(
+                    'Menuju dalam waktu',
+                    style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
+                  ),
                 ),
                 const SizedBox(height: 10),
                 CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
               ],
             ),
           ),
-          BlocSelector<CoreCubit, CoreState, int>(
-            selector: (state) => state.animationTrigger,
-            builder: (_, animationTrigger) {
-              return Align(
-                alignment: const Alignment(0, .92),
-                child: AnimatedOpacity(
-                  opacity: animationTrigger.toDouble(),
-                  duration: const Duration(milliseconds: 1600),
-                  curve: animationTrigger == 1 ? Curves.easeInCubic : Curves.easeOutCubic,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (animationTrigger == 1)
-                        DoubleArrowSlider(arrowSize: SizeScale.widthLg, sliderPathLength: SizeScale.heightX2l),
-                      Text(
-                        'Geser ke atas',
-                        style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
-                      ),
-                    ],
+          Align(
+            alignment: const Alignment(0, .92),
+            child: FadeAndSlideTransition(
+              slideFromOffset: 0,
+              delayBeforeStart: const Duration(milliseconds: 500),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DoubleArrowSlider(arrowSize: SizeScale.widthLg, sliderPathLength: SizeScale.heightX2l),
+                  Text(
+                    'Geser ke atas',
+                    style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                   ),
-                ),
-              );
-            },
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -118,181 +99,95 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
   }
 }
 
-class _BrideName extends StatefulWidget {
+class _BrideName extends StatelessWidget {
   const _BrideName();
 
   @override
-  State<_BrideName> createState() => _BrideNameState();
-}
-
-class _BrideNameState extends State<_BrideName> with TickerProviderStateMixin {
-  late final AnimationController _brideController;
-  late final AnimationController _andController;
-  late final AnimationController _groomController;
-  late final Animation<Offset> _brideSlideAnimation;
-  late final Animation<Offset> _groomSlideAnimation;
-  late final Animation<double> _brideFadeAnimation;
-  late final Animation<double> _andFadeAnimation;
-  late final Animation<double> _groomFadeAnimation;
-
-  void _runAnimation(int animationTrigger) async {
-    if (animationTrigger == 1) {
-      _brideController.forward();
-      await Future.delayed(const Duration(milliseconds: 200));
-      if (mounted) {
-        _groomController.forward();
-        await Future.delayed(const Duration(milliseconds: 100));
-        if (mounted) _andController.forward();
-        await Future.delayed(const Duration(milliseconds: 200));
-        if (mounted) if (_brideController.value != 1) _brideController.forward();
-      }
-    } else {
-      _groomController.reverse();
-      await Future.delayed(const Duration(milliseconds: 100));
-      if (mounted) {
-        _andController.reverse();
-        await Future.delayed(const Duration(milliseconds: 200));
-        if (mounted) _brideController.reverse();
-      }
-    }
-  }
-
-  void _initAnimation() {
-    _brideController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    _andController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-    _groomController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
-
-    _brideSlideAnimation = Tween<Offset>(
-      begin: const Offset(-.45, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _brideController, curve: Curves.easeIn));
-    _groomSlideAnimation = Tween<Offset>(
-      begin: const Offset(.45, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _groomController, curve: Curves.easeIn));
-
-    _brideFadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _brideController, curve: Curves.easeIn));
-    _andFadeAnimation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _andController, curve: Curves.easeIn));
-    _groomFadeAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _groomController, curve: Curves.easeIn));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _initAnimation();
-  }
-
-  @override
-  void dispose() {
-    _brideController.dispose();
-    _andController.dispose();
-    _groomController.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
-      selector: (state) => state.size,
-      builder: (_, _) => BlocSelector<CoreCubit, CoreState, int>(
-        selector: (state) => state.animationTrigger,
-        builder: (_, animationTrigger) {
-          _runAnimation(animationTrigger);
-          return Stack(
-            children: [
-              Align(
-                alignment: const Alignment(0, 0),
-                child: FadeTransition(
-                  opacity: _brideFadeAnimation,
-                  child: SlideTransition(
-                    position: _brideSlideAnimation,
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Milea',
-                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
-                          ),
-                          TextSpan(
-                            text: ' & ',
-                            style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
-                          ),
-                          TextSpan(
-                            text: 'Dilan',
-                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
-                          ),
-                        ],
-                      ),
-                      style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
-                    ),
+    return Stack(
+      children: [
+        Align(
+          alignment: const Alignment(0, 0),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .3,
+            slideFrom: SlideFrom.left,
+            animationSpeed: const Duration(milliseconds: 500),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Milea',
+                    style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
                   ),
-                ),
-              ),
-              Align(
-                alignment: const Alignment(0, 0),
-                child: FadeTransition(
-                  opacity: _andFadeAnimation,
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Milea',
-                          style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
-                        ),
-                        TextSpan(
-                          text: ' & ',
-                          style: TextStyle(fontSize: FontScale.x4l, color: Colors.grey.shade300),
-                        ),
-                        TextSpan(
-                          text: 'Dilan',
-                          style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
-                        ),
-                      ],
-                    ),
-                    style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
+                  TextSpan(
+                    text: ' & ',
+                    style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
                   ),
-                ),
-              ),
-              Align(
-                alignment: const Alignment(0, 0),
-                child: FadeTransition(
-                  opacity: _groomFadeAnimation,
-                  child: SlideTransition(
-                    position: _groomSlideAnimation,
-                    child: Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Milea',
-                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
-                          ),
-                          TextSpan(
-                            text: ' & ',
-                            style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
-                          ),
-                          TextSpan(
-                            text: 'Dilan',
-                            style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
-                          ),
-                        ],
-                      ),
-                      style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
-                    ),
+                  TextSpan(
+                    text: 'Dilan',
+                    style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                   ),
-                ),
+                ],
               ),
-            ],
-          );
-        },
-      ),
+              style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
+            ),
+          ),
+        ),
+        Align(
+          alignment: const Alignment(0, 0),
+          child: FadeAndSlideTransition(
+            slideFromOffset: 0,
+            delayBeforeStart: const Duration(milliseconds: 200),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Milea',
+                    style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
+                  ),
+                  TextSpan(
+                    text: ' & ',
+                    style: TextStyle(fontSize: FontScale.x4l, color: Colors.grey.shade300),
+                  ),
+                  TextSpan(
+                    text: 'Dilan',
+                    style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
+                  ),
+                ],
+              ),
+              style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
+            ),
+          ),
+        ),
+        Align(
+          alignment: const Alignment(0, 0),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .3,
+            slideFrom: SlideFrom.right,
+            animationSpeed: const Duration(milliseconds: 500),
+            delayBeforeStart: const Duration(milliseconds: 400),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Milea',
+                    style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
+                  ),
+                  TextSpan(
+                    text: ' & ',
+                    style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
+                  ),
+                  TextSpan(
+                    text: 'Dilan',
+                    style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
+                  ),
+                ],
+              ),
+              style: AppFonts.pacifico(fontSize: FontScale.x8l, height: 1.1),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

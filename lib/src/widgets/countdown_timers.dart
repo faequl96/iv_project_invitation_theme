@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
+import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
 class CountdownTimers extends StatefulWidget {
@@ -17,17 +16,7 @@ class CountdownTimers extends StatefulWidget {
   State<CountdownTimers> createState() => _CountdownTimersState();
 }
 
-class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<Offset> _daysSlideAnimation;
-  late final Animation<Offset> _hoursSlideAnimation;
-  late final Animation<Offset> _minutesSlideAnimation;
-  late final Animation<Offset> _secondsSlideAnimation;
-  late final Animation<double> _daysFadeAnimation;
-  late final Animation<double> _hoursFadeAnimation;
-  late final Animation<double> _minutesFadeAnimation;
-  late final Animation<double> _secondsFadeAnimation;
-
+class _CountdownTimersState extends State<CountdownTimers> {
   late final Timer _timer;
   late Duration _remaining;
 
@@ -35,38 +24,6 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
   final ValueNotifier<int> _hours = ValueNotifier(0);
   final ValueNotifier<int> _minutes = ValueNotifier(0);
   final ValueNotifier<int> _seconds = ValueNotifier(0);
-
-  void _initAnimation() {
-    _controller = AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
-
-    _daysSlideAnimation = Tween<Offset>(
-      begin: Offset(0, SizeScale.heightX13s),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _hoursSlideAnimation = Tween<Offset>(
-      begin: Offset(-SizeScale.widthX13s, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _minutesSlideAnimation = Tween<Offset>(
-      begin: Offset(SizeScale.widthX13s, 0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-    _secondsSlideAnimation = Tween<Offset>(
-      begin: Offset(0, SizeScale.heightX13s),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
-
-    _daysFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-    _hoursFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-    _minutesFadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-    _secondsFadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
-  }
 
   void _formatDuration(Duration d) {
     final days = d.inDays;
@@ -96,112 +53,71 @@ class _CountdownTimersState extends State<CountdownTimers> with SingleTickerProv
     super.initState();
 
     _startTimer();
-    _initAnimation();
   }
 
   @override
   void dispose() {
     _timer.cancel();
-    _controller.dispose();
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, int>(
-      selector: (state) => state.animationTrigger,
-      builder: (_, animationTrigger) {
-        if (animationTrigger == 1) _controller.forward();
-        if (animationTrigger == 0) _controller.reverse();
-        return Stack(
-          children: [
-            Align(
-              alignment: const Alignment(-.66, 0),
-              child: FadeTransition(
-                opacity: _daysFadeAnimation,
-                child: SlideTransition(
-                  position: _daysSlideAnimation,
-                  child: ValueListenableBuilder(
-                    valueListenable: _days,
-                    builder: (_, days, _) => _CountdownTimer(number: days, unit: 'Hari', animationTrigger: animationTrigger),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(-.22, 0),
-              child: FadeTransition(
-                opacity: _hoursFadeAnimation,
-                child: SlideTransition(
-                  position: _hoursSlideAnimation,
-                  child: ValueListenableBuilder(
-                    valueListenable: _hours,
-                    builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'Jam', animationTrigger: animationTrigger),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(.22, 0),
-              child: FadeTransition(
-                opacity: _minutesFadeAnimation,
-                child: SlideTransition(
-                  position: _minutesSlideAnimation,
-                  child: ValueListenableBuilder(
-                    valueListenable: _minutes,
-                    builder: (_, minutes, _) =>
-                        _CountdownTimer(number: minutes, unit: 'Menit', animationTrigger: animationTrigger),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: const Alignment(.66, 0),
-              child: FadeTransition(
-                opacity: _secondsFadeAnimation,
-                child: SlideTransition(
-                  position: _secondsSlideAnimation,
-                  child: ValueListenableBuilder(
-                    valueListenable: _seconds,
-                    builder: (_, seconds, _) =>
-                        _CountdownTimer(number: seconds, unit: 'Detik', animationTrigger: animationTrigger),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        FadeAndSlideTransition(
+          slideFromOffset: 1.5,
+          slideFrom: SlideFrom.bottom,
+          delayBeforeStart: const Duration(milliseconds: 400),
+          child: ValueListenableBuilder(
+            valueListenable: _days,
+            builder: (_, days, _) => _CountdownTimer(number: days, unit: 'Hari'),
+          ),
+        ),
+        SizedBox(width: SizeScale.widthX4s),
+        FadeAndSlideTransition(
+          slideFromOffset: 2.5,
+          slideFrom: SlideFrom.left,
+          animationSpeed: const Duration(milliseconds: 700),
+          delayBeforeStart: const Duration(milliseconds: 200),
+          child: ValueListenableBuilder(
+            valueListenable: _hours,
+            builder: (_, hours, _) => _CountdownTimer(number: hours, unit: 'Jam'),
+          ),
+        ),
+        SizedBox(width: SizeScale.widthX4s),
+        FadeAndSlideTransition(
+          slideFromOffset: 2.5,
+          slideFrom: SlideFrom.right,
+          animationSpeed: const Duration(milliseconds: 700),
+          delayBeforeStart: const Duration(milliseconds: 200),
+          child: ValueListenableBuilder(
+            valueListenable: _minutes,
+            builder: (_, minutes, _) => _CountdownTimer(number: minutes, unit: 'Menit'),
+          ),
+        ),
+        SizedBox(width: SizeScale.widthX4s),
+        FadeAndSlideTransition(
+          slideFromOffset: 1.5,
+          slideFrom: SlideFrom.bottom,
+          delayBeforeStart: const Duration(milliseconds: 400),
+          child: ValueListenableBuilder(
+            valueListenable: _seconds,
+            builder: (_, seconds, _) => _CountdownTimer(number: seconds, unit: 'Detik'),
+          ),
+        ),
+      ],
     );
   }
 }
 
-class _CountdownTimer extends StatefulWidget {
-  const _CountdownTimer({required this.number, required this.unit, required this.animationTrigger});
+class _CountdownTimer extends StatelessWidget {
+  const _CountdownTimer({required this.number, required this.unit});
 
   final int number;
   final String unit;
-  final int animationTrigger;
-
-  @override
-  State<_CountdownTimer> createState() => _CountdownTimerState();
-}
-
-class _CountdownTimerState extends State<_CountdownTimer> {
-  final ValueNotifier<bool> showLightningEffectBox = ValueNotifier(false);
-
-  @override
-  void didUpdateWidget(covariant _CountdownTimer oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.animationTrigger == 1) {
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await Future.delayed(const Duration(seconds: 2));
-        showLightningEffectBox.value = true;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +142,7 @@ class _CountdownTimerState extends State<_CountdownTimer> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${widget.number}',
+                  '$number',
                   style: AppFonts.inter(
                     fontWeight: FontWeight.bold,
                     color: Colors.grey.shade200,
@@ -235,21 +151,20 @@ class _CountdownTimerState extends State<_CountdownTimer> {
                   ),
                 ),
                 Text(
-                  widget.unit,
+                  unit,
                   style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.xs, height: 1.2),
                 ),
               ],
             ),
           ),
         ),
-        if (widget.animationTrigger == 1)
-          ValueListenableBuilder(
-            valueListenable: showLightningEffectBox,
-            builder: (_, _, _) {
-              if (!showLightningEffectBox.value) return const SizedBox.shrink();
-              return LightningEffectBox(width: SizeScale.widthX3l, height: SizeScale.widthX3l, borderRadius: 8, isFlash: true);
-            },
-          ),
+        LightningEffectBox(
+          width: SizeScale.widthX3l,
+          height: SizeScale.widthX3l,
+          borderRadius: 8,
+          isFlash: true,
+          delayBeforeStart: const Duration(milliseconds: 500),
+        ),
       ],
     );
   }

@@ -41,7 +41,6 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: SlideFrom.top,
-              animationSpeed: const Duration(milliseconds: 300),
               child: SizedBox(
                 height: SizeScale.heightX6l,
                 width: ScreenUtil.size.width,
@@ -112,6 +111,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                         FadeAndSlideTransition(
                           slideFromOffset: .5,
                           slideFrom: SlideFrom.top,
+                          delayBeforeStart: const Duration(milliseconds: 500),
                           child: Text(
                             'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
                             style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
@@ -122,6 +122,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                         FadeAndSlideTransition(
                           slideFromOffset: .4,
                           slideFrom: SlideFrom.left,
+                          delayBeforeStart: const Duration(milliseconds: 500),
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
                             child: DecoratedBox(
@@ -143,7 +144,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     FadeAndSlideTransition(
                                       slideFromOffset: .3,
                                       slideFrom: SlideFrom.top,
-                                      delayBeforeStart: const Duration(milliseconds: 1600),
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
                                       child: Text(
                                         '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
                                         style: AppFonts.inter(
@@ -159,7 +160,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     FadeAndSlideTransition(
                                       slideFromOffset: 1,
                                       slideFrom: SlideFrom.bottom,
-                                      delayBeforeStart: const Duration(milliseconds: 1600),
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
                                       child: Text(
                                         '(Ar-Ruum Ayat 21)',
                                         style: AppFonts.inter(
@@ -179,6 +180,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                         FadeAndSlideTransition(
                           slideFromOffset: .4,
                           slideFrom: SlideFrom.right,
+                          delayBeforeStart: const Duration(milliseconds: 500),
                           child: Padding(
                             padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
                             child: DecoratedBox(
@@ -200,7 +202,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     FadeAndSlideTransition(
                                       slideFromOffset: 1,
                                       slideFrom: SlideFrom.top,
-                                      delayBeforeStart: const Duration(milliseconds: 1600),
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
                                       child: Text(
                                         'Assalamu\'alaikum Wr. Wb.',
                                         style: AppFonts.inter(
@@ -214,7 +216,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     FadeAndSlideTransition(
                                       slideFromOffset: .4,
                                       slideFrom: SlideFrom.bottom,
-                                      delayBeforeStart: const Duration(milliseconds: 1600),
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
                                       child: Text(
                                         'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
                                         style: AppFonts.inter(

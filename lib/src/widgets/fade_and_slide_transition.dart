@@ -36,8 +36,11 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
   bool _isInitial = true;
 
   void _runAnimation(int animationTrigger) async {
-    if (animationTrigger == 1) _controller.forward();
-    if (animationTrigger == 0) _controller.reverse();
+    await Future.delayed(widget.delayBeforeStart);
+    if (mounted) {
+      if (animationTrigger == 1) _controller.forward();
+      if (animationTrigger == 0) _controller.reverse();
+    }
   }
 
   void _initAnimation() {
@@ -71,10 +74,6 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
     super.initState();
 
     _initAnimation();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(widget.delayBeforeStart);
-      if (mounted) setState(() => _isInitial = false);
-    });
   }
 
   @override
@@ -86,13 +85,13 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
 
   @override
   Widget build(BuildContext context) {
-    if (_isInitial) return Opacity(opacity: 0, child: widget.child);
     return BlocSelector<CoreCubit, CoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => BlocSelector<CoreCubit, CoreState, int>(
         selector: (state) => state.animationTrigger,
         builder: (_, animationTrigger) {
-          _runAnimation(animationTrigger);
+          if (!_isInitial) _runAnimation(animationTrigger);
+          _isInitial = false;
           return FadeTransition(
             opacity: _fadeAnimation,
             child: SlideTransition(position: _slideAnimation, child: widget.child),

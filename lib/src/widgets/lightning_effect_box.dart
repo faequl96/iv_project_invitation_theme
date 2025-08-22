@@ -8,6 +8,7 @@ class LightningEffectBox extends StatefulWidget {
     this.borderRadius = 6,
     this.animationSpeed = const Duration(milliseconds: 500),
     this.animationInterval = const Duration(milliseconds: 2000),
+    this.delayBeforeStart = Duration.zero,
     this.ligthningLength = .2,
     this.ligthningWidth = .5,
     this.ligthningColor = Colors.white,
@@ -19,6 +20,7 @@ class LightningEffectBox extends StatefulWidget {
   final double borderRadius;
   final Duration animationSpeed;
   final Duration animationInterval;
+  final Duration delayBeforeStart;
   final double ligthningLength;
   final double ligthningWidth;
   final Color ligthningColor;
@@ -33,6 +35,7 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
   late final Animation<double> _animation;
 
   void _startAnimationLoop() async {
+    await Future.delayed(widget.delayBeforeStart);
     while (mounted) {
       await _controller.forward(from: 0);
       await Future.delayed(widget.animationInterval);
