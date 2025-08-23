@@ -25,17 +25,15 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            child: SizedBox(
-              height: ScreenUtil.size.height / 1.4,
-              width: ScreenUtil.size.width,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.grey.shade900, Colors.transparent],
-                    stops: const [.2, .8],
-                  ),
+            height: ScreenUtil.size.height / 1.4,
+            width: ScreenUtil.size.width,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.grey.shade900, Colors.transparent],
+                  stops: const [.2, .8],
                 ),
               ),
             ),
@@ -45,7 +43,6 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: SlideFrom.top,
-              animationSpeed: const Duration(milliseconds: 300),
               child: SizedBox(
                 height: SizeScale.heightX6l,
                 width: ScreenUtil.size.width,
@@ -65,31 +62,23 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            child: SizedBox(
-              height: ScreenUtil.size.height,
-              width: ScreenUtil.size.width,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: SizeScale.heightX6l,
-                  left: SizeScale.widthX6s,
-                  right: SizeScale.widthX6s,
-                  bottom: 76,
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        // color: Colors.white.withValues(alpha: .1),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                          stops: const [0, 1],
-                        ),
-                        borderRadius: BorderRadius.circular(20),
+            height: ScreenUtil.size.height,
+            width: ScreenUtil.size.width,
+            child: Padding(
+              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
+                        stops: const [0, 1],
                       ),
+                      borderRadius: BorderRadius.circular(20),
                     ),
                   ),
                 ),
@@ -98,54 +87,33 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            child: SizedBox(
-              height: ScreenUtil.size.height,
-              width: ScreenUtil.size.width,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: SizeScale.heightX6l,
-                  left: SizeScale.widthX6s,
-                  right: SizeScale.widthX6s,
-                  bottom: 76,
+            height: ScreenUtil.size.height,
+            width: ScreenUtil.size.width,
+            child: Padding(
+              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(width: .5, color: Colors.grey.shade500),
                 ),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(width: .5, color: Colors.grey.shade500),
-                  ),
-                  child: const ClipRect(child: RSVPForm()),
-                ),
+                child: const ClipRect(child: RSVPForm()),
               ),
             ),
           ),
           Positioned(
             bottom: 0,
-            child: SizedBox(
-              height: ScreenUtil.size.height,
-              width: ScreenUtil.size.width,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: SizeScale.heightX6l,
-                  left: SizeScale.widthX6s,
-                  right: SizeScale.widthX6s,
-                  bottom: 76,
-                ),
-                child: BlocSelector<CoreCubit, CoreState, int>(
-                  selector: (state) => state.animationTrigger,
-                  builder: (_, animationTrigger) {
-                    if (animationTrigger == 0) return const SizedBox.shrink();
-                    return GlassEffectBox(
-                      width: ScreenUtil.size.width - 32,
-                      height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
-                      borderRadius: 20,
-                      sliderWidth: 90,
-                      color: Colors.grey.shade300.withValues(alpha: .3),
-                      animationEnd: 1.14,
-                      animationSpeed: const Duration(milliseconds: 600),
-                      animationInterval: const Duration(seconds: 3),
-                    );
-                  },
-                ),
+            height: ScreenUtil.size.height,
+            width: ScreenUtil.size.width,
+            child: Padding(
+              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              child: GlassEffectBox(
+                width: ScreenUtil.size.width - 32,
+                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                borderRadius: 20,
+                sliderWidth: 90,
+                color: Colors.grey.shade300.withValues(alpha: .3),
+                animationSpeed: const Duration(milliseconds: 600),
+                animationInterval: const Duration(seconds: 3),
               ),
             ),
           ),
@@ -181,13 +149,13 @@ class _RSVPFormState extends State<RSVPForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeScale.heightX2s),
+        SizedBox(height: SizeScale.widthX5s),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1900),
+            delayBeforeStart: const Duration(milliseconds: 2000),
             child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
           ),
         ),
@@ -197,7 +165,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1600),
+            delayBeforeStart: const Duration(milliseconds: 1500),
             child: ValueListenableBuilder(
               valueListenable: _avatar,
               builder: (_, _, _) {
@@ -273,7 +241,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1300),
+            delayBeforeStart: const Duration(milliseconds: 1000),
             child: ValueListenableBuilder(
               valueListenable: _attendance,
               builder: (_, _, _) {
@@ -337,7 +305,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1000),
+            delayBeforeStart: const Duration(milliseconds: 500),
             child: EnhancedGeneralTextField(
               textEditingController: _greetingController,
               labelTextBuilder: () => 'Ucapan',
@@ -353,7 +321,7 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFromOffset: .8,
             slideFrom: SlideFrom.bottom,
             animationSpeed: const Duration(milliseconds: 300),
-            delayBeforeStart: const Duration(milliseconds: 2200),
+            delayBeforeStart: const Duration(milliseconds: 2500),
             child: GeneralEffectsButton(
               onTap: () {},
               width: double.maxFinite,
@@ -389,7 +357,7 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        SizedBox(height: SizeScale.heightX2s),
+        SizedBox(height: SizeScale.widthX5s),
       ],
     );
   }

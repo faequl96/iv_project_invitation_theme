@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
@@ -29,14 +31,17 @@ class FadeAndSlideTransition extends StatefulWidget {
 }
 
 class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with TickerProviderStateMixin {
+  late final StreamSubscription _sub;
+
   late final AnimationController _controller;
   late final Animation<Offset> _slideAnimation;
   late final Animation<double> _fadeAnimation;
 
-  bool _isInitial = true;
-
+  int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
+    final currentId = ++_animationRequestId;
     await Future.delayed(widget.delayBeforeStart);
+    if (currentId != _animationRequestId) return;
     if (mounted) {
       if (animationTrigger == 1) _controller.forward();
       if (animationTrigger == 0) _controller.reverse();
@@ -66,7 +71,10 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
       end: Offset.zero,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
 
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    _fadeAnimation = Tween<double>(
+      begin: widget.fadeBegin,
+      end: widget.fadeEnd,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
   }
 
   @override
@@ -74,10 +82,15 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
     super.initState();
 
     _initAnimation();
+
+    _sub = context.read<CoreCubit>().stream.listen((state) {
+      _runAnimation(state.animationTrigger);
+    });
   }
 
   @override
   void dispose() {
+    _sub.cancel();
     _controller.dispose();
 
     super.dispose();
@@ -85,19 +98,9 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
-      selector: (state) => state.size,
-      builder: (_, _) => BlocSelector<CoreCubit, CoreState, int>(
-        selector: (state) => state.animationTrigger,
-        builder: (_, animationTrigger) {
-          if (!_isInitial) _runAnimation(animationTrigger);
-          _isInitial = false;
-          return FadeTransition(
-            opacity: _fadeAnimation,
-            child: SlideTransition(position: _slideAnimation, child: widget.child),
-          );
-        },
-      ),
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: SlideTransition(position: _slideAnimation, child: widget.child),
     );
   }
 }

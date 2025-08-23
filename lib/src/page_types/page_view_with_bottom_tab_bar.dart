@@ -72,16 +72,16 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
 
       late final Size finalSize;
       if (size.width > 440) {
-        if (size.height < 812) {
-          finalSize = Size(375, size.height - (padding.top + padding.bottom));
+        if (size.height < 915) {
+          finalSize = Size(412, size.height - (padding.top + padding.bottom));
         } else {
-          finalSize = const Size(375, 812);
+          finalSize = const Size(412, 915);
         }
       } else {
-        if (size.height < 812) {
+        if (size.height < 915) {
           finalSize = Size(size.width, size.height - (padding.top + padding.bottom));
         } else {
-          finalSize = Size(size.width, 812);
+          finalSize = Size(size.width, 915);
         }
       }
 
@@ -192,7 +192,6 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                           borderRadius: 36,
                           animationSpeed: const Duration(milliseconds: 600),
                           animationInterval: const Duration(seconds: 3),
-                          animationEnd: 1.08,
                           delayBeforeStart: const Duration(milliseconds: 1200),
                           color: Colors.grey.shade300.withValues(alpha: .5),
                           sliderWidth: 90,

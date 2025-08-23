@@ -27,23 +27,22 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            child: SizedBox(
-              height: ScreenUtil.size.height / 1.2,
-              width: ScreenUtil.size.width,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.transparent, Colors.grey.shade900],
-                    stops: const [.3, .8],
-                  ),
+            height: ScreenUtil.size.height / 1.2,
+            width: ScreenUtil.size.width,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.transparent, Colors.grey.shade900],
+                  stops: const [.3, .8],
                 ),
               ),
             ),
           ),
-          Align(
-            alignment: const Alignment(0, .32),
+          Positioned(
+            bottom: 0,
+            width: ScreenUtil.size.width,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -56,14 +55,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                 ),
                 SizedBox(height: SizeScale.heightX9s),
                 const _BrideName(),
-              ],
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, .68),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
+                SizedBox(height: SizeScale.heightMd),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   child: Text(
@@ -71,26 +63,24 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                     style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                   ),
                 ),
-                const SizedBox(height: 10),
+                SizedBox(height: SizeScale.heightX8s),
                 CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
-              ],
-            ),
-          ),
-          Align(
-            alignment: const Alignment(0, .92),
-            child: FadeAndSlideTransition(
-              slideFromOffset: 0,
-              delayBeforeStart: const Duration(milliseconds: 500),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  DoubleArrowSlider(arrowSize: SizeScale.widthLg, sliderPathLength: SizeScale.heightX2l),
-                  Text(
+                SizedBox(height: SizeScale.heightX5s),
+                FadeAndSlideTransition(
+                  slideFromOffset: 0,
+                  delayBeforeStart: const Duration(milliseconds: 500),
+                  child: DoubleArrowSlider(arrowSize: SizeScale.widthLg, sliderPathLength: SizeScale.heightX2l),
+                ),
+                FadeAndSlideTransition(
+                  slideFromOffset: 0,
+                  delayBeforeStart: const Duration(milliseconds: 500),
+                  child: Text(
                     'Geser ke atas',
                     style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: SizeScale.heightX2s),
+              ],
             ),
           ),
         ],
@@ -137,7 +127,7 @@ class _BrideName extends StatelessWidget {
           alignment: const Alignment(0, 0),
           child: FadeAndSlideTransition(
             slideFromOffset: 0,
-            delayBeforeStart: const Duration(milliseconds: 200),
+            delayBeforeStart: const Duration(milliseconds: 300),
             child: Text.rich(
               TextSpan(
                 children: [

@@ -33,7 +33,6 @@ class Padlock extends StatelessWidget {
             width: SizeScale.widthX12l,
             borderRadius: 40,
             color: Colors.grey.shade200.withValues(alpha: .5),
-            animationEnd: 1.02,
           ),
           Text(
             'Buka Undangan',

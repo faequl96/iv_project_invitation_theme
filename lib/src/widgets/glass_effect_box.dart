@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 class GlassEffectBox extends StatefulWidget {
@@ -9,7 +11,6 @@ class GlassEffectBox extends StatefulWidget {
     this.animationSpeed = const Duration(milliseconds: 400),
     this.animationInterval = const Duration(milliseconds: 1500),
     this.delayBeforeStart = const Duration(seconds: 1),
-    this.animationEnd = 1,
     this.sliderWidth = 60,
     this.sliderTilt = .2,
     required this.color,
@@ -21,7 +22,6 @@ class GlassEffectBox extends StatefulWidget {
   final Duration animationSpeed;
   final Duration animationInterval;
   final Duration delayBeforeStart;
-  final double animationEnd;
   final double sliderWidth;
   final double sliderTilt;
   final Color color;
@@ -34,9 +34,8 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
   late final AnimationController _controller;
   late final Animation<double> _animation;
 
-  bool _isInitial = true;
-
   void _startAnimationLoop() async {
+    await Future.delayed(widget.delayBeforeStart);
     while (mounted) {
       await _controller.forward(from: 0);
       await Future.delayed(widget.animationInterval);
@@ -53,11 +52,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
     super.initState();
 
     _initAnimation();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(widget.delayBeforeStart);
-      if (mounted) setState(() => _isInitial = false);
-      _startAnimationLoop();
-    });
+    _startAnimationLoop();
   }
 
   @override
@@ -69,11 +64,10 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    if (_isInitial) return const SizedBox.shrink();
     return AnimatedBuilder(
       animation: _animation,
       builder: (_, _) {
-        final slide = (_controller.value * widget.animationEnd) * (widget.width + widget.sliderWidth) - widget.sliderWidth;
+        final slide = (_controller.value * 1.3) * (widget.width + widget.sliderWidth) - widget.sliderWidth * 1.7;
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(widget.borderRadius),

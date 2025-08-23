@@ -46,16 +46,16 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
 
     late final Size size;
     if (_size.width > 440) {
-      if (_size.height < 812) {
-        size = Size(375, _size.height - (_padding.top + _padding.bottom));
+      if (_size.height < 915) {
+        size = Size(412, _size.height - (_padding.top + _padding.bottom));
       } else {
-        size = const Size(375, 812);
+        size = const Size(412, 915);
       }
     } else {
-      if (_size.height < 812) {
+      if (_size.height < 915) {
         size = Size(_size.width, _size.height - (_padding.top + _padding.bottom));
       } else {
-        size = Size(_size.width, 812);
+        size = Size(_size.width, 915);
       }
     }
 

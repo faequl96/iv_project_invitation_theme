@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart';
@@ -53,68 +51,63 @@ class _MapsState extends State<Maps> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
-      selector: (state) => state.size,
-      builder: (_, _) {
-        final latLng = _getLatLngFromGoogleMaps(
-          'https://www.google.com/maps/place/Masjid+Raya+Bani+Umar+-+Tangerang+Selatan/@-6.2705383,106.6944082,16.87z/data=!4m6!3m5!1s0x2e69faf062460ed5:0xc46eba6617b311d6!8m2!3d-6.2703756!4d106.6893305!16s%2Fg%2F1pztc44x6?entry=ttu&g_ep=EgoyMDI1MDgwNS4wIKXMDSoASAFQAw%3D%3D',
-        );
+    final latLng = _getLatLngFromGoogleMaps(
+      'https://www.google.com/maps/place/Masjid+Raya+Bani+Umar+-+Tangerang+Selatan/@-6.2705383,106.6944082,16.87z/data=!4m6!3m5!1s0x2e69faf062460ed5:0xc46eba6617b311d6!8m2!3d-6.2703756!4d106.6893305!16s%2Fg%2F1pztc44x6?entry=ttu&g_ep=EgoyMDI1MDgwNS4wIKXMDSoASAFQAw%3D%3D',
+    );
 
-        if (latLng == null) {
-          return DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border.all(width: .5, color: Colors.grey.shade500),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+    if (latLng == null) {
+      return DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border.all(width: .5, color: Colors.grey.shade500),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+          child: SizedBox(
+            width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
+            height: ScreenUtil.size.width - (SizeScale.widthX6s * 8),
+          ),
+        ),
+      );
+    }
+
+    return Stack(
+      children: [
+        DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border.all(width: 2, color: Colors.grey.shade400),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(2),
+              clipBehavior: Clip.hardEdge,
               child: SizedBox(
                 width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-                height: ScreenUtil.size.width - (SizeScale.widthX6s * 8),
-              ),
-            ),
-          );
-        }
-
-        return Stack(
-          children: [
-            DecoratedBox(
-              decoration: BoxDecoration(
-                border: Border.all(width: 2, color: Colors.grey.shade400),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(SizeScale.widthX6s / 2),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(2),
-                  clipBehavior: Clip.hardEdge,
-                  child: SizedBox(
-                    width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-                    height: ScreenUtil.size.height - (SizeScale.heightX22l),
-                    child: ColoredBox(
-                      color: Colors.grey.shade300,
-                      child: Center(child: SharedPersonalize.loadingWidget(color: Colors.grey.shade900)),
-                    ),
-                  ),
+                height: ScreenUtil.size.height - (SizeScale.heightX22l),
+                child: ColoredBox(
+                  color: Colors.grey.shade300,
+                  child: Center(child: SharedPersonalize.loadingWidget(color: Colors.grey.shade900)),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.all(SizeScale.widthX6s / 2),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(2),
-                clipBehavior: Clip.hardEdge,
-                child: MapsWidget(
-                  latitude: latLng.latitude,
-                  longitude: latLng.longitude,
-                  width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-                  height: ScreenUtil.size.height - (SizeScale.heightX22l),
-                ),
-              ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(2),
+            clipBehavior: Clip.hardEdge,
+            child: MapsWidget(
+              latitude: latLng.latitude,
+              longitude: latLng.longitude,
+              width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
+              height: ScreenUtil.size.height - (SizeScale.heightX22l),
             ),
-          ],
-        );
-      },
+          ),
+        ),
+      ],
     );
   }
 }
