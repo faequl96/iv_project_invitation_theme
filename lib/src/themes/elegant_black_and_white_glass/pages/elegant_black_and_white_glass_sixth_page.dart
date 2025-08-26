@@ -112,7 +112,7 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.w400,
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -221,7 +221,7 @@ class _BankAccount extends StatelessWidget {
                           border: Border.all(width: .5, color: Colors.grey.shade400),
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
+                          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 4, right: 3),
                           child: Icon(Icons.content_copy_rounded, color: Colors.grey.shade200),
                         ),
                       ),

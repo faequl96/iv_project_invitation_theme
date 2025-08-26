@@ -1,6 +1,7 @@
+import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
@@ -9,6 +10,8 @@ import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/enums/enums.dart';
+import 'package:iv_project_invitation_theme/src/models/invited_guest.dart';
+import 'package:iv_project_invitation_theme/src/models/rsvp.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -96,7 +99,68 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(width: .5, color: Colors.grey.shade500),
                 ),
-                child: const ClipRect(child: RSVPForm()),
+                child: ClipRect(
+                  child: Column(
+                    children: [
+                      SizedBox(height: SizeScale.widthX5s),
+                      const RSVPForm(),
+                      SizedBox(height: SizeScale.heightX8s),
+                      Expanded(
+                        child: FadeAndSlideTransition(
+                          slideFromOffset: .5,
+                          slideFrom: SlideFrom.bottom,
+                          delayBeforeStart: const Duration(milliseconds: 2000),
+                          child: SizedBox(
+                            width: double.maxFinite,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade500.withValues(alpha: .3),
+                                  border: Border.all(color: Colors.grey.shade500, width: .5),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: const Radius.circular(10),
+                                    topRight: const Radius.circular(10),
+                                    bottomLeft: Radius.circular((SizeScale.widthLg + SizeScale.heightX10s) / 2),
+                                    bottomRight: Radius.circular((SizeScale.widthLg + SizeScale.heightX10s) / 2),
+                                  ),
+                                ),
+                                child: Stack(
+                                  alignment: AlignmentGeometry.bottomCenter,
+                                  children: [
+                                    const _RSVPsWidget(isShowMore: false),
+                                    GeneralEffectsButton(
+                                      onTap: () {},
+                                      width: double.maxFinite,
+                                      height: SizeScale.widthLg + SizeScale.heightX10s,
+                                      borderRadius: BorderRadius.circular(30),
+                                      border: Border.all(width: .5, color: Colors.grey.shade500),
+                                      color: Colors.grey.shade900.withValues(alpha: .8),
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.center,
+                                        children: [
+                                          Text(
+                                            'Selengkapnya',
+                                            style: AppFonts.inter(
+                                              color: Colors.grey.shade100,
+                                              fontSize: FontScale.md,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: SizeScale.widthX5s),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -149,23 +213,22 @@ class _RSVPFormState extends State<RSVPForm> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeScale.widthX5s),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 2000),
+            delayBeforeStart: const Duration(milliseconds: 1400),
             child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: SizeScale.heightX8s),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1500),
+            delayBeforeStart: const Duration(milliseconds: 1100),
             child: ValueListenableBuilder(
               valueListenable: _avatar,
               builder: (_, _, _) {
@@ -235,13 +298,13 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: SizeScale.heightX8s),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1000),
+            delayBeforeStart: const Duration(milliseconds: 800),
             child: ValueListenableBuilder(
               valueListenable: _attendance,
               builder: (_, _, _) {
@@ -299,9 +362,9 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: SizeScale.heightX8s),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
@@ -314,14 +377,14 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: SizeScale.heightX8s),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .8,
             slideFrom: SlideFrom.bottom,
             animationSpeed: const Duration(milliseconds: 300),
-            delayBeforeStart: const Duration(milliseconds: 2500),
+            delayBeforeStart: const Duration(milliseconds: 1700),
             child: GeneralEffectsButton(
               onTap: () {},
               width: double.maxFinite,
@@ -341,24 +404,276 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        SizedBox(height: SizeScale.heightSm),
-        Expanded(
-          child: SizedBox(
-            width: double.maxFinite,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade500.withValues(alpha: .3),
-                  border: Border.all(color: Colors.grey.shade500, width: .5),
-                  borderRadius: BorderRadius.circular(10),
+      ],
+    );
+  }
+}
+
+class _RSVPsWidget extends StatefulWidget {
+  const _RSVPsWidget({required this.isShowMore});
+
+  final bool isShowMore;
+
+  @override
+  State<_RSVPsWidget> createState() => _RSVPsWidgetState();
+}
+
+class _RSVPsWidgetState extends State<_RSVPsWidget> {
+  final bool _isLoading = false;
+  final List<RSVP> _rsvps = [
+    RSVP(
+      invitedGuestId: 'guest_1',
+      avatar: 'angry',
+      invited: false,
+      attendance: 'Tidak Hadir',
+      remark:
+          'Happy wedding Rahma dan FAeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      dateTime: 1756004674463,
+    ),
+    RSVP(
+      invitedGuestId: 'guest_2',
+      avatar: 'happy',
+      invited: false,
+      attendance: 'Hadir',
+      remark:
+          'Happy wedding Rahma dan FAeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      dateTime: 1756004674463,
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
+      children: [
+        if (_isLoading) ...[
+          const SizedBox(height: 8),
+          for (int i = 0; i < 4; i++) ...[
+            if (i == 3)
+              const Column(children: [Text('Skeleton'), SizedBox(height: 4)])
+            else ...[
+              const Text('Skeleton'),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                  height: .5,
+                  width: double.maxFinite,
+                  child: ColoredBox(color: Colors.grey.shade500),
                 ),
               ),
+              const SizedBox(height: 10),
+            ],
+          ],
+          const SizedBox(height: 8),
+        ] else if (_rsvps.isNotEmpty) ...[
+          const SizedBox(height: 8),
+          if (_rsvps.length > 3 && widget.isShowMore == false)
+            for (int i = 0; i < 3; i++) ...[
+              if (i == 2)
+                _RSVPItem(rsvp: _rsvps[i])
+              else ...[
+                _RSVPItem(rsvp: _rsvps[i]),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    height: .5,
+                    width: double.maxFinite,
+                    child: ColoredBox(color: Colors.grey.shade500),
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
+            ]
+          else
+            for (int i = 0; i < _rsvps.length; i++) ...[
+              if (i == _rsvps.length - 1)
+                _RSVPItem(rsvp: _rsvps[i])
+              else ...[
+                _RSVPItem(rsvp: _rsvps[i]),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    height: .5,
+                    width: double.maxFinite,
+                    child: ColoredBox(color: Colors.grey.shade500),
+                  ),
+                ),
+                const SizedBox(height: 10),
+              ],
+            ],
+          const SizedBox(height: 8),
+        ],
+      ],
+    );
+  }
+}
+
+class _RSVPItem extends StatefulWidget {
+  const _RSVPItem({required this.rsvp});
+
+  final RSVP rsvp;
+
+  @override
+  State<_RSVPItem> createState() => _RSVPItemState();
+}
+
+class _RSVPItemState extends State<_RSVPItem> {
+  InvitedGuest? invitedGuest;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (widget.rsvp.invited == false)
+            SizedBox(
+              height: 32,
+              width: 32,
+              child: Image(
+                image: AssetImage('assets/avatars/${widget.rsvp.avatar}.png', package: 'iv_project_invitation_theme'),
+                fit: BoxFit.fitWidth,
+              ),
+            )
+          else if (invitedGuest != null)
+            SizedBox(
+              height: 32,
+              width: 32,
+              child: Image(
+                image: AssetImage('assets/avatars/${invitedGuest!.avatar}.png', package: 'iv_project_invitation_theme'),
+                fit: BoxFit.fitWidth,
+              ),
+            )
+          else
+            SizedBox(
+              height: 32,
+              width: 32,
+              child: DecoratedBox(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10))),
+            ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    if (widget.rsvp.invited == false)
+                      Text(
+                        'Guest_${widget.rsvp.guestName}',
+                        style: AppFonts.inter(
+                          color: Colors.grey.shade100,
+                          fontSize: FontScale.sm,
+                          fontWeight: FontWeight.bold,
+                          height: 1.16,
+                        ),
+                      )
+                    else if (invitedGuest != null)
+                      Text(
+                        invitedGuest?.nickName ?? '',
+                        style: AppFonts.inter(fontSize: FontScale.sm, fontWeight: FontWeight.w500, height: 1.16),
+                      )
+                    else
+                      SizedBox(
+                        height: 12,
+                        width: 50 + Random().nextInt(20).toDouble(),
+                        child: DecoratedBox(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10))),
+                      ),
+                    const SizedBox(width: 8),
+                    _TimeLapse(dateTimeEpoch: widget.rsvp.dateTime),
+                  ],
+                ),
+                if (widget.rsvp.invited == false)
+                  Text(
+                    '@__Guest',
+                    style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontScale.xs, height: 1.16),
+                  )
+                else if (invitedGuest != null)
+                  Text(
+                    '@${invitedGuest!.nameInstance}',
+                    style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontScale.xs, height: 1.16),
+                  )
+                else ...[
+                  const SizedBox(height: 4),
+                  SizedBox(
+                    height: 10,
+                    width: 100 + Random().nextInt(60).toDouble(),
+                    child: DecoratedBox(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10))),
+                  ),
+                ],
+                const SizedBox(height: 4),
+                Text(
+                  widget.rsvp.attendance,
+                  style: AppFonts.inter(
+                    color: widget.rsvp.attendance == 'Hadir'
+                        ? ColorConverter.lighten(Colors.green, 50)
+                        : widget.rsvp.attendance == 'Tidak Hadir'
+                        ? ColorConverter.lighten(Colors.red, 50)
+                        : Colors.grey.shade700,
+                    fontWeight: FontWeight.w400,
+                    fontSize: FontScale.xs,
+                  ),
+                ),
+                Text(
+                  widget.rsvp.remark,
+                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.sm),
+                ),
+              ],
             ),
           ),
-        ),
-        SizedBox(height: SizeScale.widthX5s),
-      ],
+        ],
+      ),
+    );
+  }
+}
+
+class _TimeLapse extends StatefulWidget {
+  const _TimeLapse({required this.dateTimeEpoch});
+
+  final int dateTimeEpoch;
+
+  @override
+  State<_TimeLapse> createState() => _TimeLapseState();
+}
+
+class _TimeLapseState extends State<_TimeLapse> {
+  late final Timer _timer;
+
+  int diffOfMillisecondsSinceEpoch(int value) {
+    late int returnValue;
+    final int nowMillisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
+    returnValue = nowMillisecondsSinceEpoch - value;
+
+    return returnValue;
+  }
+
+  String getTime(int value) {
+    final Duration duration = Duration(milliseconds: value);
+
+    if (duration.inDays != 0) return '${duration.inDays} hari';
+    if (duration.inHours != 0) return '${duration.inHours} jam';
+    if (duration.inMinutes != 0) return '${duration.inMinutes} menit';
+    return '${duration.inSeconds} detik';
+  }
+
+  @override
+  void initState() {
+    _timer = Timer.periodic(const Duration(minutes: 1), (_) => setState(() {}));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      getTime(diffOfMillisecondsSinceEpoch(widget.dateTimeEpoch)),
+      style: AppFonts.inter(color: ColorConverter.lighten(Colors.grey, 50)),
     );
   }
 }
