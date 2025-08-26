@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
@@ -130,7 +131,47 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                                   children: [
                                     const _RSVPsWidget(isShowMore: false),
                                     GeneralEffectsButton(
-                                      onTap: () {},
+                                      onTap: () {
+                                        ShowModal.bottomSheet(
+                                          context,
+                                          barrierColor: Colors.grey.shade700.withValues(alpha: .5),
+                                          header: BottomSheetHeader(
+                                            useHandleBar: true,
+                                            handleColor: Colors.grey.shade500,
+                                            action: HeaderAction(
+                                              actionIcon: Icons.close_rounded,
+                                              iconColor: Colors.grey.shade400,
+                                              onTap: () => NavigationService.pop(),
+                                            ),
+                                          ),
+                                          decoration: BottomSheetDecoration(
+                                            color: Colors.black.withValues(alpha: .85),
+                                            borderRadius: const BorderRadius.only(
+                                              topLeft: Radius.circular(20),
+                                              topRight: Radius.circular(20),
+                                            ),
+                                          ),
+                                          contentBuilder: (_) {
+                                            return SizedBox(
+                                              height: ScreenUtil.size.height - SizeScale.heightX15l,
+                                              child: Padding(
+                                                padding: EdgeInsets.only(
+                                                  left: SizeScale.widthX6s,
+                                                  right: SizeScale.widthX6s,
+                                                  bottom: SizeScale.widthX6s,
+                                                ),
+                                                child: DecoratedBox(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.grey.shade700.withValues(alpha: .5),
+                                                    borderRadius: BorderRadius.circular(16),
+                                                  ),
+                                                  child: const _RSVPsWidget(isShowMore: true),
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
                                       width: double.maxFinite,
                                       height: SizeScale.widthLg + SizeScale.heightX10s,
                                       borderRadius: BorderRadius.circular(30),
