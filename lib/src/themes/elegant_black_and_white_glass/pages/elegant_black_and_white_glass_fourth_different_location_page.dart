@@ -7,13 +7,14 @@ import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
+import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFourthPage({super.key});
+class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidget {
+  const ElegantBlackAndWhiteGlassFourthDifferentLocationPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: ScreenUtil.size.height / 1.4,
+            height: ScreenUtil.size.height,
             width: ScreenUtil.size.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -47,12 +48,14 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.location_pin, size: SizeScale.widthXs, color: Colors.grey.shade200),
+                    Icon(Icons.celebration, size: SizeScale.widthXs, color: Colors.grey.shade200),
                     const SizedBox(width: 10),
                     Text(
-                      'Lokasi Acara',
+                      'Resepsi',
                       style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
+                    const SizedBox(width: 10),
+                    Icon(Icons.restaurant, size: SizeScale.widthXs, color: Colors.grey.shade200),
                   ],
                 ),
               ),
@@ -89,38 +92,86 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                 child: ClipRect(
                   child: Column(
                     children: [
-                      SizedBox(height: SizeScale.heightLg),
+                      const Spacer(),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          FadeAndSlideTransition(
+                            slideFromOffset: .0,
+                            slideFrom: SlideFrom.bottom,
+                            delayBeforeStart: const Duration(milliseconds: 500),
+                            child: Column(
+                              children: [
+                                Icon(Icons.event, size: 32, color: Colors.grey.shade50),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Minggu, 17 Agustus 2025',
+                                  style: AppFonts.inter(
+                                    color: Colors.grey.shade50,
+                                    fontSize: FontScale.lg,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: SizeScale.heightX14s),
+                          FadeAndSlideTransition(
+                            slideFromOffset: .8,
+                            slideFrom: SlideFrom.bottom,
+                            animationSpeed: const Duration(milliseconds: 300),
+                            delayBeforeStart: const Duration(milliseconds: 800),
+                            child: Text(
+                              'Pukul 08.00 WIB - Pukul 10.00 WIB',
+                              style: AppFonts.inter(
+                                color: Colors.grey.shade100,
+                                fontSize: FontScale.md,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: SizeScale.heightX6s),
+                          SizedBox(
+                            height: SizeScale.widthX3l,
+                            child: CountdownTimers(
+                              time: DateTime(2025, 9, 15, 9, 30),
+                              animationDelayBeforeStart: const Duration(milliseconds: 800),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: SizeScale.heightX4s),
+                      SizedBox(
+                        height: .5,
+                        width: SizeScale.widthX18l,
+                        child: ColoredBox(color: Colors.grey.shade100),
+                      ),
+                      SizedBox(height: SizeScale.heightX4s),
                       FadeAndSlideTransition(
                         slideFromOffset: .0,
                         slideFrom: SlideFrom.top,
-                        delayBeforeStart: const Duration(milliseconds: 200),
+                        delayBeforeStart: const Duration(milliseconds: 500),
                         child: Column(
                           children: [
-                            Icon(Icons.maps_home_work_rounded, size: 32, color: Colors.grey.shade50),
-                            const SizedBox(height: 4),
+                            Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
+                            const SizedBox(height: 3),
                             Text(
                               'Masjid Raya Bani Umar',
                               style: AppFonts.inter(
                                 color: Colors.grey.shade50,
-                                fontSize: FontScale.xl,
+                                fontSize: FontScale.lg,
                                 fontWeight: FontWeight.w600,
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              height: .5,
-                              width: SizeScale.widthX18l,
-                              child: ColoredBox(color: Colors.grey.shade50),
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(height: 8),
+                      SizedBox(height: SizeScale.heightX10s),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: SlideFrom.bottom,
                         animationSpeed: const Duration(milliseconds: 300),
-                        delayBeforeStart: const Duration(milliseconds: 400),
+                        delayBeforeStart: const Duration(milliseconds: 800),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
@@ -129,23 +180,28 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                               color: Colors.grey.shade50,
                               fontSize: FontScale.xs,
                               fontWeight: FontWeight.w400,
+                              height: 1.3,
                             ),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      const Spacer(),
-                      Maps(
-                        width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-                        height: ScreenUtil.size.height - (SizeScale.heightX22l),
-                        delayBeforeStart: const Duration(milliseconds: 1000),
+                      SizedBox(height: SizeScale.heightX6s),
+                      FadeAndSlideTransition(
+                        slideFrom: SlideFrom.bottom,
+                        delayBeforeStart: const Duration(milliseconds: 1100),
+                        child: Maps(
+                          width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
+                          height: ScreenUtil.size.height - (SizeScale.heightX18l * 2.1),
+                          delayBeforeStart: const Duration(milliseconds: 2200),
+                        ),
                       ),
-                      SizedBox(height: SizeScale.heightX2s),
+                      SizedBox(height: SizeScale.heightX6s),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: SlideFrom.bottom,
                         animationSpeed: const Duration(milliseconds: 300),
-                        delayBeforeStart: const Duration(milliseconds: 1000),
+                        delayBeforeStart: const Duration(milliseconds: 1800),
                         child: GeneralEffectsButton(
                           onTap: () {},
                           padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -168,7 +224,6 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const Spacer(),
                       const Spacer(),
                     ],
                   ),

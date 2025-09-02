@@ -21,7 +21,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: ScreenUtil.size.height / 1.4,
+            height: ScreenUtil.size.height / 1.2,
             width: ScreenUtil.size.width,
             child: DecoratedBox(
               decoration: BoxDecoration(

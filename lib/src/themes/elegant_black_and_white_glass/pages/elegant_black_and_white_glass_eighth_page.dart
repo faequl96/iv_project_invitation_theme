@@ -76,23 +76,39 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: SizeScale.widthMd),
-                        child: Text(
-                          'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
-                          style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.md, fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.center,
+                        child: FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: SlideFrom.bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 800),
+                          child: Text(
+                            'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
+                            style: AppFonts.inter(
+                              color: Colors.grey.shade900,
+                              fontSize: FontScale.md,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       SizedBox(height: SizeScale.heightLg),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: SizeScale.widthMd),
-                        child: Text(
-                          'Rahma & Faiq',
-                          style: AppFonts.pacifico(
-                            color: Colors.grey.shade900,
-                            fontSize: FontScale.x5l,
-                            fontWeight: FontWeight.w500,
+                        child: FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: SlideFrom.bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 1100),
+                          child: Text(
+                            'Rahma & Faiq',
+                            style: AppFonts.pacifico(
+                              color: Colors.grey.shade900,
+                              fontSize: FontScale.x5l,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],

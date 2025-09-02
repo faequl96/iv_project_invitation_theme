@@ -12,11 +12,12 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_different_location_page.dart';
+// import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_sixth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_different_location_page.dart';
 
 class ElegantBlackAndWhiteGlass extends StatefulWidget {
   const ElegantBlackAndWhiteGlass({super.key, required this.invitation});
@@ -78,8 +79,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ElegantBlackAndWhiteGlassCoverPage(),
                   ElegantBlackAndWhiteGlassFirstPage(),
                   ElegantBlackAndWhiteGlassSecondPage(),
-                  ElegantBlackAndWhiteGlassThirdPage(),
-                  ElegantBlackAndWhiteGlassFourthPage(),
+                  ElegantBlackAndWhiteGlassThirdDifferentLocationPage(),
+                  ElegantBlackAndWhiteGlassFourthDifferentLocationPage(),
                   ElegantBlackAndWhiteGlassFifthPage(),
                   ElegantBlackAndWhiteGlassSixthPage(),
                   ElegantBlackAndWhiteGlassSeventhPage(),

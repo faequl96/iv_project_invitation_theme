@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart';
 import 'package:latlong2/latlong.dart';
 
 class Maps extends StatefulWidget {
-  const Maps({super.key});
+  const Maps({super.key, required this.height, required this.width, this.delayBeforeStart = Duration.zero});
+
+  final double height;
+  final double width;
+  final Duration delayBeforeStart;
 
   @override
   State<Maps> createState() => _MapsState();
@@ -63,10 +66,7 @@ class _MapsState extends State<Maps> {
         ),
         child: Padding(
           padding: EdgeInsets.all(SizeScale.widthX6s / 2),
-          child: SizedBox(
-            width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-            height: ScreenUtil.size.width - (SizeScale.widthX6s * 8),
-          ),
+          child: SizedBox(height: widget.height, width: widget.width),
         ),
       );
     }
@@ -84,8 +84,8 @@ class _MapsState extends State<Maps> {
               borderRadius: BorderRadius.circular(2),
               clipBehavior: Clip.hardEdge,
               child: SizedBox(
-                width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-                height: ScreenUtil.size.height - (SizeScale.heightX22l),
+                height: widget.height,
+                width: widget.width,
                 child: ColoredBox(
                   color: Colors.grey.shade300,
                   child: Center(child: SharedPersonalize.loadingWidget(color: Colors.grey.shade900)),
@@ -102,8 +102,9 @@ class _MapsState extends State<Maps> {
             child: MapsWidget(
               latitude: latLng.latitude,
               longitude: latLng.longitude,
-              width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-              height: ScreenUtil.size.height - (SizeScale.heightX22l),
+              height: widget.height,
+              width: widget.width,
+              delayBeforeStart: widget.delayBeforeStart,
             ),
           ),
         ),
@@ -113,12 +114,20 @@ class _MapsState extends State<Maps> {
 }
 
 class MapsWidget extends StatefulWidget {
-  const MapsWidget({super.key, required this.latitude, required this.longitude, required this.height, required this.width});
+  const MapsWidget({
+    super.key,
+    required this.latitude,
+    required this.longitude,
+    required this.height,
+    required this.width,
+    required this.delayBeforeStart,
+  });
 
   final double latitude;
   final double longitude;
   final double height;
   final double width;
+  final Duration delayBeforeStart;
 
   @override
   State<MapsWidget> createState() => _MapsWidgetState();
@@ -132,7 +141,7 @@ class _MapsWidgetState extends State<MapsWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 1000));
+      await Future.delayed(widget.delayBeforeStart);
       if (mounted) setState(() => _initComplete = true);
     });
   }
