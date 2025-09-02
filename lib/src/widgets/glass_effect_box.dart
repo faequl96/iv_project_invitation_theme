@@ -67,7 +67,7 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
     return AnimatedBuilder(
       animation: _animation,
       builder: (_, _) {
-        final slide = (_controller.value * 1.3) * (widget.width + widget.sliderWidth) - widget.sliderWidth * 1.7;
+        final slide = (_controller.value * 1.3) * (widget.width + widget.sliderWidth) - widget.sliderWidth * 1.8;
 
         return ClipRRect(
           borderRadius: BorderRadius.circular(widget.borderRadius),

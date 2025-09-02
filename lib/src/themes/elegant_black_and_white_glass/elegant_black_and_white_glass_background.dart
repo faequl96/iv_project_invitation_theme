@@ -69,7 +69,7 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
             left: 40,
             bottom: SizeScale.heightX20l - 20,
             child: RandomSlideTransition(
-              child: Bubble.fill(size: SizeScale.widthXl, color: Colors.grey.shade700.withValues(alpha: .6)),
+              child: Bubble.fill(size: SizeScale.widthXl, color: Colors.grey.shade500),
             ),
           ),
           Positioned(

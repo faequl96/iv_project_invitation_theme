@@ -191,7 +191,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                           height: 52,
                           borderRadius: 36,
                           animationSpeed: const Duration(milliseconds: 600),
-                          animationInterval: const Duration(seconds: 3),
+                          animationInterval: const Duration(seconds: 7),
                           delayBeforeStart: const Duration(milliseconds: 1200),
                           color: Colors.grey.shade300.withValues(alpha: .5),
                           sliderWidth: 90,

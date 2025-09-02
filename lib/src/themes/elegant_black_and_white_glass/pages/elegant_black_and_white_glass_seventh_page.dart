@@ -218,7 +218,8 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),
                 animationSpeed: const Duration(milliseconds: 600),
-                animationInterval: const Duration(seconds: 3),
+                delayBeforeStart: const Duration(milliseconds: 3500),
+                animationInterval: const Duration(seconds: 4),
               ),
             ),
           ),
@@ -259,7 +260,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1400),
+            delayBeforeStart: const Duration(milliseconds: 800),
             child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
           ),
         ),
@@ -269,7 +270,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 1100),
+            delayBeforeStart: const Duration(milliseconds: 700),
             child: ValueListenableBuilder(
               valueListenable: _avatar,
               builder: (_, _, _) {
@@ -345,7 +346,7 @@ class _RSVPFormState extends State<RSVPForm> {
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
             slideFrom: SlideFrom.left,
-            delayBeforeStart: const Duration(milliseconds: 800),
+            delayBeforeStart: const Duration(milliseconds: 600),
             child: ValueListenableBuilder(
               valueListenable: _attendance,
               builder: (_, _, _) {
@@ -425,7 +426,7 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFromOffset: .8,
             slideFrom: SlideFrom.bottom,
             animationSpeed: const Duration(milliseconds: 300),
-            delayBeforeStart: const Duration(milliseconds: 1700),
+            delayBeforeStart: const Duration(milliseconds: 1200),
             child: GeneralEffectsButton(
               onTap: () {},
               width: double.maxFinite,
