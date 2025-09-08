@@ -9,10 +9,13 @@ import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassSixthPage({super.key});
+  const ElegantBlackAndWhiteGlassSixthPage({super.key, this.bankAccounts = const []});
+
+  final List<BankAccountResponse> bankAccounts;
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,16 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: BorderRadius.circular(20)),
+                    decoration: BoxDecoration(
+                      // color: Colors.white.withValues(alpha: .1),
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
+                        stops: const [0, 1],
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ),
@@ -99,7 +111,7 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               border: Border.all(width: .5, color: Colors.grey.shade500),
                               borderRadius: BorderRadius.circular(10),
-                              color: Colors.black.withValues(alpha: .6),
+                              color: Colors.white.withValues(alpha: .05),
                             ),
                             child: Padding(
                               padding: EdgeInsets.only(top: SizeScale.heightSm, left: 24, right: 24, bottom: SizeScale.heightSm),
@@ -123,12 +135,10 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          SizedBox(height: SizeScale.heightX4s),
-                          const _BankAccount(),
-                          SizedBox(height: SizeScale.heightX4s),
-                          const _BankAccount(),
-                          SizedBox(height: SizeScale.heightX4s),
-                          const _BankAccount(),
+                          for (final bankAccount in bankAccounts) ...[
+                            SizedBox(height: SizeScale.heightX4s),
+                            _BankAccount(bankAccount: bankAccount),
+                          ],
                         ],
                       ),
                       const Spacer(),
@@ -163,7 +173,9 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
 }
 
 class _BankAccount extends StatelessWidget {
-  const _BankAccount();
+  const _BankAccount({required this.bankAccount});
+
+  final BankAccountResponse bankAccount;
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +191,7 @@ class _BankAccount extends StatelessWidget {
             height: SizeScale.widthX5l,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: .6),
+                color: Colors.white.withValues(alpha: .05),
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(width: .5, color: Colors.grey.shade500),
               ),
@@ -193,42 +205,58 @@ class _BankAccount extends StatelessWidget {
             delayBeforeStart: const Duration(milliseconds: 1800),
             child: SizedBox(
               height: SizeScale.widthX4l - 6,
-              width: ScreenUtil.size.width - (SizeScale.widthX5l + (SizeScale.widthX6s * 4)),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(width: .5, color: Colors.grey.shade500),
-                    right: BorderSide(width: .5, color: Colors.grey.shade500),
-                    bottom: BorderSide(width: .5, color: Colors.grey.shade500),
+              width: ScreenUtil.size.width - (SizeScale.widthX5l + (SizeScale.widthX6s * 4) + 4),
+              child: Padding(
+                padding: const EdgeInsets.all(2),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: .5, color: Colors.grey.shade500),
+                    borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                    color: Colors.white.withValues(alpha: .05),
                   ),
-                  borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
-                  color: Colors.black.withValues(alpha: .6),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(width: SizeScale.widthX6s),
-                    Text(
-                      '085640933136',
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md, fontWeight: FontWeight.w500),
-                      textAlign: TextAlign.center,
-                    ),
-                    const Spacer(),
-                    GeneralEffectsButton(
-                      onTap: () {},
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade400.withValues(alpha: .2),
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(width: .5, color: Colors.grey.shade400),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 4, right: 3),
-                          child: Icon(Icons.content_copy_rounded, color: Colors.grey.shade200),
+                  child: Row(
+                    children: [
+                      SizedBox(width: SizeScale.widthX6s),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            bankAccount.number,
+                            style: AppFonts.inter(
+                              color: Colors.grey.shade100,
+                              fontSize: FontScale.md,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'a.n ${bankAccount.accountName}',
+                            style: AppFonts.inter(
+                              color: Colors.grey.shade100,
+                              fontSize: FontScale.x2s,
+                              fontWeight: FontWeight.w300,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      GeneralEffectsButton(
+                        onTap: () {},
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade400.withValues(alpha: .2),
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(width: .5, color: Colors.grey.shade400),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 5, bottom: 5, left: 4, right: 3),
+                            child: Icon(Icons.content_copy_rounded, color: Colors.grey.shade200),
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: SizeScale.widthX6s),
-                  ],
+                      SizedBox(width: SizeScale.widthX6s),
+                    ],
+                  ),
                 ),
               ),
             ),

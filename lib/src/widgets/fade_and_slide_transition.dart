@@ -15,6 +15,7 @@ class FadeAndSlideTransition extends StatefulWidget {
     this.fadeEnd = 1,
     this.slideFrom = SlideFrom.bottom,
     this.slideFromOffset = .5,
+    this.isNoNeedTrigger = false,
     required this.child,
   });
 
@@ -24,6 +25,7 @@ class FadeAndSlideTransition extends StatefulWidget {
   final double fadeEnd;
   final SlideFrom slideFrom;
   final double slideFromOffset;
+  final bool isNoNeedTrigger;
   final Widget child;
 
   @override
@@ -82,6 +84,8 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
     super.initState();
 
     _initAnimation();
+
+    if (widget.isNoNeedTrigger) WidgetsBinding.instance.addPostFrameCallback((_) => _runAnimation(1));
 
     _sub = context.read<CoreCubit>().stream.listen((state) {
       _runAnimation(state.animationTrigger);

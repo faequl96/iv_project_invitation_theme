@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
@@ -83,178 +84,54 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: SizeScale.heightX2s),
-                      Row(
-                        children: [
-                          SizedBox(width: SizeScale.widthX4s),
-                          Expanded(
-                            flex: 5,
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.left,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 500),
-                              child: SizedBox(
-                                height: SizeScale.widthX11l + 4,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          SizedBox(
-                            height: SizeScale.widthX11l + 4,
-                            width: .5,
-                            child: ColoredBox(color: Colors.grey.shade500),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          Expanded(
-                            flex: 3,
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.right,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 1000),
-                              child: SizedBox(
-                                height: SizeScale.widthX11l + 4,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX4s),
-                        ],
-                      ),
-                      SizedBox(height: SizeScale.widthX7s),
-                      Row(
-                        children: [
-                          SizedBox(width: SizeScale.widthX4s),
-                          Expanded(
-                            child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                          ),
-                          SizedBox(width: SizeScale.widthX4s),
-                        ],
-                      ),
-                      SizedBox(height: SizeScale.widthX7s),
-                      Row(
-                        children: [
-                          SizedBox(width: SizeScale.widthX4s),
-                          Expanded(
-                            flex: 3,
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.right,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 1000),
-                              child: SizedBox(
-                                height: SizeScale.widthX11l + 4,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          SizedBox(
-                            height: SizeScale.widthX11l + 4,
-                            width: .5,
-                            child: ColoredBox(color: Colors.grey.shade500),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          Expanded(
-                            flex: 5,
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.left,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 500),
-                              child: SizedBox(
-                                height: SizeScale.widthX11l + 4,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX4s),
-                        ],
-                      ),
-                      SizedBox(height: SizeScale.widthX7s),
-                      Row(
-                        children: [
-                          SizedBox(width: SizeScale.widthX4s),
-                          Expanded(
-                            child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
-                          ),
-                          SizedBox(width: SizeScale.widthX4s),
-                        ],
-                      ),
-                      SizedBox(height: SizeScale.widthX7s),
-                      Row(
-                        children: [
-                          SizedBox(width: SizeScale.widthX4s),
-                          Expanded(
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.bottom,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 1500),
-                              child: SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          SizedBox(
-                            height: SizeScale.widthX9l + 8,
-                            width: .5,
-                            child: ColoredBox(color: Colors.grey.shade500),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          Expanded(
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.bottom,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 1500),
-                              child: SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          SizedBox(
-                            height: SizeScale.widthX9l + 8,
-                            width: .5,
-                            child: ColoredBox(color: Colors.grey.shade500),
-                          ),
-                          SizedBox(width: SizeScale.widthX7s),
-                          Expanded(
-                            child: FadeAndSlideTransition(
-                              slideFrom: SlideFrom.bottom,
-                              slideFromOffset: .3,
-                              delayBeforeStart: const Duration(milliseconds: 1500),
-                              child: SizedBox(
-                                height: SizeScale.widthX9l + 8,
-                                child: DecoratedBox(
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: SizeScale.widthX4s),
-                        ],
-                      ),
-                      SizedBox(height: SizeScale.heightXs),
+                      const _Gallery(),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: SlideFrom.bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 2000),
                         child: GeneralEffectsButton(
-                          onTap: () {},
+                          onTap: () {
+                            ShowModal.bottomSheet(
+                              context,
+                              barrierColor: Colors.grey.shade700.withValues(alpha: .5),
+                              header: BottomSheetHeader(
+                                useHandleBar: true,
+                                handleColor: Colors.grey.shade500,
+                                action: HeaderAction(
+                                  actionIcon: Icons.close_rounded,
+                                  iconColor: Colors.grey.shade400,
+                                  onTap: () => NavigationService.pop(),
+                                ),
+                              ),
+                              decoration: BottomSheetDecoration(
+                                color: Colors.black.withValues(alpha: .85),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                              ),
+                              contentBuilder: (_) {
+                                return SizedBox(
+                                  height: ScreenUtil.size.height - SizeScale.heightX10l,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      left: SizeScale.widthX6s,
+                                      right: SizeScale.widthX6s,
+                                      bottom: SizeScale.widthX6s,
+                                    ),
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade700.withValues(alpha: .5),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      child: const SingleChildScrollView(child: _Gallery(isShowMore: true)),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
                           padding: const EdgeInsets.symmetric(horizontal: 48),
                           height: SizeScale.widthLg + SizeScale.heightX10s,
                           borderRadius: BorderRadius.circular(30),
@@ -302,6 +179,302 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Gallery extends StatelessWidget {
+  const _Gallery({this.isShowMore = false});
+
+  final bool isShowMore;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(height: SizeScale.heightX2s),
+        Row(
+          children: [
+            SizedBox(width: SizeScale.widthX4s),
+            Expanded(
+              flex: 5,
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.left,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX11l + 4,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(
+              height: SizeScale.widthX11l + 4,
+              width: .5,
+              child: ColoredBox(color: Colors.grey.shade500),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            Expanded(
+              flex: 3,
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.right,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1000),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX11l + 4,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX4s),
+          ],
+        ),
+        SizedBox(height: SizeScale.widthX7s),
+        Row(
+          children: [
+            SizedBox(width: SizeScale.widthX4s),
+            Expanded(
+              child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+            ),
+            SizedBox(width: SizeScale.widthX4s),
+          ],
+        ),
+        SizedBox(height: SizeScale.widthX7s),
+        Row(
+          children: [
+            SizedBox(width: SizeScale.widthX4s),
+            Expanded(
+              flex: 3,
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.right,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1000),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX11l + 4,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(
+              height: SizeScale.widthX11l + 4,
+              width: .5,
+              child: ColoredBox(color: Colors.grey.shade500),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            Expanded(
+              flex: 5,
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.left,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX11l + 4,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX4s),
+          ],
+        ),
+        SizedBox(height: SizeScale.widthX7s),
+        Row(
+          children: [
+            SizedBox(width: SizeScale.widthX4s),
+            Expanded(
+              child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+            ),
+            SizedBox(width: SizeScale.widthX4s),
+          ],
+        ),
+        SizedBox(height: SizeScale.widthX7s),
+        Row(
+          children: [
+            SizedBox(width: SizeScale.widthX4s),
+            Expanded(
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.bottom,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX9l + 8,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(
+              height: SizeScale.widthX9l + 8,
+              width: .5,
+              child: ColoredBox(color: Colors.grey.shade500),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            Expanded(
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.bottom,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX9l + 8,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(
+              height: SizeScale.widthX9l + 8,
+              width: .5,
+              child: ColoredBox(color: Colors.grey.shade500),
+            ),
+            SizedBox(width: SizeScale.widthX7s),
+            Expanded(
+              child: FadeAndSlideTransition(
+                slideFrom: SlideFrom.bottom,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: SizeScale.widthX9l + 8,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(width: SizeScale.widthX4s),
+          ],
+        ),
+        if (isShowMore) ...[
+          SizedBox(height: SizeScale.widthX7s),
+          Row(
+            children: [
+              SizedBox(width: SizeScale.widthX4s),
+              Expanded(
+                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+              ),
+              SizedBox(width: SizeScale.widthX4s),
+            ],
+          ),
+          SizedBox(height: SizeScale.widthX7s),
+          Row(
+            children: [
+              SizedBox(width: SizeScale.widthX4s),
+              Expanded(
+                flex: 5,
+                child: FadeAndSlideTransition(
+                  slideFrom: SlideFrom.bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2000),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: SizeScale.widthX11l + 4,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: SizeScale.widthX7s),
+              SizedBox(
+                height: SizeScale.widthX11l + 4,
+                width: .5,
+                child: ColoredBox(color: Colors.grey.shade500),
+              ),
+              SizedBox(width: SizeScale.widthX7s),
+              Expanded(
+                flex: 3,
+                child: FadeAndSlideTransition(
+                  slideFrom: SlideFrom.bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2000),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: SizeScale.widthX11l + 4,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: SizeScale.widthX4s),
+            ],
+          ),
+          SizedBox(height: SizeScale.widthX7s),
+          Row(
+            children: [
+              SizedBox(width: SizeScale.widthX4s),
+              Expanded(
+                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+              ),
+              SizedBox(width: SizeScale.widthX4s),
+            ],
+          ),
+          SizedBox(height: SizeScale.widthX7s),
+          Row(
+            children: [
+              SizedBox(width: SizeScale.widthX4s),
+              Expanded(
+                flex: 3,
+                child: FadeAndSlideTransition(
+                  slideFrom: SlideFrom.bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2500),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: SizeScale.widthX11l + 4,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: SizeScale.widthX7s),
+              SizedBox(
+                height: SizeScale.widthX11l + 4,
+                width: .5,
+                child: ColoredBox(color: Colors.grey.shade500),
+              ),
+              SizedBox(width: SizeScale.widthX7s),
+              Expanded(
+                flex: 5,
+                child: FadeAndSlideTransition(
+                  slideFrom: SlideFrom.bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2500),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: SizeScale.widthX11l + 4,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(width: SizeScale.widthX4s),
+            ],
+          ),
+        ],
+        SizedBox(height: SizeScale.heightX2s),
+      ],
     );
   }
 }

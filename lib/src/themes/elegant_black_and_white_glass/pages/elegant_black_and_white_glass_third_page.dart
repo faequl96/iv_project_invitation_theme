@@ -4,15 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/date_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 
 class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassThirdPage({super.key});
+  const ElegantBlackAndWhiteGlassThirdPage({super.key, required this.contractEvent, required this.receptionEvent});
+
+  final EventResponse contractEvent;
+  final EventResponse receptionEvent;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +136,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  'Minggu, 17 Agustus 2025',
+                                  DateUtil.format(contractEvent.startTime, DateFormatPattern.EEEEddMMMMyyyy),
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade50,
                                     fontSize: FontScale.lg,
@@ -140,7 +145,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: SizeScale.heightX10s),
                                 Text(
-                                  'Pukul 08.00 WIB - Pukul 10.00 WIB',
+                                  'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,
@@ -154,7 +159,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                           SizedBox(
                             height: SizeScale.widthX3l,
                             child: CountdownTimers(
-                              time: DateTime(2025, 9, 15, 9, 30),
+                              time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),
@@ -200,7 +205,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  'Minggu, 17 Agustus 2025',
+                                  DateUtil.format(receptionEvent.startTime, DateFormatPattern.EEEEddMMMMyyyy),
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade50,
                                     fontSize: FontScale.lg,
@@ -209,7 +214,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: SizeScale.heightX10s),
                                 Text(
-                                  'Pukul 11.00 WIB - Pukul 13.00 WIB',
+                                  'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.hhmm)} WIB - ${receptionEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,
@@ -223,7 +228,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                           SizedBox(
                             height: SizeScale.widthX3l,
                             child: CountdownTimers(
-                              time: DateTime(2025, 9, 15, 9, 30),
+                              time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),

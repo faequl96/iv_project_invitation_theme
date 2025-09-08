@@ -8,9 +8,14 @@ import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 
 class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassCoverPage({super.key});
+  const ElegantBlackAndWhiteGlassCoverPage({super.key, required this.bride, required this.groom, required this.time});
+
+  final BridegroomResponse bride;
+  final BridegroomResponse groom;
+  final EventResponse time;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +59,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: SizeScale.heightX9s),
-                const _BrideName(),
+                _BridegroomName(bride: bride, groom: groom),
                 SizedBox(height: SizeScale.heightMd),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
@@ -64,7 +69,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: SizeScale.heightX8s),
-                CountdownTimers(time: DateTime(2025, 9, 15, 9, 30)),
+                CountdownTimers(time: time.startTime),
                 SizedBox(height: SizeScale.heightX5s),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
@@ -89,8 +94,11 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
   }
 }
 
-class _BrideName extends StatelessWidget {
-  const _BrideName();
+class _BridegroomName extends StatelessWidget {
+  const _BridegroomName({required this.bride, required this.groom});
+
+  final BridegroomResponse bride;
+  final BridegroomResponse groom;
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +114,7 @@ class _BrideName extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Milea',
+                    text: bride.nickname,
                     style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
                   ),
                   TextSpan(
@@ -114,7 +122,7 @@ class _BrideName extends StatelessWidget {
                     style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
                   ),
                   TextSpan(
-                    text: 'Dilan',
+                    text: groom.nickname,
                     style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                   ),
                 ],
@@ -132,7 +140,7 @@ class _BrideName extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Milea',
+                    text: bride.nickname,
                     style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                   ),
                   TextSpan(
@@ -140,7 +148,7 @@ class _BrideName extends StatelessWidget {
                     style: TextStyle(fontSize: FontScale.x4l, color: Colors.grey.shade300),
                   ),
                   TextSpan(
-                    text: 'Dilan',
+                    text: groom.nickname,
                     style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                   ),
                 ],
@@ -160,7 +168,7 @@ class _BrideName extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Milea',
+                    text: bride.nickname,
                     style: TextStyle(fontSize: FontScale.x8l, color: Colors.transparent),
                   ),
                   TextSpan(
@@ -168,7 +176,7 @@ class _BrideName extends StatelessWidget {
                     style: TextStyle(fontSize: FontScale.x4l, color: Colors.transparent),
                   ),
                   TextSpan(
-                    text: 'Dilan',
+                    text: groom.nickname,
                     style: TextStyle(fontSize: FontScale.x8l, color: Colors.grey.shade300),
                   ),
                 ],

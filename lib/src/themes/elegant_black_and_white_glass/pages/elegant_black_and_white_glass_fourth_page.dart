@@ -10,10 +10,14 @@ import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFourthPage({super.key});
+  const ElegantBlackAndWhiteGlassFourthPage({super.key, required this.receptionEvent});
+
+  final EventResponse receptionEvent;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +103,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             Icon(Icons.maps_home_work_rounded, size: 32, color: Colors.grey.shade50),
                             const SizedBox(height: 4),
                             Text(
-                              'Masjid Raya Bani Umar',
+                              receptionEvent.place,
                               style: AppFonts.inter(
                                 color: Colors.grey.shade50,
                                 fontSize: FontScale.xl,
@@ -124,7 +128,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                            'Jl. Graha Raya Bintaro Kv. GK 4 No. 2-4, Pondok Aren, Tangerang Selatan',
+                            receptionEvent.address,
                             style: AppFonts.inter(
                               color: Colors.grey.shade50,
                               fontSize: FontScale.xs,
@@ -139,6 +143,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                         width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
                         height: ScreenUtil.size.height - (SizeScale.heightX22l),
                         delayBeforeStart: const Duration(milliseconds: 1000),
+                        url: receptionEvent.mapsUrl,
                       ),
                       SizedBox(height: SizeScale.heightX2s),
                       FadeAndSlideTransition(
@@ -147,7 +152,9 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1000),
                         child: GeneralEffectsButton(
-                          onTap: () {},
+                          onTap: () {
+                            launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: LaunchMode.externalNonBrowserApplication);
+                          },
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           height: SizeScale.widthLg + SizeScale.heightX10s,
                           borderRadius: BorderRadius.circular(30),

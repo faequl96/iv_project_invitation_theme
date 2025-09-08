@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/date_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
@@ -11,10 +12,14 @@ import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassThirdDifferentLocationPage({super.key});
+  const ElegantBlackAndWhiteGlassThirdDifferentLocationPage({super.key, required this.contractEvent});
+
+  final EventResponse contractEvent;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +118,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                                 Icon(Icons.event, size: 32, color: Colors.grey.shade50),
                                 const SizedBox(height: 4),
                                 Text(
-                                  'Minggu, 17 Agustus 2025',
+                                  DateUtil.format(contractEvent.startTime, DateFormatPattern.EEEEddMMMMyyyy),
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade50,
                                     fontSize: FontScale.lg,
@@ -130,7 +135,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
                             child: Text(
-                              'Pukul 08.00 WIB - Pukul 10.00 WIB',
+                              'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
                               style: AppFonts.inter(
                                 color: Colors.grey.shade100,
                                 fontSize: FontScale.md,
@@ -142,7 +147,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                           SizedBox(
                             height: SizeScale.widthX3l,
                             child: CountdownTimers(
-                              time: DateTime(2025, 9, 15, 9, 30),
+                              time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),
@@ -164,7 +169,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                             Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
                             const SizedBox(height: 3),
                             Text(
-                              'Masjid Raya Bani Umar',
+                              contractEvent.place,
                               style: AppFonts.inter(
                                 color: Colors.grey.shade50,
                                 fontSize: FontScale.lg,
@@ -183,7 +188,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Text(
-                            'Jl. Graha Raya Bintaro Kv. GK 4 No. 2-4, Pondok Aren, Tangerang Selatan',
+                            contractEvent.address,
                             style: AppFonts.inter(
                               color: Colors.grey.shade50,
                               fontSize: FontScale.xs,
@@ -202,6 +207,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                           width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
                           height: ScreenUtil.size.height - (SizeScale.heightX18l * 2.1),
                           delayBeforeStart: const Duration(milliseconds: 2200),
+                          url: contractEvent.mapsUrl,
                         ),
                       ),
                       SizedBox(height: SizeScale.heightX6s),
@@ -211,7 +217,9 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1800),
                         child: GeneralEffectsButton(
-                          onTap: () {},
+                          onTap: () {
+                            launchUrl(Uri.parse(contractEvent.mapsUrl), mode: LaunchMode.externalNonBrowserApplication);
+                          },
                           padding: const EdgeInsets.symmetric(horizontal: 24),
                           height: SizeScale.widthLg + SizeScale.heightX10s,
                           borderRadius: BorderRadius.circular(30),

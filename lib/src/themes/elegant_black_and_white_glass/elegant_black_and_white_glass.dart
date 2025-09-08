@@ -5,7 +5,6 @@ import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
-import 'package:iv_project_invitation_theme/src/models/invitation.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
@@ -13,16 +12,19 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 // import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 
 class ElegantBlackAndWhiteGlass extends StatefulWidget {
-  const ElegantBlackAndWhiteGlass({super.key, required this.invitation});
+  const ElegantBlackAndWhiteGlass({super.key, required this.invitationData});
 
-  final Invitation invitation;
+  final InvitationDataResponse invitationData;
 
   @override
   State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
@@ -75,16 +77,28 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
           child: Stack(
             children: [
               PageViewWithBottomTabBar(
-                pages: const [
-                  ElegantBlackAndWhiteGlassCoverPage(),
-                  ElegantBlackAndWhiteGlassFirstPage(),
-                  ElegantBlackAndWhiteGlassSecondPage(),
-                  ElegantBlackAndWhiteGlassThirdDifferentLocationPage(),
-                  ElegantBlackAndWhiteGlassFourthDifferentLocationPage(),
-                  ElegantBlackAndWhiteGlassFifthPage(),
-                  ElegantBlackAndWhiteGlassSixthPage(),
-                  ElegantBlackAndWhiteGlassSeventhPage(),
-                  ElegantBlackAndWhiteGlassEighthPage(),
+                pages: [
+                  ElegantBlackAndWhiteGlassCoverPage(
+                    bride: widget.invitationData.bride,
+                    groom: widget.invitationData.groom,
+                    time: widget.invitationData.contractEvent,
+                  ),
+                  const ElegantBlackAndWhiteGlassFirstPage(),
+                  ElegantBlackAndWhiteGlassSecondPage(bride: widget.invitationData.bride, groom: widget.invitationData.groom),
+                  if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
+                    ElegantBlackAndWhiteGlassThirdPage(
+                      contractEvent: widget.invitationData.contractEvent,
+                      receptionEvent: widget.invitationData.receptionEvent,
+                    ),
+                    ElegantBlackAndWhiteGlassFourthPage(receptionEvent: widget.invitationData.receptionEvent),
+                  ] else ...[
+                    ElegantBlackAndWhiteGlassThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
+                    ElegantBlackAndWhiteGlassFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
+                  ],
+                  const ElegantBlackAndWhiteGlassFifthPage(),
+                  ElegantBlackAndWhiteGlassSixthPage(bankAccounts: widget.invitationData.bankAccounts),
+                  const ElegantBlackAndWhiteGlassSeventhPage(),
+                  const ElegantBlackAndWhiteGlassEighthPage(),
                 ],
                 tabsBuilder: (int tabActive) => [
                   Tab(
@@ -125,7 +139,11 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                   ),
                 ],
               ),
-              const InitializerWrapper(),
+              InitializerWrapper(
+                bride: widget.invitationData.bride,
+                groom: widget.invitationData.groom,
+                time: widget.invitationData.contractEvent,
+              ),
             ],
           ),
         ),

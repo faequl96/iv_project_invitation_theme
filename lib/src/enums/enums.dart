@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-enum InvitationType { create, edit, view }
+enum InvitationSectionType { create, edit, view }
 
 enum Attendance {
   yes('Hadir'),

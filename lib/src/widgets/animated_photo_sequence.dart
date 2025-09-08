@@ -119,7 +119,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade50.withValues(alpha: .3),
-                              border: Border.all(width: .5, color: Colors.grey.shade900),
+                              border: Border.all(width: .5, color: Colors.grey.shade200),
                               borderRadius: BorderRadius.circular(4),
                             ),
                           ),

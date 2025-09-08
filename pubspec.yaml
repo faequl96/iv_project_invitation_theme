@@ -18,7 +18,7 @@ dependencies:
   iv_project_model:
     git:
       url: https://github.com/faequl96/iv_project_model.git
-      ref: 0.0.4
+      ref: 0.0.7+1
 
   # iv_project_core:
   #   path: ../iv_project_core
@@ -35,15 +35,18 @@ dependencies:
     git:
       url: https://github.com/faequl96/quick_dev_sdk.git
       ref: 0.0.7+1
-  
+
   flutter_bloc: ^9.1.1
 
   equatable: ^2.0.7
 
-  just_audio: ^0.10.4
+  intl: ^0.20.2
+
+  just_audio: ^0.10.5
 
   flutter_map: ^8.2.1
   latlong2: ^0.9.1
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:

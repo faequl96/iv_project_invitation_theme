@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/date_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/opener/blurry_clear_cover.dart';
 import 'package:iv_project_invitation_theme/src/opener/padlock.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 
 class InitializerWrapper extends StatefulWidget {
-  const InitializerWrapper({super.key});
+  const InitializerWrapper({super.key, required this.bride, required this.groom, required this.time});
+
+  final BridegroomResponse bride;
+  final BridegroomResponse groom;
+  final EventResponse time;
 
   @override
   State<InitializerWrapper> createState() => _InitializerWrapperState();
@@ -89,7 +95,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   width: SizeScale.heightX11l,
                   child: Center(
                     child: Text(
-                      'M',
+                      widget.bride.nickname[0],
                       style: AppFonts.pacifico(
                         fontSize: FontScale.xl + SizeScale.heightXl,
                         fontWeight: FontWeight.w500,
@@ -106,7 +112,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   width: SizeScale.heightX11l,
                   child: Center(
                     child: Text(
-                      'D',
+                      widget.groom.nickname[0],
                       style: AppFonts.pacifico(
                         fontSize: FontScale.xl + SizeScale.heightXl,
                         fontWeight: FontWeight.w500,
@@ -119,7 +125,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
               Align(
                 alignment: const Alignment(0, .3),
                 child: Text(
-                  'Minggu, 17 Agustus 2025',
+                  DateUtil.format(widget.time.startTime, DateFormatPattern.EEEEddMMMMyyyy),
                   style: AppFonts.inter(fontSize: FontScale.md, color: Colors.grey.shade300, fontWeight: FontWeight.w300),
                 ),
               ),

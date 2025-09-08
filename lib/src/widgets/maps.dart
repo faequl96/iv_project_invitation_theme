@@ -5,11 +5,12 @@ import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart'
 import 'package:latlong2/latlong.dart';
 
 class Maps extends StatefulWidget {
-  const Maps({super.key, required this.height, required this.width, this.delayBeforeStart = Duration.zero});
+  const Maps({super.key, required this.height, required this.width, this.delayBeforeStart = Duration.zero, required this.url});
 
   final double height;
   final double width;
   final Duration delayBeforeStart;
+  final String url;
 
   @override
   State<Maps> createState() => _MapsState();
@@ -54,9 +55,7 @@ class _MapsState extends State<Maps> {
 
   @override
   Widget build(BuildContext context) {
-    final latLng = _getLatLngFromGoogleMaps(
-      'https://www.google.com/maps/place/Masjid+Raya+Bani+Umar+-+Tangerang+Selatan/@-6.2705383,106.6944082,16.87z/data=!4m6!3m5!1s0x2e69faf062460ed5:0xc46eba6617b311d6!8m2!3d-6.2703756!4d106.6893305!16s%2Fg%2F1pztc44x6?entry=ttu&g_ep=EgoyMDI1MDgwNS4wIKXMDSoASAFQAw%3D%3D',
-    );
+    final latLng = _getLatLngFromGoogleMaps(widget.url);
 
     if (latLng == null) {
       return DecoratedBox(
