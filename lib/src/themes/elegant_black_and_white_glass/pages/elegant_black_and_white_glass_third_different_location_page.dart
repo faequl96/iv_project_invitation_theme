@@ -135,7 +135,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
                             child: Text(
-                              'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
+                              'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, DateFormatPattern.hhmm)} WIB'}',
                               style: AppFonts.inter(
                                 color: Colors.grey.shade100,
                                 fontSize: FontScale.md,

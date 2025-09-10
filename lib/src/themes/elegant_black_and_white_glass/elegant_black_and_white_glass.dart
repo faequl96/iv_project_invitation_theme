@@ -113,14 +113,25 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                     height: 48,
                     child: _Tab(title: 'Pengundang', icon: Icons.people, tabIndex: 2, tabActive: tabActive),
                   ),
-                  Tab(
-                    height: 48,
-                    child: _Tab(title: 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
-                  ),
-                  Tab(
-                    height: 48,
-                    child: _Tab(title: 'Lokasi', icon: Icons.location_pin, tabIndex: 4, tabActive: tabActive),
-                  ),
+                  if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
+                    Tab(
+                      height: 48,
+                      child: _Tab(title: 'Akad Nikah', icon: Icons.volunteer_activism, tabIndex: 3, tabActive: tabActive),
+                    ),
+                    Tab(
+                      height: 48,
+                      child: _Tab(title: 'Resepsi', icon: Icons.celebration, tabIndex: 4, tabActive: tabActive),
+                    ),
+                  ] else ...[
+                    Tab(
+                      height: 48,
+                      child: _Tab(title: 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
+                    ),
+                    Tab(
+                      height: 48,
+                      child: _Tab(title: 'Lokasi', icon: Icons.location_pin, tabIndex: 4, tabActive: tabActive),
+                    ),
+                  ],
                   Tab(
                     height: 48,
                     child: _Tab(title: 'Galeri', icon: Icons.photo_library_rounded, tabIndex: 5, tabActive: tabActive),

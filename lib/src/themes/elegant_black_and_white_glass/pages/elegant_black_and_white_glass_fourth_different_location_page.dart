@@ -127,7 +127,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
                             child: Text(
-                              'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.hhmm)} WIB - ${receptionEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
+                              'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.hhmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.hhmm)} WIB'}',
                               style: AppFonts.inter(
                                 color: Colors.grey.shade100,
                                 fontSize: FontScale.md,

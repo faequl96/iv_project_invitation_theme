@@ -95,8 +95,13 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                       const AnimatedPhotoSequence.right(),
                       AnimatedInviter.left(
                         children: [
-                          Text(
-                            bride.fullName,
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(text: bride.fullName),
+                                if (bride.title != null) TextSpan(text: ', ${bride.title}'),
+                              ],
+                            ),
                             style: AppFonts.pacifico(fontSize: FontScale.x2l, color: Colors.grey.shade100, height: 1.25),
                           ),
                           const SizedBox(height: 8),
@@ -123,6 +128,11 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: bride.fatherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
+                                if (bride.fatherTitle != null)
+                                  TextSpan(
+                                    text: ', ${bride.fatherTitle}',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                  ),
                               ],
                             ),
                             style: AppFonts.inter(
@@ -150,6 +160,11 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: bride.motherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
+                                if (bride.motherTitle != null)
+                                  TextSpan(
+                                    text: ', ${bride.motherTitle}',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                  ),
                               ],
                             ),
                             style: AppFonts.inter(
@@ -163,10 +178,14 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                       ),
                       AnimatedInviter.right(
                         children: [
-                          Text(
-                            groom.fullName,
+                          Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(text: groom.fullName),
+                                if (groom.title != null) TextSpan(text: ', ${groom.title}'),
+                              ],
+                            ),
                             style: AppFonts.pacifico(fontSize: FontScale.x2l, color: Colors.grey.shade100, height: 1.25),
-                            textAlign: TextAlign.end,
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
@@ -192,6 +211,11 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: groom.fatherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
+                                if (groom.fatherTitle != null)
+                                  TextSpan(
+                                    text: ', ${groom.fatherTitle}',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                  ),
                               ],
                             ),
                             style: AppFonts.inter(
@@ -219,6 +243,11 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: groom.motherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
+                                if (groom.motherTitle != null)
+                                  TextSpan(
+                                    text: ', ${groom.motherTitle}',
+                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                  ),
                               ],
                             ),
                             style: AppFonts.inter(

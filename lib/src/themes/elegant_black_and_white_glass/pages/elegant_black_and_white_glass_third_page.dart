@@ -145,7 +145,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: SizeScale.heightX10s),
                                 Text(
-                                  'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
+                                  'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, DateFormatPattern.hhmm)} WIB'}',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,
@@ -214,7 +214,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: SizeScale.heightX10s),
                                 Text(
-                                  'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.hhmm)} WIB - ${receptionEvent.finishTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.finishTime!, DateFormatPattern.hhmm)} WIB'}',
+                                  'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.hhmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.hhmm)} WIB'}',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,

@@ -10,7 +10,6 @@ import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
-import 'package:iv_project_invitation_theme/src/enums/enums.dart';
 import 'package:iv_project_invitation_theme/src/models/invited_guest.dart';
 import 'package:iv_project_invitation_theme/src/models/rsvp.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
