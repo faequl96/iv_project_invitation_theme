@@ -1,15 +1,19 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class AnimatedPhotoSequence extends StatefulWidget {
-  const AnimatedPhotoSequence.left({super.key}) : isLeft = true;
-  const AnimatedPhotoSequence.right({super.key}) : isLeft = false;
+  const AnimatedPhotoSequence.left({super.key, required this.previewType, required this.imageUrl, this.image}) : isLeft = true;
+  const AnimatedPhotoSequence.right({super.key, required this.previewType, required this.imageUrl, this.image}) : isLeft = false;
 
+  final ThemePreviewType previewType;
   final bool isLeft;
+  final String? imageUrl;
+  final File? image;
 
   @override
   State<AnimatedPhotoSequence> createState() => _AnimatedPhotoSequenceState();
@@ -78,7 +82,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
 
     _initAnimation();
 
-    _sub = context.read<CoreCubit>().stream.listen((state) {
+    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
       _runAnimation(state.animationTrigger);
     });
   }
@@ -129,9 +133,21 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                     SizedBox(
                       height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                       width: SizeScale.widthX8l,
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 24),
-                        child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey)),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 24),
+                        child: widget.previewType == ThemePreviewType.fromRaw
+                            ? widget.image != null
+                                  ? ColoredBox(
+                                      color: Colors.grey,
+                                      child: Image.file(widget.image!, fit: BoxFit.cover),
+                                    )
+                                  : const ColoredBox(color: Colors.grey)
+                            : widget.imageUrl != null
+                            ? ColoredBox(
+                                color: Colors.grey,
+                                child: Image.network(widget.imageUrl!, fit: BoxFit.cover),
+                              )
+                            : const ColoredBox(color: Colors.grey),
                       ),
                     ),
                   ],

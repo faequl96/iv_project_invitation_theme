@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -5,19 +6,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFifthPage({super.key});
+  const ElegantBlackAndWhiteGlassFifthPage({super.key, required this.previewType, this.galleries, this.gallery});
+
+  final ThemePreviewType previewType;
+  final List<File?>? galleries;
+  final GalleryResponse? gallery;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
+    return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
@@ -84,7 +87,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const _Gallery(),
+                      _Gallery(previewType: previewType, galleries: galleries, gallery: gallery),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: SlideFrom.bottom,
@@ -125,7 +128,14 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                                         color: Colors.grey.shade700.withValues(alpha: .5),
                                         borderRadius: BorderRadius.circular(16),
                                       ),
-                                      child: const SingleChildScrollView(child: _Gallery(isShowMore: true)),
+                                      child: SingleChildScrollView(
+                                        child: _Gallery(
+                                          isShowMore: true,
+                                          previewType: previewType,
+                                          galleries: galleries,
+                                          gallery: gallery,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 );
@@ -184,9 +194,12 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
 }
 
 class _Gallery extends StatelessWidget {
-  const _Gallery({this.isShowMore = false});
+  const _Gallery({this.isShowMore = false, required this.previewType, this.galleries, this.gallery});
 
   final bool isShowMore;
+  final ThemePreviewType previewType;
+  final List<File?>? galleries;
+  final GalleryResponse? gallery;
 
   @override
   Widget build(BuildContext context) {
@@ -205,9 +218,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX11l + 4,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
                 ),
               ),
             ),
@@ -227,9 +238,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX11l + 4,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
                 ),
               ),
             ),
@@ -259,9 +268,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX11l + 4,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
                 ),
               ),
             ),
@@ -281,9 +288,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX11l + 4,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
                 ),
               ),
             ),
@@ -312,9 +317,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX9l + 8,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
                 ),
               ),
             ),
@@ -333,9 +336,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX9l + 8,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
                 ),
               ),
             ),
@@ -354,9 +355,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: SizeScale.widthX9l + 8,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                  ),
+                  child: _ImageViewer(previewType: previewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
                 ),
               ),
             ),
@@ -387,9 +386,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: SizeScale.widthX11l + 4,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                    ),
+                    child: _ImageViewer(previewType: previewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
                   ),
                 ),
               ),
@@ -409,9 +406,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: SizeScale.widthX11l + 4,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                    ),
+                    child: _ImageViewer(previewType: previewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
                   ),
                 ),
               ),
@@ -441,9 +436,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: SizeScale.widthX11l + 4,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                    ),
+                    child: _ImageViewer(previewType: previewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
                   ),
                 ),
               ),
@@ -463,9 +456,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: SizeScale.widthX11l + 4,
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
-                    ),
+                    child: _ImageViewer(previewType: previewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
                   ),
                 ),
               ),
@@ -476,5 +467,34 @@ class _Gallery extends StatelessWidget {
         SizedBox(height: SizeScale.heightX2s),
       ],
     );
+  }
+}
+
+class _ImageViewer extends StatelessWidget {
+  const _ImageViewer({required this.previewType, this.image, this.imageUrl});
+
+  final ThemePreviewType previewType;
+  final File? image;
+  final String? imageUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return previewType == ThemePreviewType.fromRaw
+        ? image != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.file(image!, fit: BoxFit.cover),
+                )
+              : DecoratedBox(
+                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                )
+        : imageUrl != null
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.network(imageUrl!, fit: BoxFit.cover),
+          )
+        : DecoratedBox(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+          );
   }
 }

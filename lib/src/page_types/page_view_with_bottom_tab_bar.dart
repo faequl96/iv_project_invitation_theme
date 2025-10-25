@@ -3,16 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/cubit/core_cubit.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
+import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
 class PageViewWithBottomTabBar extends StatefulWidget {
-  const PageViewWithBottomTabBar({super.key, required this.pages, required this.tabsBuilder});
+  const PageViewWithBottomTabBar({super.key, this.bottomButtonHeight = 0, required this.pages, required this.tabsBuilder});
 
+  final double bottomButtonHeight;
   final List<Widget> pages;
   final List<Widget> Function(int tabActive) tabsBuilder;
 
@@ -28,11 +26,11 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   List<Widget> _tabs = [];
   void _buildTabs(int tabActive) => _tabs = widget.tabsBuilder(tabActive);
 
-  final ValueNotifier<int> _indexActive = ValueNotifier(0);
+  final _indexActive = ValueNotifier(0);
   bool _isTabTaped = false;
   int _tabIndexTaped = 0;
 
-  late final CoreCubit _coreCubit;
+  late final InvitationThemeCoreCubit _coreCubit;
 
   void _scrollListener() {
     final offset = _pageController.page ?? 0;
@@ -57,7 +55,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
     _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController();
 
-    _coreCubit = context.read<CoreCubit>();
+    _coreCubit = context.read<InvitationThemeCoreCubit>();
 
     _pageController.addListener(_scrollListener);
   }
@@ -73,13 +71,13 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
       late final Size finalSize;
       if (size.width > 440) {
         if (size.height < 915) {
-          finalSize = Size(412, size.height - (padding.top + padding.bottom));
+          finalSize = Size(412, size.height - (padding.top + kToolbarHeight + widget.bottomButtonHeight + padding.bottom));
         } else {
           finalSize = const Size(412, 915);
         }
       } else {
         if (size.height < 915) {
-          finalSize = Size(size.width, size.height - (padding.top + padding.bottom));
+          finalSize = Size(size.width, size.height - (padding.top + kToolbarHeight + widget.bottomButtonHeight + padding.bottom));
         } else {
           finalSize = Size(size.width, 915);
         }
@@ -101,6 +99,8 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
 
     _tabController.dispose();
     _pageController.dispose();
+
+    _indexActive.dispose();
 
     super.dispose();
   }

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -59,11 +57,11 @@ class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
           borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
           borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        suffixIcon: () {
-          if (!widget.enabled) return null;
-          if (!widget.isMandatory) return null;
-          if (widget.textEditingController.text.isEmpty) return SharedPersonalize.suffixMandatory;
-          return SharedPersonalize.suffixClear(() => widget.textEditingController.reset());
+        suffixIcons: () {
+          if (!widget.enabled) return [];
+          if (!widget.isMandatory) return [];
+          if (widget.textEditingController.text.isEmpty) return [SharedPersonalize.suffixMandatory];
+          return [SharedPersonalize.suffixClear(() => widget.textEditingController.reset())];
         },
       ),
       inputFormatters: widget.inputFormatters,

@@ -2,12 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/date_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -23,7 +20,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
+    return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
@@ -135,7 +132,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
                             child: Text(
-                              'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.hhmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, DateFormatPattern.hhmm)} WIB'}',
+                              'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
                               style: AppFonts.inter(
                                 color: Colors.grey.shade100,
                                 fontSize: FontScale.md,

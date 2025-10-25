@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-enum InvitationSectionType { create, edit, view }
+enum ThemePreviewType { fromResponse, fromRaw }
 
 enum Attendance {
   yes('Hadir'),

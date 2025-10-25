@@ -2,20 +2,21 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_model/iv_project_model.dart';
 
 class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassEighthPage({super.key});
+  const ElegantBlackAndWhiteGlassEighthPage({super.key, required this.general});
+
+  final GeneralResponse general;
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
+    return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
@@ -82,7 +83,9 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           animationSpeed: const Duration(milliseconds: 300),
                           delayBeforeStart: const Duration(milliseconds: 800),
                           child: Text(
-                            'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
+                            general.closing.isNotEmpty
+                                ? general.closing
+                                : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
                             style: AppFonts.inter(
                               color: Colors.grey.shade900,
                               fontSize: FontScale.md,

@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
@@ -21,10 +20,10 @@ class _CountdownTimersState extends State<CountdownTimers> {
   late final Timer _timer;
   late Duration _remaining;
 
-  final ValueNotifier<int> _days = ValueNotifier(0);
-  final ValueNotifier<int> _hours = ValueNotifier(0);
-  final ValueNotifier<int> _minutes = ValueNotifier(0);
-  final ValueNotifier<int> _seconds = ValueNotifier(0);
+  final _days = ValueNotifier(0);
+  final _hours = ValueNotifier(0);
+  final _minutes = ValueNotifier(0);
+  final _seconds = ValueNotifier(0);
 
   void _formatDuration(Duration d) {
     final days = d.inDays;
@@ -59,6 +58,10 @@ class _CountdownTimersState extends State<CountdownTimers> {
   @override
   void dispose() {
     _timer.cancel();
+    _days.dispose();
+    _hours.dispose();
+    _minutes.dispose();
+    _seconds.dispose();
 
     super.dispose();
   }

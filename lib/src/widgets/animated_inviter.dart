@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 
 class AnimatedInviter extends StatefulWidget {
   const AnimatedInviter.left({super.key, required this.children}) : isLeft = true;
@@ -57,7 +57,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
 
     _initAnimation();
 
-    _sub = context.read<CoreCubit>().stream.listen((state) {
+    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
       _runAnimation(state.animationTrigger);
     });
   }
@@ -85,7 +85,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                 SizedBox(
                   height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                   width: .5,
-                  child: ColoredBox(color: Colors.grey.shade700),
+                  child: ColoredBox(color: Colors.grey.shade200),
                 ),
               ],
               Expanded(
@@ -113,7 +113,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                 SizedBox(
                   height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
                   width: .5,
-                  child: ColoredBox(color: Colors.grey.shade700),
+                  child: ColoredBox(color: Colors.grey.shade200),
                 ),
                 SizedBox(width: SizeScale.widthX11l - 6),
               ],

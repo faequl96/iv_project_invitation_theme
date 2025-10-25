@@ -7,9 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/font_scale.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen_util.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/size_scale.dart';
 import 'package:iv_project_invitation_theme/src/models/invited_guest.dart';
 import 'package:iv_project_invitation_theme/src/models/rsvp.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
@@ -22,7 +19,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<CoreCubit, CoreState, Size>(
+    return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
@@ -247,6 +244,9 @@ class _RSVPFormState extends State<RSVPForm> {
     _nameController.dispose();
     _greetingController.dispose();
 
+    _avatar.dispose();
+    _attendance.dispose();
+
     super.dispose();
   }
 
@@ -293,16 +293,18 @@ class _RSVPFormState extends State<RSVPForm> {
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
-                    suffixIcon: () {
-                      return PreSufFixIcon(
-                        onTap: () {},
-                        child: Image.asset(
-                          'assets/avatars/${_avatar.value ?? 'avatars'}.png',
-                          package: 'iv_project_invitation_theme',
-                          height: 24,
-                          width: 24,
+                    suffixIcons: () {
+                      return [
+                        PreSufFixIcon(
+                          onTap: () {},
+                          child: Image.asset(
+                            'assets/avatars/${_avatar.value ?? 'avatars'}.png',
+                            package: 'iv_project_invitation_theme',
+                            height: 24,
+                            width: 24,
+                          ),
                         ),
-                      );
+                      ];
                     },
                   ),
                   overlayYOffset: 6,
@@ -369,11 +371,13 @@ class _RSVPFormState extends State<RSVPForm> {
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
                     ),
-                    suffixIcon: () {
-                      return PreSufFixIcon(
-                        onTap: () {},
-                        child: Icon(Icons.arrow_drop_down, color: Colors.grey.shade100),
-                      );
+                    suffixIcons: () {
+                      return [
+                        PreSufFixIcon(
+                          onTap: () {},
+                          child: Icon(Icons.arrow_drop_down, color: Colors.grey.shade100),
+                        ),
+                      ];
                     },
                   ),
                   overlayYOffset: 6,
