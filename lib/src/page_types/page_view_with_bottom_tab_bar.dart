@@ -8,9 +8,9 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
 class PageViewWithBottomTabBar extends StatefulWidget {
-  const PageViewWithBottomTabBar({super.key, this.bottomButtonHeight = 0, required this.pages, required this.tabsBuilder});
+  const PageViewWithBottomTabBar({super.key, this.heightAdjustment = 0, required this.pages, required this.tabsBuilder});
 
-  final double bottomButtonHeight;
+  final double heightAdjustment;
   final List<Widget> pages;
   final List<Widget> Function(int tabActive) tabsBuilder;
 
@@ -71,13 +71,13 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
       late final Size finalSize;
       if (size.width > 440) {
         if (size.height < 915) {
-          finalSize = Size(412, size.height - (padding.top + kToolbarHeight + widget.bottomButtonHeight + padding.bottom));
+          finalSize = Size(412, size.height - (padding.top + widget.heightAdjustment + padding.bottom));
         } else {
           finalSize = const Size(412, 915);
         }
       } else {
         if (size.height < 915) {
-          finalSize = Size(size.width, size.height - (padding.top + kToolbarHeight + widget.bottomButtonHeight + padding.bottom));
+          finalSize = Size(size.width, size.height - (padding.top + widget.heightAdjustment + padding.bottom));
         } else {
           finalSize = Size(size.width, 915);
         }

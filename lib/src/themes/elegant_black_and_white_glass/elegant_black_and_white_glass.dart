@@ -22,13 +22,13 @@ import 'package:iv_project_model/iv_project_model.dart';
 class ElegantBlackAndWhiteGlass extends StatefulWidget {
   const ElegantBlackAndWhiteGlass({
     super.key,
-    this.bottomButtonHeight = 0,
+    this.heightAdjustment = 0,
     required this.previewType,
     required this.invitationData,
     this.imagesRaw,
   });
 
-  final double bottomButtonHeight;
+  final double heightAdjustment;
   final ThemePreviewType previewType;
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
@@ -58,13 +58,13 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
     late final Size size;
     if (_size.width > 440) {
       if (_size.height < 915) {
-        size = Size(412, _size.height - (_padding.top + kToolbarHeight + widget.bottomButtonHeight + _padding.bottom));
+        size = Size(412, _size.height - (_padding.top + widget.heightAdjustment + _padding.bottom));
       } else {
         size = const Size(412, 915);
       }
     } else {
       if (_size.height < 915) {
-        size = Size(_size.width, _size.height - (_padding.top + kToolbarHeight + widget.bottomButtonHeight + _padding.bottom));
+        size = Size(_size.width, _size.height - (_padding.top + widget.heightAdjustment + _padding.bottom));
       } else {
         size = Size(_size.width, 915);
       }
@@ -80,7 +80,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
     return Stack(
       children: [
         PageViewWithBottomTabBar(
-          bottomButtonHeight: widget.bottomButtonHeight,
+          heightAdjustment: widget.heightAdjustment,
           pages: [
             ElegantBlackAndWhiteGlassCoverPage(
               previewType: widget.previewType,

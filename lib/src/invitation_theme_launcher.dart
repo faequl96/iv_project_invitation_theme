@@ -7,14 +7,14 @@ import 'package:iv_project_model/iv_project_model.dart';
 class InvitationThemeLauncher extends StatelessWidget {
   const InvitationThemeLauncher({
     super.key,
-    this.bottomButtonHeight = 0,
+    this.heightAdjustment = 0,
     required this.previewType,
     required this.invitationThemeId,
     required this.invitationData,
     this.imagesRaw,
   });
 
-  final double bottomButtonHeight;
+  final double heightAdjustment;
   final ThemePreviewType previewType;
   final int invitationThemeId;
   final InvitationDataResponse invitationData;
@@ -34,7 +34,7 @@ class InvitationThemeLauncher extends StatelessWidget {
     switch (invitationThemeId) {
       case 1:
         return ElegantBlackAndWhiteGlass(
-          bottomButtonHeight: bottomButtonHeight,
+          heightAdjustment: heightAdjustment,
           previewType: previewType,
           invitationData: invitationData,
           imagesRaw: imagesRaw,
