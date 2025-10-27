@@ -107,9 +107,9 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: [
-                                if (bride.frontTitle != null) TextSpan(text: '${bride.frontTitle} '),
+                                if ((bride.frontTitle ?? '').isNotEmpty) TextSpan(text: '${bride.frontTitle} '),
                                 TextSpan(text: bride.fullName),
-                                if (bride.backTitle != null) TextSpan(text: ', ${bride.backTitle}'),
+                                if ((bride.backTitle ?? '').isNotEmpty) TextSpan(text: ', ${bride.backTitle}'),
                               ],
                             ),
                             style: AppFonts.pacifico(fontSize: FontScale.x2l, color: Colors.grey.shade100, height: 1.25),
@@ -134,7 +134,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             TextSpan(
                               children: [
                                 const TextSpan(text: 'Bapak '),
-                                if (bride.fatherFrontTitle != null)
+                                if ((bride.fatherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.fatherFrontTitle} ',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -143,7 +143,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: bride.fatherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
-                                if (bride.fatherBackTitle != null)
+                                if ((bride.fatherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${bride.fatherBackTitle}',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -171,7 +171,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             TextSpan(
                               children: [
                                 const TextSpan(text: 'Ibu '),
-                                if (bride.motherFrontTitle != null)
+                                if ((bride.motherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.motherFrontTitle} ',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -180,7 +180,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: bride.motherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
-                                if (bride.motherBackTitle != null)
+                                if ((bride.motherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${bride.motherBackTitle}',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -201,12 +201,13 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: [
-                                if (groom.frontTitle != null) TextSpan(text: '${groom.frontTitle} '),
+                                if ((groom.frontTitle ?? '').isNotEmpty) TextSpan(text: '${groom.frontTitle} '),
                                 TextSpan(text: groom.fullName),
-                                if (groom.backTitle != null) TextSpan(text: ', ${groom.backTitle}'),
+                                if ((groom.backTitle ?? '').isNotEmpty) TextSpan(text: ', ${groom.backTitle}'),
                               ],
                             ),
                             style: AppFonts.pacifico(fontSize: FontScale.x2l, color: Colors.grey.shade100, height: 1.25),
+                            textAlign: TextAlign.right,
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
@@ -228,7 +229,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             TextSpan(
                               children: [
                                 const TextSpan(text: 'Bapak '),
-                                if (groom.fatherFrontTitle != null)
+                                if ((groom.fatherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.fatherFrontTitle} ',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -237,7 +238,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: groom.fatherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
-                                if (groom.fatherBackTitle != null)
+                                if ((groom.fatherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${groom.fatherBackTitle}',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -250,6 +251,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                               color: Colors.grey.shade200,
                               height: 1.2,
                             ),
+                            textAlign: TextAlign.right,
                           ),
                           const SizedBox(height: 2),
                           Text(
@@ -265,7 +267,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                             TextSpan(
                               children: [
                                 const TextSpan(text: 'Ibu '),
-                                if (groom.motherFrontTitle != null)
+                                if ((groom.motherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.motherFrontTitle} ',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -274,7 +276,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                   text: groom.motherName,
                                   style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
                                 ),
-                                if (groom.motherBackTitle != null)
+                                if ((groom.motherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${groom.motherBackTitle}',
                                     style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
@@ -287,6 +289,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                               color: Colors.grey.shade200,
                               height: 1.2,
                             ),
+                            textAlign: TextAlign.right,
                           ),
                         ],
                       ),
