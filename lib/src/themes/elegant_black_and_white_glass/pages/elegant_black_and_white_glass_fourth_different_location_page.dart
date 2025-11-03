@@ -20,6 +20,8 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -53,7 +55,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                     Icon(Icons.celebration, size: SizeScale.widthXs, color: Colors.grey.shade200),
                     const SizedBox(width: 10),
                     Text(
-                      'Resepsi',
+                      langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
                       style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                     const SizedBox(width: 10),
@@ -124,7 +126,9 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
                             child: Text(
-                              'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
+                              langCode == 'en'
+                                  ? '${DateUtil.format(receptionEvent.startTime, DateFormatPattern.HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.HHmm)} o\'clock WIB'}'
+                                  : 'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
                               style: AppFonts.inter(
                                 color: Colors.grey.shade100,
                                 fontSize: FontScale.md,
@@ -218,7 +222,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                             alignment: AlignmentDirectional.center,
                             children: [
                               Text(
-                                'Dapatkan Petunjuk Arah',
+                                langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
                                 style: AppFonts.inter(
                                   color: Colors.grey.shade900,
                                   fontSize: FontScale.md,

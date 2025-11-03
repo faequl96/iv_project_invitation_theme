@@ -29,6 +29,8 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
     final invitationThemeCoreCubit = context.read<InvitationThemeCoreCubit>();
 
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
@@ -65,7 +67,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                         ),
                         child: Center(
                           child: Text(
-                            'Undangan Pernikahan',
+                            langCode == 'en' ? 'Wedding Invitation' : 'Undangan Pernikahan',
                             style: AppFonts.pacifico(
                               fontSize: FontScale.x4l,
                               fontWeight: FontWeight.w700,
@@ -134,7 +136,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Kepada :',
+                        langCode == 'en' ? 'To :' : 'Kepada :',
                         style: AppFonts.inter(fontSize: FontScale.sm, fontWeight: FontWeight.w300, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 6),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -13,6 +14,8 @@ class Padlock extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return GeneralEffectsButton(
       onTap: () async {
         onOpened();
@@ -34,7 +37,7 @@ class Padlock extends StatelessWidget {
             color: Colors.grey.shade200.withValues(alpha: .5),
           ),
           Text(
-            'Buka Undangan',
+            langCode == 'en' ? 'Open Invitation' : 'Buka Undangan',
             style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.w600),
           ),
         ],

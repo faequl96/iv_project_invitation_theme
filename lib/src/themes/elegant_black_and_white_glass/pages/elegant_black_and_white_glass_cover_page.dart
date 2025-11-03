@@ -31,6 +31,8 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -71,7 +73,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   child: Text(
-                    'Pernikahan Dari',
+                    langCode == 'en' ? 'The Wedding of' : 'Pernikahan Dari',
                     style: TextStyle(fontSize: FontScale.lg, fontWeight: FontWeight.w500, color: Colors.grey.shade300),
                   ),
                 ),
@@ -81,7 +83,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   child: Text(
-                    'Menuju dalam waktu',
+                    langCode == 'en' ? 'Heading in' : 'Menuju dalam waktu',
                     style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                   ),
                 ),
@@ -97,7 +99,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   slideFromOffset: 0,
                   delayBeforeStart: const Duration(milliseconds: 500),
                   child: Text(
-                    'Geser ke atas',
+                    langCode == 'en' ? 'Swipe up' : 'Geser ke atas',
                     style: AppFonts.inter(fontSize: FontScale.xs, color: Colors.grey.shade300),
                   ),
                 ),

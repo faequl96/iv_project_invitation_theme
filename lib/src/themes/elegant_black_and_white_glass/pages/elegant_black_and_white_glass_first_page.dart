@@ -16,6 +16,8 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -45,7 +47,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                 width: ScreenUtil.size.width,
                 child: Center(
                   child: Text(
-                    'Maksud Dan Tujuan',
+                    langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
                     style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                   ),
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
@@ -41,9 +42,39 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
   late final Size _size;
   late final EdgeInsets _padding;
 
+  bool _isGalleriesNotEmpty = false;
+
   @override
   void initState() {
     super.initState();
+
+    if (widget.previewType == ThemePreviewType.fromRaw) {
+      if (widget.imagesRaw != null) {
+        for (final file in widget.imagesRaw!.galleries) {
+          if (file != null) {
+            _isGalleriesNotEmpty = true;
+            break;
+          }
+        }
+      }
+    } else {
+      if (widget.invitationData.gallery != null) {
+        if (widget.invitationData.gallery?.imageURL1 != null ||
+            widget.invitationData.gallery?.imageURL2 != null ||
+            widget.invitationData.gallery?.imageURL3 != null ||
+            widget.invitationData.gallery?.imageURL4 != null ||
+            widget.invitationData.gallery?.imageURL5 != null ||
+            widget.invitationData.gallery?.imageURL6 != null ||
+            widget.invitationData.gallery?.imageURL7 != null ||
+            widget.invitationData.gallery?.imageURL8 != null ||
+            widget.invitationData.gallery?.imageURL9 != null ||
+            widget.invitationData.gallery?.imageURL10 != null ||
+            widget.invitationData.gallery?.imageURL11 != null ||
+            widget.invitationData.gallery?.imageURL12 != null) {
+          _isGalleriesNotEmpty = true;
+        }
+      }
+    }
 
     // Audio.initPlayer();
   }
@@ -77,6 +108,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return Stack(
       children: [
         PageViewWithBottomTabBar(
@@ -108,14 +141,19 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
               ElegantBlackAndWhiteGlassThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
               ElegantBlackAndWhiteGlassFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
             ],
-            ElegantBlackAndWhiteGlassFifthPage(
-              previewType: widget.previewType,
-              galleries: widget.imagesRaw?.galleries,
-              gallery: widget.invitationData.gallery,
-            ),
+            if (_isGalleriesNotEmpty)
+              ElegantBlackAndWhiteGlassFifthPage(
+                previewType: widget.previewType,
+                galleries: widget.imagesRaw?.galleries,
+                gallery: widget.invitationData.gallery,
+              ),
             ElegantBlackAndWhiteGlassSixthPage(bankAccounts: widget.invitationData.bankAccounts),
             const ElegantBlackAndWhiteGlassSeventhPage(),
-            ElegantBlackAndWhiteGlassEighthPage(general: widget.invitationData.general),
+            ElegantBlackAndWhiteGlassEighthPage(
+              general: widget.invitationData.general,
+              brideName: widget.invitationData.bride.nickname,
+              groomName: widget.invitationData.groom.nickname,
+            ),
           ],
           tabsBuilder: (int tabActive) => [
             Tab(
@@ -124,38 +162,74 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
             ),
             Tab(
               height: 48,
-              child: _Tab(title: 'Maksud Dan Tujuan', icon: Icons.lightbulb, tabIndex: 1, tabActive: tabActive),
+              child: _Tab(
+                title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
+                icon: Icons.lightbulb,
+                tabIndex: 1,
+                tabActive: tabActive,
+              ),
             ),
             Tab(
               height: 48,
-              child: _Tab(title: 'Pengundang', icon: Icons.people, tabIndex: 2, tabActive: tabActive),
+              child: _Tab(
+                title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+                icon: Icons.people,
+                tabIndex: 2,
+                tabActive: tabActive,
+              ),
             ),
-            if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
+            if (widget.invitationData.contractEvent.mapsUrl != widget.invitationData.receptionEvent.mapsUrl) ...[
               Tab(
                 height: 48,
-                child: _Tab(title: 'Akad Nikah', icon: Icons.volunteer_activism, tabIndex: 3, tabActive: tabActive),
+                child: _Tab(
+                  title: langCode == 'en' ? 'Contract' : 'Akad Nikah',
+                  icon: Icons.volunteer_activism,
+                  tabIndex: 3,
+                  tabActive: tabActive,
+                ),
               ),
               Tab(
                 height: 48,
-                child: _Tab(title: 'Resepsi', icon: Icons.celebration, tabIndex: 4, tabActive: tabActive),
+                child: _Tab(
+                  title: langCode == 'en' ? 'Reception' : 'Resepsi',
+                  icon: Icons.celebration,
+                  tabIndex: 4,
+                  tabActive: tabActive,
+                ),
               ),
             ] else ...[
               Tab(
                 height: 48,
-                child: _Tab(title: 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
+                child: _Tab(title: langCode == 'en' ? 'Event' : 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
               ),
               Tab(
                 height: 48,
-                child: _Tab(title: 'Lokasi', icon: Icons.location_pin, tabIndex: 4, tabActive: tabActive),
+                child: _Tab(
+                  title: langCode == 'en' ? 'Location' : 'Lokasi',
+                  icon: Icons.location_pin,
+                  tabIndex: 4,
+                  tabActive: tabActive,
+                ),
               ),
             ],
+            if (_isGalleriesNotEmpty)
+              Tab(
+                height: 48,
+                child: _Tab(
+                  title: langCode == 'en' ? 'Gallery' : 'Galeri',
+                  icon: Icons.photo_library_rounded,
+                  tabIndex: 5,
+                  tabActive: tabActive,
+                ),
+              ),
             Tab(
               height: 48,
-              child: _Tab(title: 'Galeri', icon: Icons.photo_library_rounded, tabIndex: 5, tabActive: tabActive),
-            ),
-            Tab(
-              height: 48,
-              child: _Tab(title: 'Kado', icon: Icons.card_giftcard, tabIndex: 6, tabActive: tabActive),
+              child: _Tab(
+                title: langCode == 'en' ? 'Gift' : 'Kado',
+                icon: Icons.card_giftcard,
+                tabIndex: 6,
+                tabActive: tabActive,
+              ),
             ),
             Tab(
               height: 48,
@@ -163,7 +237,12 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
             ),
             Tab(
               height: 48,
-              child: _Tab(title: 'Terima Kasih', icon: Icons.emoji_emotions, tabIndex: 7, tabActive: tabActive),
+              child: _Tab(
+                title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
+                icon: Icons.emoji_emotions,
+                tabIndex: 7,
+                tabActive: tabActive,
+              ),
             ),
           ],
         ),

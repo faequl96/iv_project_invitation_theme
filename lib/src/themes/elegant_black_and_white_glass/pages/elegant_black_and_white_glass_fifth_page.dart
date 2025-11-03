@@ -20,6 +20,8 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -38,7 +40,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                     Icon(Icons.photo_library_rounded, size: SizeScale.widthXs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
-                      'Galeri Kami',
+                      langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
                       style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -151,7 +153,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                             alignment: AlignmentDirectional.center,
                             children: [
                               Text(
-                                'Selengkapnya',
+                                langCode == 'en' ? 'See More' : 'Selengkapnya',
                                 style: AppFonts.inter(
                                   color: Colors.grey.shade50,
                                   fontSize: FontScale.md,
@@ -480,7 +482,7 @@ class _ImageViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return previewType == ThemePreviewType.fromRaw
-        ? image != null
+        ? (image != null)
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(8),
                   child: Image.file(image!, fit: BoxFit.cover),
@@ -488,7 +490,7 @@ class _ImageViewer extends StatelessWidget {
               : DecoratedBox(
                   decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
                 )
-        : imageUrl != null
+        : (imageUrl ?? '').isNotEmpty
         ? ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.network(imageUrl!, fit: BoxFit.cover),

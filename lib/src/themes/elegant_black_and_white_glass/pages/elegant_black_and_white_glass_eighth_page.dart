@@ -10,12 +10,16 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassEighthPage({super.key, required this.general});
+  const ElegantBlackAndWhiteGlassEighthPage({super.key, required this.general, required this.brideName, required this.groomName});
 
   final GeneralResponse general;
+  final String brideName;
+  final String groomName;
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -34,7 +38,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                     Icon(Icons.emoji_emotions, size: SizeScale.widthXs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
-                      'Terima Kasih',
+                      langCode == 'en' ? 'Thank You' : 'Terima Kasih',
                       style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -104,7 +108,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           animationSpeed: const Duration(milliseconds: 300),
                           delayBeforeStart: const Duration(milliseconds: 1100),
                           child: Text(
-                            'Rahma & Faiq',
+                            '$brideName & $groomName',
                             style: AppFonts.pacifico(
                               color: Colors.grey.shade900,
                               fontSize: FontScale.x5l,

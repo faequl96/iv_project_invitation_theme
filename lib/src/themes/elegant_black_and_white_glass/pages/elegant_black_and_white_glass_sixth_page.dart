@@ -17,6 +17,8 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -50,7 +52,7 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                     Icon(Icons.card_giftcard_rounded, size: SizeScale.widthXs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
-                      'Kado Pernikahan',
+                      langCode == 'en' ? 'Wedding Gift' : 'Kado Pernikahan',
                       style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -118,7 +120,9 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                                 slideFrom: SlideFrom.top,
                                 delayBeforeStart: const Duration(milliseconds: 1000),
                                 child: Text(
-                                  'Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.',
+                                  langCode == 'en'
+                                      ? 'Your prayers and blessings are a truly meaningful gift to us. And if giving is an expression of your love, you can give a cashless gift.'
+                                      : 'Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,

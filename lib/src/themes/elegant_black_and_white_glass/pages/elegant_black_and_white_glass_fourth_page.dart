@@ -19,6 +19,8 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -52,7 +54,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                     Icon(Icons.location_pin, size: SizeScale.widthXs, color: Colors.grey.shade200),
                     const SizedBox(width: 10),
                     Text(
-                      'Lokasi Acara',
+                      langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
                       style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -162,7 +164,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             alignment: AlignmentDirectional.center,
                             children: [
                               Text(
-                                'Dapatkan Petunjuk Arah',
+                                langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
                                 style: AppFonts.inter(
                                   color: Colors.grey.shade900,
                                   fontSize: FontScale.md,

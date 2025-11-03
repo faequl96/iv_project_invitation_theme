@@ -19,6 +19,8 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -52,7 +54,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                     Icon(Icons.event_available, size: SizeScale.widthXs, color: Colors.grey.shade200),
                     const SizedBox(width: 10),
                     Text(
-                      'RSVP Dan Ucapan',
+                      langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
                       style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -177,7 +179,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                                         alignment: AlignmentDirectional.center,
                                         children: [
                                           Text(
-                                            'Selengkapnya',
+                                            langCode == 'en' ? 'See More' : 'Selengkapnya',
                                             style: AppFonts.inter(
                                               color: Colors.grey.shade100,
                                               fontSize: FontScale.md,

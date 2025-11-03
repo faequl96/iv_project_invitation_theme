@@ -18,6 +18,8 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
@@ -51,7 +53,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                     Icon(Icons.event, size: SizeScale.widthXs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
-                      'Acara Pernikahan',
+                      langCode == 'en' ? 'Weddings Event' : 'Acara Pernikahan',
                       style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
                     ),
                   ],
@@ -112,7 +114,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 Icon(Icons.volunteer_activism, color: Colors.grey.shade100),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'Akad Nikah',
+                                  langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.x2l,
@@ -142,7 +144,9 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: SizeScale.heightX10s),
                                 Text(
-                                  'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
+                                  langCode == 'en'
+                                      ? '${DateUtil.format(contractEvent.startTime, DateFormatPattern.HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, DateFormatPattern.HHmm)} o\'clock WIB'}'
+                                      : 'Pukul ${DateUtil.format(contractEvent.startTime, DateFormatPattern.HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,
@@ -163,10 +167,14 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      SizedBox(
-                        height: .5,
-                        width: SizeScale.widthX18l,
-                        child: ColoredBox(color: Colors.grey.shade100),
+                      FadeAndSlideTransition(
+                        slideFromOffset: .0,
+                        delayBeforeStart: const Duration(milliseconds: 1400),
+                        child: SizedBox(
+                          height: .5,
+                          width: SizeScale.widthX18l,
+                          child: ColoredBox(color: Colors.grey.shade100),
+                        ),
                       ),
                       const Spacer(),
                       Column(
@@ -181,7 +189,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 Icon(Icons.celebration, color: Colors.grey.shade100),
                                 const SizedBox(width: 8),
                                 Text(
-                                  'Resepsi',
+                                  langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.x2l,
@@ -211,7 +219,9 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: SizeScale.heightX10s),
                                 Text(
-                                  'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
+                                  langCode == 'en'
+                                      ? '${DateUtil.format(receptionEvent.startTime, DateFormatPattern.HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.HHmm)} o\'clock WIB'}'
+                                      : 'Pukul ${DateUtil.format(receptionEvent.startTime, DateFormatPattern.HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, DateFormatPattern.HHmm)} WIB'}',
                                   style: AppFonts.inter(
                                     color: Colors.grey.shade100,
                                     fontSize: FontScale.md,
