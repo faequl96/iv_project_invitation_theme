@@ -1,11 +1,11 @@
 name: iv_project_invitation_theme
 description: "IV Project Invitation Theme"
-version: 0.1.8+3
+version: 0.1.9
 homepage:
 publish_to: 'none'
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.10.0
   flutter: ">=1.17.0"
 
 dependencies:
@@ -27,6 +27,14 @@ dependencies:
   #   git:
   #     url: https://github.com/faequl96/iv_project_core.git
   #     ref: 0.0.7
+
+  iv_project_widget_core:
+    path: ../iv_project_widget_core
+
+  # iv_project_widget_core:
+  #   git:
+  #     url: https://github.com/faequl96/iv_project_widget_core.git
+  #     ref: 0.0.7
   
   quick_dev_sdk:
     path: ../quick_dev_sdk
@@ -47,6 +55,7 @@ dependencies:
   flutter_map: ^8.2.1
   latlong2: ^0.9.1
   url_launcher: ^6.3.2
+  http: ^1.5.0
 
 dev_dependencies:
   flutter_test:
@@ -59,44 +68,4 @@ flutter:
     - assets/dummys/
     - assets/avatars/
     - assets/banks/
-
-  fonts:
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Inter-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Inter-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Inter-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Inter-Bold.ttf
-          weight: 700
-
-        - asset: assets/fonts/Inter-LightItalic.ttf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Inter-RegularItalic.ttf
-          weight: 400
-          style: italic
-        - asset: assets/fonts/Inter-MediumItalic.ttf
-          weight: 500
-          style: italic
-        - asset: assets/fonts/Inter-SemiBoldItalic.ttf
-          weight: 600
-          style: italic
-        - asset: assets/fonts/Inter-BoldItalic.ttf
-          weight: 700
-          style: italic
-    
-    - family: Pacifico
-      fonts:
-        - asset: assets/fonts/Pacifico-Regular.ttf
-    
-    - family: ArefRuqaa
-      fonts:
-        - asset: assets/fonts/ArefRuqaa-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/ArefRuqaa-Bold.ttf
-          weight: 700
+    - assets/icons/

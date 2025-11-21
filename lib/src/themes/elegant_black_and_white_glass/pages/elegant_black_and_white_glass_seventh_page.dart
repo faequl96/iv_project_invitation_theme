@@ -1,21 +1,36 @@
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
-import 'package:iv_project_invitation_theme/src/models/invited_guest.dart';
-import 'package:iv_project_invitation_theme/src/models/rsvp.dart';
+import 'package:iv_project_invitation_theme/src/core/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_model/iv_project_model.dart';
+import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassSeventhPage({super.key});
+class ElegantBlackAndWhiteGlassSeventhPage extends StatefulWidget {
+  const ElegantBlackAndWhiteGlassSeventhPage({super.key, required this.invitationId});
+
+  final String invitationId;
+
+  @override
+  State<ElegantBlackAndWhiteGlassSeventhPage> createState() => _ElegantBlackAndWhiteGlassSeventhPageState();
+}
+
+class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWhiteGlassSeventhPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    final rsvpCubit = context.read<RSVPCubit>();
+
+    if (rsvpCubit.state.rsvps == null) rsvpCubit.getsByInvitationId(widget.invitationId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,13 +42,13 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: ScreenUtil.size.height / 1.4,
-            width: ScreenUtil.size.width,
+            height: Screen.height / 1.4,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: .topCenter,
+                  end: .bottomCenter,
                   colors: [Colors.grey.shade900, Colors.transparent],
                   stops: const [.2, .8],
                 ),
@@ -44,18 +59,18 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
             top: 0,
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
-              slideFrom: SlideFrom.top,
+              slideFrom: .top,
               child: SizedBox(
-                height: SizeScale.heightX6l,
-                width: ScreenUtil.size.width,
+                height: H.x6l,
+                width: Screen.width,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.event_available, size: SizeScale.widthXs, color: Colors.grey.shade200),
+                    Icon(Icons.event_available, size: W.xs, color: Colors.grey.shade200),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -64,23 +79,23 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: .circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        begin: .topCenter,
+                        end: .bottomCenter,
                         colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
                         stops: const [0, 1],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
@@ -89,43 +104,43 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: .5, color: Colors.grey.shade500),
+                  borderRadius: .circular(20),
+                  border: .all(width: .5, color: Colors.grey.shade500),
                 ),
                 child: ClipRect(
                   child: Column(
                     children: [
-                      SizedBox(height: SizeScale.widthX5s),
-                      const RSVPForm(),
-                      SizedBox(height: SizeScale.heightX8s),
+                      SizedBox(height: W.x5s),
+                      RSVPForm(invitationId: widget.invitationId),
+                      SizedBox(height: H.x8s),
                       Expanded(
                         child: FadeAndSlideTransition(
                           slideFromOffset: .5,
-                          slideFrom: SlideFrom.bottom,
+                          slideFrom: .bottom,
                           delayBeforeStart: const Duration(milliseconds: 2000),
                           child: SizedBox(
-                            width: double.maxFinite,
+                            width: .maxFinite,
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                              padding: .symmetric(horizontal: W.x6s),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: Colors.grey.shade500.withValues(alpha: .3),
-                                  border: Border.all(color: Colors.grey.shade500, width: .5),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: const Radius.circular(10),
-                                    topRight: const Radius.circular(10),
-                                    bottomLeft: Radius.circular((SizeScale.widthLg + SizeScale.heightX10s) / 2),
-                                    bottomRight: Radius.circular((SizeScale.widthLg + SizeScale.heightX10s) / 2),
+                                  border: .all(color: Colors.grey.shade500, width: .5),
+                                  borderRadius: .only(
+                                    topLeft: const .circular(10),
+                                    topRight: const .circular(10),
+                                    bottomLeft: .circular((W.lg + H.x10s) / 2),
+                                    bottomRight: .circular((W.lg + H.x10s) / 2),
                                   ),
                                 ),
                                 child: Stack(
-                                  alignment: AlignmentGeometry.bottomCenter,
+                                  alignment: .bottomCenter,
                                   children: [
                                     const _RSVPsWidget(isShowMore: false),
                                     GeneralEffectsButton(
@@ -144,24 +159,17 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                                           ),
                                           decoration: BottomSheetDecoration(
                                             color: Colors.black.withValues(alpha: .85),
-                                            borderRadius: const BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20),
-                                            ),
+                                            borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
                                           ),
                                           contentBuilder: (_) {
                                             return SizedBox(
-                                              height: ScreenUtil.size.height - SizeScale.heightX15l,
+                                              height: Screen.height - H.x15l,
                                               child: Padding(
-                                                padding: EdgeInsets.only(
-                                                  left: SizeScale.widthX6s,
-                                                  right: SizeScale.widthX6s,
-                                                  bottom: SizeScale.widthX6s,
-                                                ),
+                                                padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
                                                 child: DecoratedBox(
                                                   decoration: BoxDecoration(
                                                     color: Colors.grey.shade700.withValues(alpha: .5),
-                                                    borderRadius: BorderRadius.circular(16),
+                                                    borderRadius: .circular(16),
                                                   ),
                                                   child: const _RSVPsWidget(isShowMore: true),
                                                 ),
@@ -170,20 +178,20 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                                           },
                                         );
                                       },
-                                      width: double.maxFinite,
-                                      height: SizeScale.widthLg + SizeScale.heightX10s,
-                                      borderRadius: BorderRadius.circular(30),
-                                      border: Border.all(width: .5, color: Colors.grey.shade500),
+                                      width: .maxFinite,
+                                      height: W.lg + H.x10s,
+                                      borderRadius: .circular(30),
+                                      border: .all(width: .5, color: Colors.grey.shade500),
                                       color: Colors.grey.shade900.withValues(alpha: .8),
                                       child: Stack(
-                                        alignment: AlignmentDirectional.center,
+                                        alignment: .center,
                                         children: [
                                           Text(
                                             langCode == 'en' ? 'See More' : 'Selengkapnya',
                                             style: AppFonts.inter(
                                               color: Colors.grey.shade100,
-                                              fontSize: FontScale.md,
-                                              fontWeight: FontWeight.w600,
+                                              fontSize: FS.md,
+                                              fontWeight: .w600,
                                             ),
                                           ),
                                         ],
@@ -196,7 +204,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeScale.widthX5s),
+                      SizedBox(height: W.x5s),
                     ],
                   ),
                 ),
@@ -205,13 +213,13 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenUtil.size.width - 32,
-                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),
@@ -228,7 +236,9 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
 }
 
 class RSVPForm extends StatefulWidget {
-  const RSVPForm({super.key});
+  const RSVPForm({super.key, required this.invitationId});
+
+  final String invitationId;
 
   @override
   State<RSVPForm> createState() => _RSVPFormState();
@@ -239,7 +249,51 @@ class _RSVPFormState extends State<RSVPForm> {
   final _greetingController = TextEditingController();
 
   final _avatar = ValueNotifier<String?>(null);
-  final _attendance = ValueNotifier<String?>(null);
+  final _possiblePresence = ValueNotifier<String?>(null);
+
+  late final RSVPCubit _rsvpCubit;
+  late final InvitedGuestCubit _invitedGuestCubit;
+
+  Future<void> _submit() async {
+    if (_possiblePresence.value == null) {
+      GeneralDialog.showValidateStateError('Tolong isi kemungkinan kehadiran yaa', durationInSeconds: 5);
+      return;
+    }
+
+    if (_greetingController.text.isEmpty) {
+      GeneralDialog.showValidateStateError('Tolong kasih ucapan yaa. Dikit aja gapapa', durationInSeconds: 5);
+      return;
+    }
+
+    final invitedGuest = _invitedGuestCubit.state.invitedGuest;
+    await _invitedGuestCubit.updateById(
+      invitedGuest!.id,
+      UpdateInvitedGuestRequest(
+        nickname: _nameController.text,
+        avatar: _avatar.value,
+        possiblePresence: _possiblePresence.value!,
+      ),
+    );
+
+    await _rsvpCubit.create(
+      RSVPRequest(invitationId: widget.invitationId, invitedGuestId: invitedGuest.id, message: _greetingController.text),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _rsvpCubit = context.read<RSVPCubit>();
+    _invitedGuestCubit = context.read<InvitedGuestCubit>();
+
+    final invitedGuest = _invitedGuestCubit.state.invitedGuest;
+    if (invitedGuest != null) {
+      _nameController.text = invitedGuest.nickname;
+      _avatar.value = invitedGuest.avatar == '' ? null : invitedGuest.avatar;
+      _possiblePresence.value = invitedGuest.possiblePresence == '' ? null : invitedGuest.possiblePresence;
+    }
+  }
 
   @override
   void dispose() {
@@ -247,7 +301,7 @@ class _RSVPFormState extends State<RSVPForm> {
     _greetingController.dispose();
 
     _avatar.dispose();
-    _attendance.dispose();
+    _possiblePresence.dispose();
 
     super.dispose();
   }
@@ -257,43 +311,47 @@ class _RSVPFormState extends State<RSVPForm> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+          padding: .symmetric(horizontal: W.x6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
-            slideFrom: SlideFrom.left,
+            slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 800),
-            child: EnhancedGeneralTextField(textEditingController: _nameController, labelTextBuilder: () => 'Nama'),
+            child: EnhancedGeneralTextField(
+              textEditingController: _nameController,
+              labelTextBuilder: () => 'Nama',
+              maxLength: 18,
+            ),
           ),
         ),
-        SizedBox(height: SizeScale.heightX8s),
+        SizedBox(height: H.x8s),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+          padding: .symmetric(horizontal: W.x6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
-            slideFrom: SlideFrom.left,
+            slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 700),
             child: ValueListenableBuilder(
               valueListenable: _avatar,
               builder: (_, _, _) {
                 return OverlayDropdownField(
-                  height: SizeScale.heightX3l,
-                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                  height: H.x3l,
+                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
                   decoration: FieldDecoration(
                     labelText: 'Avatar',
-                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.md),
+                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FS.md),
                     filled: true,
                     fillColor: Colors.grey.shade500.withValues(alpha: .3),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const .all(.circular(8)),
                     ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const .all(.circular(8)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const .all(.circular(8)),
                     ),
                     suffixIcons: () {
                       return [
@@ -312,13 +370,13 @@ class _RSVPFormState extends State<RSVPForm> {
                   overlayYOffset: 6,
                   overlayBarrier: const ModalBarrier(),
                   overlaydecoration: OverlayDecoration(
-                    height: SizeScale.heightX15l,
+                    height: H.x15l,
                     color: Colors.grey.shade700.withValues(alpha: .95),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    border: Border.all(color: Colors.grey.shade500),
+                    padding: const .symmetric(vertical: 10),
+                    border: .all(color: Colors.grey.shade500),
                   ),
                   dropdownItemDecoration: DropdownItemDecoration(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 14),
+                    padding: const .symmetric(vertical: 10, horizontal: 14),
                     selectedColor: Colors.grey.shade500,
                     hoveredColor: Colors.grey.shade400,
                     splashColor: Colors.grey.shade400,
@@ -332,7 +390,7 @@ class _RSVPFormState extends State<RSVPForm> {
                         const SizedBox(width: 6),
                         Text(
                           value,
-                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
                         ),
                       ],
                     );
@@ -343,35 +401,35 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        SizedBox(height: SizeScale.heightX8s),
+        SizedBox(height: H.x8s),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+          padding: .symmetric(horizontal: W.x6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
-            slideFrom: SlideFrom.left,
+            slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 600),
             child: ValueListenableBuilder(
-              valueListenable: _attendance,
+              valueListenable: _possiblePresence,
               builder: (_, _, _) {
                 return OverlayDropdownField(
-                  height: SizeScale.heightX3l,
-                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                  height: H.x3l,
+                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
                   decoration: FieldDecoration(
-                    labelText: 'Kehadiran',
-                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.md),
+                    labelText: 'Kemungkinan Kehadiran',
+                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FS.md),
                     filled: true,
                     fillColor: Colors.grey.shade500.withValues(alpha: .3),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const .all(.circular(8)),
                     ),
                     disabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const .all(.circular(8)),
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderRadius: const .all(.circular(8)),
                     ),
                     suffixIcons: () {
                       return [
@@ -386,35 +444,35 @@ class _RSVPFormState extends State<RSVPForm> {
                   overlayBarrier: const ModalBarrier(),
                   overlaydecoration: OverlayDecoration(
                     color: Colors.grey.shade700.withValues(alpha: .95),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    border: Border.all(color: Colors.grey.shade500),
+                    padding: const .symmetric(vertical: 10),
+                    border: .all(color: Colors.grey.shade500),
                   ),
                   dropdownItemDecoration: DropdownItemDecoration(
-                    padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+                    padding: const .symmetric(vertical: 12, horizontal: 14),
                     selectedColor: Colors.grey.shade500,
                     hoveredColor: Colors.grey.shade400,
                     splashColor: Colors.grey.shade400,
                   ),
-                  value: _attendance.value,
+                  value: _possiblePresence.value,
                   dropdownItems: Attendance.values.map((item) => item.description).toList(),
                   dropdownItemBuilder: (value) {
                     return Text(
                       value,
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md),
+                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
                     );
                   },
-                  onSelected: (value) => _attendance.value = value,
+                  onSelected: (value) => _possiblePresence.value = value,
                 );
               },
             ),
           ),
         ),
-        SizedBox(height: SizeScale.heightX8s),
+        SizedBox(height: H.x8s),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+          padding: .symmetric(horizontal: W.x6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .4,
-            slideFrom: SlideFrom.left,
+            slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 500),
             child: EnhancedGeneralTextField(
               textEditingController: _greetingController,
@@ -424,27 +482,27 @@ class _RSVPFormState extends State<RSVPForm> {
             ),
           ),
         ),
-        SizedBox(height: SizeScale.heightX8s),
+        SizedBox(height: H.x8s),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+          padding: .symmetric(horizontal: W.x6s),
           child: FadeAndSlideTransition(
             slideFromOffset: .8,
-            slideFrom: SlideFrom.bottom,
+            slideFrom: .bottom,
             animationSpeed: const Duration(milliseconds: 300),
             delayBeforeStart: const Duration(milliseconds: 1200),
             child: GeneralEffectsButton(
-              onTap: () {},
-              width: double.maxFinite,
-              height: SizeScale.widthLg + SizeScale.heightX10s,
-              borderRadius: BorderRadius.circular(30),
-              border: Border.all(width: .5, color: Colors.grey.shade500),
+              onTap: _submit,
+              width: .maxFinite,
+              height: W.lg + H.x10s,
+              borderRadius: .circular(30),
+              border: .all(width: .5, color: Colors.grey.shade500),
               color: Colors.black.withValues(alpha: .3),
               child: Stack(
-                alignment: AlignmentDirectional.center,
+                alignment: .center,
                 children: [
                   Text(
                     'Submit',
-                    style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontScale.md, fontWeight: FontWeight.w600),
+                    style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w600),
                   ),
                 ],
               ),
@@ -466,205 +524,184 @@ class _RSVPsWidget extends StatefulWidget {
 }
 
 class _RSVPsWidgetState extends State<_RSVPsWidget> {
-  final bool _isLoading = false;
-  final List<RSVP> _rsvps = [
-    RSVP(
-      invitedGuestId: 'guest_1',
-      avatar: 'angry',
-      invited: false,
-      attendance: 'Tidak Hadir',
-      remark:
-          'Happy wedding Rahma dan FAeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
-      dateTime: 1756004674463,
+  final List<RSVPResponse> _rsvps = [
+    RSVPResponse(
+      id: 1,
+      invitedGuest: const InvitedGuestResponse(
+        id: 'guest_1',
+        phone: '085640933136',
+        nickname: 'Rizal',
+        nameInstance: 'kapid-voltras_international',
+        invited: true,
+        avatar: 'happy',
+        possiblePresence: 'Mungkin Tidak Hadir',
+        attendance: false,
+      ),
+      message:
+          'Happy wedding Rahma dan Faeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      createdAt: DateTime.now(),
     ),
-    RSVP(
-      invitedGuestId: 'guest_2',
-      avatar: 'happy',
-      invited: false,
-      attendance: 'Hadir',
-      remark:
-          'Happy wedding Rahma dan FAeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
-      dateTime: 1756004674463,
+    RSVPResponse(
+      id: 2,
+      invitedGuest: const InvitedGuestResponse(
+        id: 'guest_2',
+        phone: '085640933136',
+        nickname: 'Kapid',
+        nameInstance: 'kapid-voltras_international',
+        invited: true,
+        avatar: 'happy',
+        possiblePresence: 'Mungkin Hadir',
+        attendance: true,
+      ),
+      message:
+          'Happy wedding Rahma dan Faeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      createdAt: DateTime.now(),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
-      children: [
-        if (_isLoading) ...[
-          const SizedBox(height: 8),
-          for (int i = 0; i < 4; i++) ...[
-            if (i == 3)
-              const Column(children: [Text('Skeleton'), SizedBox(height: 4)])
-            else ...[
-              const Text('Skeleton'),
-              const SizedBox(height: 4),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SizedBox(
-                  height: .5,
-                  width: double.maxFinite,
-                  child: ColoredBox(color: Colors.grey.shade500),
-                ),
-              ),
-              const SizedBox(height: 10),
+    return BlocSelector<RSVPCubit, RSVPState, bool>(
+      selector: (state) => state.isLoadingGetsByInvitationId,
+      builder: (context, isLoadingGetsByInvitationId) {
+        return ListView(
+          padding: const .only(top: 14, bottom: 8),
+          physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
+          children: [
+            if (isLoadingGetsByInvitationId) ...[
+              for (int i = 0; i < 3; i++) ...[
+                if (i == 2)
+                  const _RSVPItemSkeleton()
+                else ...[
+                  const _RSVPItemSkeleton(),
+                  Padding(
+                    padding: const .symmetric(horizontal: 16, vertical: 8),
+                    child: SizedBox(
+                      height: .5,
+                      width: .maxFinite,
+                      child: ColoredBox(color: Colors.grey.shade500),
+                    ),
+                  ),
+                ],
+              ],
+            ] else if (_rsvps.isNotEmpty) ...[
+              if (_rsvps.length > 3 && widget.isShowMore == false)
+                for (int i = 0; i < 3; i++) ...[
+                  if (i == 2)
+                    _RSVPItem(rsvp: _rsvps[i])
+                  else ...[
+                    _RSVPItem(rsvp: _rsvps[i]),
+                    Padding(
+                      padding: const .symmetric(horizontal: 16, vertical: 8),
+                      child: SizedBox(
+                        height: .5,
+                        width: .maxFinite,
+                        child: ColoredBox(color: Colors.grey.shade500),
+                      ),
+                    ),
+                  ],
+                ]
+              else
+                for (int i = 0; i < _rsvps.length; i++) ...[
+                  if (i == _rsvps.length - 1)
+                    _RSVPItem(rsvp: _rsvps[i])
+                  else ...[
+                    _RSVPItem(rsvp: _rsvps[i]),
+                    Padding(
+                      padding: const .symmetric(horizontal: 16, vertical: 8),
+                      child: SizedBox(
+                        height: .5,
+                        width: .maxFinite,
+                        child: ColoredBox(color: Colors.grey.shade500),
+                      ),
+                    ),
+                  ],
+                ],
             ],
           ],
-          const SizedBox(height: 8),
-        ] else if (_rsvps.isNotEmpty) ...[
-          const SizedBox(height: 8),
-          if (_rsvps.length > 3 && widget.isShowMore == false)
-            for (int i = 0; i < 3; i++) ...[
-              if (i == 2)
-                _RSVPItem(rsvp: _rsvps[i])
-              else ...[
-                _RSVPItem(rsvp: _rsvps[i]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SizedBox(
-                    height: .5,
-                    width: double.maxFinite,
-                    child: ColoredBox(color: Colors.grey.shade500),
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
-            ]
-          else
-            for (int i = 0; i < _rsvps.length; i++) ...[
-              if (i == _rsvps.length - 1)
-                _RSVPItem(rsvp: _rsvps[i])
-              else ...[
-                _RSVPItem(rsvp: _rsvps[i]),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SizedBox(
-                    height: .5,
-                    width: double.maxFinite,
-                    child: ColoredBox(color: Colors.grey.shade500),
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
-            ],
-          const SizedBox(height: 8),
-        ],
-      ],
+        );
+      },
     );
   }
 }
 
-class _RSVPItem extends StatefulWidget {
+class _RSVPItem extends StatelessWidget {
   const _RSVPItem({required this.rsvp});
 
-  final RSVP rsvp;
-
-  @override
-  State<_RSVPItem> createState() => _RSVPItemState();
-}
-
-class _RSVPItemState extends State<_RSVPItem> {
-  InvitedGuest? invitedGuest;
+  final RSVPResponse rsvp;
 
   @override
   Widget build(BuildContext context) {
+    final invitedGuest = rsvp.invitedGuest;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: const .symmetric(horizontal: 16, vertical: 6),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: .start,
         children: [
-          if (widget.rsvp.invited == false)
-            SizedBox(
-              height: 32,
-              width: 32,
-              child: Image(
-                image: AssetImage('assets/avatars/${widget.rsvp.avatar}.png', package: 'iv_project_invitation_theme'),
-                fit: BoxFit.fitWidth,
-              ),
-            )
-          else if (invitedGuest != null)
-            SizedBox(
-              height: 32,
-              width: 32,
-              child: Image(
-                image: AssetImage('assets/avatars/${invitedGuest!.avatar}.png', package: 'iv_project_invitation_theme'),
-                fit: BoxFit.fitWidth,
-              ),
-            )
-          else
-            SizedBox(
-              height: 32,
-              width: 32,
-              child: DecoratedBox(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10))),
+          SizedBox(
+            height: 32,
+            width: 32,
+            child: Image(
+              image: AssetImage('assets/avatars/${invitedGuest.avatar ?? 'avatars'}.png', package: 'iv_project_invitation_theme'),
+              fit: .fitWidth,
             ),
+          ),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Row(
                   children: [
-                    if (widget.rsvp.invited == false)
-                      Text(
-                        'Guest_${widget.rsvp.guestName}',
-                        style: AppFonts.inter(
-                          color: Colors.grey.shade100,
-                          fontSize: FontScale.sm,
-                          fontWeight: FontWeight.bold,
-                          height: 1.16,
-                        ),
-                      )
-                    else if (invitedGuest != null)
-                      Text(
-                        invitedGuest?.nickName ?? '',
-                        style: AppFonts.inter(fontSize: FontScale.sm, fontWeight: FontWeight.w500, height: 1.16),
-                      )
-                    else
-                      SizedBox(
-                        height: 12,
-                        width: 50 + Random().nextInt(20).toDouble(),
-                        child: DecoratedBox(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10))),
-                      ),
-                    const SizedBox(width: 8),
-                    _TimeLapse(dateTimeEpoch: widget.rsvp.dateTime),
+                    Text(
+                      invitedGuest.nickname,
+                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.sm, fontWeight: .bold, height: 1.16),
+                    ),
+                    SizedBox(width: W.x10s),
+                    SizedBox(
+                      height: FS.sm,
+                      width: 1,
+                      child: ColoredBox(color: Colors.grey.shade50),
+                    ),
+                    SizedBox(width: W.x12s),
+                    TimeAgo(
+                      dateTime: rsvp.createdAt,
+                      textStyle: AppFonts.inter(fontSize: FS.xs, color: Colors.grey.shade400),
+                    ),
                   ],
                 ),
-                if (widget.rsvp.invited == false)
-                  Text(
-                    '@__Guest',
-                    style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontScale.xs, height: 1.16),
-                  )
-                else if (invitedGuest != null)
-                  Text(
-                    '@${invitedGuest!.nameInstance}',
-                    style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontScale.xs, height: 1.16),
-                  )
-                else ...[
-                  const SizedBox(height: 4),
-                  SizedBox(
-                    height: 10,
-                    width: 100 + Random().nextInt(60).toDouble(),
-                    child: DecoratedBox(decoration: BoxDecoration(borderRadius: BorderRadius.circular(10))),
-                  ),
-                ],
-                const SizedBox(height: 4),
+                const SizedBox(height: 2),
                 Text(
-                  widget.rsvp.attendance,
-                  style: AppFonts.inter(
-                    color: widget.rsvp.attendance == 'Hadir'
-                        ? ColorConverter.lighten(Colors.green, 50)
-                        : widget.rsvp.attendance == 'Tidak Hadir'
-                        ? ColorConverter.lighten(Colors.red, 50)
-                        : Colors.grey.shade700,
-                    fontWeight: FontWeight.w400,
-                    fontSize: FontScale.xs,
-                  ),
+                  '@${invitedGuest.nameInstance}',
+                  style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FS.xs, height: 1.16),
                 ),
+                const SizedBox(height: 4),
+                if (invitedGuest.attendance != null)
+                  Text(
+                    invitedGuest.attendance == true ? 'Hadir' : 'Tidak Hadir',
+                    style: AppFonts.inter(
+                      color: invitedGuest.attendance == true
+                          ? ColorConverter.lighten(Colors.green, 50)
+                          : ColorConverter.lighten(Colors.red, 50),
+                      fontWeight: .w400,
+                      fontSize: FS.xs,
+                    ),
+                  )
+                else
+                  Text(
+                    invitedGuest.possiblePresence ?? '-',
+                    style: AppFonts.inter(
+                      color: invitedGuest.possiblePresence == 'Mungkin Hadir'
+                          ? ColorConverter.lighten(Colors.green, 50)
+                          : ColorConverter.lighten(Colors.red, 50),
+                      fontWeight: .w400,
+                      fontSize: FS.xs,
+                    ),
+                  ),
                 Text(
-                  widget.rsvp.remark,
-                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.sm),
+                  rsvp.message,
+                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.sm),
                 ),
               ],
             ),
@@ -675,52 +712,88 @@ class _RSVPItemState extends State<_RSVPItem> {
   }
 }
 
-class _TimeLapse extends StatefulWidget {
-  const _TimeLapse({required this.dateTimeEpoch});
-
-  final int dateTimeEpoch;
-
-  @override
-  State<_TimeLapse> createState() => _TimeLapseState();
-}
-
-class _TimeLapseState extends State<_TimeLapse> {
-  late final Timer _timer;
-
-  int diffOfMillisecondsSinceEpoch(int value) {
-    late int returnValue;
-    final int nowMillisecondsSinceEpoch = DateTime.now().millisecondsSinceEpoch;
-    returnValue = nowMillisecondsSinceEpoch - value;
-
-    return returnValue;
-  }
-
-  String getTime(int value) {
-    final Duration duration = Duration(milliseconds: value);
-
-    if (duration.inDays != 0) return '${duration.inDays} hari';
-    if (duration.inHours != 0) return '${duration.inHours} jam';
-    if (duration.inMinutes != 0) return '${duration.inMinutes} menit';
-    return '${duration.inSeconds} detik';
-  }
-
-  @override
-  void initState() {
-    _timer = Timer.periodic(const Duration(minutes: 1), (_) => setState(() {}));
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
+class _RSVPItemSkeleton extends StatelessWidget {
+  const _RSVPItemSkeleton();
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      getTime(diffOfMillisecondsSinceEpoch(widget.dateTimeEpoch)),
-      style: AppFonts.inter(color: ColorConverter.lighten(Colors.grey, 50)),
+    return Padding(
+      padding: const .symmetric(horizontal: 16, vertical: 6),
+      child: Row(
+        crossAxisAlignment: .start,
+        children: [
+          const SkeletonBox(height: 32, width: 32, borderRadius: 20),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: .start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      '',
+                      style: AppFonts.inter(fontSize: FS.sm, fontWeight: .bold, height: 1.16),
+                    ),
+                    SkeletonBox(width: Random().nextInt(50) + 70, height: FS.sm),
+                    SizedBox(width: W.x10s),
+                    SizedBox(
+                      height: FS.sm,
+                      width: 1,
+                      child: ColoredBox(color: Colors.grey.shade50),
+                    ),
+                    SizedBox(width: W.x10s),
+                    SkeletonBox(width: 70, height: FS.xs),
+                  ],
+                ),
+                const SizedBox(height: 2),
+                Row(
+                  children: [
+                    Text('', style: AppFonts.inter(fontSize: FS.xs, height: 1.16)),
+                    SkeletonBox(width: 180, height: FS.x2s),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text(
+                      '',
+                      style: AppFonts.inter(fontWeight: .w400, fontSize: FS.xs),
+                    ),
+                    SkeletonBox(width: 70, height: FS.xs),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('', style: AppFonts.inter(fontSize: FS.sm)),
+                    Expanded(
+                      child: SkeletonBox(width: .maxFinite, height: FS.sm),
+                    ),
+                    SizedBox(width: W.x4s),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('', style: AppFonts.inter(fontSize: FS.sm)),
+                    Expanded(
+                      child: SkeletonBox(width: .maxFinite, height: FS.sm),
+                    ),
+                    SizedBox(width: W.x6s),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('', style: AppFonts.inter(fontSize: FS.sm)),
+                    Expanded(
+                      child: SkeletonBox(width: .maxFinite, height: FS.sm),
+                    ),
+                    SizedBox(width: W.x6l),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

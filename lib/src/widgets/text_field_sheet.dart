@@ -47,7 +47,7 @@ class _TextFieldSheetState extends State<TextFieldSheet> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: [
         const SizedBox(height: 30),
         Row(
@@ -55,15 +55,12 @@ class _TextFieldSheetState extends State<TextFieldSheet> {
             const SizedBox(width: 14),
             Icon(Icons.edit, size: 32, color: ColorConverter.lighten(AppColor.primaryColor)),
             const SizedBox(width: 8),
-            Text(
-              '${AppLocalization.translate('common.edit')} text',
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-            ),
+            Text('${AppLocalization.translate('common.edit')} text', style: const TextStyle(fontWeight: .bold, fontSize: 15)),
           ],
         ),
         const SizedBox(height: 24),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const .symmetric(horizontal: 16),
           child: EnhancedGeneralTextField(
             textEditingController: _textEditingController,
             labelTextBuilder: widget.labelTextBuilder,

@@ -60,7 +60,7 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
         final slide = _controller.value * (widget.sliderPathLength) - (widget.arrowSize - 2);
 
         return Stack(
-          alignment: AlignmentDirectional.center,
+          alignment: .center,
           children: [
             SizedBox(width: widget.arrowSize, height: widget.sliderPathLength),
             Positioned(
@@ -68,7 +68,7 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
               height: widget.arrowSize,
               width: widget.arrowSize,
               child: Stack(
-                clipBehavior: Clip.none,
+                clipBehavior: .none,
                 children: [
                   Positioned(
                     top: -(widget.arrowSize / 8),

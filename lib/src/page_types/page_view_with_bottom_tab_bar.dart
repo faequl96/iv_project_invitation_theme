@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
@@ -83,9 +81,10 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
         }
       }
 
-      ScreenUtil.set(finalSize);
-      FontScale.set(finalSize.width);
-      SizeScale.set(finalSize);
+      Screen.set(finalSize);
+      FS.set(finalSize.width);
+      H.set(finalSize.height);
+      W.set(finalSize.width);
 
       _coreCubit.state.copyWith(size: finalSize).emitState();
     });
@@ -111,12 +110,12 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
       children: [
         const ElegantBlackAndWhiteGlassBackground(),
         SizedBox(
-          height: ScreenUtil.size.height,
-          width: ScreenUtil.size.width,
+          height: Screen.height,
+          width: Screen.width,
           child: PageView.builder(
             controller: _pageController,
             itemCount: widget.pages.length,
-            scrollDirection: Axis.vertical,
+            scrollDirection: .vertical,
             itemBuilder: (context, index) => widget.pages[index],
             onPageChanged: (index) {
               if (_isTabTaped) {
@@ -138,56 +137,55 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
           valueListenable: _indexActive,
           builder: (_, indexActive, _) {
             return AnimatedPositioned(
-              bottom: indexActive > 0 ? 0 : -55,
+              bottom: indexActive == 0 || indexActive == _tabs.length - 1 ? -55 : 0,
               duration: const Duration(milliseconds: 300),
               child: SizedBox(
-                width: ScreenUtil.size.width,
+                width: Screen.width,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
+                  padding: const .symmetric(vertical: 12, horizontal: 14),
                   child: Stack(
                     children: [
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(36),
+                        borderRadius: .circular(36),
                         child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black.withValues(alpha: .5),
-                              borderRadius: BorderRadius.circular(36),
-                            ),
+                          filter: .blur(sigmaX: 5, sigmaY: 5),
+                          child: SizedBox(
                             height: 52,
-                            child: TabBar(
-                              tabs: _tabs,
-                              controller: _tabController,
-                              onTap: (value) {
-                                _isTabTaped = true;
-                                _tabIndexTaped = value;
-                                _pageController.animateToPage(
-                                  value,
-                                  duration: const Duration(milliseconds: 300),
-                                  curve: Curves.ease,
-                                );
-                                _buildTabs(value);
-                                _indexActive.value = value;
-                              },
-                              isScrollable: true,
-                              padding: const EdgeInsets.symmetric(horizontal: 14),
-                              dividerHeight: 0,
-                              tabAlignment: TabAlignment.start,
-                              indicatorWeight: 5,
-                              indicator: UnderlineTabIndicator(
-                                borderRadius: BorderRadius.circular(2),
-                                borderSide: BorderSide(width: 4, color: Colors.grey.shade50),
-                                insets: const EdgeInsets.fromLTRB(0, 0, 0, 45),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(color: Colors.black.withValues(alpha: .5), borderRadius: .circular(36)),
+                              child: TabBar(
+                                tabs: _tabs,
+                                controller: _tabController,
+                                onTap: (value) {
+                                  _isTabTaped = true;
+                                  _tabIndexTaped = value;
+                                  _pageController.animateToPage(
+                                    value,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.ease,
+                                  );
+                                  _buildTabs(value);
+                                  _indexActive.value = value;
+                                },
+                                isScrollable: true,
+                                padding: const .symmetric(horizontal: 14),
+                                dividerHeight: 0,
+                                tabAlignment: .start,
+                                indicatorWeight: 5,
+                                indicator: UnderlineTabIndicator(
+                                  borderRadius: .circular(2),
+                                  borderSide: BorderSide(width: 4, color: Colors.grey.shade50),
+                                  insets: const .fromLTRB(0, 0, 0, 45),
+                                ),
+                                splashBorderRadius: .circular(36),
                               ),
-                              splashBorderRadius: BorderRadius.circular(36),
                             ),
                           ),
                         ),
                       ),
                       if (indexActive > 0)
                         GlassEffectBox(
-                          width: ScreenUtil.size.width - 28,
+                          width: Screen.width - 28,
                           height: 52,
                           borderRadius: 36,
                           animationSpeed: const Duration(milliseconds: 600),

@@ -14,72 +14,72 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
       builder: (_, _) => Stack(
         children: [
           SizedBox(
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade300)),
           ),
           Positioned(
             left: -110,
             bottom: -80,
-            child: Bubble.fill(size: SizeScale.widthX16l, color: Colors.grey.shade900),
+            child: Bubble.fill(size: W.x16l, color: Colors.grey.shade900),
           ),
           Positioned(
             left: 80,
-            bottom: SizeScale.heightX9l,
+            bottom: H.x9l,
             child: RandomSlideTransition(
-              child: Bubble.border(size: SizeScale.widthX5l, color: Colors.white),
+              child: Bubble.border(size: W.x5l, color: Colors.white),
             ),
           ),
           Positioned(
             right: -40,
             bottom: -90,
-            child: Bubble.fill(size: SizeScale.widthX15l, color: Colors.white),
+            child: Bubble.fill(size: W.x15l, color: Colors.white),
           ),
           Positioned(
             right: 90,
             bottom: 120,
             child: RandomSlideTransition(
-              child: Bubble.border(size: SizeScale.widthX4l, color: Colors.grey.shade600, borderWidth: 1),
+              child: Bubble.border(size: W.x4l, color: Colors.grey.shade600, borderWidth: 1),
             ),
           ),
           Positioned(
             right: 4,
-            bottom: SizeScale.heightX18l,
+            bottom: H.x18l,
             child: RandomSlideTransition(
               maxSlideOffset: .2,
-              child: Bubble.border(size: SizeScale.widthX9l, color: Colors.grey.shade600, borderWidth: 1),
+              child: Bubble.border(size: W.x9l, color: Colors.grey.shade600, borderWidth: 1),
             ),
           ),
           Positioned(
             right: 80,
-            bottom: SizeScale.heightX20l,
+            bottom: H.x20l,
             child: RandomSlideTransition(
-              child: Bubble.fill(size: SizeScale.widthX5l, color: Colors.white),
+              child: Bubble.fill(size: W.x5l, color: Colors.white),
             ),
           ),
           Positioned(
             left: 4,
-            bottom: SizeScale.heightX20l,
+            bottom: H.x20l,
             child: RandomSlideTransition(
-              child: Bubble.border(size: SizeScale.widthX6l, color: Colors.white),
+              child: Bubble.border(size: W.x6l, color: Colors.white),
             ),
           ),
           Positioned(
             left: 40,
-            bottom: SizeScale.heightX20l - 20,
+            bottom: H.x20l - 20,
             child: RandomSlideTransition(
-              child: Bubble.fill(size: SizeScale.widthXl, color: Colors.grey.shade500),
+              child: Bubble.fill(size: W.xl, color: Colors.grey.shade500),
             ),
           ),
           Positioned(
             left: 90,
-            top: SizeScale.heightX5l,
-            child: Bubble.fill(size: SizeScale.widthX6l, color: Colors.grey.shade400),
+            top: H.x5l,
+            child: Bubble.fill(size: W.x6l, color: Colors.grey.shade400),
           ),
           Positioned(
             left: 140,
-            top: SizeScale.heightX10l,
-            child: Bubble.fill(size: SizeScale.widthMd, color: Colors.white),
+            top: H.x10l,
+            child: Bubble.fill(size: W.md, color: Colors.white),
           ),
         ],
       ),
@@ -103,9 +103,9 @@ class Bubble extends StatelessWidget {
       height: size,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          shape: BoxShape.circle,
+          shape: .circle,
           color: !isBorder ? color : null,
-          border: isBorder ? Border.all(width: borderWidth, color: color) : null,
+          border: isBorder ? .all(width: borderWidth, color: color) : null,
         ),
       ),
     );

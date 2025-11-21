@@ -65,7 +65,7 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(.5),
+      padding: const .all(.5),
       child: CustomPaint(
         painter: widget.isFlash
             ? _LightningFlashPainter(

@@ -70,9 +70,9 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
         final slide = (_controller.value * 1.3) * (widget.width + widget.sliderWidth) - widget.sliderWidth * 1.8;
 
         return ClipRRect(
-          borderRadius: BorderRadius.circular(widget.borderRadius),
+          borderRadius: .circular(widget.borderRadius),
           child: Stack(
-            alignment: AlignmentDirectional.center,
+            alignment: .center,
             children: [
               SizedBox(width: widget.width, height: widget.height),
               Positioned(

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
@@ -69,11 +68,11 @@ class _CountdownTimersState extends State<CountdownTimers> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: [
         FadeAndSlideTransition(
           slideFromOffset: 1.5,
-          slideFrom: SlideFrom.bottom,
+          slideFrom: .bottom,
           delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
           child: ValueListenableBuilder(
             valueListenable: _days,
@@ -86,10 +85,10 @@ class _CountdownTimersState extends State<CountdownTimers> {
             },
           ),
         ),
-        SizedBox(width: SizeScale.widthX4s),
+        SizedBox(width: W.x4s),
         FadeAndSlideTransition(
           slideFromOffset: 2.5,
-          slideFrom: SlideFrom.left,
+          slideFrom: .left,
           animationSpeed: const Duration(milliseconds: 700),
           delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
           child: ValueListenableBuilder(
@@ -103,10 +102,10 @@ class _CountdownTimersState extends State<CountdownTimers> {
             },
           ),
         ),
-        SizedBox(width: SizeScale.widthX4s),
+        SizedBox(width: W.x4s),
         FadeAndSlideTransition(
           slideFromOffset: 2.5,
-          slideFrom: SlideFrom.right,
+          slideFrom: .right,
           animationSpeed: const Duration(milliseconds: 700),
           delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
           child: ValueListenableBuilder(
@@ -120,10 +119,10 @@ class _CountdownTimersState extends State<CountdownTimers> {
             },
           ),
         ),
-        SizedBox(width: SizeScale.widthX4s),
+        SizedBox(width: W.x4s),
         FadeAndSlideTransition(
           slideFromOffset: 1.5,
-          slideFrom: SlideFrom.bottom,
+          slideFrom: .bottom,
           delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
           child: ValueListenableBuilder(
             valueListenable: _seconds,
@@ -153,43 +152,38 @@ class _CountdownTimer extends StatelessWidget {
     return Stack(
       children: [
         SizedBox(
-          width: SizeScale.widthX3l,
-          height: SizeScale.widthX3l,
+          width: W.x3l,
+          height: W.x3l,
           child: DecoratedBox(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey.shade500.withValues(alpha: .2)),
+            decoration: BoxDecoration(borderRadius: .circular(8), color: Colors.grey.shade500.withValues(alpha: .2)),
           ),
         ),
         SizedBox(
-          width: SizeScale.widthX3l,
-          height: SizeScale.widthX3l,
+          width: W.x3l,
+          height: W.x3l,
           child: DecoratedBox(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: Colors.grey.shade600),
+              borderRadius: .circular(8),
+              border: .all(color: Colors.grey.shade600),
             ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: .center,
               children: [
                 Text(
                   '$number',
-                  style: AppFonts.inter(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey.shade200,
-                    fontSize: FontScale.sm,
-                    height: 1.2,
-                  ),
+                  style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade200, fontSize: FS.sm, height: 1.2),
                 ),
                 Text(
                   unit,
-                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.xs, height: 1.2),
+                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.xs, height: 1.2),
                 ),
               ],
             ),
           ),
         ),
         LightningEffectBox(
-          width: SizeScale.widthX3l,
-          height: SizeScale.widthX3l,
+          width: W.x3l,
+          height: W.x3l,
           borderRadius: 8,
           isFlash: true,
           delayBeforeStart: lightningEffectDelayBeforeStart,

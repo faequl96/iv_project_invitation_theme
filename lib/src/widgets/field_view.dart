@@ -17,7 +17,7 @@ class FieldView<T> extends StatelessWidget {
           context,
           decoration: BottomSheetDecoration(
             color: ColorConverter.lighten(AppColor.primaryColor, 94),
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(24), topRight: Radius.circular(24)),
+            borderRadius: const .only(topLeft: .circular(24), topRight: .circular(24)),
           ),
           header: const BottomSheetHeader(useHandleBar: true),
           contentBuilder: (_) {

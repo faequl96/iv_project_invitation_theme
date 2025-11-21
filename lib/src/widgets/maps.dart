@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/widgets/shared_personalize.dart';
+import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:latlong2/latlong.dart';
 
 class Maps extends StatefulWidget {
@@ -60,11 +60,11 @@ class _MapsState extends State<Maps> {
     if (latLng == null) {
       return DecoratedBox(
         decoration: BoxDecoration(
-          border: Border.all(width: .5, color: Colors.grey.shade500),
-          borderRadius: BorderRadius.circular(8),
+          border: .all(width: .5, color: Colors.grey.shade500),
+          borderRadius: .circular(8),
         ),
         child: Padding(
-          padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+          padding: .all(W.x6s / 2),
           child: SizedBox(height: widget.height, width: widget.width),
         ),
       );
@@ -74,14 +74,14 @@ class _MapsState extends State<Maps> {
       children: [
         DecoratedBox(
           decoration: BoxDecoration(
-            border: Border.all(width: 2, color: Colors.grey.shade400),
-            borderRadius: BorderRadius.circular(8),
+            border: .all(width: 2, color: Colors.grey.shade400),
+            borderRadius: .circular(8),
           ),
           child: Padding(
-            padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+            padding: .all(W.x6s / 2),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(2),
-              clipBehavior: Clip.hardEdge,
+              borderRadius: .circular(2),
+              clipBehavior: .hardEdge,
               child: SizedBox(
                 height: widget.height,
                 width: widget.width,
@@ -94,10 +94,10 @@ class _MapsState extends State<Maps> {
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(SizeScale.widthX6s / 2),
+          padding: .all(W.x6s / 2),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(2),
-            clipBehavior: Clip.hardEdge,
+            borderRadius: .circular(2),
+            clipBehavior: .hardEdge,
             child: MapsWidget(
               latitude: latLng.latitude,
               longitude: latLng.longitude,

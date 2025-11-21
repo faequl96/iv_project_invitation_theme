@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -30,18 +28,18 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
             top: 0,
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
-              slideFrom: SlideFrom.top,
+              slideFrom: .top,
               child: SizedBox(
-                height: SizeScale.heightX6l,
-                width: ScreenUtil.size.width,
+                height: H.x6l,
+                width: Screen.width,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.photo_library_rounded, size: SizeScale.widthXs, color: Colors.grey.shade900),
+                    Icon(Icons.photo_library_rounded, size: W.xs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -50,23 +48,23 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: .circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        begin: .topCenter,
+                        end: .bottomCenter,
                         colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .5)],
                         stops: const [0, 1],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
@@ -75,24 +73,24 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: .5, color: Colors.grey.shade500),
+                  borderRadius: .circular(20),
+                  border: .all(width: .5, color: Colors.grey.shade500),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: .circular(20),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: .center,
                     children: [
                       _Gallery(previewType: previewType, galleries: galleries, gallery: gallery),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
-                        slideFrom: SlideFrom.bottom,
+                        slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 2000),
                         child: GeneralEffectsButton(
@@ -111,24 +109,17 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                               ),
                               decoration: BottomSheetDecoration(
                                 color: Colors.black.withValues(alpha: .85),
-                                borderRadius: const BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  topRight: Radius.circular(20),
-                                ),
+                                borderRadius: const .only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
                               ),
                               contentBuilder: (_) {
                                 return SizedBox(
-                                  height: ScreenUtil.size.height - SizeScale.heightX10l,
+                                  height: Screen.height - H.x10l,
                                   child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: SizeScale.widthX6s,
-                                      right: SizeScale.widthX6s,
-                                      bottom: SizeScale.widthX6s,
-                                    ),
+                                    padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
                                         color: Colors.grey.shade700.withValues(alpha: .5),
-                                        borderRadius: BorderRadius.circular(16),
+                                        borderRadius: .circular(16),
                                       ),
                                       child: SingleChildScrollView(
                                         child: _Gallery(
@@ -144,27 +135,23 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                               },
                             );
                           },
-                          padding: const EdgeInsets.symmetric(horizontal: 48),
-                          height: SizeScale.widthLg + SizeScale.heightX10s,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(width: .5, color: Colors.grey.shade500),
+                          padding: const .symmetric(horizontal: 48),
+                          height: W.lg + H.x10s,
+                          borderRadius: .circular(30),
+                          border: .all(width: .5, color: Colors.grey.shade500),
                           color: Colors.black.withValues(alpha: .5),
                           child: Stack(
-                            alignment: AlignmentDirectional.center,
+                            alignment: .center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'See More' : 'Selengkapnya',
-                                style: AppFonts.inter(
-                                  color: Colors.grey.shade50,
-                                  fontSize: FontScale.md,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.md, fontWeight: .w600),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeScale.heightXs),
+                      SizedBox(height: H.xs),
                     ],
                   ),
                 ),
@@ -173,13 +160,13 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenUtil.size.width - 32,
-                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),
@@ -207,266 +194,266 @@ class _Gallery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: SizeScale.heightX2s),
+        SizedBox(height: H.x2s),
         Row(
           children: [
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
             Expanded(
               flex: 5,
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.left,
+                slideFrom: .left,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX11l + 4,
+                  height: W.x11l + 4,
                   child: _ImageViewer(previewType: previewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             SizedBox(
-              height: SizeScale.widthX11l + 4,
+              height: W.x11l + 4,
               width: .5,
               child: ColoredBox(color: Colors.grey.shade500),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             Expanded(
               flex: 3,
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.right,
+                slideFrom: .right,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 1000),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX11l + 4,
+                  height: W.x11l + 4,
                   child: _ImageViewer(previewType: previewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
           ],
         ),
-        SizedBox(height: SizeScale.widthX7s),
+        SizedBox(height: W.x7s),
         Row(
           children: [
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
             Expanded(
               child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
             ),
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
           ],
         ),
-        SizedBox(height: SizeScale.widthX7s),
+        SizedBox(height: W.x7s),
         Row(
           children: [
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
             Expanded(
               flex: 3,
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.right,
+                slideFrom: .right,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 1000),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX11l + 4,
+                  height: W.x11l + 4,
                   child: _ImageViewer(previewType: previewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             SizedBox(
-              height: SizeScale.widthX11l + 4,
+              height: W.x11l + 4,
               width: .5,
               child: ColoredBox(color: Colors.grey.shade500),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             Expanded(
               flex: 5,
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.left,
+                slideFrom: .left,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX11l + 4,
+                  height: W.x11l + 4,
                   child: _ImageViewer(previewType: previewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
           ],
         ),
-        SizedBox(height: SizeScale.widthX7s),
+        SizedBox(height: W.x7s),
         Row(
           children: [
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
             Expanded(
               child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
             ),
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
           ],
         ),
-        SizedBox(height: SizeScale.widthX7s),
+        SizedBox(height: W.x7s),
         Row(
           children: [
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
             Expanded(
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.bottom,
+                slideFrom: .bottom,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 1500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX9l + 8,
+                  height: W.x9l + 8,
                   child: _ImageViewer(previewType: previewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             SizedBox(
-              height: SizeScale.widthX9l + 8,
+              height: W.x9l + 8,
               width: .5,
               child: ColoredBox(color: Colors.grey.shade500),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             Expanded(
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.bottom,
+                slideFrom: .bottom,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 1500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX9l + 8,
+                  height: W.x9l + 8,
                   child: _ImageViewer(previewType: previewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             SizedBox(
-              height: SizeScale.widthX9l + 8,
+              height: W.x9l + 8,
               width: .5,
               child: ColoredBox(color: Colors.grey.shade500),
             ),
-            SizedBox(width: SizeScale.widthX7s),
+            SizedBox(width: W.x7s),
             Expanded(
               child: FadeAndSlideTransition(
-                slideFrom: SlideFrom.bottom,
+                slideFrom: .bottom,
                 slideFromOffset: .3,
                 delayBeforeStart: const Duration(milliseconds: 1500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: SizeScale.widthX9l + 8,
+                  height: W.x9l + 8,
                   child: _ImageViewer(previewType: previewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
                 ),
               ),
             ),
-            SizedBox(width: SizeScale.widthX4s),
+            SizedBox(width: W.x4s),
           ],
         ),
         if (isShowMore) ...[
-          SizedBox(height: SizeScale.widthX7s),
+          SizedBox(height: W.x7s),
           Row(
             children: [
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
               Expanded(
                 child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
               ),
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
             ],
           ),
-          SizedBox(height: SizeScale.widthX7s),
+          SizedBox(height: W.x7s),
           Row(
             children: [
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
               Expanded(
                 flex: 5,
                 child: FadeAndSlideTransition(
-                  slideFrom: SlideFrom.bottom,
+                  slideFrom: .bottom,
                   slideFromOffset: .3,
                   delayBeforeStart: const Duration(milliseconds: 2000),
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
-                    height: SizeScale.widthX11l + 4,
+                    height: W.x11l + 4,
                     child: _ImageViewer(previewType: previewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
                   ),
                 ),
               ),
-              SizedBox(width: SizeScale.widthX7s),
+              SizedBox(width: W.x7s),
               SizedBox(
-                height: SizeScale.widthX11l + 4,
+                height: W.x11l + 4,
                 width: .5,
                 child: ColoredBox(color: Colors.grey.shade500),
               ),
-              SizedBox(width: SizeScale.widthX7s),
+              SizedBox(width: W.x7s),
               Expanded(
                 flex: 3,
                 child: FadeAndSlideTransition(
-                  slideFrom: SlideFrom.bottom,
+                  slideFrom: .bottom,
                   slideFromOffset: .3,
                   delayBeforeStart: const Duration(milliseconds: 2000),
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
-                    height: SizeScale.widthX11l + 4,
+                    height: W.x11l + 4,
                     child: _ImageViewer(previewType: previewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
                   ),
                 ),
               ),
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
             ],
           ),
-          SizedBox(height: SizeScale.widthX7s),
+          SizedBox(height: W.x7s),
           Row(
             children: [
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
               Expanded(
                 child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
               ),
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
             ],
           ),
-          SizedBox(height: SizeScale.widthX7s),
+          SizedBox(height: W.x7s),
           Row(
             children: [
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
               Expanded(
                 flex: 3,
                 child: FadeAndSlideTransition(
-                  slideFrom: SlideFrom.bottom,
+                  slideFrom: .bottom,
                   slideFromOffset: .3,
                   delayBeforeStart: const Duration(milliseconds: 2500),
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
-                    height: SizeScale.widthX11l + 4,
+                    height: W.x11l + 4,
                     child: _ImageViewer(previewType: previewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
                   ),
                 ),
               ),
-              SizedBox(width: SizeScale.widthX7s),
+              SizedBox(width: W.x7s),
               SizedBox(
-                height: SizeScale.widthX11l + 4,
+                height: W.x11l + 4,
                 width: .5,
                 child: ColoredBox(color: Colors.grey.shade500),
               ),
-              SizedBox(width: SizeScale.widthX7s),
+              SizedBox(width: W.x7s),
               Expanded(
                 flex: 5,
                 child: FadeAndSlideTransition(
-                  slideFrom: SlideFrom.bottom,
+                  slideFrom: .bottom,
                   slideFromOffset: .3,
                   delayBeforeStart: const Duration(milliseconds: 2500),
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
-                    height: SizeScale.widthX11l + 4,
+                    height: W.x11l + 4,
                     child: _ImageViewer(previewType: previewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
                   ),
                 ),
               ),
-              SizedBox(width: SizeScale.widthX4s),
+              SizedBox(width: W.x4s),
             ],
           ),
         ],
-        SizedBox(height: SizeScale.heightX2s),
+        SizedBox(height: H.x2s),
       ],
     );
   }
@@ -484,19 +471,19 @@ class _ImageViewer extends StatelessWidget {
     return previewType == ThemePreviewType.fromRaw
         ? (image != null)
               ? ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: .circular(8),
                   child: Image.file(image!, fit: BoxFit.cover),
                 )
               : DecoratedBox(
-                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+                  decoration: BoxDecoration(borderRadius: .circular(8), color: Colors.grey),
                 )
         : (imageUrl ?? '').isNotEmpty
         ? ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: .circular(8),
             child: Image.network(imageUrl!, fit: BoxFit.cover),
           )
         : DecoratedBox(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.grey),
+            decoration: BoxDecoration(borderRadius: .circular(8), color: Colors.grey),
           );
   }
 }
