@@ -106,54 +106,52 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
           child: FadeTransition(
             opacity: _fadeAnimation,
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisSize: .min,
               children: [
-                if (!widget.isLeft)
-                  SizedBox(height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4), width: SizeScale.widthX8l),
+                if (!widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: W.x8l),
                 Stack(
-                  alignment: AlignmentDirectional.center,
+                  alignment: .center,
                   children: [
                     ScaleTransition(
                       scale: _frameScaleAnimation,
                       child: SizedBox(
-                        height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
-                        width: SizeScale.widthX8l,
+                        height: (W.x8l * 2) - (W.x3s * 1.4),
+                        width: W.x8l,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 2),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade50.withValues(alpha: .3),
-                              border: Border.all(width: .5, color: Colors.grey.shade200),
-                              borderRadius: BorderRadius.circular(4),
+                              border: .all(width: .5, color: Colors.grey.shade200),
+                              borderRadius: .circular(4),
                             ),
                           ),
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
-                      width: SizeScale.widthX8l,
+                      height: (W.x8l * 2) - (W.x3s * 1.4),
+                      width: W.x8l,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 24),
                         child: widget.previewType == ThemePreviewType.fromRaw
                             ? widget.image != null
                                   ? ColoredBox(
                                       color: Colors.grey,
-                                      child: Image.file(widget.image!, fit: BoxFit.cover),
+                                      child: Image.file(widget.image!, fit: .cover),
                                     )
                                   : const ColoredBox(color: Colors.grey)
                             : widget.imageUrl != null
                             ? ColoredBox(
                                 color: Colors.grey,
-                                child: Image.network(widget.imageUrl!, fit: BoxFit.cover),
+                                child: Image.network(widget.imageUrl!, fit: .cover),
                               )
                             : const ColoredBox(color: Colors.grey),
                       ),
                     ),
                   ],
                 ),
-                if (widget.isLeft)
-                  SizedBox(height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4), width: SizeScale.widthX8l),
+                if (widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: W.x8l),
               ],
             ),
           ),

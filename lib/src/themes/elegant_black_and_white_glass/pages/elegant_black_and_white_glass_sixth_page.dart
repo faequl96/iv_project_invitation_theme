@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -25,13 +22,13 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
         children: [
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height / 1.2,
-            width: ScreenUtil.size.width,
+            height: Screen.height / 1.2,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: .topCenter,
+                  end: .bottomCenter,
                   colors: [Colors.transparent, Colors.grey.shade900],
                   stops: const [.2, .8],
                 ),
@@ -42,18 +39,18 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
             top: 0,
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
-              slideFrom: SlideFrom.top,
+              slideFrom: .top,
               child: SizedBox(
-                height: SizeScale.heightX6l,
-                width: ScreenUtil.size.width,
+                height: H.x6l,
+                width: Screen.width,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.card_giftcard_rounded, size: SizeScale.widthXs, color: Colors.grey.shade900),
+                    Icon(Icons.card_giftcard_rounded, size: W.xs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Wedding Gift' : 'Kado Pernikahan',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -62,24 +59,24 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: .circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       // color: Colors.white.withValues(alpha: .1),
                       gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        begin: .topCenter,
+                        end: .bottomCenter,
                         colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
                         stops: const [0, 1],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
@@ -88,14 +85,14 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: .5, color: Colors.grey.shade500),
+                  borderRadius: .circular(20),
+                  border: .all(width: .5, color: Colors.grey.shade500),
                 ),
                 child: ClipRect(
                   child: Column(
@@ -103,32 +100,28 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                       const Spacer(),
                       FadeAndSlideTransition(
                         slideFromOffset: .4,
-                        slideFrom: SlideFrom.left,
+                        slideFrom: .left,
                         delayBeforeStart: const Duration(milliseconds: 500),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                          padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(width: .5, color: Colors.grey.shade500),
-                              borderRadius: BorderRadius.circular(10),
+                              border: .all(width: .5, color: Colors.grey.shade500),
+                              borderRadius: .circular(10),
                               color: Colors.white.withValues(alpha: .05),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(top: SizeScale.heightSm, left: 24, right: 24, bottom: SizeScale.heightSm),
+                              padding: .only(top: H.sm, left: 24, right: 24, bottom: H.sm),
                               child: FadeAndSlideTransition(
                                 slideFromOffset: .3,
-                                slideFrom: SlideFrom.top,
+                                slideFrom: .top,
                                 delayBeforeStart: const Duration(milliseconds: 1000),
                                 child: Text(
                                   langCode == 'en'
                                       ? 'Your prayers and blessings are a truly meaningful gift to us. And if giving is an expression of your love, you can give a cashless gift.'
                                       : 'Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.',
-                                  style: AppFonts.inter(
-                                    color: Colors.grey.shade100,
-                                    fontSize: FontScale.md,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                  textAlign: TextAlign.center,
+                                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w400),
+                                  textAlign: .center,
                                 ),
                               ),
                             ),
@@ -138,7 +131,7 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                       Column(
                         children: [
                           for (final bankAccount in bankAccounts) ...[
-                            SizedBox(height: SizeScale.heightX4s),
+                            SizedBox(height: H.x4s),
                             _BankAccount(bankAccount: bankAccount),
                           ],
                         ],
@@ -152,13 +145,13 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenUtil.size.width - 32,
-                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),
@@ -183,24 +176,24 @@ class _BankAccount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: SizeScale.widthX6s),
+        SizedBox(width: W.x6s),
         FadeAndSlideTransition(
           slideFromOffset: .0,
-          slideFrom: SlideFrom.top,
+          slideFrom: .top,
           delayBeforeStart: const Duration(milliseconds: 1500),
           child: SizedBox(
-            width: SizeScale.widthX7l,
-            height: SizeScale.widthX7l,
+            width: W.x7l,
+            height: W.x7l,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: Colors.white.withValues(alpha: .05),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: .5, color: Colors.grey.shade500),
+                borderRadius: .circular(10),
+                border: .all(width: .5, color: Colors.grey.shade500),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(6),
+                padding: const .all(6),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .4), borderRadius: BorderRadius.circular(6)),
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .4), borderRadius: .circular(6)),
                   child: Image.asset(
                     'assets/banks/${bankAccount.bankName}.png',
                     package: 'iv_project_invitation_theme',
@@ -211,13 +204,13 @@ class _BankAccount extends StatelessWidget {
                           ? bankNames.map((e) => e[0]).join().replaceAll(RegExp(r'[^a-zA-Z]'), '')
                           : bankNames[0];
                       return Padding(
-                        padding: EdgeInsets.symmetric(vertical: SizeScale.widthX4s),
+                        padding: .symmetric(vertical: W.x4s),
                         child: ColoredBox(
                           color: Colors.white,
                           child: Center(
                             child: Text(
                               bankName,
-                              style: TextStyle(fontSize: FontScale.xl, color: Colors.grey.shade800, fontWeight: FontWeight.w700),
+                              style: TextStyle(fontSize: FS.xl, color: Colors.grey.shade800, fontWeight: .w700),
                             ),
                           ),
                         ),
@@ -232,53 +225,43 @@ class _BankAccount extends StatelessWidget {
         ClipRect(
           child: FadeAndSlideTransition(
             slideFromOffset: 1,
-            slideFrom: SlideFrom.left,
+            slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 1800),
             child: SizedBox(
-              height: SizeScale.widthX5l,
-              width: ScreenUtil.size.width - (SizeScale.widthX7l + 2 + (SizeScale.widthX6s * 4) + 4),
+              height: W.x5l,
+              width: Screen.width - (W.x7l + 2 + (W.x6s * 4) + 4),
               child: Padding(
-                padding: const EdgeInsets.only(left: 2),
+                padding: const .only(left: 2),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    border: Border.all(width: .5, color: Colors.grey.shade500),
-                    borderRadius: const BorderRadius.only(topRight: Radius.circular(10), bottomRight: Radius.circular(10)),
+                    border: .all(width: .5, color: Colors.grey.shade500),
+                    borderRadius: const .only(topRight: .circular(10), bottomRight: .circular(10)),
                     color: Colors.white.withValues(alpha: .05),
                   ),
                   child: Row(
                     children: [
-                      SizedBox(width: SizeScale.widthX9s),
+                      SizedBox(width: W.x9s),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: .center,
+                        crossAxisAlignment: .start,
                         children: [
                           Text(
                             bankAccount.bankName,
                             style: AppFonts.inter(
                               color: Colors.grey.shade100,
-                              fontSize: FontScale.xs,
-                              fontWeight: FontWeight.w500,
+                              fontSize: FS.xs,
+                              fontWeight: .w500,
                               // height: 1.2,
                             ),
                           ),
                           const SizedBox(height: 2),
                           Text(
                             bankAccount.number,
-                            style: AppFonts.inter(
-                              color: Colors.grey.shade100,
-                              fontSize: FontScale.md,
-                              fontWeight: FontWeight.w500,
-                              height: 1.3,
-                            ),
+                            style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w500, height: 1.3),
                           ),
                           Text(
                             'a.n ${bankAccount.accountName}',
-                            style: AppFonts.inter(
-                              color: Colors.grey.shade100,
-                              fontSize: FontScale.x2s,
-                              fontWeight: FontWeight.w400,
-                              height: 1.3,
-                            ),
+                            style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.x2s, fontWeight: .w400, height: 1.3),
                           ),
                         ],
                       ),
@@ -288,16 +271,16 @@ class _BankAccount extends StatelessWidget {
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: Colors.grey.shade400.withValues(alpha: .2),
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(width: .5, color: Colors.grey.shade400),
+                            borderRadius: .circular(5),
+                            border: .all(width: .5, color: Colors.grey.shade400),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.only(top: 5, bottom: 5, left: 4, right: 3),
+                            padding: const .only(top: 5, bottom: 5, left: 4, right: 3),
                             child: Icon(Icons.content_copy_rounded, color: Colors.grey.shade200),
                           ),
                         ),
                       ),
-                      SizedBox(width: SizeScale.widthX7s),
+                      SizedBox(width: W.x7s),
                     ],
                   ),
                 ),
@@ -305,7 +288,7 @@ class _BankAccount extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: SizeScale.widthX6s),
+        SizedBox(width: W.x6s),
       ],
     );
   }

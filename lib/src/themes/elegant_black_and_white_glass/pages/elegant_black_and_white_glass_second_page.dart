@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -41,18 +39,18 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
             top: 0,
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
-              slideFrom: SlideFrom.top,
+              slideFrom: .top,
               child: SizedBox(
-                height: SizeScale.heightX6l,
-                width: ScreenUtil.size.width,
+                height: H.x6l,
+                width: Screen.width,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.people, size: SizeScale.widthXs, color: Colors.grey.shade900),
+                    Icon(Icons.people, size: W.xs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -61,24 +59,24 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: .circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       // color: Colors.white.withValues(alpha: .1),
                       gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        begin: .topCenter,
+                        end: .bottomCenter,
                         colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
                         stops: const [0, 1],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
@@ -87,20 +85,20 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: .5, color: Colors.grey.shade500),
+                  borderRadius: .circular(20),
+                  border: .all(width: .5, color: Colors.grey.shade500),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: .circular(20),
                   child: Stack(
-                    clipBehavior: Clip.none,
-                    alignment: AlignmentDirectional.center,
+                    clipBehavior: .none,
+                    alignment: .center,
                     children: [
                       AnimatedPhotoSequence.left(previewType: previewType, imageUrl: groom.imageUrl, image: groomImage),
                       AnimatedPhotoSequence.right(previewType: previewType, imageUrl: bride.imageUrl, image: brideImage),
@@ -112,35 +110,31 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 if ((bride.frontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.frontTitle} ',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500),
+                                    style: AppFonts.inter(fontWeight: .w500),
                                   ),
                                 TextSpan(
                                   text: bride.fullName,
-                                  style: AppFonts.inter(fontWeight: FontWeight.w700),
+                                  style: AppFonts.inter(fontWeight: .w700),
                                 ),
                                 if ((bride.backTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${bride.backTitle}',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500),
+                                    style: AppFonts.inter(fontWeight: .w500),
                                   ),
                               ],
                             ),
-                            style: AppFonts.inter(fontSize: FontScale.x2l, color: Colors.grey.shade200, height: 1.2),
+                            style: AppFonts.inter(fontSize: FS.x2l, color: Colors.grey.shade200, height: 1.2),
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
                             height: .5,
-                            width: SizeScale.widthX16l,
+                            width: W.x16l,
                             child: ColoredBox(color: Colors.grey.shade200),
                           ),
                           const SizedBox(height: 6),
                           Text(
                             langCode == 'en' ? 'Daughter of' : 'Putri dari',
-                            style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade200,
-                            ),
+                            style: AppFonts.inter(fontSize: FS.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -150,22 +144,22 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 if ((bride.fatherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.fatherFrontTitle} ',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                                 TextSpan(
                                   text: bride.fatherName,
-                                  style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
                                 ),
                                 if ((bride.fatherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${bride.fatherBackTitle}',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                               ],
                             ),
                             style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontStyle: FontStyle.italic,
+                              fontSize: FS.xs + .2,
+                              fontStyle: .italic,
                               color: Colors.grey.shade200,
                               height: 1.2,
                             ),
@@ -173,11 +167,7 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           const SizedBox(height: 2),
                           Text(
                             langCode == 'en' ? 'and' : 'dan',
-                            style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade200,
-                            ),
+                            style: AppFonts.inter(fontSize: FS.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -187,22 +177,22 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 if ((bride.motherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.motherFrontTitle} ',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                                 TextSpan(
                                   text: bride.motherName,
-                                  style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
                                 ),
                                 if ((bride.motherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${bride.motherBackTitle}',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                               ],
                             ),
                             style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontStyle: FontStyle.italic,
+                              fontSize: FS.xs + .2,
+                              fontStyle: .italic,
                               color: Colors.grey.shade200,
                               height: 1.2,
                             ),
@@ -217,36 +207,32 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 if ((groom.frontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.frontTitle} ',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500),
+                                    style: AppFonts.inter(fontWeight: .w500),
                                   ),
                                 TextSpan(
                                   text: groom.fullName,
-                                  style: AppFonts.inter(fontWeight: FontWeight.w700),
+                                  style: AppFonts.inter(fontWeight: .w700),
                                 ),
                                 if ((groom.backTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${groom.backTitle}',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500),
+                                    style: AppFonts.inter(fontWeight: .w500),
                                   ),
                               ],
                             ),
-                            style: AppFonts.inter(fontSize: FontScale.x2l, color: Colors.grey.shade200, height: 1.2),
-                            textAlign: TextAlign.end,
+                            style: AppFonts.inter(fontSize: FS.x2l, color: Colors.grey.shade200, height: 1.2),
+                            textAlign: .end,
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
                             height: .5,
-                            width: SizeScale.widthX16l,
+                            width: W.x16l,
                             child: ColoredBox(color: Colors.grey.shade200),
                           ),
                           const SizedBox(height: 6),
                           Text(
                             langCode == 'en' ? 'Son of' : 'Putra dari',
-                            style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade200,
-                            ),
+                            style: AppFonts.inter(fontSize: FS.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -256,35 +242,31 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 if ((groom.fatherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.fatherFrontTitle} ',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                                 TextSpan(
                                   text: groom.fatherName,
-                                  style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
                                 ),
                                 if ((groom.fatherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${groom.fatherBackTitle}',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                               ],
                             ),
                             style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontStyle: FontStyle.italic,
+                              fontSize: FS.xs + .2,
+                              fontStyle: .italic,
                               color: Colors.grey.shade200,
                               height: 1.2,
                             ),
-                            textAlign: TextAlign.right,
+                            textAlign: .right,
                           ),
                           const SizedBox(height: 2),
                           Text(
                             langCode == 'en' ? 'and' : 'dan',
-                            style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.grey.shade200,
-                            ),
+                            style: AppFonts.inter(fontSize: FS.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -294,26 +276,26 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                                 if ((groom.motherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.motherFrontTitle} ',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                                 TextSpan(
                                   text: groom.motherName,
-                                  style: AppFonts.inter(fontWeight: FontWeight.w700, fontStyle: FontStyle.italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
                                 ),
                                 if ((groom.motherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: ', ${groom.motherBackTitle}',
-                                    style: AppFonts.inter(fontWeight: FontWeight.w500, fontStyle: FontStyle.italic),
+                                    style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
                                   ),
                               ],
                             ),
                             style: AppFonts.inter(
-                              fontSize: FontScale.xs + .2,
-                              fontStyle: FontStyle.italic,
+                              fontSize: FS.xs + .2,
+                              fontStyle: .italic,
                               color: Colors.grey.shade200,
                               height: 1.2,
                             ),
-                            textAlign: TextAlign.right,
+                            textAlign: .right,
                           ),
                         ],
                       ),
@@ -327,13 +309,13 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenUtil.size.width - 32,
-                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),
@@ -421,10 +403,7 @@ class _BorderState extends State<_Border> with SingleTickerProviderStateMixin {
                 bottom: BorderSide(width: .5, color: Colors.grey.shade200),
               ),
             ),
-            child: SizedBox(
-              height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
-              width: ScreenUtil.size.width - (SizeScale.widthX6s * 6),
-            ),
+            child: SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: Screen.width - (W.x6s * 6)),
           ),
         ),
       ),

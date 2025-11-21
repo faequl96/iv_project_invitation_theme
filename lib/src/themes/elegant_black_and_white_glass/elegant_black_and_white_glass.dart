@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 // import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
@@ -25,14 +24,18 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
     super.key,
     this.heightAdjustment = 0,
     required this.previewType,
+    required this.invitationId,
     required this.invitationData,
     this.imagesRaw,
+    required this.brandProfile,
   });
 
   final double heightAdjustment;
   final ThemePreviewType previewType;
+  final String invitationId;
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
+  final BrandProfileResponse brandProfile;
 
   @override
   State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
@@ -101,9 +104,10 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
       }
     }
 
-    ScreenUtil.set(size);
-    FontScale.set(size.width);
-    SizeScale.set(size);
+    Screen.set(size);
+    FS.set(size.width);
+    H.set(size.height);
+    W.set(size.width);
   }
 
   @override
@@ -148,11 +152,12 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
                 gallery: widget.invitationData.gallery,
               ),
             ElegantBlackAndWhiteGlassSixthPage(bankAccounts: widget.invitationData.bankAccounts),
-            const ElegantBlackAndWhiteGlassSeventhPage(),
+            ElegantBlackAndWhiteGlassSeventhPage(invitationId: widget.invitationId),
             ElegantBlackAndWhiteGlassEighthPage(
               general: widget.invitationData.general,
               brideName: widget.invitationData.bride.nickname,
               groomName: widget.invitationData.groom.nickname,
+              brandProfile: widget.brandProfile,
             ),
           ],
           tabsBuilder: (int tabActive) => [
@@ -267,21 +272,18 @@ class _Tab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: [
         const SizedBox(height: 6),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
+          padding: const .symmetric(horizontal: 6),
           child: Row(
             children: [
               Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
               const SizedBox(width: 8),
               Text(
                 title,
-                style: AppFonts.inter(
-                  color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400,
-                  fontWeight: FontWeight.w500,
-                ),
+                style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
               ),
             ],
           ),

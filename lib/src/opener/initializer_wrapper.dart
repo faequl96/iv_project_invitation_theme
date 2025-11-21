@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/opener/blurry_clear_cover.dart';
 import 'package:iv_project_invitation_theme/src/opener/padlock.dart';
@@ -34,21 +33,21 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
-        height: ScreenUtil.size.height,
-        width: ScreenUtil.size.width,
+        height: Screen.height,
+        width: Screen.width,
         child: Stack(
-          alignment: AlignmentDirectional.center,
+          alignment: .center,
           children: [
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
-              left: _onOpenedStarted ? -(ScreenUtil.size.width / 2) : -1.5,
+              left: _onOpenedStarted ? -(Screen.width / 2) : -1.5,
               child: const BlurryClearCover(isLeft: true),
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
-              right: _onOpenedStarted ? -(ScreenUtil.size.width / 2) : -1.5,
+              right: _onOpenedStarted ? -(Screen.width / 2) : -1.5,
               child: const BlurryClearCover(isLeft: false),
             ),
             if (!_onOpenedStarted) ...[
@@ -57,29 +56,25 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 child: Stack(
                   children: [
                     SizedBox(
-                      width: (ScreenUtil.size.width) - SizeScale.widthX9l,
-                      height: SizeScale.widthX4l,
+                      width: (Screen.width) - W.x9l,
+                      height: W.x4l,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(60),
-                          border: Border.all(width: .5, color: Colors.grey.shade500),
+                          borderRadius: .circular(60),
+                          border: .all(width: .5, color: Colors.grey.shade500),
                           color: Colors.grey.shade300.withValues(alpha: .2),
                         ),
                         child: Center(
                           child: Text(
                             langCode == 'en' ? 'Wedding Invitation' : 'Undangan Pernikahan',
-                            style: AppFonts.pacifico(
-                              fontSize: FontScale.x4l,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.grey.shade900,
-                            ),
+                            style: AppFonts.pacifico(fontSize: FS.x4l, fontWeight: .w700, color: Colors.grey.shade900),
                           ),
                         ),
                       ),
                     ),
                     LightningEffectBox(
-                      width: (ScreenUtil.size.width) - SizeScale.widthX9l,
-                      height: SizeScale.widthX4l,
+                      width: (Screen.width) - W.x9l,
+                      height: W.x4l,
                       borderRadius: 60,
                       animationSpeed: const Duration(seconds: 2),
                       ligthningColor: Colors.black,
@@ -90,16 +85,12 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
               Align(
                 alignment: const Alignment(-.18, -.3),
                 child: SizedBox(
-                  height: SizeScale.heightX11l,
-                  width: SizeScale.heightX11l,
+                  height: H.x11l,
+                  width: H.x11l,
                   child: Center(
                     child: Text(
                       widget.bride.nickname.isNotEmpty ? widget.bride.nickname[0] : '',
-                      style: AppFonts.pacifico(
-                        fontSize: FontScale.xl + SizeScale.heightXl,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey.shade300,
-                      ),
+                      style: AppFonts.pacifico(fontSize: FS.xl + H.xl, fontWeight: .w500, color: Colors.grey.shade300),
                     ),
                   ),
                 ),
@@ -107,16 +98,12 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
               Align(
                 alignment: const Alignment(.18, -.1),
                 child: SizedBox(
-                  height: SizeScale.heightX11l,
-                  width: SizeScale.heightX11l,
+                  height: H.x11l,
+                  width: H.x11l,
                   child: Center(
                     child: Text(
                       widget.groom.nickname.isNotEmpty ? widget.groom.nickname[0] : '',
-                      style: AppFonts.pacifico(
-                        fontSize: FontScale.xl + SizeScale.heightXl,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.grey.shade300,
-                      ),
+                      style: AppFonts.pacifico(fontSize: FS.xl + H.xl, fontWeight: .w500, color: Colors.grey.shade300),
                     ),
                   ),
                 ),
@@ -124,25 +111,25 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
               Align(
                 alignment: const Alignment(0, .3),
                 child: Text(
-                  DateUtil.format(widget.time.startTime, DateFormatPattern.EEEEddMMMMyyyy),
-                  style: AppFonts.inter(fontSize: FontScale.md, color: Colors.grey.shade300, fontWeight: FontWeight.w300),
+                  DateUtil.format(widget.time.startTime, .EEEEddMMMMyyyy),
+                  style: AppFonts.inter(fontSize: FS.md, color: Colors.grey.shade300, fontWeight: .w300),
                 ),
               ),
               Align(
                 alignment: const Alignment(0, .6),
                 child: SizedBox(
-                  height: SizeScale.heightX10l,
+                  height: H.x10l,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: .center,
                     children: [
                       Text(
                         langCode == 'en' ? 'To :' : 'Kepada :',
-                        style: AppFonts.inter(fontSize: FontScale.sm, fontWeight: FontWeight.w300, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FS.sm, fontWeight: .w300, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 6),
                       Text(
                         'Rizal (Voltras)',
-                        style: AppFonts.inter(fontSize: FontScale.md, fontWeight: FontWeight.w500, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FS.md, fontWeight: .w500, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 4),
                     ],

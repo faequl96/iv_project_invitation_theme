@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
@@ -27,13 +24,13 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: ScreenUtil.size.height / 1.4,
-            width: ScreenUtil.size.width,
+            height: Screen.height / 1.4,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: .topCenter,
+                  end: .bottomCenter,
                   colors: [Colors.grey.shade900, Colors.transparent],
                   stops: const [.2, .8],
                 ),
@@ -44,18 +41,18 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
             top: 0,
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
-              slideFrom: SlideFrom.top,
+              slideFrom: .top,
               child: SizedBox(
-                height: SizeScale.heightX6l,
-                width: ScreenUtil.size.width,
+                height: H.x6l,
+                width: Screen.width,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.location_pin, size: SizeScale.widthXs, color: Colors.grey.shade200),
+                    Icon(Icons.location_pin, size: W.xs, color: Colors.grey.shade200),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -64,16 +61,16 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: .circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: BorderRadius.circular(20)),
+                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
                   ),
                 ),
               ),
@@ -81,22 +78,22 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: .5, color: Colors.grey.shade500),
+                  borderRadius: .circular(20),
+                  border: .all(width: .5, color: Colors.grey.shade500),
                 ),
                 child: ClipRect(
                   child: Column(
                     children: [
-                      SizedBox(height: SizeScale.heightLg),
+                      SizedBox(height: H.lg),
                       FadeAndSlideTransition(
                         slideFromOffset: .0,
-                        slideFrom: SlideFrom.top,
+                        slideFrom: .top,
                         delayBeforeStart: const Duration(milliseconds: 200),
                         child: Column(
                           children: [
@@ -104,16 +101,12 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             const SizedBox(height: 4),
                             Text(
                               receptionEvent.place,
-                              style: AppFonts.inter(
-                                color: Colors.grey.shade50,
-                                fontSize: FontScale.xl,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.xl, fontWeight: .w600),
                             ),
                             const SizedBox(height: 8),
                             SizedBox(
                               height: .5,
-                              width: SizeScale.widthX18l,
+                              width: W.x18l,
                               child: ColoredBox(color: Colors.grey.shade50),
                             ),
                           ],
@@ -122,54 +115,46 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                       const SizedBox(height: 8),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
-                        slideFrom: SlideFrom.bottom,
+                        slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 400),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: const .symmetric(horizontal: 20),
                           child: Text(
                             receptionEvent.address,
-                            style: AppFonts.inter(
-                              color: Colors.grey.shade50,
-                              fontSize: FontScale.xs,
-                              fontWeight: FontWeight.w400,
-                            ),
-                            textAlign: TextAlign.center,
+                            style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.xs, fontWeight: .w400),
+                            textAlign: .center,
                           ),
                         ),
                       ),
                       const Spacer(),
                       Maps(
-                        width: ScreenUtil.size.width - (SizeScale.widthX6s * 5),
-                        height: ScreenUtil.size.height - (SizeScale.heightX22l),
+                        width: Screen.width - (W.x6s * 5),
+                        height: Screen.height - (H.x22l),
                         delayBeforeStart: const Duration(milliseconds: 1000),
                         url: receptionEvent.mapsUrl,
                       ),
-                      SizedBox(height: SizeScale.heightX2s),
+                      SizedBox(height: H.x2s),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
-                        slideFrom: SlideFrom.bottom,
+                        slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1000),
                         child: GeneralEffectsButton(
                           onTap: () {
-                            launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: LaunchMode.externalNonBrowserApplication);
+                            launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
                           },
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                          height: SizeScale.widthLg + SizeScale.heightX10s,
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(width: .5, color: Colors.grey.shade600),
+                          padding: const .symmetric(horizontal: 24),
+                          height: W.lg + H.x10s,
+                          borderRadius: .circular(30),
+                          border: .all(width: .5, color: Colors.grey.shade600),
                           color: Colors.white.withValues(alpha: .2),
                           child: Stack(
                             alignment: AlignmentDirectional.center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(
-                                  color: Colors.grey.shade900,
-                                  fontSize: FontScale.md,
-                                  fontWeight: FontWeight.w600,
-                                ),
+                                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.md, fontWeight: .w600),
                               ),
                             ],
                           ),
@@ -185,13 +170,13 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenUtil.size.width - 32,
-                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),

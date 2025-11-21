@@ -10,15 +10,19 @@ class InvitationThemeLauncher extends StatelessWidget {
     this.heightAdjustment = 0,
     required this.previewType,
     required this.invitationThemeId,
+    required this.invitationId,
     required this.invitationData,
     this.imagesRaw,
+    required this.brandProfile,
   });
 
   final double heightAdjustment;
   final ThemePreviewType previewType;
   final int invitationThemeId;
+  final String invitationId;
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
+  final BrandProfileResponse brandProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +40,10 @@ class InvitationThemeLauncher extends StatelessWidget {
         return ElegantBlackAndWhiteGlass(
           heightAdjustment: heightAdjustment,
           previewType: previewType,
+          invitationId: invitationId,
           invitationData: invitationData,
           imagesRaw: imagesRaw,
+          brandProfile: brandProfile,
         );
       default:
         return const SizedBox.shrink();

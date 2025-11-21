@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 // import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
@@ -22,23 +21,23 @@ class Padlock extends StatelessWidget {
         await Future.delayed(const Duration(seconds: 2));
         // Audio.player.play();
       },
-      height: SizeScale.widthLg + SizeScale.heightX10s,
-      width: SizeScale.widthX12l,
-      borderRadius: BorderRadius.circular(30),
+      height: W.lg + H.x10s,
+      width: W.x12l,
+      borderRadius: .circular(30),
       color: Colors.grey.shade900.withValues(alpha: .2),
-      border: Border.all(width: .5, color: Colors.grey.shade500),
+      border: .all(width: .5, color: Colors.grey.shade500),
       child: Stack(
-        alignment: AlignmentDirectional.center,
+        alignment: .center,
         children: [
           GlassEffectBox(
-            height: SizeScale.widthLg + SizeScale.heightX10s,
-            width: SizeScale.widthX12l,
+            height: W.lg + H.x10s,
+            width: W.x12l,
             borderRadius: 40,
             color: Colors.grey.shade200.withValues(alpha: .5),
           ),
           Text(
             langCode == 'en' ? 'Open Invitation' : 'Buka Undangan',
-            style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontScale.sm, fontWeight: FontWeight.w600),
+            style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FS.sm, fontWeight: .w600),
           ),
         ],
       ),
@@ -69,7 +68,7 @@ class Padlock extends StatelessWidget {
     //               height: 50,
     //               child: DecoratedBox(
     //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(10),
+    //                   borderRadius: .circular(10),
     //                   gradient: const LinearGradient(
     //                     colors: [Color.fromARGB(200, 255, 212, 102), Color.fromARGB(240, 255, 198, 192)],
     //                   ),
@@ -79,7 +78,7 @@ class Padlock extends StatelessWidget {
     //                   children: [
     //                     Text(
     //                       'Buka Undangan',
-    //                       style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+    //                       style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: .bold),
     //                     ),
     //                   ],
     //                 ),

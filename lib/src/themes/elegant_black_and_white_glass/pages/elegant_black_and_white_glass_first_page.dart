@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/app_fonts.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -24,13 +21,13 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: ScreenUtil.size.height / 1.2,
-            width: ScreenUtil.size.width,
+            height: Screen.height / 1.2,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
+                  begin: .topCenter,
+                  end: .bottomCenter,
                   colors: [Colors.grey.shade900, Colors.transparent],
                   stops: const [.2, .8],
                 ),
@@ -41,14 +38,14 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
             top: 0,
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
-              slideFrom: SlideFrom.top,
+              slideFrom: .top,
               child: SizedBox(
-                height: SizeScale.heightX6l,
-                width: ScreenUtil.size.width,
+                height: H.x6l,
+                width: Screen.width,
                 child: Center(
                   child: Text(
                     langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
-                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontScale.x3l, fontWeight: FontWeight.w700),
+                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.x3l, fontWeight: .w700),
                   ),
                 ),
               ),
@@ -56,24 +53,24 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: .circular(20),
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       // color: Colors.white.withValues(alpha: .1),
                       gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
+                        begin: .topCenter,
+                        end: .bottomCenter,
                         colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
                         stops: const [0, 1],
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
@@ -82,51 +79,51 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(width: .5, color: Colors.grey.shade500),
+                  borderRadius: .circular(20),
+                  border: .all(width: .5, color: Colors.grey.shade500),
                 ),
                 child: ClipRect(
                   child: Column(
                     children: [
-                      // SizedBox(height: SizeScale.heightX2l),
+                      // SizedBox(height: H.x2l),
                       const Spacer(),
                       FadeAndSlideTransition(
                         slideFromOffset: .5,
-                        slideFrom: SlideFrom.top,
+                        slideFrom: .top,
                         delayBeforeStart: const Duration(milliseconds: 500),
                         child: Text(
                           general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                          style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontScale.x7l),
+                          style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FS.x7l),
                         ),
                       ),
-                      // SizedBox(height: SizeScale.heightXs),
+                      // SizedBox(height: H.xs),
                       const Spacer(),
                       FadeAndSlideTransition(
                         slideFromOffset: .4,
-                        slideFrom: SlideFrom.left,
+                        slideFrom: .left,
                         delayBeforeStart: const Duration(milliseconds: 500),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                          padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(width: .5, color: Colors.grey.shade500),
-                              borderRadius: BorderRadius.circular(10),
+                              border: .all(width: .5, color: Colors.grey.shade500),
+                              borderRadius: .circular(10),
                               color: Colors.white.withValues(alpha: .05),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(top: SizeScale.heightMd, left: 20, right: 20, bottom: SizeScale.heightSm),
+                              padding: .only(top: H.md, left: 20, right: 20, bottom: H.sm),
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: .min,
                                 children: [
                                   FadeAndSlideTransition(
                                     slideFromOffset: .3,
-                                    slideFrom: SlideFrom.top,
+                                    slideFrom: .top,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
                                     child: Text(
                                       general.openingQuote.isNotEmpty
@@ -134,25 +131,21 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                           : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
                                       style: AppFonts.inter(
                                         color: Colors.grey.shade100,
-                                        fontSize: FontScale.md,
-                                        fontWeight: FontWeight.w500,
-                                        fontStyle: FontStyle.italic,
+                                        fontSize: FS.md,
+                                        fontWeight: .w500,
+                                        fontStyle: .italic,
                                       ),
-                                      textAlign: TextAlign.center,
+                                      textAlign: .center,
                                     ),
                                   ),
-                                  SizedBox(height: SizeScale.heightX6s),
+                                  SizedBox(height: H.x6s),
                                   FadeAndSlideTransition(
                                     slideFromOffset: 1,
-                                    slideFrom: SlideFrom.bottom,
+                                    slideFrom: .bottom,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
                                     child: Text(
                                       general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
-                                        fontSize: FontScale.lg,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.lg, fontWeight: .w600),
                                     ),
                                   ),
                                 ],
@@ -161,52 +154,44 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SizedBox(height: SizeScale.heightX4s),
+                      SizedBox(height: H.x4s),
                       FadeAndSlideTransition(
                         slideFromOffset: .4,
-                        slideFrom: SlideFrom.right,
+                        slideFrom: .right,
                         delayBeforeStart: const Duration(milliseconds: 500),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: SizeScale.widthX6s),
+                          padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: Border.all(width: .5, color: Colors.grey.shade500),
-                              borderRadius: BorderRadius.circular(10),
+                              border: .all(width: .5, color: Colors.grey.shade500),
+                              borderRadius: .circular(10),
                               color: Colors.white.withValues(alpha: .05),
                             ),
                             child: Padding(
-                              padding: EdgeInsets.only(top: SizeScale.heightXs, left: 20, right: 20, bottom: SizeScale.heightSm),
+                              padding: .only(top: H.xs, left: 20, right: 20, bottom: H.sm),
                               child: Column(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: .min,
                                 children: [
                                   FadeAndSlideTransition(
                                     slideFromOffset: 1,
-                                    slideFrom: SlideFrom.top,
+                                    slideFrom: .top,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
                                     child: Text(
                                       general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
-                                        fontSize: FontScale.x2l,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.x2l, fontWeight: .w600),
                                     ),
                                   ),
-                                  SizedBox(height: SizeScale.heightX6s),
+                                  SizedBox(height: H.x6s),
                                   FadeAndSlideTransition(
                                     slideFromOffset: .4,
-                                    slideFrom: SlideFrom.bottom,
+                                    slideFrom: .bottom,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
                                     child: Text(
                                       general.greeting.isNotEmpty
                                           ? general.greeting
                                           : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                                      style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
-                                        fontSize: FontScale.md,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                      textAlign: TextAlign.center,
+                                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w400),
+                                      textAlign: .center,
                                     ),
                                   ),
                                 ],
@@ -215,7 +200,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // SizedBox(height: SizeScale.heightXs),
+                      // SizedBox(height: H.xs),
                       const Spacer(),
                       const Spacer(),
                     ],
@@ -226,13 +211,13 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: ScreenUtil.size.height,
-            width: ScreenUtil.size.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
-              padding: EdgeInsets.only(top: SizeScale.heightX6l, left: SizeScale.widthX6s, right: SizeScale.widthX6s, bottom: 76),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenUtil.size.width - 32,
-                height: ScreenUtil.size.height - (76 + SizeScale.heightX6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),

@@ -77,13 +77,13 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
       child: FadeTransition(
         opacity: _lineFadeAnimation,
         child: SizedBox(
-          height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
+          height: (W.x8l * 2) - (W.x3s * 1.4),
           child: Row(
             children: [
               if (!widget.isLeft) ...[
-                SizedBox(width: SizeScale.widthX11l - 6),
+                SizedBox(width: W.x11l - 6),
                 SizedBox(
-                  height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
+                  height: (W.x8l * 2) - (W.x3s * 1.4),
                   width: .5,
                   child: ColoredBox(color: Colors.grey.shade200),
                 ),
@@ -93,15 +93,12 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                   child: SlideTransition(
                     position: _textSlideHorizontalAnimation,
                     child: SizedBox(
-                      width: double.maxFinite,
+                      width: .maxFinite,
                       child: Padding(
-                        padding: EdgeInsets.only(
-                          left: widget.isLeft ? SizeScale.widthX5s : SizeScale.widthX8s,
-                          right: widget.isLeft ? SizeScale.widthX8s : SizeScale.widthX5s,
-                        ),
+                        padding: .only(left: widget.isLeft ? W.x5s : W.x8s, right: widget.isLeft ? W.x8s : W.x5s),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: widget.isLeft ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+                          mainAxisAlignment: .center,
+                          crossAxisAlignment: widget.isLeft ? .start : .end,
                           children: widget.children,
                         ),
                       ),
@@ -111,11 +108,11 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
               ),
               if (widget.isLeft) ...[
                 SizedBox(
-                  height: (SizeScale.widthX8l * 2) - (SizeScale.widthX3s * 1.4),
+                  height: (W.x8l * 2) - (W.x3s * 1.4),
                   width: .5,
                   child: ColoredBox(color: Colors.grey.shade200),
                 ),
-                SizedBox(width: SizeScale.widthX11l - 6),
+                SizedBox(width: W.x11l - 6),
               ],
             ],
           ),

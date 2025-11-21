@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
@@ -15,24 +13,24 @@ class BlurryClearCover extends StatelessWidget {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
-        height: ScreenUtil.size.height,
-        width: ScreenUtil.size.width / 2,
+        height: Screen.height,
+        width: Screen.width / 2,
         child: Stack(
-          alignment: AlignmentDirectional.center,
-          clipBehavior: Clip.none,
+          alignment: .center,
+          clipBehavior: .none,
           children: [
             ClipRect(
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                filter: .blur(sigmaX: 5, sigmaY: 5),
                 child: SizedBox(
-                  height: ScreenUtil.size.height,
-                  width: ScreenUtil.size.width / 2,
+                  height: Screen.height,
+                  width: Screen.width / 2,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade500.withValues(alpha: 0.2),
                       border: Border(
-                        left: isLeft ? BorderSide.none : BorderSide(color: Colors.grey.shade500, width: .5),
-                        right: isLeft ? BorderSide(color: Colors.grey.shade500, width: .5) : BorderSide.none,
+                        left: isLeft ? .none : BorderSide(color: Colors.grey.shade500, width: .5),
+                        right: isLeft ? BorderSide(color: Colors.grey.shade500, width: .5) : .none,
                       ),
                     ),
                   ),
@@ -44,8 +42,8 @@ class BlurryClearCover extends StatelessWidget {
               child: Transform.translate(
                 offset: Offset(isLeft ? 1 : -1, 0),
                 child: SizedBox(
-                  height: SizeScale.heightX10l,
-                  width: (ScreenUtil.size.width / 2) - SizeScale.widthLg,
+                  height: H.x10l,
+                  width: (Screen.width / 2) - W.lg,
                   child: _RecipientBox(isLeft: isLeft),
                 ),
               ),
@@ -68,12 +66,12 @@ class _RecipientBox extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.grey.shade800.withValues(alpha: .6),
         borderRadius: isLeft
-            ? const BorderRadius.only(topLeft: Radius.circular(20), bottomLeft: Radius.circular(20))
-            : const BorderRadius.only(topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
+            ? const .only(topLeft: .circular(20), bottomLeft: .circular(20))
+            : const .only(topRight: .circular(20), bottomRight: .circular(20)),
         border: Border(
           top: BorderSide(width: .5, color: Colors.grey.shade500),
-          left: isLeft ? BorderSide(width: .5, color: Colors.grey.shade500) : BorderSide.none,
-          right: isLeft ? BorderSide.none : BorderSide(width: .5, color: Colors.grey.shade500),
+          left: isLeft ? BorderSide(width: .5, color: Colors.grey.shade500) : .none,
+          right: isLeft ? .none : BorderSide(width: .5, color: Colors.grey.shade500),
           bottom: BorderSide(width: .5, color: Colors.grey.shade500),
         ),
       ),
