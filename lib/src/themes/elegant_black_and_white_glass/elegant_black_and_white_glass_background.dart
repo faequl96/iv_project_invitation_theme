@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/random_slide_transition.dart';
 
 class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
@@ -14,8 +16,8 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
       builder: (_, _) => Stack(
         children: [
           SizedBox(
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade300)),
           ),
           Positioned(

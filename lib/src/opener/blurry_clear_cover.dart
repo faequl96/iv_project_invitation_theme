@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 
 class BlurryClearCover extends StatelessWidget {
   const BlurryClearCover({super.key, required this.isLeft});
@@ -13,8 +15,8 @@ class BlurryClearCover extends StatelessWidget {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
-        height: Screen.height,
-        width: Screen.width / 2,
+        height: ScreenSize.height,
+        width: ScreenSize.width / 2,
         child: Stack(
           alignment: .center,
           clipBehavior: .none,
@@ -23,8 +25,8 @@ class BlurryClearCover extends StatelessWidget {
               child: BackdropFilter(
                 filter: .blur(sigmaX: 5, sigmaY: 5),
                 child: SizedBox(
-                  height: Screen.height,
-                  width: Screen.width / 2,
+                  height: ScreenSize.height,
+                  width: ScreenSize.width / 2,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
                       color: Colors.grey.shade500.withValues(alpha: 0.2),
@@ -43,7 +45,7 @@ class BlurryClearCover extends StatelessWidget {
                 offset: Offset(isLeft ? 1 : -1, 0),
                 child: SizedBox(
                   height: H.x10l,
-                  width: (Screen.width / 2) - W.lg,
+                  width: (ScreenSize.width / 2) - W.lg,
                   child: _RecipientBox(isLeft: isLeft),
                 ),
               ),

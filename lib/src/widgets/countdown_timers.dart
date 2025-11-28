@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
@@ -171,11 +172,11 @@ class _CountdownTimer extends StatelessWidget {
               children: [
                 Text(
                   '$number',
-                  style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade200, fontSize: FS.sm, height: 1.2),
+                  style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade200, fontSize: FontSize.sm, height: 1.2),
                 ),
                 Text(
                   unit,
-                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.xs, height: 1.2),
+                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.xs, height: 1.2),
                 ),
               ],
             ),
