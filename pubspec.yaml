@@ -5,7 +5,7 @@ homepage:
 publish_to: 'none'
 
 environment:
-  sdk: ^3.10.0
+  sdk: ^3.10.1
   flutter: ">=1.17.0"
 
 dependencies:
@@ -15,34 +15,17 @@ dependencies:
   iv_project_model:
     path: ../iv_project_model
   
-  # iv_project_model:
-  #   git:
-  #     url: https://github.com/faequl96/iv_project_model.git
-  #     ref: 0.0.9
-
+  iv_project_web_data:
+    path: ../iv_project_web_data
+  
   iv_project_core:
     path: ../iv_project_core
-
-  # iv_project_core:
-  #   git:
-  #     url: https://github.com/faequl96/iv_project_core.git
-  #     ref: 0.0.7
 
   iv_project_widget_core:
     path: ../iv_project_widget_core
 
-  # iv_project_widget_core:
-  #   git:
-  #     url: https://github.com/faequl96/iv_project_widget_core.git
-  #     ref: 0.0.7
-  
   quick_dev_sdk:
     path: ../quick_dev_sdk
-
-  # quick_dev_sdk:
-  #   git:
-  #     url: https://github.com/faequl96/quick_dev_sdk.git
-  #     ref: 0.0.8
 
   flutter_bloc: ^9.1.1
 
@@ -57,6 +40,8 @@ dependencies:
   url_launcher: ^6.3.2
   http: ^1.5.0
 
+  qr_flutter: ^4.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,3 +54,4 @@ flutter:
     - assets/avatars/
     - assets/banks/
     - assets/icons/
+    - assets/logos/

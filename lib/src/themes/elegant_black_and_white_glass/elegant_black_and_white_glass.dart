@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 // import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
@@ -41,15 +44,44 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
   State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
 }
 
-class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
-  late final Size _size;
-  late final EdgeInsets _padding;
+class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> with WidgetsBindingObserver {
+  late final InvitationThemeCoreCubit _coreCubit;
 
   bool _isGalleriesNotEmpty = false;
+
+  void _setSize(bool isInitial) {
+    final size = MediaQuery.of(GlobalContextService.value).size;
+    final padding = MediaQuery.of(GlobalContextService.value).padding;
+
+    late final Size finalSize;
+    if (size.width > 440) {
+      if (size.height < 915) {
+        finalSize = Size(412, size.height - (padding.top + widget.heightAdjustment + padding.bottom));
+      } else {
+        finalSize = const Size(412, 915);
+      }
+    } else {
+      if (size.height < 915) {
+        finalSize = Size(size.width, size.height - (padding.top + widget.heightAdjustment + padding.bottom));
+      } else {
+        finalSize = Size(size.width, 915);
+      }
+    }
+
+    Screen.set(finalSize);
+    H.set(finalSize.height);
+    W.set(finalSize.width);
+
+    if (isInitial == false) _coreCubit.state.copyWith(size: finalSize).emitState();
+  }
 
   @override
   void initState() {
     super.initState();
+
+    WidgetsBinding.instance.addObserver(this);
+
+    _coreCubit = context.read<InvitationThemeCoreCubit>();
 
     if (widget.previewType == ThemePreviewType.fromRaw) {
       if (widget.imagesRaw != null) {
@@ -86,28 +118,21 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _size = MediaQuery.of(GlobalContextService.value).size;
-    _padding = MediaQuery.of(GlobalContextService.value).padding;
+    _setSize(true);
+  }
 
-    late final Size size;
-    if (_size.width > 440) {
-      if (_size.height < 915) {
-        size = Size(412, _size.height - (_padding.top + widget.heightAdjustment + _padding.bottom));
-      } else {
-        size = const Size(412, 915);
-      }
-    } else {
-      if (_size.height < 915) {
-        size = Size(_size.width, _size.height - (_padding.top + widget.heightAdjustment + _padding.bottom));
-      } else {
-        size = Size(_size.width, 915);
-      }
-    }
+  @override
+  void didChangeMetrics() {
+    super.didChangeMetrics();
 
-    Screen.set(size);
-    FS.set(size.width);
-    H.set(size.height);
-    W.set(size.width);
+    _setSize(false);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+
+    super.dispose();
   }
 
   @override

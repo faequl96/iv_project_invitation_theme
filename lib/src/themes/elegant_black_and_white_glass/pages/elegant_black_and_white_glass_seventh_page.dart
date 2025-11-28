@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
+import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -42,8 +45,8 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
         children: [
           Positioned(
             top: 0,
-            height: Screen.height / 1.4,
-            width: Screen.width,
+            height: ScreenSize.height / 1.4,
+            width: ScreenSize.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -62,7 +65,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: Screen.width,
+                width: ScreenSize.width,
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -70,7 +73,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -79,8 +82,8 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
@@ -104,8 +107,8 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
@@ -163,7 +166,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                           ),
                                           contentBuilder: (_) {
                                             return SizedBox(
-                                              height: Screen.height - H.x15l,
+                                              height: ScreenSize.height - H.x15l,
                                               child: Padding(
                                                 padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
                                                 child: DecoratedBox(
@@ -190,7 +193,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                             langCode == 'en' ? 'See More' : 'Selengkapnya',
                                             style: AppFonts.inter(
                                               color: Colors.grey.shade100,
-                                              fontSize: FS.md,
+                                              fontSize: FontSize.md,
                                               fontWeight: .w600,
                                             ),
                                           ),
@@ -213,13 +216,13 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
+                width: ScreenSize.width - 32,
+                height: ScreenSize.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),
@@ -335,10 +338,10 @@ class _RSVPFormState extends State<RSVPForm> {
               builder: (_, _, _) {
                 return OverlayDropdownField(
                   height: H.x3l,
-                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
+                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
                   decoration: FieldDecoration(
                     labelText: 'Avatar',
-                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FS.md),
+                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.md),
                     filled: true,
                     fillColor: Colors.grey.shade500.withValues(alpha: .3),
                     enabledBorder: OutlineInputBorder(
@@ -390,7 +393,7 @@ class _RSVPFormState extends State<RSVPForm> {
                         const SizedBox(width: 6),
                         Text(
                           value,
-                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
+                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
                         ),
                       ],
                     );
@@ -413,10 +416,10 @@ class _RSVPFormState extends State<RSVPForm> {
               builder: (_, _, _) {
                 return OverlayDropdownField(
                   height: H.x3l,
-                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
+                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
                   decoration: FieldDecoration(
                     labelText: 'Kemungkinan Kehadiran',
-                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FS.md),
+                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.md),
                     filled: true,
                     fillColor: Colors.grey.shade500.withValues(alpha: .3),
                     enabledBorder: OutlineInputBorder(
@@ -458,7 +461,7 @@ class _RSVPFormState extends State<RSVPForm> {
                   dropdownItemBuilder: (value) {
                     return Text(
                       value,
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
+                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
                     );
                   },
                   onSelected: (value) => _possiblePresence.value = value,
@@ -502,7 +505,7 @@ class _RSVPFormState extends State<RSVPForm> {
                 children: [
                   Text(
                     'Submit',
-                    style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w600),
+                    style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
                   ),
                 ],
               ),
@@ -656,25 +659,25 @@ class _RSVPItem extends StatelessWidget {
                   children: [
                     Text(
                       invitedGuest.nickname,
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.sm, fontWeight: .bold, height: 1.16),
+                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .bold, height: 1.16),
                     ),
                     SizedBox(width: W.x10s),
                     SizedBox(
-                      height: FS.sm,
+                      height: FontSize.sm,
                       width: 1,
                       child: ColoredBox(color: Colors.grey.shade50),
                     ),
                     SizedBox(width: W.x12s),
                     TimeAgo(
                       dateTime: rsvp.createdAt,
-                      textStyle: AppFonts.inter(fontSize: FS.xs, color: Colors.grey.shade400),
+                      textStyle: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade400),
                     ),
                   ],
                 ),
                 const SizedBox(height: 2),
                 Text(
                   '@${invitedGuest.nameInstance}',
-                  style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FS.xs, height: 1.16),
+                  style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontSize.xs, height: 1.16),
                 ),
                 const SizedBox(height: 4),
                 if (invitedGuest.attendance != null)
@@ -685,7 +688,7 @@ class _RSVPItem extends StatelessWidget {
                           ? ColorConverter.lighten(Colors.green, 50)
                           : ColorConverter.lighten(Colors.red, 50),
                       fontWeight: .w400,
-                      fontSize: FS.xs,
+                      fontSize: FontSize.xs,
                     ),
                   )
                 else
@@ -696,12 +699,12 @@ class _RSVPItem extends StatelessWidget {
                           ? ColorConverter.lighten(Colors.green, 50)
                           : ColorConverter.lighten(Colors.red, 50),
                       fontWeight: .w400,
-                      fontSize: FS.xs,
+                      fontSize: FontSize.xs,
                     ),
                   ),
                 Text(
                   rsvp.message,
-                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.sm),
+                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.sm),
                 ),
               ],
             ),
@@ -732,24 +735,24 @@ class _RSVPItemSkeleton extends StatelessWidget {
                   children: [
                     Text(
                       '',
-                      style: AppFonts.inter(fontSize: FS.sm, fontWeight: .bold, height: 1.16),
+                      style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .bold, height: 1.16),
                     ),
-                    SkeletonBox(width: Random().nextInt(50) + 70, height: FS.sm),
+                    SkeletonBox(width: Random().nextInt(50) + 70, height: FontSize.sm),
                     SizedBox(width: W.x10s),
                     SizedBox(
-                      height: FS.sm,
+                      height: FontSize.sm,
                       width: 1,
                       child: ColoredBox(color: Colors.grey.shade50),
                     ),
                     SizedBox(width: W.x10s),
-                    SkeletonBox(width: 70, height: FS.xs),
+                    SkeletonBox(width: 70, height: FontSize.xs),
                   ],
                 ),
                 const SizedBox(height: 2),
                 Row(
                   children: [
-                    Text('', style: AppFonts.inter(fontSize: FS.xs, height: 1.16)),
-                    SkeletonBox(width: 180, height: FS.x2s),
+                    Text('', style: AppFonts.inter(fontSize: FontSize.xs, height: 1.16)),
+                    SkeletonBox(width: 180, height: FontSize.x2s),
                   ],
                 ),
                 const SizedBox(height: 4),
@@ -757,34 +760,34 @@ class _RSVPItemSkeleton extends StatelessWidget {
                   children: [
                     Text(
                       '',
-                      style: AppFonts.inter(fontWeight: .w400, fontSize: FS.xs),
+                      style: AppFonts.inter(fontWeight: .w400, fontSize: FontSize.xs),
                     ),
-                    SkeletonBox(width: 70, height: FS.xs),
+                    SkeletonBox(width: 70, height: FontSize.xs),
                   ],
                 ),
                 Row(
                   children: [
-                    Text('', style: AppFonts.inter(fontSize: FS.sm)),
+                    Text('', style: AppFonts.inter(fontSize: FontSize.sm)),
                     Expanded(
-                      child: SkeletonBox(width: .maxFinite, height: FS.sm),
+                      child: SkeletonBox(width: .maxFinite, height: FontSize.sm),
                     ),
                     SizedBox(width: W.x4s),
                   ],
                 ),
                 Row(
                   children: [
-                    Text('', style: AppFonts.inter(fontSize: FS.sm)),
+                    Text('', style: AppFonts.inter(fontSize: FontSize.sm)),
                     Expanded(
-                      child: SkeletonBox(width: .maxFinite, height: FS.sm),
+                      child: SkeletonBox(width: .maxFinite, height: FontSize.sm),
                     ),
                     SizedBox(width: W.x6s),
                   ],
                 ),
                 Row(
                   children: [
-                    Text('', style: AppFonts.inter(fontSize: FS.sm)),
+                    Text('', style: AppFonts.inter(fontSize: FontSize.sm)),
                     Expanded(
-                      child: SkeletonBox(width: .maxFinite, height: FS.sm),
+                      child: SkeletonBox(width: .maxFinite, height: FontSize.sm),
                     ),
                     SizedBox(width: W.x6l),
                   ],

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/enums/enums.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
@@ -37,15 +39,16 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
       builder: (_, _) => Stack(
         children: [
           if (previewType == ThemePreviewType.fromRaw) ...[
-            if (coverImage != null) Image.file(coverImage!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+            if (coverImage != null)
+              Image.file(coverImage!, height: ScreenSize.height / 1.2, width: ScreenSize.width, fit: .cover),
           ] else ...[
             if (general.coverImageUrl != null)
-              Image.network(general.coverImageUrl!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+              Image.network(general.coverImageUrl!, height: ScreenSize.height / 1.2, width: ScreenSize.width, fit: .cover),
           ],
           Positioned(
             bottom: 0,
-            height: Screen.height / 1.2,
-            width: Screen.width,
+            height: ScreenSize.height / 1.2,
+            width: ScreenSize.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -59,7 +62,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            width: Screen.width,
+            width: ScreenSize.width,
             child: Column(
               mainAxisSize: .min,
               children: [
@@ -67,7 +70,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   slideFromOffset: 0,
                   child: Text(
                     langCode == 'en' ? 'The Wedding of' : 'Pernikahan Dari',
-                    style: TextStyle(fontSize: FS.lg, fontWeight: .w500, color: Colors.grey.shade300),
+                    style: TextStyle(fontSize: FontSize.lg, fontWeight: .w500, color: Colors.grey.shade300),
                   ),
                 ),
                 SizedBox(height: H.x9s),
@@ -77,7 +80,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   slideFromOffset: 0,
                   child: Text(
                     langCode == 'en' ? 'Heading in' : 'Menuju dalam waktu',
-                    style: AppFonts.inter(fontSize: FS.xs, color: Colors.grey.shade300),
+                    style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
                   ),
                 ),
                 SizedBox(height: H.x8s),
@@ -93,7 +96,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   delayBeforeStart: const Duration(milliseconds: 500),
                   child: Text(
                     langCode == 'en' ? 'Swipe up' : 'Geser ke atas',
-                    style: AppFonts.inter(fontSize: FS.xs, color: Colors.grey.shade300),
+                    style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
                   ),
                 ),
                 SizedBox(height: H.x2s),
@@ -127,19 +130,19 @@ class _BridegroomName extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: bride.nickname,
-                    style: TextStyle(fontSize: FS.x8l, color: Colors.grey.shade300),
+                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.grey.shade300),
                   ),
                   TextSpan(
                     text: ' & ',
-                    style: TextStyle(fontSize: FS.x4l, color: Colors.transparent),
+                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
                   ),
                   TextSpan(
                     text: groom.nickname,
-                    style: TextStyle(fontSize: FS.x8l, color: Colors.transparent),
+                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
                   ),
                 ],
               ),
-              style: AppFonts.pacifico(fontSize: FS.x8l, height: 1.1),
+              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
             ),
           ),
         ),
@@ -153,19 +156,19 @@ class _BridegroomName extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: bride.nickname,
-                    style: TextStyle(fontSize: FS.x8l, color: Colors.transparent),
+                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
                   ),
                   TextSpan(
                     text: ' & ',
-                    style: TextStyle(fontSize: FS.x4l, color: Colors.grey.shade300),
+                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.grey.shade300),
                   ),
                   TextSpan(
                     text: groom.nickname,
-                    style: TextStyle(fontSize: FS.x8l, color: Colors.transparent),
+                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
                   ),
                 ],
               ),
-              style: AppFonts.pacifico(fontSize: FS.x8l, height: 1.1),
+              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
             ),
           ),
         ),
@@ -181,19 +184,19 @@ class _BridegroomName extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: bride.nickname,
-                    style: TextStyle(fontSize: FS.x8l, color: Colors.transparent),
+                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
                   ),
                   TextSpan(
                     text: ' & ',
-                    style: TextStyle(fontSize: FS.x4l, color: Colors.transparent),
+                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
                   ),
                   TextSpan(
                     text: groom.nickname,
-                    style: TextStyle(fontSize: FS.x8l, color: Colors.grey.shade300),
+                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.grey.shade300),
                   ),
                 ],
               ),
-              style: AppFonts.pacifico(fontSize: FS.x8l, height: 1.1),
+              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
             ),
           ),
         ),

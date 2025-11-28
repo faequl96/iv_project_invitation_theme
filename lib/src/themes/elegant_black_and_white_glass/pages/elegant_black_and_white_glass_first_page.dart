@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -21,8 +23,8 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: Screen.height / 1.2,
-            width: Screen.width,
+            height: ScreenSize.height / 1.2,
+            width: ScreenSize.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -41,11 +43,11 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: Screen.width,
+                width: ScreenSize.width,
                 child: Center(
                   child: Text(
                     langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
-                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.x3l, fontWeight: .w700),
+                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
                   ),
                 ),
               ),
@@ -53,8 +55,8 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
@@ -79,8 +81,8 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
@@ -99,7 +101,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                         delayBeforeStart: const Duration(milliseconds: 500),
                         child: Text(
                           general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                          style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FS.x7l),
+                          style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontSize.x7l),
                         ),
                       ),
                       // SizedBox(height: H.xs),
@@ -131,7 +133,7 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                           : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
                                       style: AppFonts.inter(
                                         color: Colors.grey.shade100,
-                                        fontSize: FS.md,
+                                        fontSize: FontSize.md,
                                         fontWeight: .w500,
                                         fontStyle: .italic,
                                       ),
@@ -145,7 +147,11 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     delayBeforeStart: const Duration(milliseconds: 1000),
                                     child: Text(
                                       general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
-                                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.lg, fontWeight: .w600),
+                                      style: AppFonts.inter(
+                                        color: Colors.grey.shade100,
+                                        fontSize: FontSize.lg,
+                                        fontWeight: .w600,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -178,7 +184,11 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                     delayBeforeStart: const Duration(milliseconds: 1000),
                                     child: Text(
                                       general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
-                                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.x2l, fontWeight: .w600),
+                                      style: AppFonts.inter(
+                                        color: Colors.grey.shade100,
+                                        fontSize: FontSize.x2l,
+                                        fontWeight: .w600,
+                                      ),
                                     ),
                                   ),
                                   SizedBox(height: H.x6s),
@@ -190,7 +200,11 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                                       general.greeting.isNotEmpty
                                           ? general.greeting
                                           : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w400),
+                                      style: AppFonts.inter(
+                                        color: Colors.grey.shade100,
+                                        fontSize: FontSize.md,
+                                        fontWeight: .w400,
+                                      ),
                                       textAlign: .center,
                                     ),
                                   ),
@@ -211,13 +225,13 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
+                width: ScreenSize.width - 32,
+                height: ScreenSize.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),

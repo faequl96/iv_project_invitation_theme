@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -25,8 +27,8 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
         children: [
           Positioned(
             bottom: 0,
-            height: Screen.height / 1.2,
-            width: Screen.width,
+            height: ScreenSize.height / 1.2,
+            width: ScreenSize.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -45,7 +47,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: Screen.width,
+                width: ScreenSize.width,
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -53,7 +55,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                     const SizedBox(width: 10),
                     Icon(Icons.menu_book, size: W.xs, color: Colors.grey.shade900),
@@ -64,8 +66,8 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
@@ -89,8 +91,8 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
@@ -115,7 +117,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                                 const SizedBox(height: 4),
                                 Text(
                                   DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
-                                  style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.lg, fontWeight: .w500),
+                                  style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.lg, fontWeight: .w500),
                                 ),
                               ],
                             ),
@@ -130,7 +132,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                               langCode == 'en'
                                   ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
                                   : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
-                              style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w300),
+                              style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w300),
                             ),
                           ),
                           SizedBox(height: H.x6s),
@@ -160,7 +162,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                             const SizedBox(height: 3),
                             Text(
                               contractEvent.place,
-                              style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.lg, fontWeight: .w600),
+                              style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.lg, fontWeight: .w600),
                             ),
                           ],
                         ),
@@ -175,7 +177,12 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                           padding: const .symmetric(horizontal: 20),
                           child: Text(
                             contractEvent.address,
-                            style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.xs, fontWeight: .w400, height: 1.3),
+                            style: AppFonts.inter(
+                              color: Colors.grey.shade50,
+                              fontSize: FontSize.xs,
+                              fontWeight: .w400,
+                              height: 1.3,
+                            ),
                             textAlign: .center,
                           ),
                         ),
@@ -185,8 +192,8 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                         slideFrom: .bottom,
                         delayBeforeStart: const Duration(milliseconds: 1100),
                         child: Maps(
-                          width: Screen.width - (W.x6s * 5),
-                          height: Screen.height - (H.x18l * 2.1),
+                          width: ScreenSize.width - (W.x6s * 5),
+                          height: ScreenSize.height - (H.x18l * 2.1),
                           delayBeforeStart: const Duration(milliseconds: 2200),
                           url: contractEvent.mapsUrl,
                         ),
@@ -209,7 +216,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md, fontWeight: .w600),
+                                style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
                               ),
                             ],
                           ),
@@ -224,13 +231,13 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
+                width: ScreenSize.width - 32,
+                height: ScreenSize.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),

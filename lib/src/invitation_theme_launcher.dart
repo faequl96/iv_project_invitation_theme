@@ -4,7 +4,7 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class InvitationThemeLauncher extends StatelessWidget {
+class InvitationThemeLauncher extends StatefulWidget {
   const InvitationThemeLauncher({
     super.key,
     this.heightAdjustment = 0,
@@ -25,9 +25,19 @@ class InvitationThemeLauncher extends StatelessWidget {
   final BrandProfileResponse brandProfile;
 
   @override
-  Widget build(BuildContext context) {
-    context.read<InvitationThemeCoreCubit>().state.copyWith(animationTrigger: 0).emitState();
+  State<InvitationThemeLauncher> createState() => _InvitationThemeLauncherState();
+}
 
+class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<InvitationThemeCoreCubit>().state.copyWith(animationTrigger: 0).emitState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
       child: _content(),
@@ -35,15 +45,15 @@ class InvitationThemeLauncher extends StatelessWidget {
   }
 
   Widget _content() {
-    switch (invitationThemeId) {
+    switch (widget.invitationThemeId) {
       case 1:
         return ElegantBlackAndWhiteGlass(
-          heightAdjustment: heightAdjustment,
-          previewType: previewType,
-          invitationId: invitationId,
-          invitationData: invitationData,
-          imagesRaw: imagesRaw,
-          brandProfile: brandProfile,
+          heightAdjustment: widget.heightAdjustment,
+          previewType: widget.previewType,
+          invitationId: widget.invitationId,
+          invitationData: widget.invitationData,
+          imagesRaw: widget.imagesRaw,
+          brandProfile: widget.brandProfile,
         );
       default:
         return const SizedBox.shrink();

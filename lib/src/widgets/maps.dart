@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:iv_project_core/iv_project_core.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:latlong2/latlong.dart';
 

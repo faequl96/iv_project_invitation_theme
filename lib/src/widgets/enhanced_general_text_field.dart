@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:iv_project_core/iv_project_core.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -41,10 +42,10 @@ class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
       maxLines: widget.maxLines,
       maxLength: widget.maxLength,
       enabled: widget.enabled,
-      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FS.md),
+      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
       decoration: FieldDecoration(
         labelText: widget.labelTextBuilder?.call(),
-        labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FS.md),
+        labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.md),
         filled: true,
         fillColor: Colors.grey.shade500.withValues(alpha: .3),
         enabledBorder: OutlineInputBorder(

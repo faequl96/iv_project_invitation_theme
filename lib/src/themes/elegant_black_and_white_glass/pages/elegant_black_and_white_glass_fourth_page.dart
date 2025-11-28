@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
@@ -24,8 +26,8 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: Screen.height / 1.4,
-            width: Screen.width,
+            height: ScreenSize.height / 1.4,
+            width: ScreenSize.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -44,7 +46,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: Screen.width,
+                width: ScreenSize.width,
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -52,7 +54,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FS.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -61,8 +63,8 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
@@ -78,8 +80,8 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
@@ -101,7 +103,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             const SizedBox(height: 4),
                             Text(
                               receptionEvent.place,
-                              style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.xl, fontWeight: .w600),
+                              style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.xl, fontWeight: .w600),
                             ),
                             const SizedBox(height: 8),
                             SizedBox(
@@ -122,15 +124,15 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                           padding: const .symmetric(horizontal: 20),
                           child: Text(
                             receptionEvent.address,
-                            style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FS.xs, fontWeight: .w400),
+                            style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.xs, fontWeight: .w400),
                             textAlign: .center,
                           ),
                         ),
                       ),
                       const Spacer(),
                       Maps(
-                        width: Screen.width - (W.x6s * 5),
-                        height: Screen.height - (H.x22l),
+                        width: ScreenSize.width - (W.x6s * 5),
+                        height: ScreenSize.height - (H.x22l),
                         delayBeforeStart: const Duration(milliseconds: 1000),
                         url: receptionEvent.mapsUrl,
                       ),
@@ -154,7 +156,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.md, fontWeight: .w600),
+                                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.md, fontWeight: .w600),
                               ),
                             ],
                           ),
@@ -170,13 +172,13 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
+                width: ScreenSize.width - 32,
+                height: ScreenSize.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),

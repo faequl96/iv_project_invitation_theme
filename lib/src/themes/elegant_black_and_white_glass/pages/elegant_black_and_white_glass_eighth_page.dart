@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -35,7 +37,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: Screen.width,
+                width: ScreenSize.width,
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -43,7 +45,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -52,8 +54,8 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x16l),
               child: ClipRRect(
@@ -69,8 +71,8 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x16l),
               child: DecoratedBox(
@@ -94,7 +96,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                             general.closing.isNotEmpty
                                 ? general.closing
                                 : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
-                            style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FS.md, fontWeight: .w600),
+                            style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.md, fontWeight: .w600),
                             textAlign: .center,
                           ),
                         ),
@@ -109,7 +111,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           delayBeforeStart: const Duration(milliseconds: 1100),
                           child: Text(
                             '$brideName & $groomName',
-                            style: AppFonts.pacifico(color: Colors.grey.shade900, fontSize: FS.x5l, fontWeight: .w500),
+                            style: AppFonts.pacifico(color: Colors.grey.shade900, fontSize: FontSize.x5l, fontWeight: .w500),
                             textAlign: .center,
                           ),
                         ),
@@ -122,13 +124,13 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
+            height: ScreenSize.height,
+            width: ScreenSize.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x16l),
               child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
+                width: ScreenSize.width - 32,
+                height: ScreenSize.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),
@@ -141,7 +143,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           Positioned(
             bottom: 0,
             height: H.x16l - H.x4s,
-            width: Screen.width,
+            width: ScreenSize.width,
             child: ClipRRect(
               borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
               child: BackdropFilter(
@@ -158,7 +160,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           Positioned(
             bottom: 0,
             height: H.x16l - H.x4s,
-            width: Screen.width,
+            width: ScreenSize.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
