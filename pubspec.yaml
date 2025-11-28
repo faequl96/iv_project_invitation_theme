@@ -15,22 +15,27 @@ dependencies:
   iv_project_model:
     git:
       url: https://github.com/faequl96/iv_project_model.git
-      ref: 0.1.0
+      ref: 0.1.1
+  
+  iv_project_web_data:
+    git:
+      url: https://github.com/faequl96/iv_project_web_data.git
+      ref: 0.0.1
 
   iv_project_core:
     git:
       url: https://github.com/faequl96/iv_project_core.git
-      ref: 0.0.8
+      ref: 0.0.9
   
   iv_project_widget_core:
     git:
       url: https://github.com/faequl96/iv_project_widget_core.git
-      ref: 0.0.2+1
+      ref: 0.0.2+2
   
   quick_dev_sdk:
     git:
       url: https://github.com/faequl96/quick_dev_sdk.git
-      ref: 0.0.8+1
+      ref: 0.0.8+2
 
   flutter_bloc: ^9.1.1
 
