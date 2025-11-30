@@ -20,7 +20,7 @@ dependencies:
   iv_project_web_data:
     git:
       url: https://github.com/faequl96/iv_project_web_data.git
-      ref: 0.0.1
+      ref: 0.0.1+2
 
   iv_project_core:
     git:
