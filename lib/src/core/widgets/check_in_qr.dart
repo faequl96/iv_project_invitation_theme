@@ -39,19 +39,24 @@ class _CheckInQrContent extends StatelessWidget {
 
     final size = MediaQuery.of(context).size;
 
-    return Column(
-      mainAxisSize: .min,
-      children: [
-        const SizedBox(height: 24),
-        Text('Kode QR untuk Check-In', style: AppFonts.inter(fontSize: 16, fontWeight: .w600)),
-        const SizedBox(height: 14),
-        QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
-        const SizedBox(height: 14),
-        Text(
-          'Silahkan tunjukkan Kode QR ini untuk Check-In ke acara pernikahan',
-          style: AppFonts.inter(fontSize: 15, fontWeight: .w500),
-        ),
-      ],
+    return Padding(
+      padding: const .symmetric(horizontal: 16),
+      child: Column(
+        mainAxisSize: .min,
+        children: [
+          const SizedBox(height: 8),
+          Text('Kode QR untuk Check-In', style: AppFonts.inter(fontSize: 16, fontWeight: .w600)),
+          const SizedBox(height: 18),
+          QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
+          const SizedBox(height: 20),
+          Text(
+            'Silahkan tunjukkan Kode QR ini untuk Check-In ke acara pernikahan',
+            style: AppFonts.inter(fontSize: 15, fontWeight: .w500),
+            textAlign: .center,
+          ),
+          const SizedBox(height: 40),
+        ],
+      ),
     );
   }
 }
