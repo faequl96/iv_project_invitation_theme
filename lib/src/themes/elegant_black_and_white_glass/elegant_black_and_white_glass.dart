@@ -72,7 +72,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
     H.set(finalSize.height);
     W.set(finalSize.width);
 
-    if (isInitial == false) _coreCubit.state.copyWith(size: finalSize).emitState();
+    _coreCubit.state.copyWith(size: finalSize).emitState();
   }
 
   @override

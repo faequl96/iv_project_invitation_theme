@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -27,8 +28,8 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
         children: [
           Positioned(
             top: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -47,7 +48,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: ScreenSize.width,
+                width: Screen.width,
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -66,8 +67,8 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
           ),
           Positioned(
             bottom: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
@@ -83,8 +84,8 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
           ),
           Positioned(
             bottom: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
@@ -184,8 +185,8 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                         slideFrom: .bottom,
                         delayBeforeStart: const Duration(milliseconds: 1100),
                         child: Maps(
-                          width: ScreenSize.width - (W.x6s * 5),
-                          height: ScreenSize.height - (H.x18l * 2.1),
+                          width: Screen.width - (W.x6s * 5),
+                          height: Screen.height - (H.x18l * 2.1),
                           delayBeforeStart: const Duration(milliseconds: 2200),
                           url: receptionEvent.mapsUrl,
                         ),
@@ -225,13 +226,13 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
           ),
           Positioned(
             bottom: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenSize.width - 32,
-                height: ScreenSize.height - (76 + H.x6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),

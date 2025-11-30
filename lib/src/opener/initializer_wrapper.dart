@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/check_in_qr.dart';
 import 'package:iv_project_invitation_theme/src/opener/blurry_clear_cover.dart';
@@ -45,25 +46,24 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
     final invitedGuest = _invitedGuestCubit.state.invitedGuest;
 
-    if (invitedGuest == null) return const SizedBox.shrink();
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => SizedBox(
-        height: ScreenSize.height,
-        width: ScreenSize.width,
+        height: Screen.height,
+        width: Screen.width,
         child: Stack(
           alignment: .center,
           children: [
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
-              left: _onOpenedStarted ? -(ScreenSize.width / 2) : -1.5,
+              left: _onOpenedStarted ? -(Screen.width / 2) : -1.5,
               child: const BlurryClearCover(isLeft: true),
             ),
             AnimatedPositioned(
               duration: const Duration(milliseconds: 500),
               curve: Curves.ease,
-              right: _onOpenedStarted ? -(ScreenSize.width / 2) : -1.5,
+              right: _onOpenedStarted ? -(Screen.width / 2) : -1.5,
               child: const BlurryClearCover(isLeft: false),
             ),
             if (!_onOpenedStarted) ...[
@@ -72,7 +72,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 child: Stack(
                   children: [
                     SizedBox(
-                      width: (ScreenSize.width) - W.x9l,
+                      width: (Screen.width) - W.x9l,
                       height: W.x4l,
                       child: DecoratedBox(
                         decoration: BoxDecoration(
@@ -89,7 +89,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                       ),
                     ),
                     LightningEffectBox(
-                      width: (ScreenSize.width) - W.x9l,
+                      width: (Screen.width) - W.x9l,
                       height: W.x4l,
                       borderRadius: 60,
                       animationSpeed: const Duration(seconds: 2),
@@ -143,10 +143,16 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                         style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w300, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 6),
-                      Text(
-                        '${invitedGuest.nickname} - ${invitedGuest.nameInstance.split('_').last.replaceAll('-', ' ')}',
-                        style: AppFonts.inter(fontSize: FontSize.md, fontWeight: .w500, color: Colors.grey.shade300),
-                      ),
+                      if (invitedGuest != null)
+                        Text(
+                          '${invitedGuest.nickname} - ${invitedGuest.nameInstance.split('_').last.replaceAll('-', ' ')}',
+                          style: AppFonts.inter(fontSize: FontSize.md, fontWeight: .w500, color: Colors.grey.shade300),
+                        )
+                      else
+                        Text(
+                          '-',
+                          style: AppFonts.inter(fontSize: FontSize.md, fontWeight: .w500, color: Colors.grey.shade300),
+                        ),
                       const SizedBox(height: 4),
                     ],
                   ),
@@ -166,7 +172,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
 
                   await Future.delayed(const Duration(milliseconds: 500));
-                  if (context.mounted) CheckInQr.show(context);
+                  if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                 },
               ),
             ),

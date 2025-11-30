@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/enums/enums.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
@@ -39,16 +40,15 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
       builder: (_, _) => Stack(
         children: [
           if (previewType == ThemePreviewType.fromRaw) ...[
-            if (coverImage != null)
-              Image.file(coverImage!, height: ScreenSize.height / 1.2, width: ScreenSize.width, fit: .cover),
+            if (coverImage != null) Image.file(coverImage!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
           ] else ...[
             if (general.coverImageUrl != null)
-              Image.network(general.coverImageUrl!, height: ScreenSize.height / 1.2, width: ScreenSize.width, fit: .cover),
+              Image.network(general.coverImageUrl!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
           ],
           Positioned(
             bottom: 0,
-            height: ScreenSize.height / 1.2,
-            width: ScreenSize.width,
+            height: Screen.height / 1.2,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -62,7 +62,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            width: ScreenSize.width,
+            width: Screen.width,
             child: Column(
               mainAxisSize: .min,
               children: [
