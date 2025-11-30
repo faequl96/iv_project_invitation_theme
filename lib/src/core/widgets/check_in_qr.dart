@@ -45,13 +45,13 @@ class _CheckInQrContent extends StatelessWidget {
         mainAxisSize: .min,
         children: [
           const SizedBox(height: 8),
-          Text('Kode QR untuk Check-In', style: AppFonts.inter(fontSize: 16, fontWeight: .w600)),
+          Text('Kode QR untuk Check-In', style: AppFonts.nunito(fontSize: 16, fontWeight: .w700)),
           const SizedBox(height: 18),
           QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
           const SizedBox(height: 20),
           Text(
             'Silahkan tunjukkan Kode QR ini untuk Check-In ke acara pernikahan',
-            style: AppFonts.inter(fontSize: 15, fontWeight: .w500),
+            style: AppFonts.nunito(fontSize: 15, fontWeight: .w500),
             textAlign: .center,
           ),
           const SizedBox(height: 40),
