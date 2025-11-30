@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
 import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
@@ -45,8 +46,8 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
         children: [
           Positioned(
             top: 0,
-            height: ScreenSize.height / 1.4,
-            width: ScreenSize.width,
+            height: Screen.height / 1.4,
+            width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -65,7 +66,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
               slideFrom: .top,
               child: SizedBox(
                 height: H.x6l,
-                width: ScreenSize.width,
+                width: Screen.width,
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
@@ -82,8 +83,8 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
           ),
           Positioned(
             bottom: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: ClipRRect(
@@ -107,8 +108,8 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
           ),
           Positioned(
             bottom: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
@@ -166,7 +167,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                           ),
                                           contentBuilder: (_) {
                                             return SizedBox(
-                                              height: ScreenSize.height - H.x15l,
+                                              height: Screen.height - H.x15l,
                                               child: Padding(
                                                 padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
                                                 child: DecoratedBox(
@@ -216,13 +217,13 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
           ),
           Positioned(
             bottom: 0,
-            height: ScreenSize.height,
-            width: ScreenSize.width,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: GlassEffectBox(
-                width: ScreenSize.width - 32,
-                height: ScreenSize.height - (76 + H.x6l),
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .3),
