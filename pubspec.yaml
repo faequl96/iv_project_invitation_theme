@@ -30,7 +30,7 @@ dependencies:
   iv_project_widget_core:
     git:
       url: https://github.com/faequl96/iv_project_widget_core.git
-      ref: 0.0.2+2
+      ref: 0.0.2+3
   
   quick_dev_sdk:
     git:
