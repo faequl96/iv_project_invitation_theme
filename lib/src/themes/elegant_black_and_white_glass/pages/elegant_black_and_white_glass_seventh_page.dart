@@ -660,7 +660,7 @@ class _RSVPItem extends StatelessWidget {
                   children: [
                     Text(
                       invitedGuest.nickname,
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .bold, height: 1.16),
+                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
                     ),
                     SizedBox(width: W.x10s),
                     SizedBox(
@@ -736,7 +736,7 @@ class _RSVPItemSkeleton extends StatelessWidget {
                   children: [
                     Text(
                       '',
-                      style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .bold, height: 1.16),
+                      style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
                     ),
                     SkeletonBox(width: Random().nextInt(50) + 70, height: FontSize.sm),
                     SizedBox(width: W.x10s),

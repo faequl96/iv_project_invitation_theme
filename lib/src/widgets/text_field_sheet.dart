@@ -55,7 +55,7 @@ class _TextFieldSheetState extends State<TextFieldSheet> {
             const SizedBox(width: 14),
             Icon(Icons.edit, size: 32, color: ColorConverter.lighten(AppColor.primaryColor)),
             const SizedBox(width: 8),
-            Text('${AppLocalization.translate('common.edit')} text', style: const TextStyle(fontWeight: .bold, fontSize: 15)),
+            Text('${AppLocalization.translate('common.edit')} text', style: AppFonts.inter(fontWeight: .w700, fontSize: 15)),
           ],
         ),
         const SizedBox(height: 24),
