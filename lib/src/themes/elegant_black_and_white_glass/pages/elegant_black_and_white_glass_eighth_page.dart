@@ -185,7 +185,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           if (brandProfile.logoUrl != null) const SizedBox(width: 10),
                           Text(
                             brandProfile.name,
-                            style: AppFonts.inter(fontWeight: .bold, fontSize: 15, color: Colors.grey.shade100),
+                            style: AppFonts.inter(fontWeight: .w700, fontSize: 15, color: Colors.grey.shade100),
                           ),
                         ],
                       ),
@@ -199,7 +199,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           ),
                           Text(
                             brandProfile.email,
-                            style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade100),
+                            style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
                           ),
                         ],
                       ),
@@ -213,7 +213,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                             ),
                             Text(
                               brandProfile.phone!,
-                              style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade100),
+                              style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
                             ),
                           ],
                         ),
@@ -232,7 +232,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                                   TextSpan(text: brandProfile.instagram!),
                                 ],
                               ),
-                              style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade100),
+                              style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
                             ),
                           ],
                         ),

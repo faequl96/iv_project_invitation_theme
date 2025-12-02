@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -38,7 +39,7 @@ class GeneralDialogButton extends StatelessWidget {
             if (isLoading) ...[SharedPersonalize.loadingWidget(size: 16, color: Colors.white), const SizedBox(width: 10)],
             Text(
               title,
-              style: const TextStyle(fontWeight: .bold, color: Colors.white),
+              style: AppFonts.inter(fontWeight: .w700, color: Colors.white),
             ),
           ],
         ),

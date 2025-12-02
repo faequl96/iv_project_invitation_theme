@@ -172,7 +172,7 @@ class _CountdownTimer extends StatelessWidget {
               children: [
                 Text(
                   '$number',
-                  style: AppFonts.inter(fontWeight: .bold, color: Colors.grey.shade200, fontSize: FontSize.sm, height: 1.2),
+                  style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade200, fontSize: FontSize.sm, height: 1.2),
                 ),
                 Text(
                   unit,
