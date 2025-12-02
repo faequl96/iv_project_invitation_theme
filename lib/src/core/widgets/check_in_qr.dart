@@ -35,6 +35,8 @@ class _CheckInQrContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localeCubit = context.read<LocaleCubit>();
+
     final invitedGuestId = context.read<InvitedGuestCubit>().state.invitedGuest?.id ?? '';
 
     final size = MediaQuery.of(context).size;
@@ -45,12 +47,17 @@ class _CheckInQrContent extends StatelessWidget {
         mainAxisSize: .min,
         children: [
           const SizedBox(height: 8),
-          Text('Kode QR untuk Check-In', style: AppFonts.nunito(fontSize: 16, fontWeight: .w700)),
+          Text(
+            localeCubit.state.languageCode == 'id' ? 'Kode QR untuk Check-In' : 'QR Code for Check-In',
+            style: AppFonts.nunito(fontSize: 16, fontWeight: .w800),
+          ),
           const SizedBox(height: 18),
           QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
           const SizedBox(height: 20),
           Text(
-            'Silahkan tunjukkan Kode QR ini untuk Check-In ke acara pernikahan',
+            localeCubit.state.languageCode == 'id'
+                ? 'Silahkan tunjukkan Kode QR ini untuk Check-In ke acara pernikahan'
+                : 'Please show this QR Code to Check-In to the wedding event',
             style: AppFonts.nunito(fontSize: 15, fontWeight: .w500),
             textAlign: .center,
           ),
