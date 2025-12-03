@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -18,8 +15,9 @@ import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassSeventhPage extends StatefulWidget {
-  const ElegantBlackAndWhiteGlassSeventhPage({super.key, required this.invitationId});
+  const ElegantBlackAndWhiteGlassSeventhPage({super.key, required this.viewType, required this.invitationId});
 
+  final ViewType viewType;
   final String invitationId;
 
   @override
@@ -31,8 +29,9 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
   void initState() {
     super.initState();
 
-    final rsvpCubit = context.read<RSVPCubit>();
+    if (widget.viewType != ViewType.live) return;
 
+    final rsvpCubit = context.read<RSVPCubit>();
     if (rsvpCubit.state.rsvps == null) rsvpCubit.getsByInvitationId(widget.invitationId);
   }
 
@@ -121,7 +120,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                   child: Column(
                     children: [
                       SizedBox(height: W.x5s),
-                      RSVPForm(invitationId: widget.invitationId),
+                      RSVPForm(viewType: widget.viewType, invitationId: widget.invitationId),
                       SizedBox(height: H.x8s),
                       Expanded(
                         child: FadeAndSlideTransition(
@@ -146,7 +145,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                 child: Stack(
                                   alignment: .bottomCenter,
                                   children: [
-                                    const _RSVPsWidget(isShowMore: false),
+                                    _RSVPsWidget(viewType: widget.viewType, isShowMore: false),
                                     GeneralEffectsButton(
                                       onTap: () {
                                         ShowModal.bottomSheet(
@@ -175,7 +174,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                                     color: Colors.grey.shade700.withValues(alpha: .5),
                                                     borderRadius: .circular(16),
                                                   ),
-                                                  child: const _RSVPsWidget(isShowMore: true),
+                                                  child: _RSVPsWidget(viewType: widget.viewType, isShowMore: true),
                                                 ),
                                               ),
                                             );
@@ -240,8 +239,9 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
 }
 
 class RSVPForm extends StatefulWidget {
-  const RSVPForm({super.key, required this.invitationId});
+  const RSVPForm({super.key, required this.viewType, required this.invitationId});
 
+  final ViewType viewType;
   final String invitationId;
 
   @override
@@ -259,6 +259,8 @@ class _RSVPFormState extends State<RSVPForm> {
   late final InvitedGuestCubit _invitedGuestCubit;
 
   Future<void> _submit() async {
+    if (widget.viewType != ViewType.live) return;
+
     if (_possiblePresence.value == null) {
       GeneralDialog.showValidateStateError('Tolong isi kemungkinan kehadiran yaa', durationInSeconds: 5);
       return;
@@ -288,14 +290,16 @@ class _RSVPFormState extends State<RSVPForm> {
   void initState() {
     super.initState();
 
+    if (widget.viewType != ViewType.live) return;
+
     _rsvpCubit = context.read<RSVPCubit>();
     _invitedGuestCubit = context.read<InvitedGuestCubit>();
 
     final invitedGuest = _invitedGuestCubit.state.invitedGuest;
     if (invitedGuest != null) {
       _nameController.text = invitedGuest.nickname;
-      _avatar.value = invitedGuest.avatar == '' ? null : invitedGuest.avatar;
-      _possiblePresence.value = invitedGuest.possiblePresence == '' ? null : invitedGuest.possiblePresence;
+      _avatar.value = invitedGuest.avatar;
+      _possiblePresence.value = invitedGuest.possiblePresence;
     }
   }
 
@@ -519,8 +523,9 @@ class _RSVPFormState extends State<RSVPForm> {
 }
 
 class _RSVPsWidget extends StatefulWidget {
-  const _RSVPsWidget({required this.isShowMore});
+  const _RSVPsWidget({required this.viewType, required this.isShowMore});
 
+  final ViewType viewType;
   final bool isShowMore;
 
   @override
@@ -535,7 +540,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
         id: 'guest_1',
         phone: '085640933136',
         nickname: 'Rizal',
-        nameInstance: 'kapid-voltras_international',
+        nameInstance: 'rizal-voltras_international',
         invited: true,
         avatar: 'happy',
         possiblePresence: 'Mungkin Tidak Hadir',
@@ -565,9 +570,12 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final rsvpCubit = context.read<RSVPCubit>();
+
     return BlocSelector<RSVPCubit, RSVPState, bool>(
       selector: (state) => state.isLoadingGetsByInvitationId,
       builder: (context, isLoadingGetsByInvitationId) {
+        final rsvps = widget.viewType != ViewType.live ? _rsvps : (rsvpCubit.state.rsvps ?? []);
         return ListView(
           padding: const .only(top: 14, bottom: 8),
           physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
@@ -588,13 +596,13 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                   ),
                 ],
               ],
-            ] else if (_rsvps.isNotEmpty) ...[
-              if (_rsvps.length > 3 && widget.isShowMore == false)
+            ] else if (rsvps.isNotEmpty) ...[
+              if (rsvps.length > 3 && widget.isShowMore == false)
                 for (int i = 0; i < 3; i++) ...[
                   if (i == 2)
-                    _RSVPItem(rsvp: _rsvps[i])
+                    _RSVPItem(rsvp: rsvps[i])
                   else ...[
-                    _RSVPItem(rsvp: _rsvps[i]),
+                    _RSVPItem(rsvp: rsvps[i]),
                     Padding(
                       padding: const .symmetric(horizontal: 16, vertical: 8),
                       child: SizedBox(
@@ -606,11 +614,11 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                   ],
                 ]
               else
-                for (int i = 0; i < _rsvps.length; i++) ...[
-                  if (i == _rsvps.length - 1)
-                    _RSVPItem(rsvp: _rsvps[i])
+                for (int i = 0; i < rsvps.length; i++) ...[
+                  if (i == rsvps.length - 1)
+                    _RSVPItem(rsvp: rsvps[i])
                   else ...[
-                    _RSVPItem(rsvp: _rsvps[i]),
+                    _RSVPItem(rsvp: rsvps[i]),
                     Padding(
                       padding: const .symmetric(horizontal: 16, vertical: 8),
                       child: SizedBox(

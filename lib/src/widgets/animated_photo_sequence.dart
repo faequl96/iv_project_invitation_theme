@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 
 class AnimatedPhotoSequence extends StatefulWidget {
-  const AnimatedPhotoSequence.left({super.key, required this.previewType, required this.imageUrl, this.image}) : isLeft = true;
-  const AnimatedPhotoSequence.right({super.key, required this.previewType, required this.imageUrl, this.image}) : isLeft = false;
+  const AnimatedPhotoSequence.left({super.key, required this.viewType, required this.imageUrl, this.image}) : isLeft = true;
+  const AnimatedPhotoSequence.right({super.key, required this.viewType, required this.imageUrl, this.image}) : isLeft = false;
 
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final bool isLeft;
   final String? imageUrl;
   final File? image;
@@ -134,7 +134,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                       width: W.x8l,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 24),
-                        child: widget.previewType == ThemePreviewType.fromRaw
+                        child: widget.viewType == ViewType.preview
                             ? widget.image != null
                                   ? ColoredBox(
                                       color: Colors.grey,

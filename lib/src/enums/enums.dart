@@ -1,10 +1,10 @@
 // ignore_for_file: constant_identifier_names
 
-enum ThemePreviewType { fromResponse, fromRaw }
+enum ViewType { example, preview, draft, live }
 
 enum Attendance {
-  yes('Hadir'),
-  no('Tidak Hadir');
+  yes('Mungkin Hadir'),
+  no('Mungkin Tidak Hadir');
 
   const Attendance(this.description);
 

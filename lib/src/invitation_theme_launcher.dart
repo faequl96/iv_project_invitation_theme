@@ -8,7 +8,7 @@ class InvitationThemeLauncher extends StatefulWidget {
   const InvitationThemeLauncher({
     super.key,
     this.heightAdjustment = 0,
-    required this.previewType,
+    required this.viewType,
     required this.invitationThemeId,
     required this.invitationId,
     required this.invitationData,
@@ -17,7 +17,7 @@ class InvitationThemeLauncher extends StatefulWidget {
   });
 
   final double heightAdjustment;
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final int invitationThemeId;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -49,7 +49,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
       case 1:
         return ElegantBlackAndWhiteGlass(
           heightAdjustment: widget.heightAdjustment,
-          previewType: widget.previewType,
+          viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
           imagesRaw: widget.imagesRaw,

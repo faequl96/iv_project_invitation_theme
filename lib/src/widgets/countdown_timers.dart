@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
