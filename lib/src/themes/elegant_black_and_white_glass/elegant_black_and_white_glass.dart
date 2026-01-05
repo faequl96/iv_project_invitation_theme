@@ -68,6 +68,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
     Screen.set(finalSize);
     H.set(finalSize.height);
     W.set(finalSize.width);
+    FontSize.set(finalSize.width);
 
     _coreCubit.state.copyWith(size: finalSize).emitState();
   }
@@ -274,6 +275,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
           ],
         ),
         InitializerWrapper(
+          viewType: widget.viewType,
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,

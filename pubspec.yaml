@@ -2,22 +2,22 @@ name: iv_project_invitation_theme
 description: "IV Project Invitation Theme"
 version: 0.2.1
 homepage:
-publish_to: 'none'
+publish_to: "none"
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.10.4
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  
+
   iv_project_model:
     path: ../iv_project_model
-  
+
   iv_project_web_data:
     path: ../iv_project_web_data
-  
+
   iv_project_core:
     path: ../iv_project_core
 
@@ -38,7 +38,7 @@ dependencies:
   flutter_map: ^8.2.1
   latlong2: ^0.9.1
   url_launcher: ^6.3.2
-  http: ^1.5.0
+  http: ^1.6.0
 
   qr_flutter: ^4.1.0
 
