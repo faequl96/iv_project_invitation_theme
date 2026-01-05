@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -17,14 +14,14 @@ import 'package:iv_project_model/iv_project_model.dart';
 class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
   const ElegantBlackAndWhiteGlassSecondPage({
     super.key,
-    required this.previewType,
+    required this.viewType,
     this.brideImage,
     this.groomImage,
     required this.bride,
     required this.groom,
   });
 
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final File? brideImage;
   final File? groomImage;
   final BridegroomResponse bride;
@@ -103,8 +100,8 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                     clipBehavior: .none,
                     alignment: .center,
                     children: [
-                      AnimatedPhotoSequence.left(previewType: previewType, imageUrl: groom.imageUrl, image: groomImage),
-                      AnimatedPhotoSequence.right(previewType: previewType, imageUrl: bride.imageUrl, image: brideImage),
+                      AnimatedPhotoSequence.left(viewType: viewType, imageUrl: groom.imageUrl, image: groomImage),
+                      AnimatedPhotoSequence.right(viewType: viewType, imageUrl: bride.imageUrl, image: brideImage),
                       AnimatedInviter.left(
                         children: [
                           Text.rich(

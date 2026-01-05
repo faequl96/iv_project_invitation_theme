@@ -5,9 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -17,24 +14,11 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlassSeventhPage extends StatefulWidget {
-  const ElegantBlackAndWhiteGlassSeventhPage({super.key, required this.invitationId});
+class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
+  const ElegantBlackAndWhiteGlassSeventhPage({super.key, required this.viewType, required this.invitationId});
 
+  final ViewType viewType;
   final String invitationId;
-
-  @override
-  State<ElegantBlackAndWhiteGlassSeventhPage> createState() => _ElegantBlackAndWhiteGlassSeventhPageState();
-}
-
-class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWhiteGlassSeventhPage> {
-  @override
-  void initState() {
-    super.initState();
-
-    final rsvpCubit = context.read<RSVPCubit>();
-
-    if (rsvpCubit.state.rsvps == null) rsvpCubit.getsByInvitationId(widget.invitationId);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +105,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                   child: Column(
                     children: [
                       SizedBox(height: W.x5s),
-                      RSVPForm(invitationId: widget.invitationId),
+                      RSVPForm(viewType: viewType, invitationId: invitationId),
                       SizedBox(height: H.x8s),
                       Expanded(
                         child: FadeAndSlideTransition(
@@ -146,7 +130,7 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                 child: Stack(
                                   alignment: .bottomCenter,
                                   children: [
-                                    const _RSVPsWidget(isShowMore: false),
+                                    _RSVPsWidget(invitationId: invitationId, viewType: viewType, isShowMore: false),
                                     GeneralEffectsButton(
                                       onTap: () {
                                         ShowModal.bottomSheet(
@@ -175,7 +159,11 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
                                                     color: Colors.grey.shade700.withValues(alpha: .5),
                                                     borderRadius: .circular(16),
                                                   ),
-                                                  child: const _RSVPsWidget(isShowMore: true),
+                                                  child: _RSVPsWidget(
+                                                    invitationId: invitationId,
+                                                    viewType: viewType,
+                                                    isShowMore: true,
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -240,8 +228,9 @@ class _ElegantBlackAndWhiteGlassSeventhPageState extends State<ElegantBlackAndWh
 }
 
 class RSVPForm extends StatefulWidget {
-  const RSVPForm({super.key, required this.invitationId});
+  const RSVPForm({super.key, required this.viewType, required this.invitationId});
 
+  final ViewType viewType;
   final String invitationId;
 
   @override
@@ -259,6 +248,8 @@ class _RSVPFormState extends State<RSVPForm> {
   late final InvitedGuestCubit _invitedGuestCubit;
 
   Future<void> _submit() async {
+    if (widget.viewType != ViewType.live) return;
+
     if (_possiblePresence.value == null) {
       GeneralDialog.showValidateStateError('Tolong isi kemungkinan kehadiran yaa', durationInSeconds: 5);
       return;
@@ -269,24 +260,42 @@ class _RSVPFormState extends State<RSVPForm> {
       return;
     }
 
-    final invitedGuest = _invitedGuestCubit.state.invitedGuest;
-    await _invitedGuestCubit.updateById(
-      invitedGuest!.id,
-      UpdateInvitedGuestRequest(
-        nickname: _nameController.text,
-        avatar: _avatar.value,
-        possiblePresence: _possiblePresence.value!,
-      ),
+    final invitedGuest = _invitedGuestCubit.state.invitedGuestUpdateById ?? _invitedGuestCubit.state.invitedGuest;
+    if (invitedGuest == null) return;
+
+    if (invitedGuest.id != 'IVG-${widget.invitationId}') {
+      _rsvpCubit.state.copyWith(isLoadingCreate: true).emitState();
+      await _invitedGuestCubit.updateById(
+        invitedGuest.id,
+        UpdateInvitedGuestRequest(
+          nickname: _nameController.text,
+          avatar: _avatar.value,
+          possiblePresence: _possiblePresence.value!,
+        ),
+      );
+    }
+
+    final success = await _rsvpCubit.create(
+      invitedGuest.id != 'IVG-${widget.invitationId}'
+          ? RSVPRequest(invitationId: widget.invitationId, invitedGuestId: invitedGuest.id, message: _greetingController.text)
+          : RSVPRequest(
+              invitationId: widget.invitationId,
+              invitedGuestId: invitedGuest.id,
+              message: _greetingController.text,
+              nickname: _nameController.text,
+              avatar: _avatar.value,
+              possiblePresence: _possiblePresence.value,
+            ),
     );
 
-    await _rsvpCubit.create(
-      RSVPRequest(invitationId: widget.invitationId, invitedGuestId: invitedGuest.id, message: _greetingController.text),
-    );
+    if (success) _greetingController.clear();
   }
 
   @override
   void initState() {
     super.initState();
+
+    if (widget.viewType != ViewType.live) return;
 
     _rsvpCubit = context.read<RSVPCubit>();
     _invitedGuestCubit = context.read<InvitedGuestCubit>();
@@ -294,8 +303,8 @@ class _RSVPFormState extends State<RSVPForm> {
     final invitedGuest = _invitedGuestCubit.state.invitedGuest;
     if (invitedGuest != null) {
       _nameController.text = invitedGuest.nickname;
-      _avatar.value = invitedGuest.avatar == '' ? null : invitedGuest.avatar;
-      _possiblePresence.value = invitedGuest.possiblePresence == '' ? null : invitedGuest.possiblePresence;
+      _avatar.value = invitedGuest.avatar;
+      _possiblePresence.value = invitedGuest.possiblePresence;
     }
   }
 
@@ -494,22 +503,31 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFrom: .bottom,
             animationSpeed: const Duration(milliseconds: 300),
             delayBeforeStart: const Duration(milliseconds: 1200),
-            child: GeneralEffectsButton(
-              onTap: _submit,
-              width: .maxFinite,
-              height: W.lg + H.x10s,
-              borderRadius: .circular(30),
-              border: .all(width: .5, color: Colors.grey.shade500),
-              color: Colors.black.withValues(alpha: .3),
-              child: Stack(
-                alignment: .center,
-                children: [
-                  Text(
-                    'Submit',
-                    style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+            child: BlocSelector<RSVPCubit, RSVPState, bool>(
+              selector: (state) => state.isLoadingCreate,
+              builder: (context, isLoadingCreate) {
+                return GeneralEffectsButton(
+                  onTap: _submit,
+                  width: .maxFinite,
+                  height: W.lg + H.x10s,
+                  borderRadius: .circular(30),
+                  border: .all(width: .5, color: Colors.grey.shade500),
+                  color: Colors.black.withValues(alpha: .3),
+                  child: Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      if (isLoadingCreate) ...[
+                        SharedPersonalize.loadingWidget(size: 22, color: Colors.white),
+                        const SizedBox(width: 10),
+                      ],
+                      Text(
+                        'Submit',
+                        style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ),
         ),
@@ -519,8 +537,10 @@ class _RSVPFormState extends State<RSVPForm> {
 }
 
 class _RSVPsWidget extends StatefulWidget {
-  const _RSVPsWidget({required this.isShowMore});
+  const _RSVPsWidget({required this.invitationId, required this.viewType, required this.isShowMore});
 
+  final String invitationId;
+  final ViewType viewType;
   final bool isShowMore;
 
   @override
@@ -528,6 +548,8 @@ class _RSVPsWidget extends StatefulWidget {
 }
 
 class _RSVPsWidgetState extends State<_RSVPsWidget> {
+  late final RSVPCubit _rsvpCubit;
+
   final List<RSVPResponse> _rsvps = [
     RSVPResponse(
       id: 1,
@@ -535,7 +557,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
         id: 'guest_1',
         phone: '085640933136',
         nickname: 'Rizal',
-        nameInstance: 'kapid-voltras_international',
+        nameInstance: 'rizal-voltras_international',
         invited: true,
         avatar: 'happy',
         possiblePresence: 'Mungkin Tidak Hadir',
@@ -563,54 +585,49 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
     ),
   ];
 
+  bool _isInitial = true;
+
+  void _init() async {
+    await Future.delayed(const Duration(milliseconds: 3500));
+    _isInitial = false;
+
+    _rsvpCubit.state.copyWith(isLoadingGetsByInvitationId: true).emitState();
+    await Future.delayed(const Duration(seconds: 2));
+    _rsvpCubit.state.copyWith(isLoadingGetsByInvitationId: false).emitState();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _rsvpCubit = context.read<RSVPCubit>();
+
+    _init();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocSelector<RSVPCubit, RSVPState, bool>(
-      selector: (state) => state.isLoadingGetsByInvitationId,
-      builder: (context, isLoadingGetsByInvitationId) {
-        return ListView(
-          padding: const .only(top: 14, bottom: 8),
-          physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
-          children: [
-            if (isLoadingGetsByInvitationId) ...[
-              for (int i = 0; i < 3; i++) ...[
-                if (i == 2)
-                  const _RSVPItemSkeleton()
-                else ...[
-                  const _RSVPItemSkeleton(),
-                  Padding(
-                    padding: const .symmetric(horizontal: 16, vertical: 8),
-                    child: SizedBox(
-                      height: .5,
-                      width: .maxFinite,
-                      child: ColoredBox(color: Colors.grey.shade500),
-                    ),
-                  ),
-                ],
-              ],
-            ] else if (_rsvps.isNotEmpty) ...[
-              if (_rsvps.length > 3 && widget.isShowMore == false)
+      selector: (state) => state.isLoadingGetsByInvitationId || state.isLoadingCreate,
+      builder: (context, isLoading) {
+        if (_isInitial) return const SizedBox.shrink();
+
+        final rsvps = widget.viewType != ViewType.live ? _rsvps : (_rsvpCubit.state.rsvps ?? []);
+        return FadeAndSlideTransition(
+          slideFromOffset: 0,
+          slideFrom: .bottom,
+          animationSpeed: const Duration(milliseconds: 500),
+          isNoNeedTrigger: true,
+          child: ListView(
+            padding: const .only(top: 14, bottom: 8),
+            physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
+            children: [
+              if (isLoading) ...[
                 for (int i = 0; i < 3; i++) ...[
                   if (i == 2)
-                    _RSVPItem(rsvp: _rsvps[i])
+                    const _RSVPItemSkeleton()
                   else ...[
-                    _RSVPItem(rsvp: _rsvps[i]),
-                    Padding(
-                      padding: const .symmetric(horizontal: 16, vertical: 8),
-                      child: SizedBox(
-                        height: .5,
-                        width: .maxFinite,
-                        child: ColoredBox(color: Colors.grey.shade500),
-                      ),
-                    ),
-                  ],
-                ]
-              else
-                for (int i = 0; i < _rsvps.length; i++) ...[
-                  if (i == _rsvps.length - 1)
-                    _RSVPItem(rsvp: _rsvps[i])
-                  else ...[
-                    _RSVPItem(rsvp: _rsvps[i]),
+                    const _RSVPItemSkeleton(),
                     Padding(
                       padding: const .symmetric(horizontal: 16, vertical: 8),
                       child: SizedBox(
@@ -621,8 +638,42 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                     ),
                   ],
                 ],
+              ] else if (rsvps.isNotEmpty) ...[
+                if (rsvps.length > 3 && widget.isShowMore == false)
+                  for (int i = 0; i < 3; i++) ...[
+                    if (i == 2)
+                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+                    else ...[
+                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                      Padding(
+                        padding: const .symmetric(horizontal: 16, vertical: 8),
+                        child: SizedBox(
+                          height: .5,
+                          width: .maxFinite,
+                          child: ColoredBox(color: Colors.grey.shade500),
+                        ),
+                      ),
+                    ],
+                  ]
+                else
+                  for (int i = 0; i < rsvps.length; i++) ...[
+                    if (i == rsvps.length - 1)
+                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+                    else ...[
+                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                      Padding(
+                        padding: const .symmetric(horizontal: 16, vertical: 8),
+                        child: SizedBox(
+                          height: .5,
+                          width: .maxFinite,
+                          child: ColoredBox(color: Colors.grey.shade500),
+                        ),
+                      ),
+                    ],
+                  ],
+              ],
             ],
-          ],
+          ),
         );
       },
     );
@@ -630,8 +681,9 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
 }
 
 class _RSVPItem extends StatelessWidget {
-  const _RSVPItem({required this.rsvp});
+  const _RSVPItem({required this.invitationId, required this.rsvp});
 
+  final String invitationId;
   final RSVPResponse rsvp;
 
   @override
@@ -647,7 +699,10 @@ class _RSVPItem extends StatelessWidget {
             height: 32,
             width: 32,
             child: Image(
-              image: AssetImage('assets/avatars/${invitedGuest.avatar ?? 'avatars'}.png', package: 'iv_project_invitation_theme'),
+              image: AssetImage(
+                'assets/avatars/${invitedGuest.id == 'IVG-$invitationId' ? (rsvp.avatar ?? 'avatars') : (invitedGuest.avatar ?? 'avatars')}.png',
+                package: 'iv_project_invitation_theme',
+              ),
               fit: .fitWidth,
             ),
           ),
@@ -659,7 +714,7 @@ class _RSVPItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      invitedGuest.nickname,
+                      invitedGuest.id == 'IVG-$invitationId' ? (rsvp.nickname ?? '') : invitedGuest.nickname,
                       style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
                     ),
                     SizedBox(width: W.x10s),
@@ -675,11 +730,13 @@ class _RSVPItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  '@${invitedGuest.nameInstance}',
-                  style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontSize.xs, height: 1.16),
-                ),
+                if (invitedGuest.id != 'IVG-$invitationId') ...[
+                  const SizedBox(height: 2),
+                  Text(
+                    '@${invitedGuest.nameInstance}',
+                    style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontSize.xs, height: 1.16),
+                  ),
+                ],
                 const SizedBox(height: 4),
                 if (invitedGuest.attendance != null)
                   Text(
@@ -694,7 +751,9 @@ class _RSVPItem extends StatelessWidget {
                   )
                 else
                   Text(
-                    invitedGuest.possiblePresence ?? '-',
+                    invitedGuest.id == 'IVG-$invitationId'
+                        ? (rsvp.possiblePresence ?? '-')
+                        : invitedGuest.possiblePresence ?? '-',
                     style: AppFonts.inter(
                       color: invitedGuest.possiblePresence == 'Mungkin Hadir'
                           ? ColorConverter.lighten(Colors.green, 50)

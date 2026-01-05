@@ -4,9 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/enums/enums.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
@@ -16,7 +13,7 @@ import 'package:iv_project_model/iv_project_model.dart';
 class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
   const ElegantBlackAndWhiteGlassCoverPage({
     super.key,
-    required this.previewType,
+    required this.viewType,
     this.coverImage,
     required this.general,
     required this.bride,
@@ -24,7 +21,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
     required this.time,
   });
 
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final File? coverImage;
   final GeneralResponse general;
   final BridegroomResponse bride;
@@ -39,7 +36,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (previewType == ThemePreviewType.fromRaw) ...[
+          if (viewType == ViewType.preview) ...[
             if (coverImage != null) Image.file(coverImage!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
           ] else ...[
             if (general.coverImageUrl != null)

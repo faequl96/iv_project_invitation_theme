@@ -12,6 +12,7 @@ class CheckInQr {
     ShowModal.bottomSheet(
       context,
       barrierColor: Colors.grey.shade700.withValues(alpha: .5),
+      dismissible: false,
       header: BottomSheetHeader(
         useHandleBar: true,
         handleColor: Colors.grey.shade500,

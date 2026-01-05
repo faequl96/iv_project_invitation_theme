@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 // import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
@@ -26,7 +23,7 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
   const ElegantBlackAndWhiteGlass({
     super.key,
     this.heightAdjustment = 0,
-    required this.previewType,
+    required this.viewType,
     required this.invitationId,
     required this.invitationData,
     this.imagesRaw,
@@ -34,7 +31,7 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
   });
 
   final double heightAdjustment;
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
@@ -49,7 +46,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
 
   bool _isGalleriesNotEmpty = false;
 
-  void _setSize(bool isInitial) {
+  void _setSize() {
     final size = MediaQuery.of(GlobalContextService.value).size;
     final padding = MediaQuery.of(GlobalContextService.value).padding;
 
@@ -71,6 +68,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
     Screen.set(finalSize);
     H.set(finalSize.height);
     W.set(finalSize.width);
+    FontSize.set(finalSize.width);
 
     _coreCubit.state.copyWith(size: finalSize).emitState();
   }
@@ -83,7 +81,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
 
-    if (widget.previewType == ThemePreviewType.fromRaw) {
+    if (widget.viewType == ViewType.preview) {
       if (widget.imagesRaw != null) {
         for (final file in widget.imagesRaw!.galleries) {
           if (file != null) {
@@ -118,14 +116,14 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    _setSize(true);
+    _setSize();
   }
 
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
 
-    _setSize(false);
+    _setSize();
   }
 
   @override
@@ -145,7 +143,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
           heightAdjustment: widget.heightAdjustment,
           pages: [
             ElegantBlackAndWhiteGlassCoverPage(
-              previewType: widget.previewType,
+              viewType: widget.viewType,
               coverImage: widget.imagesRaw?.coverImage,
               general: widget.invitationData.general,
               bride: widget.invitationData.bride,
@@ -154,7 +152,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
             ),
             ElegantBlackAndWhiteGlassFirstPage(general: widget.invitationData.general),
             ElegantBlackAndWhiteGlassSecondPage(
-              previewType: widget.previewType,
+              viewType: widget.viewType,
               brideImage: widget.imagesRaw?.brideImage,
               groomImage: widget.imagesRaw?.groomImage,
               bride: widget.invitationData.bride,
@@ -172,12 +170,12 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
             ],
             if (_isGalleriesNotEmpty)
               ElegantBlackAndWhiteGlassFifthPage(
-                previewType: widget.previewType,
+                viewType: widget.viewType,
                 galleries: widget.imagesRaw?.galleries,
                 gallery: widget.invitationData.gallery,
               ),
             ElegantBlackAndWhiteGlassSixthPage(bankAccounts: widget.invitationData.bankAccounts),
-            ElegantBlackAndWhiteGlassSeventhPage(invitationId: widget.invitationId),
+            ElegantBlackAndWhiteGlassSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
             ElegantBlackAndWhiteGlassEighthPage(
               general: widget.invitationData.general,
               brideName: widget.invitationData.bride.nickname,
@@ -277,6 +275,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
           ],
         ),
         InitializerWrapper(
+          viewType: widget.viewType,
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,

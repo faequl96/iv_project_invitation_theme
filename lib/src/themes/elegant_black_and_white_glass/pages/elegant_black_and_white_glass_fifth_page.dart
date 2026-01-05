@@ -4,18 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/h.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/w.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFifthPage({super.key, required this.previewType, this.galleries, this.gallery});
+  const ElegantBlackAndWhiteGlassFifthPage({super.key, required this.viewType, this.galleries, this.gallery});
 
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final List<File?>? galleries;
   final GalleryResponse? gallery;
 
@@ -90,7 +87,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: .center,
                     children: [
-                      _Gallery(previewType: previewType, galleries: galleries, gallery: gallery),
+                      _Gallery(viewType: viewType, galleries: galleries, gallery: gallery),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: .bottom,
@@ -127,7 +124,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                                       child: SingleChildScrollView(
                                         child: _Gallery(
                                           isShowMore: true,
-                                          previewType: previewType,
+                                          viewType: viewType,
                                           galleries: galleries,
                                           gallery: gallery,
                                         ),
@@ -186,10 +183,10 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
 }
 
 class _Gallery extends StatelessWidget {
-  const _Gallery({this.isShowMore = false, required this.previewType, this.galleries, this.gallery});
+  const _Gallery({this.isShowMore = false, required this.viewType, this.galleries, this.gallery});
 
   final bool isShowMore;
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final List<File?>? galleries;
   final GalleryResponse? gallery;
 
@@ -210,7 +207,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
                 ),
               ),
             ),
@@ -230,7 +227,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
                 ),
               ),
             ),
@@ -260,7 +257,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
                 ),
               ),
             ),
@@ -280,7 +277,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
                 ),
               ),
             ),
@@ -309,7 +306,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x9l + 8,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
                 ),
               ),
             ),
@@ -328,7 +325,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x9l + 8,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
                 ),
               ),
             ),
@@ -347,7 +344,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x9l + 8,
-                  child: _ImageViewer(previewType: previewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
+                  child: _ImageViewer(viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
                 ),
               ),
             ),
@@ -378,7 +375,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(previewType: previewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
+                    child: _ImageViewer(viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
                   ),
                 ),
               ),
@@ -398,7 +395,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(previewType: previewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
+                    child: _ImageViewer(viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
                   ),
                 ),
               ),
@@ -428,7 +425,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(previewType: previewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
+                    child: _ImageViewer(viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
                   ),
                 ),
               ),
@@ -448,7 +445,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(previewType: previewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
+                    child: _ImageViewer(viewType: viewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
                   ),
                 ),
               ),
@@ -463,15 +460,15 @@ class _Gallery extends StatelessWidget {
 }
 
 class _ImageViewer extends StatelessWidget {
-  const _ImageViewer({required this.previewType, this.image, this.imageUrl});
+  const _ImageViewer({required this.viewType, this.image, this.imageUrl});
 
-  final ThemePreviewType previewType;
+  final ViewType viewType;
   final File? image;
   final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    return previewType == ThemePreviewType.fromRaw
+    return viewType == ViewType.preview
         ? (image != null)
               ? ClipRRect(
                   borderRadius: .circular(8),

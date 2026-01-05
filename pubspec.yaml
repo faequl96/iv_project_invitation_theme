@@ -1,22 +1,22 @@
 name: iv_project_invitation_theme
 description: "IV Project Invitation Theme"
-version: 0.2.0
+version: 0.2.1
 homepage:
-publish_to: 'none'
+publish_to: "none"
 
 environment:
-  sdk: ^3.10.1
+  sdk: ^3.10.4
   flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  
+
   iv_project_model:
     git:
       url: https://github.com/faequl96/iv_project_model.git
       ref: 0.1.1
-  
+
   iv_project_web_data:
     git:
       url: https://github.com/faequl96/iv_project_web_data.git
@@ -26,12 +26,12 @@ dependencies:
     git:
       url: https://github.com/faequl96/iv_project_core.git
       ref: 0.0.9+1
-  
+
   iv_project_widget_core:
     git:
       url: https://github.com/faequl96/iv_project_widget_core.git
       ref: 0.0.2+5
-  
+
   quick_dev_sdk:
     git:
       url: https://github.com/faequl96/quick_dev_sdk.git
@@ -48,7 +48,7 @@ dependencies:
   flutter_map: ^8.2.1
   latlong2: ^0.9.1
   url_launcher: ^6.3.2
-  http: ^1.5.0
+  http: ^1.6.0
 
   qr_flutter: ^4.1.0
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
-import 'package:iv_project_invitation_theme/src/core/utils/screen.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
