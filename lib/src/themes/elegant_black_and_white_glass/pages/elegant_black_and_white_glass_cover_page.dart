@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/enums/enums.dart';
+import 'package:iv_project_invitation_theme/src/widgets/audio_player_widget.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -100,6 +101,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
               ],
             ),
           ),
+          const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
         ],
       ),
     );
