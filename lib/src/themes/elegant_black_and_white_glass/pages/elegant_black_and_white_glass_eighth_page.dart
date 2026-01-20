@@ -55,7 +55,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x16l),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
               child: ClipRRect(
                 borderRadius: .circular(20),
                 child: BackdropFilter(
@@ -72,7 +72,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x16l),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -125,7 +125,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x16l),
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -140,7 +140,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: H.x16l - H.x4s,
+            height: H.x18l - H.x4s,
             width: Screen.width,
             child: ClipRRect(
               borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
@@ -157,7 +157,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
           ),
           Positioned(
             bottom: 0,
-            height: H.x16l - H.x4s,
+            height: H.x18l - H.x4s,
             width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
@@ -175,10 +175,11 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                         'Made By :',
                         style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100),
                       ),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: .center,
                         children: [
-                          if (brandProfile.logoUrl != null) Image.network(brandProfile.logoUrl!),
+                          if (brandProfile.logoUrl != null) Image.network(brandProfile.logoUrl!, height: 44),
                           if (brandProfile.logoUrl != null) const SizedBox(width: 10),
                           Text(
                             brandProfile.name,
@@ -223,12 +224,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                               style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100),
                             ),
                             Text.rich(
-                              TextSpan(
-                                children: [
-                                  const TextSpan(text: '@'),
-                                  TextSpan(text: brandProfile.instagram!),
-                                ],
-                              ),
+                              TextSpan(children: [TextSpan(text: brandProfile.instagram!)]),
                               style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
                             ),
                           ],

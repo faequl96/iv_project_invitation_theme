@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/core_static.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/check_in_qr.dart';
 import 'package:iv_project_invitation_theme/src/opener/blurry_clear_cover.dart';
 import 'package:iv_project_invitation_theme/src/opener/padlock.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_web_data/iv_project_web_data.dart';
+import 'package:just_audio/just_audio.dart';
 
 class InitializerWrapper extends StatefulWidget {
   const InitializerWrapper({super.key, required this.viewType, required this.bride, required this.groom, required this.time});
@@ -157,23 +159,45 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 ),
               ),
             ],
-            AnimatedPositioned(
-              duration: const Duration(milliseconds: 200),
-              bottom: _onOpenedStarted ? -50 : 40,
-              child: Padlock(
-                onOpened: () async {
-                  setState(() => _onOpenedStarted = true);
+            StreamBuilder<PlayerState>(
+              stream: CoreStatic.player.playerStateStream,
+              builder: (context, snapshot) {
+                final playerState = snapshot.data;
+                final processingState = playerState?.processingState;
+                final playing = playerState?.playing;
 
-                  await Future.delayed(const Duration(milliseconds: 500));
-                  setState(() => _isOpenedProcessCompleted = true);
+                if (processingState == ProcessingState.loading ||
+                    processingState == ProcessingState.buffering ||
+                    processingState == null) {
+                  return const SizedBox.shrink();
+                } else if (playing != true) {
+                  return AnimatedPositioned(
+                    duration: const Duration(milliseconds: 200),
+                    bottom: _onOpenedStarted ? -50 : 40,
+                    child: Padlock(
+                      onOpened: () async {
+                        setState(() => _onOpenedStarted = true);
 
-                  _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
+                        await Future.delayed(const Duration(milliseconds: 500));
+                        setState(() => _isOpenedProcessCompleted = true);
 
-                  if (widget.viewType != ViewType.live) return;
-                  await Future.delayed(const Duration(milliseconds: 1000));
-                  if (invitedGuest != null && context.mounted) CheckInQr.show(context);
-                },
-              ),
+                        _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
+
+                        if (widget.viewType != ViewType.live) return;
+
+                        CoreStatic.player.play();
+
+                        await Future.delayed(const Duration(milliseconds: 1000));
+                        if (invitedGuest != null && context.mounted) CheckInQr.show(context);
+                      },
+                    ),
+                  );
+                } else if (processingState != ProcessingState.completed) {
+                  return const SizedBox.shrink();
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
             ),
           ],
         ),

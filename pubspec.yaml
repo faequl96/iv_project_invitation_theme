@@ -5,7 +5,7 @@ homepage:
 publish_to: "none"
 
 environment:
-  sdk: ^3.10.4
+  sdk: ^3.10.7
   flutter: ">=1.17.0"
 
 dependencies:
@@ -37,6 +37,7 @@ dependencies:
       url: https://github.com/faequl96/quick_dev_sdk.git
       ref: 0.0.8+3
 
+  bloc: ^9.2.0
   flutter_bloc: ^9.1.1
 
   equatable: ^2.0.8
