@@ -143,13 +143,13 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
             height: H.x18l - H.x4s,
             width: Screen.width,
             child: ClipRRect(
-              borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
+              borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
               child: BackdropFilter(
                 filter: .blur(sigmaX: 3, sigmaY: 3),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     color: Colors.black.withValues(alpha: .5),
-                    borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
+                    borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
                   ),
                 ),
               ),
@@ -160,12 +160,12 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
             height: H.x18l - H.x4s,
             width: Screen.width,
             child: DecoratedBox(
-              decoration: BoxDecoration(
-                borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
-                border: .all(width: .5, color: Colors.grey.shade100),
+              decoration: const BoxDecoration(
+                borderRadius: .only(topLeft: .circular(36), topRight: .circular(36)),
+                // border: .all(width: .5, color: Colors.grey.shade100),
               ),
               child: ClipRRect(
-                borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
+                borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
                 child: Padding(
                   padding: .symmetric(horizontal: W.x6s),
                   child: Column(

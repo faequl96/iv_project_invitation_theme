@@ -101,7 +101,7 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
               ],
             ),
           ),
-          const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
+          if (viewType == ViewType.live) const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
         ],
       ),
     );
