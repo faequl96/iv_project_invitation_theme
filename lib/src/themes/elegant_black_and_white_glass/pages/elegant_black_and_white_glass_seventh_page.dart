@@ -503,32 +503,48 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFrom: .bottom,
             animationSpeed: const Duration(milliseconds: 300),
             delayBeforeStart: const Duration(milliseconds: 1200),
-            child: BlocSelector<RSVPCubit, RSVPState, bool>(
-              selector: (state) => state.isLoadingCreate,
-              builder: (context, isLoadingCreate) {
-                return GeneralEffectsButton(
-                  onTap: _submit,
-                  width: .maxFinite,
-                  height: W.lg + H.x10s,
-                  borderRadius: .circular(30),
-                  border: .all(width: .5, color: Colors.grey.shade500),
-                  color: Colors.black.withValues(alpha: .3),
-                  child: Row(
-                    mainAxisAlignment: .center,
-                    children: [
-                      if (isLoadingCreate) ...[
-                        SharedPersonalize.loadingWidget(size: 22, color: Colors.white),
-                        const SizedBox(width: 10),
+            child: widget.viewType != ViewType.live
+                ? GeneralEffectsButton(
+                    onTap: () {},
+                    width: .maxFinite,
+                    height: W.lg + H.x10s,
+                    borderRadius: .circular(30),
+                    border: .all(width: .5, color: Colors.grey.shade500),
+                    color: Colors.black.withValues(alpha: .3),
+                    child: Row(
+                      mainAxisAlignment: .center,
+                      children: [
+                        Text(
+                          'Submit',
+                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+                        ),
                       ],
-                      Text(
-                        'Submit',
-                        style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+                    ),
+                  )
+                : BlocSelector<RSVPCubit, RSVPState, bool>(
+                    selector: (state) => state.isLoadingCreate,
+                    builder: (context, isLoadingCreate) => GeneralEffectsButton(
+                      onTap: _submit,
+                      width: .maxFinite,
+                      height: W.lg + H.x10s,
+                      borderRadius: .circular(30),
+                      border: .all(width: .5, color: Colors.grey.shade500),
+                      color: Colors.black.withValues(alpha: .3),
+                      child: Row(
+                        mainAxisAlignment: .center,
+                        children: [
+                          if (isLoadingCreate) ...[
+                            SharedPersonalize.loadingWidget(size: 22, color: Colors.white),
+                            const SizedBox(width: 10),
+                          ],
+                          Text(
+                            'Submit',
+                            style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                );
-              },
-            ),
           ),
         ),
       ],
@@ -600,6 +616,8 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
   void initState() {
     super.initState();
 
+    if (widget.viewType != ViewType.live) return;
+
     _rsvpCubit = context.read<RSVPCubit>();
 
     _init();
@@ -607,75 +625,80 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.viewType != ViewType.live) return _content(_rsvps);
     return BlocSelector<RSVPCubit, RSVPState, bool>(
       selector: (state) => state.isLoadingGetsByInvitationId || state.isLoadingCreate,
       builder: (context, isLoading) {
         if (_isInitial) return const SizedBox.shrink();
 
-        final rsvps = widget.viewType != ViewType.live ? _rsvps : (_rsvpCubit.state.rsvps ?? []);
-        return FadeAndSlideTransition(
-          slideFromOffset: 0,
-          slideFrom: .bottom,
-          animationSpeed: const Duration(milliseconds: 500),
-          isNoNeedTrigger: true,
-          child: ListView(
-            padding: const .only(top: 14, bottom: 8),
-            physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
-            children: [
-              if (isLoading) ...[
-                for (int i = 0; i < 3; i++) ...[
-                  if (i == 2)
-                    const _RSVPItemSkeleton()
-                  else ...[
-                    const _RSVPItemSkeleton(),
-                    Padding(
-                      padding: const .symmetric(horizontal: 16, vertical: 8),
-                      child: SizedBox(
-                        height: .5,
-                        width: .maxFinite,
-                        child: ColoredBox(color: Colors.grey.shade500),
-                      ),
-                    ),
-                  ],
-                ],
-              ] else if (rsvps.isNotEmpty) ...[
-                if (rsvps.length > 3 && widget.isShowMore == false)
-                  for (int i = 0; i < 3; i++) ...[
-                    if (i == 2)
-                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
-                    else ...[
-                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
-                      Padding(
-                        padding: const .symmetric(horizontal: 16, vertical: 8),
-                        child: SizedBox(
-                          height: .5,
-                          width: .maxFinite,
-                          child: ColoredBox(color: Colors.grey.shade500),
-                        ),
-                      ),
-                    ],
-                  ]
-                else
-                  for (int i = 0; i < rsvps.length; i++) ...[
-                    if (i == rsvps.length - 1)
-                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
-                    else ...[
-                      _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
-                      Padding(
-                        padding: const .symmetric(horizontal: 16, vertical: 8),
-                        child: SizedBox(
-                          height: .5,
-                          width: .maxFinite,
-                          child: ColoredBox(color: Colors.grey.shade500),
-                        ),
-                      ),
-                    ],
-                  ],
+        final rsvps = (_rsvpCubit.state.rsvps ?? []);
+        return _content(rsvps, isLoading: isLoading);
+      },
+    );
+  }
+
+  Widget _content(List<RSVPResponse> rsvps, {bool isLoading = false}) {
+    return FadeAndSlideTransition(
+      slideFromOffset: 0,
+      slideFrom: .bottom,
+      animationSpeed: const Duration(milliseconds: 500),
+      isNoNeedTrigger: true,
+      child: ListView(
+        padding: const .only(top: 14, bottom: 8),
+        physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
+        children: [
+          if (isLoading) ...[
+            for (int i = 0; i < 3; i++) ...[
+              if (i == 2)
+                const _RSVPItemSkeleton()
+              else ...[
+                const _RSVPItemSkeleton(),
+                Padding(
+                  padding: const .symmetric(horizontal: 16, vertical: 8),
+                  child: SizedBox(
+                    height: .5,
+                    width: .maxFinite,
+                    child: ColoredBox(color: Colors.grey.shade500),
+                  ),
+                ),
               ],
             ],
-          ),
-        );
-      },
+          ] else if (rsvps.isNotEmpty) ...[
+            if (rsvps.length > 3 && widget.isShowMore == false)
+              for (int i = 0; i < 3; i++) ...[
+                if (i == 2)
+                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+                else ...[
+                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                  Padding(
+                    padding: const .symmetric(horizontal: 16, vertical: 8),
+                    child: SizedBox(
+                      height: .5,
+                      width: .maxFinite,
+                      child: ColoredBox(color: Colors.grey.shade500),
+                    ),
+                  ),
+                ],
+              ]
+            else
+              for (int i = 0; i < rsvps.length; i++) ...[
+                if (i == rsvps.length - 1)
+                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+                else ...[
+                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                  Padding(
+                    padding: const .symmetric(horizontal: 16, vertical: 8),
+                    child: SizedBox(
+                      height: .5,
+                      width: .maxFinite,
+                      child: ColoredBox(color: Colors.grey.shade500),
+                    ),
+                  ),
+                ],
+              ],
+          ],
+        ],
+      ),
     );
   }
 }
