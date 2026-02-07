@@ -6,8 +6,8 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/hero_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
+import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
@@ -478,8 +478,8 @@ class _ImageViewer extends StatelessWidget {
       return GestureDetector(
         onTap: () => Navigator.push(
           context,
-          FadeRoute(
-            page: DetailPage(image: detailImage, tag: tag),
+          ZoomImageRoute(
+            page: ZoomImagePage(image: detailImage, tag: tag),
           ),
         ),
         child: Hero(tag: tag, child: itemImage),
