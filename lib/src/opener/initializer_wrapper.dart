@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/core_static.dart';
 import 'package:iv_project_invitation_theme/src/core/widgets/check_in_qr.dart';
 import 'package:iv_project_invitation_theme/src/opener/blurry_clear_cover.dart';
 import 'package:iv_project_invitation_theme/src/opener/padlock.dart';
@@ -159,46 +158,67 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 ),
               ),
             ],
-            StreamBuilder<PlayerState>(
-              stream: CoreStatic.player.playerStateStream,
-              builder: (context, snapshot) {
-                final playerState = snapshot.data;
-                final processingState = playerState?.processingState;
-                final playing = playerState?.playing;
+            if (widget.viewType == ViewType.live)
+              StreamBuilder<ProcessingState>(
+                stream: CoreStatic.player.processingStateStream,
+                builder: (_, snapshot) {
+                  final processingState = snapshot.data;
 
-                if (processingState == ProcessingState.loading ||
-                    processingState == ProcessingState.buffering ||
-                    processingState == null) {
-                  return const SizedBox.shrink();
-                } else if (playing != true) {
-                  return AnimatedPositioned(
-                    duration: const Duration(milliseconds: 200),
-                    bottom: _onOpenedStarted ? -50 : 40,
-                    child: Padlock(
-                      onOpened: () async {
-                        setState(() => _onOpenedStarted = true);
+                  if (processingState == ProcessingState.loading ||
+                      processingState == ProcessingState.buffering ||
+                      processingState == null) {
+                    return const SizedBox.shrink();
+                  } else if (processingState == ProcessingState.ready) {
+                    return AnimatedPositioned(
+                      duration: const Duration(milliseconds: 200),
+                      bottom: _onOpenedStarted ? -50 : 40,
+                      child: Padlock(
+                        onOpened: () async {
+                          setState(() => _onOpenedStarted = true);
 
-                        await Future.delayed(const Duration(milliseconds: 500));
-                        setState(() => _isOpenedProcessCompleted = true);
+                          await Future.delayed(const Duration(milliseconds: 500));
+                          setState(() => _isOpenedProcessCompleted = true);
 
-                        _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
+                          _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
 
-                        if (widget.viewType != ViewType.live) return;
+                          if (widget.viewType != ViewType.live) return;
 
-                        CoreStatic.player.play();
+                          await Future.delayed(const Duration(milliseconds: 1000));
 
-                        await Future.delayed(const Duration(milliseconds: 1000));
-                        if (invitedGuest != null && context.mounted) CheckInQr.show(context);
-                      },
-                    ),
-                  );
-                } else if (processingState != ProcessingState.completed) {
-                  return const SizedBox.shrink();
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
-            ),
+                          if (CoreStatic.player.audioSource != null) CoreStatic.player.play();
+
+                          if (invitedGuest != null && context.mounted) CheckInQr.show(context);
+                        },
+                      ),
+                    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              )
+            else
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 200),
+                bottom: _onOpenedStarted ? -50 : 40,
+                child: Padlock(
+                  onOpened: () async {
+                    setState(() => _onOpenedStarted = true);
+
+                    await Future.delayed(const Duration(milliseconds: 500));
+                    setState(() => _isOpenedProcessCompleted = true);
+
+                    _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
+
+                    if (widget.viewType != ViewType.live) return;
+
+                    await Future.delayed(const Duration(milliseconds: 1000));
+
+                    if (CoreStatic.player.audioSource != null) CoreStatic.player.play();
+
+                    if (invitedGuest != null && context.mounted) CheckInQr.show(context);
+                  },
+                ),
+              ),
           ],
         ),
       ),

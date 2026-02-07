@@ -3,8 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
-import 'package:iv_project_invitation_theme/src/enums/enums.dart';
+import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/audio_player_widget.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
@@ -39,6 +38,15 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
         children: [
           if (viewType == ViewType.preview) ...[
             if (coverImage != null) Image.file(coverImage!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+          ] else if (viewType == ViewType.example) ...[
+            if (general.coverImageUrl != null)
+              Image.asset(
+                general.coverImageUrl!,
+                height: Screen.height / 1.2,
+                width: Screen.width,
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
           ] else ...[
             if (general.coverImageUrl != null)
               Image.network(general.coverImageUrl!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
@@ -101,7 +109,8 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
               ],
             ),
           ),
-          if (viewType == ViewType.live) const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
+          if (viewType == ViewType.live && CoreStatic.player.audioSource != null)
+            const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
         ],
       ),
     );

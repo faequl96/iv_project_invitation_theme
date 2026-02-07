@@ -91,25 +91,24 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
         }
       }
     } else {
-      if (widget.invitationData.gallery != null) {
-        if (widget.invitationData.gallery?.imageURL1 != null ||
-            widget.invitationData.gallery?.imageURL2 != null ||
-            widget.invitationData.gallery?.imageURL3 != null ||
-            widget.invitationData.gallery?.imageURL4 != null ||
-            widget.invitationData.gallery?.imageURL5 != null ||
-            widget.invitationData.gallery?.imageURL6 != null ||
-            widget.invitationData.gallery?.imageURL7 != null ||
-            widget.invitationData.gallery?.imageURL8 != null ||
-            widget.invitationData.gallery?.imageURL9 != null ||
-            widget.invitationData.gallery?.imageURL10 != null ||
-            widget.invitationData.gallery?.imageURL11 != null ||
-            widget.invitationData.gallery?.imageURL12 != null) {
+      final gallery = widget.invitationData.gallery;
+      if (gallery != null) {
+        if (gallery.imageURL1 != null ||
+            gallery.imageURL2 != null ||
+            gallery.imageURL3 != null ||
+            gallery.imageURL4 != null ||
+            gallery.imageURL5 != null ||
+            gallery.imageURL6 != null ||
+            gallery.imageURL7 != null ||
+            gallery.imageURL8 != null ||
+            gallery.imageURL9 != null ||
+            gallery.imageURL10 != null ||
+            gallery.imageURL11 != null ||
+            gallery.imageURL12 != null) {
           _isGalleriesNotEmpty = true;
         }
       }
     }
-
-    // Audio.initPlayer();
   }
 
   @override

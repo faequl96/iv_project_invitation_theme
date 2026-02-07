@@ -148,7 +148,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                 filter: .blur(sigmaX: 3, sigmaY: 3),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: .5),
+                    color: Colors.grey.shade200.withValues(alpha: .7),
                     borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
                   ),
                 ),
@@ -173,7 +173,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                     children: [
                       Text(
                         'Made By :',
-                        style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100),
+                        style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade600),
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -183,7 +183,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           if (brandProfile.logoUrl != null) const SizedBox(width: 10),
                           Text(
                             brandProfile.name,
-                            style: AppFonts.inter(fontWeight: .w700, fontSize: 15, color: Colors.grey.shade100),
+                            style: AppFonts.inter(fontWeight: .w700, fontSize: 15, color: Colors.grey.shade600),
                           ),
                         ],
                       ),
@@ -193,11 +193,11 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                         children: [
                           Text(
                             'Email : ',
-                            style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100),
+                            style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade600),
                           ),
                           Text(
                             brandProfile.email,
-                            style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
+                            style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade600),
                           ),
                         ],
                       ),
@@ -207,11 +207,11 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           children: [
                             Text(
                               'WhatsApp : ',
-                              style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100),
+                              style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade600),
                             ),
                             Text(
                               brandProfile.phone!,
-                              style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
+                              style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade600),
                             ),
                           ],
                         ),
@@ -221,11 +221,11 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                           children: [
                             Text(
                               'Instagram : ',
-                              style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100),
+                              style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade600),
                             ),
                             Text.rich(
                               TextSpan(children: [TextSpan(text: brandProfile.instagram!)]),
-                              style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade100),
+                              style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade600),
                             ),
                           ],
                         ),
@@ -233,7 +233,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                       if (brandProfile.address != null)
                         Text(
                           brandProfile.address!,
-                          style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade100, fontSize: 13),
+                          style: AppFonts.inter(fontWeight: .w400, color: Colors.grey.shade600, fontSize: 13),
                           textAlign: .center,
                         ),
                     ],

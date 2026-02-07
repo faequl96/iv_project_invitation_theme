@@ -260,32 +260,21 @@ class _RSVPFormState extends State<RSVPForm> {
       return;
     }
 
-    final invitedGuest = _invitedGuestCubit.state.invitedGuestUpdateById ?? _invitedGuestCubit.state.invitedGuest;
+    final invitedGuest = _invitedGuestCubit.state.invitedGuest;
     if (invitedGuest == null) return;
 
-    if (invitedGuest.id != 'IVG-${widget.invitationId}') {
-      _rsvpCubit.state.copyWith(isLoadingCreate: true).emitState();
-      await _invitedGuestCubit.updateById(
-        invitedGuest.id,
-        UpdateInvitedGuestRequest(
-          nickname: _nameController.text,
-          avatar: _avatar.value,
-          possiblePresence: _possiblePresence.value!,
-        ),
-      );
-    }
+    _rsvpCubit.state.copyWith(isLoadingCreate: true).emitState();
+    await _invitedGuestCubit.updateById(
+      invitedGuest.id,
+      UpdateInvitedGuestRequest(
+        nickname: _nameController.text,
+        avatar: _avatar.value,
+        possiblePresence: _possiblePresence.value!,
+      ),
+    );
 
     final success = await _rsvpCubit.create(
-      invitedGuest.id != 'IVG-${widget.invitationId}'
-          ? RSVPRequest(invitationId: widget.invitationId, invitedGuestId: invitedGuest.id, message: _greetingController.text)
-          : RSVPRequest(
-              invitationId: widget.invitationId,
-              invitedGuestId: invitedGuest.id,
-              message: _greetingController.text,
-              nickname: _nameController.text,
-              avatar: _avatar.value,
-              possiblePresence: _possiblePresence.value,
-            ),
+      RSVPRequest(invitationId: widget.invitationId, invitedGuestId: invitedGuest.id, message: _greetingController.text),
     );
 
     if (success) _greetingController.clear();
@@ -571,40 +560,38 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
       id: 1,
       invitedGuest: const InvitedGuestResponse(
         id: 'guest_1',
-        phone: '085640933136',
-        nickname: 'Rizal',
-        nameInstance: 'rizal-voltras_international',
+        phone: '085640960660',
+        nickname: 'Ancika',
+        nameInstance: 'ancika-dilan_1995',
         invited: true,
-        avatar: 'happy',
+        avatar: 'love',
         possiblePresence: 'Mungkin Tidak Hadir',
-        attendance: false,
+        // attendance: false,
       ),
-      message:
-          'Happy wedding Rahma dan Faeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
-      createdAt: DateTime.now(),
+      message: 'Happy wedding Milea dan Dilan.. Samawa yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      createdAt: DateTime.now().subtract(const Duration(minutes: 324)),
     ),
     RSVPResponse(
       id: 2,
       invitedGuest: const InvitedGuestResponse(
         id: 'guest_2',
-        phone: '085640933136',
-        nickname: 'Kapid',
-        nameInstance: 'kapid-voltras_international',
+        phone: '085640960666',
+        nickname: 'Zee',
+        nameInstance: 'ancika-dilan_1995',
         invited: true,
-        avatar: 'happy',
+        avatar: 'calm',
         possiblePresence: 'Mungkin Hadir',
-        attendance: true,
+        // attendance: true,
       ),
-      message:
-          'Happy wedding Rahma dan Faeq. Semoga samawa dan bahagia terus yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
-      createdAt: DateTime.now(),
+      message: 'Happy wedding Milea dan Dilan. Semoga samawa selamanya.',
+      createdAt: DateTime.now().subtract(const Duration(minutes: 370)),
     ),
   ];
 
   bool _isInitial = true;
 
   void _init() async {
-    await Future.delayed(const Duration(milliseconds: 3500));
+    if (!widget.isShowMore) await Future.delayed(const Duration(milliseconds: 3000));
     _isInitial = false;
 
     _rsvpCubit.state.copyWith(isLoadingGetsByInvitationId: true).emitState();
@@ -723,7 +710,7 @@ class _RSVPItem extends StatelessWidget {
             width: 32,
             child: Image(
               image: AssetImage(
-                'assets/avatars/${invitedGuest.id == 'IVG-$invitationId' ? (rsvp.avatar ?? 'avatars') : (invitedGuest.avatar ?? 'avatars')}.png',
+                'assets/avatars/${(invitedGuest.avatar ?? 'avatars')}.png',
                 package: 'iv_project_invitation_theme',
               ),
               fit: .fitWidth,
@@ -737,7 +724,7 @@ class _RSVPItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      invitedGuest.id == 'IVG-$invitationId' ? (rsvp.nickname ?? '') : invitedGuest.nickname,
+                      invitedGuest.nickname,
                       style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
                     ),
                     SizedBox(width: W.x10s),
@@ -753,13 +740,11 @@ class _RSVPItem extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (invitedGuest.id != 'IVG-$invitationId') ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    '@${invitedGuest.nameInstance}',
-                    style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontSize.xs, height: 1.16),
-                  ),
-                ],
+                const SizedBox(height: 2),
+                Text(
+                  '@${invitedGuest.nameInstance}',
+                  style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontSize.xs, height: 1.16),
+                ),
                 const SizedBox(height: 4),
                 if (invitedGuest.attendance != null)
                   Text(
@@ -774,9 +759,7 @@ class _RSVPItem extends StatelessWidget {
                   )
                 else
                   Text(
-                    invitedGuest.id == 'IVG-$invitationId'
-                        ? (rsvp.possiblePresence ?? '-')
-                        : invitedGuest.possiblePresence ?? '-',
+                    invitedGuest.possiblePresence ?? '-',
                     style: AppFonts.inter(
                       color: invitedGuest.possiblePresence == 'Mungkin Hadir'
                           ? ColorConverter.lighten(Colors.green, 50)

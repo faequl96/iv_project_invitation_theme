@@ -5,7 +5,7 @@ homepage:
 publish_to: "none"
 
 environment:
-  sdk: ^3.10.7
+  sdk: ^3.10.8
   flutter: ">=1.17.0"
 
 dependencies:
@@ -40,6 +40,8 @@ dependencies:
   latlong2: ^0.9.1
   url_launcher: ^6.3.2
   http: ^1.6.0
+
+  animations: ^2.1.1
 
   qr_flutter: ^4.1.0
 

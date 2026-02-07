@@ -6,6 +6,7 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/hero_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -207,7 +208,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
+                  child: _ImageViewer(id: 1, viewType: viewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
                 ),
               ),
             ),
@@ -227,7 +228,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
+                  child: _ImageViewer(id: 2, viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
                 ),
               ),
             ),
@@ -257,7 +258,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
+                  child: _ImageViewer(id: 3, viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
                 ),
               ),
             ),
@@ -277,7 +278,7 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
+                  child: _ImageViewer(id: 4, viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
                 ),
               ),
             ),
@@ -305,14 +306,14 @@ class _Gallery extends StatelessWidget {
                 delayBeforeStart: const Duration(milliseconds: 1500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: W.x9l + 8,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
+                  height: W.x10l - 4,
+                  child: _ImageViewer(id: 5, viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
                 ),
               ),
             ),
             SizedBox(width: W.x7s),
             SizedBox(
-              height: W.x9l + 8,
+              height: W.x10l - 4,
               width: .5,
               child: ColoredBox(color: Colors.grey.shade500),
             ),
@@ -324,14 +325,14 @@ class _Gallery extends StatelessWidget {
                 delayBeforeStart: const Duration(milliseconds: 1500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: W.x9l + 8,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
+                  height: W.x10l - 4,
+                  child: _ImageViewer(id: 6, viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
                 ),
               ),
             ),
             SizedBox(width: W.x7s),
             SizedBox(
-              height: W.x9l + 8,
+              height: W.x10l - 4,
               width: .5,
               child: ColoredBox(color: Colors.grey.shade500),
             ),
@@ -343,8 +344,8 @@ class _Gallery extends StatelessWidget {
                 delayBeforeStart: const Duration(milliseconds: 1500),
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
-                  height: W.x9l + 8,
-                  child: _ImageViewer(viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
+                  height: W.x10l - 4,
+                  child: _ImageViewer(id: 7, viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
                 ),
               ),
             ),
@@ -375,7 +376,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
+                    child: _ImageViewer(id: 8, viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
                   ),
                 ),
               ),
@@ -395,7 +396,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
+                    child: _ImageViewer(id: 9, viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
                   ),
                 ),
               ),
@@ -425,7 +426,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
+                    child: _ImageViewer(id: 10, viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
                   ),
                 ),
               ),
@@ -445,7 +446,7 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(viewType: viewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
+                    child: _ImageViewer(id: 11, viewType: viewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
                   ),
                 ),
               ),
@@ -460,30 +461,46 @@ class _Gallery extends StatelessWidget {
 }
 
 class _ImageViewer extends StatelessWidget {
-  const _ImageViewer({required this.viewType, this.image, this.imageUrl});
+  const _ImageViewer({required this.id, required this.viewType, this.image, this.imageUrl});
 
+  final int id;
   final ViewType viewType;
   final File? image;
   final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
-    return viewType == ViewType.preview
-        ? (image != null)
-              ? ClipRRect(
-                  borderRadius: .circular(8),
-                  child: Image.file(image!, fit: BoxFit.cover),
-                )
-              : DecoratedBox(
-                  decoration: BoxDecoration(borderRadius: .circular(8), color: Colors.grey),
-                )
-        : (imageUrl ?? '').isNotEmpty
-        ? ClipRRect(
-            borderRadius: .circular(8),
-            child: Image.network(imageUrl!, fit: BoxFit.cover),
-          )
-        : DecoratedBox(
-            decoration: BoxDecoration(borderRadius: .circular(8), color: Colors.grey),
-          );
+    return ClipRRect(borderRadius: .circular(8), child: _content(context, 'image_$id'));
+  }
+
+  Widget _content(BuildContext context, String tag) {
+    Widget wrapper(Widget itemImage, Widget detailImage) {
+      return GestureDetector(
+        onTap: () => Navigator.push(
+          context,
+          FadeRoute(
+            page: DetailPage(image: detailImage, tag: tag),
+          ),
+        ),
+        child: Hero(tag: tag, child: itemImage),
+      );
+    }
+
+    if (viewType == ViewType.preview) {
+      if (image != null) return wrapper(Image.file(image!, fit: BoxFit.cover), Image.file(image!, fit: BoxFit.contain));
+    } else if (viewType == ViewType.example) {
+      if (imageUrl != null) {
+        return wrapper(
+          Image.asset(imageUrl!, fit: BoxFit.cover, package: 'iv_project_invitation_theme'),
+          Image.asset(imageUrl!, fit: BoxFit.contain, package: 'iv_project_invitation_theme'),
+        );
+      }
+    } else {
+      if (imageUrl != null) {
+        return wrapper(Image.network(imageUrl!, fit: BoxFit.cover), Image.network(imageUrl!, fit: BoxFit.contain));
+      }
+    }
+
+    return const ColoredBox(color: Colors.grey);
   }
 }

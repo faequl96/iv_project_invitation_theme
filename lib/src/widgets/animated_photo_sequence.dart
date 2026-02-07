@@ -29,6 +29,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
   late final Animation<Offset> _slideVerticalAnimation;
 
   late final Animation<double> _frameScaleAnimation;
+  late final Animation<BorderRadius?> _clipRRectAnimation;
 
   int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
@@ -53,27 +54,39 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
     _scaleAnimation = Tween<double>(begin: 5, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.0, .3, curve: Curves.ease),
+        curve: const Interval(.0, .4, curve: Curves.ease),
       ),
     );
     _slideHorizontalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(widget.isLeft ? -.38 : .38, .0)).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.36, .62, curve: Curves.easeIn),
+        curve: const Interval(.44, .68, curve: Curves.easeIn),
       ),
     );
-    _slideVerticalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .75 : -.75)).animate(
+    _slideVerticalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .685 : -.685)).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.68, 1, curve: Curves.easeIn),
+        curve: const Interval(.74, 1, curve: Curves.easeIn),
       ),
     );
     _frameScaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.68, 1, curve: Curves.ease),
+        curve: const Interval(.74, 1, curve: Curves.ease),
       ),
     );
+    _clipRRectAnimation =
+        BorderRadiusTween(
+          begin: widget.isLeft
+              ? const .only(topLeft: .circular(2), bottomLeft: .circular(2))
+              : const .only(topRight: .circular(2), bottomRight: .circular(2)),
+          end: .circular(2),
+        ).animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: const Interval(.8, 1, curve: Curves.ease),
+          ),
+        );
   }
 
   @override
@@ -108,14 +121,14 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
             child: Row(
               mainAxisSize: .min,
               children: [
-                if (!widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: W.x8l),
+                if (!widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x6s), width: W.x8l),
                 Stack(
                   alignment: .center,
                   children: [
                     ScaleTransition(
                       scale: _frameScaleAnimation,
                       child: SizedBox(
-                        height: (W.x8l * 2) - (W.x3s * 1.4),
+                        height: (W.x8l * 2) - (W.x6s),
                         width: W.x8l,
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 2),
@@ -130,28 +143,36 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                       ),
                     ),
                     SizedBox(
-                      height: (W.x8l * 2) - (W.x3s * 1.4),
+                      height: (W.x8l * 2) - (W.x6s),
                       width: W.x8l,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 24),
-                        child: widget.viewType == ViewType.preview
-                            ? widget.image != null
-                                  ? ColoredBox(
-                                      color: Colors.grey,
-                                      child: Image.file(widget.image!, fit: .cover),
-                                    )
-                                  : const ColoredBox(color: Colors.grey)
-                            : widget.imageUrl != null
-                            ? ColoredBox(
-                                color: Colors.grey,
-                                child: Image.network(widget.imageUrl!, fit: .cover),
-                              )
-                            : const ColoredBox(color: Colors.grey),
+                        child: AnimatedBuilder(
+                          animation: _clipRRectAnimation,
+                          builder: (_, _) {
+                            Widget? child;
+                            if (widget.viewType == ViewType.preview) {
+                              if (widget.image != null) child = Image.file(widget.image!, fit: .cover);
+                            } else if (widget.viewType == ViewType.example) {
+                              if (widget.imageUrl != null) {
+                                child = Image.asset(widget.imageUrl!, fit: .cover, package: 'iv_project_invitation_theme');
+                              }
+                            } else {
+                              if (widget.imageUrl != null) {
+                                child = Image.network(widget.imageUrl!, fit: .cover);
+                              }
+                            }
+                            return ClipRRect(
+                              borderRadius: _clipRRectAnimation.value ?? BorderRadius.zero,
+                              child: ColoredBox(color: Colors.grey, child: child),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
                 ),
-                if (widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: W.x8l),
+                if (widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x6s), width: W.x8l),
               ],
             ),
           ),
