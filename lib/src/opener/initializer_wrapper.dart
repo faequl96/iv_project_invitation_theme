@@ -158,7 +158,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 ),
               ),
             ],
-            if (widget.viewType == ViewType.live)
+            if (widget.viewType == ViewType.live && CoreStatic.player.audioSource != null)
               StreamBuilder<ProcessingState>(
                 stream: CoreStatic.player.processingStateStream,
                 builder: (_, snapshot) {
@@ -185,7 +185,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                           await Future.delayed(const Duration(milliseconds: 1000));
 
-                          if (CoreStatic.player.audioSource != null) CoreStatic.player.play();
+                          CoreStatic.player.play();
 
                           if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                         },
@@ -212,8 +212,6 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                     if (widget.viewType != ViewType.live) return;
 
                     await Future.delayed(const Duration(milliseconds: 1000));
-
-                    if (CoreStatic.player.audioSource != null) CoreStatic.player.play();
 
                     if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                   },
