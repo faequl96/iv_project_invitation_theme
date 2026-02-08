@@ -1,6 +1,8 @@
 import 'package:just_audio/just_audio.dart';
 
 class CoreStatic {
+  const CoreStatic._();
+
   static final player = AudioPlayer();
 
   static void setupAudioPlayer(String audioUrl) async {

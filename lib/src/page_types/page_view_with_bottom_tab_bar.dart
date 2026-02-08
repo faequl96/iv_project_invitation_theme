@@ -6,11 +6,22 @@ import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_g
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
 class PageViewWithBottomTabBar extends StatefulWidget {
-  const PageViewWithBottomTabBar({super.key, this.heightAdjustment = 0, required this.pages, required this.tabsBuilder});
+  const PageViewWithBottomTabBar({
+    super.key,
+    this.heightAdjustment = 0,
+    required this.pages,
+    required this.tabsBuilder,
+    this.useWrapper = true,
+    this.initialPage = 0,
+    // this.isSinglePageView = false,
+  });
 
   final double heightAdjustment;
   final List<Widget> pages;
-  final List<Widget> Function(int tabActive) tabsBuilder;
+  final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
+  final bool useWrapper;
+  final int initialPage;
+  // final bool isSinglePageView;
 
   @override
   State<PageViewWithBottomTabBar> createState() => _PageViewWithBottomTabBarState();
@@ -21,23 +32,33 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
   late PageController _pageController;
 
   List<Widget> _tabs = [];
-  void _buildTabs(int tabActive) => _tabs = widget.tabsBuilder(tabActive);
+  void _buildTabs() => _tabs = widget.tabsBuilder(_indexActive);
 
-  final _indexActive = ValueNotifier(0);
+  late final ValueNotifier<int> _indexActive;
   bool _isTabTaped = false;
-  int _tabIndexTaped = 0;
+  // int _tabIndexTaped = 0;
+
+  final _isLowerTab = ValueNotifier(true);
 
   late final InvitationThemeCoreCubit _coreCubit;
 
-  void _scrollListener() {
+  void _scrollListener() async {
     final offset = _pageController.page ?? 0;
-    if ((offset - offset.floor()).abs() < 0.01) {
+    final offsetPage = (offset - offset.floor()).abs();
+    if (offsetPage < 0.01) {
       if (_coreCubit.state.animationTrigger == 0) {
+        await Future.delayed(const Duration(milliseconds: 50));
         _coreCubit.state.copyWith(animationTrigger: 1).emitState();
       }
     } else {
-      if (_coreCubit.state.animationTrigger == 1) {
-        _coreCubit.state.copyWith(animationTrigger: 0).emitState();
+      if (offsetPage < 0.96) {
+        if (_coreCubit.state.animationTrigger == 1) {
+          _coreCubit.state.copyWith(animationTrigger: 0).emitState();
+        }
+      } else {
+        if (_coreCubit.state.animationTrigger == 0) {
+          _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+        }
       }
     }
   }
@@ -46,13 +67,24 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
   void initState() {
     super.initState();
 
-    _buildTabs(0);
+    _indexActive = ValueNotifier(widget.initialPage);
+    _buildTabs();
     _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController();
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
 
     _pageController.addListener(_scrollListener);
+
+    if (!widget.useWrapper) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (widget.initialPage == 0) {
+          _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+        } else {
+          _pageController.jumpToPage(_indexActive.value);
+        }
+      });
+    }
   }
 
   @override
@@ -81,28 +113,29 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
               controller: _pageController,
               itemCount: widget.pages.length,
               scrollDirection: .vertical,
-              itemBuilder: (context, index) => widget.pages[index],
+              itemBuilder: (_, index) => (index == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[index],
               onPageChanged: (index) {
                 if (_isTabTaped) {
-                  if (index == _tabIndexTaped) {
-                    _tabController.animateTo(index);
-                    _buildTabs(index);
-                    _indexActive.value = index;
-                    _isTabTaped = false;
-                  }
+                  // if (index == _tabIndexTaped) {
+                  //   _tabController.animateTo(index);
+                  //   _indexActive.value = index;
+                  //   _isTabTaped = false;
+                  // }
+                  _isTabTaped = false;
                 } else {
                   _tabController.animateTo(index);
-                  _buildTabs(index);
                   _indexActive.value = index;
                 }
+
+                _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
               },
             ),
           ),
           ValueListenableBuilder(
-            valueListenable: _indexActive,
-            builder: (_, indexActive, _) {
+            valueListenable: _isLowerTab,
+            builder: (_, isLowerTab, _) {
               return AnimatedPositioned(
-                bottom: indexActive == 0 || indexActive == _tabs.length - 1 ? -55 : 0,
+                bottom: isLowerTab ? -55 : 0,
                 duration: const Duration(milliseconds: 300),
                 child: SizedBox(
                   width: Screen.width,
@@ -123,13 +156,12 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                                   controller: _tabController,
                                   onTap: (value) {
                                     _isTabTaped = true;
-                                    _tabIndexTaped = value;
+                                    // _tabIndexTaped = value;
                                     _pageController.animateToPage(
                                       value,
                                       duration: const Duration(milliseconds: 300),
                                       curve: Curves.ease,
                                     );
-                                    _buildTabs(value);
                                     _indexActive.value = value;
                                   },
                                   isScrollable: true,
@@ -148,7 +180,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                             ),
                           ),
                         ),
-                        if (indexActive > 0)
+                        if (_indexActive.value > 0)
                           GlassEffectBox(
                             width: Screen.width - 28,
                             height: 52,

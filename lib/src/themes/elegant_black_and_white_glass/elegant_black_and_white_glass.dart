@@ -28,6 +28,9 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
     required this.invitationData,
     this.imagesRaw,
     required this.brandProfile,
+    this.useWrapper = true,
+    this.initialPage = 0,
+    this.isSinglePageView = false,
   });
 
   final double heightAdjustment;
@@ -36,6 +39,9 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
+  final bool useWrapper;
+  final int initialPage;
+  final bool isSinglePageView;
 
   @override
   State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
@@ -91,25 +97,24 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
         }
       }
     } else {
-      if (widget.invitationData.gallery != null) {
-        if (widget.invitationData.gallery?.imageURL1 != null ||
-            widget.invitationData.gallery?.imageURL2 != null ||
-            widget.invitationData.gallery?.imageURL3 != null ||
-            widget.invitationData.gallery?.imageURL4 != null ||
-            widget.invitationData.gallery?.imageURL5 != null ||
-            widget.invitationData.gallery?.imageURL6 != null ||
-            widget.invitationData.gallery?.imageURL7 != null ||
-            widget.invitationData.gallery?.imageURL8 != null ||
-            widget.invitationData.gallery?.imageURL9 != null ||
-            widget.invitationData.gallery?.imageURL10 != null ||
-            widget.invitationData.gallery?.imageURL11 != null ||
-            widget.invitationData.gallery?.imageURL12 != null) {
+      final gallery = widget.invitationData.gallery;
+      if (gallery != null) {
+        if (gallery.imageURL1 != null ||
+            gallery.imageURL2 != null ||
+            gallery.imageURL3 != null ||
+            gallery.imageURL4 != null ||
+            gallery.imageURL5 != null ||
+            gallery.imageURL6 != null ||
+            gallery.imageURL7 != null ||
+            gallery.imageURL8 != null ||
+            gallery.imageURL9 != null ||
+            gallery.imageURL10 != null ||
+            gallery.imageURL11 != null ||
+            gallery.imageURL12 != null) {
           _isGalleriesNotEmpty = true;
         }
       }
     }
-
-    // Audio.initPlayer();
   }
 
   @override
@@ -141,6 +146,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
       children: [
         PageViewWithBottomTabBar(
           heightAdjustment: widget.heightAdjustment,
+          useWrapper: widget.useWrapper,
+          initialPage: widget.initialPage,
           pages: [
             ElegantBlackAndWhiteGlassCoverPage(
               viewType: widget.viewType,
@@ -183,7 +190,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
               brandProfile: widget.brandProfile,
             ),
           ],
-          tabsBuilder: (int tabActive) => [
+          tabsBuilder: (ValueNotifier<int> tabActive) => [
             Tab(
               height: 48,
               child: _Tab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
@@ -274,12 +281,19 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
             ),
           ],
         ),
-        InitializerWrapper(
-          viewType: widget.viewType,
-          bride: widget.invitationData.bride,
-          groom: widget.invitationData.groom,
-          time: widget.invitationData.contractEvent,
-        ),
+        if (widget.useWrapper)
+          InitializerWrapper(
+            viewType: widget.viewType,
+            bride: widget.invitationData.bride,
+            groom: widget.invitationData.groom,
+            time: widget.invitationData.contractEvent,
+          ),
+        if (widget.isSinglePageView)
+          const SizedBox(
+            height: double.maxFinite,
+            width: double.maxFinite,
+            child: ColoredBox(color: Colors.transparent),
+          ),
       ],
     );
   }
@@ -291,7 +305,7 @@ class _Tab extends StatelessWidget {
   final String title;
   final IconData icon;
   final int tabIndex;
-  final int tabActive;
+  final ValueNotifier<int> tabActive;
 
   @override
   Widget build(BuildContext context) {
@@ -301,15 +315,20 @@ class _Tab extends StatelessWidget {
         const SizedBox(height: 6),
         Padding(
           padding: const .symmetric(horizontal: 6),
-          child: Row(
-            children: [
-              Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
-              ),
-            ],
+          child: ValueListenableBuilder(
+            valueListenable: tabActive,
+            builder: (_, tabActive, _) {
+              return Row(
+                children: [
+                  Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
+                  const SizedBox(width: 8),
+                  Text(
+                    title,
+                    style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ],

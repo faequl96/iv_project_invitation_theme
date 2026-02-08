@@ -1,11 +1,11 @@
 name: iv_project_invitation_theme
 description: "IV Project Invitation Theme"
-version: 0.2.1
+version: 0.2.2
 homepage:
 publish_to: "none"
 
 environment:
-  sdk: ^3.10.7
+  sdk: ^3.10.8
   flutter: ">=1.17.0"
 
 dependencies:

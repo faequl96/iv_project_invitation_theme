@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
@@ -276,20 +277,7 @@ class _BankAccount extends StatelessWidget {
                         ],
                       ),
                       const Spacer(),
-                      GeneralEffectsButton(
-                        onTap: () {},
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade400.withValues(alpha: .2),
-                            borderRadius: .circular(5),
-                            border: .all(width: .5, color: Colors.grey.shade400),
-                          ),
-                          child: Padding(
-                            padding: const .only(top: 5, bottom: 5, left: 4, right: 3),
-                            child: Icon(Icons.content_copy_rounded, color: Colors.grey.shade200),
-                          ),
-                        ),
-                      ),
+                      _CopyBankAccountNumberButton(bankAccountNumber: bankAccount.number),
                       SizedBox(width: W.x7s),
                     ],
                   ),
@@ -300,6 +288,44 @@ class _BankAccount extends StatelessWidget {
         ),
         SizedBox(width: W.x6s),
       ],
+    );
+  }
+}
+
+class _CopyBankAccountNumberButton extends StatefulWidget {
+  const _CopyBankAccountNumberButton({required this.bankAccountNumber});
+
+  final String bankAccountNumber;
+
+  @override
+  State<_CopyBankAccountNumberButton> createState() => _CopyBankAccountNumberButtonState();
+}
+
+class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButton> {
+  bool _isCopied = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GeneralEffectsButton(
+      onTap: () async {
+        _isCopied = true;
+        setState(() {});
+        Clipboard.setData(ClipboardData(text: widget.bankAccountNumber));
+        await Future.delayed(const Duration(milliseconds: 800));
+        _isCopied = false;
+        setState(() {});
+      },
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: _isCopied ? ColorConverter.lighten(AppColor.primaryColor, 90) : Colors.grey.shade400.withValues(alpha: .2),
+          borderRadius: .circular(5),
+          border: .all(width: .5, color: _isCopied ? AppColor.primaryColor : Colors.grey.shade400),
+        ),
+        child: Padding(
+          padding: const .only(top: 5, bottom: 5, left: 4, right: 3),
+          child: Icon(Icons.content_copy_rounded, color: _isCopied ? AppColor.primaryColor : Colors.grey.shade200),
+        ),
+      ),
     );
   }
 }

@@ -14,6 +14,9 @@ class InvitationThemeLauncher extends StatefulWidget {
     required this.invitationData,
     this.imagesRaw,
     required this.brandProfile,
+    this.useWrapper = true,
+    this.initialPage = 0,
+    this.isSinglePageView = false,
   });
 
   final double heightAdjustment;
@@ -23,6 +26,9 @@ class InvitationThemeLauncher extends StatefulWidget {
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
+  final bool useWrapper;
+  final int initialPage;
+  final bool isSinglePageView;
 
   @override
   State<InvitationThemeLauncher> createState() => _InvitationThemeLauncherState();
@@ -54,6 +60,9 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           invitationData: widget.invitationData,
           imagesRaw: widget.imagesRaw,
           brandProfile: widget.brandProfile,
+          useWrapper: widget.useWrapper,
+          initialPage: widget.initialPage,
+          isSinglePageView: widget.isSinglePageView,
         );
       default:
         return const SizedBox.shrink();
