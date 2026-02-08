@@ -34,7 +34,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
   int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
     final currentId = ++_animationRequestId;
-    await Future.delayed(Duration.zero);
+    await Future.delayed(const Duration(milliseconds: 300));
     if (currentId != _animationRequestId) return;
     if (mounted) {
       if (animationTrigger == 1) _controller.forward();

@@ -625,21 +625,49 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
   }
 
   Widget _content(List<RSVPResponse> rsvps, {bool isLoading = false}) {
-    return FadeAndSlideTransition(
-      slideFromOffset: 0,
-      slideFrom: .bottom,
-      animationSpeed: const Duration(milliseconds: 500),
-      isNoNeedTrigger: true,
-      child: ListView(
-        padding: const .only(top: 14, bottom: 8),
-        physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
-        children: [
-          if (isLoading) ...[
+    final content = ListView(
+      padding: const .only(top: 14, bottom: 8),
+      physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
+      children: [
+        if (isLoading) ...[
+          for (int i = 0; i < 3; i++) ...[
+            if (i == 2)
+              const _RSVPItemSkeleton()
+            else ...[
+              const _RSVPItemSkeleton(),
+              Padding(
+                padding: const .symmetric(horizontal: 16, vertical: 8),
+                child: SizedBox(
+                  height: .5,
+                  width: .maxFinite,
+                  child: ColoredBox(color: Colors.grey.shade500),
+                ),
+              ),
+            ],
+          ],
+        ] else if (rsvps.isNotEmpty) ...[
+          if (rsvps.length > 3 && widget.isShowMore == false)
             for (int i = 0; i < 3; i++) ...[
               if (i == 2)
-                const _RSVPItemSkeleton()
+                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
               else ...[
-                const _RSVPItemSkeleton(),
+                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                Padding(
+                  padding: const .symmetric(horizontal: 16, vertical: 8),
+                  child: SizedBox(
+                    height: .5,
+                    width: .maxFinite,
+                    child: ColoredBox(color: Colors.grey.shade500),
+                  ),
+                ),
+              ],
+            ]
+          else
+            for (int i = 0; i < rsvps.length; i++) ...[
+              if (i == rsvps.length - 1)
+                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+              else ...[
+                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
                 Padding(
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   child: SizedBox(
@@ -650,42 +678,18 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                 ),
               ],
             ],
-          ] else if (rsvps.isNotEmpty) ...[
-            if (rsvps.length > 3 && widget.isShowMore == false)
-              for (int i = 0; i < 3; i++) ...[
-                if (i == 2)
-                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
-                else ...[
-                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
-                  Padding(
-                    padding: const .symmetric(horizontal: 16, vertical: 8),
-                    child: SizedBox(
-                      height: .5,
-                      width: .maxFinite,
-                      child: ColoredBox(color: Colors.grey.shade500),
-                    ),
-                  ),
-                ],
-              ]
-            else
-              for (int i = 0; i < rsvps.length; i++) ...[
-                if (i == rsvps.length - 1)
-                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
-                else ...[
-                  _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
-                  Padding(
-                    padding: const .symmetric(horizontal: 16, vertical: 8),
-                    child: SizedBox(
-                      height: .5,
-                      width: .maxFinite,
-                      child: ColoredBox(color: Colors.grey.shade500),
-                    ),
-                  ),
-                ],
-              ],
-          ],
         ],
-      ),
+      ],
+    );
+
+    if (!widget.isShowMore) return content;
+
+    return FadeAndSlideTransition(
+      slideFromOffset: 0,
+      slideFrom: .bottom,
+      animationSpeed: const Duration(milliseconds: 500),
+      isNoNeedTrigger: true,
+      child: content,
     );
   }
 }

@@ -85,16 +85,18 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
 
     _initAnimation();
 
-    if (widget.isNoNeedTrigger) WidgetsBinding.instance.addPostFrameCallback((_) => _runAnimation(1));
-
-    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      _runAnimation(state.animationTrigger);
-    });
+    if (widget.isNoNeedTrigger) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _runAnimation(1));
+    } else {
+      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+        _runAnimation(state.animationTrigger);
+      });
+    }
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    if (!widget.isNoNeedTrigger) _sub.cancel();
     _controller.dispose();
 
     super.dispose();

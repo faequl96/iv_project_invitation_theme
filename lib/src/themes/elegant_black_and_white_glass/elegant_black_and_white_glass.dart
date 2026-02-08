@@ -28,6 +28,9 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
     required this.invitationData,
     this.imagesRaw,
     required this.brandProfile,
+    this.useWrapper = true,
+    this.initialPage = 0,
+    this.isSinglePageView = false,
   });
 
   final double heightAdjustment;
@@ -36,6 +39,9 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
+  final bool useWrapper;
+  final int initialPage;
+  final bool isSinglePageView;
 
   @override
   State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
@@ -140,6 +146,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
       children: [
         PageViewWithBottomTabBar(
           heightAdjustment: widget.heightAdjustment,
+          useWrapper: widget.useWrapper,
+          initialPage: widget.initialPage,
           pages: [
             ElegantBlackAndWhiteGlassCoverPage(
               viewType: widget.viewType,
@@ -182,7 +190,7 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
               brandProfile: widget.brandProfile,
             ),
           ],
-          tabsBuilder: (int tabActive) => [
+          tabsBuilder: (ValueNotifier<int> tabActive) => [
             Tab(
               height: 48,
               child: _Tab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
@@ -273,12 +281,19 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
             ),
           ],
         ),
-        InitializerWrapper(
-          viewType: widget.viewType,
-          bride: widget.invitationData.bride,
-          groom: widget.invitationData.groom,
-          time: widget.invitationData.contractEvent,
-        ),
+        if (widget.useWrapper)
+          InitializerWrapper(
+            viewType: widget.viewType,
+            bride: widget.invitationData.bride,
+            groom: widget.invitationData.groom,
+            time: widget.invitationData.contractEvent,
+          ),
+        if (widget.isSinglePageView)
+          const SizedBox(
+            height: double.maxFinite,
+            width: double.maxFinite,
+            child: ColoredBox(color: Colors.transparent),
+          ),
       ],
     );
   }
@@ -290,7 +305,7 @@ class _Tab extends StatelessWidget {
   final String title;
   final IconData icon;
   final int tabIndex;
-  final int tabActive;
+  final ValueNotifier<int> tabActive;
 
   @override
   Widget build(BuildContext context) {
@@ -300,15 +315,20 @@ class _Tab extends StatelessWidget {
         const SizedBox(height: 6),
         Padding(
           padding: const .symmetric(horizontal: 6),
-          child: Row(
-            children: [
-              Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
-              const SizedBox(width: 8),
-              Text(
-                title,
-                style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
-              ),
-            ],
+          child: ValueListenableBuilder(
+            valueListenable: tabActive,
+            builder: (_, tabActive, _) {
+              return Row(
+                children: [
+                  Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
+                  const SizedBox(width: 8),
+                  Text(
+                    title,
+                    style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ],
