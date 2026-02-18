@@ -137,8 +137,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                                           context,
                                           barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                                           header: BottomSheetHeader(
-                                            useHandleBar: true,
-                                            handleColor: Colors.grey.shade500,
+                                            title: const HeaderTitle.handleBar(),
                                             action: HeaderAction(
                                               actionIcon: Icons.close_rounded,
                                               iconColor: Colors.grey.shade400,
@@ -291,7 +290,7 @@ class _RSVPFormState extends State<RSVPForm> {
 
     final invitedGuest = _invitedGuestCubit.state.invitedGuest;
     if (invitedGuest != null) {
-      _nameController.text = invitedGuest.nickname;
+      _nameController.text = invitedGuest.nickname ?? invitedGuest.name;
       _avatar.value = invitedGuest.avatar;
       _possiblePresence.value = invitedGuest.possiblePresence;
     }
@@ -561,6 +560,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
       invitedGuest: const InvitedGuestResponse(
         id: 'guest_1',
         phone: '085640960660',
+        name: 'Ancika',
         nickname: 'Ancika',
         nameInstance: 'ancika-dilan_1995',
         invited: true,
@@ -576,6 +576,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
       invitedGuest: const InvitedGuestResponse(
         id: 'guest_2',
         phone: '085640960666',
+        name: 'Zee',
         nickname: 'Zee',
         nameInstance: 'ancika-dilan_1995',
         invited: true,
@@ -728,7 +729,7 @@ class _RSVPItem extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      invitedGuest.nickname,
+                      invitedGuest.nickname ?? invitedGuest.name,
                       style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
                     ),
                     SizedBox(width: W.x10s),

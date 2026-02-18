@@ -65,7 +65,7 @@ class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
             if (widget.textEditingController.text.isEmpty) return [];
             return [SharedPersonalize.suffixClear(() => widget.textEditingController.reset())];
           }
-          if (widget.textEditingController.text.isEmpty) return [SharedPersonalize.suffixMandatory];
+          if (widget.textEditingController.text.isEmpty) return [SharedPersonalize.suffixMandatory()];
           return [SharedPersonalize.suffixClear(() => widget.textEditingController.reset())];
         },
       ),
