@@ -13,9 +13,8 @@ class CheckInQr {
       context,
       barrierColor: Colors.grey.shade700.withValues(alpha: .5),
       dismissible: false,
+      enableDrag: false,
       header: BottomSheetHeader(
-        useHandleBar: true,
-        handleColor: Colors.grey.shade500,
         action: HeaderAction(
           actionIcon: Icons.close_rounded,
           iconColor: Colors.grey.shade600,

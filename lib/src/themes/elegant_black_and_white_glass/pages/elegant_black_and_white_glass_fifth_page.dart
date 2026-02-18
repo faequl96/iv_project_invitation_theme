@@ -100,8 +100,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                               context,
                               barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                               header: BottomSheetHeader(
-                                useHandleBar: true,
-                                handleColor: Colors.grey.shade500,
+                                title: const HeaderTitle.handleBar(),
                                 action: HeaderAction(
                                   actionIcon: Icons.close_rounded,
                                   iconColor: Colors.grey.shade400,

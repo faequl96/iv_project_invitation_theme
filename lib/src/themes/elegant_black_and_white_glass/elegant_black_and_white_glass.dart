@@ -98,21 +98,19 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
       }
     } else {
       final gallery = widget.invitationData.gallery;
-      if (gallery != null) {
-        if (gallery.imageURL1 != null ||
-            gallery.imageURL2 != null ||
-            gallery.imageURL3 != null ||
-            gallery.imageURL4 != null ||
-            gallery.imageURL5 != null ||
-            gallery.imageURL6 != null ||
-            gallery.imageURL7 != null ||
-            gallery.imageURL8 != null ||
-            gallery.imageURL9 != null ||
-            gallery.imageURL10 != null ||
-            gallery.imageURL11 != null ||
-            gallery.imageURL12 != null) {
-          _isGalleriesNotEmpty = true;
-        }
+      if (gallery.imageURL1 != null ||
+          gallery.imageURL2 != null ||
+          gallery.imageURL3 != null ||
+          gallery.imageURL4 != null ||
+          gallery.imageURL5 != null ||
+          gallery.imageURL6 != null ||
+          gallery.imageURL7 != null ||
+          gallery.imageURL8 != null ||
+          gallery.imageURL9 != null ||
+          gallery.imageURL10 != null ||
+          gallery.imageURL11 != null ||
+          gallery.imageURL12 != null) {
+        _isGalleriesNotEmpty = true;
       }
     }
   }
