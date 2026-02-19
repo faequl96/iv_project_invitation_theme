@@ -35,18 +35,18 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   }
 
   void _initAnimation() {
-    _controller = AnimationController(duration: const Duration(milliseconds: 2200), vsync: this);
+    _controller = AnimationController(duration: const Duration(milliseconds: 2500), vsync: this);
 
     _lineFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.7, .76, curve: Curves.easeIn),
+        curve: const Interval(.7, .86, curve: Curves.easeIn),
       ),
     );
     _textSlideHorizontalAnimation = Tween<Offset>(begin: Offset(widget.isLeft ? 1 : -1, 0), end: Offset.zero).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: const Interval(.82, 1, curve: Curves.easeIn),
+        curve: const Interval(.9, 1, curve: Curves.easeIn),
       ),
     );
   }

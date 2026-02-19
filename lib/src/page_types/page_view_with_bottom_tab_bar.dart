@@ -95,6 +95,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     _pageController.dispose();
 
     _indexActive.dispose();
+    _isLowerTab.dispose();
 
     super.dispose();
   }

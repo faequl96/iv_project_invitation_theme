@@ -213,10 +213,10 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                 height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
-                color: Colors.grey.shade300.withValues(alpha: .3),
+                color: Colors.grey.shade300.withValues(alpha: .4),
                 animationSpeed: const Duration(milliseconds: 600),
                 delayBeforeStart: const Duration(milliseconds: 3500),
-                animationInterval: const Duration(seconds: 4),
+                animationInterval: const Duration(milliseconds: 3500),
               ),
             ),
           ),
@@ -309,6 +309,8 @@ class _RSVPFormState extends State<RSVPForm> {
 
   @override
   Widget build(BuildContext context) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     return Column(
       children: [
         Padding(
@@ -319,7 +321,7 @@ class _RSVPFormState extends State<RSVPForm> {
             delayBeforeStart: const Duration(milliseconds: 800),
             child: EnhancedGeneralTextField(
               textEditingController: _nameController,
-              labelTextBuilder: () => 'Nama',
+              labelTextBuilder: () => langCode == 'id' ? 'Nama' : 'Name',
               maxLength: 18,
             ),
           ),
@@ -416,7 +418,7 @@ class _RSVPFormState extends State<RSVPForm> {
                   height: H.x3l,
                   style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
                   decoration: FieldDecoration(
-                    labelText: 'Kemungkinan Kehadiran',
+                    labelText: langCode == 'id' ? 'Kemungkinan Kehadiran' : 'Possible Presence',
                     labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.md),
                     filled: true,
                     fillColor: Colors.grey.shade500.withValues(alpha: .3),
@@ -477,7 +479,7 @@ class _RSVPFormState extends State<RSVPForm> {
             delayBeforeStart: const Duration(milliseconds: 500),
             child: EnhancedGeneralTextField(
               textEditingController: _greetingController,
-              labelTextBuilder: () => 'Ucapan',
+              labelTextBuilder: () => langCode == 'id' ? 'Ucapan' : 'Greetings',
               maxLines: 2,
               isMandatory: false,
             ),
@@ -626,6 +628,8 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
   }
 
   Widget _content(List<RSVPResponse> rsvps, {bool isLoading = false}) {
+    final langCode = context.read<LocaleCubit>().state.languageCode;
+
     final content = ListView(
       padding: const .only(top: 14, bottom: 8),
       physics: widget.isShowMore ? null : const NeverScrollableScrollPhysics(),
@@ -679,6 +683,14 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                 ),
               ],
             ],
+        ] else ...[
+          Padding(
+            padding: const .symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              langCode == 'id' ? 'RSVP dan Ucapan Belum ada.' : 'RSVP and Greetings Not available yet.',
+              style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w700),
+            ),
+          ),
         ],
       ],
     );
@@ -704,6 +716,7 @@ class _RSVPItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final invitedGuest = rsvp.invitedGuest;
+    final langCode = context.read<LocaleCubit>().state.languageCode;
 
     return Padding(
       padding: const .symmetric(horizontal: 16, vertical: 6),
@@ -753,7 +766,13 @@ class _RSVPItem extends StatelessWidget {
                 const SizedBox(height: 4),
                 if (invitedGuest.attendance != null)
                   Text(
-                    invitedGuest.attendance == true ? 'Hadir' : 'Tidak Hadir',
+                    invitedGuest.attendance == true
+                        ? langCode == 'id'
+                              ? 'Hadir'
+                              : 'Attend'
+                        : langCode == 'id'
+                        ? 'Tidak Hadir'
+                        : 'Did not Attend',
                     style: AppFonts.inter(
                       color: invitedGuest.attendance == true
                           ? ColorConverter.lighten(Colors.green, 50)

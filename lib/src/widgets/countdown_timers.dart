@@ -80,7 +80,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: days,
                 unit: 'Hari',
-                lightningEffectDelayBeforeStart: const Duration(milliseconds: 600),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1200),
               );
             },
           ),
@@ -97,7 +97,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: hours,
                 unit: 'Jam',
-                lightningEffectDelayBeforeStart: const Duration(milliseconds: 800),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1400),
               );
             },
           ),
@@ -114,7 +114,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: minutes,
                 unit: 'Menit',
-                lightningEffectDelayBeforeStart: const Duration(milliseconds: 1000),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1600),
               );
             },
           ),
@@ -130,7 +130,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: seconds,
                 unit: 'Detik',
-                lightningEffectDelayBeforeStart: const Duration(milliseconds: 1200),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
               );
             },
           ),
@@ -141,11 +141,11 @@ class _CountdownTimersState extends State<CountdownTimers> {
 }
 
 class _CountdownTimer extends StatelessWidget {
-  const _CountdownTimer({required this.number, required this.unit, required this.lightningEffectDelayBeforeStart});
+  const _CountdownTimer({required this.number, required this.unit, required this.lightningEffectDelayBeforeShowed});
 
   final int number;
   final String unit;
-  final Duration lightningEffectDelayBeforeStart;
+  final Duration lightningEffectDelayBeforeShowed;
 
   @override
   Widget build(BuildContext context) {
@@ -186,7 +186,7 @@ class _CountdownTimer extends StatelessWidget {
           height: W.x3l,
           borderRadius: 8,
           isFlash: true,
-          delayBeforeStart: lightningEffectDelayBeforeStart,
+          delayBeforeShowed: lightningEffectDelayBeforeShowed,
         ),
       ],
     );

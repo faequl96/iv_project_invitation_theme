@@ -8,7 +8,7 @@ class LightningEffectBox extends StatefulWidget {
     this.borderRadius = 6,
     this.animationSpeed = const Duration(milliseconds: 500),
     this.animationInterval = const Duration(milliseconds: 2000),
-    this.delayBeforeStart = Duration.zero,
+    this.delayBeforeShowed = Duration.zero,
     this.ligthningLength = .2,
     this.ligthningWidth = .5,
     this.ligthningColor = Colors.white,
@@ -20,7 +20,7 @@ class LightningEffectBox extends StatefulWidget {
   final double borderRadius;
   final Duration animationSpeed;
   final Duration animationInterval;
-  final Duration delayBeforeStart;
+  final Duration delayBeforeShowed;
   final double ligthningLength;
   final double ligthningWidth;
   final Color ligthningColor;
@@ -34,11 +34,12 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
   late final AnimationController _controller;
   late final Animation<double> _animation;
 
+  bool _showed = false;
+
   void _startAnimationLoop() async {
-    await Future.delayed(widget.delayBeforeStart);
     while (mounted) {
       await _controller.forward(from: 0);
-      await Future.delayed(widget.animationInterval);
+      await Future<void>.delayed(widget.animationInterval);
     }
   }
 
@@ -52,7 +53,14 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
     super.initState();
 
     _initAnimation();
-    _startAnimationLoop();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future<void>.delayed(widget.delayBeforeShowed);
+      setState(() => _showed = true);
+
+      await Future<void>.delayed(Duration.zero);
+      _startAnimationLoop();
+    });
   }
 
   @override
@@ -64,6 +72,8 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
 
   @override
   Widget build(BuildContext context) {
+    if (!_showed) return const SizedBox.shrink();
+
     return Padding(
       padding: const .all(.5),
       child: CustomPaint(
@@ -106,7 +116,7 @@ class _LightningPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final rect = Offset.zero & size;
-    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+    final rrect = RRect.fromRectAndRadius(rect, .circular(borderRadius));
 
     final path = Path()..addRRect(rrect);
     final pathMetrics = path.computeMetrics().toList();
@@ -121,14 +131,14 @@ class _LightningPainter extends CustomPainter {
 
     final paint = Paint()
       ..color = ligthningColor
-      ..style = PaintingStyle.stroke
+      ..style = .stroke
       ..strokeWidth = ligthningWidth;
 
     canvas.drawPath(
       path,
       Paint()
         ..color = Colors.transparent
-        ..style = PaintingStyle.stroke
+        ..style = .stroke
         ..strokeWidth = ligthningWidth,
     );
 
@@ -159,7 +169,7 @@ class _LightningFlashPainter extends CustomPainter {
     if (animation.value >= .78) return;
 
     final rect = Offset.zero & size;
-    final rrect = RRect.fromRectAndRadius(rect, Radius.circular(borderRadius));
+    final rrect = RRect.fromRectAndRadius(rect, .circular(borderRadius));
 
     final path = Path()..addRRect(rrect);
     final pathMetrics = path.computeMetrics().toList();
@@ -174,14 +184,14 @@ class _LightningFlashPainter extends CustomPainter {
 
     final paint = Paint()
       ..color = ligthningColor
-      ..style = PaintingStyle.stroke
+      ..style = .stroke
       ..strokeWidth = ligthningWidth;
 
     canvas.drawPath(
       path,
       Paint()
         ..color = Colors.transparent
-        ..style = PaintingStyle.stroke
+        ..style = .stroke
         ..strokeWidth = ligthningWidth,
     );
 
