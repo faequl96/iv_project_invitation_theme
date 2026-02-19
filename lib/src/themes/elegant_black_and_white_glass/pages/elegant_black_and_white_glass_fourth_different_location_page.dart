@@ -234,7 +234,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .4),
                 animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 2500),
+                delayBeforeStart: const Duration(milliseconds: 2700),
                 animationInterval: const Duration(milliseconds: 3500),
               ),
             ),
