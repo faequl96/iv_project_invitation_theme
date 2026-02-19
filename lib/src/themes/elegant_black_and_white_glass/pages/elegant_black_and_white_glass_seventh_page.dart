@@ -215,7 +215,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .4),
                 animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 3500),
+                delayBeforeStart: const Duration(milliseconds: 3600),
                 animationInterval: const Duration(milliseconds: 3500),
               ),
             ),

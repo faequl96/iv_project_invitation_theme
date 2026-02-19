@@ -133,7 +133,7 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),
                 animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 1800),
+                delayBeforeStart: const Duration(milliseconds: 1900),
                 animationInterval: const Duration(milliseconds: 3500),
               ),
             ),

@@ -6,10 +6,16 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
 class CountdownTimers extends StatefulWidget {
-  const CountdownTimers({super.key, required this.time, this.animationDelayBeforeStart = Duration.zero});
+  const CountdownTimers({
+    super.key,
+    required this.time,
+    this.animationDelayBeforeStart = Duration.zero,
+    this.lightningEffectDelayBeforeShowed = const Duration(milliseconds: 1200),
+  });
 
   final DateTime time;
   final Duration animationDelayBeforeStart;
+  final Duration lightningEffectDelayBeforeShowed;
 
   @override
   State<CountdownTimers> createState() => _CountdownTimersState();
@@ -80,7 +86,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: days,
                 unit: 'Hari',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1200),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 200) + widget.lightningEffectDelayBeforeShowed,
               );
             },
           ),
@@ -97,7 +103,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: hours,
                 unit: 'Jam',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1400),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 400) + widget.lightningEffectDelayBeforeShowed,
               );
             },
           ),
@@ -114,7 +120,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: minutes,
                 unit: 'Menit',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1600),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 600) + widget.lightningEffectDelayBeforeShowed,
               );
             },
           ),
@@ -130,7 +136,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
               return _CountdownTimer(
                 number: seconds,
                 unit: 'Detik',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 800) + widget.lightningEffectDelayBeforeShowed,
               );
             },
           ),

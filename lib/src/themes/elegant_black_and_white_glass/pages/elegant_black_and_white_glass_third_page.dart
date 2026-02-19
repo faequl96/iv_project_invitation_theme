@@ -210,6 +210,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                             child: CountdownTimers(
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
+                              lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1600),
                             ),
                           ),
                         ],
@@ -235,7 +236,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                 sliderWidth: 90,
                 color: Colors.grey.shade300.withValues(alpha: .4),
                 animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 2400),
+                delayBeforeStart: const Duration(milliseconds: 2600),
                 animationInterval: const Duration(milliseconds: 3500),
               ),
             ),
