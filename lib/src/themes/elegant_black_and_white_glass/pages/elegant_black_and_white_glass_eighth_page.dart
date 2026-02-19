@@ -88,8 +88,8 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                         child: FadeAndSlideTransition(
                           slideFromOffset: .8,
                           slideFrom: .bottom,
-                          animationSpeed: const Duration(milliseconds: 300),
-                          delayBeforeStart: const Duration(milliseconds: 800),
+                          animationSpeed: const Duration(milliseconds: 500),
+                          delayBeforeStart: const Duration(milliseconds: 700),
                           child: Text(
                             general.closing.isNotEmpty
                                 ? general.closing
@@ -103,9 +103,9 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                       Padding(
                         padding: .symmetric(horizontal: W.md),
                         child: FadeAndSlideTransition(
-                          slideFromOffset: .8,
+                          slideFromOffset: .9,
                           slideFrom: .bottom,
-                          animationSpeed: const Duration(milliseconds: 300),
+                          animationSpeed: const Duration(milliseconds: 500),
                           delayBeforeStart: const Duration(milliseconds: 1100),
                           child: Text(
                             '$brideName & $groomName',
@@ -133,8 +133,8 @@ class ElegantBlackAndWhiteGlassEighthPage extends StatelessWidget {
                 sliderWidth: 90,
                 color: Colors.white.withValues(alpha: .5),
                 animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 3500),
-                animationInterval: const Duration(seconds: 4),
+                delayBeforeStart: const Duration(milliseconds: 1800),
+                animationInterval: const Duration(milliseconds: 3500),
               ),
             ),
           ),
