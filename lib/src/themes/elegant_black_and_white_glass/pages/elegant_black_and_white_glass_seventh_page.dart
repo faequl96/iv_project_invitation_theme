@@ -688,7 +688,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
             padding: const .symmetric(horizontal: 16, vertical: 8),
             child: Text(
               langCode == 'id' ? 'RSVP dan Ucapan Belum ada.' : 'RSVP and Greetings Not available yet.',
-              style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w700),
+              style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
             ),
           ),
         ],
