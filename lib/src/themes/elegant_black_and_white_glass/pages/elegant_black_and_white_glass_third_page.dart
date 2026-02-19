@@ -147,6 +147,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                             child: CountdownTimers(
                               time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
+                              lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
                             ),
                           ),
                         ],
@@ -210,7 +211,7 @@ class ElegantBlackAndWhiteGlassThirdPage extends StatelessWidget {
                             child: CountdownTimers(
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
-                              lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1600),
+                              lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
                             ),
                           ),
                         ],
