@@ -150,7 +150,7 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
                           border: .all(width: .5, color: Colors.grey.shade600),
                           color: Colors.white.withValues(alpha: .2),
                           child: Stack(
-                            alignment: AlignmentDirectional.center,
+                            alignment: .center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',

@@ -47,7 +47,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     final offsetPage = (offset - offset.floor()).abs();
     if (offsetPage < 0.01) {
       if (_coreCubit.state.animationTrigger == 0) {
-        await Future.delayed(const Duration(milliseconds: 50));
+        await Future<void>.delayed(const Duration(milliseconds: 50));
         _coreCubit.state.copyWith(animationTrigger: 1).emitState();
       }
     } else {

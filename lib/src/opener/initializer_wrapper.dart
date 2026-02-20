@@ -176,14 +176,14 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                         onOpened: () async {
                           setState(() => _onOpenedStarted = true);
 
-                          await Future.delayed(const Duration(milliseconds: 500));
+                          await Future<void>.delayed(const Duration(milliseconds: 500));
                           setState(() => _isOpenedProcessCompleted = true);
 
                           _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
 
                           if (widget.viewType != ViewType.live) return;
 
-                          await Future.delayed(const Duration(milliseconds: 1000));
+                          await Future<void>.delayed(const Duration(milliseconds: 1000));
 
                           CoreStatic.player.play();
 
@@ -204,14 +204,14 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   onOpened: () async {
                     setState(() => _onOpenedStarted = true);
 
-                    await Future.delayed(const Duration(milliseconds: 500));
+                    await Future<void>.delayed(const Duration(milliseconds: 500));
                     setState(() => _isOpenedProcessCompleted = true);
 
                     _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
 
                     if (widget.viewType != ViewType.live) return;
 
-                    await Future.delayed(const Duration(milliseconds: 1000));
+                    await Future<void>.delayed(const Duration(milliseconds: 1000));
 
                     if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                   },

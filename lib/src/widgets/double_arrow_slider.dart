@@ -25,10 +25,10 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
   late final Animation<double> _animation;
 
   void _startAnimationLoop() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(const Duration(seconds: 1));
     while (mounted) {
       await _controller.forward(from: 0);
-      await Future.delayed(widget.animationInterval);
+      await Future<void>.delayed(widget.animationInterval);
     }
   }
 

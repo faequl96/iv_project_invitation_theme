@@ -23,7 +23,7 @@ class CheckInQr {
       ),
       decoration: BottomSheetDecoration(
         color: ColorConverter.lighten(AppColor.primaryColor, 94),
-        borderRadius: const .only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+        borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
       ),
       contentBuilder: (_) => const _CheckInQrContent(),
     );

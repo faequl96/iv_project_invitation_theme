@@ -9,7 +9,7 @@ class CountdownTimers extends StatefulWidget {
   const CountdownTimers({
     super.key,
     required this.time,
-    this.animationDelayBeforeStart = Duration.zero,
+    this.animationDelayBeforeStart = .zero,
     this.lightningEffectDelayBeforeShowed = const Duration(milliseconds: 1200),
   });
 
@@ -44,9 +44,9 @@ class _CountdownTimersState extends State<CountdownTimers> {
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _remaining = widget.time.difference(DateTime.now());
+      _remaining = widget.time.difference(.now());
       if (_remaining.isNegative) {
-        _remaining = Duration.zero;
+        _remaining = .zero;
         _timer.cancel();
       }
       _formatDuration(_remaining);

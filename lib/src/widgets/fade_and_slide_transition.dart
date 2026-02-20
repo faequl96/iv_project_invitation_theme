@@ -10,10 +10,10 @@ class FadeAndSlideTransition extends StatefulWidget {
   const FadeAndSlideTransition({
     super.key,
     this.animationSpeed = const Duration(milliseconds: 500),
-    this.delayBeforeStart = Duration.zero,
+    this.delayBeforeStart = .zero,
     this.fadeBegin = 0,
     this.fadeEnd = 1,
-    this.slideFrom = SlideFrom.bottom,
+    this.slideFrom = .bottom,
     this.slideFromOffset = .5,
     this.isNoNeedTrigger = false,
     required this.child,
@@ -42,7 +42,7 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
   int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
     final currentId = ++_animationRequestId;
-    await Future.delayed(widget.delayBeforeStart);
+    await Future<void>.delayed(widget.delayBeforeStart);
     if (currentId != _animationRequestId) return;
     if (mounted) {
       if (animationTrigger == 1) _controller.forward();
@@ -55,16 +55,16 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
 
     late final Offset beginOffset;
     switch (widget.slideFrom) {
-      case SlideFrom.top:
+      case .top:
         beginOffset = Offset(0, -widget.slideFromOffset);
         break;
-      case SlideFrom.left:
+      case .left:
         beginOffset = Offset(-widget.slideFromOffset, 0);
         break;
-      case SlideFrom.right:
+      case .right:
         beginOffset = Offset(widget.slideFromOffset, 0);
         break;
-      case SlideFrom.bottom:
+      case .bottom:
         beginOffset = Offset(0, widget.slideFromOffset);
         break;
     }
