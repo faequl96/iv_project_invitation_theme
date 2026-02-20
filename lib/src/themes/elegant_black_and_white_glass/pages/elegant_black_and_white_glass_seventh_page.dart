@@ -137,7 +137,7 @@ class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
                                           context,
                                           barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                                           header: BottomSheetHeader(
-                                            title: const HeaderTitle.handleBar(),
+                                            title: const .handleBar(),
                                             action: HeaderAction(
                                               actionIcon: Icons.close_rounded,
                                               iconColor: Colors.grey.shade400,
@@ -571,7 +571,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
         // attendance: false,
       ),
       message: 'Happy wedding Milea dan Dilan.. Samawa yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
-      createdAt: DateTime.now().subtract(const Duration(minutes: 324)),
+      createdAt: .now().subtract(const Duration(minutes: 324)),
     ),
     RSVPResponse(
       id: 2,
@@ -587,18 +587,18 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
         // attendance: true,
       ),
       message: 'Happy wedding Milea dan Dilan. Semoga samawa selamanya.',
-      createdAt: DateTime.now().subtract(const Duration(minutes: 370)),
+      createdAt: .now().subtract(const Duration(minutes: 370)),
     ),
   ];
 
   bool _isInitial = true;
 
   void _init() async {
-    if (!widget.isShowMore) await Future.delayed(const Duration(milliseconds: 3000));
+    if (!widget.isShowMore) await Future<void>.delayed(const Duration(milliseconds: 3000));
     _isInitial = false;
 
     _rsvpCubit.state.copyWith(isLoadingGetsByInvitationId: true).emitState();
-    await Future.delayed(const Duration(seconds: 2));
+    await Future<void>.delayed(const Duration(seconds: 2));
     _rsvpCubit.state.copyWith(isLoadingGetsByInvitationId: false).emitState();
   }
 

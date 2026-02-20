@@ -26,7 +26,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
   int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
     final currentId = ++_animationRequestId;
-    await Future.delayed(Duration.zero);
+    await Future<void>.delayed(.zero);
     if (currentId != _animationRequestId) return;
     if (mounted) {
       if (animationTrigger == 1) _controller.forward();

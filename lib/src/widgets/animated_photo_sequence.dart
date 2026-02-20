@@ -34,7 +34,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
   int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
     final currentId = ++_animationRequestId;
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future<void>.delayed(const Duration(milliseconds: 300));
     if (currentId != _animationRequestId) return;
     if (mounted) {
       if (animationTrigger == 1) _controller.forward();
@@ -131,7 +131,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                         height: (W.x8l * 2) - (W.x6s),
                         width: W.x8l,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 2),
+                          padding: const .symmetric(vertical: 24, horizontal: 2),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               color: Colors.grey.shade50.withValues(alpha: .3),
@@ -146,7 +146,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                       height: (W.x8l * 2) - (W.x6s),
                       width: W.x8l,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 24),
+                        padding: const .symmetric(vertical: 24),
                         child: AnimatedBuilder(
                           animation: _clipRRectAnimation,
                           builder: (_, _) {
@@ -163,7 +163,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                               }
                             }
                             return ClipRRect(
-                              borderRadius: _clipRRectAnimation.value ?? BorderRadius.zero,
+                              borderRadius: _clipRRectAnimation.value ?? .zero,
                               child: ColoredBox(color: Colors.grey, child: child),
                             );
                           },

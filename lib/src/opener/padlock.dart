@@ -16,7 +16,7 @@ class Padlock extends StatelessWidget {
     return GeneralEffectsButton(
       onTap: () async {
         onOpened();
-        await Future.delayed(const Duration(seconds: 2));
+        await Future<void>.delayed(const Duration(seconds: 2));
       },
       height: W.lg + H.x10s,
       width: W.x12l,

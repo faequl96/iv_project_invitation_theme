@@ -35,10 +35,10 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
   late final Animation<double> _animation;
 
   void _startAnimationLoop() async {
-    await Future.delayed(widget.delayBeforeStart);
+    await Future<void>.delayed(widget.delayBeforeStart);
     while (mounted) {
       await _controller.forward(from: 0);
-      await Future.delayed(widget.animationInterval);
+      await Future<void>.delayed(widget.animationInterval);
     }
   }
 

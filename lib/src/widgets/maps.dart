@@ -5,7 +5,7 @@ import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:latlong2/latlong.dart';
 
 class Maps extends StatefulWidget {
-  const Maps({super.key, required this.height, required this.width, this.delayBeforeStart = Duration.zero, required this.url});
+  const Maps({super.key, required this.height, required this.width, this.delayBeforeStart = .zero, required this.url});
 
   final double height;
   final double width;
@@ -32,8 +32,8 @@ class _MapsState extends State<Maps> {
       final atSubstring = path.substring(atIndex + 1);
       final coords = atSubstring.split(',');
       if (coords.length >= 2) {
-        viewLat = double.tryParse(coords[0]);
-        viewLong = double.tryParse(coords[1]);
+        viewLat = .tryParse(coords[0]);
+        viewLong = .tryParse(coords[1]);
       }
     }
 
@@ -41,8 +41,8 @@ class _MapsState extends State<Maps> {
     final regExp3d4d = RegExp(r'!3d(-?\d+(\.\d+)?)!4d(-?\d+(\.\d+)?)');
     final match = regExp3d4d.firstMatch(path);
     if (match != null && match.groupCount >= 3) {
-      markerLat = double.tryParse(match.group(1)!);
-      markerLong = double.tryParse(match.group(3)!);
+      markerLat = .tryParse(match.group(1)!);
+      markerLong = .tryParse(match.group(3)!);
     }
 
     final lat = markerLat ?? viewLat;
@@ -140,7 +140,7 @@ class _MapsWidgetState extends State<MapsWidget> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(widget.delayBeforeStart);
+      await Future<void>.delayed(widget.delayBeforeStart);
       if (mounted) setState(() => _initComplete = true);
     });
   }

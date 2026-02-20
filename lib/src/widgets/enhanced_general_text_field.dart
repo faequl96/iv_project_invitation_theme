@@ -49,15 +49,15 @@ class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
         fillColor: Colors.grey.shade500.withValues(alpha: .3),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-          borderRadius: const .all(Radius.circular(8)),
+          borderRadius: const .all(.circular(8)),
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-          borderRadius: const .all(Radius.circular(8)),
+          borderRadius: const .all(.circular(8)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
-          borderRadius: const .all(Radius.circular(8)),
+          borderRadius: const .all(.circular(8)),
         ),
         suffixIcons: () {
           if (!widget.enabled) return [];
@@ -77,7 +77,7 @@ class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
           if (validator.isSuccess == false) return validator;
         }
         if (value.isEmpty && widget.isMandatory) return SharedPersonalize.fieldCanNotEmpty();
-        return TextFieldValidator.success();
+        return .success();
       },
     );
   }

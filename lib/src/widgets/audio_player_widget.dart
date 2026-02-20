@@ -35,12 +35,11 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
         final processingState = playerState?.processingState;
         final playing = playerState?.playing;
 
-        final isLoading =
-            processingState == ProcessingState.loading || processingState == ProcessingState.buffering || processingState == null;
+        final isLoading = processingState == .loading || processingState == .buffering || processingState == null;
 
         if (isLoading) {
           return Padding(
-            padding: EdgeInsets.all(W.x4s),
+            padding: .all(W.x4s),
             child: SizedBox(
               width: W.xs,
               height: W.xs,
@@ -56,13 +55,13 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
           onTap = CoreStatic.player.play;
           icon = Icons.play_arrow;
           _controller.stop();
-        } else if (processingState != ProcessingState.completed) {
+        } else if (processingState != .completed) {
           onTap = CoreStatic.player.pause;
           icon = Icons.pause;
           _controller.repeat();
         } else {
           onTap = () async {
-            CoreStatic.player.seek(Duration.zero);
+            CoreStatic.player.seek(.zero);
             CoreStatic.player.pause();
             CoreStatic.player.play();
           };
@@ -73,7 +72,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
         return GestureDetector(
           onTap: onTap,
           child: Stack(
-            alignment: Alignment.center,
+            alignment: .center,
             children: [
               RotationTransition(
                 turns: _controller,
@@ -81,7 +80,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
                   width: W.xs + W.x4s,
                   height: W.xs + W.x4s,
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
+                    shape: .circle,
                     gradient: SweepGradient(
                       colors: [Colors.transparent, Colors.grey.shade700, Colors.transparent],
                       stops: const [0.0, 0.5, 1.0],
@@ -90,8 +89,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
                 ),
               ),
               Container(
-                padding: EdgeInsets.all(W.x14s),
-                decoration: BoxDecoration(shape: BoxShape.circle, color: ColorConverter.lighten(Colors.grey.shade700, 90)),
+                padding: .all(W.x14s),
+                decoration: BoxDecoration(shape: .circle, color: ColorConverter.lighten(Colors.grey.shade700, 90)),
                 child: Icon(icon, size: W.xs, color: ColorConverter.darken(Colors.grey.shade700)),
               ),
             ],

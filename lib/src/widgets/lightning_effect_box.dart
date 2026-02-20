@@ -8,7 +8,7 @@ class LightningEffectBox extends StatefulWidget {
     this.borderRadius = 6,
     this.animationSpeed = const Duration(milliseconds: 500),
     this.animationInterval = const Duration(milliseconds: 2000),
-    this.delayBeforeShowed = Duration.zero,
+    this.delayBeforeShowed = .zero,
     this.ligthningLength = .2,
     this.ligthningWidth = .5,
     this.ligthningColor = Colors.white,
@@ -58,7 +58,7 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
       await Future<void>.delayed(widget.delayBeforeShowed);
       setState(() => _showed = true);
 
-      await Future<void>.delayed(Duration.zero);
+      await Future<void>.delayed(.zero);
       _startAnimationLoop();
     });
   }

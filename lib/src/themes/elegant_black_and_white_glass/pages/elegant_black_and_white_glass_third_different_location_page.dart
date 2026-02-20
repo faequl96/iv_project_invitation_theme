@@ -210,7 +210,7 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                           border: .all(width: .5, color: Colors.grey.shade600),
                           color: Colors.grey.shade500.withValues(alpha: .3),
                           child: Stack(
-                            alignment: AlignmentDirectional.center,
+                            alignment: .center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',

@@ -198,7 +198,7 @@ class _BankAccount extends StatelessWidget {
                   child: Image.asset(
                     'assets/banks/${bankAccount.bankName}.png',
                     package: 'iv_project_invitation_theme',
-                    fit: BoxFit.fitWidth,
+                    fit: .fitWidth,
                     errorBuilder: (_, _, _) {
                       final bankNames = bankAccount.bankName.split(' ');
                       final bankName = bankNames.length > 1
@@ -311,7 +311,7 @@ class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButt
         _isCopied = true;
         setState(() {});
         Clipboard.setData(ClipboardData(text: widget.bankAccountNumber));
-        await Future.delayed(const Duration(milliseconds: 800));
+        await Future<void>.delayed(const Duration(milliseconds: 800));
         _isCopied = false;
         setState(() {});
       },

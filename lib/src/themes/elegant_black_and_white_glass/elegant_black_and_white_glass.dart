@@ -288,8 +288,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
           ),
         if (widget.isSinglePageView)
           const SizedBox(
-            height: double.maxFinite,
-            width: double.maxFinite,
+            height: .maxFinite,
+            width: .maxFinite,
             child: ColoredBox(color: Colors.transparent),
           ),
       ],

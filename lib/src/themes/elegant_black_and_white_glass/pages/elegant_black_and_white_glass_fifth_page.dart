@@ -100,7 +100,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                               context,
                               barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                               header: BottomSheetHeader(
-                                title: const HeaderTitle.handleBar(),
+                                title: const .handleBar(),
                                 action: HeaderAction(
                                   actionIcon: Icons.close_rounded,
                                   iconColor: Colors.grey.shade400,
@@ -109,7 +109,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                               ),
                               decoration: BottomSheetDecoration(
                                 color: Colors.black.withValues(alpha: .85),
-                                borderRadius: const .only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
                               ),
                               contentBuilder: (_) {
                                 return SizedBox(
@@ -486,17 +486,17 @@ class _ImageViewer extends StatelessWidget {
     }
 
     if (viewType == ViewType.preview) {
-      if (image != null) return wrapper(Image.file(image!, fit: BoxFit.cover), Image.file(image!, fit: BoxFit.contain));
+      if (image != null) return wrapper(Image.file(image!, fit: .cover), Image.file(image!, fit: .contain));
     } else if (viewType == ViewType.example) {
       if (imageUrl != null) {
         return wrapper(
-          Image.asset(imageUrl!, fit: BoxFit.cover, package: 'iv_project_invitation_theme'),
-          Image.asset(imageUrl!, fit: BoxFit.contain, package: 'iv_project_invitation_theme'),
+          Image.asset(imageUrl!, fit: .cover, package: 'iv_project_invitation_theme'),
+          Image.asset(imageUrl!, fit: .contain, package: 'iv_project_invitation_theme'),
         );
       }
     } else {
       if (imageUrl != null) {
-        return wrapper(Image.network(imageUrl!, fit: BoxFit.cover), Image.network(imageUrl!, fit: BoxFit.contain));
+        return wrapper(Image.network(imageUrl!, fit: .cover), Image.network(imageUrl!, fit: .contain));
       }
     }
 
