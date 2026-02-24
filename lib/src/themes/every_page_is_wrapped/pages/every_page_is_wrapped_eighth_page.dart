@@ -56,12 +56,14 @@ class EveryPageIsWrappedEighthPage extends StatelessWidget {
             width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
+              child: RepaintBoundary(
+                child: ClipRRect(
+                  borderRadius: .circular(20),
+                  child: BackdropFilter(
+                    filter: .blur(sigmaX: 3, sigmaY: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
+                    ),
                   ),
                 ),
               ),
@@ -142,14 +144,16 @@ class EveryPageIsWrappedEighthPage extends StatelessWidget {
             bottom: 0,
             height: H.x18l - H.x4s,
             width: Screen.width,
-            child: ClipRRect(
-              borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
-              child: BackdropFilter(
-                filter: .blur(sigmaX: 3, sigmaY: 3),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200.withValues(alpha: .7),
-                    borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
+            child: RepaintBoundary(
+              child: ClipRRect(
+                borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
+                child: BackdropFilter(
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200.withValues(alpha: .7),
+                      borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
+                    ),
                   ),
                 ),
               ),

@@ -54,44 +54,47 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (_, _) {
-        final slide = _controller.value * (widget.sliderPathLength) - (widget.arrowSize - 2);
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (_, child) {
+          final slide = _controller.value * (widget.sliderPathLength) - (widget.arrowSize - 2);
 
-        return Stack(
-          alignment: .center,
+          return Stack(
+            alignment: .center,
+            children: [
+              SizedBox(width: widget.arrowSize, height: widget.sliderPathLength),
+              Positioned(
+                bottom: slide,
+                height: widget.arrowSize,
+                width: widget.arrowSize,
+                child: child ?? const SizedBox.shrink(),
+              ),
+            ],
+          );
+        },
+        child: Stack(
+          clipBehavior: .none,
           children: [
-            SizedBox(width: widget.arrowSize, height: widget.sliderPathLength),
             Positioned(
-              bottom: slide,
-              height: widget.arrowSize,
-              width: widget.arrowSize,
-              child: Stack(
-                clipBehavior: .none,
-                children: [
-                  Positioned(
-                    top: -(widget.arrowSize / 8),
-                    child: Icon(
-                      Icons.keyboard_arrow_up_rounded,
-                      size: widget.arrowSize,
-                      color: Colors.grey.shade100.withValues(alpha: .8),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: -(widget.arrowSize / 8),
-                    child: Icon(
-                      Icons.keyboard_arrow_up_rounded,
-                      size: widget.arrowSize,
-                      color: Colors.grey.shade300.withValues(alpha: .5),
-                    ),
-                  ),
-                ],
+              top: -(widget.arrowSize / 8),
+              child: Icon(
+                Icons.keyboard_arrow_up_rounded,
+                size: widget.arrowSize,
+                color: Colors.grey.shade100.withValues(alpha: .8),
+              ),
+            ),
+            Positioned(
+              bottom: -(widget.arrowSize / 8),
+              child: Icon(
+                Icons.keyboard_arrow_up_rounded,
+                size: widget.arrowSize,
+                color: Colors.grey.shade300.withValues(alpha: .5),
               ),
             ),
           ],
-        );
-      },
+        ),
+      ),
     );
   }
 }

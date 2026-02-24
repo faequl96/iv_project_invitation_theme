@@ -68,19 +68,21 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
             width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: .topCenter,
-                        end: .bottomCenter,
-                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                        stops: const [0, 1],
+              child: RepaintBoundary(
+                child: ClipRRect(
+                  borderRadius: .circular(20),
+                  child: BackdropFilter(
+                    filter: .blur(sigmaX: 3, sigmaY: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: .topCenter,
+                          end: .bottomCenter,
+                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
+                          stops: const [0, 1],
+                        ),
+                        borderRadius: .circular(20),
                       ),
-                      borderRadius: .circular(20),
                     ),
                   ),
                 ),

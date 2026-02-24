@@ -64,49 +64,49 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (_, _) {
-        final slide = (_controller.value * 1.3) * (widget.width + widget.sliderWidth) - widget.sliderWidth * 1.8;
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (_, child) {
+          final slide = (_controller.value * 1.3) * (widget.width + widget.sliderWidth) - widget.sliderWidth * 1.8;
 
-        return ClipRRect(
-          borderRadius: .circular(widget.borderRadius),
-          child: Stack(
-            alignment: .center,
-            children: [
-              SizedBox(width: widget.width, height: widget.height),
-              Positioned(
-                left: slide,
-                child: Transform.rotate(
-                  angle: widget.sliderTilt,
+          return ClipRRect(
+            borderRadius: .circular(widget.borderRadius),
+            child: Stack(
+              alignment: .center,
+              children: [
+                SizedBox(width: widget.width, height: widget.height),
+                Positioned(left: slide, child: child ?? const SizedBox.shrink()),
+              ],
+            ),
+          );
+        },
+        child: Transform.rotate(
+          angle: widget.sliderTilt,
+          child: SizedBox(
+            width: widget.sliderWidth,
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
                   child: SizedBox(
-                    width: widget.sliderWidth,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: SizedBox(
-                            height: widget.height * 10,
-                            child: ColoredBox(color: widget.color),
-                          ),
-                        ),
-                        SizedBox(width: widget.sliderWidth * .03),
-                        Expanded(
-                          flex: 5,
-                          child: SizedBox(
-                            height: widget.height * 10,
-                            child: ColoredBox(color: widget.color),
-                          ),
-                        ),
-                      ],
-                    ),
+                    height: widget.height * 10,
+                    child: ColoredBox(color: widget.color),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(width: widget.sliderWidth * .03),
+                Expanded(
+                  flex: 5,
+                  child: SizedBox(
+                    height: widget.height * 10,
+                    child: ColoredBox(color: widget.color),
+                  ),
+                ),
+              ],
+            ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

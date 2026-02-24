@@ -65,12 +65,14 @@ class ElegantBlackAndWhiteGlassFourthPage extends StatelessWidget {
             width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
+              child: RepaintBoundary(
+                child: ClipRRect(
+                  borderRadius: .circular(20),
+                  child: BackdropFilter(
+                    filter: .blur(sigmaX: 3, sigmaY: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
+                    ),
                   ),
                 ),
               ),

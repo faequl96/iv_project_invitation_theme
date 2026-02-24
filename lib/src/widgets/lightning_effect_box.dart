@@ -74,25 +74,27 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
   Widget build(BuildContext context) {
     if (!_showed) return const SizedBox.shrink();
 
-    return Padding(
-      padding: const .all(.5),
-      child: CustomPaint(
-        painter: widget.isFlash
-            ? _LightningFlashPainter(
-                animation: _animation,
-                borderRadius: widget.borderRadius,
-                ligthningLength: widget.ligthningLength,
-                ligthningWidth: widget.ligthningWidth,
-                ligthningColor: widget.ligthningColor,
-              )
-            : _LightningPainter(
-                animation: _animation,
-                borderRadius: widget.borderRadius,
-                ligthningLength: widget.ligthningLength,
-                ligthningWidth: widget.ligthningWidth,
-                ligthningColor: widget.ligthningColor,
-              ),
-        child: SizedBox(width: widget.width - 1, height: widget.height - 1),
+    return RepaintBoundary(
+      child: Padding(
+        padding: const .all(.5),
+        child: CustomPaint(
+          painter: widget.isFlash
+              ? _LightningFlashPainter(
+                  animation: _animation,
+                  borderRadius: widget.borderRadius,
+                  ligthningLength: widget.ligthningLength,
+                  ligthningWidth: widget.ligthningWidth,
+                  ligthningColor: widget.ligthningColor,
+                )
+              : _LightningPainter(
+                  animation: _animation,
+                  borderRadius: widget.borderRadius,
+                  ligthningLength: widget.ligthningLength,
+                  ligthningWidth: widget.ligthningWidth,
+                  ligthningColor: widget.ligthningColor,
+                ),
+          child: SizedBox(width: widget.width - 1, height: widget.height - 1),
+        ),
       ),
     );
   }

@@ -63,20 +63,22 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
             width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      // color: Colors.white.withValues(alpha: .1),
-                      gradient: LinearGradient(
-                        begin: .topCenter,
-                        end: .bottomCenter,
-                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                        stops: const [0, 1],
+              child: RepaintBoundary(
+                child: ClipRRect(
+                  borderRadius: .circular(20),
+                  child: BackdropFilter(
+                    filter: .blur(sigmaX: 3, sigmaY: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        // color: Colors.white.withValues(alpha: .1),
+                        gradient: LinearGradient(
+                          begin: .topCenter,
+                          end: .bottomCenter,
+                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
+                          stops: const [0, 1],
+                        ),
+                        borderRadius: .circular(20),
                       ),
-                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
@@ -299,8 +301,8 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const _Border.left(),
-                      const _Border.right(),
+                      const _AnimatedBorder.left(),
+                      const _AnimatedBorder.right(),
                     ],
                   ),
                 ),
@@ -331,17 +333,17 @@ class ElegantBlackAndWhiteGlassSecondPage extends StatelessWidget {
   }
 }
 
-class _Border extends StatefulWidget {
-  const _Border.left() : isLeft = true;
-  const _Border.right() : isLeft = false;
+class _AnimatedBorder extends StatefulWidget {
+  const _AnimatedBorder.left() : isLeft = true;
+  const _AnimatedBorder.right() : isLeft = false;
 
   final bool isLeft;
 
   @override
-  State<_Border> createState() => _BorderState();
+  State<_AnimatedBorder> createState() => _AnimatedBorderState();
 }
 
-class _BorderState extends State<_Border> with SingleTickerProviderStateMixin {
+class _AnimatedBorderState extends State<_AnimatedBorder> with SingleTickerProviderStateMixin {
   late final StreamSubscription _sub;
 
   late final AnimationController _controller;
