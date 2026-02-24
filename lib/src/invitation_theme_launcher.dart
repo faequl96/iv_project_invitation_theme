@@ -2,33 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/every_page_is_wrapped.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeLauncher extends StatefulWidget {
   const InvitationThemeLauncher({
     super.key,
     this.heightAdjustment = 0,
+    this.initialPage = 0,
+    this.viewAsImage = false,
     required this.viewType,
     required this.invitationThemeId,
     required this.invitationId,
     required this.invitationData,
     this.imagesRaw,
     required this.brandProfile,
-    this.useWrapper = true,
-    this.initialPage = 0,
-    this.isSinglePageView = false,
   });
 
   final double heightAdjustment;
+  final int initialPage;
+  final bool viewAsImage;
   final ViewType viewType;
   final int invitationThemeId;
   final String invitationId;
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
-  final bool useWrapper;
-  final int initialPage;
-  final bool isSinglePageView;
 
   @override
   State<InvitationThemeLauncher> createState() => _InvitationThemeLauncherState();
@@ -55,14 +54,24 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
       case 1:
         return ElegantBlackAndWhiteGlass(
           heightAdjustment: widget.heightAdjustment,
+          initialPage: widget.initialPage,
+          viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
           imagesRaw: widget.imagesRaw,
           brandProfile: widget.brandProfile,
-          useWrapper: widget.useWrapper,
+        );
+      case 2:
+        return EveryPageIsWrapped(
+          heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
-          isSinglePageView: widget.isSinglePageView,
+          viewAsImage: widget.viewAsImage,
+          viewType: widget.viewType,
+          invitationId: widget.invitationId,
+          invitationData: widget.invitationData,
+          imagesRaw: widget.imagesRaw,
+          brandProfile: widget.brandProfile,
         );
       default:
         return const SizedBox.shrink();

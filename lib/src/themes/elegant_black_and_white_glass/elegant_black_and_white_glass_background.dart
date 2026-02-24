@@ -11,77 +11,79 @@ class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
-      builder: (_, _) => Stack(
-        children: [
-          SizedBox(
-            height: Screen.height,
-            width: Screen.width,
-            child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade300)),
-          ),
-          Positioned(
-            left: -110,
-            bottom: -80,
-            child: Bubble.fill(size: W.x16l, color: Colors.grey.shade900),
-          ),
-          Positioned(
-            left: 80,
-            bottom: H.x9l,
-            child: RandomSlideTransition(
-              child: Bubble.border(size: W.x5l, color: Colors.white),
+      builder: (_, _) => RepaintBoundary(
+        child: Stack(
+          children: [
+            SizedBox(
+              height: Screen.height,
+              width: Screen.width,
+              child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade300)),
             ),
-          ),
-          Positioned(
-            right: -40,
-            bottom: -90,
-            child: Bubble.fill(size: W.x15l, color: Colors.white),
-          ),
-          Positioned(
-            right: 90,
-            bottom: 120,
-            child: RandomSlideTransition(
-              child: Bubble.border(size: W.x4l, color: Colors.grey.shade600, borderWidth: 1),
+            Positioned(
+              left: -110,
+              bottom: -80,
+              child: Bubble.fill(size: W.x16l, color: Colors.grey.shade900),
             ),
-          ),
-          Positioned(
-            right: 4,
-            bottom: H.x18l,
-            child: RandomSlideTransition(
-              maxSlideOffset: .2,
-              child: Bubble.border(size: W.x9l, color: Colors.grey.shade600, borderWidth: 1),
+            Positioned(
+              left: 80,
+              bottom: H.x9l,
+              child: RandomSlideTransition(
+                child: Bubble.border(size: W.x5l, color: Colors.white),
+              ),
             ),
-          ),
-          Positioned(
-            right: 80,
-            bottom: H.x20l,
-            child: RandomSlideTransition(
-              child: Bubble.fill(size: W.x5l, color: Colors.white),
+            Positioned(
+              right: -40,
+              bottom: -90,
+              child: Bubble.fill(size: W.x15l, color: Colors.white),
             ),
-          ),
-          Positioned(
-            left: 4,
-            bottom: H.x20l,
-            child: RandomSlideTransition(
-              child: Bubble.border(size: W.x6l, color: Colors.white),
+            Positioned(
+              right: 90,
+              bottom: 120,
+              child: RandomSlideTransition(
+                child: Bubble.border(size: W.x4l, color: Colors.grey.shade600, borderWidth: 1),
+              ),
             ),
-          ),
-          Positioned(
-            left: 40,
-            bottom: H.x20l - 20,
-            child: RandomSlideTransition(
-              child: Bubble.fill(size: W.xl, color: Colors.grey.shade500),
+            Positioned(
+              right: 4,
+              bottom: H.x18l,
+              child: RandomSlideTransition(
+                maxSlideOffset: .2,
+                child: Bubble.border(size: W.x9l, color: Colors.grey.shade600, borderWidth: 1),
+              ),
             ),
-          ),
-          Positioned(
-            left: 90,
-            top: H.x5l,
-            child: Bubble.fill(size: W.x6l, color: Colors.grey.shade400),
-          ),
-          Positioned(
-            left: 140,
-            top: H.x10l,
-            child: Bubble.fill(size: W.md, color: Colors.white),
-          ),
-        ],
+            Positioned(
+              right: 80,
+              bottom: H.x20l,
+              child: RandomSlideTransition(
+                child: Bubble.fill(size: W.x5l, color: Colors.white),
+              ),
+            ),
+            Positioned(
+              left: 4,
+              bottom: H.x20l,
+              child: RandomSlideTransition(
+                child: Bubble.border(size: W.x6l, color: Colors.white),
+              ),
+            ),
+            Positioned(
+              left: 40,
+              bottom: H.x20l - 20,
+              child: RandomSlideTransition(
+                child: Bubble.fill(size: W.xl, color: Colors.grey.shade500),
+              ),
+            ),
+            Positioned(
+              left: 90,
+              top: H.x5l,
+              child: Bubble.fill(size: W.x6l, color: Colors.grey.shade400),
+            ),
+            Positioned(
+              left: 140,
+              top: H.x10l,
+              child: Bubble.fill(size: W.md, color: Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -5,23 +5,21 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/helpers/app_helpers.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass_background.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_eighth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fifth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
-// import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_seventh_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_sixth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_eighth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_fifth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_fourth_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_fourth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_seventh_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_third_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_third_page.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class ElegantBlackAndWhiteGlass extends StatefulWidget {
-  const ElegantBlackAndWhiteGlass({
+class EveryPageIsWrapped extends StatefulWidget {
+  const EveryPageIsWrapped({
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
@@ -43,10 +41,10 @@ class ElegantBlackAndWhiteGlass extends StatefulWidget {
   final BrandProfileResponse brandProfile;
 
   @override
-  State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
+  State<EveryPageIsWrapped> createState() => _EveryPageIsWrappedState();
 }
 
-class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> with WidgetsBindingObserver {
+class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBindingObserver {
   late final InvitationThemeCoreCubit _coreCubit;
 
   bool _isGalleriesNotEmpty = false;
@@ -97,9 +95,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
         groom: widget.invitationData.groom,
         time: widget.invitationData.contractEvent,
       ),
-      background: const ElegantBlackAndWhiteGlassBackground(),
       pages: [
-        ElegantBlackAndWhiteGlassCoverPage(
+        EveryPageIsWrappedCoverPage(
           viewType: widget.viewType,
           coverImage: widget.imagesRaw?.coverImage,
           general: widget.invitationData.general,
@@ -107,8 +104,8 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
         ),
-        ElegantBlackAndWhiteGlassFirstPage(general: widget.invitationData.general),
-        ElegantBlackAndWhiteGlassSecondPage(
+        EveryPageIsWrappedFirstPage(general: widget.invitationData.general),
+        EveryPageIsWrappedSecondPage(
           viewType: widget.viewType,
           brideImage: widget.imagesRaw?.brideImage,
           groomImage: widget.imagesRaw?.groomImage,
@@ -116,25 +113,25 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
           groom: widget.invitationData.groom,
         ),
         if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
-          ElegantBlackAndWhiteGlassThirdPage(
+          EveryPageIsWrappedThirdPage(
             contractEvent: widget.invitationData.contractEvent,
             receptionEvent: widget.invitationData.receptionEvent,
           ),
-          ElegantBlackAndWhiteGlassFourthPage(receptionEvent: widget.invitationData.receptionEvent),
+          EveryPageIsWrappedFourthPage(receptionEvent: widget.invitationData.receptionEvent),
         ] else ...[
-          ElegantBlackAndWhiteGlassThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
-          ElegantBlackAndWhiteGlassFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
+          EveryPageIsWrappedThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
+          EveryPageIsWrappedFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
         ],
         if (_isGalleriesNotEmpty)
-          ElegantBlackAndWhiteGlassFifthPage(
+          EveryPageIsWrappedFifthPage(
             viewType: widget.viewType,
             galleries: widget.imagesRaw?.galleries,
             gallery: widget.invitationData.gallery,
           ),
         if (widget.invitationData.bankAccounts.isNotEmpty)
-          ElegantBlackAndWhiteGlassSixthPage(bankAccounts: widget.invitationData.bankAccounts),
-        ElegantBlackAndWhiteGlassSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
-        ElegantBlackAndWhiteGlassEighthPage(
+          EveryPageIsWrappedSixthPage(bankAccounts: widget.invitationData.bankAccounts),
+        EveryPageIsWrappedSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
+        EveryPageIsWrappedEighthPage(
           general: widget.invitationData.general,
           brideName: widget.invitationData.bride.nickname,
           groomName: widget.invitationData.groom.nickname,
@@ -203,11 +200,10 @@ class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> w
               tabActive: tabActive,
             ),
           ),
-        if (widget.invitationData.bankAccounts.isNotEmpty)
-          Tab(
-            height: 48,
-            child: _Tab(title: langCode == 'en' ? 'Gift' : 'Kado', icon: Icons.card_giftcard, tabIndex: 6, tabActive: tabActive),
-          ),
+        Tab(
+          height: 48,
+          child: _Tab(title: langCode == 'en' ? 'Gift' : 'Kado', icon: Icons.card_giftcard, tabIndex: 6, tabActive: tabActive),
+        ),
         Tab(
           height: 48,
           child: _Tab(title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),

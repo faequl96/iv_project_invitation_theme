@@ -14,8 +14,8 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlassSeventhPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassSeventhPage({super.key, required this.viewType, required this.invitationId});
+class EveryPageIsWrappedSeventhPage extends StatelessWidget {
+  const EveryPageIsWrappedSeventhPage({super.key, required this.viewType, required this.invitationId});
 
   final ViewType viewType;
   final String invitationId;

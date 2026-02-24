@@ -10,8 +10,8 @@ import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassCoverPage({
+class EveryPageIsWrappedCoverPage extends StatelessWidget {
+  const EveryPageIsWrappedCoverPage({
     super.key,
     required this.viewType,
     this.coverImage,

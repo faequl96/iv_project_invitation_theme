@@ -51,6 +51,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/backgrounds/
     - assets/dummys/
     - assets/avatars/
     - assets/banks/
