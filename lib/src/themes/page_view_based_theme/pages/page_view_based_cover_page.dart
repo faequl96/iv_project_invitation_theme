@@ -4,18 +4,49 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/widgets/audio_player_widget.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bride_groom_name.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
-import 'package:iv_project_invitation_theme/src/widgets/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EveryPageIsWrappedCoverPage extends StatelessWidget {
-  const EveryPageIsWrappedCoverPage({
+class PageViewBasedCoverPageConfig {
+  const PageViewBasedCoverPageConfig({
+    this.coverBackground,
+    required this.brideNameColor,
+    required this.groomNameColor,
+    required this.countdownBorderWidth,
+    required this.countdownOddColor,
+    required this.countdownEvenColor,
+    required this.countdownOddBorderColor,
+    required this.countdownEvenBorderColor,
+    required this.countdownNumberColor,
+    required this.countdownUnitColor,
+    required this.countdownUseLightningEffect,
+    required this.firstArrowColor,
+    required this.secondArrowColor,
+  });
+
+  final Widget? coverBackground;
+  final Color brideNameColor;
+  final Color groomNameColor;
+  final double countdownBorderWidth;
+  final Color countdownOddColor;
+  final Color countdownEvenColor;
+  final Color countdownOddBorderColor;
+  final Color countdownEvenBorderColor;
+  final Color countdownNumberColor;
+  final Color countdownUnitColor;
+  final bool countdownUseLightningEffect;
+  final Color firstArrowColor;
+  final Color secondArrowColor;
+}
+
+class PageViewBasedCoverPage extends StatelessWidget {
+  const PageViewBasedCoverPage({
     super.key,
+    required this.config,
     required this.viewType,
     this.coverImage,
     required this.general,
@@ -24,6 +55,7 @@ class EveryPageIsWrappedCoverPage extends StatelessWidget {
     required this.time,
   });
 
+  final PageViewBasedCoverPageConfig config;
   final ViewType viewType;
   final File? coverImage;
   final GeneralResponse general;
@@ -39,7 +71,25 @@ class EveryPageIsWrappedCoverPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          const CoverBackground(),
+          if (config.coverBackground != null)
+            config.coverBackground!
+          else ...[
+            if (viewType == ViewType.preview) ...[
+              if (coverImage != null) Image.file(coverImage!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+            ] else if (viewType == ViewType.example) ...[
+              if (general.coverImageUrl != null)
+                Image.asset(
+                  general.coverImageUrl!,
+                  height: Screen.height / 1.2,
+                  width: Screen.width,
+                  fit: .cover,
+                  package: 'iv_project_invitation_theme',
+                ),
+            ] else ...[
+              if (general.coverImageUrl != null)
+                Image.network(general.coverImageUrl!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+            ],
+          ],
           Positioned(
             bottom: 0,
             height: Screen.height / 1.2,
@@ -70,8 +120,8 @@ class EveryPageIsWrappedCoverPage extends StatelessWidget {
                 ),
                 SizedBox(height: H.x9s),
                 BridegroomName(
-                  brideNameColor: ThemeColors.roseGold,
-                  groomNameColor: ThemeColors.gold,
+                  brideNameColor: config.brideNameColor,
+                  groomNameColor: config.groomNameColor,
                   bride: bride,
                   groom: groom,
                 ),
@@ -85,23 +135,23 @@ class EveryPageIsWrappedCoverPage extends StatelessWidget {
                 ),
                 SizedBox(height: H.x8s),
                 CountdownTimers(
-                  oddColor: Colors.grey.shade500,
-                  evenColor: Colors.grey.shade500,
-                  oddBorderColor: ThemeColors.gold,
-                  evenBorderColor: ThemeColors.roseGold,
-                  numberColor: ThemeColors.gold,
-                  unitColor: ThemeColors.roseGold,
-                  borderWidth: 2,
+                  oddColor: config.countdownOddColor,
+                  evenColor: config.countdownEvenColor,
+                  oddBorderColor: config.countdownOddBorderColor,
+                  evenBorderColor: config.countdownEvenBorderColor,
+                  numberColor: config.countdownNumberColor,
+                  unitColor: config.countdownUnitColor,
+                  borderWidth: config.countdownBorderWidth,
+                  useLightningEffect: config.countdownUseLightningEffect,
                   time: time.startTime,
-                  useLightningEffect: false,
                 ),
                 SizedBox(height: H.x5s),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   delayBeforeStart: const Duration(milliseconds: 500),
                   child: DoubleArrowSlider(
-                    firstArrowColor: ThemeColors.gold,
-                    secondArrowColor: ThemeColors.roseGold,
+                    firstArrowColor: config.firstArrowColor,
+                    secondArrowColor: config.secondArrowColor,
                     arrowSize: W.lg,
                     sliderPathLength: H.x2l,
                   ),

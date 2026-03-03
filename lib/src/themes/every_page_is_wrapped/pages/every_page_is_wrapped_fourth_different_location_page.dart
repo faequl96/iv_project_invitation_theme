@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -131,7 +132,15 @@ class EveryPageIsWrappedFourthDifferentLocationPage extends StatelessWidget {
                           SizedBox(
                             height: W.x3l,
                             child: CountdownTimers(
+                              oddColor: Colors.grey.shade500,
+                              evenColor: Colors.grey.shade500,
+                              oddBorderColor: ThemeColors.gold,
+                              evenBorderColor: ThemeColors.roseGold,
+                              numberColor: ThemeColors.gold,
+                              unitColor: ThemeColors.roseGold,
+                              borderWidth: 2,
                               time: receptionEvent.startTime,
+                              useLightningEffect: false,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),

@@ -1,14 +1,17 @@
-import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
+import 'package:iv_project_invitation_theme/src/widgets/animated_border_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/group_background.dart';
+import 'package:iv_project_invitation_theme/src/widgets/group_frontground.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class EveryPageIsWrappedSecondPage extends StatelessWidget {
@@ -35,6 +38,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
+          const GroupBackground(),
           Positioned(
             top: 0,
             child: FadeAndSlideTransition(
@@ -46,11 +50,11 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.people, size: W.xs, color: Colors.grey.shade900),
+                    Icon(Icons.people, size: W.xs, color: ThemeColors.gold),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: ThemeColors.gold, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
@@ -63,25 +67,8 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
             width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        // color: Colors.white.withValues(alpha: .1),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                          stops: const [0, 1],
-                        ),
-                        borderRadius: .circular(20),
-                      ),
-                    ),
-                  ),
-                ),
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: Colors.black.withValues(alpha: .7), borderRadius: .circular(20)),
               ),
             ),
           ),
@@ -94,7 +81,15 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
-                  border: .all(width: .5, color: Colors.grey.shade500),
+                  border: const GradientBoxBorder(
+                    width: 3,
+                    gradient: LinearGradient(
+                      begin: .topLeft,
+                      end: .bottomRight,
+                      colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+                      transform: GradientRotation(-0.2),
+                    ),
+                  ),
                 ),
                 child: ClipRRect(
                   borderRadius: .circular(20),
@@ -102,8 +97,20 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                     clipBehavior: .none,
                     alignment: .center,
                     children: [
-                      AnimatedPhotoSequence.left(viewType: viewType, imageUrl: groom.imageUrl, image: groomImage),
-                      AnimatedPhotoSequence.right(viewType: viewType, imageUrl: bride.imageUrl, image: brideImage),
+                      AnimatedPhotoSequence.left(
+                        viewType: viewType,
+                        baseColor: ThemeColors.gold,
+                        borderWidth: 2,
+                        imageUrl: groom.imageUrl,
+                        image: groomImage,
+                      ),
+                      AnimatedPhotoSequence.right(
+                        viewType: viewType,
+                        baseColor: ThemeColors.roseGold,
+                        borderWidth: 2,
+                        imageUrl: bride.imageUrl,
+                        image: brideImage,
+                      ),
                       AnimatedInviter.left(
                         children: [
                           Text.rich(
@@ -116,7 +123,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: bride.fullName,
-                                  style: AppFonts.inter(fontWeight: .w700),
+                                  style: AppFonts.inter(fontWeight: .w700, color: ThemeColors.roseGold),
                                 ),
                                 if ((bride.backTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -129,9 +136,9 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
-                            height: .5,
+                            height: 1,
                             width: W.x16l,
-                            child: ColoredBox(color: Colors.grey.shade200),
+                            child: const ColoredBox(color: ThemeColors.roseGold),
                           ),
                           const SizedBox(height: 6),
                           Text(
@@ -142,7 +149,10 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: [
-                                TextSpan(text: langCode == 'en' ? 'Mr. ' : 'Bp. '),
+                                TextSpan(
+                                  text: langCode == 'en' ? 'Mr. ' : 'Bp. ',
+                                  style: AppFonts.inter(color: ThemeColors.gold),
+                                ),
                                 if ((bride.fatherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.fatherFrontTitle} ',
@@ -150,7 +160,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: bride.fatherName,
-                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: ThemeColors.gold),
                                 ),
                                 if ((bride.fatherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -175,7 +185,10 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: [
-                                TextSpan(text: langCode == 'en' ? 'Mrs. ' : 'Ibu '),
+                                TextSpan(
+                                  text: langCode == 'en' ? 'Mrs. ' : 'Ibu ',
+                                  style: AppFonts.inter(color: ThemeColors.roseGold),
+                                ),
                                 if ((bride.motherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${bride.motherFrontTitle} ',
@@ -183,7 +196,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: bride.motherName,
-                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: ThemeColors.roseGold),
                                 ),
                                 if ((bride.motherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -213,7 +226,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: groom.fullName,
-                                  style: AppFonts.inter(fontWeight: .w700),
+                                  style: AppFonts.inter(fontWeight: .w700, color: ThemeColors.gold),
                                 ),
                                 if ((groom.backTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -227,9 +240,9 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
-                            height: .5,
+                            height: 1,
                             width: W.x16l,
-                            child: ColoredBox(color: Colors.grey.shade200),
+                            child: const ColoredBox(color: ThemeColors.gold),
                           ),
                           const SizedBox(height: 6),
                           Text(
@@ -240,7 +253,10 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: [
-                                TextSpan(text: langCode == 'en' ? 'Mr. ' : 'Bp. '),
+                                TextSpan(
+                                  text: langCode == 'en' ? 'Mr. ' : 'Bp. ',
+                                  style: AppFonts.inter(color: ThemeColors.gold),
+                                ),
                                 if ((groom.fatherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.fatherFrontTitle} ',
@@ -248,7 +264,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: groom.fatherName,
-                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: ThemeColors.gold),
                                 ),
                                 if ((groom.fatherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -274,7 +290,10 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           Text.rich(
                             TextSpan(
                               children: [
-                                TextSpan(text: langCode == 'en' ? 'Mrs. ' : 'Ibu '),
+                                TextSpan(
+                                  text: langCode == 'en' ? 'Mrs. ' : 'Ibu ',
+                                  style: AppFonts.inter(color: ThemeColors.roseGold),
+                                ),
                                 if ((groom.motherFrontTitle ?? '').isNotEmpty)
                                   TextSpan(
                                     text: '${groom.motherFrontTitle} ',
@@ -282,7 +301,7 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: groom.motherName,
-                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic),
+                                  style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: ThemeColors.roseGold),
                                 ),
                                 if ((groom.motherBackTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -301,113 +320,16 @@ class EveryPageIsWrappedSecondPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const _Border.left(),
-                      const _Border.right(),
+                      const AnimatedBorderInviter.top(color: ThemeColors.roseGold, borderWidth: 2),
+                      const AnimatedBorderInviter.bottom(color: ThemeColors.gold, borderWidth: 2),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.white.withValues(alpha: .4),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 3000),
-                animationInterval: const Duration(milliseconds: 3500),
-              ),
-            ),
-          ),
+          const GroupFrontground(),
         ],
-      ),
-    );
-  }
-}
-
-class _Border extends StatefulWidget {
-  const _Border.left() : isLeft = true;
-  const _Border.right() : isLeft = false;
-
-  final bool isLeft;
-
-  @override
-  State<_Border> createState() => _BorderState();
-}
-
-class _BorderState extends State<_Border> with SingleTickerProviderStateMixin {
-  late final StreamSubscription _sub;
-
-  late final AnimationController _controller;
-  late final Animation<double> _lineFadeAnimation;
-
-  int _animationRequestId = 0;
-  void _runAnimation(int animationTrigger) async {
-    final currentId = ++_animationRequestId;
-    await Future<void>.delayed(.zero);
-    if (currentId != _animationRequestId) return;
-    if (mounted) {
-      if (animationTrigger == 1) _controller.forward();
-      if (animationTrigger == 0) _controller.reverse();
-    }
-  }
-
-  void _initAnimation() {
-    _controller = AnimationController(duration: const Duration(milliseconds: 2200), vsync: this);
-
-    _lineFadeAnimation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(.82, 1, curve: Curves.easeIn),
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _initAnimation();
-
-    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      _runAnimation(state.animationTrigger);
-    });
-  }
-
-  @override
-  void dispose() {
-    _sub.cancel();
-    _controller.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SlideTransition(
-      position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isLeft ? -.75 : .75)),
-      child: FadeTransition(
-        opacity: _lineFadeAnimation,
-        child: ScaleTransition(
-          scale: const AlwaysStoppedAnimation<double>(1.12),
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(width: .5, color: Colors.grey.shade200),
-                bottom: BorderSide(width: .5, color: Colors.grey.shade200),
-              ),
-            ),
-            child: SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: Screen.width - (W.x6s * 6)),
-          ),
-        ),
       ),
     );
   }

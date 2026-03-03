@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/every_page_is_wrapped.dart';
+import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/javanese_rose_gold.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeLauncher extends StatefulWidget {
@@ -63,7 +63,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           brandProfile: widget.brandProfile,
         );
       case 2:
-        return EveryPageIsWrapped(
+        return JavaneseRoseGold(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           viewAsImage: widget.viewAsImage,

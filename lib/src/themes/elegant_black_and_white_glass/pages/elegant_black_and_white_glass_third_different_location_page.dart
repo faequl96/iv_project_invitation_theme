@@ -139,7 +139,14 @@ class ElegantBlackAndWhiteGlassThirdDifferentLocationPage extends StatelessWidge
                           SizedBox(
                             height: W.x3l,
                             child: CountdownTimers(
+                              oddColor: Colors.grey.shade500,
+                              evenColor: Colors.grey.shade500,
+                              oddBorderColor: Colors.grey.shade600,
+                              evenBorderColor: Colors.grey.shade600,
+                              numberColor: Colors.grey.shade200,
+                              unitColor: Colors.grey.shade200,
                               time: contractEvent.startTime,
+                              useLightningEffect: true,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),

@@ -7,11 +7,27 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedPhotoSequence extends StatefulWidget {
-  const AnimatedPhotoSequence.left({super.key, required this.viewType, required this.imageUrl, this.image}) : isLeft = true;
-  const AnimatedPhotoSequence.right({super.key, required this.viewType, required this.imageUrl, this.image}) : isLeft = false;
+  const AnimatedPhotoSequence.left({
+    super.key,
+    required this.viewType,
+    required this.baseColor,
+    this.borderWidth = .5,
+    required this.imageUrl,
+    this.image,
+  }) : isLeft = true;
+  const AnimatedPhotoSequence.right({
+    super.key,
+    required this.viewType,
+    required this.baseColor,
+    this.borderWidth = .5,
+    required this.imageUrl,
+    this.image,
+  }) : isLeft = false;
 
   final ViewType viewType;
   final bool isLeft;
+  final Color baseColor;
+  final double borderWidth;
   final String? imageUrl;
   final File? image;
 
@@ -134,8 +150,8 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                           padding: const .symmetric(vertical: 24, horizontal: 2),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              color: Colors.grey.shade50.withValues(alpha: .3),
-                              border: .all(width: .5, color: Colors.grey.shade200),
+                              color: widget.baseColor.withValues(alpha: .3),
+                              border: .all(width: widget.borderWidth, color: widget.baseColor),
                               borderRadius: .circular(4),
                             ),
                           ),

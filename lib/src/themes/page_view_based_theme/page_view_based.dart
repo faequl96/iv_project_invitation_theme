@@ -5,22 +5,55 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/helpers/app_helpers.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_cover_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_eighth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_fifth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_first_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_fourth_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_fourth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_second_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_seventh_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_sixth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_third_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/every_page_is_wrapped/pages/every_page_is_wrapped_third_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EveryPageIsWrapped extends StatefulWidget {
-  const EveryPageIsWrapped({
+class PageViewBasedConfigs {
+  const PageViewBasedConfigs({
+    required this.tabConfig,
+    this.globalBackgroundBuilder,
+    required this.coverPageConfig,
+    required this.firstPageConfig,
+    required this.secondPageConfig,
+  });
+
+  final PageViewBasedTabConfig tabConfig;
+  final Widget Function()? globalBackgroundBuilder;
+  final PageViewBasedCoverPageConfig coverPageConfig;
+  final PageViewBasedFirstPageConfig firstPageConfig;
+  final PageViewBasedSecondPageConfig secondPageConfig;
+}
+
+class PageViewBasedTabConfig {
+  const PageViewBasedTabConfig({
+    required this.indicatorColor,
+    required this.titleActiveColor,
+    required this.titleInactiveColor,
+    required this.iconActiveColor,
+    required this.iconInactiveColor,
+  });
+
+  final Color indicatorColor;
+  final Color titleActiveColor;
+  final Color titleInactiveColor;
+  final Color iconActiveColor;
+  final Color iconInactiveColor;
+}
+
+class PageViewBased extends StatefulWidget {
+  const PageViewBased({
     super.key,
+    required this.configs,
     this.heightAdjustment = 0,
     this.initialPage = 0,
     this.viewAsImage = false,
@@ -31,6 +64,7 @@ class EveryPageIsWrapped extends StatefulWidget {
     required this.brandProfile,
   });
 
+  final PageViewBasedConfigs configs;
   final double heightAdjustment;
   final int initialPage;
   final bool viewAsImage;
@@ -41,10 +75,10 @@ class EveryPageIsWrapped extends StatefulWidget {
   final BrandProfileResponse brandProfile;
 
   @override
-  State<EveryPageIsWrapped> createState() => _EveryPageIsWrappedState();
+  State<PageViewBased> createState() => _PageViewBasedState();
 }
 
-class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBindingObserver {
+class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserver {
   late final InvitationThemeCoreCubit _coreCubit;
 
   bool _isGalleriesNotEmpty = false;
@@ -86,6 +120,7 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
     return PageViewWithBottomTabBar(
+      tabIndicatorColor: widget.configs.tabConfig.indicatorColor,
       heightAdjustment: widget.heightAdjustment,
       initialPage: widget.initialPage,
       viewAsImage: widget.viewAsImage,
@@ -95,13 +130,10 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
         groom: widget.invitationData.groom,
         time: widget.invitationData.contractEvent,
       ),
-      background: SizedBox(
-        width: Screen.width,
-        height: Screen.height,
-        child: const ColoredBox(color: Color.fromARGB(255, 11, 15, 19)),
-      ),
+      background: widget.configs.globalBackgroundBuilder?.call(),
       pages: [
-        EveryPageIsWrappedCoverPage(
+        PageViewBasedCoverPage(
+          config: widget.configs.coverPageConfig,
           viewType: widget.viewType,
           coverImage: widget.imagesRaw?.coverImage,
           general: widget.invitationData.general,
@@ -109,8 +141,9 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
         ),
-        EveryPageIsWrappedFirstPage(general: widget.invitationData.general),
-        EveryPageIsWrappedSecondPage(
+        PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
+        PageViewBasedSecondPage(
+          config: widget.configs.secondPageConfig,
           viewType: widget.viewType,
           brideImage: widget.imagesRaw?.brideImage,
           groomImage: widget.imagesRaw?.groomImage,
@@ -118,25 +151,25 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
           groom: widget.invitationData.groom,
         ),
         if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
-          EveryPageIsWrappedThirdPage(
+          PageViewBasedThirdPage(
             contractEvent: widget.invitationData.contractEvent,
             receptionEvent: widget.invitationData.receptionEvent,
           ),
-          EveryPageIsWrappedFourthPage(receptionEvent: widget.invitationData.receptionEvent),
+          PageViewBasedFourthPage(receptionEvent: widget.invitationData.receptionEvent),
         ] else ...[
-          EveryPageIsWrappedThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
-          EveryPageIsWrappedFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
+          PageViewBasedThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
+          PageViewBasedFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
         ],
         if (_isGalleriesNotEmpty)
-          EveryPageIsWrappedFifthPage(
+          PageViewBasedFifthPage(
             viewType: widget.viewType,
             galleries: widget.imagesRaw?.galleries,
             gallery: widget.invitationData.gallery,
           ),
         if (widget.invitationData.bankAccounts.isNotEmpty)
-          EveryPageIsWrappedSixthPage(bankAccounts: widget.invitationData.bankAccounts),
-        EveryPageIsWrappedSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
-        EveryPageIsWrappedEighthPage(
+          PageViewBasedSixthPage(bankAccounts: widget.invitationData.bankAccounts),
+        PageViewBasedSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
+        PageViewBasedEighthPage(
           general: widget.invitationData.general,
           brideName: widget.invitationData.bride.nickname,
           groomName: widget.invitationData.groom.nickname,
@@ -146,11 +179,12 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
       tabsBuilder: (ValueNotifier<int> tabActive) => [
         Tab(
           height: 48,
-          child: _Tab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
+          child: _Tab(config: widget.configs.tabConfig, title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
         ),
         Tab(
           height: 48,
           child: _Tab(
+            config: widget.configs.tabConfig,
             title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
             icon: Icons.lightbulb,
             tabIndex: 1,
@@ -159,12 +193,19 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
         ),
         Tab(
           height: 48,
-          child: _Tab(title: langCode == 'en' ? 'Inviter' : 'Pengundang', icon: Icons.people, tabIndex: 2, tabActive: tabActive),
+          child: _Tab(
+            config: widget.configs.tabConfig,
+            title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+            icon: Icons.people,
+            tabIndex: 2,
+            tabActive: tabActive,
+          ),
         ),
         if (widget.invitationData.contractEvent.mapsUrl != widget.invitationData.receptionEvent.mapsUrl) ...[
           Tab(
             height: 48,
             child: _Tab(
+              config: widget.configs.tabConfig,
               title: langCode == 'en' ? 'Contract' : 'Akad Nikah',
               icon: Icons.volunteer_activism,
               tabIndex: 3,
@@ -174,6 +215,7 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
           Tab(
             height: 48,
             child: _Tab(
+              config: widget.configs.tabConfig,
               title: langCode == 'en' ? 'Reception' : 'Resepsi',
               icon: Icons.celebration,
               tabIndex: 4,
@@ -183,11 +225,18 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
         ] else ...[
           Tab(
             height: 48,
-            child: _Tab(title: langCode == 'en' ? 'Event' : 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
+            child: _Tab(
+              config: widget.configs.tabConfig,
+              title: langCode == 'en' ? 'Event' : 'Acara',
+              icon: Icons.event,
+              tabIndex: 3,
+              tabActive: tabActive,
+            ),
           ),
           Tab(
             height: 48,
             child: _Tab(
+              config: widget.configs.tabConfig,
               title: langCode == 'en' ? 'Location' : 'Lokasi',
               icon: Icons.location_pin,
               tabIndex: 4,
@@ -199,23 +248,38 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
           Tab(
             height: 48,
             child: _Tab(
+              config: widget.configs.tabConfig,
               title: langCode == 'en' ? 'Gallery' : 'Galeri',
               icon: Icons.photo_library_rounded,
               tabIndex: 5,
               tabActive: tabActive,
             ),
           ),
+        if (widget.invitationData.bankAccounts.isNotEmpty)
+          Tab(
+            height: 48,
+            child: _Tab(
+              config: widget.configs.tabConfig,
+              title: langCode == 'en' ? 'Gift' : 'Kado',
+              icon: Icons.card_giftcard,
+              tabIndex: 6,
+              tabActive: tabActive,
+            ),
+          ),
         Tab(
           height: 48,
-          child: _Tab(title: langCode == 'en' ? 'Gift' : 'Kado', icon: Icons.card_giftcard, tabIndex: 6, tabActive: tabActive),
-        ),
-        Tab(
-          height: 48,
-          child: _Tab(title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),
+          child: _Tab(
+            config: widget.configs.tabConfig,
+            title: 'RSVP',
+            icon: Icons.event_available,
+            tabIndex: 7,
+            tabActive: tabActive,
+          ),
         ),
         Tab(
           height: 48,
           child: _Tab(
+            config: widget.configs.tabConfig,
             title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
             icon: Icons.emoji_emotions,
             tabIndex: 7,
@@ -228,8 +292,9 @@ class _EveryPageIsWrappedState extends State<EveryPageIsWrapped> with WidgetsBin
 }
 
 class _Tab extends StatelessWidget {
-  const _Tab({required this.title, required this.icon, required this.tabIndex, required this.tabActive});
+  const _Tab({required this.config, required this.title, required this.icon, required this.tabIndex, required this.tabActive});
 
+  final PageViewBasedTabConfig config;
   final String title;
   final IconData icon;
   final int tabIndex;
@@ -248,11 +313,14 @@ class _Tab extends StatelessWidget {
             builder: (_, tabActive, _) {
               return Row(
                 children: [
-                  Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
+                  Icon(icon, size: 20, color: tabIndex == tabActive ? config.iconActiveColor : config.iconInactiveColor),
                   const SizedBox(width: 8),
                   Text(
                     title,
-                    style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
+                    style: AppFonts.inter(
+                      color: tabIndex == tabActive ? config.titleActiveColor : config.titleInactiveColor,
+                      fontWeight: .w500,
+                    ),
                   ),
                 ],
               );

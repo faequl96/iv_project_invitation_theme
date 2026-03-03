@@ -12,6 +12,8 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     this.viewAsImage = false,
     required this.wrapper,
     this.background,
+    this.tabIndicatorColor,
+    this.useGlassEffectOnTab = false,
     required this.pages,
     required this.tabsBuilder,
   });
@@ -21,6 +23,8 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final bool viewAsImage;
   final Widget wrapper;
   final Widget? background;
+  final Color? tabIndicatorColor;
+  final bool useGlassEffectOnTab;
   final List<Widget> pages;
   final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
 
@@ -165,7 +169,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                                 indicatorWeight: 5,
                                 indicator: UnderlineTabIndicator(
                                   borderRadius: .circular(2),
-                                  borderSide: BorderSide(width: 4, color: Colors.grey.shade50),
+                                  borderSide: BorderSide(width: 4, color: widget.tabIndicatorColor ?? Colors.grey.shade50),
                                   insets: const .fromLTRB(0, 0, 0, 45),
                                 ),
                                 splashBorderRadius: .circular(36),
@@ -174,7 +178,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                           ),
                         ),
                       ),
-                      if (_indexActive.value > 0)
+                      if (widget.useGlassEffectOnTab && _indexActive.value > 0)
                         GlassEffectBox(
                           width: Screen.width - 28,
                           height: 52,

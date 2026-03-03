@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/audio_player_widget.dart';
+import 'package:iv_project_invitation_theme/src/widgets/bride_groom_name.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -80,7 +81,12 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: H.x9s),
-                _BridegroomName(bride: bride, groom: groom),
+                BridegroomName(
+                  brideNameColor: Colors.grey.shade300,
+                  groomNameColor: Colors.grey.shade300,
+                  bride: bride,
+                  groom: groom,
+                ),
                 SizedBox(height: H.md),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
@@ -90,12 +96,26 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: H.x8s),
-                CountdownTimers(time: time.startTime),
+                CountdownTimers(
+                  oddColor: Colors.grey.shade500,
+                  evenColor: Colors.grey.shade500,
+                  oddBorderColor: Colors.grey.shade600,
+                  evenBorderColor: Colors.grey.shade600,
+                  numberColor: Colors.grey.shade200,
+                  unitColor: Colors.grey.shade200,
+                  useLightningEffect: true,
+                  time: time.startTime,
+                ),
                 SizedBox(height: H.x5s),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   delayBeforeStart: const Duration(milliseconds: 500),
-                  child: DoubleArrowSlider(arrowSize: W.lg, sliderPathLength: H.x2l),
+                  child: DoubleArrowSlider(
+                    firstArrowColor: Colors.grey.shade100,
+                    secondArrowColor: Colors.grey.shade300,
+                    arrowSize: W.lg,
+                    sliderPathLength: H.x2l,
+                  ),
                 ),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
@@ -113,102 +133,6 @@ class ElegantBlackAndWhiteGlassCoverPage extends StatelessWidget {
             const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
         ],
       ),
-    );
-  }
-}
-
-class _BridegroomName extends StatelessWidget {
-  const _BridegroomName({required this.bride, required this.groom});
-
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: const Alignment(0, 0),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .3,
-            slideFrom: .left,
-            animationSpeed: const Duration(milliseconds: 500),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: bride.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.grey.shade300),
-                  ),
-                  TextSpan(
-                    text: ' & ',
-                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
-                  ),
-                  TextSpan(
-                    text: groom.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                ],
-              ),
-              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const Alignment(0, 0),
-          child: FadeAndSlideTransition(
-            slideFromOffset: 0,
-            delayBeforeStart: const Duration(milliseconds: 300),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: bride.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                  TextSpan(
-                    text: ' & ',
-                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.grey.shade300),
-                  ),
-                  TextSpan(
-                    text: groom.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                ],
-              ),
-              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const Alignment(0, 0),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .3,
-            slideFrom: .right,
-            animationSpeed: const Duration(milliseconds: 500),
-            delayBeforeStart: const Duration(milliseconds: 400),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: bride.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                  TextSpan(
-                    text: ' & ',
-                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
-                  ),
-                  TextSpan(
-                    text: groom.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.grey.shade300),
-                  ),
-                ],
-              ),
-              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

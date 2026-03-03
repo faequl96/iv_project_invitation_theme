@@ -5,12 +5,16 @@ import 'package:flutter/material.dart';
 class DoubleArrowSlider extends StatefulWidget {
   const DoubleArrowSlider({
     super.key,
+    required this.firstArrowColor,
+    required this.secondArrowColor,
     this.arrowSize = 44,
     this.sliderPathLength = 60,
     this.animationSpeed = const Duration(milliseconds: 500),
     this.animationInterval = const Duration(milliseconds: 500),
   });
 
+  final Color firstArrowColor;
+  final Color secondArrowColor;
   final double arrowSize;
   final double sliderPathLength;
   final Duration animationSpeed;
@@ -78,19 +82,11 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
           children: [
             Positioned(
               top: -(widget.arrowSize / 8),
-              child: Icon(
-                Icons.keyboard_arrow_up_rounded,
-                size: widget.arrowSize,
-                color: Colors.grey.shade100.withValues(alpha: .8),
-              ),
+              child: Icon(Icons.keyboard_arrow_up_rounded, size: widget.arrowSize, color: widget.firstArrowColor),
             ),
             Positioned(
               bottom: -(widget.arrowSize / 8),
-              child: Icon(
-                Icons.keyboard_arrow_up_rounded,
-                size: widget.arrowSize,
-                color: Colors.grey.shade300.withValues(alpha: .5),
-              ),
+              child: Icon(Icons.keyboard_arrow_up_rounded, size: widget.arrowSize, color: widget.secondArrowColor),
             ),
           ],
         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -11,8 +10,8 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class EveryPageIsWrappedThirdDifferentLocationPage extends StatelessWidget {
-  const EveryPageIsWrappedThirdDifferentLocationPage({super.key, required this.contractEvent});
+class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
+  const PageViewBasedThirdDifferentLocationPage({super.key, required this.contractEvent});
 
   final EventResponse contractEvent;
 
@@ -142,13 +141,12 @@ class EveryPageIsWrappedThirdDifferentLocationPage extends StatelessWidget {
                             child: CountdownTimers(
                               oddColor: Colors.grey.shade500,
                               evenColor: Colors.grey.shade500,
-                              oddBorderColor: ThemeColors.gold,
-                              evenBorderColor: ThemeColors.roseGold,
-                              numberColor: ThemeColors.gold,
-                              unitColor: ThemeColors.roseGold,
-                              borderWidth: 2,
+                              oddBorderColor: Colors.grey.shade600,
+                              evenBorderColor: Colors.grey.shade600,
+                              numberColor: Colors.grey.shade200,
+                              unitColor: Colors.grey.shade200,
                               time: contractEvent.startTime,
-                              useLightningEffect: false,
+                              useLightningEffect: true,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),
