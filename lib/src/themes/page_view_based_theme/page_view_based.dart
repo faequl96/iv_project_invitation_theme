@@ -26,6 +26,9 @@ class PageViewBasedConfigs {
     required this.firstPageConfig,
     required this.secondPageConfig,
     required this.thirdPageConfig,
+    required this.fourthPageConfig,
+    required this.fifthPageConfig,
+    required this.sixthPageConfig,
   });
 
   final PageViewBasedTabConfig tabConfig;
@@ -34,6 +37,9 @@ class PageViewBasedConfigs {
   final PageViewBasedFirstPageConfig firstPageConfig;
   final PageViewBasedSecondPageConfig secondPageConfig;
   final PageViewBasedThirdPageConfig thirdPageConfig;
+  final PageViewBasedFourthPageConfig fourthPageConfig;
+  final PageViewBasedFifthPageConfig fifthPageConfig;
+  final PageViewBasedSixthPageConfig sixthPageConfig;
 }
 
 class PageViewBasedTabConfig {
@@ -161,19 +167,20 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             contractEvent: widget.invitationData.contractEvent,
             receptionEvent: widget.invitationData.receptionEvent,
           ),
-          PageViewBasedFourthPage(receptionEvent: widget.invitationData.receptionEvent),
+          PageViewBasedFourthPage(config: widget.configs.fourthPageConfig, receptionEvent: widget.invitationData.receptionEvent),
         ] else ...[
           PageViewBasedThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
           PageViewBasedFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
         ],
         if (_isGalleriesNotEmpty)
           PageViewBasedFifthPage(
+            config: widget.configs.fifthPageConfig,
             viewType: widget.viewType,
             galleries: widget.imagesRaw?.galleries,
             gallery: widget.invitationData.gallery,
           ),
         if (widget.invitationData.bankAccounts.isNotEmpty)
-          PageViewBasedSixthPage(bankAccounts: widget.invitationData.bankAccounts),
+          PageViewBasedSixthPage(config: widget.configs.sixthPageConfig, bankAccounts: widget.invitationData.bankAccounts),
         PageViewBasedSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
         PageViewBasedEighthPage(
           general: widget.invitationData.general,

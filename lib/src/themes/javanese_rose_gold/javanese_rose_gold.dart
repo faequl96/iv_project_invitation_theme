@@ -5,8 +5,11 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/group_background.dart';
@@ -153,6 +156,81 @@ class JavaneseRoseGold extends StatelessWidget {
           countdownNumberColor: ThemeColors.gold,
           countdownUnitColor: ThemeColors.roseGold,
           useLightningEffectOnCountdown: false,
+        ),
+        fourthPageConfig: PageViewBasedFourthPageConfig(
+          frontground: const GroupFrontground(),
+          background: const GroupBackground(),
+          useBackdropBlurOnScaffold: false,
+          scaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          placeIconColor: ThemeColors.gold,
+          placeTextColor: ThemeColors.roseGold,
+          getDirectionsButtonColor: ThemeColors.gold.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: ThemeColors.gold,
+          getDirectionsButtonBorderWidth: 2,
+          getDirectionsButtonBorderColor: ThemeColors.gold,
+        ),
+        fifthPageConfig: PageViewBasedFifthPageConfig(
+          frontground: const GroupFrontground(),
+          background: const GroupBackground(),
+          useBackdropBlurOnScaffold: false,
+          scaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          dividingLineWidth: 2,
+          dividingVerticalLineColor: ThemeColors.gold,
+          dividingHorizontalLineColor: ThemeColors.roseGold,
+          seeMoreButtonColor: ThemeColors.gold.withValues(alpha: .2),
+          seeMoreButtonLabelColor: ThemeColors.gold,
+          seeMoreButtonBorderWidth: 2,
+          seeMoreButtonBorderColor: ThemeColors.gold,
+          bottomSheetHandleColor: ThemeColors.gold,
+          bottomSheetContentScaffoldColor: ThemeColors.roseGold.withValues(alpha: .2),
+        ),
+        sixthPageConfig: PageViewBasedSixthPageConfig(
+          frontground: const GroupFrontground(),
+          background: const GroupBackground(),
+          useBackdropBlurOnScaffold: false,
+          scaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          dividingLineWidth: 2,
+          dividingVerticalLineColor: ThemeColors.gold,
+          dividingHorizontalLineColor: ThemeColors.roseGold,
+          seeMoreButtonColor: ThemeColors.gold.withValues(alpha: .2),
+          seeMoreButtonLabelColor: ThemeColors.gold,
+          seeMoreButtonBorderWidth: 2,
+          seeMoreButtonBorderColor: ThemeColors.gold,
+          bottomSheetHandleColor: ThemeColors.gold,
+          bottomSheetContentScaffoldColor: ThemeColors.roseGold.withValues(alpha: .2),
         ),
       ),
       heightAdjustment: heightAdjustment,

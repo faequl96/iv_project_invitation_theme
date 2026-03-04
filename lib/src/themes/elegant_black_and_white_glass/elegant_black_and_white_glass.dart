@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -59,9 +62,9 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
         ),
         firstPageConfig: PageViewBasedFirstPageConfig(
           useBackdropBlurOnScaffold: true,
-          scaffoldColor: Colors.black.withValues(alpha: .6),
           firstGradientBackgroundColor: Colors.grey.shade900,
           secondGradientBackgroundColor: Colors.transparent,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
           scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
           useGlassEffectOnScaffold: true,
           titlePageColor: Colors.grey.shade200,
@@ -99,12 +102,12 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
         ),
         thirdPageConfig: PageViewBasedThirdPageConfig(
           useBackdropBlurOnScaffold: true,
-          scaffoldColor: Colors.black.withValues(alpha: .6),
           firstGradientBackgroundColor: Colors.transparent,
           secondGradientBackgroundColor: Colors.grey.shade900,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
           scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
           useGlassEffectOnScaffold: true,
-          titlePageColor: Colors.grey.shade200,
+          titlePageColor: Colors.grey.shade900,
           contractTitleColor: Colors.grey.shade100,
           receptionTitleColor: Colors.grey.shade100,
           dividingLineWidth: .5,
@@ -117,6 +120,55 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           countdownNumberColor: Colors.grey.shade200,
           countdownUnitColor: Colors.grey.shade200,
           useLightningEffectOnCountdown: true,
+        ),
+        fourthPageConfig: PageViewBasedFourthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.grey.shade900,
+          secondGradientBackgroundColor: Colors.transparent,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade200,
+          placeIconColor: Colors.grey.shade50,
+          placeTextColor: Colors.grey.shade50,
+          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: .5,
+          getDirectionsButtonBorderColor: Colors.grey.shade500,
+        ),
+        fifthPageConfig: PageViewBasedFifthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          dividingLineWidth: .5,
+          dividingVerticalLineColor: Colors.grey.shade500,
+          dividingHorizontalLineColor: Colors.grey.shade500,
+          seeMoreButtonColor: Colors.black.withValues(alpha: .5),
+          seeMoreButtonLabelColor: Colors.grey.shade50,
+          seeMoreButtonBorderWidth: .5,
+          seeMoreButtonBorderColor: Colors.grey.shade500,
+          bottomSheetHandleColor: null,
+          bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
+        ),
+        sixthPageConfig: PageViewBasedSixthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.transparent,
+          secondGradientBackgroundColor: Colors.grey.shade900,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          dividingLineWidth: .5,
+          dividingVerticalLineColor: Colors.grey.shade500,
+          dividingHorizontalLineColor: Colors.grey.shade500,
+          seeMoreButtonColor: Colors.black.withValues(alpha: .5),
+          seeMoreButtonLabelColor: Colors.grey.shade50,
+          seeMoreButtonBorderWidth: .5,
+          seeMoreButtonBorderColor: Colors.grey.shade500,
+          bottomSheetHandleColor: null,
+          bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
         ),
       ),
       heightAdjustment: heightAdjustment,

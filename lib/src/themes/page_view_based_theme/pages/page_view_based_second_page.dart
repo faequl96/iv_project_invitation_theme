@@ -100,7 +100,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
           if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
-              height: Screen.height / 1.2,
+              height: Screen.height,
               width: Screen.width,
               child: DecoratedBox(
                 decoration: BoxDecoration(

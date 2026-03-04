@@ -30,7 +30,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
         children: [
           Positioned(
             top: 0,
-            height: Screen.height / 1.4,
+            height: Screen.height / 1.2,
             width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(

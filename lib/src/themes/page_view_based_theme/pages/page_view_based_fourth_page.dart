@@ -9,9 +9,46 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class PageViewBasedFourthPage extends StatelessWidget {
-  const PageViewBasedFourthPage({super.key, required this.receptionEvent});
+class PageViewBasedFourthPageConfig {
+  const PageViewBasedFourthPageConfig({
+    this.frontground,
+    this.background,
+    required this.useBackdropBlurOnScaffold,
+    required this.scaffoldColor,
+    required this.scaffoldBorder,
+    required this.useGlassEffectOnScaffold,
+    this.firstGradientBackgroundColor,
+    this.secondGradientBackgroundColor,
+    required this.titlePageColor,
+    required this.placeIconColor,
+    required this.placeTextColor,
+    required this.getDirectionsButtonColor,
+    required this.getDirectionsButtonLabelColor,
+    required this.getDirectionsButtonBorderWidth,
+    required this.getDirectionsButtonBorderColor,
+  });
 
+  final Widget? frontground;
+  final Widget? background;
+  final bool useBackdropBlurOnScaffold;
+  final Color scaffoldColor;
+  final BoxBorder scaffoldBorder;
+  final bool useGlassEffectOnScaffold;
+  final Color? firstGradientBackgroundColor;
+  final Color? secondGradientBackgroundColor;
+  final Color titlePageColor;
+  final Color placeIconColor;
+  final Color placeTextColor;
+  final Color getDirectionsButtonColor;
+  final Color getDirectionsButtonLabelColor;
+  final double getDirectionsButtonBorderWidth;
+  final Color getDirectionsButtonBorderColor;
+}
+
+class PageViewBasedFourthPage extends StatelessWidget {
+  const PageViewBasedFourthPage({super.key, required this.config, required this.receptionEvent});
+
+  final PageViewBasedFourthPageConfig config;
   final EventResponse receptionEvent;
 
   @override
@@ -22,21 +59,25 @@ class PageViewBasedFourthPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          Positioned(
-            top: 0,
-            height: Screen.height / 1.4,
-            width: Screen.width,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: .topCenter,
-                  end: .bottomCenter,
-                  colors: [Colors.grey.shade900, Colors.transparent],
-                  stops: const [.2, .8],
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+            Positioned(
+              top: 0,
+              height: Screen.height / 1.2,
+              width: Screen.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: .topCenter,
+                    end: .bottomCenter,
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    stops: const [.2, .8],
+                  ),
                 ),
               ),
             ),
-          ),
+
+          config.background ?? const SizedBox.shrink(),
+
           Positioned(
             top: 0,
             child: FadeAndSlideTransition(
@@ -48,36 +89,49 @@ class PageViewBasedFourthPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.location_pin, size: W.xs, color: Colors.grey.shade200),
+                    Icon(Icons.location_pin, size: W.xs, color: config.titlePageColor),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
+          if (config.useBackdropBlurOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: RepaintBoundary(
+                  child: ClipRRect(
+                    borderRadius: .circular(20),
+                    child: BackdropFilter(
+                      filter: .blur(sigmaX: 3, sigmaY: 3),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                      ),
                     ),
                   ),
                 ),
               ),
+            )
+          else
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                ),
+              ),
             ),
-          ),
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -85,10 +139,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  border: .all(width: .5, color: Colors.grey.shade500),
-                ),
+                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
                 child: ClipRect(
                   child: Column(
                     children: [
@@ -99,11 +150,11 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         delayBeforeStart: const Duration(milliseconds: 200),
                         child: Column(
                           children: [
-                            Icon(Icons.maps_home_work_rounded, size: 32, color: Colors.grey.shade50),
+                            Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
                             const SizedBox(height: 4),
                             Text(
                               receptionEvent.place,
-                              style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.xl, fontWeight: .w600),
+                              style: AppFonts.inter(color: config.placeTextColor, fontSize: FontSize.xl, fontWeight: .w600),
                             ),
                             const SizedBox(height: 8),
                             SizedBox(
@@ -149,14 +200,21 @@ class PageViewBasedFourthPage extends StatelessWidget {
                           padding: const .symmetric(horizontal: 24),
                           height: W.lg + H.x10s,
                           borderRadius: .circular(30),
-                          border: .all(width: .5, color: Colors.grey.shade600),
-                          color: Colors.white.withValues(alpha: .2),
+                          border: .all(
+                            width: config.getDirectionsButtonBorderWidth,
+                            color: config.getDirectionsButtonBorderColor,
+                          ),
+                          color: config.getDirectionsButtonColor,
                           child: Stack(
                             alignment: .center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.md, fontWeight: .w600),
+                                style: AppFonts.inter(
+                                  color: config.getDirectionsButtonLabelColor,
+                                  fontSize: FontSize.md,
+                                  fontWeight: .w600,
+                                ),
                               ),
                             ],
                           ),
@@ -170,24 +228,27 @@ class PageViewBasedFourthPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.white.withValues(alpha: .4),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 2200),
-                animationInterval: const Duration(milliseconds: 3500),
+          if (config.useGlassEffectOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: GlassEffectBox(
+                  width: Screen.width - 32,
+                  height: Screen.height - (76 + H.x6l),
+                  borderRadius: 20,
+                  sliderWidth: 90,
+                  color: Colors.white.withValues(alpha: .4),
+                  animationSpeed: const Duration(milliseconds: 600),
+                  delayBeforeStart: const Duration(milliseconds: 2200),
+                  animationInterval: const Duration(milliseconds: 3500),
+                ),
               ),
             ),
-          ),
+
+          config.frontground ?? const SizedBox.shrink(),
         ],
       ),
     );
