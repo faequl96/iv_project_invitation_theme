@@ -19,15 +19,12 @@ class PageViewBasedSixthPageConfig {
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
+    required this.introductionColor,
+    required this.introductionBorderColor,
+    required this.introductionBorderWidth,
+    required this.bankColor,
+    required this.bankBorderColor,
+    required this.bankBorderWidth,
   });
 
   final Widget? frontground;
@@ -39,15 +36,12 @@ class PageViewBasedSixthPageConfig {
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
+  final Color introductionColor;
+  final Color introductionBorderColor;
+  final double introductionBorderWidth;
+  final Color bankColor;
+  final Color bankBorderColor;
+  final double bankBorderWidth;
 }
 
 class PageViewBasedSixthPage extends StatelessWidget {
@@ -157,9 +151,9 @@ class PageViewBasedSixthPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: .all(width: .5, color: Colors.grey.shade500),
+                              border: .all(width: config.introductionBorderWidth, color: config.introductionBorderColor),
                               borderRadius: .circular(10),
-                              color: Colors.white.withValues(alpha: .05),
+                              color: config.introductionColor,
                             ),
                             child: Padding(
                               padding: .only(top: H.sm, left: 24, right: 24, bottom: H.sm),
@@ -183,7 +177,12 @@ class PageViewBasedSixthPage extends StatelessWidget {
                         children: [
                           for (final bankAccount in bankAccounts) ...[
                             SizedBox(height: H.x4s),
-                            _BankAccount(bankAccount: bankAccount),
+                            _BankAccount(
+                              bankColor: config.bankColor,
+                              bankBorderWidth: config.bankBorderWidth,
+                              bankBorderColor: config.bankBorderColor,
+                              bankAccount: bankAccount,
+                            ),
                           ],
                         ],
                       ),
@@ -222,8 +221,16 @@ class PageViewBasedSixthPage extends StatelessWidget {
 }
 
 class _BankAccount extends StatelessWidget {
-  const _BankAccount({required this.bankAccount});
+  const _BankAccount({
+    required this.bankColor,
+    required this.bankBorderColor,
+    required this.bankBorderWidth,
+    required this.bankAccount,
+  });
 
+  final Color bankColor;
+  final Color bankBorderColor;
+  final double bankBorderWidth;
   final BankAccountResponse bankAccount;
 
   @override
@@ -240,9 +247,9 @@ class _BankAccount extends StatelessWidget {
             height: W.x7l,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: .05),
+                color: bankColor,
                 borderRadius: .circular(10),
-                border: .all(width: .5, color: Colors.grey.shade500),
+                border: .all(width: bankBorderWidth, color: bankBorderColor),
               ),
               child: Padding(
                 padding: const .all(6),
@@ -288,9 +295,9 @@ class _BankAccount extends StatelessWidget {
                 padding: const .only(left: 2),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    border: .all(width: .5, color: Colors.grey.shade500),
+                    border: .all(width: bankBorderWidth, color: bankBorderColor),
                     borderRadius: const .only(topRight: .circular(10), bottomRight: .circular(10)),
-                    color: Colors.white.withValues(alpha: .05),
+                    color: bankColor,
                   ),
                   child: Row(
                     children: [
