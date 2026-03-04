@@ -15,7 +15,6 @@ class PageViewBasedSecondPageConfig {
   const PageViewBasedSecondPageConfig({
     this.frontground,
     this.background,
-    required this.useGradientBackground,
     required this.useBackdropBlurOnScaffold,
     required this.scaffoldColor,
     required this.scaffoldBorder,
@@ -45,7 +44,6 @@ class PageViewBasedSecondPageConfig {
 
   final Widget? frontground;
   final Widget? background;
-  final bool useGradientBackground;
   final bool useBackdropBlurOnScaffold;
   final Color scaffoldColor;
   final BoxBorder scaffoldBorder;
@@ -59,18 +57,18 @@ class PageViewBasedSecondPageConfig {
   final Color brideDividingBorderColor;
   final Color brideImageBaseColor;
   final Color brideDividingLineColor;
-  final Color brideNameTextColor;
-  final Color brideFatherNameTextColor;
-  final Color brideMotherNameTextColor;
+  final Color? brideNameTextColor;
+  final Color? brideFatherNameTextColor;
+  final Color? brideMotherNameTextColor;
   final double groomDividingBorderWidth;
   final double groomImageBorderWidth;
   final double groomDividingLineWidth;
   final Color groomDividingBorderColor;
   final Color groomImageBaseColor;
   final Color groomDividingLineColor;
-  final Color groomNameTextColor;
-  final Color groomFatherNameTextColor;
-  final Color groomMotherNameTextColor;
+  final Color? groomNameTextColor;
+  final Color? groomFatherNameTextColor;
+  final Color? groomMotherNameTextColor;
 }
 
 class PageViewBasedSecondPage extends StatelessWidget {
@@ -99,7 +97,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.useGradientBackground)
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
               height: Screen.height / 1.2,
@@ -109,10 +107,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [
-                      if (config.firstGradientBackgroundColor != null) config.firstGradientBackgroundColor!,
-                      if (config.secondGradientBackgroundColor != null) config.secondGradientBackgroundColor!,
-                    ],
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
                   ),
                 ),
               ),

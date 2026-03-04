@@ -10,7 +10,6 @@ class PageViewBasedFirstPageConfig {
   const PageViewBasedFirstPageConfig({
     this.frontground,
     this.background,
-    required this.useGradientBackground,
     required this.useBackdropBlurOnScaffold,
     required this.scaffoldColor,
     required this.scaffoldBorder,
@@ -28,7 +27,6 @@ class PageViewBasedFirstPageConfig {
 
   final Widget? frontground;
   final Widget? background;
-  final bool useGradientBackground;
   final bool useBackdropBlurOnScaffold;
   final Color scaffoldColor;
   final BoxBorder scaffoldBorder;
@@ -58,7 +56,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.useGradientBackground)
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
               height: Screen.height / 1.2,
@@ -68,10 +66,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [
-                      if (config.firstGradientBackgroundColor != null) config.firstGradientBackgroundColor!,
-                      if (config.secondGradientBackgroundColor != null) config.secondGradientBackgroundColor!,
-                    ],
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
                     stops: const [.2, .8],
                   ),
                 ),

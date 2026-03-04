@@ -7,6 +7,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/group_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/group_frontground.dart';
@@ -39,6 +40,7 @@ class JavaneseRoseGold extends StatelessWidget {
     return PageViewBased(
       configs: PageViewBasedConfigs(
         tabConfig: const PageViewBasedTabConfig(
+          useGlassEffectOnTab: false,
           indicatorColor: ThemeColors.gold,
           titleActiveColor: ThemeColors.gold,
           titleInactiveColor: ThemeColors.roseGold,
@@ -61,14 +63,13 @@ class JavaneseRoseGold extends StatelessWidget {
           countdownEvenBorderColor: ThemeColors.roseGold,
           countdownNumberColor: ThemeColors.gold,
           countdownUnitColor: ThemeColors.roseGold,
-          countdownUseLightningEffect: false,
+          useLightningEffectOnCountdown: false,
           firstArrowColor: ThemeColors.gold.withValues(alpha: .9),
           secondArrowColor: ThemeColors.roseGold.withValues(alpha: .7),
         ),
         firstPageConfig: PageViewBasedFirstPageConfig(
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
-          useGradientBackground: false,
           useBackdropBlurOnScaffold: false,
           scaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
@@ -92,7 +93,6 @@ class JavaneseRoseGold extends StatelessWidget {
         secondPageConfig: PageViewBasedSecondPageConfig(
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
-          useGradientBackground: false,
           useBackdropBlurOnScaffold: false,
           scaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
@@ -124,6 +124,35 @@ class JavaneseRoseGold extends StatelessWidget {
           groomNameTextColor: ThemeColors.gold,
           groomFatherNameTextColor: ThemeColors.gold,
           groomMotherNameTextColor: ThemeColors.roseGold,
+        ),
+        thirdPageConfig: PageViewBasedThirdPageConfig(
+          frontground: const GroupFrontground(),
+          background: const GroupBackground(),
+          useBackdropBlurOnScaffold: false,
+          scaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          contractTitleColor: ThemeColors.gold,
+          receptionTitleColor: ThemeColors.roseGold,
+          dividingLineWidth: 1,
+          dividingLineColor: ThemeColors.gold,
+          countdownBorderWidth: 2,
+          countdownOddColor: ThemeColors.gold.withValues(alpha: .1),
+          countdownEvenColor: ThemeColors.roseGold.withValues(alpha: .1),
+          countdownOddBorderColor: ThemeColors.gold,
+          countdownEvenBorderColor: ThemeColors.roseGold,
+          countdownNumberColor: ThemeColors.gold,
+          countdownUnitColor: ThemeColors.roseGold,
+          useLightningEffectOnCountdown: false,
         ),
       ),
       heightAdjustment: heightAdjustment,

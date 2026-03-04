@@ -23,7 +23,7 @@ class PageViewBasedCoverPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.countdownUseLightningEffect,
+    required this.useLightningEffectOnCountdown,
     required this.firstArrowColor,
     required this.secondArrowColor,
   });
@@ -38,7 +38,7 @@ class PageViewBasedCoverPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool countdownUseLightningEffect;
+  final bool useLightningEffectOnCountdown;
   final Color firstArrowColor;
   final Color secondArrowColor;
 }
@@ -142,7 +142,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
                   numberColor: config.countdownNumberColor,
                   unitColor: config.countdownUnitColor,
                   borderWidth: config.countdownBorderWidth,
-                  useLightningEffect: config.countdownUseLightningEffect,
+                  useLightningEffect: config.useLightningEffectOnCountdown,
                   time: time.startTime,
                 ),
                 SizedBox(height: H.x5s),

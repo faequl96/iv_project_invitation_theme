@@ -4,8 +4,8 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/random_slide_transition.dart';
 
-class ElegantBlackAndWhiteGlassBackground extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassBackground({super.key});
+class BubbleBackground extends StatelessWidget {
+  const BubbleBackground({super.key});
 
   @override
   Widget build(BuildContext context) {

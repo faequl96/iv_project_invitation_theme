@@ -25,6 +25,7 @@ class PageViewBasedConfigs {
     required this.coverPageConfig,
     required this.firstPageConfig,
     required this.secondPageConfig,
+    required this.thirdPageConfig,
   });
 
   final PageViewBasedTabConfig tabConfig;
@@ -32,10 +33,12 @@ class PageViewBasedConfigs {
   final PageViewBasedCoverPageConfig coverPageConfig;
   final PageViewBasedFirstPageConfig firstPageConfig;
   final PageViewBasedSecondPageConfig secondPageConfig;
+  final PageViewBasedThirdPageConfig thirdPageConfig;
 }
 
 class PageViewBasedTabConfig {
   const PageViewBasedTabConfig({
+    required this.useGlassEffectOnTab,
     required this.indicatorColor,
     required this.titleActiveColor,
     required this.titleInactiveColor,
@@ -43,6 +46,7 @@ class PageViewBasedTabConfig {
     required this.iconInactiveColor,
   });
 
+  final bool useGlassEffectOnTab;
   final Color indicatorColor;
   final Color titleActiveColor;
   final Color titleInactiveColor;
@@ -120,10 +124,11 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
     return PageViewWithBottomTabBar(
-      tabIndicatorColor: widget.configs.tabConfig.indicatorColor,
       heightAdjustment: widget.heightAdjustment,
       initialPage: widget.initialPage,
       viewAsImage: widget.viewAsImage,
+      useGlassEffectOnTab: widget.configs.tabConfig.useGlassEffectOnTab,
+      tabIndicatorColor: widget.configs.tabConfig.indicatorColor,
       wrapper: InitializerWrapper(
         viewType: widget.viewType,
         bride: widget.invitationData.bride,
@@ -152,6 +157,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
         ),
         if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
           PageViewBasedThirdPage(
+            config: widget.configs.thirdPageConfig,
             contractEvent: widget.invitationData.contractEvent,
             receptionEvent: widget.invitationData.receptionEvent,
           ),
