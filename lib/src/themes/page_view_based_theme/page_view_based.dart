@@ -29,6 +29,7 @@ class PageViewBasedConfigs {
     required this.fourthPageConfig,
     required this.fifthPageConfig,
     required this.sixthPageConfig,
+    required this.seventhPageConfig,
   });
 
   final PageViewBasedTabConfig tabConfig;
@@ -40,6 +41,7 @@ class PageViewBasedConfigs {
   final PageViewBasedFourthPageConfig fourthPageConfig;
   final PageViewBasedFifthPageConfig fifthPageConfig;
   final PageViewBasedSixthPageConfig sixthPageConfig;
+  final PageViewBasedSeventhPageConfig seventhPageConfig;
 }
 
 class PageViewBasedTabConfig {
@@ -181,7 +183,11 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           ),
         if (widget.invitationData.bankAccounts.isNotEmpty)
           PageViewBasedSixthPage(config: widget.configs.sixthPageConfig, bankAccounts: widget.invitationData.bankAccounts),
-        PageViewBasedSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
+        PageViewBasedSeventhPage(
+          config: widget.configs.seventhPageConfig,
+          viewType: widget.viewType,
+          invitationId: widget.invitationId,
+        ),
         PageViewBasedEighthPage(
           general: widget.invitationData.general,
           brideName: widget.invitationData.bride.nickname,
@@ -295,7 +301,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             config: widget.configs.tabConfig,
             title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
             icon: Icons.emoji_emotions,
-            tabIndex: 7,
+            tabIndex: 8,
             tabActive: tabActive,
           ),
         ),

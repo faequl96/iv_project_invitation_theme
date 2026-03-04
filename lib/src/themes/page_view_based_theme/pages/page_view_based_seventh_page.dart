@@ -14,9 +14,54 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class PageViewBasedSeventhPage extends StatelessWidget {
-  const PageViewBasedSeventhPage({super.key, required this.viewType, required this.invitationId});
+class PageViewBasedSeventhPageConfig {
+  const PageViewBasedSeventhPageConfig({
+    this.frontground,
+    this.background,
+    required this.useBackdropBlurOnScaffold,
+    required this.scaffoldColor,
+    required this.scaffoldBorder,
+    required this.useGlassEffectOnScaffold,
+    this.firstGradientBackgroundColor,
+    this.secondGradientBackgroundColor,
+    required this.titlePageColor,
+    required this.submitButtonColor,
+    required this.submitButtonLabelColor,
+    required this.submitButtonBorderWidth,
+    required this.submitButtonBorderColor,
+    required this.seeMoreButtonColor,
+    required this.seeMoreButtonLabelColor,
+    required this.seeMoreButtonBorderWidth,
+    required this.seeMoreButtonBorderColor,
+    required this.bottomSheetHandleColor,
+    required this.bottomSheetContentScaffoldColor,
+  });
 
+  final Widget? frontground;
+  final Widget? background;
+  final bool useBackdropBlurOnScaffold;
+  final Color scaffoldColor;
+  final BoxBorder scaffoldBorder;
+  final bool useGlassEffectOnScaffold;
+  final Color? firstGradientBackgroundColor;
+  final Color? secondGradientBackgroundColor;
+  final Color titlePageColor;
+  final Color submitButtonColor;
+  final Color submitButtonLabelColor;
+  final double submitButtonBorderWidth;
+  final Color submitButtonBorderColor;
+  final Color seeMoreButtonColor;
+  final Color seeMoreButtonLabelColor;
+  final double seeMoreButtonBorderWidth;
+  final Color seeMoreButtonBorderColor;
+  final Color? bottomSheetHandleColor;
+  final Color bottomSheetContentScaffoldColor;
+}
+
+class PageViewBasedSeventhPage extends StatelessWidget {
+  const PageViewBasedSeventhPage({super.key, required this.config, required this.viewType, required this.invitationId});
+
+  final PageViewBasedSeventhPageConfig config;
   final ViewType viewType;
   final String invitationId;
 
@@ -28,21 +73,25 @@ class PageViewBasedSeventhPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          Positioned(
-            top: 0,
-            height: Screen.height / 1.2,
-            width: Screen.width,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: .topCenter,
-                  end: .bottomCenter,
-                  colors: [Colors.grey.shade900, Colors.transparent],
-                  stops: const [.2, .8],
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+            Positioned(
+              top: 0,
+              height: Screen.height / 1.2,
+              width: Screen.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: .topCenter,
+                    end: .bottomCenter,
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    stops: const [.2, .8],
+                  ),
                 ),
               ),
             ),
-          ),
+
+          config.background ?? const SizedBox.shrink(),
+
           Positioned(
             top: 0,
             child: FadeAndSlideTransition(
@@ -54,44 +103,49 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.event_available, size: W.xs, color: Colors.grey.shade200),
+                    Icon(Icons.event_available, size: W.xs, color: config.titlePageColor),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                          stops: const [0, 1],
-                        ),
-                        borderRadius: .circular(20),
+          if (config.useBackdropBlurOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: RepaintBoundary(
+                  child: ClipRRect(
+                    borderRadius: .circular(20),
+                    child: BackdropFilter(
+                      filter: .blur(sigmaX: 3, sigmaY: 3),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
                       ),
                     ),
                   ),
                 ),
               ),
+            )
+          else
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                ),
+              ),
             ),
-          ),
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -99,15 +153,19 @@ class PageViewBasedSeventhPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  border: .all(width: .5, color: Colors.grey.shade500),
-                ),
+                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
                 child: ClipRect(
                   child: Column(
                     children: [
                       SizedBox(height: W.x5s),
-                      RSVPForm(viewType: viewType, invitationId: invitationId),
+                      RSVPForm(
+                        submitButtonColor: config.submitButtonColor,
+                        submitButtonLabelColor: config.submitButtonLabelColor,
+                        submitButtonBorderWidth: config.submitButtonBorderWidth,
+                        submitButtonBorderColor: config.submitButtonBorderColor,
+                        viewType: viewType,
+                        invitationId: invitationId,
+                      ),
                       SizedBox(height: H.x8s),
                       Expanded(
                         child: FadeAndSlideTransition(
@@ -174,15 +232,18 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                       width: .maxFinite,
                                       height: W.lg + H.x10s,
                                       borderRadius: .circular(30),
-                                      border: .all(width: .5, color: Colors.grey.shade500),
-                                      color: Colors.grey.shade900.withValues(alpha: .8),
+                                      border: .all(
+                                        width: config.seeMoreButtonBorderWidth,
+                                        color: config.seeMoreButtonBorderColor,
+                                      ),
+                                      color: config.seeMoreButtonColor,
                                       child: Stack(
                                         alignment: .center,
                                         children: [
                                           Text(
                                             langCode == 'en' ? 'See More' : 'Selengkapnya',
                                             style: AppFonts.inter(
-                                              color: Colors.grey.shade100,
+                                              color: config.seeMoreButtonLabelColor,
                                               fontSize: FontSize.md,
                                               fontWeight: .w600,
                                             ),
@@ -204,24 +265,27 @@ class PageViewBasedSeventhPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.grey.shade300.withValues(alpha: .4),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 3600),
-                animationInterval: const Duration(milliseconds: 3500),
+          if (config.useGlassEffectOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: GlassEffectBox(
+                  width: Screen.width - 32,
+                  height: Screen.height - (76 + H.x6l),
+                  borderRadius: 20,
+                  sliderWidth: 90,
+                  color: Colors.grey.shade300.withValues(alpha: .4),
+                  animationSpeed: const Duration(milliseconds: 600),
+                  delayBeforeStart: const Duration(milliseconds: 3600),
+                  animationInterval: const Duration(milliseconds: 3500),
+                ),
               ),
             ),
-          ),
+
+          config.frontground ?? const SizedBox.shrink(),
         ],
       ),
     );
@@ -229,8 +293,20 @@ class PageViewBasedSeventhPage extends StatelessWidget {
 }
 
 class RSVPForm extends StatefulWidget {
-  const RSVPForm({super.key, required this.viewType, required this.invitationId});
+  const RSVPForm({
+    super.key,
+    required this.submitButtonColor,
+    required this.submitButtonLabelColor,
+    required this.submitButtonBorderWidth,
+    required this.submitButtonBorderColor,
+    required this.viewType,
+    required this.invitationId,
+  });
 
+  final Color submitButtonColor;
+  final Color submitButtonLabelColor;
+  final double submitButtonBorderWidth;
+  final Color submitButtonBorderColor;
   final ViewType viewType;
   final String invitationId;
 
@@ -501,14 +577,14 @@ class _RSVPFormState extends State<RSVPForm> {
                     width: .maxFinite,
                     height: W.lg + H.x10s,
                     borderRadius: .circular(30),
-                    border: .all(width: .5, color: Colors.grey.shade500),
-                    color: Colors.black.withValues(alpha: .3),
+                    border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
+                    color: widget.submitButtonColor,
                     child: Row(
                       mainAxisAlignment: .center,
                       children: [
                         Text(
                           'Submit',
-                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+                          style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
                         ),
                       ],
                     ),
@@ -520,8 +596,8 @@ class _RSVPFormState extends State<RSVPForm> {
                       width: .maxFinite,
                       height: W.lg + H.x10s,
                       borderRadius: .circular(30),
-                      border: .all(width: .5, color: Colors.grey.shade500),
-                      color: Colors.black.withValues(alpha: .3),
+                      border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
+                      color: widget.submitButtonColor,
                       child: Row(
                         mainAxisAlignment: .center,
                         children: [
@@ -531,7 +607,7 @@ class _RSVPFormState extends State<RSVPForm> {
                           ],
                           Text(
                             'Submit',
-                            style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
+                            style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
                           ),
                         ],
                       ),

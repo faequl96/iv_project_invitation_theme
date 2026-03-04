@@ -22,6 +22,8 @@ class PageViewBasedFourthPageConfig {
     required this.titlePageColor,
     required this.placeIconColor,
     required this.placeTextColor,
+    required this.dividingLineWidth,
+    required this.dividingLineColor,
     required this.getDirectionsButtonColor,
     required this.getDirectionsButtonLabelColor,
     required this.getDirectionsButtonBorderWidth,
@@ -39,6 +41,8 @@ class PageViewBasedFourthPageConfig {
   final Color titlePageColor;
   final Color placeIconColor;
   final Color placeTextColor;
+  final double dividingLineWidth;
+  final Color dividingLineColor;
   final Color getDirectionsButtonColor;
   final Color getDirectionsButtonLabelColor;
   final double getDirectionsButtonBorderWidth;
@@ -158,9 +162,9 @@ class PageViewBasedFourthPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             SizedBox(
-                              height: .5,
+                              height: config.dividingLineWidth,
                               width: W.x18l,
-                              child: ColoredBox(color: Colors.grey.shade50),
+                              child: ColoredBox(color: config.dividingLineColor),
                             ),
                           ],
                         ),

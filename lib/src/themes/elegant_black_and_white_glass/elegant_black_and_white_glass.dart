@@ -6,6 +6,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
@@ -131,6 +132,8 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           titlePageColor: Colors.grey.shade200,
           placeIconColor: Colors.grey.shade50,
           placeTextColor: Colors.grey.shade50,
+          dividingLineWidth: .5,
+          dividingLineColor: Colors.grey.shade50,
           getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
           getDirectionsButtonLabelColor: Colors.white,
           getDirectionsButtonBorderWidth: .5,
@@ -166,6 +169,23 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           bankColor: Colors.white.withValues(alpha: .05),
           bankBorderColor: Colors.grey.shade500,
           bankBorderWidth: .5,
+        ),
+        seventhPageConfig: PageViewBasedSeventhPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          submitButtonColor: Colors.black.withValues(alpha: .3),
+          submitButtonLabelColor: Colors.grey.shade100,
+          submitButtonBorderWidth: .5,
+          submitButtonBorderColor: Colors.grey.shade500,
+          seeMoreButtonColor: Colors.grey.shade900.withValues(alpha: .8),
+          seeMoreButtonLabelColor: Colors.grey.shade100,
+          seeMoreButtonBorderWidth: .5,
+          seeMoreButtonBorderColor: Colors.grey.shade500,
+          bottomSheetHandleColor: null,
+          bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
         ),
       ),
       heightAdjustment: heightAdjustment,
