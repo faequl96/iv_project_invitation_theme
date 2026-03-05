@@ -34,7 +34,6 @@ class PageViewBasedSeventhPageConfig {
     required this.seeMoreButtonBorderWidth,
     required this.seeMoreButtonBorderColor,
     required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
   });
 
   final Widget? frontground;
@@ -55,7 +54,6 @@ class PageViewBasedSeventhPageConfig {
   final double seeMoreButtonBorderWidth;
   final Color seeMoreButtonBorderColor;
   final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
 }
 
 class PageViewBasedSeventhPage extends StatelessWidget {
@@ -197,7 +195,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                           context,
                                           barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                                           header: BottomSheetHeader(
-                                            title: const .handleBar(),
+                                            title: .handleBar(color: config.bottomSheetHandleColor),
                                             action: HeaderAction(
                                               actionIcon: Icons.close_rounded,
                                               iconColor: Colors.grey.shade400,

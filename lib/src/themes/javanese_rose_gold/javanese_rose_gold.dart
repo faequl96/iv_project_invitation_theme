@@ -5,6 +5,7 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
@@ -257,7 +258,27 @@ class JavaneseRoseGold extends StatelessWidget {
           seeMoreButtonBorderWidth: 2,
           seeMoreButtonBorderColor: ThemeColors.roseGold,
           bottomSheetHandleColor: ThemeColors.gold,
-          bottomSheetContentScaffoldColor: ThemeColors.roseGold.withValues(alpha: .2),
+        ),
+        eighthPageConfig: PageViewBasedEighthPageConfig(
+          frontground: const GroupFrontground(),
+          background: const GroupBackground(),
+          useBackdropBlurOnScaffold: false,
+          scaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          closingTextColor: Colors.grey.shade100,
+          brideGroomNameColor: ThemeColors.gold,
+          brandBackgroundColor: Colors.grey.shade800.withValues(alpha: .6),
+          brandTextColor: Colors.grey.shade50,
         ),
       ),
       heightAdjustment: heightAdjustment,

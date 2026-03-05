@@ -30,6 +30,7 @@ class PageViewBasedConfigs {
     required this.fifthPageConfig,
     required this.sixthPageConfig,
     required this.seventhPageConfig,
+    required this.eighthPageConfig,
   });
 
   final PageViewBasedTabConfig tabConfig;
@@ -42,6 +43,7 @@ class PageViewBasedConfigs {
   final PageViewBasedFifthPageConfig fifthPageConfig;
   final PageViewBasedSixthPageConfig sixthPageConfig;
   final PageViewBasedSeventhPageConfig seventhPageConfig;
+  final PageViewBasedEighthPageConfig eighthPageConfig;
 }
 
 class PageViewBasedTabConfig {
@@ -189,6 +191,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           invitationId: widget.invitationId,
         ),
         PageViewBasedEighthPage(
+          config: widget.configs.eighthPageConfig,
           general: widget.invitationData.general,
           brideName: widget.invitationData.bride.nickname,
           groomName: widget.invitationData.groom.nickname,

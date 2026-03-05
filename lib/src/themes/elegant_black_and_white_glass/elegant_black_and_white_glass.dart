@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
@@ -185,7 +186,17 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           seeMoreButtonBorderWidth: .5,
           seeMoreButtonBorderColor: Colors.grey.shade500,
           bottomSheetHandleColor: null,
-          bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
+        ),
+        eighthPageConfig: PageViewBasedEighthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          closingTextColor: Colors.grey.shade900,
+          brideGroomNameColor: Colors.grey.shade900,
+          brandBackgroundColor: Colors.grey.shade200.withValues(alpha: .7),
+          brandTextColor: Colors.grey.shade600,
         ),
       ),
       heightAdjustment: heightAdjustment,
