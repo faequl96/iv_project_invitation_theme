@@ -4,43 +4,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
-class FadeAndSlideTransition extends StatefulWidget {
-  const FadeAndSlideTransition({
+class BackgroundSlideTransition extends StatefulWidget {
+  const BackgroundSlideTransition({
     super.key,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    this.delayBeforeStart = .zero,
-    this.fadeBegin = 0,
-    this.fadeEnd = 1,
-    this.slideFrom = .bottom,
-    this.slideFromOffset = .5,
+    required this.animationSpeed,
+    required this.delayedBeforeStart,
+    required this.slideFrom,
     this.isNoNeedTrigger = false,
     required this.child,
   });
 
   final Duration animationSpeed;
-  final Duration delayBeforeStart;
-  final double fadeBegin;
-  final double fadeEnd;
-  final SlideFrom slideFrom;
-  final double slideFromOffset;
+  final Duration delayedBeforeStart;
+  final GroundSlideFrom slideFrom;
   final bool isNoNeedTrigger;
   final Widget child;
 
   @override
-  State<FadeAndSlideTransition> createState() => _FadeAndSlideTransitionState();
+  State<BackgroundSlideTransition> createState() => _BackgroundSlideTransitionState();
 }
 
-class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with TickerProviderStateMixin {
+class _BackgroundSlideTransitionState extends State<BackgroundSlideTransition> with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 
   late final AnimationController _controller;
-  late final Animation<Offset> _slideAnimation;
   late final Animation<double> _fadeAnimation;
+  late final Animation<Offset> _slideAnimation;
 
   int _animationRequestId = 0;
   void _runAnimation(int animationTrigger) async {
     final currentId = ++_animationRequestId;
-    await Future<void>.delayed(widget.delayBeforeStart);
+    await Future<void>.delayed(widget.delayedBeforeStart);
     if (currentId != _animationRequestId) return;
     if (mounted) {
       if (animationTrigger == 1) _controller.forward();
@@ -51,30 +45,22 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
   void _initAnimation() {
     _controller = AnimationController(vsync: this, duration: widget.animationSpeed);
 
-    late final Offset beginOffset;
-    switch (widget.slideFrom) {
-      case .top:
-        beginOffset = Offset(0, -widget.slideFromOffset);
-        break;
-      case .left:
-        beginOffset = Offset(-widget.slideFromOffset, 0);
-        break;
-      case .right:
-        beginOffset = Offset(widget.slideFromOffset, 0);
-        break;
-      case .bottom:
-        beginOffset = Offset(0, widget.slideFromOffset);
-        break;
-    }
-    _slideAnimation = Tween<Offset>(
-      begin: beginOffset,
-      end: Offset.zero,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.46, .46, curve: Threshold(.0)),
+      ),
+    );
 
-    _fadeAnimation = Tween<double>(
-      begin: widget.fadeBegin,
-      end: widget.fadeEnd,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeIn));
+    final beginOffset = widget.slideFrom == .left ? const Offset(-1.08, 0) : const Offset(1.08, 0);
+    final endOffset = widget.slideFrom == .left ? Offset.zero : Offset.zero;
+
+    _slideAnimation = Tween<Offset>(begin: beginOffset, end: endOffset).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: const Interval(.54, 1, curve: Curves.easeIn),
+      ),
+    );
   }
 
   @override

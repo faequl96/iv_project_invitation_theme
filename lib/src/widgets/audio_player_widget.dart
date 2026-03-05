@@ -1,5 +1,5 @@
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/core/core_static.dart';
+import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
@@ -29,7 +29,7 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<PlayerState>(
-      stream: CoreStatic.player.playerStateStream,
+      stream: Audio.player.playerStateStream,
       builder: (context, snapshot) {
         final playerState = snapshot.data;
         final processingState = playerState?.processingState;
@@ -52,18 +52,18 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
         IconData? icon;
 
         if (playing != true) {
-          onTap = CoreStatic.player.play;
+          onTap = Audio.player.play;
           icon = Icons.play_arrow;
           _controller.stop();
         } else if (processingState != .completed) {
-          onTap = CoreStatic.player.pause;
+          onTap = Audio.player.pause;
           icon = Icons.pause;
           _controller.repeat();
         } else {
           onTap = () async {
-            CoreStatic.player.seek(.zero);
-            CoreStatic.player.pause();
-            CoreStatic.player.play();
+            Audio.player.seek(.zero);
+            Audio.player.pause();
+            Audio.player.play();
           };
           icon = Icons.replay;
           _controller.reset();

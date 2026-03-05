@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/widgets/check_in_qr.dart';
+import 'package:iv_project_invitation_theme/src/widgets/check_in_qr.dart';
 import 'package:iv_project_invitation_theme/src/opener/blurry_clear_cover.dart';
 import 'package:iv_project_invitation_theme/src/opener/padlock.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
@@ -158,9 +158,9 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 ),
               ),
             ],
-            if (widget.viewType == ViewType.live && CoreStatic.player.audioSource != null)
+            if (widget.viewType == ViewType.live && Audio.player.audioSource != null)
               StreamBuilder<ProcessingState>(
-                stream: CoreStatic.player.processingStateStream,
+                stream: Audio.player.processingStateStream,
                 builder: (_, snapshot) {
                   final processingState = snapshot.data;
 
@@ -185,7 +185,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                           await Future<void>.delayed(const Duration(milliseconds: 1000));
 
-                          CoreStatic.player.play();
+                          Audio.player.play();
 
                           if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                         },

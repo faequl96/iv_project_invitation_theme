@@ -5,8 +5,7 @@ homepage:
 publish_to: "none"
 
 environment:
-  sdk: ^3.10.8
-  flutter: ">=1.17.0"
+  sdk: ^3.11.1
 
 dependencies:
   flutter:
@@ -44,6 +43,8 @@ dependencies:
 
   intl: ^0.20.2
 
+  gradient_borders: ^1.0.2
+
   just_audio: ^0.10.5
 
   flutter_map: ^8.2.1
@@ -61,6 +62,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+    - assets/backgrounds/
     - assets/dummys/
     - assets/avatars/
     - assets/banks/

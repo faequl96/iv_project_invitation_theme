@@ -6,9 +6,46 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFirstPage({super.key, required this.general});
+class PageViewBasedFirstPageConfig {
+  const PageViewBasedFirstPageConfig({
+    this.frontground,
+    this.background,
+    required this.useBackdropBlurOnScaffold,
+    required this.scaffoldColor,
+    required this.scaffoldBorder,
+    required this.useGlassEffectOnScaffold,
+    this.firstGradientBackgroundColor,
+    this.secondGradientBackgroundColor,
+    required this.titlePageColor,
+    required this.firstSubScaffoldColor,
+    required this.firstSubScaffoldBorderColor,
+    required this.firstSubScaffoldBorderWidth,
+    required this.secondSubScaffoldColor,
+    required this.secondSubScaffoldBorderColor,
+    required this.secondSubScaffoldBorderWidth,
+  });
 
+  final Widget? frontground;
+  final Widget? background;
+  final bool useBackdropBlurOnScaffold;
+  final Color scaffoldColor;
+  final BoxBorder scaffoldBorder;
+  final bool useGlassEffectOnScaffold;
+  final Color? firstGradientBackgroundColor;
+  final Color? secondGradientBackgroundColor;
+  final Color titlePageColor;
+  final Color firstSubScaffoldColor;
+  final Color firstSubScaffoldBorderColor;
+  final double firstSubScaffoldBorderWidth;
+  final Color secondSubScaffoldColor;
+  final Color secondSubScaffoldBorderColor;
+  final double secondSubScaffoldBorderWidth;
+}
+
+class PageViewBasedFirstPage extends StatelessWidget {
+  const PageViewBasedFirstPage({super.key, required this.config, required this.general});
+
+  final PageViewBasedFirstPageConfig config;
   final GeneralResponse general;
 
   @override
@@ -19,21 +56,25 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          Positioned(
-            top: 0,
-            height: Screen.height / 1.2,
-            width: Screen.width,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: .topCenter,
-                  end: .bottomCenter,
-                  colors: [Colors.grey.shade900, Colors.transparent],
-                  stops: const [.2, .8],
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+            Positioned(
+              top: 0,
+              height: Screen.height / 1.2,
+              width: Screen.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: .topCenter,
+                    end: .bottomCenter,
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    stops: const [.2, .8],
+                  ),
                 ),
               ),
             ),
-          ),
+
+          config.background ?? const SizedBox.shrink(),
+
           Positioned(
             top: 0,
             child: FadeAndSlideTransition(
@@ -45,38 +86,44 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                 child: Center(
                   child: Text(
                     langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
-                    style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
+                    style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
                   ),
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      // color: Colors.white.withValues(alpha: .1),
-                      gradient: LinearGradient(
-                        begin: .topCenter,
-                        end: .bottomCenter,
-                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                        stops: const [0, 1],
+          if (config.useBackdropBlurOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: RepaintBoundary(
+                  child: ClipRRect(
+                    borderRadius: .circular(20),
+                    child: BackdropFilter(
+                      filter: .blur(sigmaX: 3, sigmaY: 3),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
                       ),
-                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
               ),
+            )
+          else
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                ),
+              ),
             ),
-          ),
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -84,14 +131,10 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  border: .all(width: .5, color: Colors.grey.shade500),
-                ),
+                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
                 child: ClipRect(
                   child: Column(
                     children: [
-                      // SizedBox(height: H.x2l),
                       const Spacer(),
                       FadeAndSlideTransition(
                         slideFromOffset: .5,
@@ -102,7 +145,6 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontSize.x7l),
                         ),
                       ),
-                      // SizedBox(height: H.xs),
                       const Spacer(),
                       FadeAndSlideTransition(
                         slideFromOffset: .4,
@@ -112,9 +154,9 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: .all(width: .5, color: Colors.grey.shade500),
+                              border: .all(width: config.firstSubScaffoldBorderWidth, color: config.firstSubScaffoldBorderColor),
                               borderRadius: .circular(10),
-                              color: Colors.white.withValues(alpha: .05),
+                              color: config.firstSubScaffoldColor,
                             ),
                             child: Padding(
                               padding: .only(top: H.md, left: 20, right: 20, bottom: H.sm),
@@ -167,9 +209,12 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: .all(width: .5, color: Colors.grey.shade500),
+                              border: .all(
+                                width: config.secondSubScaffoldBorderWidth,
+                                color: config.secondSubScaffoldBorderColor,
+                              ),
                               borderRadius: .circular(10),
-                              color: Colors.white.withValues(alpha: .05),
+                              color: config.secondSubScaffoldColor,
                             ),
                             child: Padding(
                               padding: .only(top: H.xs, left: 20, right: 20, bottom: H.sm),
@@ -212,7 +257,6 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // SizedBox(height: H.xs),
                       const Spacer(),
                       const Spacer(),
                     ],
@@ -221,24 +265,27 @@ class ElegantBlackAndWhiteGlassFirstPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.grey.shade300.withValues(alpha: .4),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 2200),
-                animationInterval: const Duration(milliseconds: 3500),
+          if (config.useGlassEffectOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: GlassEffectBox(
+                  width: Screen.width - 32,
+                  height: Screen.height - (76 + H.x6l),
+                  borderRadius: 20,
+                  sliderWidth: 90,
+                  color: Colors.grey.shade300.withValues(alpha: .4),
+                  animationSpeed: const Duration(milliseconds: 600),
+                  delayBeforeStart: const Duration(milliseconds: 2200),
+                  animationInterval: const Duration(milliseconds: 3500),
+                ),
               ),
             ),
-          ),
+
+          config.frontground ?? const SizedBox.shrink(),
         ],
       ),
     );

@@ -80,14 +80,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
           height: (W.x8l * 2) - (W.x3s * 1.4),
           child: Row(
             children: [
-              if (!widget.isLeft) ...[
-                SizedBox(width: W.x11l - 6),
-                SizedBox(
-                  height: (W.x8l * 2) - (W.x3s * 1.4),
-                  width: .5,
-                  child: ColoredBox(color: Colors.grey.shade200),
-                ),
-              ],
+              if (!widget.isLeft) ...[SizedBox(width: W.x10l)],
               Expanded(
                 child: ClipRect(
                   child: SlideTransition(
@@ -106,14 +99,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                   ),
                 ),
               ),
-              if (widget.isLeft) ...[
-                SizedBox(
-                  height: (W.x8l * 2) - (W.x3s * 1.4),
-                  width: .5,
-                  child: ColoredBox(color: Colors.grey.shade200),
-                ),
-                SizedBox(width: W.x11l - 6),
-              ],
+              if (widget.isLeft) ...[SizedBox(width: W.x10l)],
             ],
           ),
         ),

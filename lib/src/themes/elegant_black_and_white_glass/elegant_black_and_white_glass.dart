@@ -1,335 +1,212 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-// import 'package:iv_project_invitation_theme/src/core/utils/audio.dart';
-import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_cover_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_eighth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fifth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_first_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
-// import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_fourth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_second_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_seventh_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_sixth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/pages/elegant_black_and_white_glass_third_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
+import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class ElegantBlackAndWhiteGlass extends StatefulWidget {
+class ElegantBlackAndWhiteGlass extends StatelessWidget {
   const ElegantBlackAndWhiteGlass({
     super.key,
     this.heightAdjustment = 0,
+    this.initialPage = 0,
+    this.viewAsImage = false,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
     this.imagesRaw,
     required this.brandProfile,
-    this.useWrapper = true,
-    this.initialPage = 0,
-    this.isSinglePageView = false,
   });
 
   final double heightAdjustment;
+  final int initialPage;
+  final bool viewAsImage;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
   final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
-  final bool useWrapper;
-  final int initialPage;
-  final bool isSinglePageView;
-
-  @override
-  State<ElegantBlackAndWhiteGlass> createState() => _ElegantBlackAndWhiteGlassState();
-}
-
-class _ElegantBlackAndWhiteGlassState extends State<ElegantBlackAndWhiteGlass> with WidgetsBindingObserver {
-  late final InvitationThemeCoreCubit _coreCubit;
-
-  bool _isGalleriesNotEmpty = false;
-
-  void _setSize() {
-    final size = MediaQuery.of(GlobalContextService.value).size;
-    final padding = MediaQuery.of(GlobalContextService.value).padding;
-
-    late final Size finalSize;
-    if (size.width > 440) {
-      if (size.height < 915) {
-        finalSize = Size(412, size.height - (padding.top + widget.heightAdjustment + padding.bottom));
-      } else {
-        finalSize = const Size(412, 915);
-      }
-    } else {
-      if (size.height < 915) {
-        finalSize = Size(size.width, size.height - (padding.top + widget.heightAdjustment + padding.bottom));
-      } else {
-        finalSize = Size(size.width, 915);
-      }
-    }
-
-    Screen.set(finalSize);
-    H.set(finalSize.height);
-    W.set(finalSize.width);
-    FontSize.set(finalSize.width);
-
-    _coreCubit.state.copyWith(size: finalSize).emitState();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance.addObserver(this);
-
-    _coreCubit = context.read<InvitationThemeCoreCubit>();
-
-    if (widget.viewType == ViewType.preview) {
-      if (widget.imagesRaw != null) {
-        for (final file in widget.imagesRaw!.galleries) {
-          if (file != null) {
-            _isGalleriesNotEmpty = true;
-            break;
-          }
-        }
-      }
-    } else {
-      final gallery = widget.invitationData.gallery;
-      if (gallery.imageURL1 != null ||
-          gallery.imageURL2 != null ||
-          gallery.imageURL3 != null ||
-          gallery.imageURL4 != null ||
-          gallery.imageURL5 != null ||
-          gallery.imageURL6 != null ||
-          gallery.imageURL7 != null ||
-          gallery.imageURL8 != null ||
-          gallery.imageURL9 != null ||
-          gallery.imageURL10 != null ||
-          gallery.imageURL11 != null ||
-          gallery.imageURL12 != null) {
-        _isGalleriesNotEmpty = true;
-      }
-    }
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    _setSize();
-  }
-
-  @override
-  void didChangeMetrics() {
-    super.didChangeMetrics();
-
-    _setSize();
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final langCode = context.read<LocaleCubit>().state.languageCode;
-
-    return Stack(
-      children: [
-        PageViewWithBottomTabBar(
-          heightAdjustment: widget.heightAdjustment,
-          useWrapper: widget.useWrapper,
-          initialPage: widget.initialPage,
-          pages: [
-            ElegantBlackAndWhiteGlassCoverPage(
-              viewType: widget.viewType,
-              coverImage: widget.imagesRaw?.coverImage,
-              general: widget.invitationData.general,
-              bride: widget.invitationData.bride,
-              groom: widget.invitationData.groom,
-              time: widget.invitationData.contractEvent,
-            ),
-            ElegantBlackAndWhiteGlassFirstPage(general: widget.invitationData.general),
-            ElegantBlackAndWhiteGlassSecondPage(
-              viewType: widget.viewType,
-              brideImage: widget.imagesRaw?.brideImage,
-              groomImage: widget.imagesRaw?.groomImage,
-              bride: widget.invitationData.bride,
-              groom: widget.invitationData.groom,
-            ),
-            if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
-              ElegantBlackAndWhiteGlassThirdPage(
-                contractEvent: widget.invitationData.contractEvent,
-                receptionEvent: widget.invitationData.receptionEvent,
-              ),
-              ElegantBlackAndWhiteGlassFourthPage(receptionEvent: widget.invitationData.receptionEvent),
-            ] else ...[
-              ElegantBlackAndWhiteGlassThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
-              ElegantBlackAndWhiteGlassFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
-            ],
-            if (_isGalleriesNotEmpty)
-              ElegantBlackAndWhiteGlassFifthPage(
-                viewType: widget.viewType,
-                galleries: widget.imagesRaw?.galleries,
-                gallery: widget.invitationData.gallery,
-              ),
-            ElegantBlackAndWhiteGlassSixthPage(bankAccounts: widget.invitationData.bankAccounts),
-            ElegantBlackAndWhiteGlassSeventhPage(viewType: widget.viewType, invitationId: widget.invitationId),
-            ElegantBlackAndWhiteGlassEighthPage(
-              general: widget.invitationData.general,
-              brideName: widget.invitationData.bride.nickname,
-              groomName: widget.invitationData.groom.nickname,
-              brandProfile: widget.brandProfile,
-            ),
-          ],
-          tabsBuilder: (ValueNotifier<int> tabActive) => [
-            Tab(
-              height: 48,
-              child: _Tab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
-            ),
-            Tab(
-              height: 48,
-              child: _Tab(
-                title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
-                icon: Icons.lightbulb,
-                tabIndex: 1,
-                tabActive: tabActive,
-              ),
-            ),
-            Tab(
-              height: 48,
-              child: _Tab(
-                title: langCode == 'en' ? 'Inviter' : 'Pengundang',
-                icon: Icons.people,
-                tabIndex: 2,
-                tabActive: tabActive,
-              ),
-            ),
-            if (widget.invitationData.contractEvent.mapsUrl != widget.invitationData.receptionEvent.mapsUrl) ...[
-              Tab(
-                height: 48,
-                child: _Tab(
-                  title: langCode == 'en' ? 'Contract' : 'Akad Nikah',
-                  icon: Icons.volunteer_activism,
-                  tabIndex: 3,
-                  tabActive: tabActive,
-                ),
-              ),
-              Tab(
-                height: 48,
-                child: _Tab(
-                  title: langCode == 'en' ? 'Reception' : 'Resepsi',
-                  icon: Icons.celebration,
-                  tabIndex: 4,
-                  tabActive: tabActive,
-                ),
-              ),
-            ] else ...[
-              Tab(
-                height: 48,
-                child: _Tab(title: langCode == 'en' ? 'Event' : 'Acara', icon: Icons.event, tabIndex: 3, tabActive: tabActive),
-              ),
-              Tab(
-                height: 48,
-                child: _Tab(
-                  title: langCode == 'en' ? 'Location' : 'Lokasi',
-                  icon: Icons.location_pin,
-                  tabIndex: 4,
-                  tabActive: tabActive,
-                ),
-              ),
-            ],
-            if (_isGalleriesNotEmpty)
-              Tab(
-                height: 48,
-                child: _Tab(
-                  title: langCode == 'en' ? 'Gallery' : 'Galeri',
-                  icon: Icons.photo_library_rounded,
-                  tabIndex: 5,
-                  tabActive: tabActive,
-                ),
-              ),
-            Tab(
-              height: 48,
-              child: _Tab(
-                title: langCode == 'en' ? 'Gift' : 'Kado',
-                icon: Icons.card_giftcard,
-                tabIndex: 6,
-                tabActive: tabActive,
-              ),
-            ),
-            Tab(
-              height: 48,
-              child: _Tab(title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),
-            ),
-            Tab(
-              height: 48,
-              child: _Tab(
-                title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-                icon: Icons.emoji_emotions,
-                tabIndex: 7,
-                tabActive: tabActive,
-              ),
-            ),
-          ],
+    return PageViewBased(
+      configs: PageViewBasedConfigs(
+        tabConfig: PageViewBasedTabConfig(
+          useGlassEffectOnTab: true,
+          indicatorColor: Colors.grey.shade50,
+          titleActiveColor: Colors.white,
+          titleInactiveColor: Colors.grey.shade400,
+          iconActiveColor: Colors.white,
+          iconInactiveColor: Colors.grey.shade400,
         ),
-        if (widget.useWrapper)
-          InitializerWrapper(
-            viewType: widget.viewType,
-            bride: widget.invitationData.bride,
-            groom: widget.invitationData.groom,
-            time: widget.invitationData.contractEvent,
-          ),
-        if (widget.isSinglePageView)
-          const SizedBox(
-            height: .maxFinite,
-            width: .maxFinite,
-            child: ColoredBox(color: Colors.transparent),
-          ),
-      ],
-    );
-  }
-}
-
-class _Tab extends StatelessWidget {
-  const _Tab({required this.title, required this.icon, required this.tabIndex, required this.tabActive});
-
-  final String title;
-  final IconData icon;
-  final int tabIndex;
-  final ValueNotifier<int> tabActive;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: .center,
-      children: [
-        const SizedBox(height: 6),
-        Padding(
-          padding: const .symmetric(horizontal: 6),
-          child: ValueListenableBuilder(
-            valueListenable: tabActive,
-            builder: (_, tabActive, _) {
-              return Row(
-                children: [
-                  Icon(icon, size: 20, color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400),
-                  const SizedBox(width: 8),
-                  Text(
-                    title,
-                    style: AppFonts.inter(color: tabIndex == tabActive ? Colors.white : Colors.grey.shade400, fontWeight: .w500),
-                  ),
-                ],
-              );
-            },
-          ),
+        globalBackgroundBuilder: () => const BubbleBackground(),
+        coverPageConfig: PageViewBasedCoverPageConfig(
+          brideNameColor: Colors.grey.shade300,
+          groomNameColor: Colors.grey.shade300,
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownEvenColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownOddBorderColor: Colors.grey.shade600,
+          countdownEvenBorderColor: Colors.grey.shade600,
+          countdownNumberColor: Colors.grey.shade200,
+          countdownUnitColor: Colors.grey.shade200,
+          useLightningEffectOnCountdown: true,
+          firstArrowColor: Colors.grey.shade100.withValues(alpha: .7),
+          secondArrowColor: Colors.grey.shade300.withValues(alpha: .5),
         ),
-      ],
+        firstPageConfig: PageViewBasedFirstPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.grey.shade900,
+          secondGradientBackgroundColor: Colors.transparent,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade200,
+          firstSubScaffoldColor: Colors.white.withValues(alpha: .05),
+          firstSubScaffoldBorderColor: Colors.grey.shade500,
+          firstSubScaffoldBorderWidth: .5,
+          secondSubScaffoldColor: Colors.white.withValues(alpha: .05),
+          secondSubScaffoldBorderColor: Colors.grey.shade500,
+          secondSubScaffoldBorderWidth: .5,
+        ),
+        secondPageConfig: PageViewBasedSecondPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          brideDividingBorderWidth: .5,
+          brideImageBorderWidth: .5,
+          brideDividingLineWidth: .5,
+          brideDividingBorderColor: Colors.grey.shade200,
+          brideImageBaseColor: Colors.grey.shade200,
+          brideDividingLineColor: Colors.grey.shade200,
+          brideNameTextColor: null,
+          brideFatherNameTextColor: null,
+          brideMotherNameTextColor: null,
+          groomDividingBorderWidth: .5,
+          groomImageBorderWidth: .5,
+          groomDividingLineWidth: .5,
+          groomDividingBorderColor: Colors.grey.shade200,
+          groomImageBaseColor: Colors.grey.shade200,
+          groomDividingLineColor: Colors.grey.shade200,
+          groomNameTextColor: null,
+          groomFatherNameTextColor: null,
+          groomMotherNameTextColor: null,
+        ),
+        thirdPageConfig: PageViewBasedThirdPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.transparent,
+          secondGradientBackgroundColor: Colors.grey.shade900,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          contractTitleColor: Colors.grey.shade100,
+          receptionTitleColor: Colors.grey.shade100,
+          dividingLineWidth: .5,
+          dividingLineColor: Colors.grey.shade100,
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownEvenColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownOddBorderColor: Colors.grey.shade600,
+          countdownEvenBorderColor: Colors.grey.shade600,
+          countdownNumberColor: Colors.grey.shade200,
+          countdownUnitColor: Colors.grey.shade200,
+          useLightningEffectOnCountdown: true,
+        ),
+        fourthPageConfig: PageViewBasedFourthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.grey.shade900,
+          secondGradientBackgroundColor: Colors.transparent,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade200,
+          placeIconColor: Colors.grey.shade50,
+          placeTextColor: Colors.grey.shade50,
+          dividingLineWidth: .5,
+          dividingLineColor: Colors.grey.shade50,
+          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: .5,
+          getDirectionsButtonBorderColor: Colors.grey.shade500,
+        ),
+        fifthPageConfig: PageViewBasedFifthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          dividingLineWidth: .5,
+          dividingVerticalLineColor: Colors.grey.shade500,
+          dividingHorizontalLineColor: Colors.grey.shade500,
+          seeMoreButtonColor: Colors.black.withValues(alpha: .5),
+          seeMoreButtonLabelColor: Colors.grey.shade50,
+          seeMoreButtonBorderWidth: .5,
+          seeMoreButtonBorderColor: Colors.grey.shade500,
+          bottomSheetHandleColor: null,
+          bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
+        ),
+        sixthPageConfig: PageViewBasedSixthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.transparent,
+          secondGradientBackgroundColor: Colors.grey.shade900,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          introductionColor: Colors.white.withValues(alpha: .05),
+          introductionBorderColor: Colors.grey.shade500,
+          introductionBorderWidth: .5,
+          bankColor: Colors.white.withValues(alpha: .05),
+          bankBorderColor: Colors.grey.shade500,
+          bankBorderWidth: .5,
+        ),
+        seventhPageConfig: PageViewBasedSeventhPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          submitButtonColor: Colors.black.withValues(alpha: .3),
+          submitButtonLabelColor: Colors.grey.shade100,
+          submitButtonBorderWidth: .5,
+          submitButtonBorderColor: Colors.grey.shade500,
+          seeMoreButtonColor: Colors.grey.shade900.withValues(alpha: .8),
+          seeMoreButtonLabelColor: Colors.grey.shade100,
+          seeMoreButtonBorderWidth: .5,
+          seeMoreButtonBorderColor: Colors.grey.shade500,
+          bottomSheetHandleColor: null,
+        ),
+        eighthPageConfig: PageViewBasedEighthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          scaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          closingTextColor: Colors.grey.shade900,
+          brideGroomNameColor: Colors.grey.shade900,
+          brandBackgroundColor: Colors.grey.shade200.withValues(alpha: .7),
+          brandTextColor: Colors.grey.shade600,
+        ),
+      ),
+      heightAdjustment: heightAdjustment,
+      initialPage: initialPage,
+      viewAsImage: viewAsImage,
+      viewType: viewType,
+      invitationId: invitationId,
+      invitationData: invitationData,
+      imagesRaw: imagesRaw,
+      brandProfile: brandProfile,
     );
   }
 }

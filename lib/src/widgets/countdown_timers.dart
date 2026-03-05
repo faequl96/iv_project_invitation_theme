@@ -8,12 +8,28 @@ import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dar
 class CountdownTimers extends StatefulWidget {
   const CountdownTimers({
     super.key,
+    required this.oddColor,
+    required this.evenColor,
+    required this.oddBorderColor,
+    required this.evenBorderColor,
+    required this.numberColor,
+    required this.unitColor,
+    this.borderWidth = 1,
     required this.time,
+    required this.useLightningEffect,
     this.animationDelayBeforeStart = .zero,
     this.lightningEffectDelayBeforeShowed = const Duration(milliseconds: 1200),
   });
 
+  final Color oddColor;
+  final Color evenColor;
+  final Color oddBorderColor;
+  final Color evenBorderColor;
+  final Color numberColor;
+  final Color unitColor;
+  final double borderWidth;
   final DateTime time;
+  final bool useLightningEffect;
   final Duration animationDelayBeforeStart;
   final Duration lightningEffectDelayBeforeShowed;
 
@@ -84,6 +100,12 @@ class _CountdownTimersState extends State<CountdownTimers> {
             valueListenable: _days,
             builder: (_, days, _) {
               return _CountdownTimer(
+                color: widget.oddColor,
+                borderColor: widget.oddBorderColor,
+                numberColor: widget.numberColor,
+                unitColor: widget.unitColor,
+                borderWidth: widget.borderWidth,
+                useLightningEffect: widget.useLightningEffect,
                 number: days,
                 unit: 'Hari',
                 lightningEffectDelayBeforeShowed: const Duration(milliseconds: 200) + widget.lightningEffectDelayBeforeShowed,
@@ -101,6 +123,12 @@ class _CountdownTimersState extends State<CountdownTimers> {
             valueListenable: _hours,
             builder: (_, hours, _) {
               return _CountdownTimer(
+                color: widget.evenColor,
+                borderColor: widget.evenBorderColor,
+                numberColor: widget.numberColor,
+                unitColor: widget.unitColor,
+                borderWidth: widget.borderWidth,
+                useLightningEffect: widget.useLightningEffect,
                 number: hours,
                 unit: 'Jam',
                 lightningEffectDelayBeforeShowed: const Duration(milliseconds: 400) + widget.lightningEffectDelayBeforeShowed,
@@ -118,6 +146,12 @@ class _CountdownTimersState extends State<CountdownTimers> {
             valueListenable: _minutes,
             builder: (_, minutes, _) {
               return _CountdownTimer(
+                color: widget.oddColor,
+                borderColor: widget.oddBorderColor,
+                numberColor: widget.numberColor,
+                unitColor: widget.unitColor,
+                borderWidth: widget.borderWidth,
+                useLightningEffect: widget.useLightningEffect,
                 number: minutes,
                 unit: 'Menit',
                 lightningEffectDelayBeforeShowed: const Duration(milliseconds: 600) + widget.lightningEffectDelayBeforeShowed,
@@ -134,6 +168,12 @@ class _CountdownTimersState extends State<CountdownTimers> {
             valueListenable: _seconds,
             builder: (_, seconds, _) {
               return _CountdownTimer(
+                color: widget.evenColor,
+                borderColor: widget.evenBorderColor,
+                numberColor: widget.numberColor,
+                unitColor: widget.unitColor,
+                borderWidth: widget.borderWidth,
+                useLightningEffect: widget.useLightningEffect,
                 number: seconds,
                 unit: 'Detik',
                 lightningEffectDelayBeforeShowed: const Duration(milliseconds: 800) + widget.lightningEffectDelayBeforeShowed,
@@ -147,8 +187,24 @@ class _CountdownTimersState extends State<CountdownTimers> {
 }
 
 class _CountdownTimer extends StatelessWidget {
-  const _CountdownTimer({required this.number, required this.unit, required this.lightningEffectDelayBeforeShowed});
+  const _CountdownTimer({
+    required this.color,
+    required this.borderColor,
+    required this.numberColor,
+    required this.unitColor,
+    required this.borderWidth,
+    required this.useLightningEffect,
+    required this.number,
+    required this.unit,
+    required this.lightningEffectDelayBeforeShowed,
+  });
 
+  final Color color;
+  final Color borderColor;
+  final Color numberColor;
+  final Color unitColor;
+  final double borderWidth;
+  final bool useLightningEffect;
   final int number;
   final String unit;
   final Duration lightningEffectDelayBeforeShowed;
@@ -161,39 +217,35 @@ class _CountdownTimer extends StatelessWidget {
           width: W.x3l,
           height: W.x3l,
           child: DecoratedBox(
-            decoration: BoxDecoration(borderRadius: .circular(8), color: Colors.grey.shade500.withValues(alpha: .2)),
-          ),
-        ),
-        SizedBox(
-          width: W.x3l,
-          height: W.x3l,
-          child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: .circular(8),
-              border: .all(color: Colors.grey.shade600),
+              border: .all(width: borderWidth, color: borderColor),
+              color: color,
             ),
             child: Column(
               mainAxisAlignment: .center,
               children: [
                 Text(
                   '$number',
-                  style: AppFonts.inter(fontWeight: .w700, color: Colors.grey.shade200, fontSize: FontSize.sm, height: 1.2),
+                  style: AppFonts.inter(fontWeight: .w700, color: numberColor, fontSize: FontSize.sm, height: 1.2),
                 ),
                 Text(
                   unit,
-                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.xs, height: 1.2),
+                  style: AppFonts.inter(color: unitColor, fontSize: FontSize.xs, height: 1.2),
                 ),
               ],
             ),
           ),
         ),
-        LightningEffectBox(
-          width: W.x3l,
-          height: W.x3l,
-          borderRadius: 8,
-          isFlash: true,
-          delayBeforeShowed: lightningEffectDelayBeforeShowed,
-        ),
+        if (useLightningEffect)
+          LightningEffectBox(
+            width: W.x3l,
+            height: W.x3l,
+            borderRadius: 8,
+            ligthningWidth: borderWidth,
+            isFlash: true,
+            delayBeforeShowed: lightningEffectDelayBeforeShowed,
+          ),
       ],
     );
   }

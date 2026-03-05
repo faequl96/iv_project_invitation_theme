@@ -8,9 +8,46 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassSixthPage({super.key, this.bankAccounts = const []});
+class PageViewBasedSixthPageConfig {
+  const PageViewBasedSixthPageConfig({
+    this.frontground,
+    this.background,
+    required this.useBackdropBlurOnScaffold,
+    required this.scaffoldColor,
+    required this.scaffoldBorder,
+    required this.useGlassEffectOnScaffold,
+    this.firstGradientBackgroundColor,
+    this.secondGradientBackgroundColor,
+    required this.titlePageColor,
+    required this.introductionColor,
+    required this.introductionBorderColor,
+    required this.introductionBorderWidth,
+    required this.bankColor,
+    required this.bankBorderColor,
+    required this.bankBorderWidth,
+  });
 
+  final Widget? frontground;
+  final Widget? background;
+  final bool useBackdropBlurOnScaffold;
+  final Color scaffoldColor;
+  final BoxBorder scaffoldBorder;
+  final bool useGlassEffectOnScaffold;
+  final Color? firstGradientBackgroundColor;
+  final Color? secondGradientBackgroundColor;
+  final Color titlePageColor;
+  final Color introductionColor;
+  final Color introductionBorderColor;
+  final double introductionBorderWidth;
+  final Color bankColor;
+  final Color bankBorderColor;
+  final double bankBorderWidth;
+}
+
+class PageViewBasedSixthPage extends StatelessWidget {
+  const PageViewBasedSixthPage({super.key, required this.config, this.bankAccounts = const []});
+
+  final PageViewBasedSixthPageConfig config;
   final List<BankAccountResponse> bankAccounts;
 
   @override
@@ -21,21 +58,25 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          Positioned(
-            bottom: 0,
-            height: Screen.height / 1.2,
-            width: Screen.width,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: .topCenter,
-                  end: .bottomCenter,
-                  colors: [Colors.transparent, Colors.grey.shade900],
-                  stops: const [.2, .8],
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+            Positioned(
+              bottom: 0,
+              height: Screen.height / 1.2,
+              width: Screen.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: .topCenter,
+                    end: .bottomCenter,
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    stops: const [.2, .8],
+                  ),
                 ),
               ),
             ),
-          ),
+
+          config.background ?? const SizedBox.shrink(),
+
           Positioned(
             top: 0,
             child: FadeAndSlideTransition(
@@ -47,43 +88,49 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.card_giftcard_rounded, size: W.xs, color: Colors.grey.shade900),
+                    Icon(Icons.card_giftcard_rounded, size: W.xs, color: config.titlePageColor),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Wedding Gift' : 'Kado Pernikahan',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      // color: Colors.white.withValues(alpha: .1),
-                      gradient: LinearGradient(
-                        begin: .topCenter,
-                        end: .bottomCenter,
-                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
-                        stops: const [0, 1],
+          if (config.useBackdropBlurOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: RepaintBoundary(
+                  child: ClipRRect(
+                    borderRadius: .circular(20),
+                    child: BackdropFilter(
+                      filter: .blur(sigmaX: 3, sigmaY: 3),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
                       ),
-                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
               ),
+            )
+          else
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                ),
+              ),
             ),
-          ),
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -91,10 +138,7 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  border: .all(width: .5, color: Colors.grey.shade500),
-                ),
+                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
                 child: ClipRect(
                   child: Column(
                     children: [
@@ -107,9 +151,9 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: .all(width: .5, color: Colors.grey.shade500),
+                              border: .all(width: config.introductionBorderWidth, color: config.introductionBorderColor),
                               borderRadius: .circular(10),
-                              color: Colors.white.withValues(alpha: .05),
+                              color: config.introductionColor,
                             ),
                             child: Padding(
                               padding: .only(top: H.sm, left: 24, right: 24, bottom: H.sm),
@@ -133,7 +177,12 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
                         children: [
                           for (final bankAccount in bankAccounts) ...[
                             SizedBox(height: H.x4s),
-                            _BankAccount(bankAccount: bankAccount),
+                            _BankAccount(
+                              bankColor: config.bankColor,
+                              bankBorderWidth: config.bankBorderWidth,
+                              bankBorderColor: config.bankBorderColor,
+                              bankAccount: bankAccount,
+                            ),
                           ],
                         ],
                       ),
@@ -144,24 +193,27 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.grey.shade300.withValues(alpha: .4),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 2800),
-                animationInterval: const Duration(milliseconds: 3500),
+          if (config.useGlassEffectOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: GlassEffectBox(
+                  width: Screen.width - 32,
+                  height: Screen.height - (76 + H.x6l),
+                  borderRadius: 20,
+                  sliderWidth: 90,
+                  color: Colors.grey.shade300.withValues(alpha: .4),
+                  animationSpeed: const Duration(milliseconds: 600),
+                  delayBeforeStart: const Duration(milliseconds: 2800),
+                  animationInterval: const Duration(milliseconds: 3500),
+                ),
               ),
             ),
-          ),
+
+          config.frontground ?? const SizedBox.shrink(),
         ],
       ),
     );
@@ -169,8 +221,16 @@ class ElegantBlackAndWhiteGlassSixthPage extends StatelessWidget {
 }
 
 class _BankAccount extends StatelessWidget {
-  const _BankAccount({required this.bankAccount});
+  const _BankAccount({
+    required this.bankColor,
+    required this.bankBorderColor,
+    required this.bankBorderWidth,
+    required this.bankAccount,
+  });
 
+  final Color bankColor;
+  final Color bankBorderColor;
+  final double bankBorderWidth;
   final BankAccountResponse bankAccount;
 
   @override
@@ -187,9 +247,9 @@ class _BankAccount extends StatelessWidget {
             height: W.x7l,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: .05),
+                color: bankColor,
                 borderRadius: .circular(10),
-                border: .all(width: .5, color: Colors.grey.shade500),
+                border: .all(width: bankBorderWidth, color: bankBorderColor),
               ),
               child: Padding(
                 padding: const .all(6),
@@ -235,9 +295,9 @@ class _BankAccount extends StatelessWidget {
                 padding: const .only(left: 2),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    border: .all(width: .5, color: Colors.grey.shade500),
+                    border: .all(width: bankBorderWidth, color: bankBorderColor),
                     borderRadius: const .only(topRight: .circular(10), bottomRight: .circular(10)),
-                    color: Colors.white.withValues(alpha: .05),
+                    color: bankColor,
                   ),
                   child: Row(
                     children: [

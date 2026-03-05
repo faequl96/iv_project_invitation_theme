@@ -10,9 +10,52 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFifthPage({super.key, required this.viewType, this.galleries, this.gallery});
+class PageViewBasedFifthPageConfig {
+  const PageViewBasedFifthPageConfig({
+    this.frontground,
+    this.background,
+    required this.useBackdropBlurOnScaffold,
+    required this.scaffoldColor,
+    required this.scaffoldBorder,
+    required this.useGlassEffectOnScaffold,
+    this.firstGradientBackgroundColor,
+    this.secondGradientBackgroundColor,
+    required this.titlePageColor,
+    required this.dividingLineWidth,
+    required this.dividingVerticalLineColor,
+    required this.dividingHorizontalLineColor,
+    required this.seeMoreButtonColor,
+    required this.seeMoreButtonLabelColor,
+    required this.seeMoreButtonBorderWidth,
+    required this.seeMoreButtonBorderColor,
+    required this.bottomSheetHandleColor,
+    required this.bottomSheetContentScaffoldColor,
+  });
 
+  final Widget? frontground;
+  final Widget? background;
+  final bool useBackdropBlurOnScaffold;
+  final Color scaffoldColor;
+  final BoxBorder scaffoldBorder;
+  final bool useGlassEffectOnScaffold;
+  final Color? firstGradientBackgroundColor;
+  final Color? secondGradientBackgroundColor;
+  final Color titlePageColor;
+  final double dividingLineWidth;
+  final Color dividingVerticalLineColor;
+  final Color dividingHorizontalLineColor;
+  final Color seeMoreButtonColor;
+  final Color seeMoreButtonLabelColor;
+  final double seeMoreButtonBorderWidth;
+  final Color seeMoreButtonBorderColor;
+  final Color? bottomSheetHandleColor;
+  final Color bottomSheetContentScaffoldColor;
+}
+
+class PageViewBasedFifthPage extends StatelessWidget {
+  const PageViewBasedFifthPage({super.key, required this.config, required this.viewType, this.galleries, this.gallery});
+
+  final PageViewBasedFifthPageConfig config;
   final ViewType viewType;
   final List<File?>? galleries;
   final GalleryResponse? gallery;
@@ -25,6 +68,24 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
+          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+            Positioned(
+              top: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: .topCenter,
+                    end: .bottomCenter,
+                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  ),
+                ),
+              ),
+            ),
+
+          config.background ?? const SizedBox.shrink(),
+
           Positioned(
             top: 0,
             child: FadeAndSlideTransition(
@@ -36,42 +97,49 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.photo_library_rounded, size: W.xs, color: Colors.grey.shade900),
+                    Icon(Icons.photo_library_rounded, size: W.xs, color: config.titlePageColor),
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
-                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: .topCenter,
-                        end: .bottomCenter,
-                        colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .5)],
-                        stops: const [0, 1],
+          if (config.useBackdropBlurOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: RepaintBoundary(
+                  child: ClipRRect(
+                    borderRadius: .circular(20),
+                    child: BackdropFilter(
+                      filter: .blur(sigmaX: 3, sigmaY: 3),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
                       ),
-                      borderRadius: .circular(20),
                     ),
                   ),
                 ),
               ),
+            )
+          else
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                ),
+              ),
             ),
-          ),
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -79,16 +147,21 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  border: .all(width: .5, color: Colors.grey.shade500),
-                ),
+                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
                 child: ClipRRect(
                   borderRadius: .circular(20),
                   child: Column(
                     mainAxisAlignment: .center,
                     children: [
-                      _Gallery(viewType: viewType, galleries: galleries, gallery: gallery),
+                      const Spacer(),
+                      _Gallery(
+                        dividingLineWidth: config.dividingLineWidth,
+                        dividingVerticalLineColor: config.dividingVerticalLineColor,
+                        dividingHorizontalLineColor: config.dividingHorizontalLineColor,
+                        viewType: viewType,
+                        galleries: galleries,
+                        gallery: gallery,
+                      ),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: .bottom,
@@ -100,7 +173,7 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                               context,
                               barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                               header: BottomSheetHeader(
-                                title: const .handleBar(),
+                                title: .handleBar(color: config.bottomSheetHandleColor),
                                 action: HeaderAction(
                                   actionIcon: Icons.close_rounded,
                                   iconColor: Colors.grey.shade400,
@@ -118,11 +191,14 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                                     padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
-                                        color: Colors.grey.shade700.withValues(alpha: .5),
+                                        color: config.bottomSheetContentScaffoldColor,
                                         borderRadius: .circular(16),
                                       ),
                                       child: SingleChildScrollView(
                                         child: _Gallery(
+                                          dividingLineWidth: config.dividingLineWidth,
+                                          dividingVerticalLineColor: config.dividingVerticalLineColor,
+                                          dividingHorizontalLineColor: config.dividingHorizontalLineColor,
                                           isShowMore: true,
                                           viewType: viewType,
                                           galleries: galleries,
@@ -138,44 +214,53 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
                           padding: const .symmetric(horizontal: 48),
                           height: W.lg + H.x10s,
                           borderRadius: .circular(30),
-                          border: .all(width: .5, color: Colors.grey.shade500),
-                          color: Colors.black.withValues(alpha: .5),
+                          border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+                          color: config.seeMoreButtonColor,
                           child: Stack(
                             alignment: .center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'See More' : 'Selengkapnya',
-                                style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.md, fontWeight: .w600),
+                                style: AppFonts.inter(
+                                  color: config.seeMoreButtonLabelColor,
+                                  fontSize: FontSize.md,
+                                  fontWeight: .w600,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: H.xs),
+                      const Spacer(),
+                      const Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.white.withValues(alpha: .4),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 3000),
-                animationInterval: const Duration(milliseconds: 3500),
+          if (config.useGlassEffectOnScaffold)
+            Positioned(
+              bottom: 0,
+              height: Screen.height,
+              width: Screen.width,
+              child: Padding(
+                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                child: GlassEffectBox(
+                  width: Screen.width - 32,
+                  height: Screen.height - (76 + H.x6l),
+                  borderRadius: 20,
+                  sliderWidth: 90,
+                  color: Colors.white.withValues(alpha: .4),
+                  animationSpeed: const Duration(milliseconds: 600),
+                  delayBeforeStart: const Duration(milliseconds: 3000),
+                  animationInterval: const Duration(milliseconds: 3500),
+                ),
               ),
             ),
-          ),
+
+          config.frontground ?? const SizedBox.shrink(),
         ],
       ),
     );
@@ -183,8 +268,19 @@ class ElegantBlackAndWhiteGlassFifthPage extends StatelessWidget {
 }
 
 class _Gallery extends StatelessWidget {
-  const _Gallery({this.isShowMore = false, required this.viewType, this.galleries, this.gallery});
+  const _Gallery({
+    required this.dividingLineWidth,
+    required this.dividingVerticalLineColor,
+    required this.dividingHorizontalLineColor,
+    this.isShowMore = false,
+    required this.viewType,
+    this.galleries,
+    this.gallery,
+  });
 
+  final double dividingLineWidth;
+  final Color dividingVerticalLineColor;
+  final Color dividingHorizontalLineColor;
   final bool isShowMore;
   final ViewType viewType;
   final List<File?>? galleries;
@@ -214,8 +310,8 @@ class _Gallery extends StatelessWidget {
             SizedBox(width: W.x7s),
             SizedBox(
               height: W.x11l + 4,
-              width: .5,
-              child: ColoredBox(color: Colors.grey.shade500),
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
             ),
             SizedBox(width: W.x7s),
             Expanded(
@@ -239,7 +335,10 @@ class _Gallery extends StatelessWidget {
           children: [
             SizedBox(width: W.x4s),
             Expanded(
-              child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+              child: SizedBox(
+                height: dividingLineWidth,
+                child: ColoredBox(color: dividingHorizontalLineColor),
+              ),
             ),
             SizedBox(width: W.x4s),
           ],
@@ -264,8 +363,8 @@ class _Gallery extends StatelessWidget {
             SizedBox(width: W.x7s),
             SizedBox(
               height: W.x11l + 4,
-              width: .5,
-              child: ColoredBox(color: Colors.grey.shade500),
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
             ),
             SizedBox(width: W.x7s),
             Expanded(
@@ -289,7 +388,10 @@ class _Gallery extends StatelessWidget {
           children: [
             SizedBox(width: W.x4s),
             Expanded(
-              child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+              child: SizedBox(
+                height: dividingLineWidth,
+                child: ColoredBox(color: dividingHorizontalLineColor),
+              ),
             ),
             SizedBox(width: W.x4s),
           ],
@@ -313,8 +415,8 @@ class _Gallery extends StatelessWidget {
             SizedBox(width: W.x7s),
             SizedBox(
               height: W.x10l - 4,
-              width: .5,
-              child: ColoredBox(color: Colors.grey.shade500),
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
             ),
             SizedBox(width: W.x7s),
             Expanded(
@@ -332,8 +434,8 @@ class _Gallery extends StatelessWidget {
             SizedBox(width: W.x7s),
             SizedBox(
               height: W.x10l - 4,
-              width: .5,
-              child: ColoredBox(color: Colors.grey.shade500),
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
             ),
             SizedBox(width: W.x7s),
             Expanded(
@@ -357,7 +459,10 @@ class _Gallery extends StatelessWidget {
             children: [
               SizedBox(width: W.x4s),
               Expanded(
-                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+                child: SizedBox(
+                  height: dividingLineWidth,
+                  child: ColoredBox(color: dividingHorizontalLineColor),
+                ),
               ),
               SizedBox(width: W.x4s),
             ],
@@ -382,8 +487,8 @@ class _Gallery extends StatelessWidget {
               SizedBox(width: W.x7s),
               SizedBox(
                 height: W.x11l + 4,
-                width: .5,
-                child: ColoredBox(color: Colors.grey.shade500),
+                width: dividingLineWidth,
+                child: ColoredBox(color: dividingVerticalLineColor),
               ),
               SizedBox(width: W.x7s),
               Expanded(
@@ -407,7 +512,10 @@ class _Gallery extends StatelessWidget {
             children: [
               SizedBox(width: W.x4s),
               Expanded(
-                child: SizedBox(height: .5, child: ColoredBox(color: Colors.grey.shade500)),
+                child: SizedBox(
+                  height: dividingLineWidth,
+                  child: ColoredBox(color: dividingHorizontalLineColor),
+                ),
               ),
               SizedBox(width: W.x4s),
             ],
@@ -432,8 +540,8 @@ class _Gallery extends StatelessWidget {
               SizedBox(width: W.x7s),
               SizedBox(
                 height: W.x11l + 4,
-                width: .5,
-                child: ColoredBox(color: Colors.grey.shade500),
+                width: dividingLineWidth,
+                child: ColoredBox(color: dividingVerticalLineColor),
               ),
               SizedBox(width: W.x7s),
               Expanded(

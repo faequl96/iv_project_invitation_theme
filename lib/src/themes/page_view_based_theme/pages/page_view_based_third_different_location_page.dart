@@ -10,10 +10,10 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidget {
-  const ElegantBlackAndWhiteGlassFourthDifferentLocationPage({super.key, required this.receptionEvent});
+class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
+  const PageViewBasedThirdDifferentLocationPage({super.key, required this.contractEvent});
 
-  final EventResponse receptionEvent;
+  final EventResponse contractEvent;
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
       builder: (_, _) => Stack(
         children: [
           Positioned(
-            top: 0,
-            height: Screen.height,
+            bottom: 0,
+            height: Screen.height / 1.2,
             width: Screen.width,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [Colors.grey.shade900, Colors.transparent],
+                  colors: [Colors.transparent, Colors.grey.shade900],
                   stops: const [.2, .8],
                 ),
               ),
@@ -49,14 +49,14 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                 child: Row(
                   mainAxisAlignment: .center,
                   children: [
-                    Icon(Icons.celebration, size: W.xs, color: Colors.grey.shade200),
+                    Icon(Icons.volunteer_activism, size: W.xs, color: Colors.grey.shade900),
                     const SizedBox(width: 10),
                     Text(
-                      langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
-                      style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.x3l, fontWeight: .w700),
+                      langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
+                      style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.x3l, fontWeight: .w700),
                     ),
                     const SizedBox(width: 10),
-                    Icon(Icons.restaurant, size: W.xs, color: Colors.grey.shade200),
+                    Icon(Icons.menu_book, size: W.xs, color: Colors.grey.shade900),
                   ],
                 ),
               ),
@@ -68,12 +68,22 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
             width: Screen.width,
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: ClipRRect(
-                borderRadius: .circular(20),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(color: Colors.white.withValues(alpha: .1), borderRadius: .circular(20)),
+              child: RepaintBoundary(
+                child: ClipRRect(
+                  borderRadius: .circular(20),
+                  child: BackdropFilter(
+                    filter: .blur(sigmaX: 3, sigmaY: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: .topCenter,
+                          end: .bottomCenter,
+                          colors: [Colors.black.withValues(alpha: .6), Colors.black.withValues(alpha: .6)],
+                          stops: const [0, 1],
+                        ),
+                        borderRadius: .circular(20),
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -106,7 +116,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                                 Icon(Icons.event, size: 32, color: Colors.grey.shade50),
                                 const SizedBox(height: 4),
                                 Text(
-                                  DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),
+                                  DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
                                   style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.lg, fontWeight: .w500),
                                 ),
                               ],
@@ -120,8 +130,8 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                             delayBeforeStart: const Duration(milliseconds: 800),
                             child: Text(
                               langCode == 'en'
-                                  ? '${DateUtil.format(receptionEvent.startTime, .HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, .HHmm)} o\'clock WIB'}'
-                                  : 'Pukul ${DateUtil.format(receptionEvent.startTime, .HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, .HHmm)} WIB'}',
+                                  ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
+                                  : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
                               style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w300),
                             ),
                           ),
@@ -129,7 +139,14 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                           SizedBox(
                             height: W.x3l,
                             child: CountdownTimers(
-                              time: receptionEvent.startTime,
+                              oddColor: Colors.grey.shade500,
+                              evenColor: Colors.grey.shade500,
+                              oddBorderColor: Colors.grey.shade600,
+                              evenBorderColor: Colors.grey.shade600,
+                              numberColor: Colors.grey.shade200,
+                              unitColor: Colors.grey.shade200,
+                              time: contractEvent.startTime,
+                              useLightningEffect: true,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                             ),
                           ),
@@ -151,7 +168,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                             Icon(Icons.location_pin, size: 32, color: Colors.grey.shade50),
                             const SizedBox(height: 3),
                             Text(
-                              receptionEvent.place,
+                              contractEvent.place,
                               style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.lg, fontWeight: .w600),
                             ),
                           ],
@@ -166,7 +183,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                         child: Padding(
                           padding: const .symmetric(horizontal: 20),
                           child: Text(
-                            receptionEvent.address,
+                            contractEvent.address,
                             style: AppFonts.inter(
                               color: Colors.grey.shade50,
                               fontSize: FontSize.xs,
@@ -185,7 +202,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                           width: Screen.width - (W.x6s * 5),
                           height: Screen.height - (H.x18l * 2.1),
                           delayBeforeStart: const Duration(milliseconds: 2200),
-                          url: receptionEvent.mapsUrl,
+                          url: contractEvent.mapsUrl,
                         ),
                       ),
                       SizedBox(height: H.x6s),
@@ -195,20 +212,18 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1800),
                         child: GeneralEffectsButton(
-                          onTap: () {
-                            launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
-                          },
+                          onTap: () => launchUrl(Uri.parse(contractEvent.mapsUrl), mode: .externalNonBrowserApplication),
                           padding: const .symmetric(horizontal: 24),
                           height: W.lg + H.x10s,
                           borderRadius: .circular(30),
                           border: .all(width: .5, color: Colors.grey.shade600),
-                          color: Colors.white.withValues(alpha: .2),
+                          color: Colors.grey.shade500.withValues(alpha: .3),
                           child: Stack(
                             alignment: .center,
                             children: [
                               Text(
                                 langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(color: Colors.grey.shade900, fontSize: FontSize.md, fontWeight: .w600),
+                                style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w600),
                               ),
                             ],
                           ),
@@ -232,7 +247,7 @@ class ElegantBlackAndWhiteGlassFourthDifferentLocationPage extends StatelessWidg
                 height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
-                color: Colors.white.withValues(alpha: .4),
+                color: Colors.grey.shade300.withValues(alpha: .4),
                 animationSpeed: const Duration(milliseconds: 600),
                 delayBeforeStart: const Duration(milliseconds: 2700),
                 animationInterval: const Duration(milliseconds: 3500),
