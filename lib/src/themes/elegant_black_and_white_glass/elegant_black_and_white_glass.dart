@@ -183,6 +183,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           bottomSheetHandleColor: null,
           bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
           bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
+          bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
         sixthPageConfig: PageViewBasedSixthPageConfig(
           useBackdropBlurOnScaffold: true,
@@ -193,12 +194,15 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
           useGlassEffectOnScaffold: true,
           titlePageColor: Colors.grey.shade900,
+          introductionTextColor: Colors.grey.shade100,
           introductionColor: Colors.white.withValues(alpha: .05),
           introductionBorderColor: Colors.grey.shade500,
           introductionBorderWidth: .5,
           bankColor: Colors.white.withValues(alpha: .05),
           bankBorderColor: Colors.grey.shade500,
           bankBorderWidth: .5,
+          bankTextColor: Colors.grey.shade100,
+          bankCopyBaseColor: Colors.grey.shade400,
         ),
         seventhPageConfig: PageViewBasedSeventhPageConfig(
           useBackdropBlurOnScaffold: true,
@@ -216,6 +220,9 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           seeMoreButtonBorderWidth: .5,
           seeMoreButtonBorderColor: Colors.grey.shade500,
           bottomSheetHandleColor: null,
+          bottomSheetContentScaffoldColor: Colors.grey.shade700.withValues(alpha: .5),
+          bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
+          bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
         eighthPageConfig: PageViewBasedEighthPageConfig(
           useBackdropBlurOnScaffold: true,

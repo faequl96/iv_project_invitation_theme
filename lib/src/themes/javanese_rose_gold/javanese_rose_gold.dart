@@ -230,6 +230,7 @@ class JavaneseRoseGold extends StatelessWidget {
           bottomSheetHandleColor: ThemeColors.gold,
           bottomSheetContentScaffoldColor: ThemeColors.roseGold.withValues(alpha: .2),
           bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
+          bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
         sixthPageConfig: PageViewBasedSixthPageConfig(
           frontground: const GroupFrontground(),
@@ -248,12 +249,15 @@ class JavaneseRoseGold extends StatelessWidget {
           ),
           useGlassEffectOnScaffold: false,
           titlePageColor: ThemeColors.gold,
+          introductionTextColor: Colors.grey.shade100,
           introductionColor: ThemeColors.gold.withValues(alpha: .12),
           introductionBorderColor: ThemeColors.gold,
           introductionBorderWidth: 1.5,
           bankColor: ThemeColors.roseGold.withValues(alpha: .12),
           bankBorderColor: ThemeColors.roseGold,
           bankBorderWidth: 1.5,
+          bankTextColor: Colors.grey.shade100,
+          bankCopyBaseColor: Colors.grey.shade400,
         ),
         seventhPageConfig: PageViewBasedSeventhPageConfig(
           frontground: const GroupFrontground(),
@@ -281,6 +285,9 @@ class JavaneseRoseGold extends StatelessWidget {
           seeMoreButtonBorderWidth: 2,
           seeMoreButtonBorderColor: ThemeColors.roseGold,
           bottomSheetHandleColor: ThemeColors.gold,
+          bottomSheetContentScaffoldColor: ThemeColors.roseGold.withValues(alpha: .2),
+          bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
+          bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
         eighthPageConfig: PageViewBasedEighthPageConfig(
           frontground: const GroupFrontground(),
