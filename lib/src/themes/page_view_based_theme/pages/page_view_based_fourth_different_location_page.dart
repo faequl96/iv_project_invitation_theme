@@ -191,6 +191,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
                         slideFrom: .bottom,
                         delayBeforeStart: const Duration(milliseconds: 1100),
                         child: Maps(
+                          borderColor: Colors.grey.shade400,
                           width: Screen.width - (W.x6s * 5),
                           height: Screen.height - (H.x18l * 2.1),
                           delayBeforeStart: const Duration(milliseconds: 2200),

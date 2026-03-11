@@ -12,46 +12,68 @@ class PageViewBasedThirdPageConfig {
     this.frontground,
     this.background,
     required this.useBackdropBlurOnScaffold,
-    required this.scaffoldColor,
+    required this.firstGradientScaffoldColor,
+    required this.secondGradientScaffoldColor,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
+    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
     required this.contractTitleColor,
+    required this.contractBaseTextColor,
     required this.receptionTitleColor,
+    required this.receptionBaseTextColor,
     required this.dividingLineWidth,
     required this.dividingLineColor,
-    required this.countdownBorderWidth,
-    required this.countdownOddColor,
-    required this.countdownEvenColor,
-    required this.countdownOddBorderColor,
-    required this.countdownEvenBorderColor,
-    required this.countdownNumberColor,
-    required this.countdownUnitColor,
+    required this.contractCountdownBorderWidth,
+    required this.contractCountdownOddColor,
+    required this.contractCountdownEvenColor,
+    required this.contractCountdownOddBorderColor,
+    required this.contractCountdownEvenBorderColor,
+    required this.contractCountdownNumberColor,
+    required this.contractCountdownUnitColor,
+    required this.receptionCountdownBorderWidth,
+    required this.receptionCountdownOddColor,
+    required this.receptionCountdownEvenColor,
+    required this.receptionCountdownOddBorderColor,
+    required this.receptionCountdownEvenBorderColor,
+    required this.receptionCountdownNumberColor,
+    required this.receptionCountdownUnitColor,
     required this.useLightningEffectOnCountdown,
   });
 
   final Widget? frontground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
-  final Color scaffoldColor;
+  final Color firstGradientScaffoldColor;
+  final Color secondGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
+  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
   final Color contractTitleColor;
+  final Color contractBaseTextColor;
   final Color receptionTitleColor;
+  final Color receptionBaseTextColor;
   final double dividingLineWidth;
   final Color dividingLineColor;
-  final double countdownBorderWidth;
-  final Color countdownOddColor;
-  final Color countdownEvenColor;
-  final Color countdownOddBorderColor;
-  final Color countdownEvenBorderColor;
-  final Color countdownNumberColor;
-  final Color countdownUnitColor;
+  final double contractCountdownBorderWidth;
+  final Color contractCountdownOddColor;
+  final Color contractCountdownEvenColor;
+  final Color contractCountdownOddBorderColor;
+  final Color contractCountdownEvenBorderColor;
+  final Color contractCountdownNumberColor;
+  final Color contractCountdownUnitColor;
+  final double receptionCountdownBorderWidth;
+  final Color receptionCountdownOddColor;
+  final Color receptionCountdownEvenColor;
+  final Color receptionCountdownOddBorderColor;
+  final Color receptionCountdownEvenBorderColor;
+  final Color receptionCountdownNumberColor;
+  final Color receptionCountdownUnitColor;
   final bool useLightningEffectOnCountdown;
 }
 
@@ -124,7 +146,14 @@ class PageViewBasedThirdPage extends StatelessWidget {
                     child: BackdropFilter(
                       filter: .blur(sigmaX: 3, sigmaY: 3),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                        decoration: BoxDecoration(
+                          borderRadius: .circular(20),
+                          gradient: LinearGradient(
+                            begin: .topCenter,
+                            end: .bottomCenter,
+                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -139,7 +168,14 @@ class PageViewBasedThirdPage extends StatelessWidget {
               child: Padding(
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -190,14 +226,22 @@ class PageViewBasedThirdPage extends StatelessWidget {
                               children: [
                                 Text(
                                   DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
-                                  style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.lg, fontWeight: .w500),
+                                  style: AppFonts.inter(
+                                    color: config.contractBaseTextColor,
+                                    fontSize: FontSize.lg,
+                                    fontWeight: .w500,
+                                  ),
                                 ),
                                 SizedBox(height: H.x10s),
                                 Text(
                                   langCode == 'en'
                                       ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
                                       : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
-                                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w300),
+                                  style: AppFonts.inter(
+                                    color: config.contractBaseTextColor,
+                                    fontSize: FontSize.md,
+                                    fontWeight: .w300,
+                                  ),
                                 ),
                               ],
                             ),
@@ -206,13 +250,13 @@ class PageViewBasedThirdPage extends StatelessWidget {
                           SizedBox(
                             height: W.x3l,
                             child: CountdownTimers(
-                              oddColor: config.countdownOddColor,
-                              evenColor: config.countdownEvenColor,
-                              oddBorderColor: config.countdownOddBorderColor,
-                              evenBorderColor: config.countdownEvenBorderColor,
-                              numberColor: config.countdownNumberColor,
-                              unitColor: config.countdownUnitColor,
-                              borderWidth: config.countdownBorderWidth,
+                              oddColor: config.contractCountdownOddColor,
+                              evenColor: config.contractCountdownEvenColor,
+                              oddBorderColor: config.contractCountdownOddBorderColor,
+                              evenBorderColor: config.contractCountdownEvenBorderColor,
+                              numberColor: config.contractCountdownNumberColor,
+                              unitColor: config.contractCountdownUnitColor,
+                              borderWidth: config.contractCountdownBorderWidth,
                               useLightningEffect: config.useLightningEffectOnCountdown,
                               time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
@@ -266,14 +310,22 @@ class PageViewBasedThirdPage extends StatelessWidget {
                               children: [
                                 Text(
                                   DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),
-                                  style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.lg, fontWeight: .w500),
+                                  style: AppFonts.inter(
+                                    color: config.receptionBaseTextColor,
+                                    fontSize: FontSize.lg,
+                                    fontWeight: .w500,
+                                  ),
                                 ),
                                 SizedBox(height: H.x10s),
                                 Text(
                                   langCode == 'en'
                                       ? '${DateUtil.format(receptionEvent.startTime, .HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, .HHmm)} o\'clock WIB'}'
                                       : 'Pukul ${DateUtil.format(receptionEvent.startTime, .HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, .HHmm)} WIB'}',
-                                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md, fontWeight: .w300),
+                                  style: AppFonts.inter(
+                                    color: config.receptionBaseTextColor,
+                                    fontSize: FontSize.md,
+                                    fontWeight: .w300,
+                                  ),
                                 ),
                               ],
                             ),
@@ -282,13 +334,13 @@ class PageViewBasedThirdPage extends StatelessWidget {
                           SizedBox(
                             height: W.x3l,
                             child: CountdownTimers(
-                              oddColor: config.countdownOddColor,
-                              evenColor: config.countdownEvenColor,
-                              oddBorderColor: config.countdownOddBorderColor,
-                              evenBorderColor: config.countdownEvenBorderColor,
-                              numberColor: config.countdownNumberColor,
-                              unitColor: config.countdownUnitColor,
-                              borderWidth: config.countdownBorderWidth,
+                              oddColor: config.receptionCountdownOddColor,
+                              evenColor: config.receptionCountdownEvenColor,
+                              oddBorderColor: config.receptionCountdownOddBorderColor,
+                              evenBorderColor: config.receptionCountdownEvenBorderColor,
+                              numberColor: config.receptionCountdownNumberColor,
+                              unitColor: config.receptionCountdownUnitColor,
+                              borderWidth: config.receptionCountdownBorderWidth,
                               useLightningEffect: config.useLightningEffectOnCountdown,
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
@@ -317,7 +369,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                   height: Screen.height - (76 + H.x6l),
                   borderRadius: 20,
                   sliderWidth: 90,
-                  color: Colors.grey.shade300.withValues(alpha: .4),
+                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 2600),
                   animationInterval: const Duration(milliseconds: 3500),

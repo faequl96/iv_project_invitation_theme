@@ -45,16 +45,16 @@ class AppHelpers {
 
     late final Size finalSize;
     if (size.width > 440) {
-      if (size.height < 915) {
+      if (size.height < 840) {
         finalSize = Size(412, size.height - (padding.top + heightAdjustment + padding.bottom));
       } else {
-        finalSize = const Size(412, 915);
+        finalSize = const Size(412, 812);
       }
     } else {
-      if (size.height < 915) {
+      if (size.height < 840) {
         finalSize = Size(size.width, size.height - (padding.top + heightAdjustment + padding.bottom));
       } else {
-        finalSize = Size(size.width, 915);
+        finalSize = Size(size.width, 812);
       }
     }
 

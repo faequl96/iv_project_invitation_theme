@@ -199,6 +199,7 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                         slideFrom: .bottom,
                         delayBeforeStart: const Duration(milliseconds: 1100),
                         child: Maps(
+                          borderColor: Colors.grey.shade400,
                           width: Screen.width - (W.x6s * 5),
                           height: Screen.height - (H.x18l * 2.1),
                           delayBeforeStart: const Duration(milliseconds: 2200),
@@ -247,7 +248,7 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                 height: Screen.height - (76 + H.x6l),
                 borderRadius: 20,
                 sliderWidth: 90,
-                color: Colors.grey.shade300.withValues(alpha: .4),
+                color: Colors.white.withValues(alpha: .4),
                 animationSpeed: const Duration(milliseconds: 600),
                 delayBeforeStart: const Duration(milliseconds: 2700),
                 animationInterval: const Duration(milliseconds: 3500),

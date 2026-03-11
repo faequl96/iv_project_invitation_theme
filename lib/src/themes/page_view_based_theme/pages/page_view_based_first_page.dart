@@ -11,12 +11,16 @@ class PageViewBasedFirstPageConfig {
     this.frontground,
     this.background,
     required this.useBackdropBlurOnScaffold,
-    required this.scaffoldColor,
+    required this.firstGradientScaffoldColor,
+    required this.secondGradientScaffoldColor,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
+    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
+    required this.openingTextColor,
+    required this.generalTextColor,
     required this.firstSubScaffoldColor,
     required this.firstSubScaffoldBorderColor,
     required this.firstSubScaffoldBorderWidth,
@@ -28,12 +32,16 @@ class PageViewBasedFirstPageConfig {
   final Widget? frontground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
-  final Color scaffoldColor;
+  final Color firstGradientScaffoldColor;
+  final Color secondGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
+  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
+  final Color openingTextColor;
+  final Color generalTextColor;
   final Color firstSubScaffoldColor;
   final Color firstSubScaffoldBorderColor;
   final double firstSubScaffoldBorderWidth;
@@ -105,7 +113,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
                     child: BackdropFilter(
                       filter: .blur(sigmaX: 3, sigmaY: 3),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                        decoration: BoxDecoration(
+                          borderRadius: .circular(20),
+                          gradient: LinearGradient(
+                            begin: .topCenter,
+                            end: .bottomCenter,
+                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -120,7 +135,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
               child: Padding(
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -142,7 +164,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                         delayBeforeStart: const Duration(milliseconds: 500),
                         child: Text(
                           general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                          style: AppFonts.arefRuqaa(color: Colors.grey.shade100, fontSize: FontSize.x7l),
+                          style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
                         ),
                       ),
                       const Spacer(),
@@ -172,7 +194,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                           ? general.openingQuote
                                           : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
                                       style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
+                                        color: config.generalTextColor,
                                         fontSize: FontSize.md,
                                         fontWeight: .w500,
                                         fontStyle: .italic,
@@ -188,7 +210,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                     child: Text(
                                       general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
                                       style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
+                                        color: config.generalTextColor,
                                         fontSize: FontSize.lg,
                                         fontWeight: .w600,
                                       ),
@@ -228,7 +250,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                     child: Text(
                                       general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
                                       style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
+                                        color: config.generalTextColor,
                                         fontSize: FontSize.x2l,
                                         fontWeight: .w600,
                                       ),
@@ -244,7 +266,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                           ? general.greeting
                                           : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
                                       style: AppFonts.inter(
-                                        color: Colors.grey.shade100,
+                                        color: config.generalTextColor,
                                         fontSize: FontSize.md,
                                         fontWeight: .w400,
                                       ),
@@ -277,7 +299,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                   height: Screen.height - (76 + H.x6l),
                   borderRadius: 20,
                   sliderWidth: 90,
-                  color: Colors.grey.shade300.withValues(alpha: .4),
+                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 2200),
                   animationInterval: const Duration(milliseconds: 3500),

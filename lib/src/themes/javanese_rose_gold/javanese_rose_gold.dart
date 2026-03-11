@@ -44,9 +44,10 @@ class JavaneseRoseGold extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageViewBased(
       configs: PageViewBasedConfigs(
-        tabConfig: const PageViewBasedTabConfig(
+        tabConfig: PageViewBasedTabConfig(
           useGlassEffectOnTab: false,
           indicatorColor: ThemeColors.gold,
+          backgroundColor: Colors.black.withValues(alpha: .5),
           titleActiveColor: ThemeColors.gold,
           titleInactiveColor: ThemeColors.roseGold,
           iconActiveColor: ThemeColors.gold,
@@ -59,6 +60,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           coverBackground: const CoverBackground(),
+          gradientBaseColor: Colors.grey.shade900,
           brideNameColor: ThemeColors.roseGold,
           groomNameColor: ThemeColors.gold,
           countdownBorderWidth: 2,
@@ -76,7 +78,8 @@ class JavaneseRoseGold extends StatelessWidget {
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -88,6 +91,8 @@ class JavaneseRoseGold extends StatelessWidget {
           ),
           useGlassEffectOnScaffold: false,
           titlePageColor: ThemeColors.gold,
+          openingTextColor: Colors.grey.shade100,
+          generalTextColor: Colors.grey.shade100,
           firstSubScaffoldColor: ThemeColors.gold.withValues(alpha: .12),
           firstSubScaffoldBorderColor: ThemeColors.gold,
           firstSubScaffoldBorderWidth: 1.5,
@@ -99,7 +104,8 @@ class JavaneseRoseGold extends StatelessWidget {
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -111,6 +117,7 @@ class JavaneseRoseGold extends StatelessWidget {
           ),
           useGlassEffectOnScaffold: false,
           titlePageColor: ThemeColors.gold,
+          generalTextColor: Colors.grey.shade200,
           brideDividingBorderWidth: 1.5,
           brideImageBorderWidth: 2,
           brideDividingLineWidth: 1,
@@ -134,7 +141,8 @@ class JavaneseRoseGold extends StatelessWidget {
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -147,23 +155,33 @@ class JavaneseRoseGold extends StatelessWidget {
           useGlassEffectOnScaffold: false,
           titlePageColor: ThemeColors.gold,
           contractTitleColor: ThemeColors.gold,
+          contractBaseTextColor: Colors.grey.shade100,
           receptionTitleColor: ThemeColors.roseGold,
+          receptionBaseTextColor: Colors.grey.shade100,
           dividingLineWidth: 1,
           dividingLineColor: ThemeColors.gold,
-          countdownBorderWidth: 2,
-          countdownOddColor: ThemeColors.gold.withValues(alpha: .1),
-          countdownEvenColor: ThemeColors.roseGold.withValues(alpha: .1),
-          countdownOddBorderColor: ThemeColors.gold,
-          countdownEvenBorderColor: ThemeColors.roseGold,
-          countdownNumberColor: ThemeColors.gold,
-          countdownUnitColor: ThemeColors.roseGold,
+          contractCountdownBorderWidth: 2,
+          contractCountdownOddColor: ThemeColors.gold.withValues(alpha: .1),
+          contractCountdownEvenColor: ThemeColors.roseGold.withValues(alpha: .1),
+          contractCountdownOddBorderColor: ThemeColors.gold,
+          contractCountdownEvenBorderColor: ThemeColors.roseGold,
+          contractCountdownNumberColor: ThemeColors.gold,
+          contractCountdownUnitColor: ThemeColors.roseGold,
+          receptionCountdownBorderWidth: 2,
+          receptionCountdownOddColor: ThemeColors.gold.withValues(alpha: .1),
+          receptionCountdownEvenColor: ThemeColors.roseGold.withValues(alpha: .1),
+          receptionCountdownOddBorderColor: ThemeColors.gold,
+          receptionCountdownEvenBorderColor: ThemeColors.roseGold,
+          receptionCountdownNumberColor: ThemeColors.gold,
+          receptionCountdownUnitColor: ThemeColors.roseGold,
           useLightningEffectOnCountdown: false,
         ),
         fourthPageConfig: PageViewBasedFourthPageConfig(
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -179,6 +197,7 @@ class JavaneseRoseGold extends StatelessWidget {
           placeTextColor: ThemeColors.roseGold,
           dividingLineWidth: 1,
           dividingLineColor: ThemeColors.gold,
+          mapsBorderColor: Colors.grey.shade400,
           getDirectionsButtonColor: ThemeColors.gold.withValues(alpha: .2),
           getDirectionsButtonLabelColor: ThemeColors.gold,
           getDirectionsButtonBorderWidth: 2,
@@ -188,7 +207,8 @@ class JavaneseRoseGold extends StatelessWidget {
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -209,12 +229,14 @@ class JavaneseRoseGold extends StatelessWidget {
           seeMoreButtonBorderColor: ThemeColors.gold,
           bottomSheetHandleColor: ThemeColors.gold,
           bottomSheetContentScaffoldColor: ThemeColors.roseGold.withValues(alpha: .2),
+          bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
         ),
         sixthPageConfig: PageViewBasedSixthPageConfig(
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -237,7 +259,8 @@ class JavaneseRoseGold extends StatelessWidget {
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(
@@ -263,7 +286,8 @@ class JavaneseRoseGold extends StatelessWidget {
           frontground: const GroupFrontground(),
           background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          scaffoldColor: Colors.black.withValues(alpha: .7),
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           scaffoldBorder: const GradientBoxBorder(
             width: 3,
             gradient: LinearGradient(

@@ -5,7 +5,22 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/random_slide_transition.dart';
 
 class BubbleBackground extends StatelessWidget {
-  const BubbleBackground({super.key});
+  const BubbleBackground({
+    super.key,
+    required this.backgroundColor,
+    required this.bubbleColor1,
+    required this.bubbleColor2,
+    required this.bubbleColor3,
+    required this.bubbleColor4,
+    required this.bubbleColor5,
+  });
+
+  final Color backgroundColor;
+  final Color bubbleColor1;
+  final Color bubbleColor2;
+  final Color bubbleColor3;
+  final Color bubbleColor4;
+  final Color bubbleColor5;
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +32,12 @@ class BubbleBackground extends StatelessWidget {
             SizedBox(
               height: Screen.height,
               width: Screen.width,
-              child: DecoratedBox(decoration: BoxDecoration(color: Colors.grey.shade300)),
+              child: DecoratedBox(decoration: BoxDecoration(color: backgroundColor)),
             ),
             Positioned(
               left: -110,
               bottom: -80,
-              child: Bubble.fill(size: W.x16l, color: Colors.grey.shade900),
+              child: Bubble.fill(size: W.x16l, color: bubbleColor1),
             ),
             Positioned(
               left: 80,
@@ -40,7 +55,7 @@ class BubbleBackground extends StatelessWidget {
               right: 90,
               bottom: 120,
               child: RandomSlideTransition(
-                child: Bubble.border(size: W.x4l, color: Colors.grey.shade600, borderWidth: 1),
+                child: Bubble.border(size: W.x4l, color: bubbleColor2, borderWidth: 1),
               ),
             ),
             Positioned(
@@ -48,7 +63,7 @@ class BubbleBackground extends StatelessWidget {
               bottom: H.x18l,
               child: RandomSlideTransition(
                 maxSlideOffset: .2,
-                child: Bubble.border(size: W.x9l, color: Colors.grey.shade600, borderWidth: 1),
+                child: Bubble.border(size: W.x9l, color: bubbleColor3, borderWidth: 1),
               ),
             ),
             Positioned(
@@ -69,13 +84,13 @@ class BubbleBackground extends StatelessWidget {
               left: 40,
               bottom: H.x20l - 20,
               child: RandomSlideTransition(
-                child: Bubble.fill(size: W.xl, color: Colors.grey.shade500),
+                child: Bubble.fill(size: W.xl, color: bubbleColor4),
               ),
             ),
             Positioned(
               left: 90,
               top: H.x5l,
-              child: Bubble.fill(size: W.x6l, color: Colors.grey.shade400),
+              child: Bubble.fill(size: W.x6l, color: bubbleColor5),
             ),
             Positioned(
               left: 140,

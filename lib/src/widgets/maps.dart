@@ -5,8 +5,16 @@ import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:latlong2/latlong.dart';
 
 class Maps extends StatefulWidget {
-  const Maps({super.key, required this.height, required this.width, this.delayBeforeStart = .zero, required this.url});
+  const Maps({
+    super.key,
+    required this.borderColor,
+    required this.height,
+    required this.width,
+    this.delayBeforeStart = .zero,
+    required this.url,
+  });
 
+  final Color borderColor;
   final double height;
   final double width;
   final Duration delayBeforeStart;
@@ -60,7 +68,7 @@ class _MapsState extends State<Maps> {
     if (latLng == null) {
       return DecoratedBox(
         decoration: BoxDecoration(
-          border: .all(width: .5, color: Colors.grey.shade500),
+          border: .all(width: 2, color: widget.borderColor),
           borderRadius: .circular(8),
         ),
         child: Padding(
@@ -74,7 +82,7 @@ class _MapsState extends State<Maps> {
       children: [
         DecoratedBox(
           decoration: BoxDecoration(
-            border: .all(width: 2, color: Colors.grey.shade400),
+            border: .all(width: 2, color: widget.borderColor),
             borderRadius: .circular(8),
           ),
           child: Padding(

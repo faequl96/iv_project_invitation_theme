@@ -14,6 +14,7 @@ import 'package:iv_project_model/iv_project_model.dart';
 class PageViewBasedCoverPageConfig {
   const PageViewBasedCoverPageConfig({
     this.coverBackground,
+    required this.gradientBaseColor,
     required this.brideNameColor,
     required this.groomNameColor,
     required this.countdownBorderWidth,
@@ -29,6 +30,7 @@ class PageViewBasedCoverPageConfig {
   });
 
   final Widget? coverBackground;
+  final Color gradientBaseColor;
   final Color brideNameColor;
   final Color groomNameColor;
   final double countdownBorderWidth;
@@ -99,7 +101,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [Colors.transparent, Colors.grey.shade900],
+                  colors: [config.gradientBaseColor.withValues(alpha: .0), config.gradientBaseColor],
                   stops: const [.3, .8],
                 ),
               ),

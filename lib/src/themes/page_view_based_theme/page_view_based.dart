@@ -50,6 +50,7 @@ class PageViewBasedTabConfig {
   const PageViewBasedTabConfig({
     required this.useGlassEffectOnTab,
     required this.indicatorColor,
+    required this.backgroundColor,
     required this.titleActiveColor,
     required this.titleInactiveColor,
     required this.iconActiveColor,
@@ -58,6 +59,7 @@ class PageViewBasedTabConfig {
 
   final bool useGlassEffectOnTab;
   final Color indicatorColor;
+  final Color backgroundColor;
   final Color titleActiveColor;
   final Color titleInactiveColor;
   final Color iconActiveColor;
@@ -139,6 +141,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
       viewAsImage: widget.viewAsImage,
       useGlassEffectOnTab: widget.configs.tabConfig.useGlassEffectOnTab,
       tabIndicatorColor: widget.configs.tabConfig.indicatorColor,
+      tabBackgroundColor: widget.configs.tabConfig.backgroundColor,
       wrapper: InitializerWrapper(
         viewType: widget.viewType,
         bride: widget.invitationData.bride,
