@@ -1,0 +1,323 @@
+import 'package:flutter/material.dart';
+import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
+import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
+import 'package:iv_project_model/iv_project_model.dart';
+import 'package:quick_dev_sdk/quick_dev_sdk.dart';
+
+class ElegantBlueAndWhiteGlass extends StatelessWidget {
+  const ElegantBlueAndWhiteGlass({
+    super.key,
+    this.heightAdjustment = 0,
+    this.initialPage = 0,
+    this.viewAsImage = false,
+    required this.viewType,
+    required this.invitationId,
+    required this.invitationData,
+    this.imagesRaw,
+    required this.brandProfile,
+  });
+
+  final double heightAdjustment;
+  final int initialPage;
+  final bool viewAsImage;
+  final ViewType viewType;
+  final String invitationId;
+  final InvitationDataResponse invitationData;
+  final ImagesRaw? imagesRaw;
+  final BrandProfileResponse brandProfile;
+
+  @override
+  Widget build(BuildContext context) {
+    return PageViewBased(
+      configs: PageViewBasedConfigs(
+        tabConfig: PageViewBasedTabConfig(
+          useGlassEffectOnTab: true,
+          indicatorColor: Colors.blue.shade50,
+          backgroundColor: ColorConverter.darken(Colors.blue.shade900, 50),
+          titleActiveColor: Colors.white,
+          titleInactiveColor: Colors.blue.shade200,
+          iconActiveColor: Colors.white,
+          iconInactiveColor: Colors.blue.shade200,
+        ),
+        globalBackgroundBuilder: () => BubbleBackground(
+          backgroundColor: Colors.blue.shade100.withValues(alpha: .6),
+          bubbleColor1: Colors.blue.shade200,
+          bubbleColor2: Colors.blue.shade500,
+          bubbleColor3: Colors.blue.shade500,
+          bubbleColor4: Colors.blue.shade400,
+          bubbleColor5: Colors.blue.shade300,
+        ),
+        coverPageConfig: PageViewBasedCoverPageConfig(
+          gradientBaseColor: ColorConverter.darken(Colors.blue.shade500, 20),
+          brideNameColor: Colors.blue.shade200,
+          groomNameColor: Colors.blue.shade200,
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.white.withValues(alpha: .15),
+          countdownEvenColor: Colors.white.withValues(alpha: .15),
+          countdownOddBorderColor: Colors.blue.shade200,
+          countdownEvenBorderColor: Colors.blue.shade200,
+          countdownNumberColor: Colors.blue.shade50,
+          countdownUnitColor: Colors.blue.shade50,
+          useLightningEffectOnCountdown: true,
+          firstArrowColor: Colors.blue.shade100.withValues(alpha: .7),
+          secondArrowColor: Colors.blue.shade300.withValues(alpha: .5),
+        ),
+        firstPageConfig: PageViewBasedFirstPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 20),
+          secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 20).withValues(alpha: .0),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: Colors.white,
+          openingTextColor: Colors.white,
+          generalTextColor: Colors.blue.shade500,
+          firstSubScaffoldColor: Colors.white.withValues(alpha: .6),
+          firstSubScaffoldBorderColor: Colors.white.withValues(alpha: .7),
+          firstSubScaffoldBorderWidth: 1,
+          secondSubScaffoldColor: Colors.white.withValues(alpha: .5),
+          secondSubScaffoldBorderColor: Colors.white.withValues(alpha: .7),
+          secondSubScaffoldBorderWidth: 1,
+        ),
+        secondPageConfig: PageViewBasedSecondPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .6,
+          titlePageColor: Colors.blue.shade700,
+          generalTextColor: Colors.blue.shade500,
+          brideDividingBorderWidth: 1,
+          brideImageBorderWidth: 1,
+          brideDividingLineWidth: 1,
+          brideDividingBorderColor: Colors.blue.shade400,
+          brideImageBaseColor: Colors.blue.shade300.withValues(alpha: .8),
+          brideDividingLineColor: Colors.blue.shade400,
+          brideNameTextColor: Colors.blue.shade700,
+          brideFatherNameTextColor: Colors.blue.shade700,
+          brideMotherNameTextColor: Colors.blue.shade700,
+          groomDividingBorderWidth: 1,
+          groomImageBorderWidth: 1,
+          groomDividingLineWidth: 1,
+          groomDividingBorderColor: Colors.blue.shade400,
+          groomImageBaseColor: Colors.blue.shade300.withValues(alpha: .8),
+          groomDividingLineColor: Colors.blue.shade400,
+          groomNameTextColor: Colors.blue.shade700,
+          groomFatherNameTextColor: Colors.blue.shade700,
+          groomMotherNameTextColor: Colors.blue.shade700,
+        ),
+        thirdPageConfig: PageViewBasedThirdPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 20).withValues(alpha: .0),
+          secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 20),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .7),
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: Colors.blue.shade700,
+          contractTitleColor: Colors.blue.shade600,
+          contractBaseTextColor: Colors.blue.shade600,
+          receptionTitleColor: Colors.blue.shade700,
+          receptionBaseTextColor: Colors.blue.shade700,
+          dividingLineWidth: 1,
+          dividingLineColor: Colors.blue.shade300,
+          contractCountdownBorderWidth: 1,
+          contractCountdownOddColor: Colors.white.withValues(alpha: .4),
+          contractCountdownEvenColor: Colors.white.withValues(alpha: .4),
+          contractCountdownOddBorderColor: Colors.blue.shade300,
+          contractCountdownEvenBorderColor: Colors.blue.shade300,
+          contractCountdownNumberColor: Colors.blue.shade600,
+          contractCountdownUnitColor: Colors.blue.shade600,
+          receptionCountdownBorderWidth: 1,
+          receptionCountdownOddColor: Colors.white.withValues(alpha: .5),
+          receptionCountdownEvenColor: Colors.white.withValues(alpha: .5),
+          receptionCountdownOddBorderColor: Colors.blue.shade500,
+          receptionCountdownEvenBorderColor: Colors.blue.shade500,
+          receptionCountdownNumberColor: Colors.blue.shade700,
+          receptionCountdownUnitColor: Colors.blue.shade700,
+          useLightningEffectOnCountdown: true,
+        ),
+        fourthPageConfig: PageViewBasedFourthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 20),
+          secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 20).withValues(alpha: .0),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: Colors.white,
+          placeIconColor: Colors.white,
+          placeTextColor: Colors.white,
+          dividingLineWidth: 1,
+          dividingLineColor: Colors.white,
+          mapsBorderColor: Colors.white.withValues(alpha: .7),
+          getDirectionsButtonColor: Colors.blue.shade600.withValues(alpha: .5),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: 1.5,
+          getDirectionsButtonBorderColor: Colors.white,
+        ),
+        fifthPageConfig: PageViewBasedFifthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .4),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .6,
+          titlePageColor: Colors.blue.shade700,
+          dividingLineWidth: 1,
+          dividingVerticalLineColor: Colors.blue.shade200,
+          dividingHorizontalLineColor: Colors.blue.shade200,
+          seeMoreButtonColor: Colors.blue.withValues(alpha: .5),
+          seeMoreButtonLabelColor: Colors.white,
+          seeMoreButtonBorderWidth: 1.5,
+          seeMoreButtonBorderColor: Colors.white,
+          bottomSheetHandleColor: Colors.white,
+          bottomSheetContentScaffoldColor: ColorConverter.lighten(Colors.blue.shade50, 40).withValues(alpha: .7),
+          bottomSheetBackgroundColor: ColorConverter.lighten(Colors.blue.shade500, 20).withValues(alpha: .8),
+        ),
+        sixthPageConfig: PageViewBasedSixthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.transparent,
+          secondGradientBackgroundColor: Colors.grey.shade900,
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .7),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: Colors.grey.shade900,
+          introductionColor: Colors.white.withValues(alpha: .05),
+          introductionBorderColor: Colors.grey.shade500,
+          introductionBorderWidth: .5,
+          bankColor: Colors.white.withValues(alpha: .05),
+          bankBorderColor: Colors.grey.shade500,
+          bankBorderWidth: .5,
+        ),
+        seventhPageConfig: PageViewBasedSeventhPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: Colors.grey.shade900,
+          submitButtonColor: Colors.black.withValues(alpha: .3),
+          submitButtonLabelColor: Colors.grey.shade100,
+          submitButtonBorderWidth: .5,
+          submitButtonBorderColor: Colors.grey.shade500,
+          seeMoreButtonColor: Colors.grey.shade900.withValues(alpha: .8),
+          seeMoreButtonLabelColor: Colors.grey.shade100,
+          seeMoreButtonBorderWidth: .5,
+          seeMoreButtonBorderColor: Colors.grey.shade500,
+          bottomSheetHandleColor: null,
+        ),
+        eighthPageConfig: PageViewBasedEighthPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .6,
+          titlePageColor: Colors.grey.shade900,
+          closingTextColor: Colors.grey.shade100,
+          brideGroomNameColor: Colors.grey.shade100,
+          brandBackgroundColor: Colors.grey.shade200.withValues(alpha: .7),
+          brandTextColor: Colors.grey.shade600,
+        ),
+      ),
+      heightAdjustment: heightAdjustment,
+      initialPage: initialPage,
+      viewAsImage: viewAsImage,
+      viewType: viewType,
+      invitationId: invitationId,
+      invitationData: invitationData,
+      imagesRaw: imagesRaw,
+      brandProfile: brandProfile,
+    );
+  }
+}

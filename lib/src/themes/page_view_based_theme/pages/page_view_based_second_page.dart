@@ -16,12 +16,15 @@ class PageViewBasedSecondPageConfig {
     this.frontground,
     this.background,
     required this.useBackdropBlurOnScaffold,
-    required this.scaffoldColor,
+    required this.firstGradientScaffoldColor,
+    required this.secondGradientScaffoldColor,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
+    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
+    required this.generalTextColor,
     required this.brideDividingBorderWidth,
     required this.brideImageBorderWidth,
     required this.brideDividingLineWidth,
@@ -45,12 +48,15 @@ class PageViewBasedSecondPageConfig {
   final Widget? frontground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
-  final Color scaffoldColor;
+  final Color firstGradientScaffoldColor;
+  final Color secondGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
+  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
+  final Color generalTextColor;
   final double brideDividingBorderWidth;
   final double brideImageBorderWidth;
   final double brideDividingLineWidth;
@@ -150,7 +156,14 @@ class PageViewBasedSecondPage extends StatelessWidget {
                     child: BackdropFilter(
                       filter: .blur(sigmaX: 3, sigmaY: 3),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                        decoration: BoxDecoration(
+                          borderRadius: .circular(20),
+                          gradient: LinearGradient(
+                            begin: .topCenter,
+                            end: .bottomCenter,
+                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -165,7 +178,14 @@ class PageViewBasedSecondPage extends StatelessWidget {
               child: Padding(
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -218,7 +238,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            style: AppFonts.inter(fontSize: FontSize.x2l, color: Colors.grey.shade200, height: 1.2),
+                            style: AppFonts.inter(fontSize: FontSize.x2l, color: config.generalTextColor, height: 1.2),
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
@@ -229,7 +249,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 6),
                           Text(
                             langCode == 'en' ? 'Daughter of' : 'Putri dari',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
+                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -259,14 +279,14 @@ class PageViewBasedSecondPage extends StatelessWidget {
                             style: AppFonts.inter(
                               fontSize: FontSize.xs + .2,
                               fontStyle: .italic,
-                              color: Colors.grey.shade200,
+                              color: config.generalTextColor,
                               height: 1.2,
                             ),
                           ),
                           const SizedBox(height: 2),
                           Text(
                             langCode == 'en' ? 'and' : 'dan',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
+                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -296,7 +316,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                             style: AppFonts.inter(
                               fontSize: FontSize.xs + .2,
                               fontStyle: .italic,
-                              color: Colors.grey.shade200,
+                              color: config.generalTextColor,
                               height: 1.2,
                             ),
                           ),
@@ -323,7 +343,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            style: AppFonts.inter(fontSize: FontSize.x2l, color: Colors.grey.shade200, height: 1.2),
+                            style: AppFonts.inter(fontSize: FontSize.x2l, color: config.generalTextColor, height: 1.2),
                             textAlign: .end,
                           ),
                           const SizedBox(height: 8),
@@ -335,7 +355,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 6),
                           Text(
                             langCode == 'en' ? 'Son of' : 'Putra dari',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
+                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -365,7 +385,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                             style: AppFonts.inter(
                               fontSize: FontSize.xs + .2,
                               fontStyle: .italic,
-                              color: Colors.grey.shade200,
+                              color: config.generalTextColor,
                               height: 1.2,
                             ),
                             textAlign: .right,
@@ -373,7 +393,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 2),
                           Text(
                             langCode == 'en' ? 'and' : 'dan',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: Colors.grey.shade200),
+                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -403,7 +423,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                             style: AppFonts.inter(
                               fontSize: FontSize.xs + .2,
                               fontStyle: .italic,
-                              color: Colors.grey.shade200,
+                              color: config.generalTextColor,
                               height: 1.2,
                             ),
                             textAlign: .right,
@@ -436,7 +456,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                   height: Screen.height - (76 + H.x6l),
                   borderRadius: 20,
                   sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: .4),
+                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 3000),
                   animationInterval: const Duration(milliseconds: 3500),

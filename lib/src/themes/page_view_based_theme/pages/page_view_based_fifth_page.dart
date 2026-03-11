@@ -15,9 +15,11 @@ class PageViewBasedFifthPageConfig {
     this.frontground,
     this.background,
     required this.useBackdropBlurOnScaffold,
-    required this.scaffoldColor,
+    required this.firstGradientScaffoldColor,
+    required this.secondGradientScaffoldColor,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
+    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -30,14 +32,17 @@ class PageViewBasedFifthPageConfig {
     required this.seeMoreButtonBorderColor,
     required this.bottomSheetHandleColor,
     required this.bottomSheetContentScaffoldColor,
+    required this.bottomSheetBackgroundColor,
   });
 
   final Widget? frontground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
-  final Color scaffoldColor;
+  final Color firstGradientScaffoldColor;
+  final Color secondGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
+  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -50,6 +55,7 @@ class PageViewBasedFifthPageConfig {
   final Color seeMoreButtonBorderColor;
   final Color? bottomSheetHandleColor;
   final Color bottomSheetContentScaffoldColor;
+  final Color bottomSheetBackgroundColor;
 }
 
 class PageViewBasedFifthPage extends StatelessWidget {
@@ -121,7 +127,14 @@ class PageViewBasedFifthPage extends StatelessWidget {
                     child: BackdropFilter(
                       filter: .blur(sigmaX: 3, sigmaY: 3),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                        decoration: BoxDecoration(
+                          borderRadius: .circular(20),
+                          gradient: LinearGradient(
+                            begin: .topCenter,
+                            end: .bottomCenter,
+                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -136,7 +149,14 @@ class PageViewBasedFifthPage extends StatelessWidget {
               child: Padding(
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -181,7 +201,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
                                 ),
                               ),
                               decoration: BottomSheetDecoration(
-                                color: Colors.black.withValues(alpha: .85),
+                                color: config.bottomSheetBackgroundColor,
                                 borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
                               ),
                               contentBuilder: (_) {
@@ -252,7 +272,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
                   height: Screen.height - (76 + H.x6l),
                   borderRadius: 20,
                   sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: .4),
+                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 3000),
                   animationInterval: const Duration(milliseconds: 3500),

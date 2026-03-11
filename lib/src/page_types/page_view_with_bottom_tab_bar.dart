@@ -13,6 +13,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     required this.wrapper,
     this.background,
     this.tabIndicatorColor,
+    required this.tabBackgroundColor,
     this.useGlassEffectOnTab = false,
     required this.pages,
     required this.tabsBuilder,
@@ -24,6 +25,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final Widget wrapper;
   final Widget? background;
   final Color? tabIndicatorColor;
+  final Color tabBackgroundColor;
   final bool useGlassEffectOnTab;
   final List<Widget> pages;
   final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
@@ -108,101 +110,109 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
   Widget build(BuildContext context) {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
-      builder: (_, _) => Stack(
-        children: [
-          widget.background ?? const SizedBox.shrink(),
-          SizedBox(
-            height: Screen.height,
-            width: Screen.width,
-            child: PageView.builder(
-              controller: _pageController,
-              itemCount: widget.pages.length,
-              scrollDirection: .vertical,
-              itemBuilder: (_, index) => (index == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[index],
-              onPageChanged: (index) {
-                if (_isTabTaped) {
-                  _isTabTaped = false;
-                } else {
-                  _tabController.animateTo(index);
-                  _indexActive.value = index;
-                }
-
-                _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
-              },
-            ),
-          ),
-          ValueListenableBuilder(
-            valueListenable: _isLowerTab,
-            builder: (_, isLowerTab, _) => AnimatedPositioned(
-              bottom: isLowerTab ? -55 : 0,
-              duration: const Duration(milliseconds: 300),
-              child: SizedBox(
+      builder: (_, size) => Center(
+        child: SizedBox(
+          height: size.height,
+          width: size.width,
+          child: Stack(
+            children: [
+              widget.background ?? const SizedBox.shrink(),
+              SizedBox(
+                height: Screen.height,
                 width: Screen.width,
-                child: Padding(
-                  padding: const .symmetric(vertical: 12, horizontal: 14),
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                        borderRadius: .circular(36),
-                        child: BackdropFilter(
-                          filter: .blur(sigmaX: 5, sigmaY: 5),
-                          child: SizedBox(
-                            height: 52,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(color: Colors.black.withValues(alpha: .5), borderRadius: .circular(36)),
-                              child: TabBar(
-                                tabs: _tabs,
-                                controller: _tabController,
-                                onTap: (value) {
-                                  _isTabTaped = true;
-                                  _pageController.animateToPage(
-                                    value,
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.ease,
-                                  );
-                                  _indexActive.value = value;
-                                },
-                                isScrollable: true,
-                                padding: const .symmetric(horizontal: 14),
-                                dividerHeight: 0,
-                                tabAlignment: .start,
-                                indicatorWeight: 5,
-                                indicator: UnderlineTabIndicator(
-                                  borderRadius: .circular(2),
-                                  borderSide: BorderSide(width: 4, color: widget.tabIndicatorColor ?? Colors.grey.shade50),
-                                  insets: const .fromLTRB(0, 0, 0, 45),
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: widget.pages.length,
+                  scrollDirection: .vertical,
+                  itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
+                  onPageChanged: (index) {
+                    if (_isTabTaped) {
+                      _isTabTaped = false;
+                    } else {
+                      _tabController.animateTo(index);
+                      _indexActive.value = index;
+                    }
+
+                    _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
+                  },
+                ),
+              ),
+              ValueListenableBuilder(
+                valueListenable: _isLowerTab,
+                builder: (_, isLowerTab, _) => AnimatedPositioned(
+                  bottom: isLowerTab ? -55 : 0,
+                  duration: const Duration(milliseconds: 300),
+                  child: SizedBox(
+                    width: Screen.width,
+                    child: Padding(
+                      padding: const .symmetric(vertical: 12, horizontal: 14),
+                      child: Stack(
+                        children: [
+                          RepaintBoundary(
+                            child: ClipRRect(
+                              borderRadius: .circular(36),
+                              child: BackdropFilter(
+                                filter: .blur(sigmaX: 5, sigmaY: 5),
+                                child: SizedBox(
+                                  height: 52,
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(color: widget.tabBackgroundColor, borderRadius: .circular(36)),
+                                    child: TabBar(
+                                      tabs: _tabs,
+                                      controller: _tabController,
+                                      onTap: (value) {
+                                        _isTabTaped = true;
+                                        _pageController.animateToPage(
+                                          value,
+                                          duration: const Duration(milliseconds: 300),
+                                          curve: Curves.ease,
+                                        );
+                                        _indexActive.value = value;
+                                      },
+                                      isScrollable: true,
+                                      padding: const .symmetric(horizontal: 14),
+                                      dividerHeight: 0,
+                                      tabAlignment: .start,
+                                      indicatorWeight: 5,
+                                      indicator: UnderlineTabIndicator(
+                                        borderRadius: .circular(2),
+                                        borderSide: BorderSide(width: 4, color: widget.tabIndicatorColor ?? Colors.grey.shade50),
+                                        insets: const .fromLTRB(0, 0, 0, 45),
+                                      ),
+                                      splashBorderRadius: .circular(36),
+                                    ),
+                                  ),
                                 ),
-                                splashBorderRadius: .circular(36),
                               ),
                             ),
                           ),
-                        ),
+                          if (widget.useGlassEffectOnTab && _indexActive.value > 0)
+                            GlassEffectBox(
+                              width: Screen.width - 28,
+                              height: 52,
+                              borderRadius: 36,
+                              animationSpeed: const Duration(milliseconds: 600),
+                              animationInterval: const Duration(seconds: 7),
+                              delayBeforeStart: const Duration(milliseconds: 1200),
+                              color: Colors.grey.shade300.withValues(alpha: .5),
+                              sliderWidth: 90,
+                            ),
+                        ],
                       ),
-                      if (widget.useGlassEffectOnTab && _indexActive.value > 0)
-                        GlassEffectBox(
-                          width: Screen.width - 28,
-                          height: 52,
-                          borderRadius: 36,
-                          animationSpeed: const Duration(milliseconds: 600),
-                          animationInterval: const Duration(seconds: 7),
-                          delayBeforeStart: const Duration(milliseconds: 1200),
-                          color: Colors.grey.shade300.withValues(alpha: .5),
-                          sliderWidth: 90,
-                        ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
+              widget.wrapper,
+              if (widget.viewAsImage)
+                const SizedBox(
+                  height: .maxFinite,
+                  width: .maxFinite,
+                  child: ColoredBox(color: Colors.transparent),
+                ),
+            ],
           ),
-          widget.wrapper,
-          if (widget.viewAsImage)
-            const SizedBox(
-              height: .maxFinite,
-              width: .maxFinite,
-              child: ColoredBox(color: Colors.transparent),
-            ),
-        ],
+        ),
       ),
     );
   }

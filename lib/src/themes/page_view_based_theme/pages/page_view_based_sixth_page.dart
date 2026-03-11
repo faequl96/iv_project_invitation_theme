@@ -13,9 +13,11 @@ class PageViewBasedSixthPageConfig {
     this.frontground,
     this.background,
     required this.useBackdropBlurOnScaffold,
-    required this.scaffoldColor,
+    required this.firstGradientScaffoldColor,
+    required this.secondGradientScaffoldColor,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
+    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -30,9 +32,11 @@ class PageViewBasedSixthPageConfig {
   final Widget? frontground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
-  final Color scaffoldColor;
+  final Color firstGradientScaffoldColor;
+  final Color secondGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
+  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -112,7 +116,14 @@ class PageViewBasedSixthPage extends StatelessWidget {
                     child: BackdropFilter(
                       filter: .blur(sigmaX: 3, sigmaY: 3),
                       child: DecoratedBox(
-                        decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                        decoration: BoxDecoration(
+                          borderRadius: .circular(20),
+                          gradient: LinearGradient(
+                            begin: .topCenter,
+                            end: .bottomCenter,
+                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -127,7 +138,14 @@ class PageViewBasedSixthPage extends StatelessWidget {
               child: Padding(
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: config.scaffoldColor, borderRadius: .circular(20)),
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -205,7 +223,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
                   height: Screen.height - (76 + H.x6l),
                   borderRadius: 20,
                   sliderWidth: 90,
-                  color: Colors.grey.shade300.withValues(alpha: .4),
+                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 2800),
                   animationInterval: const Duration(milliseconds: 3500),
