@@ -36,6 +36,10 @@ class PageViewBasedSeventhPageConfig {
     required this.seeMoreButtonBorderWidth,
     required this.seeMoreButtonBorderColor,
     required this.bottomSheetHandleColor,
+    required this.bottomSheetContentScaffoldColor,
+    required this.bottomSheetBackgroundColor,
+    required this.bottomSheetCloseIconColor,
+    this.bottomSheetOnHoverCloseIconColor,
   });
 
   final Widget? frontground;
@@ -58,6 +62,10 @@ class PageViewBasedSeventhPageConfig {
   final double seeMoreButtonBorderWidth;
   final Color seeMoreButtonBorderColor;
   final Color? bottomSheetHandleColor;
+  final Color bottomSheetContentScaffoldColor;
+  final Color bottomSheetBackgroundColor;
+  final Color bottomSheetCloseIconColor;
+  final Color? bottomSheetOnHoverCloseIconColor;
 }
 
 class PageViewBasedSeventhPage extends StatelessWidget {
@@ -216,12 +224,13 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                             title: .handleBar(color: config.bottomSheetHandleColor),
                                             action: HeaderAction(
                                               actionIcon: Icons.close_rounded,
-                                              iconColor: Colors.grey.shade400,
+                                              iconColor: config.bottomSheetCloseIconColor,
+                                              onHoverIconColor: config.bottomSheetOnHoverCloseIconColor,
                                               onTap: () => NavigationService.pop(),
                                             ),
                                           ),
                                           decoration: BottomSheetDecoration(
-                                            color: Colors.black.withValues(alpha: .85),
+                                            color: config.bottomSheetBackgroundColor,
                                             borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
                                           ),
                                           contentBuilder: (_) {
@@ -231,7 +240,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                                 padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
                                                 child: DecoratedBox(
                                                   decoration: BoxDecoration(
-                                                    color: Colors.grey.shade700.withValues(alpha: .5),
+                                                    color: config.bottomSheetContentScaffoldColor,
                                                     borderRadius: .circular(16),
                                                   ),
                                                   child: _RSVPsWidget(
@@ -476,7 +485,7 @@ class _RSVPFormState extends State<RSVPForm> {
                     padding: const .symmetric(vertical: 10, horizontal: 14),
                     selectedColor: Colors.grey.shade500,
                     hoveredColor: Colors.grey.shade400,
-                    splashColor: Colors.grey.shade400,
+                    splashColor: Colors.blue.shade400,
                   ),
                   value: _avatar.value,
                   dropdownItems: Avatars.values.map((item) => item.name).toList(),

@@ -33,6 +33,8 @@ class PageViewBasedFifthPageConfig {
     required this.bottomSheetHandleColor,
     required this.bottomSheetContentScaffoldColor,
     required this.bottomSheetBackgroundColor,
+    required this.bottomSheetCloseIconColor,
+    this.bottomSheetOnHoverCloseIconColor,
   });
 
   final Widget? frontground;
@@ -56,6 +58,8 @@ class PageViewBasedFifthPageConfig {
   final Color? bottomSheetHandleColor;
   final Color bottomSheetContentScaffoldColor;
   final Color bottomSheetBackgroundColor;
+  final Color bottomSheetCloseIconColor;
+  final Color? bottomSheetOnHoverCloseIconColor;
 }
 
 class PageViewBasedFifthPage extends StatelessWidget {
@@ -196,7 +200,8 @@ class PageViewBasedFifthPage extends StatelessWidget {
                                 title: .handleBar(color: config.bottomSheetHandleColor),
                                 action: HeaderAction(
                                   actionIcon: Icons.close_rounded,
-                                  iconColor: Colors.grey.shade400,
+                                  iconColor: config.bottomSheetCloseIconColor,
+                                  onHoverIconColor: config.bottomSheetOnHoverCloseIconColor,
                                   onTap: () => NavigationService.pop(),
                                 ),
                               ),
