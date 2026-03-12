@@ -16,6 +16,7 @@ class PageViewBasedFourthPageConfig {
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
+    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
@@ -38,6 +39,7 @@ class PageViewBasedFourthPageConfig {
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
+  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
@@ -129,6 +131,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                             begin: .topCenter,
                             end: .bottomCenter,
                             colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                            stops: config.stopsGradientScaffoldColor,
                           ),
                         ),
                       ),
@@ -151,6 +154,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                       begin: .topCenter,
                       end: .bottomCenter,
                       colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                      stops: config.stopsGradientScaffoldColor,
                     ),
                   ),
                 ),
