@@ -27,10 +27,29 @@ class PageViewBasedSeventhPageConfig {
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
+    required this.fieldTextColor,
+    required this.fieldLabelColor,
+    required this.fieldFillColor,
+    required this.fieldBorderColor,
+    required this.fieldSplashColor,
+    required this.overlayColor,
+    required this.overlayBorderColor,
+    required this.dropdownItemSelectedColor,
+    required this.dropdownItemTextColor,
+    required this.dropdownItemSelectedTextColor,
+    required this.dropdownItemHoveredColor,
+    required this.dropdownItemSplashColor,
     required this.submitButtonColor,
     required this.submitButtonLabelColor,
     required this.submitButtonBorderWidth,
     required this.submitButtonBorderColor,
+    required this.rsvpBackgroundColor,
+    required this.rsvpBorderColor,
+    required this.rsvpNameTextColor,
+    required this.rsvpTimeAgoTextColor,
+    required this.rsvpNameInstanceTextColor,
+    required this.rsvpAttendanceTextColorLighten,
+    required this.rsvpMessageTextColor,
     required this.seeMoreButtonColor,
     required this.seeMoreButtonLabelColor,
     required this.seeMoreButtonBorderWidth,
@@ -53,10 +72,29 @@ class PageViewBasedSeventhPageConfig {
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
+  final Color fieldTextColor;
+  final Color fieldLabelColor;
+  final Color fieldFillColor;
+  final Color fieldBorderColor;
+  final Color fieldSplashColor;
+  final Color overlayColor;
+  final Color overlayBorderColor;
+  final Color dropdownItemSelectedColor;
+  final Color dropdownItemTextColor;
+  final Color dropdownItemSelectedTextColor;
+  final Color dropdownItemHoveredColor;
+  final Color dropdownItemSplashColor;
   final Color submitButtonColor;
   final Color submitButtonLabelColor;
   final double submitButtonBorderWidth;
   final Color submitButtonBorderColor;
+  final Color rsvpBackgroundColor;
+  final Color rsvpBorderColor;
+  final Color rsvpNameTextColor;
+  final Color rsvpTimeAgoTextColor;
+  final Color rsvpNameInstanceTextColor;
+  final int rsvpAttendanceTextColorLighten;
+  final Color rsvpMessageTextColor;
   final Color seeMoreButtonColor;
   final Color seeMoreButtonLabelColor;
   final double seeMoreButtonBorderWidth;
@@ -183,6 +221,18 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                     children: [
                       SizedBox(height: W.x5s),
                       RSVPForm(
+                        fieldTextColor: config.fieldTextColor,
+                        fieldLabelColor: config.fieldLabelColor,
+                        fieldFillColor: config.fieldFillColor,
+                        fieldBorderColor: config.fieldBorderColor,
+                        fieldSplashColor: config.fieldSplashColor,
+                        overlayColor: config.overlayColor,
+                        overlayBorderColor: config.overlayBorderColor,
+                        dropdownItemSelectedColor: config.dropdownItemSelectedColor,
+                        dropdownItemTextColor: config.dropdownItemTextColor,
+                        dropdownItemSelectedTextColor: config.dropdownItemSelectedTextColor,
+                        dropdownItemHoveredColor: config.dropdownItemHoveredColor,
+                        dropdownItemSplashColor: config.dropdownItemSplashColor,
                         submitButtonColor: config.submitButtonColor,
                         submitButtonLabelColor: config.submitButtonLabelColor,
                         submitButtonBorderWidth: config.submitButtonBorderWidth,
@@ -202,8 +252,8 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                               padding: .symmetric(horizontal: W.x6s),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  color: Colors.grey.shade500.withValues(alpha: .3),
-                                  border: .all(color: Colors.grey.shade500, width: .5),
+                                  color: Colors.white.withValues(alpha: .8),
+                                  border: .all(color: Colors.white, width: .5),
                                   borderRadius: .only(
                                     topLeft: const .circular(10),
                                     topRight: const .circular(10),
@@ -214,7 +264,18 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                 child: Stack(
                                   alignment: .bottomCenter,
                                   children: [
-                                    _RSVPsWidget(invitationId: invitationId, viewType: viewType, isShowMore: false),
+                                    _RSVPsWidget(
+                                      rsvpBackgroundColor: config.rsvpBackgroundColor,
+                                      rsvpBorderColor: config.rsvpBorderColor,
+                                      rsvpNameTextColor: config.rsvpNameTextColor,
+                                      rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
+                                      rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
+                                      rsvpAttendanceTextColorLighten: config.rsvpAttendanceTextColorLighten,
+                                      rsvpMessageTextColor: config.rsvpMessageTextColor,
+                                      invitationId: invitationId,
+                                      viewType: viewType,
+                                      isShowMore: false,
+                                    ),
                                     GeneralEffectsButton(
                                       onTap: () {
                                         ShowModal.bottomSheet(
@@ -244,6 +305,13 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                                     borderRadius: .circular(16),
                                                   ),
                                                   child: _RSVPsWidget(
+                                                    rsvpBackgroundColor: config.rsvpBackgroundColor,
+                                                    rsvpBorderColor: config.rsvpBorderColor,
+                                                    rsvpNameTextColor: config.rsvpNameTextColor,
+                                                    rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
+                                                    rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
+                                                    rsvpAttendanceTextColorLighten: config.rsvpAttendanceTextColorLighten,
+                                                    rsvpMessageTextColor: config.rsvpMessageTextColor,
                                                     invitationId: invitationId,
                                                     viewType: viewType,
                                                     isShowMore: true,
@@ -320,6 +388,18 @@ class PageViewBasedSeventhPage extends StatelessWidget {
 class RSVPForm extends StatefulWidget {
   const RSVPForm({
     super.key,
+    required this.fieldTextColor,
+    required this.fieldLabelColor,
+    required this.fieldFillColor,
+    required this.fieldBorderColor,
+    required this.fieldSplashColor,
+    required this.overlayColor,
+    required this.overlayBorderColor,
+    required this.dropdownItemSelectedColor,
+    required this.dropdownItemTextColor,
+    required this.dropdownItemSelectedTextColor,
+    required this.dropdownItemHoveredColor,
+    required this.dropdownItemSplashColor,
     required this.submitButtonColor,
     required this.submitButtonLabelColor,
     required this.submitButtonBorderWidth,
@@ -328,6 +408,18 @@ class RSVPForm extends StatefulWidget {
     required this.invitationId,
   });
 
+  final Color fieldTextColor;
+  final Color fieldLabelColor;
+  final Color fieldFillColor;
+  final Color fieldBorderColor;
+  final Color fieldSplashColor;
+  final Color overlayColor;
+  final Color overlayBorderColor;
+  final Color dropdownItemSelectedColor;
+  final Color dropdownItemTextColor;
+  final Color dropdownItemSelectedTextColor;
+  final Color dropdownItemHoveredColor;
+  final Color dropdownItemSplashColor;
   final Color submitButtonColor;
   final Color submitButtonLabelColor;
   final double submitButtonBorderWidth;
@@ -423,6 +515,10 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 800),
             child: EnhancedGeneralTextField(
+              fieldTextColor: widget.fieldTextColor,
+              fieldLabelColor: widget.fieldLabelColor,
+              fieldFillColor: widget.fieldFillColor,
+              fieldBorderColor: widget.fieldBorderColor,
               textEditingController: _nameController,
               labelTextBuilder: () => langCode == 'id' ? 'Nama' : 'Name',
               maxLength: 18,
@@ -441,22 +537,22 @@ class _RSVPFormState extends State<RSVPForm> {
               builder: (_, _, _) {
                 return OverlayDropdownField(
                   height: H.x3l,
-                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
+                  style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
                   decoration: FieldDecoration(
                     labelText: 'Avatar',
-                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.md),
+                    labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
                     filled: true,
-                    fillColor: Colors.grey.shade500.withValues(alpha: .3),
+                    fillColor: widget.fieldFillColor,
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
                       borderRadius: const .all(.circular(8)),
                     ),
                     disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
                       borderRadius: const .all(.circular(8)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
                       borderRadius: const .all(.circular(8)),
                     ),
                     suffixIcons: () {
@@ -473,19 +569,20 @@ class _RSVPFormState extends State<RSVPForm> {
                       ];
                     },
                   ),
+                  splashColor: widget.fieldSplashColor,
                   overlayYOffset: 6,
                   overlayBarrier: const ModalBarrier(),
                   overlaydecoration: OverlayDecoration(
                     height: H.x15l,
-                    color: Colors.grey.shade700.withValues(alpha: .95),
+                    color: widget.overlayColor,
                     padding: const .symmetric(vertical: 10),
-                    border: .all(color: Colors.grey.shade500),
+                    border: .all(color: widget.overlayBorderColor),
                   ),
                   dropdownItemDecoration: DropdownItemDecoration(
                     padding: const .symmetric(vertical: 10, horizontal: 14),
-                    selectedColor: Colors.grey.shade500,
-                    hoveredColor: Colors.grey.shade400,
-                    splashColor: Colors.blue.shade400,
+                    selectedColor: widget.dropdownItemSelectedColor,
+                    hoveredColor: widget.dropdownItemHoveredColor,
+                    splashColor: widget.dropdownItemSplashColor,
                   ),
                   value: _avatar.value,
                   dropdownItems: Avatars.values.map((item) => item.name).toList(),
@@ -496,7 +593,10 @@ class _RSVPFormState extends State<RSVPForm> {
                         const SizedBox(width: 6),
                         Text(
                           value,
-                          style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
+                          style: AppFonts.inter(
+                            color: _avatar.value == value ? widget.dropdownItemSelectedTextColor : widget.dropdownItemTextColor,
+                            fontSize: FontSize.md,
+                          ),
                         ),
                       ],
                     );
@@ -519,22 +619,22 @@ class _RSVPFormState extends State<RSVPForm> {
               builder: (_, _, _) {
                 return OverlayDropdownField(
                   height: H.x3l,
-                  style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
+                  style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
                   decoration: FieldDecoration(
                     labelText: langCode == 'id' ? 'Kemungkinan Kehadiran' : 'Possible Presence',
-                    labelStyle: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.md),
+                    labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
                     filled: true,
-                    fillColor: Colors.grey.shade500.withValues(alpha: .3),
+                    fillColor: widget.fieldFillColor,
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
                       borderRadius: const .all(.circular(8)),
                     ),
                     disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
                       borderRadius: const .all(.circular(8)),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
+                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
                       borderRadius: const .all(.circular(8)),
                     ),
                     suffixIcons: () {
@@ -546,25 +646,31 @@ class _RSVPFormState extends State<RSVPForm> {
                       ];
                     },
                   ),
+                  splashColor: widget.fieldSplashColor,
                   overlayYOffset: 6,
                   overlayBarrier: const ModalBarrier(),
                   overlaydecoration: OverlayDecoration(
-                    color: Colors.grey.shade700.withValues(alpha: .95),
+                    color: widget.overlayColor,
                     padding: const .symmetric(vertical: 10),
-                    border: .all(color: Colors.grey.shade500),
+                    border: .all(color: widget.overlayBorderColor),
                   ),
                   dropdownItemDecoration: DropdownItemDecoration(
                     padding: const .symmetric(vertical: 12, horizontal: 14),
-                    selectedColor: Colors.grey.shade500,
-                    hoveredColor: Colors.grey.shade400,
-                    splashColor: Colors.grey.shade400,
+                    selectedColor: widget.dropdownItemSelectedColor,
+                    hoveredColor: widget.dropdownItemHoveredColor,
+                    splashColor: widget.dropdownItemSplashColor,
                   ),
                   value: _possiblePresence.value,
                   dropdownItems: Attendance.values.map((item) => item.description).toList(),
                   dropdownItemBuilder: (value) {
                     return Text(
                       value,
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.md),
+                      style: AppFonts.inter(
+                        color: _possiblePresence.value == value
+                            ? widget.dropdownItemSelectedTextColor
+                            : widget.dropdownItemTextColor,
+                        fontSize: FontSize.md,
+                      ),
                     );
                   },
                   onSelected: (value) => _possiblePresence.value = value,
@@ -581,6 +687,10 @@ class _RSVPFormState extends State<RSVPForm> {
             slideFrom: .left,
             delayBeforeStart: const Duration(milliseconds: 500),
             child: EnhancedGeneralTextField(
+              fieldTextColor: widget.fieldTextColor,
+              fieldLabelColor: widget.fieldLabelColor,
+              fieldFillColor: widget.fieldFillColor,
+              fieldBorderColor: widget.fieldBorderColor,
               textEditingController: _greetingController,
               labelTextBuilder: () => langCode == 'id' ? 'Ucapan' : 'Greetings',
               maxLines: 2,
@@ -646,8 +756,26 @@ class _RSVPFormState extends State<RSVPForm> {
 }
 
 class _RSVPsWidget extends StatefulWidget {
-  const _RSVPsWidget({required this.invitationId, required this.viewType, required this.isShowMore});
+  const _RSVPsWidget({
+    required this.rsvpBackgroundColor,
+    required this.rsvpBorderColor,
+    required this.rsvpNameTextColor,
+    required this.rsvpTimeAgoTextColor,
+    required this.rsvpNameInstanceTextColor,
+    required this.rsvpAttendanceTextColorLighten,
+    required this.rsvpMessageTextColor,
+    required this.invitationId,
+    required this.viewType,
+    required this.isShowMore,
+  });
 
+  final Color rsvpBackgroundColor;
+  final Color rsvpBorderColor;
+  final Color rsvpNameTextColor;
+  final Color rsvpTimeAgoTextColor;
+  final Color rsvpNameInstanceTextColor;
+  final int rsvpAttendanceTextColorLighten;
+  final Color rsvpMessageTextColor;
   final String invitationId;
   final ViewType viewType;
   final bool isShowMore;
@@ -757,9 +885,25 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
           if (rsvps.length > 3 && widget.isShowMore == false)
             for (int i = 0; i < 3; i++) ...[
               if (i == 2)
-                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+                _RSVPItem(
+                  nameTextColor: widget.rsvpNameTextColor,
+                  timeAgoTextColor: widget.rsvpTimeAgoTextColor,
+                  nameInstanceTextColor: widget.rsvpNameInstanceTextColor,
+                  attendanceTextColorLighten: widget.rsvpAttendanceTextColorLighten,
+                  messageTextColor: widget.rsvpMessageTextColor,
+                  invitationId: widget.invitationId,
+                  rsvp: rsvps[i],
+                )
               else ...[
-                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                _RSVPItem(
+                  nameTextColor: widget.rsvpNameTextColor,
+                  timeAgoTextColor: widget.rsvpTimeAgoTextColor,
+                  nameInstanceTextColor: widget.rsvpNameInstanceTextColor,
+                  attendanceTextColorLighten: widget.rsvpAttendanceTextColorLighten,
+                  messageTextColor: widget.rsvpMessageTextColor,
+                  invitationId: widget.invitationId,
+                  rsvp: rsvps[i],
+                ),
                 Padding(
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   child: SizedBox(
@@ -773,9 +917,25 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
           else
             for (int i = 0; i < rsvps.length; i++) ...[
               if (i == rsvps.length - 1)
-                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i])
+                _RSVPItem(
+                  nameTextColor: widget.rsvpNameTextColor,
+                  timeAgoTextColor: widget.rsvpTimeAgoTextColor,
+                  nameInstanceTextColor: widget.rsvpNameInstanceTextColor,
+                  attendanceTextColorLighten: widget.rsvpAttendanceTextColorLighten,
+                  messageTextColor: widget.rsvpMessageTextColor,
+                  invitationId: widget.invitationId,
+                  rsvp: rsvps[i],
+                )
               else ...[
-                _RSVPItem(invitationId: widget.invitationId, rsvp: rsvps[i]),
+                _RSVPItem(
+                  nameTextColor: widget.rsvpNameTextColor,
+                  timeAgoTextColor: widget.rsvpTimeAgoTextColor,
+                  nameInstanceTextColor: widget.rsvpNameInstanceTextColor,
+                  attendanceTextColorLighten: widget.rsvpAttendanceTextColorLighten,
+                  messageTextColor: widget.rsvpMessageTextColor,
+                  invitationId: widget.invitationId,
+                  rsvp: rsvps[i],
+                ),
                 Padding(
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   child: SizedBox(
@@ -811,8 +971,21 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
 }
 
 class _RSVPItem extends StatelessWidget {
-  const _RSVPItem({required this.invitationId, required this.rsvp});
+  const _RSVPItem({
+    required this.nameTextColor,
+    required this.timeAgoTextColor,
+    required this.nameInstanceTextColor,
+    required this.attendanceTextColorLighten,
+    required this.messageTextColor,
+    required this.invitationId,
+    required this.rsvp,
+  });
 
+  final Color nameTextColor;
+  final Color timeAgoTextColor;
+  final Color nameInstanceTextColor;
+  final int attendanceTextColorLighten;
+  final Color messageTextColor;
   final String invitationId;
   final RSVPResponse rsvp;
 
@@ -846,25 +1019,25 @@ class _RSVPItem extends StatelessWidget {
                   children: [
                     Text(
                       invitedGuest.nickname ?? invitedGuest.name,
-                      style: AppFonts.inter(color: Colors.grey.shade100, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
+                      style: AppFonts.inter(color: nameTextColor, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
                     ),
                     SizedBox(width: W.x10s),
                     SizedBox(
                       height: FontSize.sm,
                       width: 1,
-                      child: ColoredBox(color: Colors.grey.shade50),
+                      child: ColoredBox(color: nameTextColor),
                     ),
                     SizedBox(width: W.x12s),
                     TimeAgo(
                       dateTime: rsvp.createdAt,
-                      textStyle: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade400),
+                      textStyle: AppFonts.inter(fontSize: FontSize.xs, color: timeAgoTextColor),
                     ),
                   ],
                 ),
                 const SizedBox(height: 2),
                 Text(
                   '@${invitedGuest.nameInstance}',
-                  style: AppFonts.inter(color: Colors.grey.shade400, fontSize: FontSize.xs, height: 1.16),
+                  style: AppFonts.inter(color: nameInstanceTextColor, fontSize: FontSize.xs, height: 1.16),
                 ),
                 const SizedBox(height: 4),
                 if (invitedGuest.attendance != null)
@@ -878,8 +1051,8 @@ class _RSVPItem extends StatelessWidget {
                         : 'Did not Attend',
                     style: AppFonts.inter(
                       color: invitedGuest.attendance == true
-                          ? ColorConverter.lighten(Colors.green, 50)
-                          : ColorConverter.lighten(Colors.red, 50),
+                          ? ColorConverter.lighten(Colors.green, attendanceTextColorLighten)
+                          : ColorConverter.lighten(Colors.red, attendanceTextColorLighten),
                       fontWeight: .w400,
                       fontSize: FontSize.xs,
                     ),
@@ -889,15 +1062,15 @@ class _RSVPItem extends StatelessWidget {
                     invitedGuest.possiblePresence ?? '-',
                     style: AppFonts.inter(
                       color: invitedGuest.possiblePresence == 'Mungkin Hadir'
-                          ? ColorConverter.lighten(Colors.green, 50)
-                          : ColorConverter.lighten(Colors.red, 50),
+                          ? ColorConverter.lighten(Colors.green, attendanceTextColorLighten)
+                          : ColorConverter.lighten(Colors.red, attendanceTextColorLighten),
                       fontWeight: .w400,
                       fontSize: FontSize.xs,
                     ),
                   ),
                 Text(
                   rsvp.message,
-                  style: AppFonts.inter(color: Colors.grey.shade200, fontSize: FontSize.sm),
+                  style: AppFonts.inter(color: messageTextColor, fontSize: FontSize.sm),
                 ),
               ],
             ),
