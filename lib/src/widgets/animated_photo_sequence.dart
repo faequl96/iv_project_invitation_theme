@@ -85,7 +85,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
         curve: const Interval(.74, 1, curve: Curves.easeIn),
       ),
     );
-    _frameScaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
+    _frameScaleAnimation = Tween<double>(begin: .95, end: 1.2).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(.74, 1, curve: Curves.ease),
@@ -94,9 +94,9 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
     _clipRRectAnimation =
         BorderRadiusTween(
           begin: widget.isLeft
-              ? const .only(topLeft: .circular(2), bottomLeft: .circular(2))
-              : const .only(topRight: .circular(2), bottomRight: .circular(2)),
-          end: .circular(2),
+              ? const .only(topLeft: .circular(3), bottomLeft: .circular(3))
+              : const .only(topRight: .circular(3), bottomRight: .circular(3)),
+          end: .circular(3),
         ).animate(
           CurvedAnimation(
             parent: _controller,
@@ -178,10 +178,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                                 child = Image.network(widget.imageUrl!, fit: .cover);
                               }
                             }
-                            return ClipRRect(
-                              borderRadius: _clipRRectAnimation.value ?? .zero,
-                              child: ColoredBox(color: Colors.grey, child: child),
-                            );
+                            return ClipRRect(borderRadius: _clipRRectAnimation.value ?? .zero, child: child);
                           },
                         ),
                       ),
