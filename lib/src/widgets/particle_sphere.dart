@@ -1,7 +1,13 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:iv_project_core/iv_project_core.dart';
 import 'package:vector_math/vector_math_64.dart' as v_math;
+
+class _DrawData {
+  Offset offset = Offset.zero;
+  double z = 0;
+  double scale = 0;
+  Color color = Colors.transparent;
+}
 
 class Particle {
   Particle({required this.basePosition, required this.color}) : velocityMultiplier = math.Random().nextDouble() * 2.5 + 0.5;
@@ -12,10 +18,13 @@ class Particle {
 }
 
 class ParticleSphere extends StatefulWidget {
-  const ParticleSphere({super.key, this.size = 200.0, this.particleCount = 30, required this.colors, required this.child});
-
-  const ParticleSphere.background({super.key, this.size = 200.0, this.particleCount = 30, required this.colors})
-    : child = const SizedBox.shrink();
+  const ParticleSphere({
+    super.key,
+    this.size = 300.0,
+    this.particleCount = 50,
+    required this.colors,
+    this.child = const SizedBox.shrink(),
+  });
 
   final double size;
   final int particleCount;
@@ -29,20 +38,14 @@ class ParticleSphere extends StatefulWidget {
 class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   final List<Particle> _particles = [];
-  final double _explosionForce = 2;
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
 
   double _rotateX = 0.003;
   double _rotateY = 0.003;
-
   double _targetRotateX = 0.003;
   double _targetRotateY = 0.003;
 
-  void _updateRandomDirection() {
-    final rand = math.Random();
-    _targetRotateX = (rand.nextDouble() - 0.5) * 0.02;
-    _targetRotateY = (rand.nextDouble() - 0.5) * 0.02;
-  }
+  double _speedMultiplier = 1.0;
 
   void _generateParticles() {
     final rand = math.Random();
@@ -60,34 +63,33 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
     }
   }
 
+  void _updateRotation() {
+    _rotateX += (_targetRotateX * _speedMultiplier - _rotateX) * 0.02;
+    _rotateY += (_targetRotateY * _speedMultiplier - _rotateY) * 0.02;
+
+    _rotation.rotateY(_rotateY);
+    _rotation.rotateX(_rotateX);
+
+    final rand = math.Random();
+    if (_speedMultiplier > 0.5 && rand.nextInt(100) == 1) {
+      _targetRotateX = (rand.nextDouble() - 0.5) * 0.015;
+      _targetRotateY = (rand.nextDouble() - 0.5) * 0.015;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
 
     _generateParticles();
 
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 1));
-
-    _controller.addListener(() {
-      if (!mounted) return;
-
-      setState(() {
-        _rotateX = _rotateX + (_targetRotateX - _rotateX) * 0.01;
-        _rotateY = _rotateY + (_targetRotateY - _rotateY) * 0.01;
-
-        _rotation.rotateY(_rotateY);
-        _rotation.rotateX(_rotateX);
-
-        if (math.Random().nextInt(150) == 1) _updateRandomDirection();
-      });
-    });
-
-    _controller.repeat();
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
+      ..addListener(_updateRotation)
+      ..repeat();
   }
 
   @override
   void dispose() {
-    _controller.stop();
     _controller.dispose();
 
     super.dispose();
@@ -95,35 +97,35 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
-    _rotation.rotateY(0.003);
-
     return Stack(
       alignment: .center,
       children: [
-        RepaintBoundary(
-          child: CustomPaint(
-            size: Size(widget.size, widget.size),
-            painter: ParticlePainter(
-              particles: _particles,
-              rotation: _rotation,
-              explosionForce: _explosionForce,
-              drawForeground: false,
-            ),
-          ),
+        _buildPainter(isForeground: false),
+        NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (notification is ScrollStartNotification) {
+              setState(() => _speedMultiplier = 0.05);
+            } else if (notification is ScrollEndNotification) {
+              setState(() => _speedMultiplier = 1.0);
+            }
+            return true;
+          },
+          child: widget.child,
         ),
-        SizedBox(width: Screen.width, height: Screen.height, child: widget.child),
-        RepaintBoundary(
-          child: CustomPaint(
-            size: Size(widget.size, widget.size),
-            painter: ParticlePainter(
-              particles: _particles,
-              rotation: _rotation,
-              explosionForce: _explosionForce,
-              drawForeground: true,
-            ),
-          ),
-        ),
+        IgnorePointer(child: _buildPainter(isForeground: true)),
       ],
+    );
+  }
+
+  Widget _buildPainter({required bool isForeground}) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        return CustomPaint(
+          size: Size(widget.size, widget.size),
+          painter: ParticlePainter(particles: _particles, rotation: _rotation, explosionForce: 2, drawForeground: isForeground),
+        );
+      },
     );
   }
 }
@@ -141,11 +143,14 @@ class ParticlePainter extends CustomPainter {
   final double explosionForce;
   final bool drawForeground;
 
+  static final List<_DrawData> _drawList = [];
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     const viewDistance = 600.0;
-    List<Map<String, dynamic>> depthList = [];
+
+    _drawList.clear();
 
     for (var p in particles) {
       v_math.Vector3 pos = rotation.transformed3(p.basePosition);
@@ -155,26 +160,25 @@ class ParticlePainter extends CustomPainter {
         pos += dir * (explosionForce * 50 * p.velocityMultiplier);
       }
 
-      if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
+      if (drawForeground ? pos.z < 0 : pos.z >= 0) continue;
 
-      double scale = viewDistance / (viewDistance + pos.z);
-      double x = pos.x * scale + center.dx;
-      double y = pos.y * scale + center.dy;
+      final scale = viewDistance / (viewDistance + pos.z);
 
-      depthList.add({
-        'pos': Offset(x, y),
-        'z': pos.z,
-        'size': 6 * scale,
-        'color': p.color.withValues(alpha: (scale * 0.8).clamp(0.1, 1.0)),
-      });
+      final data = _DrawData()
+        ..offset = Offset(pos.x * scale + center.dx, pos.y * scale + center.dy)
+        ..z = pos.z
+        ..scale = scale
+        ..color = p.color.withValues(alpha: (scale * 0.7).clamp(0.2, 1.0));
+
+      _drawList.add(data);
     }
 
-    depthList.sort((a, b) => (b['z'] as double).compareTo(a['z'] as double));
+    _drawList.sort((a, b) => b.z.compareTo(a.z));
 
-    final paint = Paint();
-    for (var item in depthList) {
-      paint.color = item['color'];
-      canvas.drawCircle(item['pos'], item['size'], paint);
+    final paint = Paint()..style = PaintingStyle.fill;
+    for (var item in _drawList) {
+      paint.color = item.color;
+      canvas.drawCircle(item.offset, 4 * item.scale, paint);
     }
   }
 
