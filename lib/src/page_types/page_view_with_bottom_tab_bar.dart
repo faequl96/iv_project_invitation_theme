@@ -3,6 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
+
+class ParticleSphereConfig {
+  const ParticleSphereConfig({this.size = 200.0, this.particleCount = 30, required this.colors});
+
+  final double size;
+  final int particleCount;
+  final List<Color> colors;
+}
 
 class PageViewWithBottomTabBar extends StatefulWidget {
   const PageViewWithBottomTabBar({
@@ -11,7 +20,8 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     this.initialPage = 0,
     this.viewAsImage = false,
     required this.wrapper,
-    this.background,
+    this.backgrounds,
+    this.particleSphere,
     this.tabIndicatorColor,
     required this.tabBackgroundColor,
     this.useGlassEffectOnTab = false,
@@ -23,7 +33,8 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final int initialPage;
   final bool viewAsImage;
   final Widget wrapper;
-  final Widget? background;
+  final List<Widget>? backgrounds;
+  final ParticleSphereConfig? particleSphere;
   final Color? tabIndicatorColor;
   final Color tabBackgroundColor;
   final bool useGlassEffectOnTab;
@@ -115,28 +126,58 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
           height: size.height,
           width: size.width,
           child: Stack(
+            alignment: .center,
             children: [
-              widget.background ?? const SizedBox.shrink(),
-              SizedBox(
-                height: Screen.height,
-                width: Screen.width,
-                child: PageView.builder(
-                  controller: _pageController,
-                  itemCount: widget.pages.length,
-                  scrollDirection: .vertical,
-                  itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
-                  onPageChanged: (index) {
-                    if (_isTabTaped) {
-                      _isTabTaped = false;
-                    } else {
-                      _tabController.animateTo(index);
-                      _indexActive.value = index;
-                    }
+              ...(widget.backgrounds ?? []),
+              if (widget.particleSphere != null)
+                ClipRect(
+                  child: ParticleSphere(
+                    size: widget.particleSphere!.size,
+                    particleCount: widget.particleSphere!.particleCount,
+                    colors: widget.particleSphere!.colors,
+                    child: SizedBox(
+                      height: Screen.height,
+                      width: Screen.width,
+                      child: PageView.builder(
+                        controller: _pageController,
+                        itemCount: widget.pages.length,
+                        scrollDirection: .vertical,
+                        itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
+                        onPageChanged: (index) {
+                          if (_isTabTaped) {
+                            _isTabTaped = false;
+                          } else {
+                            _tabController.animateTo(index);
+                            _indexActive.value = index;
+                          }
 
-                    _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
-                  },
+                          _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
+                        },
+                      ),
+                    ),
+                  ),
+                )
+              else
+                SizedBox(
+                  height: Screen.height,
+                  width: Screen.width,
+                  child: PageView.builder(
+                    controller: _pageController,
+                    itemCount: widget.pages.length,
+                    scrollDirection: .vertical,
+                    itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
+                    onPageChanged: (index) {
+                      if (_isTabTaped) {
+                        _isTabTaped = false;
+                      } else {
+                        _tabController.animateTo(index);
+                        _indexActive.value = index;
+                      }
+
+                      _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
+                    },
+                  ),
                 ),
-              ),
               ValueListenableBuilder(
                 valueListenable: _isLowerTab,
                 builder: (_, isLowerTab, _) => AnimatedPositioned(

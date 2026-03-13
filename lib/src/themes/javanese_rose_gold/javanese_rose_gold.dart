@@ -53,11 +53,13 @@ class JavaneseRoseGold extends StatelessWidget {
           iconActiveColor: ThemeColors.gold,
           iconInactiveColor: ThemeColors.roseGold,
         ),
-        globalBackgroundBuilder: () => SizedBox(
-          width: Screen.width,
-          height: Screen.height,
-          child: const ColoredBox(color: Color.fromARGB(255, 11, 15, 19)),
-        ),
+        globalBackgroundsBuilder: () => [
+          SizedBox(
+            width: Screen.width,
+            height: Screen.height,
+            child: const ColoredBox(color: Color.fromARGB(255, 11, 15, 19)),
+          ),
+        ],
         coverPageConfig: PageViewBasedCoverPageConfig(
           coverBackground: const CoverBackground(),
           gradientBaseColor: Colors.grey.shade900,

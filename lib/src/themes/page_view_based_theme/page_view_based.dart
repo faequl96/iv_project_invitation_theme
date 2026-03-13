@@ -21,7 +21,8 @@ import 'package:iv_project_model/iv_project_model.dart';
 class PageViewBasedConfigs {
   const PageViewBasedConfigs({
     required this.tabConfig,
-    this.globalBackgroundBuilder,
+    this.globalBackgroundsBuilder,
+    this.particleSphere,
     required this.coverPageConfig,
     required this.firstPageConfig,
     required this.secondPageConfig,
@@ -34,7 +35,8 @@ class PageViewBasedConfigs {
   });
 
   final PageViewBasedTabConfig tabConfig;
-  final Widget Function()? globalBackgroundBuilder;
+  final List<Widget> Function()? globalBackgroundsBuilder;
+  final ParticleSphereConfig? particleSphere;
   final PageViewBasedCoverPageConfig coverPageConfig;
   final PageViewBasedFirstPageConfig firstPageConfig;
   final PageViewBasedSecondPageConfig secondPageConfig;
@@ -148,7 +150,8 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
         groom: widget.invitationData.groom,
         time: widget.invitationData.contractEvent,
       ),
-      background: widget.configs.globalBackgroundBuilder?.call(),
+      backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
+      particleSphere: widget.configs.particleSphere,
       pages: [
         PageViewBasedCoverPage(
           config: widget.configs.coverPageConfig,

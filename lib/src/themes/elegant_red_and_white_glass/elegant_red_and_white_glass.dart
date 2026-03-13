@@ -50,14 +50,16 @@ class ElegantRedAndWhiteGlass extends StatelessWidget {
           iconActiveColor: Colors.white,
           iconInactiveColor: Colors.red.shade200,
         ),
-        globalBackgroundBuilder: () => BubbleBackground(
-          backgroundColor: ColorConverter.darken(Colors.red.shade100, 20).withValues(alpha: .6),
-          bubbleColor1: ColorConverter.darken(Colors.red.shade200, 5),
-          bubbleColor2: ColorConverter.darken(Colors.red.shade500, 5),
-          bubbleColor3: ColorConverter.darken(Colors.red.shade500, 5),
-          bubbleColor4: ColorConverter.darken(Colors.red.shade400, 5),
-          bubbleColor5: ColorConverter.darken(Colors.red.shade300, 5),
-        ),
+        globalBackgroundsBuilder: () => [
+          BubbleBackground(
+            backgroundColor: ColorConverter.darken(Colors.red.shade100, 20).withValues(alpha: .6),
+            bubbleColor1: ColorConverter.darken(Colors.red.shade200, 5),
+            bubbleColor2: ColorConverter.darken(Colors.red.shade500, 5),
+            bubbleColor3: ColorConverter.darken(Colors.red.shade500, 5),
+            bubbleColor4: ColorConverter.darken(Colors.red.shade400, 5),
+            bubbleColor5: ColorConverter.darken(Colors.red.shade300, 5),
+          ),
+        ],
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: ColorConverter.darken(Colors.red.shade700, 60),
           brideNameColor: Colors.red.shade200,

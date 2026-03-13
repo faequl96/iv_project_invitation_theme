@@ -48,14 +48,16 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           iconActiveColor: Colors.white,
           iconInactiveColor: Colors.grey.shade400,
         ),
-        globalBackgroundBuilder: () => BubbleBackground(
-          backgroundColor: Colors.grey.shade300,
-          bubbleColor1: Colors.grey.shade900,
-          bubbleColor2: Colors.grey.shade600,
-          bubbleColor3: Colors.grey.shade600,
-          bubbleColor4: Colors.grey.shade500,
-          bubbleColor5: Colors.grey.shade400,
-        ),
+        globalBackgroundsBuilder: () => [
+          BubbleBackground(
+            backgroundColor: Colors.grey.shade300,
+            bubbleColor1: Colors.grey.shade900,
+            bubbleColor2: Colors.grey.shade600,
+            bubbleColor3: Colors.grey.shade600,
+            bubbleColor4: Colors.grey.shade500,
+            bubbleColor5: Colors.grey.shade400,
+          ),
+        ],
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: Colors.grey.shade900,
           brideNameColor: Colors.grey.shade300,

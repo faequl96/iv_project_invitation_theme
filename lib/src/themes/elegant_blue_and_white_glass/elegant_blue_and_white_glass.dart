@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
@@ -50,13 +51,27 @@ class ElegantBlueAndWhiteGlass extends StatelessWidget {
           iconActiveColor: Colors.white,
           iconInactiveColor: Colors.blue.shade200,
         ),
-        globalBackgroundBuilder: () => BubbleBackground(
-          backgroundColor: ColorConverter.darken(Colors.blue.shade100, 20).withValues(alpha: .6),
-          bubbleColor1: ColorConverter.darken(Colors.blue.shade200, 5),
-          bubbleColor2: ColorConverter.darken(Colors.blue.shade500, 5),
-          bubbleColor3: ColorConverter.darken(Colors.blue.shade500, 5),
-          bubbleColor4: ColorConverter.darken(Colors.blue.shade400, 5),
-          bubbleColor5: ColorConverter.darken(Colors.blue.shade300, 5),
+        globalBackgroundsBuilder: () => [
+          BubbleBackground(
+            backgroundColor: ColorConverter.darken(Colors.blue.shade100, 20).withValues(alpha: .6),
+            bubbleColor1: ColorConverter.darken(Colors.lightBlueAccent, 15),
+            bubbleColor2: ColorConverter.darken(Colors.blue.shade900, 40),
+            bubbleColor3: ColorConverter.darken(Colors.blue.shade700, 40),
+            bubbleColor4: ColorConverter.darken(Colors.blue.shade400, 5),
+            bubbleColor5: ColorConverter.darken(Colors.lightBlueAccent, 5),
+          ),
+          // SizedBox(
+          //   width: Screen.width,
+          //   height: Screen.height,
+          //   child: ClipRect(
+          //     child: ParticleSphere.background(
+          //       colors: [Colors.lightBlueAccent, Colors.white, ColorConverter.darken(Colors.blue.shade700, 40)],
+          //     ),
+          //   ),
+          // ),
+        ],
+        particleSphere: ParticleSphereConfig(
+          colors: [Colors.lightBlueAccent, Colors.white, ColorConverter.darken(Colors.blue.shade700, 40)],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
