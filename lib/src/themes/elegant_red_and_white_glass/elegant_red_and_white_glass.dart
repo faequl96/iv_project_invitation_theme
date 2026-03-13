@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
@@ -53,13 +54,16 @@ class ElegantRedAndWhiteGlass extends StatelessWidget {
         globalBackgroundsBuilder: () => [
           BubbleBackground(
             backgroundColor: ColorConverter.darken(Colors.red.shade100, 20).withValues(alpha: .6),
-            bubbleColor1: ColorConverter.darken(Colors.red.shade200, 5),
-            bubbleColor2: ColorConverter.darken(Colors.red.shade500, 5),
-            bubbleColor3: ColorConverter.darken(Colors.red.shade500, 5),
+            bubbleColor1: ColorConverter.darken(Colors.redAccent, 15),
+            bubbleColor2: ColorConverter.darken(Colors.red.shade900, 40),
+            bubbleColor3: ColorConverter.darken(Colors.red.shade700, 40),
             bubbleColor4: ColorConverter.darken(Colors.red.shade400, 5),
-            bubbleColor5: ColorConverter.darken(Colors.red.shade300, 5),
+            bubbleColor5: ColorConverter.darken(Colors.redAccent, 5),
           ),
         ],
+        particleSphere: ParticleSphereConfig(
+          colors: [Colors.redAccent, Colors.white, ColorConverter.darken(Colors.red.shade700, 40)],
+        ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: ColorConverter.darken(Colors.red.shade700, 60),
           brideNameColor: Colors.red.shade200,
