@@ -45,8 +45,6 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   double _targetRotateX = 0.003;
   double _targetRotateY = 0.003;
 
-  double _speedMultiplier = 1.0;
-
   void _generateParticles() {
     final rand = math.Random();
     const goldenRatio = 1.61803398875;
@@ -64,14 +62,14 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   }
 
   void _updateRotation() {
-    _rotateX += (_targetRotateX * _speedMultiplier - _rotateX) * 0.02;
-    _rotateY += (_targetRotateY * _speedMultiplier - _rotateY) * 0.02;
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * 0.01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * 0.01;
 
     _rotation.rotateY(_rotateY);
     _rotation.rotateX(_rotateX);
 
     final rand = math.Random();
-    if (_speedMultiplier > 0.5 && rand.nextInt(100) == 1) {
+    if (rand.nextInt(100) == 1) {
       _targetRotateX = (rand.nextDouble() - 0.5) * 0.015;
       _targetRotateY = (rand.nextDouble() - 0.5) * 0.015;
     }
@@ -90,6 +88,7 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
 
   @override
   void dispose() {
+    _controller.removeListener(_updateRotation);
     _controller.dispose();
 
     super.dispose();
@@ -101,17 +100,7 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
       alignment: .center,
       children: [
         _buildPainter(isForeground: false),
-        NotificationListener<ScrollNotification>(
-          onNotification: (notification) {
-            if (notification is ScrollStartNotification) {
-              setState(() => _speedMultiplier = 0.05);
-            } else if (notification is ScrollEndNotification) {
-              setState(() => _speedMultiplier = 1.0);
-            }
-            return true;
-          },
-          child: widget.child,
-        ),
+        widget.child,
         IgnorePointer(child: _buildPainter(isForeground: true)),
       ],
     );
