@@ -22,6 +22,7 @@ class PageViewBasedConfigs {
   const PageViewBasedConfigs({
     required this.tabConfig,
     this.globalBackgroundsBuilder,
+    this.particleSphere,
     required this.coverPageConfig,
     required this.firstPageConfig,
     required this.secondPageConfig,
@@ -35,6 +36,7 @@ class PageViewBasedConfigs {
 
   final PageViewBasedTabConfig tabConfig;
   final List<Widget> Function()? globalBackgroundsBuilder;
+  final ParticleSphereConfig? particleSphere;
   final PageViewBasedCoverPageConfig coverPageConfig;
   final PageViewBasedFirstPageConfig firstPageConfig;
   final PageViewBasedSecondPageConfig secondPageConfig;
@@ -149,6 +151,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
         time: widget.invitationData.contractEvent,
       ),
       backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
+      particleSphere: widget.configs.particleSphere,
       pages: [
         PageViewBasedCoverPage(
           config: widget.configs.coverPageConfig,

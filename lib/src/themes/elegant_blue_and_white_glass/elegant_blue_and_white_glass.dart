@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
@@ -13,7 +13,6 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
-import 'package:iv_project_invitation_theme/src/widgets/molekul_morphine.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -61,18 +60,19 @@ class ElegantBlueAndWhiteGlass extends StatelessWidget {
             bubbleColor4: ColorConverter.darken(Colors.blue.shade400, 5),
             bubbleColor5: ColorConverter.darken(Colors.lightBlueAccent, 5),
           ),
-          SizedBox(
-            width: Screen.width,
-            height: Screen.height,
-            child: RepaintBoundary(
-              child: ClipRect(
-                child: ParticleSphere(
-                  colors: [Colors.lightBlueAccent, Colors.white, ColorConverter.darken(Colors.blue.shade700, 40)],
-                ),
-              ),
-            ),
-          ),
+          // SizedBox(
+          //   width: Screen.width,
+          //   height: Screen.height,
+          //   child: ClipRect(
+          //     child: ParticleSphere.background(
+          //       colors: [Colors.lightBlueAccent, Colors.white, ColorConverter.darken(Colors.blue.shade700, 40)],
+          //     ),
+          //   ),
+          // ),
         ],
+        particleSphere: ParticleSphereConfig(
+          colors: [Colors.lightBlueAccent, Colors.white, ColorConverter.darken(Colors.blue.shade700, 40)],
+        ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
           brideNameColor: Colors.blue.shade200,

@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:vector_math/vector_math_64.dart' as v_math;
 
 class Particle {
@@ -11,11 +12,15 @@ class Particle {
 }
 
 class ParticleSphere extends StatefulWidget {
-  const ParticleSphere({super.key, this.size = 200.0, this.particleCount = 30, required this.colors});
+  const ParticleSphere({super.key, this.size = 200.0, this.particleCount = 30, required this.colors, required this.child});
+
+  const ParticleSphere.background({super.key, this.size = 200.0, this.particleCount = 30, required this.colors})
+    : child = const SizedBox.shrink();
 
   final double size;
   final int particleCount;
   final List<Color> colors;
+  final Widget child;
 
   @override
   State<ParticleSphere> createState() => _ParticleSphereState();
@@ -24,7 +29,7 @@ class ParticleSphere extends StatefulWidget {
 class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   final List<Particle> _particles = [];
-  final double _explosionForce = 3;
+  final double _explosionForce = 2;
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
 
   double _rotateX = 0.003;
@@ -92,25 +97,54 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   Widget build(BuildContext context) {
     _rotation.rotateY(0.003);
 
-    return CustomPaint(
-      size: Size(widget.size, widget.size),
-      painter: ParticlePainter(particles: _particles, rotation: _rotation, explosionForce: _explosionForce),
+    return Stack(
+      alignment: .center,
+      children: [
+        RepaintBoundary(
+          child: CustomPaint(
+            size: Size(widget.size, widget.size),
+            painter: ParticlePainter(
+              particles: _particles,
+              rotation: _rotation,
+              explosionForce: _explosionForce,
+              drawForeground: false,
+            ),
+          ),
+        ),
+        SizedBox(width: Screen.width, height: Screen.height, child: widget.child),
+        RepaintBoundary(
+          child: CustomPaint(
+            size: Size(widget.size, widget.size),
+            painter: ParticlePainter(
+              particles: _particles,
+              rotation: _rotation,
+              explosionForce: _explosionForce,
+              drawForeground: true,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
 
 class ParticlePainter extends CustomPainter {
-  const ParticlePainter({required this.particles, required this.rotation, required this.explosionForce});
+  const ParticlePainter({
+    required this.particles,
+    required this.rotation,
+    required this.explosionForce,
+    required this.drawForeground,
+  });
 
   final List<Particle> particles;
   final v_math.Matrix4 rotation;
   final double explosionForce;
+  final bool drawForeground;
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     const viewDistance = 600.0;
-
     List<Map<String, dynamic>> depthList = [];
 
     for (var p in particles) {
@@ -120,6 +154,8 @@ class ParticlePainter extends CustomPainter {
         v_math.Vector3 dir = pos.normalized();
         pos += dir * (explosionForce * 50 * p.velocityMultiplier);
       }
+
+      if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
 
       double scale = viewDistance / (viewDistance + pos.z);
       double x = pos.x * scale + center.dx;
@@ -143,5 +179,5 @@ class ParticlePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant ParticlePainter oldDelegate) => true;
 }
