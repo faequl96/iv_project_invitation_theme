@@ -11,7 +11,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     this.initialPage = 0,
     this.viewAsImage = false,
     required this.wrapper,
-    this.background,
+    this.backgrounds,
     this.tabIndicatorColor,
     required this.tabBackgroundColor,
     this.useGlassEffectOnTab = false,
@@ -23,7 +23,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final int initialPage;
   final bool viewAsImage;
   final Widget wrapper;
-  final Widget? background;
+  final List<Widget>? backgrounds;
   final Color? tabIndicatorColor;
   final Color tabBackgroundColor;
   final bool useGlassEffectOnTab;
@@ -115,8 +115,9 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
           height: size.height,
           width: size.width,
           child: Stack(
+            alignment: .center,
             children: [
-              widget.background ?? const SizedBox.shrink(),
+              ...(widget.backgrounds ?? []),
               SizedBox(
                 height: Screen.height,
                 width: Screen.width,
