@@ -20,8 +20,8 @@ class Particle {
 class ParticleSphere extends StatefulWidget {
   const ParticleSphere({
     super.key,
-    this.size = 300.0,
-    this.particleCount = 50,
+    this.size = 200.0,
+    this.particleCount = 30,
     required this.colors,
     this.child = const SizedBox.shrink(),
   });
@@ -160,7 +160,7 @@ class ParticlePainter extends CustomPainter {
         pos += dir * (explosionForce * 50 * p.velocityMultiplier);
       }
 
-      if (drawForeground ? pos.z < 0 : pos.z >= 0) continue;
+      if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
 
       final scale = viewDistance / (viewDistance + pos.z);
 
@@ -168,17 +168,17 @@ class ParticlePainter extends CustomPainter {
         ..offset = Offset(pos.x * scale + center.dx, pos.y * scale + center.dy)
         ..z = pos.z
         ..scale = scale
-        ..color = p.color.withValues(alpha: (scale * 0.7).clamp(0.2, 1.0));
+        ..color = p.color.withValues(alpha: (scale * 0.8).clamp(0.1, 1.0));
 
       _drawList.add(data);
     }
 
     _drawList.sort((a, b) => b.z.compareTo(a.z));
 
-    final paint = Paint()..style = PaintingStyle.fill;
+    final paint = Paint();
     for (var item in _drawList) {
       paint.color = item.color;
-      canvas.drawCircle(item.offset, 4 * item.scale, paint);
+      canvas.drawCircle(item.offset, 6 * item.scale, paint);
     }
   }
 
