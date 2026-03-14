@@ -169,7 +169,7 @@ class ElegantBlueAndWhiteGlass extends StatelessWidget {
           secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .7),
-          stopsGradientScaffoldColor: [.2, .6],
+          stopsGradientScaffoldColor: [.0, .5],
           scaffoldBorder: GradientBoxBorder(
             width: 1.5,
             gradient: LinearGradient(
@@ -285,7 +285,7 @@ class ElegantBlueAndWhiteGlass extends StatelessWidget {
           secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .5),
-          stopsGradientScaffoldColor: [.2, .6],
+          stopsGradientScaffoldColor: [.0, .5],
           scaffoldBorder: GradientBoxBorder(
             width: 1.5,
             gradient: LinearGradient(
@@ -320,7 +320,7 @@ class ElegantBlueAndWhiteGlass extends StatelessWidget {
           secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60).withValues(alpha: 0),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .5),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .2),
-          stopsGradientScaffoldColor: [.4, .8],
+          stopsGradientScaffoldColor: [.5, 1],
           scaffoldBorder: GradientBoxBorder(
             width: 1.5,
             gradient: LinearGradient(
