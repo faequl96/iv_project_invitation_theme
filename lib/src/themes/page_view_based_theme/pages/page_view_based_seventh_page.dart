@@ -256,8 +256,8 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                               padding: .symmetric(horizontal: W.x6s),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: .8),
-                                  border: .all(color: Colors.white, width: .5),
+                                  color: config.rsvpBackgroundColor,
+                                  border: .all(color: config.rsvpBorderColor, width: .5),
                                   borderRadius: .only(
                                     topLeft: const .circular(10),
                                     topRight: const .circular(10),
@@ -269,8 +269,6 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                   alignment: .bottomCenter,
                                   children: [
                                     _RSVPsWidget(
-                                      rsvpBackgroundColor: config.rsvpBackgroundColor,
-                                      rsvpBorderColor: config.rsvpBorderColor,
                                       rsvpNameTextColor: config.rsvpNameTextColor,
                                       rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
                                       rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
@@ -309,8 +307,6 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                                                     borderRadius: .circular(16),
                                                   ),
                                                   child: _RSVPsWidget(
-                                                    rsvpBackgroundColor: config.rsvpBackgroundColor,
-                                                    rsvpBorderColor: config.rsvpBorderColor,
                                                     rsvpNameTextColor: config.rsvpNameTextColor,
                                                     rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
                                                     rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
@@ -761,8 +757,6 @@ class _RSVPFormState extends State<RSVPForm> {
 
 class _RSVPsWidget extends StatefulWidget {
   const _RSVPsWidget({
-    required this.rsvpBackgroundColor,
-    required this.rsvpBorderColor,
     required this.rsvpNameTextColor,
     required this.rsvpTimeAgoTextColor,
     required this.rsvpNameInstanceTextColor,
@@ -773,8 +767,6 @@ class _RSVPsWidget extends StatefulWidget {
     required this.isShowMore,
   });
 
-  final Color rsvpBackgroundColor;
-  final Color rsvpBorderColor;
   final Color rsvpNameTextColor;
   final Color rsvpTimeAgoTextColor;
   final Color rsvpNameInstanceTextColor;
