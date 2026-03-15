@@ -16,8 +16,8 @@ import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantRedAndWhiteGlass extends StatelessWidget {
-  const ElegantRedAndWhiteGlass({
+class ElegantRedVelvetGlass extends StatelessWidget {
+  const ElegantRedVelvetGlass({
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,

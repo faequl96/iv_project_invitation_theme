@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_blue_and_white_glass/elegant_blue_and_white_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_red_and_white_glass/elegant_red_and_white_glass.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_blue_sky_glass/elegant_blue_sky_glass.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_green_matcha_glass/elegant_green_matcha_glass.dart';
+import 'package:iv_project_invitation_theme/src/themes/elegant_red_velvet_glass/elegant_red_velvet_glass.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/javanese_rose_gold.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
@@ -65,7 +66,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           brandProfile: widget.brandProfile,
         );
       case 2:
-        return JavaneseRoseGold(
+        return ElegantRedVelvetGlass(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           viewAsImage: widget.viewAsImage,
@@ -76,7 +77,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           brandProfile: widget.brandProfile,
         );
       case 3:
-        return ElegantBlueAndWhiteGlass(
+        return ElegantGreenMatchaGlass(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           viewAsImage: widget.viewAsImage,
@@ -87,7 +88,18 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           brandProfile: widget.brandProfile,
         );
       case 4:
-        return ElegantRedAndWhiteGlass(
+        return ElegantBlueSkyGlass(
+          heightAdjustment: widget.heightAdjustment,
+          initialPage: widget.initialPage,
+          viewAsImage: widget.viewAsImage,
+          viewType: widget.viewType,
+          invitationId: widget.invitationId,
+          invitationData: widget.invitationData,
+          imagesRaw: widget.imagesRaw,
+          brandProfile: widget.brandProfile,
+        );
+      case 5:
+        return JavaneseRoseGold(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           viewAsImage: widget.viewAsImage,
