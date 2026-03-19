@@ -1,5 +1,7 @@
+import 'dart:ui' as ui;
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vector_math/vector_math_64.dart' as v_math;
 
 class _DrawData {
@@ -7,28 +9,53 @@ class _DrawData {
   double z = 0;
   double scale = 0;
   Color color = Colors.transparent;
+  ParticleType? type;
+  ui.Image? image;
 }
 
-class Particle {
-  Particle({required this.basePosition, required this.color}) : velocityMultiplier = math.Random().nextDouble() * 2.5 + 0.5;
+class _Particle {
+  _Particle({required this.basePosition, this.color = Colors.white, this.image, required this.type, this.isFlickering = false})
+    : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5;
 
   final v_math.Vector3 basePosition;
   final double velocityMultiplier;
   final Color color;
+  final ui.Image? image;
+  final ParticleType type;
+  final bool isFlickering;
 }
 
-class ParticleSphere extends StatefulWidget {
-  const ParticleSphere({
-    super.key,
+enum GroundType { fore, back, both }
+
+enum ParticleType { circle, image }
+
+class Particle {
+  Particle.circle({required this.color}) : type = ParticleType.circle;
+  Particle.image({required this.imagePath}) : type = ParticleType.image;
+
+  final ParticleType type;
+  late final Color color;
+  late final String imagePath;
+}
+
+class ParticleSphereConfig {
+  const ParticleSphereConfig({
     this.size = 200.0,
     this.particleCount = 30,
-    required this.colors,
-    this.child = const SizedBox.shrink(),
+    required this.particleVariatios,
+    this.groundType = .both,
   });
 
   final double size;
   final int particleCount;
-  final List<Color> colors;
+  final List<Particle> particleVariatios;
+  final GroundType groundType;
+}
+
+class ParticleSphere extends StatefulWidget {
+  const ParticleSphere({super.key, required this.config, this.child = const SizedBox.shrink()});
+
+  final ParticleSphereConfig config;
   final Widget child;
 
   @override
@@ -37,41 +64,76 @@ class ParticleSphere extends StatefulWidget {
 
 class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  final List<Particle> _particles = [];
+  final List<_Particle> _particles = [];
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
 
-  double _rotateX = 0.003;
-  double _rotateY = 0.003;
-  double _targetRotateX = 0.003;
-  double _targetRotateY = 0.003;
+  double _rotateX = .003;
+  double _rotateY = .003;
+  double _targetRotateX = .003;
+  double _targetRotateY = .003;
 
-  void _generateParticles() {
-    final rand = math.Random();
-    const goldenRatio = 1.61803398875;
-    double radius = widget.size / 3;
-
-    for (int i = 0; i < widget.particleCount; i++) {
-      double y = 1 - (i / (widget.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
-
-      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
-
-      _particles.add(Particle(basePosition: pos, color: widget.colors[rand.nextInt(widget.colors.length)]));
-    }
-  }
+  final _loadedImages = <String, ui.Image>{};
+  bool _isLoading = true;
 
   void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * 0.01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * 0.01;
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
 
     _rotation.rotateY(_rotateY);
     _rotation.rotateX(_rotateX);
 
     final rand = math.Random();
     if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - 0.5) * 0.015;
-      _targetRotateY = (rand.nextDouble() - 0.5) * 0.015;
+      _targetRotateX = (rand.nextDouble() - .5) * .015;
+      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    }
+  }
+
+  Future<ui.Image> _loadAssetImage(String path) async {
+    final data = await rootBundle.load(path);
+    final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    final frame = await codec.getNextFrame();
+    return frame.image;
+  }
+
+  void _generateParticles() {
+    final rand = math.Random();
+    const goldenRatio = 1.61803398875;
+    double radius = widget.config.size / 3;
+
+    for (int i = 0; i < widget.config.particleCount; i++) {
+      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      double radiusAtY = math.sqrt(1 - y * y);
+      double theta = 2 * math.pi * goldenRatio * i;
+
+      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+
+      final variation = widget.config.particleVariatios[rand.nextInt(widget.config.particleVariatios.length)];
+
+      _particles.add(
+        _Particle(
+          basePosition: pos,
+          type: variation.type,
+          color: variation.type == ParticleType.circle ? variation.color : Colors.white,
+          image: variation.type == ParticleType.image ? _loadedImages[variation.imagePath] : null,
+          isFlickering: rand.nextDouble() < .4,
+        ),
+      );
+    }
+  }
+
+  Future<void> _init() async {
+    for (var variation in widget.config.particleVariatios) {
+      if (variation.type == ParticleType.image && !_loadedImages.containsKey(variation.imagePath)) {
+        final img = await _loadAssetImage(variation.imagePath);
+        _loadedImages[variation.imagePath] = img;
+      }
+    }
+
+    _generateParticles();
+
+    if (mounted) {
+      setState(() => _isLoading = false);
     }
   }
 
@@ -79,7 +141,7 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   void initState() {
     super.initState();
 
-    _generateParticles();
+    _init();
 
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
       ..addListener(_updateRotation)
@@ -96,12 +158,15 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) return const SizedBox.shrink();
+
     return Stack(
       alignment: .center,
       children: [
-        _buildPainter(isForeground: false),
+        if (widget.config.groundType == .both || widget.config.groundType == .back) _buildPainter(isForeground: false),
         widget.child,
-        IgnorePointer(child: _buildPainter(isForeground: true)),
+        if (widget.config.groundType == .both || widget.config.groundType == .fore)
+          IgnorePointer(child: _buildPainter(isForeground: true)),
       ],
     );
   }
@@ -111,23 +176,23 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
       animation: _controller,
       builder: (context, _) {
         return CustomPaint(
-          size: Size(widget.size, widget.size),
-          painter: ParticlePainter(particles: _particles, rotation: _rotation, explosionForce: 2, drawForeground: isForeground),
+          size: Size(widget.config.size, widget.config.size),
+          painter: _ParticlePainter(particles: _particles, rotation: _rotation, explosionForce: 2, drawForeground: isForeground),
         );
       },
     );
   }
 }
 
-class ParticlePainter extends CustomPainter {
-  const ParticlePainter({
+class _ParticlePainter extends CustomPainter {
+  const _ParticlePainter({
     required this.particles,
     required this.rotation,
     required this.explosionForce,
     required this.drawForeground,
   });
 
-  final List<Particle> particles;
+  final List<_Particle> particles;
   final v_math.Matrix4 rotation;
   final double explosionForce;
   final bool drawForeground;
@@ -137,14 +202,14 @@ class ParticlePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    const viewDistance = 600.0;
+    const viewDistance = 600;
 
     _drawList.clear();
 
     for (var p in particles) {
       v_math.Vector3 pos = rotation.transformed3(p.basePosition);
 
-      if (explosionForce > 0.01) {
+      if (explosionForce > .01) {
         v_math.Vector3 dir = pos.normalized();
         pos += dir * (explosionForce * 50 * p.velocityMultiplier);
       }
@@ -153,11 +218,16 @@ class ParticlePainter extends CustomPainter {
 
       final scale = viewDistance / (viewDistance + pos.z);
 
+      double flicker = 1;
+      if (p.isFlickering) flicker = math.Random().nextDouble() > .5 ? 1 : .3;
+
       final data = _DrawData()
         ..offset = Offset(pos.x * scale + center.dx, pos.y * scale + center.dy)
         ..z = pos.z
         ..scale = scale
-        ..color = p.color.withValues(alpha: (scale * 0.8).clamp(0.1, 1.0));
+        ..color = p.color.withValues(alpha: (scale * .8 * flicker).clamp(.1, 1))
+        ..type = p.type
+        ..image = p.image;
 
       _drawList.add(data);
     }
@@ -167,10 +237,22 @@ class ParticlePainter extends CustomPainter {
     final paint = Paint();
     for (var item in _drawList) {
       paint.color = item.color;
-      canvas.drawCircle(item.offset, 6 * item.scale, paint);
+
+      if (item.type == ParticleType.circle) {
+        canvas.drawCircle(item.offset, 6 * item.scale, paint);
+      } else if (item.type == ParticleType.image && item.image != null) {
+        final imgSize = 16 * item.scale;
+        final rect = Rect.fromLTWH(item.offset.dx - imgSize / 2, item.offset.dy - imgSize / 2, imgSize, imgSize);
+        canvas.drawImageRect(
+          item.image!,
+          Rect.fromLTWH(0, 0, item.image!.width.toDouble(), item.image!.height.toDouble()),
+          rect,
+          paint,
+        );
+      }
     }
   }
 
   @override
-  bool shouldRepaint(covariant ParticlePainter oldDelegate) => true;
+  bool shouldRepaint(covariant _ParticlePainter oldDelegate) => true;
 }

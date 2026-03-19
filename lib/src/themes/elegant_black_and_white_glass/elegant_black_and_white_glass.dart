@@ -12,6 +12,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -41,8 +42,8 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageViewBased(
       configs: PageViewBasedConfigs(
-        tabConfig: PageViewBasedTabConfig(
-          useGlassEffectOnTab: true,
+        tabConfig: TabConfig(
+          useGlassEffect: true,
           indicatorColor: Colors.grey.shade50,
           backgroundColor: Colors.black.withValues(alpha: .5),
           titleActiveColor: Colors.white,
@@ -61,7 +62,11 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           ),
         ],
         particleSphere: ParticleSphereConfig(
-          colors: [Colors.grey, Colors.white, ColorConverter.darken(Colors.grey.shade700, 40)],
+          particleVariatios: [
+            Particle.circle(color: Colors.grey),
+            Particle.circle(color: Colors.white),
+            Particle.circle(color: ColorConverter.darken(Colors.grey.shade700, 40)),
+          ],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: Colors.grey.shade900,

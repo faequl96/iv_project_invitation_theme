@@ -5,12 +5,28 @@ import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
-class ParticleSphereConfig {
-  const ParticleSphereConfig({this.size = 200.0, this.particleCount = 30, required this.colors});
+class TabConfig {
+  const TabConfig({
+    required this.useGlassEffect,
+    this.useBackdropBlur = true,
+    this.widthFull = false,
+    required this.indicatorColor,
+    required this.backgroundColor,
+    required this.titleActiveColor,
+    required this.titleInactiveColor,
+    required this.iconActiveColor,
+    required this.iconInactiveColor,
+  });
 
-  final double size;
-  final int particleCount;
-  final List<Color> colors;
+  final bool useGlassEffect;
+  final bool useBackdropBlur;
+  final bool widthFull;
+  final Color indicatorColor;
+  final Color backgroundColor;
+  final Color titleActiveColor;
+  final Color titleInactiveColor;
+  final Color iconActiveColor;
+  final Color iconInactiveColor;
 }
 
 class PageViewWithBottomTabBar extends StatefulWidget {
@@ -22,9 +38,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     required this.wrapper,
     this.backgrounds,
     this.particleSphere,
-    this.tabIndicatorColor,
-    required this.tabBackgroundColor,
-    this.useGlassEffectOnTab = false,
+    required this.tabConfig,
     required this.pages,
     required this.tabsBuilder,
   });
@@ -35,9 +49,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final Widget wrapper;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
-  final Color? tabIndicatorColor;
-  final Color tabBackgroundColor;
-  final bool useGlassEffectOnTab;
+  final TabConfig tabConfig;
   final List<Widget> pages;
   final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
 
@@ -131,53 +143,10 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
               ...(widget.backgrounds ?? []),
               if (widget.particleSphere != null)
                 ClipRect(
-                  child: ParticleSphere(
-                    size: widget.particleSphere!.size,
-                    particleCount: widget.particleSphere!.particleCount,
-                    colors: widget.particleSphere!.colors,
-                    child: SizedBox(
-                      height: Screen.height,
-                      width: Screen.width,
-                      child: PageView.builder(
-                        controller: _pageController,
-                        itemCount: widget.pages.length,
-                        scrollDirection: .vertical,
-                        itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
-                        onPageChanged: (index) {
-                          if (_isTabTaped) {
-                            _isTabTaped = false;
-                          } else {
-                            _tabController.animateTo(index);
-                            _indexActive.value = index;
-                          }
-
-                          _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
-                        },
-                      ),
-                    ),
-                  ),
+                  child: ParticleSphere(config: widget.particleSphere!, child: _page),
                 )
               else
-                SizedBox(
-                  height: Screen.height,
-                  width: Screen.width,
-                  child: PageView.builder(
-                    controller: _pageController,
-                    itemCount: widget.pages.length,
-                    scrollDirection: .vertical,
-                    itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
-                    onPageChanged: (index) {
-                      if (_isTabTaped) {
-                        _isTabTaped = false;
-                      } else {
-                        _tabController.animateTo(index);
-                        _indexActive.value = index;
-                      }
-
-                      _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
-                    },
-                  ),
-                ),
+                _page,
               ValueListenableBuilder(
                 valueListenable: _isLowerTab,
                 builder: (_, isLowerTab, _) => AnimatedPositioned(
@@ -186,48 +155,19 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                   child: SizedBox(
                     width: Screen.width,
                     child: Padding(
-                      padding: const .symmetric(vertical: 12, horizontal: 14),
+                      padding: .symmetric(vertical: 12, horizontal: widget.tabConfig.widthFull ? 0 : 14),
                       child: Stack(
                         children: [
-                          RepaintBoundary(
-                            child: ClipRRect(
-                              borderRadius: .circular(36),
-                              child: BackdropFilter(
-                                filter: .blur(sigmaX: 5, sigmaY: 5),
-                                child: SizedBox(
-                                  height: 52,
-                                  child: DecoratedBox(
-                                    decoration: BoxDecoration(color: widget.tabBackgroundColor, borderRadius: .circular(36)),
-                                    child: TabBar(
-                                      tabs: _tabs,
-                                      controller: _tabController,
-                                      onTap: (value) {
-                                        _isTabTaped = true;
-                                        _pageController.animateToPage(
-                                          value,
-                                          duration: const Duration(milliseconds: 300),
-                                          curve: Curves.ease,
-                                        );
-                                        _indexActive.value = value;
-                                      },
-                                      isScrollable: true,
-                                      padding: const .symmetric(horizontal: 14),
-                                      dividerHeight: 0,
-                                      tabAlignment: .start,
-                                      indicatorWeight: 5,
-                                      indicator: UnderlineTabIndicator(
-                                        borderRadius: .circular(2),
-                                        borderSide: BorderSide(width: 4, color: widget.tabIndicatorColor ?? Colors.grey.shade50),
-                                        insets: const .fromLTRB(0, 0, 0, 45),
-                                      ),
-                                      splashBorderRadius: .circular(36),
-                                    ),
-                                  ),
-                                ),
+                          if (widget.tabConfig.useBackdropBlur)
+                            RepaintBoundary(
+                              child: ClipRRect(
+                                borderRadius: .circular(36),
+                                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tab),
                               ),
-                            ),
-                          ),
-                          if (widget.useGlassEffectOnTab && _indexActive.value > 0)
+                            )
+                          else
+                            _tab,
+                          if (widget.tabConfig.useGlassEffect && _indexActive.value > 0)
                             GlassEffectBox(
                               width: Screen.width - 28,
                               height: 52,
@@ -257,4 +197,52 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
       ),
     );
   }
+
+  Widget get _page => SizedBox(
+    height: Screen.height,
+    width: Screen.width,
+    child: PageView.builder(
+      controller: _pageController,
+      itemCount: widget.pages.length,
+      scrollDirection: .vertical,
+      itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
+      onPageChanged: (index) {
+        if (_isTabTaped) {
+          _isTabTaped = false;
+        } else {
+          _tabController.animateTo(index);
+          _indexActive.value = index;
+        }
+
+        _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
+      },
+    ),
+  );
+
+  Widget get _tab => SizedBox(
+    height: 52,
+    child: DecoratedBox(
+      decoration: BoxDecoration(color: widget.tabConfig.backgroundColor, borderRadius: .circular(36)),
+      child: TabBar(
+        tabs: _tabs,
+        controller: _tabController,
+        onTap: (value) {
+          _isTabTaped = true;
+          _pageController.animateToPage(value, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+          _indexActive.value = value;
+        },
+        isScrollable: true,
+        padding: const .symmetric(horizontal: 14),
+        dividerHeight: 0,
+        tabAlignment: .start,
+        indicatorWeight: 5,
+        indicator: UnderlineTabIndicator(
+          borderRadius: .circular(2),
+          borderSide: BorderSide(width: 4, color: widget.tabConfig.indicatorColor),
+          insets: const .fromLTRB(0, 0, 0, 45),
+        ),
+        splashBorderRadius: .circular(36),
+      ),
+    ),
+  );
 }

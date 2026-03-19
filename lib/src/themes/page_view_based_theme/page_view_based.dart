@@ -16,6 +16,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedConfigs {
@@ -34,7 +35,7 @@ class PageViewBasedConfigs {
     required this.eighthPageConfig,
   });
 
-  final PageViewBasedTabConfig tabConfig;
+  final TabConfig tabConfig;
   final List<Widget> Function()? globalBackgroundsBuilder;
   final ParticleSphereConfig? particleSphere;
   final PageViewBasedCoverPageConfig coverPageConfig;
@@ -46,26 +47,6 @@ class PageViewBasedConfigs {
   final PageViewBasedSixthPageConfig sixthPageConfig;
   final PageViewBasedSeventhPageConfig seventhPageConfig;
   final PageViewBasedEighthPageConfig eighthPageConfig;
-}
-
-class PageViewBasedTabConfig {
-  const PageViewBasedTabConfig({
-    required this.useGlassEffectOnTab,
-    required this.indicatorColor,
-    required this.backgroundColor,
-    required this.titleActiveColor,
-    required this.titleInactiveColor,
-    required this.iconActiveColor,
-    required this.iconInactiveColor,
-  });
-
-  final bool useGlassEffectOnTab;
-  final Color indicatorColor;
-  final Color backgroundColor;
-  final Color titleActiveColor;
-  final Color titleInactiveColor;
-  final Color iconActiveColor;
-  final Color iconInactiveColor;
 }
 
 class PageViewBased extends StatefulWidget {
@@ -141,9 +122,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
       heightAdjustment: widget.heightAdjustment,
       initialPage: widget.initialPage,
       viewAsImage: widget.viewAsImage,
-      useGlassEffectOnTab: widget.configs.tabConfig.useGlassEffectOnTab,
-      tabIndicatorColor: widget.configs.tabConfig.indicatorColor,
-      tabBackgroundColor: widget.configs.tabConfig.backgroundColor,
+      tabConfig: widget.configs.tabConfig,
       wrapper: InitializerWrapper(
         viewType: widget.viewType,
         bride: widget.invitationData.bride,
@@ -322,7 +301,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 class _Tab extends StatelessWidget {
   const _Tab({required this.config, required this.title, required this.icon, required this.tabIndex, required this.tabActive});
 
-  final PageViewBasedTabConfig config;
+  final TabConfig config;
   final String title;
   final IconData icon;
   final int tabIndex;

@@ -13,6 +13,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -42,8 +43,8 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageViewBased(
       configs: PageViewBasedConfigs(
-        tabConfig: PageViewBasedTabConfig(
-          useGlassEffectOnTab: true,
+        tabConfig: TabConfig(
+          useGlassEffect: true,
           indicatorColor: Colors.green.shade50,
           backgroundColor: ColorConverter.darken(Colors.green.shade900, 50),
           titleActiveColor: Colors.white,
@@ -62,10 +63,10 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
           ),
         ],
         particleSphere: ParticleSphereConfig(
-          colors: [
-            ColorConverter.darken(Colors.lightGreenAccent, 5),
-            Colors.white,
-            ColorConverter.darken(Colors.green.shade700, 40),
+          particleVariatios: [
+            Particle.circle(color: ColorConverter.darken(Colors.lightGreenAccent, 5)),
+            Particle.circle(color: Colors.white),
+            Particle.circle(color: ColorConverter.darken(Colors.green.shade700, 40)),
           ],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
