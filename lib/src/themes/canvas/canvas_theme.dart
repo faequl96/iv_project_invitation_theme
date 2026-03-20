@@ -123,7 +123,6 @@ class CanvasTheme extends StatelessWidget {
           ),
         ],
         particleSphere: ParticleSphereConfig(
-          particleScaleSize: 9,
           particleVariatios: [
             Particle.circle(color: Colors.lightBlueAccent),
             Particle.circle(color: Colors.white),

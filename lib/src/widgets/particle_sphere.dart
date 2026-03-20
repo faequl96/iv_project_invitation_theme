@@ -260,7 +260,7 @@ class _ParticlePainter extends CustomPainter {
       if (item.type == ParticleType.circle) {
         canvas.drawCircle(item.offset, (scaleSize - (scaleSize / 3)) * item.scale, paint);
       } else if (item.type == ParticleType.image && item.image != null) {
-        final imgSize = 16 * item.scale;
+        final imgSize = (16 + (scaleSize * 2)) * item.scale;
 
         canvas.save();
 
