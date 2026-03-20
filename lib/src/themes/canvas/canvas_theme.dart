@@ -123,11 +123,20 @@ class CanvasTheme extends StatelessWidget {
           ),
         ],
         particleSphere: ParticleSphereConfig(
+          particleScaleSize: 9,
           particleVariatios: [
             Particle.circle(color: Colors.lightBlueAccent),
             Particle.circle(color: Colors.white),
             Particle.circle(color: ColorConverter.darken(Colors.blue.shade700, 40)),
             Particle.circle(color: ColorConverter.lighten(Colors.pinkAccent.shade100)),
+            Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
           ],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(

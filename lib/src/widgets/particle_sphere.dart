@@ -11,11 +11,14 @@ class _DrawData {
   Color color = Colors.transparent;
   ParticleType? type;
   ui.Image? image;
+  double rotation = 0;
 }
 
 class _Particle {
   _Particle({required this.basePosition, this.color = Colors.white, this.image, required this.type, this.isFlickering = false})
-    : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5;
+    : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5,
+      rotationAngle = math.Random().nextDouble() * math.pi * 2,
+      rotationSpeed = (math.Random().nextDouble() - 0.5) * .05;
 
   final v_math.Vector3 basePosition;
   final double velocityMultiplier;
@@ -23,6 +26,8 @@ class _Particle {
   final ui.Image? image;
   final ParticleType type;
   final bool isFlickering;
+  double rotationAngle;
+  final double rotationSpeed;
 }
 
 enum GroundType { fore, back, both }
@@ -42,12 +47,14 @@ class ParticleSphereConfig {
   const ParticleSphereConfig({
     this.size = 200.0,
     this.particleCount = 30,
+    this.particleScaleSize = 6,
     required this.particleVariatios,
     this.groundType = .both,
   });
 
   final double size;
   final int particleCount;
+  final double particleScaleSize;
   final List<Particle> particleVariatios;
   final GroundType groundType;
 }
@@ -72,6 +79,7 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   double _targetRotateX = .003;
   double _targetRotateY = .003;
 
+  static const String _packageName = 'iv_project_invitation_theme';
   final _loadedImages = <String, ui.Image>{};
   bool _isLoading = true;
 
@@ -90,7 +98,7 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   }
 
   Future<ui.Image> _loadAssetImage(String path) async {
-    final data = await rootBundle.load(path);
+    final data = await rootBundle.load('packages/$_packageName/$path');
     final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
     final frame = await codec.getNextFrame();
     return frame.image;
@@ -177,7 +185,13 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
       builder: (context, _) {
         return CustomPaint(
           size: Size(widget.config.size, widget.config.size),
-          painter: _ParticlePainter(particles: _particles, rotation: _rotation, explosionForce: 2, drawForeground: isForeground),
+          painter: _ParticlePainter(
+            particles: _particles,
+            rotation: _rotation,
+            explosionForce: 2,
+            scaleSize: widget.config.particleScaleSize,
+            drawForeground: isForeground,
+          ),
         );
       },
     );
@@ -189,12 +203,14 @@ class _ParticlePainter extends CustomPainter {
     required this.particles,
     required this.rotation,
     required this.explosionForce,
+    required this.scaleSize,
     required this.drawForeground,
   });
 
   final List<_Particle> particles;
   final v_math.Matrix4 rotation;
   final double explosionForce;
+  final double scaleSize;
   final bool drawForeground;
 
   static final List<_DrawData> _drawList = [];
@@ -207,6 +223,8 @@ class _ParticlePainter extends CustomPainter {
     _drawList.clear();
 
     for (var p in particles) {
+      p.rotationAngle += p.rotationSpeed;
+
       v_math.Vector3 pos = rotation.transformed3(p.basePosition);
 
       if (explosionForce > .01) {
@@ -227,7 +245,8 @@ class _ParticlePainter extends CustomPainter {
         ..scale = scale
         ..color = p.color.withValues(alpha: (scale * .8 * flicker).clamp(.1, 1))
         ..type = p.type
-        ..image = p.image;
+        ..image = p.image
+        ..rotation = p.rotationAngle;
 
       _drawList.add(data);
     }
@@ -239,16 +258,26 @@ class _ParticlePainter extends CustomPainter {
       paint.color = item.color;
 
       if (item.type == ParticleType.circle) {
-        canvas.drawCircle(item.offset, 6 * item.scale, paint);
+        canvas.drawCircle(item.offset, (scaleSize - (scaleSize / 3)) * item.scale, paint);
       } else if (item.type == ParticleType.image && item.image != null) {
         final imgSize = 16 * item.scale;
-        final rect = Rect.fromLTWH(item.offset.dx - imgSize / 2, item.offset.dy - imgSize / 2, imgSize, imgSize);
+
+        canvas.save();
+
+        canvas.translate(item.offset.dx, item.offset.dy);
+
+        canvas.rotate(item.rotation);
+
+        final rect = Rect.fromLTWH(-imgSize / 2, -imgSize / 2, imgSize, imgSize);
+
         canvas.drawImageRect(
           item.image!,
           Rect.fromLTWH(0, 0, item.image!.width.toDouble(), item.image!.height.toDouble()),
           rect,
           paint,
         );
+
+        canvas.restore();
       }
     }
   }
