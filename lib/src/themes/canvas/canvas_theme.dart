@@ -14,13 +14,14 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
-import 'package:iv_project_invitation_theme/src/widgets/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/group_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/group_frontground.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
+import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class JavaneseRoseGold extends StatelessWidget {
-  const JavaneseRoseGold({
+class CanvasTheme extends StatelessWidget {
+  const CanvasTheme({
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
@@ -47,22 +48,99 @@ class JavaneseRoseGold extends StatelessWidget {
       configs: PageViewBasedConfigs(
         tabConfig: TabConfig(
           useGlassEffect: false,
-          indicatorColor: ThemeColors.gold,
-          backgroundColor: Colors.black.withValues(alpha: .5),
-          titleActiveColor: ThemeColors.gold,
-          titleInactiveColor: ThemeColors.roseGold,
-          iconActiveColor: ThemeColors.gold,
-          iconInactiveColor: ThemeColors.roseGold,
+          useBackdropBlur: false,
+          widthFull: true,
+          indicatorColor: ColorConverter.darken(Colors.blue.shade400, 50),
+          backgroundColor: Colors.white.withValues(alpha: .0),
+          titleActiveColor: ColorConverter.darken(Colors.blue.shade400, 50),
+          titleInactiveColor: Colors.white,
+          iconActiveColor: ColorConverter.darken(Colors.blue.shade400, 50),
+          iconInactiveColor: Colors.white,
         ),
         globalBackgroundsBuilder: () => [
-          SizedBox(
-            width: Screen.width,
-            height: Screen.height,
-            child: const ColoredBox(color: Color.fromARGB(255, 11, 15, 19)),
+          Stack(
+            children: [
+              SizedBox(
+                width: Screen.width,
+                height: Screen.height,
+                child: Image.asset('assets/backgrounds/base_canvas.jpg', fit: .cover, package: 'iv_project_invitation_theme'),
+              ),
+              SizedBox(
+                width: Screen.width,
+                height: Screen.height,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [
+                        ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .3),
+                        Colors.white.withValues(alpha: .0),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 40,
+                left: -72,
+                child: RotatedBox(
+                  quarterTurns: 2,
+                  child: SizedBox(
+                    width: Screen.width / 2.2,
+                    child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: -10,
+                right: -98,
+                child: RotatedBox(
+                  quarterTurns: 2,
+                  child: SizedBox(
+                    width: Screen.width / 2.2,
+                    child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+                  ),
+                ),
+              ),
+              Positioned(
+                bottom: 50,
+                left: -102,
+                child: SizedBox(
+                  width: Screen.width / 2.2,
+                  child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+                ),
+              ),
+              Positioned(
+                bottom: 80,
+                right: -82,
+                child: SizedBox(
+                  width: Screen.width / 2.2,
+                  child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+                ),
+              ),
+            ],
           ),
         ],
+        particleSphere: ParticleSphereConfig(
+          particleScaleSize: 9,
+          particleVariatios: [
+            Particle.circle(color: Colors.lightBlueAccent),
+            Particle.circle(color: Colors.white),
+            Particle.circle(color: ColorConverter.darken(Colors.blue.shade700, 40)),
+            Particle.circle(color: ColorConverter.lighten(Colors.pinkAccent.shade100)),
+            Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+          ],
+        ),
         coverPageConfig: PageViewBasedCoverPageConfig(
-          coverBackground: const CoverBackground(),
+          // coverBackground: const CoverBackground(),
           gradientBaseColor: Colors.grey.shade900,
           brideNameColor: ThemeColors.roseGold,
           groomNameColor: ThemeColors.gold,
@@ -78,29 +156,23 @@ class JavaneseRoseGold extends StatelessWidget {
           secondArrowColor: ThemeColors.roseGold.withValues(alpha: .7),
         ),
         firstPageConfig: PageViewBasedFirstPageConfig(
-          frontground: const GroupFrontground(),
-          background: const GroupBackground(),
+          // frontground: const GroupFrontground(),
+          // background: const GroupBackground(),
+          // firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .1),
+          // secondGradientBackgroundColor: Colors.white.withValues(alpha: .0),
           useBackdropBlurOnScaffold: false,
-          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
-          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
-          scaffoldBorder: const GradientBoxBorder(
-            width: 3,
-            gradient: LinearGradient(
-              begin: .topLeft,
-              end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
-              transform: GradientRotation(-0.2),
-            ),
-          ),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .0),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .0),
+          scaffoldBorder: .all(width: 0, color: Colors.white.withValues(alpha: 0)),
           useGlassEffectOnScaffold: false,
-          titlePageColor: ThemeColors.gold,
-          openingTextColor: Colors.grey.shade100,
-          generalTextColor: Colors.grey.shade100,
-          firstSubScaffoldColor: ThemeColors.gold.withValues(alpha: .12),
-          firstSubScaffoldBorderColor: ThemeColors.gold,
+          titlePageColor: Colors.white,
+          openingTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+          generalTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+          firstSubScaffoldColor: Colors.white.withValues(alpha: .6),
+          firstSubScaffoldBorderColor: Colors.transparent,
           firstSubScaffoldBorderWidth: 1.5,
-          secondSubScaffoldColor: ThemeColors.roseGold.withValues(alpha: .12),
-          secondSubScaffoldBorderColor: ThemeColors.roseGold,
+          secondSubScaffoldColor: Colors.white.withValues(alpha: .6),
+          secondSubScaffoldBorderColor: Colors.transparent,
           secondSubScaffoldBorderWidth: 1.5,
         ),
         secondPageConfig: PageViewBasedSecondPageConfig(

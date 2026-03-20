@@ -38,8 +38,12 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
 
   void _startAnimationLoop() async {
     while (mounted) {
-      await _controller.forward(from: 0);
-      await Future<void>.delayed(widget.animationInterval);
+      try {
+        await _controller.forward(from: 0);
+        await Future<void>.delayed(widget.animationInterval);
+      } catch (e) {
+        break;
+      }
     }
   }
 
@@ -56,9 +60,11 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future<void>.delayed(widget.delayBeforeShowed);
+      if (!mounted) return;
       setState(() => _showed = true);
 
       await Future<void>.delayed(.zero);
+      if (!mounted) return;
       _startAnimationLoop();
     });
   }
