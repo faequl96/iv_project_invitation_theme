@@ -14,6 +14,7 @@ class PageViewBasedFirstPageConfig {
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
+    this.scaffoldBoxShadow,
     required this.scaffoldBorder,
     required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
@@ -23,9 +24,11 @@ class PageViewBasedFirstPageConfig {
     required this.openingTextColor,
     required this.generalTextColor,
     required this.firstSubScaffoldColor,
+    this.firstSubScaffoldBoxShadow,
     required this.firstSubScaffoldBorderColor,
     required this.firstSubScaffoldBorderWidth,
     required this.secondSubScaffoldColor,
+    this.secondSubScaffoldBoxShadow,
     required this.secondSubScaffoldBorderColor,
     required this.secondSubScaffoldBorderWidth,
   });
@@ -36,6 +39,7 @@ class PageViewBasedFirstPageConfig {
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
+  final List<BoxShadow>? scaffoldBoxShadow;
   final BoxBorder scaffoldBorder;
   final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
@@ -45,9 +49,11 @@ class PageViewBasedFirstPageConfig {
   final Color openingTextColor;
   final Color generalTextColor;
   final Color firstSubScaffoldColor;
+  final List<BoxShadow>? firstSubScaffoldBoxShadow;
   final Color firstSubScaffoldBorderColor;
   final double firstSubScaffoldBorderWidth;
   final Color secondSubScaffoldColor;
+  final List<BoxShadow>? secondSubScaffoldBoxShadow;
   final Color secondSubScaffoldBorderColor;
   final double secondSubScaffoldBorderWidth;
 }
@@ -102,17 +108,6 @@ class PageViewBasedFirstPage extends StatelessWidget {
               ),
             ),
           ),
-          // Positioned(
-          //   width: Screen.width,
-          //   height: Screen.height,
-          //   child: Padding(
-          //     padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-          //     child: ClipRRect(
-          //       borderRadius: .circular(20),
-          //       child: Image.asset('assets/backgrounds/canvas_2.jpg', fit: .cover, package: 'iv_project_invitation_theme'),
-          //     ),
-          //   ),
-          // ),
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -128,6 +123,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                           borderRadius: .circular(20),
+                          boxShadow: config.scaffoldBoxShadow,
                           gradient: LinearGradient(
                             begin: .topCenter,
                             end: .bottomCenter,
@@ -151,14 +147,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: .circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.blue.withValues(alpha: .0),
-                        blurRadius: 6,
-                        spreadRadius: 4,
-                        offset: const Offset(0, 1),
-                      ),
-                    ],
+                    boxShadow: config.scaffoldBoxShadow,
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
@@ -199,14 +188,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: .06),
-                                  blurRadius: 4,
-                                  spreadRadius: 2,
-                                  offset: const Offset(0, 1),
-                                ),
-                              ],
+                              boxShadow: config.firstSubScaffoldBoxShadow,
                               border: .all(width: config.firstSubScaffoldBorderWidth, color: config.firstSubScaffoldBorderColor),
                               borderRadius: .circular(10),
                               color: config.firstSubScaffoldColor,
@@ -262,14 +244,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withValues(alpha: .06),
-                                  blurRadius: 4,
-                                  spreadRadius: 2,
-                                  offset: const Offset(0, 1),
-                                ),
-                              ],
+                              boxShadow: config.secondSubScaffoldBoxShadow,
                               border: .all(
                                 width: config.secondSubScaffoldBorderWidth,
                                 color: config.secondSubScaffoldBorderColor,

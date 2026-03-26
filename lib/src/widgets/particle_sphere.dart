@@ -18,7 +18,7 @@ class _Particle {
   _Particle({required this.basePosition, this.color = Colors.white, this.image, required this.type, this.isFlickering = false})
     : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5,
       rotationAngle = math.Random().nextDouble() * math.pi * 2,
-      rotationSpeed = (math.Random().nextDouble() - 0.5) * .05;
+      rotationSpeed = (math.Random().nextDouble() - .5) * .05;
 
   final v_math.Vector3 basePosition;
   final double velocityMultiplier;
@@ -45,7 +45,7 @@ class Particle {
 
 class ParticleSphereConfig {
   const ParticleSphereConfig({
-    this.size = 200.0,
+    this.size = 200,
     this.particleCount = 30,
     this.particleScaleSize = 6,
     required this.particleVariatios,
@@ -140,9 +140,7 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
 
     _generateParticles();
 
-    if (mounted) {
-      setState(() => _isLoading = false);
-    }
+    if (mounted) setState(() => _isLoading = false);
   }
 
   @override
@@ -180,20 +178,22 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   }
 
   Widget _buildPainter({required bool isForeground}) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, _) {
-        return CustomPaint(
-          size: Size(widget.config.size, widget.config.size),
-          painter: _ParticlePainter(
-            particles: _particles,
-            rotation: _rotation,
-            explosionForce: 2,
-            scaleSize: widget.config.particleScaleSize,
-            drawForeground: isForeground,
-          ),
-        );
-      },
+    return RepaintBoundary(
+      child: AnimatedBuilder(
+        animation: _controller,
+        builder: (context, _) {
+          return CustomPaint(
+            size: Size(widget.config.size, widget.config.size),
+            painter: _ParticlePainter(
+              particles: _particles,
+              rotation: _rotation,
+              explosionForce: 2,
+              scaleSize: widget.config.particleScaleSize,
+              drawForeground: isForeground,
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -213,14 +213,14 @@ class _ParticlePainter extends CustomPainter {
   final double scaleSize;
   final bool drawForeground;
 
-  static final List<_DrawData> _drawList = [];
-
   @override
   void paint(Canvas canvas, Size size) {
+    final drawList = <_DrawData>[];
+
     final center = Offset(size.width / 2, size.height / 2);
     const viewDistance = 600;
 
-    _drawList.clear();
+    drawList.clear();
 
     for (var p in particles) {
       p.rotationAngle += p.rotationSpeed;
@@ -237,7 +237,7 @@ class _ParticlePainter extends CustomPainter {
       final scale = viewDistance / (viewDistance + pos.z);
 
       double flicker = 1;
-      if (p.isFlickering) flicker = math.Random().nextDouble() > .5 ? 1 : .3;
+      if (p.type == ParticleType.circle && p.isFlickering) flicker = math.Random().nextDouble() > .5 ? 1 : .3;
 
       final data = _DrawData()
         ..offset = Offset(pos.x * scale + center.dx, pos.y * scale + center.dy)
@@ -248,19 +248,19 @@ class _ParticlePainter extends CustomPainter {
         ..image = p.image
         ..rotation = p.rotationAngle;
 
-      _drawList.add(data);
+      drawList.add(data);
     }
 
-    _drawList.sort((a, b) => b.z.compareTo(a.z));
+    drawList.sort((a, b) => b.z.compareTo(a.z));
 
     final paint = Paint();
-    for (var item in _drawList) {
+    for (var item in drawList) {
       paint.color = item.color;
 
       if (item.type == ParticleType.circle) {
         canvas.drawCircle(item.offset, scaleSize * item.scale, paint);
       } else if (item.type == ParticleType.image && item.image != null) {
-        final imgSize = (16 + (scaleSize * 2)) * item.scale;
+        final imgSize = (16 + (scaleSize * 1.4)) * item.scale;
 
         canvas.save();
 
