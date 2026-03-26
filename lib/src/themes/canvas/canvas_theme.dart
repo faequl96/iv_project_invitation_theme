@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
+import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
@@ -57,84 +57,20 @@ class CanvasTheme extends StatelessWidget {
           iconActiveColor: ColorConverter.darken(Colors.blue.shade400, 50),
           iconInactiveColor: Colors.white,
         ),
-        globalBackgroundsBuilder: () => [
-          Stack(
-            children: [
-              SizedBox(
-                width: Screen.width,
-                height: Screen.height,
-                child: Image.asset('assets/backgrounds/base_canvas.jpg', fit: .cover, package: 'iv_project_invitation_theme'),
-              ),
-              SizedBox(
-                width: Screen.width,
-                height: Screen.height,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: .topCenter,
-                      end: .bottomCenter,
-                      colors: [
-                        ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .3),
-                        Colors.white.withValues(alpha: .0),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 40,
-                left: -72,
-                child: RotatedBox(
-                  quarterTurns: 2,
-                  child: SizedBox(
-                    width: Screen.width / 2.2,
-                    child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
-                  ),
-                ),
-              ),
-              Positioned(
-                top: -10,
-                right: -98,
-                child: RotatedBox(
-                  quarterTurns: 2,
-                  child: SizedBox(
-                    width: Screen.width / 2.2,
-                    child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: 50,
-                left: -102,
-                child: SizedBox(
-                  width: Screen.width / 2.2,
-                  child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
-                ),
-              ),
-              Positioned(
-                bottom: 80,
-                right: -82,
-                child: SizedBox(
-                  width: Screen.width / 2.2,
-                  child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
-                ),
-              ),
-            ],
-          ),
-        ],
+        globalBackgroundsBuilder: () => [const CanvasThemeBackground()],
         particleSphere: ParticleSphereConfig(
           particleVariatios: [
-            Particle.circle(color: Colors.lightBlueAccent),
+            Particle.circle(color: ColorConverter.lighten(Colors.lightBlueAccent.shade700, 50)),
             Particle.circle(color: Colors.white),
             Particle.circle(color: ColorConverter.darken(Colors.blue.shade700, 40)),
-            Particle.circle(color: ColorConverter.lighten(Colors.pinkAccent.shade100)),
+            Particle.circle(color: ColorConverter.lighten(Colors.pinkAccent.shade100, 60)),
             Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
             Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
             Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
-            Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
-            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
-            Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
-            Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            // Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+            // Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+            // Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+            // Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
             Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
           ],
         ),
@@ -160,8 +96,16 @@ class CanvasTheme extends StatelessWidget {
           // firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .1),
           // secondGradientBackgroundColor: Colors.white.withValues(alpha: .0),
           useBackdropBlurOnScaffold: false,
-          firstGradientScaffoldColor: Colors.white.withValues(alpha: .0),
-          secondGradientScaffoldColor: Colors.white.withValues(alpha: .0),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .5),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .5),
+          scaffoldBoxShadow: [
+            BoxShadow(
+              color: Colors.blue.shade900.withValues(alpha: .08),
+              blurRadius: 6,
+              spreadRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
           scaffoldBorder: .all(width: 0, color: Colors.white.withValues(alpha: 0)),
           useGlassEffectOnScaffold: false,
           titlePageColor: Colors.white,

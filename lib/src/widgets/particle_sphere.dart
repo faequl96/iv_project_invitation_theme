@@ -237,7 +237,7 @@ class _ParticlePainter extends CustomPainter {
       final scale = viewDistance / (viewDistance + pos.z);
 
       double flicker = 1;
-      if (p.isFlickering) flicker = math.Random().nextDouble() > .5 ? 1 : .3;
+      if (p.type == ParticleType.circle && p.isFlickering) flicker = math.Random().nextDouble() > .5 ? 1 : .3;
 
       final data = _DrawData()
         ..offset = Offset(pos.x * scale + center.dx, pos.y * scale + center.dy)
@@ -260,7 +260,7 @@ class _ParticlePainter extends CustomPainter {
       if (item.type == ParticleType.circle) {
         canvas.drawCircle(item.offset, scaleSize * item.scale, paint);
       } else if (item.type == ParticleType.image && item.image != null) {
-        final imgSize = (16 + (scaleSize * 1.5)) * item.scale;
+        final imgSize = (16 + (scaleSize * 1.4)) * item.scale;
 
         canvas.save();
 
