@@ -23,7 +23,7 @@ class CanvasThemeBackground extends StatelessWidget {
                 begin: .topCenter,
                 end: .bottomCenter,
                 colors: [
-                  ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .3),
+                  ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .8),
                   Colors.white.withValues(alpha: .0),
                 ],
               ),
@@ -32,7 +32,7 @@ class CanvasThemeBackground extends StatelessWidget {
         ),
 
         Positioned(
-          top: 0,
+          top: 10,
           left: -98,
           child: Transform.flip(
             flipX: true,
@@ -46,7 +46,7 @@ class CanvasThemeBackground extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 0,
+          top: 10,
           right: -98,
           child: RotatedBox(
             quarterTurns: 2,
@@ -57,7 +57,7 @@ class CanvasThemeBackground extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 10,
+          bottom: 16,
           left: -100,
           child: SizedBox(
             width: Screen.width / 2.2,
@@ -65,7 +65,7 @@ class CanvasThemeBackground extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 10,
+          bottom: 16,
           right: -100,
           child: Transform.flip(
             flipX: true,
