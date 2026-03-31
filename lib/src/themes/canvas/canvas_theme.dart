@@ -93,11 +93,11 @@ class CanvasTheme extends StatelessWidget {
         firstPageConfig: PageViewBasedFirstPageConfig(
           // frontground: const GroupFrontground(),
           // background: const GroupBackground(),
-          // firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .1),
-          // secondGradientBackgroundColor: Colors.white.withValues(alpha: .0),
+          firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .1),
+          secondGradientBackgroundColor: Colors.white.withValues(alpha: .0),
           useBackdropBlurOnScaffold: false,
-          firstGradientScaffoldColor: Colors.white.withValues(alpha: .5),
-          secondGradientScaffoldColor: Colors.white.withValues(alpha: .5),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .6),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .6),
           scaffoldBoxShadow: [
             BoxShadow(
               color: Colors.blue.shade900.withValues(alpha: .08),

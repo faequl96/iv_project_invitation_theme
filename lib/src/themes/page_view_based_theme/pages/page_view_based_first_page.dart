@@ -146,7 +146,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: .circular(20),
+                    borderRadius: .circular(4),
                     boxShadow: config.scaffoldBoxShadow,
                     gradient: LinearGradient(
                       begin: .topCenter,
