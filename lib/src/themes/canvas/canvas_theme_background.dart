@@ -30,79 +30,18 @@ class CanvasThemeBackground extends StatelessWidget {
             ),
           ),
         ),
+
         Positioned(
-          top: 6,
-          left: 6,
-          child: Transform.flip(
-            flipY: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 6,
-          right: 6,
+          top: 0,
+          left: -98,
           child: Transform.flip(
             flipX: true,
-            flipY: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 6,
-          left: 6,
-          child: Transform.flip(
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 6,
-          right: 6,
-          child: Transform.flip(
-            flipX: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: -6,
-          left: Screen.width / 2,
-          child: Transform.flip(
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: -6,
-          right: Screen.width / 2,
-          child: Transform.flip(
-            flipX: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 30,
-          left: -72,
-          child: RotatedBox(
-            quarterTurns: 2,
-            child: SizedBox(
-              width: Screen.width / 2.2,
-              child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            child: RotatedBox(
+              quarterTurns: 2,
+              child: SizedBox(
+                width: Screen.width / 2.2,
+                child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              ),
             ),
           ),
         ),
@@ -118,7 +57,7 @@ class CanvasThemeBackground extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 20,
+          bottom: 10,
           left: -100,
           child: SizedBox(
             width: Screen.width / 2.2,
@@ -126,13 +65,123 @@ class CanvasThemeBackground extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: 24,
-          right: -116,
+          bottom: 10,
+          right: -100,
           child: Transform.flip(
             flipX: true,
             child: SizedBox(
               width: Screen.width / 2.2,
               child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+
+        Positioned(
+          top: 6,
+          left: 6,
+          child: Transform.flip(
+            flipY: true,
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 6,
+          right: 6,
+          child: Transform.flip(
+            flipX: true,
+            flipY: true,
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 6,
+          left: 6,
+          child: Transform.flip(
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 6,
+          right: 6,
+          child: Transform.flip(
+            flipX: true,
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          top: Screen.height / 2,
+          left: -2,
+          child: Transform.flip(
+            flipY: true,
+            child: SizedBox(
+              width: 30,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: Screen.height / 2,
+          left: -2,
+          child: Transform.flip(
+            child: SizedBox(
+              width: 30,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          top: Screen.height / 2,
+          right: -2,
+          child: Transform.flip(
+            flipY: true,
+            flipX: true,
+            child: SizedBox(
+              width: 30,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: Screen.height / 2,
+          right: -2,
+          child: Transform.flip(
+            flipX: true,
+            child: SizedBox(
+              width: 30,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: -2,
+          left: Screen.width / 2,
+          child: Transform.flip(
+            child: SizedBox(
+              width: 20,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: -2,
+          right: Screen.width / 2,
+          child: Transform.flip(
+            flipX: true,
+            child: SizedBox(
+              width: 20,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
             ),
           ),
         ),
