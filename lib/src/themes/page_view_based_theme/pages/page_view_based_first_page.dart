@@ -16,6 +16,7 @@ class PageViewBasedFirstPageConfig {
     this.stopsGradientScaffoldColor,
     this.scaffoldBoxShadow,
     required this.scaffoldBorder,
+    this.scaffoldBorderRadius = const BorderRadius.all(Radius.circular(20)),
     required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
@@ -41,6 +42,7 @@ class PageViewBasedFirstPageConfig {
   final List<double>? stopsGradientScaffoldColor;
   final List<BoxShadow>? scaffoldBoxShadow;
   final BoxBorder scaffoldBorder;
+  final BorderRadiusGeometry scaffoldBorderRadius;
   final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
@@ -117,12 +119,12 @@ class PageViewBasedFirstPage extends StatelessWidget {
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: RepaintBoundary(
                   child: ClipRRect(
-                    borderRadius: .circular(20),
+                    borderRadius: config.scaffoldBorderRadius,
                     child: BackdropFilter(
                       filter: .blur(sigmaX: 3, sigmaY: 3),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          borderRadius: .circular(20),
+                          borderRadius: config.scaffoldBorderRadius,
                           boxShadow: config.scaffoldBoxShadow,
                           gradient: LinearGradient(
                             begin: .topCenter,
@@ -146,7 +148,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                 padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: .circular(4),
+                    borderRadius: config.scaffoldBorderRadius,
                     boxShadow: config.scaffoldBoxShadow,
                     gradient: LinearGradient(
                       begin: .topCenter,
@@ -165,7 +167,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+                decoration: BoxDecoration(borderRadius: config.scaffoldBorderRadius, border: config.scaffoldBorder),
                 child: ClipRect(
                   child: Column(
                     children: [
