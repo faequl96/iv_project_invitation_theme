@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
+import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
@@ -72,8 +73,12 @@ class CanvasTheme extends StatelessWidget {
           ],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
-          // coverBackground: const CoverBackground(),
-          gradientBaseColor: Colors.grey.shade900,
+          // coverBackground: SizedBox(
+          //   width: Screen.width,
+          //   height: Screen.height,
+          //   child: ColoredBox(color: ColorConverter.darken(Colors.blue.shade600, 40)),
+          // ),
+          gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
           brideNameColor: ThemeColors.roseGold,
           groomNameColor: ThemeColors.gold,
           countdownBorderWidth: 2,
@@ -91,8 +96,8 @@ class CanvasTheme extends StatelessWidget {
           // frontground: const GroupFrontground(),
           // background: const GroupBackground(),
           useBackdropBlurOnScaffold: false,
-          firstGradientScaffoldColor: Colors.white.withValues(alpha: .8),
-          secondGradientScaffoldColor: Colors.white.withValues(alpha: .8),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
+          secondGradientScaffoldColor: ColorConverter.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
           // scaffoldBoxShadow: [
           //   BoxShadow(
           //     color: Colors.blue.shade900.withValues(alpha: .08),
@@ -101,17 +106,26 @@ class CanvasTheme extends StatelessWidget {
           //     offset: const Offset(0, 1),
           //   ),
           // ],
-          scaffoldBorder: .all(width: 3, color: ColorConverter.darken(Colors.blue.shade500, 40)),
+          // scaffoldBorder: .all(width: 4, color: ColorConverter.darken(Colors.blue.shade400, 40)),
+          scaffoldBorder: GradientBoxBorder(
+            width: 4,
+            gradient: LinearGradient(
+              begin: .topCenter,
+              end: .bottomCenter,
+              colors: [ColorConverter.darken(Colors.blue.shade100, 10), ColorConverter.darken(Colors.blue.shade300, 30)],
+              transform: const GradientRotation(-.2),
+            ),
+          ),
           useGlassEffectOnScaffold: false,
           titlePageColor: Colors.white,
           openingTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
           generalTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
-          firstSubScaffoldColor: Colors.white.withValues(alpha: .6),
-          firstSubScaffoldBorderColor: Colors.transparent,
-          firstSubScaffoldBorderWidth: 1.5,
-          secondSubScaffoldColor: Colors.white.withValues(alpha: .6),
-          secondSubScaffoldBorderColor: Colors.transparent,
-          secondSubScaffoldBorderWidth: 1.5,
+          firstSubScaffoldColor: Colors.blue.shade300.withValues(alpha: .1),
+          firstSubScaffoldBorderColor: Colors.white,
+          firstSubScaffoldBorderWidth: 3,
+          secondSubScaffoldColor: Colors.blue.shade300.withValues(alpha: .1),
+          secondSubScaffoldBorderColor: Colors.white,
+          secondSubScaffoldBorderWidth: 3,
         ),
         secondPageConfig: PageViewBasedSecondPageConfig(
           frontground: const GroupFrontground(),

@@ -23,7 +23,7 @@ class CanvasThemeBackground extends StatelessWidget {
                 begin: .topCenter,
                 end: .bottomCenter,
                 colors: [
-                  ColorConverter.darken(Colors.blue.shade500, 40).withValues(alpha: .8),
+                  ColorConverter.darken(Colors.blue.shade700, 40).withValues(alpha: .6),
                   Colors.white.withValues(alpha: .0),
                 ],
               ),
@@ -32,26 +32,71 @@ class CanvasThemeBackground extends StatelessWidget {
         ),
 
         Positioned(
-          top: 10,
-          left: -98,
+          top: 6,
+          left: 6,
+          child: Transform.flip(
+            flipY: true,
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          top: 6,
+          right: 6,
+          child: Transform.flip(
+            flipX: true,
+            flipY: true,
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 6,
+          left: 6,
+          child: Transform.flip(
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 6,
+          right: 6,
+          child: Transform.flip(
+            flipX: true,
+            child: SizedBox(
+              width: 40,
+              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            ),
+          ),
+        ),
+
+        Positioned(
+          top: 14,
+          left: -90,
           child: Transform.flip(
             flipX: true,
             child: RotatedBox(
               quarterTurns: 2,
               child: SizedBox(
-                width: Screen.width / 2.2,
+                width: Screen.width / 2.4,
                 child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
               ),
             ),
           ),
         ),
         Positioned(
-          top: 10,
-          right: -98,
+          top: 14,
+          right: -90,
           child: RotatedBox(
             quarterTurns: 2,
             child: SizedBox(
-              width: Screen.width / 2.2,
+              width: Screen.width / 2.4,
               child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
             ),
           ),
@@ -76,50 +121,6 @@ class CanvasThemeBackground extends StatelessWidget {
           ),
         ),
 
-        Positioned(
-          top: 6,
-          left: 6,
-          child: Transform.flip(
-            flipY: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          top: 6,
-          right: 6,
-          child: Transform.flip(
-            flipX: true,
-            flipY: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 6,
-          left: 6,
-          child: Transform.flip(
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 6,
-          right: 6,
-          child: Transform.flip(
-            flipX: true,
-            child: SizedBox(
-              width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
-            ),
-          ),
-        ),
         Positioned(
           top: Screen.height / 2,
           left: -2,
