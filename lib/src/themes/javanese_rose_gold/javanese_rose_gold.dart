@@ -198,6 +198,7 @@ class JavaneseRoseGold extends StatelessWidget {
           titlePageColor: ThemeColors.gold,
           placeIconColor: ThemeColors.gold,
           placeTextColor: ThemeColors.roseGold,
+          addressTextColor: Colors.grey.shade50,
           dividingLineWidth: 1,
           dividingLineColor: ThemeColors.gold,
           mapsBorderColor: Colors.grey.shade400,

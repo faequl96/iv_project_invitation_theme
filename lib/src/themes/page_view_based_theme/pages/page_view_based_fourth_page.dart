@@ -25,6 +25,7 @@ class PageViewBasedFourthPageConfig {
     required this.titlePageColor,
     required this.placeIconColor,
     required this.placeTextColor,
+    required this.addressTextColor,
     required this.dividingLineWidth,
     required this.dividingLineColor,
     required this.mapsBorderColor,
@@ -48,6 +49,7 @@ class PageViewBasedFourthPageConfig {
   final Color titlePageColor;
   final Color placeIconColor;
   final Color placeTextColor;
+  final Color addressTextColor;
   final double dividingLineWidth;
   final Color dividingLineColor;
   final Color mapsBorderColor;
@@ -203,7 +205,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                           padding: const .symmetric(horizontal: 20),
                           child: Text(
                             receptionEvent.address,
-                            style: AppFonts.inter(color: Colors.grey.shade50, fontSize: FontSize.xs, fontWeight: .w400),
+                            style: AppFonts.inter(color: config.addressTextColor, fontSize: FontSize.xs, fontWeight: .w400),
                             textAlign: .center,
                           ),
                         ),

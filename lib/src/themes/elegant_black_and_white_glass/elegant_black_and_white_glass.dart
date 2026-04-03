@@ -170,6 +170,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           titlePageColor: Colors.grey.shade200,
           placeIconColor: Colors.grey.shade50,
           placeTextColor: Colors.grey.shade50,
+          addressTextColor: Colors.grey.shade50,
           dividingLineWidth: .5,
           dividingLineColor: Colors.grey.shade50,
           mapsBorderColor: Colors.grey.shade400,
