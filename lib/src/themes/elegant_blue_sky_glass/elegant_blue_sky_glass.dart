@@ -241,6 +241,7 @@ class ElegantBlueSkyGlass extends StatelessWidget {
           titlePageColor: Colors.white,
           placeIconColor: Colors.white,
           placeTextColor: Colors.white,
+          addressTextColor: Colors.white,
           dividingLineWidth: 1,
           dividingLineColor: Colors.white,
           mapsBorderColor: Colors.white.withValues(alpha: .7),
