@@ -10,7 +10,8 @@ class AnimatedPhotoSequence extends StatefulWidget {
   const AnimatedPhotoSequence.left({
     super.key,
     required this.viewType,
-    required this.baseColor,
+    required this.frameColor,
+    required this.borderColor,
     this.borderWidth = .5,
     required this.imageUrl,
     this.image,
@@ -18,7 +19,8 @@ class AnimatedPhotoSequence extends StatefulWidget {
   const AnimatedPhotoSequence.right({
     super.key,
     required this.viewType,
-    required this.baseColor,
+    required this.frameColor,
+    required this.borderColor,
     this.borderWidth = .5,
     required this.imageUrl,
     this.image,
@@ -26,7 +28,8 @@ class AnimatedPhotoSequence extends StatefulWidget {
 
   final ViewType viewType;
   final bool isLeft;
-  final Color baseColor;
+  final Color frameColor;
+  final Color borderColor;
   final double borderWidth;
   final String? imageUrl;
   final File? image;
@@ -150,8 +153,8 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                           padding: const .symmetric(vertical: 24, horizontal: 2),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              color: widget.baseColor.withValues(alpha: .3),
-                              border: .all(width: widget.borderWidth, color: widget.baseColor),
+                              color: widget.frameColor,
+                              border: .all(width: widget.borderWidth, color: widget.borderColor),
                               borderRadius: .circular(4),
                             ),
                           ),
