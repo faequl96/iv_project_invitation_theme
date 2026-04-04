@@ -46,6 +46,7 @@ class PageViewBasedSeventhPageConfig {
     required this.submitButtonBorderColor,
     required this.rsvpBackgroundColor,
     required this.rsvpBorderColor,
+    this.rsvpBorderWidth = .5,
     required this.rsvpNameTextColor,
     required this.rsvpTimeAgoTextColor,
     required this.rsvpNameInstanceTextColor,
@@ -92,6 +93,7 @@ class PageViewBasedSeventhPageConfig {
   final Color submitButtonBorderColor;
   final Color rsvpBackgroundColor;
   final Color rsvpBorderColor;
+  final double rsvpBorderWidth;
   final Color rsvpNameTextColor;
   final Color rsvpTimeAgoTextColor;
   final Color rsvpNameInstanceTextColor;
@@ -257,7 +259,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: config.rsvpBackgroundColor,
-                                  border: .all(color: config.rsvpBorderColor, width: .5),
+                                  border: .all(color: config.rsvpBorderColor, width: config.rsvpBorderWidth),
                                   borderRadius: .only(
                                     topLeft: const .circular(10),
                                     topRight: const .circular(10),

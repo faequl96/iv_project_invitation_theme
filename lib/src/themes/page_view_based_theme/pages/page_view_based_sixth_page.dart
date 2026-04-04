@@ -328,7 +328,7 @@ class _BankAccount extends StatelessWidget {
             delayBeforeStart: const Duration(milliseconds: 1800),
             child: SizedBox(
               height: W.x5l,
-              width: Screen.width - (W.x7l + 2 + (W.x6s * 4) + 4),
+              width: Screen.width - (W.x7l + (W.x6s * 4)),
               child: Padding(
                 padding: const .only(left: 2),
                 child: DecoratedBox(

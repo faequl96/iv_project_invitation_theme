@@ -30,7 +30,8 @@ class PageViewBasedSecondPageConfig {
     required this.brideImageBorderWidth,
     required this.brideDividingLineWidth,
     required this.brideDividingBorderColor,
-    required this.brideImageBaseColor,
+    required this.brideImageFrameColor,
+    required this.brideImageFrameBorderColor,
     required this.brideDividingLineColor,
     required this.brideNameTextColor,
     required this.brideFatherNameTextColor,
@@ -39,7 +40,8 @@ class PageViewBasedSecondPageConfig {
     required this.groomImageBorderWidth,
     required this.groomDividingLineWidth,
     required this.groomDividingBorderColor,
-    required this.groomImageBaseColor,
+    required this.groomImageFrameColor,
+    required this.groomImageFrameBorderColor,
     required this.groomDividingLineColor,
     required this.groomNameTextColor,
     required this.groomFatherNameTextColor,
@@ -63,7 +65,8 @@ class PageViewBasedSecondPageConfig {
   final double brideImageBorderWidth;
   final double brideDividingLineWidth;
   final Color brideDividingBorderColor;
-  final Color brideImageBaseColor;
+  final Color brideImageFrameColor;
+  final Color brideImageFrameBorderColor;
   final Color brideDividingLineColor;
   final Color? brideNameTextColor;
   final Color? brideFatherNameTextColor;
@@ -72,7 +75,8 @@ class PageViewBasedSecondPageConfig {
   final double groomImageBorderWidth;
   final double groomDividingLineWidth;
   final Color groomDividingBorderColor;
-  final Color groomImageBaseColor;
+  final Color groomImageFrameColor;
+  final Color groomImageFrameBorderColor;
   final Color groomDividingLineColor;
   final Color? groomNameTextColor;
   final Color? groomFatherNameTextColor;
@@ -209,14 +213,16 @@ class PageViewBasedSecondPage extends StatelessWidget {
                     children: [
                       AnimatedPhotoSequence.left(
                         viewType: viewType,
-                        baseColor: config.groomImageBaseColor,
+                        frameColor: config.groomImageFrameColor,
+                        borderColor: config.groomImageFrameBorderColor,
                         borderWidth: config.groomImageBorderWidth,
                         imageUrl: groom.imageUrl,
                         image: groomImage,
                       ),
                       AnimatedPhotoSequence.right(
                         viewType: viewType,
-                        baseColor: config.brideImageBaseColor,
+                        frameColor: config.brideImageFrameColor,
+                        borderColor: config.brideImageFrameBorderColor,
                         borderWidth: config.brideImageBorderWidth,
                         imageUrl: bride.imageUrl,
                         image: brideImage,
