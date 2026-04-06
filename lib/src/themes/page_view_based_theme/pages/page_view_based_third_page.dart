@@ -9,7 +9,7 @@ import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedThirdPageConfig {
   const PageViewBasedThirdPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -44,7 +44,7 @@ class PageViewBasedThirdPageConfig {
     required this.useLightningEffectOnCountdown,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -381,7 +381,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
               ),
             ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
-import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_background.dart';
+import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_global_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
@@ -15,8 +13,6 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
-import 'package:iv_project_invitation_theme/src/widgets/group_background.dart';
-import 'package:iv_project_invitation_theme/src/widgets/group_frontground.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
@@ -68,7 +64,7 @@ class CanvasTheme extends StatelessWidget {
             iconActiveColor: ColorConverter.darken(Colors.blue.shade400, 50),
             iconInactiveColor: Colors.white,
           ),
-          globalBackgroundsBuilder: () => [const CanvasThemeBackground()],
+          globalBackgroundsBuilder: () => [const CanvasThemeGlobalBackground()],
           particleSphere: ParticleSphereConfig(
             particleCount: 22,
             particleVariatios: [

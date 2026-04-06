@@ -13,7 +13,7 @@ import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedSecondPageConfig {
   const PageViewBasedSecondPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -48,7 +48,7 @@ class PageViewBasedSecondPageConfig {
     required this.groomMotherNameTextColor,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -474,7 +474,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
               ),
             ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );

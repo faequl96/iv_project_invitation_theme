@@ -10,7 +10,7 @@ import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class PageViewBasedSixthPageConfig {
   const PageViewBasedSixthPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -33,7 +33,7 @@ class PageViewBasedSixthPageConfig {
     required this.bankCopyBaseColor,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -247,7 +247,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
               ),
             ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );

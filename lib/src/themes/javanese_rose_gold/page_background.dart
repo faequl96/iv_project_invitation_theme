@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/widgets/background_slide_transition.dart';
 
-class GroupBackground extends StatelessWidget {
-  const GroupBackground({super.key});
+class JavaneseRoseGoldPageBackground extends StatelessWidget {
+  const JavaneseRoseGoldPageBackground({super.key});
 
   final Duration animationSpeed = const Duration(milliseconds: 1200);
   final Duration delayedBeforeStart = const Duration(milliseconds: 200);
