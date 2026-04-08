@@ -14,7 +14,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
-import 'package:iv_project_invitation_theme/src/widgets/cover_background.dart';
+import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/page_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/page_foreground.dart';
 import 'package:iv_project_model/iv_project_model.dart';
