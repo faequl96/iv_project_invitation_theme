@@ -11,7 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class PageViewBasedFourthPageConfig {
   const PageViewBasedFourthPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -35,7 +35,7 @@ class PageViewBasedFourthPageConfig {
     required this.getDirectionsButtonBorderColor,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -279,7 +279,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
               ),
             ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/src/widgets/frontground_slide_transition.dart';
+import 'package:iv_project_invitation_theme/src/widgets/foreground_slide_transition.dart';
 
-class GroupFrontground extends StatelessWidget {
-  const GroupFrontground({super.key});
+class JavaneseRoseGoldPageForeground extends StatelessWidget {
+  const JavaneseRoseGoldPageForeground({super.key});
 
   final Duration animationSpeed = const Duration(milliseconds: 1200);
   final Duration delayedBeforeStart = const Duration(milliseconds: 200);
@@ -17,7 +17,7 @@ class GroupFrontground extends StatelessWidget {
           left: -Screen.width / 2,
           width: Screen.width / 2,
           height: Screen.height,
-          child: FrontgroundSlideTransition(
+          child: ForegroundSlideTransition(
             animationSpeed: animationSpeed,
             delayedBeforeStart: delayedBeforeStart,
             slideFrom: .right,
@@ -33,7 +33,7 @@ class GroupFrontground extends StatelessWidget {
           right: -Screen.width / 2,
           width: Screen.width / 2,
           height: Screen.height,
-          child: FrontgroundSlideTransition(
+          child: ForegroundSlideTransition(
             animationSpeed: animationSpeed,
             delayedBeforeStart: delayedBeforeStart,
             slideFrom: .left,
@@ -48,7 +48,7 @@ class GroupFrontground extends StatelessWidget {
         Positioned(
           left: -Screen.width / 2,
           width: Screen.width / 2,
-          child: FrontgroundSlideTransition(
+          child: ForegroundSlideTransition(
             animationSpeed: animationSpeed,
             delayedBeforeStart: delayedBeforeStart,
             slideFrom: .right,
@@ -74,7 +74,7 @@ class GroupFrontground extends StatelessWidget {
         Positioned(
           right: -Screen.width / 2,
           width: Screen.width / 2,
-          child: FrontgroundSlideTransition(
+          child: ForegroundSlideTransition(
             animationSpeed: animationSpeed,
             delayedBeforeStart: delayedBeforeStart,
             slideFrom: .left,

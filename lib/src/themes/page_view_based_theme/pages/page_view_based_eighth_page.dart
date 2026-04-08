@@ -8,7 +8,7 @@ import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedEighthPageConfig {
   const PageViewBasedEighthPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -26,7 +26,7 @@ class PageViewBasedEighthPageConfig {
     required this.brandTextColor,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -336,7 +336,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
             ),
           ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );

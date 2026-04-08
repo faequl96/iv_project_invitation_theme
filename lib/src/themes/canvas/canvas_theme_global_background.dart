@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class CanvasThemeBackground extends StatelessWidget {
-  const CanvasThemeBackground({super.key});
+class CanvasThemeGlobalBackground extends StatelessWidget {
+  const CanvasThemeGlobalBackground({super.key});
 
   @override
   Widget build(BuildContext context) {

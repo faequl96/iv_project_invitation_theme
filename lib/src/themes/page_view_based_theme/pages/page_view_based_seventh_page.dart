@@ -16,7 +16,7 @@ import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class PageViewBasedSeventhPageConfig {
   const PageViewBasedSeventhPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -63,7 +63,7 @@ class PageViewBasedSeventhPageConfig {
     this.bottomSheetOnHoverCloseIconColor,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -380,7 +380,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
               ),
             ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );

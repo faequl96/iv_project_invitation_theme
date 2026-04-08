@@ -8,7 +8,7 @@ import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedFirstPageConfig {
   const PageViewBasedFirstPageConfig({
-    this.frontground,
+    this.foreground,
     this.background,
     required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
@@ -34,7 +34,7 @@ class PageViewBasedFirstPageConfig {
     required this.secondSubScaffoldBorderWidth,
   });
 
-  final Widget? frontground;
+  final Widget? foreground;
   final Widget? background;
   final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
@@ -323,7 +323,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
               ),
             ),
 
-          config.frontground ?? const SizedBox.shrink(),
+          config.foreground ?? const SizedBox.shrink(),
         ],
       ),
     );
