@@ -9,10 +9,12 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/page_background.dart';
@@ -181,6 +183,44 @@ class JavaneseRoseGold extends StatelessWidget {
           receptionCountdownUnitColor: ThemeColors.roseGold,
           useLightningEffectOnCountdown: false,
         ),
+        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+          foreground: const JavaneseRoseGoldPageForeground(),
+          background: const JavaneseRoseGoldPageBackground(),
+          useBackdropBlurOnScaffold: false,
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          dateTimeIconColor: ThemeColors.gold,
+          dateTimeBaseTextColor: Colors.grey.shade100,
+          countdownBorderWidth: 2,
+          countdownOddColor: ThemeColors.gold.withValues(alpha: .1),
+          countdownEvenColor: ThemeColors.roseGold.withValues(alpha: .1),
+          countdownOddBorderColor: ThemeColors.gold,
+          countdownEvenBorderColor: ThemeColors.roseGold,
+          countdownNumberColor: ThemeColors.gold,
+          countdownUnitColor: ThemeColors.roseGold,
+          useLightningEffectOnCountdown: false,
+          dividingLineWidth: 1,
+          dividingLineColor: ThemeColors.gold,
+          placeIconColor: ThemeColors.gold,
+          placeBaseTextColor: Colors.grey.shade100,
+          addressTextColor: Colors.grey.shade50,
+          mapsBorderColor: Colors.grey.shade400,
+          getDirectionsButtonColor: ThemeColors.gold.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: ThemeColors.gold,
+          getDirectionsButtonBorderWidth: 2,
+          getDirectionsButtonBorderColor: ThemeColors.gold,
+        ),
         fourthPageConfig: PageViewBasedFourthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(),
@@ -203,6 +243,44 @@ class JavaneseRoseGold extends StatelessWidget {
           addressTextColor: Colors.grey.shade50,
           dividingLineWidth: 1,
           dividingLineColor: ThemeColors.gold,
+          mapsBorderColor: Colors.grey.shade400,
+          getDirectionsButtonColor: ThemeColors.gold.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: ThemeColors.gold,
+          getDirectionsButtonBorderWidth: 2,
+          getDirectionsButtonBorderColor: ThemeColors.gold,
+        ),
+        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+          foreground: const JavaneseRoseGoldPageForeground(),
+          background: const JavaneseRoseGoldPageBackground(),
+          useBackdropBlurOnScaffold: false,
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
+          scaffoldBorder: const GradientBoxBorder(
+            width: 3,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              transform: GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: false,
+          titlePageColor: ThemeColors.gold,
+          dateTimeIconColor: ThemeColors.gold,
+          dateTimeBaseTextColor: Colors.grey.shade100,
+          countdownBorderWidth: 2,
+          countdownOddColor: ThemeColors.gold.withValues(alpha: .1),
+          countdownEvenColor: ThemeColors.roseGold.withValues(alpha: .1),
+          countdownOddBorderColor: ThemeColors.gold,
+          countdownEvenBorderColor: ThemeColors.roseGold,
+          countdownNumberColor: ThemeColors.gold,
+          countdownUnitColor: ThemeColors.roseGold,
+          useLightningEffectOnCountdown: false,
+          dividingLineWidth: 1,
+          dividingLineColor: ThemeColors.gold,
+          placeIconColor: ThemeColors.gold,
+          placeBaseTextColor: Colors.grey.shade100,
+          addressTextColor: Colors.grey.shade50,
           mapsBorderColor: Colors.grey.shade400,
           getDirectionsButtonColor: ThemeColors.gold.withValues(alpha: .2),
           getDirectionsButtonLabelColor: ThemeColors.gold,
