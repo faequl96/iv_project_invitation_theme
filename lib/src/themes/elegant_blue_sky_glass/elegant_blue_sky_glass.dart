@@ -7,10 +7,12 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
@@ -217,6 +219,52 @@ class ElegantBlueSkyGlass extends StatelessWidget {
           receptionCountdownUnitColor: ColorConverter.darken(Colors.blue.shade700),
           useLightningEffectOnCountdown: true,
         ),
+        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60).withValues(alpha: .0),
+          secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .7),
+          stopsGradientScaffoldColor: [.0, .5],
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: ColorConverter.darken(Colors.blue.shade900, 20),
+          dateTimeIconColor: ColorConverter.darken(Colors.blue.shade700),
+          dateTimeBaseTextColor: ColorConverter.darken(Colors.blue.shade700),
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.white.withValues(alpha: .3),
+          countdownEvenColor: Colors.white.withValues(alpha: .3),
+          countdownOddBorderColor: Colors.blue.shade500,
+          countdownEvenBorderColor: Colors.blue.shade500,
+          countdownNumberColor: ColorConverter.darken(Colors.blue.shade700),
+          countdownUnitColor: ColorConverter.darken(Colors.blue.shade700),
+          useLightningEffectOnCountdown: false,
+          dividingLineWidth: 1,
+          dividingLineColor: Colors.blue.shade300,
+          placeIconColor: ColorConverter.darken(Colors.blue.shade700),
+          placeBaseTextColor: ColorConverter.darken(Colors.blue.shade700),
+          addressTextColor: ColorConverter.darken(Colors.blue.shade700),
+          mapsBorderColor: Colors.white.withValues(alpha: .7),
+          getDirectionsButtonColor: ColorConverter.darken(Colors.blue.shade500).withValues(alpha: .8),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: 1.5,
+          getDirectionsButtonBorderColor: Colors.white,
+        ),
         fourthPageConfig: PageViewBasedFourthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60),
@@ -246,6 +294,51 @@ class ElegantBlueSkyGlass extends StatelessWidget {
           addressTextColor: Colors.white,
           dividingLineWidth: 1,
           dividingLineColor: Colors.white,
+          mapsBorderColor: Colors.white.withValues(alpha: .7),
+          getDirectionsButtonColor: ColorConverter.darken(Colors.blue.shade500).withValues(alpha: .8),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: 1.5,
+          getDirectionsButtonBorderColor: Colors.white,
+        ),
+        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60),
+          secondGradientBackgroundColor: ColorConverter.darken(Colors.blue.shade700, 60).withValues(alpha: .0),
+          firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
+          secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
+          scaffoldBorder: GradientBoxBorder(
+            width: 1.5,
+            gradient: LinearGradient(
+              begin: .topLeft,
+              end: .bottomRight,
+              colors: [
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+                Colors.white.withValues(alpha: .2),
+                Colors.white,
+              ],
+              transform: const GradientRotation(-0.2),
+            ),
+          ),
+          useGlassEffectOnScaffold: true,
+          glassEffectOpacity: .5,
+          titlePageColor: Colors.white,
+          dateTimeIconColor: Colors.white,
+          dateTimeBaseTextColor: Colors.white,
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.white.withValues(alpha: .3),
+          countdownEvenColor: Colors.white.withValues(alpha: .3),
+          countdownOddBorderColor: Colors.blue.shade500,
+          countdownEvenBorderColor: Colors.blue.shade500,
+          countdownNumberColor: ColorConverter.darken(Colors.blue.shade700),
+          countdownUnitColor: ColorConverter.darken(Colors.blue.shade700),
+          useLightningEffectOnCountdown: false,
+          dividingLineWidth: 1,
+          dividingLineColor: Colors.blue.shade300,
+          placeIconColor: Colors.white,
+          placeBaseTextColor: Colors.white,
+          addressTextColor: Colors.white,
           mapsBorderColor: Colors.white.withValues(alpha: .7),
           getDirectionsButtonColor: ColorConverter.darken(Colors.blue.shade500).withValues(alpha: .8),
           getDirectionsButtonLabelColor: Colors.white,

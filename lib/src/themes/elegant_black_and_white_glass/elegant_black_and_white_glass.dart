@@ -6,10 +6,12 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
@@ -161,6 +163,36 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           receptionCountdownUnitColor: Colors.grey.shade200,
           useLightningEffectOnCountdown: true,
         ),
+        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.transparent,
+          secondGradientBackgroundColor: Colors.grey.shade900,
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade900,
+          dateTimeIconColor: Colors.grey.shade100,
+          dateTimeBaseTextColor: Colors.grey.shade100,
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownEvenColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownOddBorderColor: Colors.grey.shade600,
+          countdownEvenBorderColor: Colors.grey.shade600,
+          countdownNumberColor: Colors.grey.shade200,
+          countdownUnitColor: Colors.grey.shade200,
+          useLightningEffectOnCountdown: false,
+          dividingLineWidth: .5,
+          dividingLineColor: Colors.grey.shade100,
+          placeIconColor: Colors.grey.shade100,
+          placeBaseTextColor: Colors.grey.shade100,
+          addressTextColor: Colors.grey.shade100,
+          mapsBorderColor: Colors.grey.shade400,
+          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: .5,
+          getDirectionsButtonBorderColor: Colors.grey.shade500,
+        ),
         fourthPageConfig: PageViewBasedFourthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.grey.shade900,
@@ -175,6 +207,36 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           addressTextColor: Colors.grey.shade50,
           dividingLineWidth: .5,
           dividingLineColor: Colors.grey.shade50,
+          mapsBorderColor: Colors.grey.shade400,
+          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonLabelColor: Colors.white,
+          getDirectionsButtonBorderWidth: .5,
+          getDirectionsButtonBorderColor: Colors.grey.shade500,
+        ),
+        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+          useBackdropBlurOnScaffold: true,
+          firstGradientBackgroundColor: Colors.grey.shade900,
+          secondGradientBackgroundColor: Colors.transparent,
+          firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
+          secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
+          scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+          useGlassEffectOnScaffold: true,
+          titlePageColor: Colors.grey.shade200,
+          dateTimeIconColor: Colors.grey.shade50,
+          dateTimeBaseTextColor: Colors.grey.shade50,
+          countdownBorderWidth: 1,
+          countdownOddColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownEvenColor: Colors.grey.shade500.withValues(alpha: .1),
+          countdownOddBorderColor: Colors.grey.shade600,
+          countdownEvenBorderColor: Colors.grey.shade600,
+          countdownNumberColor: Colors.grey.shade200,
+          countdownUnitColor: Colors.grey.shade200,
+          useLightningEffectOnCountdown: false,
+          dividingLineWidth: .5,
+          dividingLineColor: Colors.grey.shade50,
+          placeIconColor: Colors.grey.shade50,
+          placeBaseTextColor: Colors.grey.shade50,
+          addressTextColor: Colors.grey.shade50,
           mapsBorderColor: Colors.grey.shade400,
           getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
           getDirectionsButtonLabelColor: Colors.white,

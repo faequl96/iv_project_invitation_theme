@@ -8,10 +8,12 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -187,6 +189,42 @@ class CanvasTheme extends StatelessWidget {
             receptionCountdownUnitColor: ColorConverter.darken(Colors.blue.shade500, 40),
             useLightningEffectOnCountdown: false,
           ),
+          thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+            useBackdropBlurOnScaffold: false,
+            firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
+            secondGradientScaffoldColor: ColorConverter.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            scaffoldBorder: GradientBoxBorder(
+              width: 4,
+              gradient: LinearGradient(
+                begin: .topCenter,
+                end: .bottomCenter,
+                colors: [ColorConverter.darken(Colors.blue.shade100, 10), ColorConverter.darken(Colors.blue.shade300, 30)],
+                transform: const GradientRotation(-.2),
+              ),
+            ),
+            useGlassEffectOnScaffold: false,
+            titlePageColor: Colors.white,
+            dateTimeIconColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            dateTimeBaseTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            countdownBorderWidth: 2.5,
+            countdownOddColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            countdownEvenColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            countdownOddBorderColor: Colors.white,
+            countdownEvenBorderColor: Colors.white,
+            countdownNumberColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            countdownUnitColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            useLightningEffectOnCountdown: false,
+            dividingLineWidth: 2,
+            dividingLineColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            placeIconColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            placeBaseTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            addressTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            mapsBorderColor: Colors.grey.shade400,
+            getDirectionsButtonColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            getDirectionsButtonLabelColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            getDirectionsButtonBorderWidth: 2,
+            getDirectionsButtonBorderColor: ColorConverter.darken(Colors.blue.shade500, 40),
+          ),
           fourthPageConfig: PageViewBasedFourthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
@@ -207,6 +245,42 @@ class CanvasTheme extends StatelessWidget {
             addressTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
             dividingLineWidth: 2,
             dividingLineColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            mapsBorderColor: Colors.grey.shade400,
+            getDirectionsButtonColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            getDirectionsButtonLabelColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            getDirectionsButtonBorderWidth: 2,
+            getDirectionsButtonBorderColor: ColorConverter.darken(Colors.blue.shade500, 40),
+          ),
+          fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+            useBackdropBlurOnScaffold: false,
+            firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
+            secondGradientScaffoldColor: ColorConverter.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            scaffoldBorder: GradientBoxBorder(
+              width: 4,
+              gradient: LinearGradient(
+                begin: .topCenter,
+                end: .bottomCenter,
+                colors: [ColorConverter.darken(Colors.blue.shade100, 10), ColorConverter.darken(Colors.blue.shade300, 30)],
+                transform: const GradientRotation(-.2),
+              ),
+            ),
+            useGlassEffectOnScaffold: false,
+            titlePageColor: Colors.white,
+            dateTimeIconColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            dateTimeBaseTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            countdownBorderWidth: 2.5,
+            countdownOddColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            countdownEvenColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            countdownOddBorderColor: Colors.white,
+            countdownEvenBorderColor: Colors.white,
+            countdownNumberColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            countdownUnitColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            useLightningEffectOnCountdown: false,
+            dividingLineWidth: 2,
+            dividingLineColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            placeIconColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            placeBaseTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
+            addressTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
             mapsBorderColor: Colors.grey.shade400,
             getDirectionsButtonColor: ColorConverter.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
             getDirectionsButtonLabelColor: ColorConverter.darken(Colors.blue.shade500, 40),

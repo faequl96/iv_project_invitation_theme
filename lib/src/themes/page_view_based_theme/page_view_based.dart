@@ -28,7 +28,9 @@ class PageViewBasedConfigs {
     required this.firstPageConfig,
     required this.secondPageConfig,
     required this.thirdPageConfig,
+    required this.thirdDifferentLocationPageConfig,
     required this.fourthPageConfig,
+    required this.fourthDifferentLocationPageConfig,
     required this.fifthPageConfig,
     required this.sixthPageConfig,
     required this.seventhPageConfig,
@@ -42,7 +44,9 @@ class PageViewBasedConfigs {
   final PageViewBasedFirstPageConfig firstPageConfig;
   final PageViewBasedSecondPageConfig secondPageConfig;
   final PageViewBasedThirdPageConfig thirdPageConfig;
+  final PageViewBasedThirdDifferentLocationPageConfig thirdDifferentLocationPageConfig;
   final PageViewBasedFourthPageConfig fourthPageConfig;
+  final PageViewBasedFourthDifferentLocationPageConfig fourthDifferentLocationPageConfig;
   final PageViewBasedFifthPageConfig fifthPageConfig;
   final PageViewBasedSixthPageConfig sixthPageConfig;
   final PageViewBasedSeventhPageConfig seventhPageConfig;
@@ -158,8 +162,14 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           ),
           PageViewBasedFourthPage(config: widget.configs.fourthPageConfig, receptionEvent: widget.invitationData.receptionEvent),
         ] else ...[
-          PageViewBasedThirdDifferentLocationPage(contractEvent: widget.invitationData.contractEvent),
-          PageViewBasedFourthDifferentLocationPage(receptionEvent: widget.invitationData.receptionEvent),
+          PageViewBasedThirdDifferentLocationPage(
+            config: widget.configs.thirdDifferentLocationPageConfig,
+            contractEvent: widget.invitationData.contractEvent,
+          ),
+          PageViewBasedFourthDifferentLocationPage(
+            config: widget.configs.fourthDifferentLocationPageConfig,
+            receptionEvent: widget.invitationData.receptionEvent,
+          ),
         ],
         if (_isGalleriesNotEmpty)
           PageViewBasedFifthPage(
