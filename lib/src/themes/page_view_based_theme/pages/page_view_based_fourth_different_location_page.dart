@@ -96,7 +96,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
         children: [
           if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
             Positioned(
-              bottom: 0,
+              top: 0,
               height: Screen.height / 1.2,
               width: Screen.width,
               child: DecoratedBox(
