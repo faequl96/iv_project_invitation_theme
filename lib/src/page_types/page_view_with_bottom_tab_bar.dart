@@ -184,7 +184,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                   ),
                 ),
               ),
-              widget.wrapper,
+              if (!widget.viewAsImage) widget.wrapper,
               if (widget.viewAsImage)
                 const SizedBox(
                   height: .maxFinite,
