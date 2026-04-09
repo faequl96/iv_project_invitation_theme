@@ -29,7 +29,7 @@ dependencies:
   bloc: ^9.2.0
   flutter_bloc: ^9.1.1
 
-  equatable: ^2.0.7
+  equatable: ^2.0.8
 
   intl: ^0.20.2
 
@@ -37,7 +37,7 @@ dependencies:
 
   just_audio: ^0.10.5
 
-  flutter_map: ^8.2.1
+  flutter_map: ^8.2.2
   latlong2: ^0.9.1
   url_launcher: ^6.3.2
   http: ^1.6.0
