@@ -35,7 +35,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     this.viewAsImage = false,
-    required this.wrapper,
+    this.wrapper,
     this.backgrounds,
     this.particleSphere,
     required this.tabConfig,
@@ -46,7 +46,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final double heightAdjustment;
   final int initialPage;
   final bool viewAsImage;
-  final Widget wrapper;
+  final Widget? wrapper;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
   final TabConfig tabConfig;
@@ -184,7 +184,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                   ),
                 ),
               ),
-              if (!widget.viewAsImage) widget.wrapper,
+              widget.wrapper ?? const SizedBox.shrink(),
               if (widget.viewAsImage)
                 const SizedBox(
                   height: .maxFinite,

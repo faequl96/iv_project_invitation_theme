@@ -59,6 +59,7 @@ class PageViewBased extends StatefulWidget {
     required this.configs,
     this.heightAdjustment = 0,
     this.initialPage = 0,
+    required this.useWrapper,
     this.viewAsImage = false,
     required this.viewType,
     required this.invitationId,
@@ -70,6 +71,7 @@ class PageViewBased extends StatefulWidget {
   final PageViewBasedConfigs configs;
   final double heightAdjustment;
   final int initialPage;
+  final bool useWrapper;
   final bool viewAsImage;
   final ViewType viewType;
   final String invitationId;
@@ -127,12 +129,14 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
       initialPage: widget.initialPage,
       viewAsImage: widget.viewAsImage,
       tabConfig: widget.configs.tabConfig,
-      wrapper: InitializerWrapper(
-        viewType: widget.viewType,
-        bride: widget.invitationData.bride,
-        groom: widget.invitationData.groom,
-        time: widget.invitationData.contractEvent,
-      ),
+      wrapper: widget.useWrapper
+          ? InitializerWrapper(
+              viewType: widget.viewType,
+              bride: widget.invitationData.bride,
+              groom: widget.invitationData.groom,
+              time: widget.invitationData.contractEvent,
+            )
+          : null,
       backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
       particleSphere: widget.configs.particleSphere,
       pages: [
