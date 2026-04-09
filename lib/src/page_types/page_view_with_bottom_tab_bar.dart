@@ -32,7 +32,6 @@ class TabConfig {
 class PageViewWithBottomTabBar extends StatefulWidget {
   const PageViewWithBottomTabBar({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     this.viewAsImage = false,
     this.wrapper,
@@ -43,7 +42,6 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     required this.tabsBuilder,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool viewAsImage;
   final Widget? wrapper;

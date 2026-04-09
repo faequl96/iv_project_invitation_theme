@@ -125,7 +125,6 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
     return PageViewWithBottomTabBar(
-      heightAdjustment: widget.heightAdjustment,
       initialPage: widget.initialPage,
       viewAsImage: widget.viewAsImage,
       tabConfig: widget.configs.tabConfig,

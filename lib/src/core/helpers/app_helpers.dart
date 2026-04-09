@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
@@ -43,6 +46,13 @@ class AppHelpers {
     final size = MediaQuery.of(GlobalContextService.value).size;
     final padding = MediaQuery.of(GlobalContextService.value).padding;
 
+    bool isMobile() {
+      if (!kIsWeb) return Platform.isAndroid || Platform.isIOS;
+
+      final userAgent = defaultTargetPlatform;
+      return userAgent == TargetPlatform.android || userAgent == TargetPlatform.iOS;
+    }
+
     late final Size finalSize;
     if (size.width > 440) {
       if (size.height < 840) {
@@ -51,7 +61,7 @@ class AppHelpers {
         finalSize = const Size(412, 812);
       }
     } else {
-      if (size.height < 840) {
+      if (isMobile()) {
         finalSize = Size(size.width, size.height - (padding.top + heightAdjustment + padding.bottom));
       } else {
         finalSize = Size(size.width, 812);
