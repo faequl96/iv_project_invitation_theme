@@ -24,6 +24,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
+    required this.useWrapper,
     this.viewAsImage = false,
     required this.viewType,
     required this.invitationId,
@@ -34,6 +35,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
 
   final double heightAdjustment;
   final int initialPage;
+  final bool useWrapper;
   final bool viewAsImage;
   final ViewType viewType;
   final String invitationId;
@@ -494,6 +496,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
       ),
       heightAdjustment: heightAdjustment,
       initialPage: initialPage,
+      useWrapper: useWrapper,
       viewAsImage: viewAsImage,
       viewType: viewType,
       invitationId: invitationId,

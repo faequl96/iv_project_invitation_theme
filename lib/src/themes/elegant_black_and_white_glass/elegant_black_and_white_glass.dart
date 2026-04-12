@@ -23,6 +23,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
+    required this.useWrapper,
     this.viewAsImage = false,
     required this.viewType,
     required this.invitationId,
@@ -33,6 +34,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
 
   final double heightAdjustment;
   final int initialPage;
+  final bool useWrapper;
   final bool viewAsImage;
   final ViewType viewType;
   final String invitationId;
@@ -291,7 +293,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           fieldTextColor: Colors.grey.shade100,
           fieldLabelColor: Colors.grey.shade300,
           fieldFillColor: Colors.grey.shade500.withValues(alpha: .3),
-          fieldBorderColor: Colors.grey.shade600,
+          fieldBorderColor: Colors.grey.shade500,
           fieldSplashColor: Colors.grey.shade400,
           overlayColor: Colors.grey.shade700.withValues(alpha: .95),
           overlayBorderColor: Colors.grey.shade500,
@@ -335,6 +337,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
       ),
       heightAdjustment: heightAdjustment,
       initialPage: initialPage,
+      useWrapper: useWrapper,
       viewAsImage: viewAsImage,
       viewType: viewType,
       invitationId: invitationId,

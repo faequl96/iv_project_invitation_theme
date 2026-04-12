@@ -32,10 +32,9 @@ class TabConfig {
 class PageViewWithBottomTabBar extends StatefulWidget {
   const PageViewWithBottomTabBar({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     this.viewAsImage = false,
-    required this.wrapper,
+    this.wrapper,
     this.backgrounds,
     this.particleSphere,
     required this.tabConfig,
@@ -43,10 +42,9 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     required this.tabsBuilder,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool viewAsImage;
-  final Widget wrapper;
+  final Widget? wrapper;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
   final TabConfig tabConfig;
@@ -77,16 +75,16 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     if (offsetPage < 0.01) {
       if (_coreCubit.state.animationTrigger == 0) {
         await Future<void>.delayed(const Duration(milliseconds: 50));
-        _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+        _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
       }
     } else {
       if (offsetPage < 0.96) {
         if (_coreCubit.state.animationTrigger == 1) {
-          _coreCubit.state.copyWith(animationTrigger: 0).emitState();
+          _coreCubit.state.copyWith(animationTrigger: 0, pageActive: _indexActive.value).emitState();
         }
       } else {
         if (_coreCubit.state.animationTrigger == 0) {
-          _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+          _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
         }
       }
     }
@@ -184,7 +182,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                   ),
                 ),
               ),
-              widget.wrapper,
+              widget.wrapper ?? const SizedBox.shrink(),
               if (widget.viewAsImage)
                 const SizedBox(
                   height: .maxFinite,

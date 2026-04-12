@@ -14,6 +14,7 @@ class InvitationThemeLauncher extends StatefulWidget {
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
+    this.useWrapper = true,
     this.viewAsImage = false,
     required this.viewType,
     required this.invitationThemeId,
@@ -25,6 +26,7 @@ class InvitationThemeLauncher extends StatefulWidget {
 
   final double heightAdjustment;
   final int initialPage;
+  final bool useWrapper;
   final bool viewAsImage;
   final ViewType viewType;
   final int invitationThemeId;
@@ -59,6 +61,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
         return ElegantBlackAndWhiteGlass(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
+          useWrapper: widget.useWrapper,
           viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
@@ -70,6 +73,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
         return ElegantRedVelvetGlass(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
+          useWrapper: widget.useWrapper,
           viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
@@ -81,6 +85,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
         return ElegantGreenMatchaGlass(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
+          useWrapper: widget.useWrapper,
           viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
@@ -92,6 +97,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
         return ElegantBlueSkyGlass(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
+          useWrapper: widget.useWrapper,
           viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
@@ -103,6 +109,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
         return JavaneseRoseGold(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
+          useWrapper: widget.useWrapper,
           viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
@@ -114,6 +121,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
         return CanvasTheme(
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
+          useWrapper: widget.useWrapper,
           viewAsImage: widget.viewAsImage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,

@@ -24,6 +24,7 @@ class CanvasTheme extends StatelessWidget {
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
+    required this.useWrapper,
     this.viewAsImage = false,
     required this.viewType,
     required this.invitationId,
@@ -34,6 +35,7 @@ class CanvasTheme extends StatelessWidget {
 
   final double heightAdjustment;
   final int initialPage;
+  final bool useWrapper;
   final bool viewAsImage;
   final ViewType viewType;
   final String invitationId;
@@ -75,6 +77,7 @@ class CanvasTheme extends StatelessWidget {
               Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
               Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
             ],
+            noExplosionOnCoverPage: true,
           ),
           coverPageConfig: PageViewBasedCoverPageConfig(
             gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
@@ -410,6 +413,7 @@ class CanvasTheme extends StatelessWidget {
         ),
         heightAdjustment: heightAdjustment,
         initialPage: initialPage,
+        useWrapper: useWrapper,
         viewAsImage: viewAsImage,
         viewType: viewType,
         invitationId: invitationId,
