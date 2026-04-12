@@ -75,16 +75,16 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     if (offsetPage < 0.01) {
       if (_coreCubit.state.animationTrigger == 0) {
         await Future<void>.delayed(const Duration(milliseconds: 50));
-        _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+        _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
       }
     } else {
       if (offsetPage < 0.96) {
         if (_coreCubit.state.animationTrigger == 1) {
-          _coreCubit.state.copyWith(animationTrigger: 0).emitState();
+          _coreCubit.state.copyWith(animationTrigger: 0, pageActive: _indexActive.value).emitState();
         }
       } else {
         if (_coreCubit.state.animationTrigger == 0) {
-          _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+          _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
         }
       }
     }

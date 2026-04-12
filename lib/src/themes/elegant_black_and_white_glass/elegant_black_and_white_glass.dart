@@ -293,7 +293,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           fieldTextColor: Colors.grey.shade100,
           fieldLabelColor: Colors.grey.shade300,
           fieldFillColor: Colors.grey.shade500.withValues(alpha: .3),
-          fieldBorderColor: Colors.grey.shade600,
+          fieldBorderColor: Colors.grey.shade500,
           fieldSplashColor: Colors.grey.shade400,
           overlayColor: Colors.grey.shade700.withValues(alpha: .95),
           overlayBorderColor: Colors.grey.shade500,

@@ -1,7 +1,10 @@
+import 'dart:async';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:vector_math/vector_math_64.dart' as v_math;
 
 class _DrawData {
@@ -50,6 +53,7 @@ class ParticleSphereConfig {
     this.particleScaleSize = 6,
     required this.particleVariatios,
     this.groundType = .both,
+    this.noExplosionOnCoverPage = false,
   });
 
   final double size;
@@ -57,6 +61,7 @@ class ParticleSphereConfig {
   final double particleScaleSize;
   final List<Particle> particleVariatios;
   final GroundType groundType;
+  final bool noExplosionOnCoverPage;
 }
 
 class ParticleSphere extends StatefulWidget {
@@ -69,10 +74,16 @@ class ParticleSphere extends StatefulWidget {
   State<ParticleSphere> createState() => _ParticleSphereState();
 }
 
-class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProviderStateMixin {
+class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStateMixin {
+  late final StreamSubscription _sub;
+
   late final AnimationController _controller;
   final List<_Particle> _particles = [];
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
+
+  late final AnimationController _secondController;
+  late final Animation<double> _explosionAnimation;
+  late final Animation<double> _fadeAnimation;
 
   double _rotateX = .003;
   double _rotateY = .003;
@@ -152,12 +163,40 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
       ..addListener(_updateRotation)
       ..repeat();
+
+    _secondController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+
+    _explosionAnimation = Tween<double>(begin: .0, end: 2).animate(
+      CurvedAnimation(
+        parent: _secondController,
+        curve: const Interval(.1, 1, curve: Curves.easeOutCubic),
+      ),
+    );
+
+    _fadeAnimation = Tween<double>(begin: .0, end: 1).animate(
+      CurvedAnimation(
+        parent: _secondController,
+        curve: const Interval(.0, .3, curve: Curves.easeIn),
+      ),
+    );
+
+    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+      final explose = widget.config.noExplosionOnCoverPage ? state.pageActive != 0 : true;
+      if (explose && state.animationTrigger == 1) {
+        _secondController.forward();
+        _sub.cancel();
+      }
+    });
   }
 
   @override
   void dispose() {
+    _sub.cancel();
+
     _controller.removeListener(_updateRotation);
     _controller.dispose();
+
+    _secondController.dispose();
 
     super.dispose();
   }
@@ -180,16 +219,19 @@ class _ParticleSphereState extends State<ParticleSphere> with SingleTickerProvid
   Widget _buildPainter({required bool isForeground}) {
     return RepaintBoundary(
       child: AnimatedBuilder(
-        animation: _controller,
+        animation: Listenable.merge([_controller, _secondController]),
         builder: (context, _) {
-          return CustomPaint(
-            size: Size(widget.config.size, widget.config.size),
-            painter: _ParticlePainter(
-              particles: _particles,
-              rotation: _rotation,
-              explosionForce: 2,
-              scaleSize: widget.config.particleScaleSize,
-              drawForeground: isForeground,
+          return Opacity(
+            opacity: _fadeAnimation.value,
+            child: CustomPaint(
+              size: Size(widget.config.size, widget.config.size),
+              painter: _ParticlePainter(
+                particles: _particles,
+                rotation: _rotation,
+                explosionForce: _explosionAnimation.value,
+                scaleSize: widget.config.particleScaleSize,
+                drawForeground: isForeground,
+              ),
             ),
           );
         },
