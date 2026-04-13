@@ -106,7 +106,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     if (widget.viewAsImage) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (widget.initialPage == 0) {
-          _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+          if (widget.wrapper == null) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
         } else {
           _pageController.jumpToPage(_indexActive.value);
         }
