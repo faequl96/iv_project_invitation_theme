@@ -54,6 +54,9 @@ class ParticleSphereConfig {
     required this.particleVariatios,
     this.groundType = .both,
     this.noExplosionOnCoverPage = false,
+    this.initialPage = 0,
+    this.viewAsImage = false,
+    this.useWrapper = true,
   });
 
   final double size;
@@ -62,6 +65,9 @@ class ParticleSphereConfig {
   final List<Particle> particleVariatios;
   final GroundType groundType;
   final bool noExplosionOnCoverPage;
+  final int initialPage;
+  final bool viewAsImage;
+  final bool useWrapper;
 }
 
 class ParticleSphere extends StatefulWidget {
@@ -181,10 +187,21 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
     );
 
     _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      final explose = widget.config.noExplosionOnCoverPage ? state.pageActive != 0 : true;
-      if (explose && state.animationTrigger == 1) {
-        _secondController.forward();
-        _sub.cancel();
+      if (widget.config.viewAsImage) {
+        final explose = widget.config.noExplosionOnCoverPage
+            ? widget.config.initialPage == 1
+            : widget.config.initialPage == 0 && !widget.config.useWrapper;
+        if (explose) {
+          _secondController.forward();
+        } else {
+          if (widget.config.initialPage != 0) _secondController.value = 1;
+        }
+      } else {
+        final explose = widget.config.noExplosionOnCoverPage ? state.pageActive == 1 : true;
+        if (explose && state.animationTrigger == 1) {
+          _secondController.forward();
+          _sub.cancel();
+        }
       }
     });
   }

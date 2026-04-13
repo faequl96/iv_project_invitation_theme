@@ -71,6 +71,9 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
             Particle.circle(color: Colors.white),
             Particle.circle(color: ColorConverter.darken(Colors.grey.shade700, 40)),
           ],
+          initialPage: initialPage,
+          viewAsImage: viewAsImage,
+          useWrapper: useWrapper,
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: Colors.grey.shade900,
