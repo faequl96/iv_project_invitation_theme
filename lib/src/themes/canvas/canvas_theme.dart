@@ -25,7 +25,7 @@ class CanvasTheme extends StatelessWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    this.viewAsImage = false,
+    this.viewAsSinglePage = false,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -36,7 +36,7 @@ class CanvasTheme extends StatelessWidget {
   final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsImage;
+  final bool viewAsSinglePage;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -78,7 +78,7 @@ class CanvasTheme extends StatelessWidget {
             ],
             noExplosionOnCoverPage: true,
             initialPage: initialPage,
-            viewAsImage: viewAsImage,
+            viewAsSinglePage: viewAsSinglePage,
             useWrapper: useWrapper,
           ),
           coverPageConfig: PageViewBasedCoverPageConfig(
@@ -416,7 +416,7 @@ class CanvasTheme extends StatelessWidget {
         heightAdjustment: heightAdjustment,
         initialPage: initialPage,
         useWrapper: useWrapper,
-        viewAsImage: viewAsImage,
+        viewAsSinglePage: viewAsSinglePage,
         viewType: viewType,
         invitationId: invitationId,
         invitationData: invitationData,

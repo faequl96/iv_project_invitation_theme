@@ -55,6 +55,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
     required this.bride,
     required this.groom,
     required this.time,
+    required this.noAnimate,
   });
 
   final PageViewBasedCoverPageConfig config;
@@ -64,6 +65,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
   final BridegroomResponse bride;
   final BridegroomResponse groom;
   final EventResponse time;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -113,60 +115,73 @@ class PageViewBasedCoverPage extends StatelessWidget {
             child: Column(
               mainAxisSize: .min,
               children: [
-                FadeAndSlideTransition(
-                  slideFromOffset: 0,
-                  child: Text(
-                    langCode == 'en' ? 'The Wedding of' : 'Pernikahan Dari',
-                    style: TextStyle(fontSize: FontSize.lg, fontWeight: .w500, color: Colors.grey.shade300),
+                if (!noAnimate) ...[
+                  FadeAndSlideTransition(slideFromOffset: 0, child: _theWeddingOf(langCode)),
+                  SizedBox(height: H.x9s),
+                  BridegroomName(
+                    brideNameColor: config.brideNameColor,
+                    groomNameColor: config.groomNameColor,
+                    bride: bride,
+                    groom: groom,
+                    noAnimate: noAnimate,
                   ),
-                ),
-                SizedBox(height: H.x9s),
-                BridegroomName(
-                  brideNameColor: config.brideNameColor,
-                  groomNameColor: config.groomNameColor,
-                  bride: bride,
-                  groom: groom,
-                ),
-                SizedBox(height: H.md),
-                FadeAndSlideTransition(
-                  slideFromOffset: 0,
-                  child: Text(
-                    langCode == 'en' ? 'Heading in' : 'Menuju dalam waktu',
-                    style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
+                  SizedBox(height: H.md),
+                  FadeAndSlideTransition(slideFromOffset: 0, child: _headingIn(langCode)),
+                  SizedBox(height: H.x8s),
+                  CountdownTimers(
+                    oddColor: config.countdownOddColor,
+                    evenColor: config.countdownEvenColor,
+                    oddBorderColor: config.countdownOddBorderColor,
+                    evenBorderColor: config.countdownEvenBorderColor,
+                    numberColor: config.countdownNumberColor,
+                    unitColor: config.countdownUnitColor,
+                    borderWidth: config.countdownBorderWidth,
+                    useLightningEffect: config.useLightningEffectOnCountdown,
+                    time: time.startTime,
+                    noAnimate: noAnimate,
                   ),
-                ),
-                SizedBox(height: H.x8s),
-                CountdownTimers(
-                  oddColor: config.countdownOddColor,
-                  evenColor: config.countdownEvenColor,
-                  oddBorderColor: config.countdownOddBorderColor,
-                  evenBorderColor: config.countdownEvenBorderColor,
-                  numberColor: config.countdownNumberColor,
-                  unitColor: config.countdownUnitColor,
-                  borderWidth: config.countdownBorderWidth,
-                  useLightningEffect: config.useLightningEffectOnCountdown,
-                  time: time.startTime,
-                ),
-                SizedBox(height: H.x5s),
-                FadeAndSlideTransition(
-                  slideFromOffset: 0,
-                  delayBeforeStart: const Duration(milliseconds: 500),
-                  child: DoubleArrowSlider(
-                    firstArrowColor: config.firstArrowColor,
-                    secondArrowColor: config.secondArrowColor,
-                    arrowSize: W.lg,
-                    sliderPathLength: H.x2l,
+                  SizedBox(height: H.x5s),
+                  FadeAndSlideTransition(
+                    slideFromOffset: 0,
+                    delayBeforeStart: const Duration(milliseconds: 500),
+                    child: _arrowSlider(),
                   ),
-                ),
-                FadeAndSlideTransition(
-                  slideFromOffset: 0,
-                  delayBeforeStart: const Duration(milliseconds: 500),
-                  child: Text(
-                    langCode == 'en' ? 'Swipe up' : 'Geser ke atas',
-                    style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
+                  FadeAndSlideTransition(
+                    slideFromOffset: 0,
+                    delayBeforeStart: const Duration(milliseconds: 500),
+                    child: _swipeUp(langCode),
                   ),
-                ),
-                SizedBox(height: H.x2s),
+                  SizedBox(height: H.x2s),
+                ] else ...[
+                  _theWeddingOf(langCode),
+                  SizedBox(height: H.x9s),
+                  BridegroomName(
+                    brideNameColor: config.brideNameColor,
+                    groomNameColor: config.groomNameColor,
+                    bride: bride,
+                    groom: groom,
+                    noAnimate: noAnimate,
+                  ),
+                  SizedBox(height: H.md),
+                  _headingIn(langCode),
+                  SizedBox(height: H.x8s),
+                  CountdownTimers(
+                    oddColor: config.countdownOddColor,
+                    evenColor: config.countdownEvenColor,
+                    oddBorderColor: config.countdownOddBorderColor,
+                    evenBorderColor: config.countdownEvenBorderColor,
+                    numberColor: config.countdownNumberColor,
+                    unitColor: config.countdownUnitColor,
+                    borderWidth: config.countdownBorderWidth,
+                    useLightningEffect: config.useLightningEffectOnCountdown,
+                    time: time.startTime,
+                    noAnimate: noAnimate,
+                  ),
+                  SizedBox(height: H.x5s),
+                  _arrowSlider(),
+                  _swipeUp(langCode),
+                  SizedBox(height: H.x2s),
+                ],
               ],
             ),
           ),
@@ -176,4 +191,26 @@ class PageViewBasedCoverPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _theWeddingOf(String langCode) => Text(
+    langCode == 'en' ? 'The Wedding of' : 'Pernikahan Dari',
+    style: TextStyle(fontSize: FontSize.lg, fontWeight: .w500, color: Colors.grey.shade300),
+  );
+
+  Widget _headingIn(String langCode) => Text(
+    langCode == 'en' ? 'Heading in' : 'Menuju dalam waktu',
+    style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
+  );
+
+  Widget _swipeUp(String langCode) => Text(
+    langCode == 'en' ? 'Swipe up' : 'Geser ke atas',
+    style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
+  );
+
+  Widget _arrowSlider() => DoubleArrowSlider(
+    firstArrowColor: config.firstArrowColor,
+    secondArrowColor: config.secondArrowColor,
+    arrowSize: W.lg,
+    sliderPathLength: H.x2l,
+  );
 }

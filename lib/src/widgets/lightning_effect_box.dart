@@ -13,6 +13,7 @@ class LightningEffectBox extends StatefulWidget {
     this.ligthningWidth = .5,
     this.ligthningColor = Colors.white,
     this.isFlash = false,
+    this.staticValue,
   });
 
   final double width;
@@ -25,6 +26,7 @@ class LightningEffectBox extends StatefulWidget {
   final double ligthningWidth;
   final Color ligthningColor;
   final bool isFlash;
+  final double? staticValue;
 
   @override
   State<LightningEffectBox> createState() => _LightningEffectBoxState();
@@ -59,6 +61,12 @@ class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTick
     _initAnimation();
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (widget.staticValue != null) {
+        _controller.value = widget.staticValue!;
+        setState(() => _showed = true);
+        return;
+      }
+
       await Future<void>.delayed(widget.delayBeforeShowed);
       if (!mounted) return;
       setState(() => _showed = true);

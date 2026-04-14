@@ -81,10 +81,16 @@ class PageViewBasedFourthDifferentLocationPageConfig {
 }
 
 class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
-  const PageViewBasedFourthDifferentLocationPage({super.key, required this.config, required this.receptionEvent});
+  const PageViewBasedFourthDifferentLocationPage({
+    super.key,
+    required this.config,
+    required this.receptionEvent,
+    required this.noAnimate,
+  });
 
   final PageViewBasedFourthDifferentLocationPageConfig config;
   final EventResponse receptionEvent;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +257,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: noAnimate,
                             ),
                           ),
                         ],

@@ -15,7 +15,7 @@ class InvitationThemeLauncher extends StatefulWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     this.useWrapper = true,
-    this.viewAsImage = false,
+    this.viewAsSinglePage = false,
     required this.viewType,
     required this.invitationThemeId,
     required this.invitationId,
@@ -27,7 +27,7 @@ class InvitationThemeLauncher extends StatefulWidget {
   final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsImage;
+  final bool viewAsSinglePage;
   final ViewType viewType;
   final int invitationThemeId;
   final String invitationId;
@@ -62,7 +62,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
-          viewAsImage: widget.viewAsImage,
+          viewAsSinglePage: widget.viewAsSinglePage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -74,7 +74,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
-          viewAsImage: widget.viewAsImage,
+          viewAsSinglePage: widget.viewAsSinglePage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -86,7 +86,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
-          viewAsImage: widget.viewAsImage,
+          viewAsSinglePage: widget.viewAsSinglePage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -98,7 +98,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
-          viewAsImage: widget.viewAsImage,
+          viewAsSinglePage: widget.viewAsSinglePage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -110,7 +110,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
-          viewAsImage: widget.viewAsImage,
+          viewAsSinglePage: widget.viewAsSinglePage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -122,7 +122,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           heightAdjustment: widget.heightAdjustment,
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
-          viewAsImage: widget.viewAsImage,
+          viewAsSinglePage: widget.viewAsSinglePage,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,

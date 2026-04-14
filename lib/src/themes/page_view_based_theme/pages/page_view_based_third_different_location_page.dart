@@ -81,10 +81,16 @@ class PageViewBasedThirdDifferentLocationPageConfig {
 }
 
 class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
-  const PageViewBasedThirdDifferentLocationPage({super.key, required this.config, required this.contractEvent});
+  const PageViewBasedThirdDifferentLocationPage({
+    super.key,
+    required this.config,
+    required this.contractEvent,
+    required this.noAnimate,
+  });
 
   final PageViewBasedThirdDifferentLocationPageConfig config;
   final EventResponse contractEvent;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -251,6 +257,7 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                               time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: noAnimate,
                             ),
                           ),
                         ],

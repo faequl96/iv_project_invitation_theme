@@ -80,11 +80,18 @@ class PageViewBasedThirdPageConfig {
 }
 
 class PageViewBasedThirdPage extends StatelessWidget {
-  const PageViewBasedThirdPage({super.key, required this.config, required this.contractEvent, required this.receptionEvent});
+  const PageViewBasedThirdPage({
+    super.key,
+    required this.config,
+    required this.contractEvent,
+    required this.receptionEvent,
+    required this.noAnimate,
+  });
 
   final PageViewBasedThirdPageConfig config;
   final EventResponse contractEvent;
   final EventResponse receptionEvent;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -265,6 +272,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                               time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: noAnimate,
                             ),
                           ),
                         ],
@@ -349,6 +357,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: noAnimate,
                             ),
                           ),
                         ],

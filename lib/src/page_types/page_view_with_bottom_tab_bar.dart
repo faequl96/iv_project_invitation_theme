@@ -33,7 +33,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   const PageViewWithBottomTabBar({
     super.key,
     this.initialPage = 0,
-    this.viewAsImage = false,
+    this.viewAsSinglePage = false,
     this.wrapper,
     this.backgrounds,
     this.particleSphere,
@@ -43,7 +43,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   });
 
   final int initialPage;
-  final bool viewAsImage;
+  final bool viewAsSinglePage;
   final Widget? wrapper;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
@@ -103,7 +103,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
 
     _pageController.addListener(_scrollListener);
 
-    if (widget.viewAsImage) {
+    if (widget.viewAsSinglePage) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (widget.initialPage == 0) {
           if (widget.wrapper == null) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
@@ -183,7 +183,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                 ),
               ),
               widget.wrapper ?? const SizedBox.shrink(),
-              if (widget.viewAsImage)
+              if (widget.viewAsSinglePage)
                 const SizedBox(
                   height: .maxFinite,
                   width: .maxFinite,

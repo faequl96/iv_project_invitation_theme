@@ -10,83 +10,110 @@ class BridegroomName extends StatelessWidget {
     required this.groomNameColor,
     required this.bride,
     required this.groom,
+    required this.noAnimate,
   });
 
   final Color brideNameColor;
   final Color groomNameColor;
   final BridegroomResponse bride;
   final BridegroomResponse groom;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        Align(
-          alignment: const Alignment(0, 0),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .3,
-            slideFrom: .left,
-            animationSpeed: const Duration(milliseconds: 500),
+        if (!noAnimate) ...[
+          Align(
+            alignment: const Alignment(0, 0),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .3,
+              slideFrom: .left,
+              animationSpeed: const Duration(milliseconds: 500),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: bride.nickname,
+                      style: TextStyle(fontSize: FontSize.x8l, color: brideNameColor),
+                    ),
+                    TextSpan(
+                      text: ' & ',
+                      style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
+                    ),
+                    TextSpan(
+                      text: groom.nickname,
+                      style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
+                    ),
+                  ],
+                ),
+                style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0, 0),
+            child: FadeAndSlideTransition(
+              slideFromOffset: 0,
+              delayBeforeStart: const Duration(milliseconds: 300),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: bride.nickname,
+                      style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
+                    ),
+                    TextSpan(
+                      text: ' & ',
+                      style: TextStyle(fontSize: FontSize.x4l, color: Colors.grey.shade300),
+                    ),
+                    TextSpan(
+                      text: groom.nickname,
+                      style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
+                    ),
+                  ],
+                ),
+                style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
+              ),
+            ),
+          ),
+          Align(
+            alignment: const Alignment(0, 0),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .3,
+              slideFrom: .right,
+              animationSpeed: const Duration(milliseconds: 500),
+              delayBeforeStart: const Duration(milliseconds: 400),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: bride.nickname,
+                      style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
+                    ),
+                    TextSpan(
+                      text: ' & ',
+                      style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
+                    ),
+                    TextSpan(
+                      text: groom.nickname,
+                      style: TextStyle(fontSize: FontSize.x8l, color: groomNameColor),
+                    ),
+                  ],
+                ),
+                style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
+              ),
+            ),
+          ),
+        ] else
+          Align(
+            alignment: const Alignment(0, 0),
             child: Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
                     text: bride.nickname,
                     style: TextStyle(fontSize: FontSize.x8l, color: brideNameColor),
-                  ),
-                  TextSpan(
-                    text: ' & ',
-                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.transparent),
-                  ),
-                  TextSpan(
-                    text: groom.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                ],
-              ),
-              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const Alignment(0, 0),
-          child: FadeAndSlideTransition(
-            slideFromOffset: 0,
-            delayBeforeStart: const Duration(milliseconds: 300),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: bride.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                  TextSpan(
-                    text: ' & ',
-                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.grey.shade300),
-                  ),
-                  TextSpan(
-                    text: groom.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
-                  ),
-                ],
-              ),
-              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
-            ),
-          ),
-        ),
-        Align(
-          alignment: const Alignment(0, 0),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .3,
-            slideFrom: .right,
-            animationSpeed: const Duration(milliseconds: 500),
-            delayBeforeStart: const Duration(milliseconds: 400),
-            child: Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: bride.nickname,
-                    style: TextStyle(fontSize: FontSize.x8l, color: Colors.transparent),
                   ),
                   TextSpan(
                     text: ' & ',
@@ -101,7 +128,6 @@ class BridegroomName extends StatelessWidget {
               style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
             ),
           ),
-        ),
       ],
     );
   }

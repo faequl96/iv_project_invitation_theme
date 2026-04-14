@@ -55,7 +55,7 @@ class ParticleSphereConfig {
     this.groundType = .both,
     this.noExplosionOnCoverPage = false,
     this.initialPage = 0,
-    this.viewAsImage = false,
+    this.viewAsSinglePage = false,
     this.useWrapper = true,
   });
 
@@ -66,7 +66,7 @@ class ParticleSphereConfig {
   final GroundType groundType;
   final bool noExplosionOnCoverPage;
   final int initialPage;
-  final bool viewAsImage;
+  final bool viewAsSinglePage;
   final bool useWrapper;
 }
 
@@ -187,7 +187,7 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
     );
 
     _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      if (widget.config.viewAsImage) {
+      if (widget.config.viewAsSinglePage) {
         final explose = widget.config.noExplosionOnCoverPage
             ? widget.config.initialPage == 1
             : widget.config.initialPage == 0 && !widget.config.useWrapper;

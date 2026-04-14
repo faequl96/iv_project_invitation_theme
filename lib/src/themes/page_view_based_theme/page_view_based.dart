@@ -60,7 +60,8 @@ class PageViewBased extends StatefulWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    this.viewAsImage = false,
+    this.viewAsSinglePage = false,
+    this.noAnimate = false,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -72,7 +73,8 @@ class PageViewBased extends StatefulWidget {
   final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsImage;
+  final bool viewAsSinglePage;
+  final bool noAnimate;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -126,7 +128,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 
     return PageViewWithBottomTabBar(
       initialPage: widget.initialPage,
-      viewAsImage: widget.viewAsImage,
+      viewAsSinglePage: widget.viewAsSinglePage,
       tabConfig: widget.configs.tabConfig,
       wrapper: widget.useWrapper
           ? InitializerWrapper(
@@ -147,6 +149,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
+          noAnimate: widget.noAnimate,
         ),
         PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
         PageViewBasedSecondPage(
@@ -162,16 +165,19 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             config: widget.configs.thirdPageConfig,
             contractEvent: widget.invitationData.contractEvent,
             receptionEvent: widget.invitationData.receptionEvent,
+            noAnimate: widget.noAnimate,
           ),
           PageViewBasedFourthPage(config: widget.configs.fourthPageConfig, receptionEvent: widget.invitationData.receptionEvent),
         ] else ...[
           PageViewBasedThirdDifferentLocationPage(
             config: widget.configs.thirdDifferentLocationPageConfig,
             contractEvent: widget.invitationData.contractEvent,
+            noAnimate: widget.noAnimate,
           ),
           PageViewBasedFourthDifferentLocationPage(
             config: widget.configs.fourthDifferentLocationPageConfig,
             receptionEvent: widget.invitationData.receptionEvent,
+            noAnimate: widget.noAnimate,
           ),
         ],
         if (_isGalleriesNotEmpty)
