@@ -75,7 +75,12 @@ class _CountdownTimersState extends State<CountdownTimers> {
   void initState() {
     super.initState();
 
-    _startTimer();
+    if (widget.noAnimate) {
+      _remaining = widget.time.difference(.now());
+      _formatDuration(_remaining);
+    } else {
+      _startTimer();
+    }
   }
 
   @override
@@ -99,7 +104,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
             slideFromOffset: 1.5,
             slideFrom: .bottom,
             delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(_days, 'Hari'),
+            child: _countdownTimer(_days, 'Hari', lightningEffectDelayBase: const Duration(milliseconds: 200)),
           ),
           SizedBox(width: W.x4s),
           FadeAndSlideTransition(
@@ -107,7 +112,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
             slideFrom: .left,
             animationSpeed: const Duration(milliseconds: 700),
             delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(_hours, 'Jam'),
+            child: _countdownTimer(_hours, 'Jam', lightningEffectDelayBase: const Duration(milliseconds: 400)),
           ),
           SizedBox(width: W.x4s),
           FadeAndSlideTransition(
@@ -115,14 +120,14 @@ class _CountdownTimersState extends State<CountdownTimers> {
             slideFrom: .right,
             animationSpeed: const Duration(milliseconds: 700),
             delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(_minutes, 'Menit'),
+            child: _countdownTimer(_minutes, 'Menit', lightningEffectDelayBase: const Duration(milliseconds: 600)),
           ),
           SizedBox(width: W.x4s),
           FadeAndSlideTransition(
             slideFromOffset: 1.5,
             slideFrom: .bottom,
             delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(_seconds, 'Detik'),
+            child: _countdownTimer(_seconds, 'Detik', lightningEffectDelayBase: const Duration(milliseconds: 800)),
           ),
         ] else ...[
           _countdownTimer(_days, 'Hari', staticLightningEffectValue: .6),
@@ -137,24 +142,28 @@ class _CountdownTimersState extends State<CountdownTimers> {
     );
   }
 
-  Widget _countdownTimer(ValueNotifier<int> valueListenable, String unit, {double? staticLightningEffectValue}) =>
-      ValueListenableBuilder(
-        valueListenable: valueListenable,
-        builder: (_, value, _) {
-          return _CountdownTimer(
-            color: widget.evenColor,
-            borderColor: widget.evenBorderColor,
-            numberColor: widget.numberColor,
-            unitColor: widget.unitColor,
-            borderWidth: widget.borderWidth,
-            useLightningEffect: widget.useLightningEffect,
-            number: value,
-            unit: unit,
-            lightningEffectDelayBeforeShowed: const Duration(milliseconds: 800) + widget.lightningEffectDelayBeforeShowed,
-            staticLightningEffectValue: staticLightningEffectValue,
-          );
-        },
+  Widget _countdownTimer(
+    ValueNotifier<int> valueListenable,
+    String unit, {
+    Duration? lightningEffectDelayBase,
+    double? staticLightningEffectValue,
+  }) => ValueListenableBuilder(
+    valueListenable: valueListenable,
+    builder: (_, value, _) {
+      return _CountdownTimer(
+        color: widget.evenColor,
+        borderColor: widget.evenBorderColor,
+        numberColor: widget.numberColor,
+        unitColor: widget.unitColor,
+        borderWidth: widget.borderWidth,
+        useLightningEffect: widget.useLightningEffect,
+        number: value,
+        unit: unit,
+        lightningEffectDelayBeforeShowed: (lightningEffectDelayBase ?? Duration.zero) + widget.lightningEffectDelayBeforeShowed,
+        staticLightningEffectValue: staticLightningEffectValue,
       );
+    },
+  );
 }
 
 class _CountdownTimer extends StatelessWidget {
