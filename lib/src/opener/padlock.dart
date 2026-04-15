@@ -5,9 +5,10 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class Padlock extends StatelessWidget {
-  const Padlock({super.key, required this.onOpened});
+  const Padlock({super.key, required this.onOpened, required this.noAnimate});
 
   final Function() onOpened;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +32,7 @@ class Padlock extends StatelessWidget {
             width: W.x12l,
             borderRadius: 40,
             color: Colors.grey.shade200.withValues(alpha: .5),
+            staticValue: noAnimate ? .8 : null,
           ),
           Text(
             langCode == 'en' ? 'Open Invitation' : 'Buka Undangan',

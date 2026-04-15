@@ -16,6 +16,7 @@ class InvitationThemeLauncher extends StatefulWidget {
     this.initialPage = 0,
     this.useWrapper = true,
     this.viewAsSinglePage = false,
+    this.noAnimate = false,
     required this.viewType,
     required this.invitationThemeId,
     required this.invitationId,
@@ -28,6 +29,7 @@ class InvitationThemeLauncher extends StatefulWidget {
   final int initialPage;
   final bool useWrapper;
   final bool viewAsSinglePage;
+  final bool noAnimate;
   final ViewType viewType;
   final int invitationThemeId;
   final String invitationId;
@@ -63,6 +65,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
           viewAsSinglePage: widget.viewAsSinglePage,
+          noAnimate: widget.noAnimate,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -75,6 +78,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
           viewAsSinglePage: widget.viewAsSinglePage,
+          noAnimate: widget.noAnimate,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -87,6 +91,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
           viewAsSinglePage: widget.viewAsSinglePage,
+          noAnimate: widget.noAnimate,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -99,6 +104,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
           viewAsSinglePage: widget.viewAsSinglePage,
+          noAnimate: widget.noAnimate,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -111,6 +117,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
           viewAsSinglePage: widget.viewAsSinglePage,
+          noAnimate: widget.noAnimate,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,
@@ -123,6 +130,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
           initialPage: widget.initialPage,
           useWrapper: widget.useWrapper,
           viewAsSinglePage: widget.viewAsSinglePage,
+          noAnimate: widget.noAnimate,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
           invitationData: widget.invitationData,

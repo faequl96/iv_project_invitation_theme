@@ -56,6 +56,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
     required this.groom,
     required this.time,
     required this.noAnimate,
+    required this.useWrapper,
   });
 
   final PageViewBasedCoverPageConfig config;
@@ -66,6 +67,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
   final BridegroomResponse groom;
   final EventResponse time;
   final bool noAnimate;
+  final bool useWrapper;
 
   @override
   Widget build(BuildContext context) {
@@ -153,34 +155,36 @@ class PageViewBasedCoverPage extends StatelessWidget {
                   ),
                   SizedBox(height: H.x2s),
                 ] else ...[
-                  _theWeddingOf(langCode),
-                  SizedBox(height: H.x9s),
-                  BridegroomName(
-                    brideNameColor: config.brideNameColor,
-                    groomNameColor: config.groomNameColor,
-                    bride: bride,
-                    groom: groom,
-                    noAnimate: noAnimate,
-                  ),
-                  SizedBox(height: H.md),
-                  _headingIn(langCode),
-                  SizedBox(height: H.x8s),
-                  CountdownTimers(
-                    oddColor: config.countdownOddColor,
-                    evenColor: config.countdownEvenColor,
-                    oddBorderColor: config.countdownOddBorderColor,
-                    evenBorderColor: config.countdownEvenBorderColor,
-                    numberColor: config.countdownNumberColor,
-                    unitColor: config.countdownUnitColor,
-                    borderWidth: config.countdownBorderWidth,
-                    useLightningEffect: config.useLightningEffectOnCountdown,
-                    time: time.startTime,
-                    noAnimate: noAnimate,
-                  ),
-                  SizedBox(height: H.x5s),
-                  _arrowSlider(),
-                  _swipeUp(langCode),
-                  SizedBox(height: H.x2s),
+                  if (!useWrapper) ...[
+                    _theWeddingOf(langCode),
+                    SizedBox(height: H.x9s),
+                    BridegroomName(
+                      brideNameColor: config.brideNameColor,
+                      groomNameColor: config.groomNameColor,
+                      bride: bride,
+                      groom: groom,
+                      noAnimate: noAnimate,
+                    ),
+                    SizedBox(height: H.md),
+                    _headingIn(langCode),
+                    SizedBox(height: H.x8s),
+                    CountdownTimers(
+                      oddColor: config.countdownOddColor,
+                      evenColor: config.countdownEvenColor,
+                      oddBorderColor: config.countdownOddBorderColor,
+                      evenBorderColor: config.countdownEvenBorderColor,
+                      numberColor: config.countdownNumberColor,
+                      unitColor: config.countdownUnitColor,
+                      borderWidth: config.countdownBorderWidth,
+                      useLightningEffect: config.useLightningEffectOnCountdown,
+                      time: time.startTime,
+                      noAnimate: noAnimate,
+                    ),
+                    SizedBox(height: H.x5s),
+                    _arrowSlider(),
+                    _swipeUp(langCode),
+                    SizedBox(height: H.x2s),
+                  ],
                 ],
               ],
             ),
@@ -212,5 +216,6 @@ class PageViewBasedCoverPage extends StatelessWidget {
     secondArrowColor: config.secondArrowColor,
     arrowSize: W.lg,
     sliderPathLength: H.x2l,
+    staticValue: noAnimate ? .9 : null,
   );
 }

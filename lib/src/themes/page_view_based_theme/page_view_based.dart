@@ -60,8 +60,8 @@ class PageViewBased extends StatefulWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    this.viewAsSinglePage = false,
-    this.noAnimate = false,
+    required this.viewAsSinglePage,
+    required this.noAnimate,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -136,8 +136,10 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
               bride: widget.invitationData.bride,
               groom: widget.invitationData.groom,
               time: widget.invitationData.contractEvent,
+              noAnimate: widget.noAnimate,
             )
           : null,
+      noAnimate: widget.noAnimate,
       backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
       particleSphere: widget.configs.particleSphere,
       pages: [
@@ -150,6 +152,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
           noAnimate: widget.noAnimate,
+          useWrapper: widget.useWrapper,
         ),
         PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
         PageViewBasedSecondPage(

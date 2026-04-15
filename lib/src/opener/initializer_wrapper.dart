@@ -11,12 +11,20 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:just_audio/just_audio.dart';
 
 class InitializerWrapper extends StatefulWidget {
-  const InitializerWrapper({super.key, required this.viewType, required this.bride, required this.groom, required this.time});
+  const InitializerWrapper({
+    super.key,
+    required this.viewType,
+    required this.bride,
+    required this.groom,
+    required this.time,
+    required this.noAnimate,
+  });
 
   final ViewType viewType;
   final BridegroomResponse bride;
   final BridegroomResponse groom;
   final EventResponse time;
+  final bool noAnimate;
 
   @override
   State<InitializerWrapper> createState() => _InitializerWrapperState();
@@ -93,6 +101,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                       borderRadius: 60,
                       animationSpeed: const Duration(seconds: 2),
                       ligthningColor: Colors.black,
+                      staticValue: widget.noAnimate ? .3 : null,
                     ),
                   ],
                 ),
@@ -189,6 +198,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                           if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                         },
+                        noAnimate: widget.noAnimate,
                       ),
                     );
                   } else {
@@ -215,6 +225,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                     if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                   },
+                  noAnimate: widget.noAnimate,
                 ),
               ),
           ],

@@ -125,13 +125,13 @@ class _CountdownTimersState extends State<CountdownTimers> {
             child: _countdownTimer(_seconds, 'Detik'),
           ),
         ] else ...[
-          _countdownTimer(_days, 'Hari', staticLightningEffectValue: .2),
+          _countdownTimer(_days, 'Hari', staticLightningEffectValue: .6),
           SizedBox(width: W.x4s),
-          _countdownTimer(_hours, 'Jam', staticLightningEffectValue: .4),
+          _countdownTimer(_hours, 'Jam', staticLightningEffectValue: .45),
           SizedBox(width: W.x4s),
-          _countdownTimer(_minutes, 'Menit', staticLightningEffectValue: .6),
+          _countdownTimer(_minutes, 'Menit', staticLightningEffectValue: .3),
           SizedBox(width: W.x4s),
-          _countdownTimer(_seconds, 'Detik', staticLightningEffectValue: .8),
+          _countdownTimer(_seconds, 'Detik', staticLightningEffectValue: .15),
         ],
       ],
     );

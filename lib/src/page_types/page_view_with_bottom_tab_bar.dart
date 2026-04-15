@@ -35,6 +35,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     this.initialPage = 0,
     this.viewAsSinglePage = false,
     this.wrapper,
+    required this.noAnimate,
     this.backgrounds,
     this.particleSphere,
     required this.tabConfig,
@@ -45,6 +46,7 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final int initialPage;
   final bool viewAsSinglePage;
   final Widget? wrapper;
+  final bool noAnimate;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
   final TabConfig tabConfig;
@@ -70,6 +72,8 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
   late final InvitationThemeCoreCubit _coreCubit;
 
   void _scrollListener() async {
+    if (widget.noAnimate) return;
+
     final offset = _pageController.page ?? 0;
     final offsetPage = (offset - offset.floor()).abs();
     if (offsetPage < 0.01) {
@@ -106,7 +110,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     if (widget.viewAsSinglePage) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (widget.initialPage == 0) {
-          if (widget.wrapper == null) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+          if (widget.wrapper == null && !widget.noAnimate) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
         } else {
           _pageController.jumpToPage(_indexActive.value);
         }

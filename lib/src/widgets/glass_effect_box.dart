@@ -14,6 +14,7 @@ class GlassEffectBox extends StatefulWidget {
     this.sliderWidth = 60,
     this.sliderTilt = .2,
     required this.color,
+    this.staticValue,
   });
 
   final double width;
@@ -25,6 +26,7 @@ class GlassEffectBox extends StatefulWidget {
   final double sliderWidth;
   final double sliderTilt;
   final Color color;
+  final double? staticValue;
 
   @override
   State<GlassEffectBox> createState() => _GlassEffectBoxState();
@@ -52,7 +54,11 @@ class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProvid
     super.initState();
 
     _initAnimation();
-    _startAnimationLoop();
+    if (widget.staticValue != null) {
+      _controller.value = widget.staticValue!;
+    } else {
+      _startAnimationLoop();
+    }
   }
 
   @override

@@ -24,7 +24,8 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    this.viewAsSinglePage = false,
+    required this.viewAsSinglePage,
+    required this.noAnimate,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -36,6 +37,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
   final int initialPage;
   final bool useWrapper;
   final bool viewAsSinglePage;
+  final bool noAnimate;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -344,6 +346,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
       initialPage: initialPage,
       useWrapper: useWrapper,
       viewAsSinglePage: viewAsSinglePage,
+      noAnimate: noAnimate,
       viewType: viewType,
       invitationId: invitationId,
       invitationData: invitationData,
