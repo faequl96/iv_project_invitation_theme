@@ -145,7 +145,14 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
               ...(widget.backgrounds ?? []),
               if (widget.particleSphere != null)
                 ClipRect(
-                  child: ParticleSphere(config: widget.particleSphere!, child: _page),
+                  child: ParticleSphere(
+                    config: widget.particleSphere!,
+                    initialPage: widget.initialPage,
+                    viewAsSinglePage: widget.viewAsSinglePage,
+                    useWrapper: widget.wrapper != null,
+                    noAnimate: widget.noAnimate,
+                    child: _page,
+                  ),
                 )
               else
                 _page,

@@ -83,9 +83,6 @@ class ElegantBlueSkyGlass extends StatelessWidget {
             Particle.circle(color: Colors.white),
             Particle.circle(color: ColorConverter.darken(Colors.blue.shade700, 40)),
           ],
-          initialPage: initialPage,
-          viewAsSinglePage: viewAsSinglePage,
-          useWrapper: useWrapper,
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),

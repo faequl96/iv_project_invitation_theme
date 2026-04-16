@@ -74,9 +74,6 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
             Particle.circle(color: Colors.white),
             Particle.circle(color: ColorConverter.darken(Colors.green.shade700, 40)),
           ],
-          initialPage: initialPage,
-          viewAsSinglePage: viewAsSinglePage,
-          useWrapper: useWrapper,
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
           gradientBaseColor: ColorConverter.darken(Colors.green.shade700, 60),

@@ -54,9 +54,6 @@ class ParticleSphereConfig {
     required this.particleVariatios,
     this.groundType = .both,
     this.noExplosionOnCoverPage = false,
-    this.initialPage = 0,
-    this.viewAsSinglePage = false,
-    this.useWrapper = true,
   });
 
   final double size;
@@ -65,15 +62,24 @@ class ParticleSphereConfig {
   final List<Particle> particleVariatios;
   final GroundType groundType;
   final bool noExplosionOnCoverPage;
-  final int initialPage;
-  final bool viewAsSinglePage;
-  final bool useWrapper;
 }
 
 class ParticleSphere extends StatefulWidget {
-  const ParticleSphere({super.key, required this.config, this.child = const SizedBox.shrink()});
+  const ParticleSphere({
+    super.key,
+    required this.config,
+    this.initialPage = 0,
+    this.viewAsSinglePage = false,
+    this.useWrapper = true,
+    this.noAnimate = false,
+    this.child = const SizedBox.shrink(),
+  });
 
   final ParticleSphereConfig config;
+  final int initialPage;
+  final bool viewAsSinglePage;
+  final bool useWrapper;
+  final bool noAnimate;
   final Widget child;
 
   @override
@@ -81,9 +87,9 @@ class ParticleSphere extends StatefulWidget {
 }
 
 class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStateMixin {
-  late final StreamSubscription _sub;
+  StreamSubscription? _sub;
 
-  late final AnimationController _controller;
+  AnimationController? _controller;
   final List<_Particle> _particles = [];
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
 
@@ -166,9 +172,11 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
 
     _init();
 
-    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
-      ..addListener(_updateRotation)
-      ..repeat();
+    if (!widget.noAnimate) {
+      _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
+        ..addListener(_updateRotation)
+        ..repeat();
+    }
 
     _secondController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
@@ -186,32 +194,43 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
       ),
     );
 
-    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      if (widget.config.viewAsSinglePage) {
-        final explose = widget.config.noExplosionOnCoverPage
-            ? widget.config.initialPage == 1
-            : widget.config.initialPage == 0 && !widget.config.useWrapper;
-        if (explose) {
-          _secondController.forward();
-        } else {
-          if (widget.config.initialPage != 0) _secondController.value = 1;
-        }
+    if (widget.noAnimate) {
+      final explose = widget.config.noExplosionOnCoverPage
+          ? widget.initialPage == 1
+          : widget.initialPage == 0 && !widget.useWrapper;
+      if (explose) {
+        _secondController.value = 1;
       } else {
-        final explose = widget.config.noExplosionOnCoverPage ? state.pageActive == 1 : true;
-        if (explose && state.animationTrigger == 1) {
-          _secondController.forward();
-          _sub.cancel();
-        }
+        if (widget.initialPage != 0) _secondController.value = 1;
       }
-    });
+    } else {
+      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+        if (widget.viewAsSinglePage) {
+          final explose = widget.config.noExplosionOnCoverPage
+              ? widget.initialPage == 1
+              : widget.initialPage == 0 && !widget.useWrapper;
+          if (explose) {
+            _secondController.forward();
+          } else {
+            if (widget.initialPage != 0) _secondController.value = 1;
+          }
+        } else {
+          final explose = widget.config.noExplosionOnCoverPage ? state.pageActive == 1 : true;
+          if (explose && state.animationTrigger == 1) {
+            _secondController.forward();
+            _sub?.cancel();
+          }
+        }
+      });
+    }
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    _sub?.cancel();
 
-    _controller.removeListener(_updateRotation);
-    _controller.dispose();
+    _controller?.removeListener(_updateRotation);
+    _controller?.dispose();
 
     _secondController.dispose();
 

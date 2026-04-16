@@ -79,9 +79,6 @@ class CanvasTheme extends StatelessWidget {
               Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
             ],
             noExplosionOnCoverPage: true,
-            initialPage: initialPage,
-            viewAsSinglePage: viewAsSinglePage,
-            useWrapper: useWrapper,
           ),
           coverPageConfig: PageViewBasedCoverPageConfig(
             gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
