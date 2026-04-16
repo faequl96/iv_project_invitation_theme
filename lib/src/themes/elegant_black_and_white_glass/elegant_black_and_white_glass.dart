@@ -65,6 +65,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
             bubbleColor3: Colors.grey.shade600,
             bubbleColor4: Colors.grey.shade500,
             bubbleColor5: Colors.grey.shade400,
+            noAnimate: noAnimate,
           ),
         ],
         particleSphere: ParticleSphereConfig(

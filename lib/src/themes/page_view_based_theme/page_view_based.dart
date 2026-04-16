@@ -154,7 +154,11 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           noAnimate: widget.noAnimate,
           useWrapper: widget.useWrapper,
         ),
-        PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
+        PageViewBasedFirstPage(
+          config: widget.configs.firstPageConfig,
+          general: widget.invitationData.general,
+          noAnimate: widget.noAnimate,
+        ),
         PageViewBasedSecondPage(
           config: widget.configs.secondPageConfig,
           viewType: widget.viewType,
@@ -162,6 +166,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           groomImage: widget.imagesRaw?.groomImage,
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
+          noAnimate: widget.noAnimate,
         ),
         if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
           PageViewBasedThirdPage(

@@ -61,10 +61,11 @@ class PageViewBasedFirstPageConfig {
 }
 
 class PageViewBasedFirstPage extends StatelessWidget {
-  const PageViewBasedFirstPage({super.key, required this.config, required this.general});
+  const PageViewBasedFirstPage({super.key, required this.config, required this.general, required this.noAnimate});
 
   final PageViewBasedFirstPageConfig config;
   final GeneralResponse general;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -93,23 +94,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Center(
-                  child: Text(
-                    langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
-                    style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                  ),
-                ),
-              ),
-            ),
-          ),
+          if (!noAnimate)
+            Positioned(
+              top: 0,
+              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            )
+          else
+            Positioned(top: 0, child: _title(langCode)),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -171,22 +163,103 @@ class PageViewBasedFirstPage extends StatelessWidget {
                 child: ClipRect(
                   child: Column(
                     children: [
-                      const Spacer(),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .5,
-                        slideFrom: .top,
-                        delayBeforeStart: const Duration(milliseconds: 500),
-                        child: Text(
-                          general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                          style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
+                      if (!noAnimate) ...[
+                        const Spacer(),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .5,
+                          slideFrom: .top,
+                          delayBeforeStart: const Duration(milliseconds: 500),
+                          child: _opening(),
                         ),
-                      ),
-                      const Spacer(),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .4,
-                        slideFrom: .left,
-                        delayBeforeStart: const Duration(milliseconds: 500),
-                        child: Padding(
+                        const Spacer(),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .4,
+                          slideFrom: .left,
+                          delayBeforeStart: const Duration(milliseconds: 500),
+                          child: Padding(
+                            padding: .symmetric(horizontal: W.x6s),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                boxShadow: config.firstSubScaffoldBoxShadow,
+                                border: .all(
+                                  width: config.firstSubScaffoldBorderWidth,
+                                  color: config.firstSubScaffoldBorderColor,
+                                ),
+                                borderRadius: .circular(10),
+                                color: config.firstSubScaffoldColor,
+                              ),
+                              child: Padding(
+                                padding: .only(top: H.md, left: 20, right: 20, bottom: H.sm),
+                                child: Column(
+                                  mainAxisSize: .min,
+                                  children: [
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: .3,
+                                      slideFrom: .top,
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
+                                      child: _openingQuote(),
+                                    ),
+                                    SizedBox(height: H.x6s),
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: 1,
+                                      slideFrom: .bottom,
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
+                                      child: _quoteFrom(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: H.x4s),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .4,
+                          slideFrom: .right,
+                          delayBeforeStart: const Duration(milliseconds: 500),
+                          child: Padding(
+                            padding: .symmetric(horizontal: W.x6s),
+                            child: DecoratedBox(
+                              decoration: BoxDecoration(
+                                boxShadow: config.secondSubScaffoldBoxShadow,
+                                border: .all(
+                                  width: config.secondSubScaffoldBorderWidth,
+                                  color: config.secondSubScaffoldBorderColor,
+                                ),
+                                borderRadius: .circular(10),
+                                color: config.secondSubScaffoldColor,
+                              ),
+                              child: Padding(
+                                padding: .only(top: H.xs, left: 20, right: 20, bottom: H.sm),
+                                child: Column(
+                                  mainAxisSize: .min,
+                                  children: [
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: 1,
+                                      slideFrom: .top,
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
+                                      child: _regards(),
+                                    ),
+                                    SizedBox(height: H.x6s),
+                                    FadeAndSlideTransition(
+                                      slideFromOffset: .4,
+                                      slideFrom: .bottom,
+                                      delayBeforeStart: const Duration(milliseconds: 1000),
+                                      child: _greeting(),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Spacer(),
+                        const Spacer(),
+                      ] else ...[
+                        const Spacer(),
+                        _opening(),
+                        const Spacer(),
+                        Padding(
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
@@ -200,49 +273,16 @@ class PageViewBasedFirstPage extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: .min,
                                 children: [
-                                  FadeAndSlideTransition(
-                                    slideFromOffset: .3,
-                                    slideFrom: .top,
-                                    delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.openingQuote.isNotEmpty
-                                          ? general.openingQuote
-                                          : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.md,
-                                        fontWeight: .w500,
-                                        fontStyle: .italic,
-                                      ),
-                                      textAlign: .center,
-                                    ),
-                                  ),
+                                  _openingQuote(),
                                   SizedBox(height: H.x6s),
-                                  FadeAndSlideTransition(
-                                    slideFromOffset: 1,
-                                    slideFrom: .bottom,
-                                    delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.lg,
-                                        fontWeight: .w600,
-                                      ),
-                                    ),
-                                  ),
+                                  _quoteFrom(),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: H.x4s),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .4,
-                        slideFrom: .right,
-                        delayBeforeStart: const Duration(milliseconds: 500),
-                        child: Padding(
+                        SizedBox(height: H.x4s),
+                        Padding(
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
@@ -259,44 +299,17 @@ class PageViewBasedFirstPage extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: .min,
                                 children: [
-                                  FadeAndSlideTransition(
-                                    slideFromOffset: 1,
-                                    slideFrom: .top,
-                                    delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.x2l,
-                                        fontWeight: .w600,
-                                      ),
-                                    ),
-                                  ),
+                                  _regards(),
                                   SizedBox(height: H.x6s),
-                                  FadeAndSlideTransition(
-                                    slideFromOffset: .4,
-                                    slideFrom: .bottom,
-                                    delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.greeting.isNotEmpty
-                                          ? general.greeting
-                                          : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.md,
-                                        fontWeight: .w400,
-                                      ),
-                                      textAlign: .center,
-                                    ),
-                                  ),
+                                  _greeting(),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      const Spacer(),
+                        const Spacer(),
+                        const Spacer(),
+                      ],
                     ],
                   ),
                 ),
@@ -319,6 +332,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 2200),
                   animationInterval: const Duration(milliseconds: 3500),
+                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -328,4 +342,46 @@ class PageViewBasedFirstPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Center(
+      child: Text(
+        langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
+        style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+      ),
+    ),
+  );
+
+  Widget _opening() => Text(
+    general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+    style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
+  );
+
+  Widget _openingQuote() => Text(
+    general.openingQuote.isNotEmpty
+        ? general.openingQuote
+        : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.md, fontWeight: .w500, fontStyle: .italic),
+    textAlign: .center,
+  );
+
+  Widget _quoteFrom() => Text(
+    general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.lg, fontWeight: .w600),
+  );
+
+  Widget _regards() => Text(
+    general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.x2l, fontWeight: .w600),
+  );
+
+  Widget _greeting() => Text(
+    general.greeting.isNotEmpty
+        ? general.greeting
+        : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.md, fontWeight: .w400),
+    textAlign: .center,
+  );
 }

@@ -66,6 +66,7 @@ class ElegantBlueSkyGlass extends StatelessWidget {
             bubbleColor3: ColorConverter.darken(Colors.blue.shade700, 40),
             bubbleColor4: ColorConverter.darken(Colors.blue.shade400, 5),
             bubbleColor5: ColorConverter.darken(Colors.lightBlueAccent, 5),
+            noAnimate: noAnimate,
           ),
           // SizedBox(
           //   width: Screen.width,

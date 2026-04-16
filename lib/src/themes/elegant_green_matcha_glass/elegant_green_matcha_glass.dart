@@ -66,6 +66,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
             bubbleColor3: ColorConverter.darken(Colors.green.shade700, 40),
             bubbleColor4: ColorConverter.darken(Colors.green.shade400, 5),
             bubbleColor5: ColorConverter.darken(Colors.lightGreenAccent, 10),
+            noAnimate: noAnimate,
           ),
         ],
         particleSphere: ParticleSphereConfig(

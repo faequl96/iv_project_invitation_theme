@@ -92,6 +92,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
     this.groomImage,
     required this.bride,
     required this.groom,
+    required this.noAnimate,
   });
 
   final PageViewBasedSecondPageConfig config;
@@ -100,6 +101,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
   final File? groomImage;
   final BridegroomResponse bride;
   final BridegroomResponse groom;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -127,28 +129,14 @@ class PageViewBasedSecondPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.people, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          if (!noAnimate)
+            Positioned(
+              top: 0,
+              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            )
+          else
+            Positioned(top: 0, child: _title(langCode)),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -218,6 +206,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                         borderWidth: config.groomImageBorderWidth,
                         imageUrl: groom.imageUrl,
                         image: groomImage,
+                        noAnimate: noAnimate,
                       ),
                       AnimatedPhotoSequence.right(
                         viewType: viewType,
@@ -226,8 +215,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                         borderWidth: config.brideImageBorderWidth,
                         imageUrl: bride.imageUrl,
                         image: brideImage,
+                        noAnimate: noAnimate,
                       ),
                       AnimatedInviter.left(
+                        noAnimate: noAnimate,
                         children: [
                           Text.rich(
                             TextSpan(
@@ -333,6 +324,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                         ],
                       ),
                       AnimatedInviter.right(
+                        noAnimate: noAnimate,
                         children: [
                           Text.rich(
                             TextSpan(
@@ -443,10 +435,12 @@ class PageViewBasedSecondPage extends StatelessWidget {
                       AnimatedBorderInviter.top(
                         color: config.brideDividingBorderColor,
                         borderWidth: config.brideDividingBorderWidth,
+                        noAnimate: noAnimate,
                       ),
                       AnimatedBorderInviter.bottom(
                         color: config.groomDividingBorderColor,
                         borderWidth: config.groomDividingBorderWidth,
+                        noAnimate: noAnimate,
                       ),
                     ],
                   ),
@@ -470,6 +464,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 3000),
                   animationInterval: const Duration(milliseconds: 3500),
+                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -479,4 +474,20 @@ class PageViewBasedSecondPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.people, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
 }

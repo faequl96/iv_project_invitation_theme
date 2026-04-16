@@ -6,19 +6,22 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedBorderInviter extends StatefulWidget {
-  const AnimatedBorderInviter.top({super.key, required this.color, this.borderWidth = .5}) : isTop = true;
-  const AnimatedBorderInviter.bottom({super.key, required this.color, this.borderWidth = .5}) : isTop = false;
+  const AnimatedBorderInviter.top({super.key, required this.color, this.borderWidth = .5, required this.noAnimate})
+    : isTop = true;
+  const AnimatedBorderInviter.bottom({super.key, required this.color, this.borderWidth = .5, required this.noAnimate})
+    : isTop = false;
 
   final bool isTop;
   final Color color;
   final double borderWidth;
+  final bool noAnimate;
 
   @override
   State<AnimatedBorderInviter> createState() => _AnimatedBorderInviterState();
 }
 
 class _AnimatedBorderInviterState extends State<AnimatedBorderInviter> with SingleTickerProviderStateMixin {
-  late final StreamSubscription _sub;
+  StreamSubscription? _sub;
 
   late final AnimationController _controller;
   late final Animation<double> _lineFadeAnimation;
@@ -51,14 +54,18 @@ class _AnimatedBorderInviterState extends State<AnimatedBorderInviter> with Sing
 
     _initAnimation();
 
-    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      _runAnimation(state.animationTrigger);
-    });
+    if (widget.noAnimate) {
+      _controller.value = 1;
+    } else {
+      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+        _runAnimation(state.animationTrigger);
+      });
+    }
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    _sub?.cancel();
     _controller.dispose();
 
     super.dispose();

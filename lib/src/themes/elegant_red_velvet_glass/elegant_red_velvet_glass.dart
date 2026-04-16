@@ -66,6 +66,7 @@ class ElegantRedVelvetGlass extends StatelessWidget {
             bubbleColor3: ColorConverter.darken(Colors.red.shade700, 40),
             bubbleColor4: ColorConverter.darken(Colors.red.shade400, 5),
             bubbleColor5: ColorConverter.darken(Colors.redAccent, 5),
+            noAnimate: noAnimate,
           ),
         ],
         particleSphere: ParticleSphereConfig(
