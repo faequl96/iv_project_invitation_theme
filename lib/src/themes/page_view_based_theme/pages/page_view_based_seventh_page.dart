@@ -111,11 +111,18 @@ class PageViewBasedSeventhPageConfig {
 }
 
 class PageViewBasedSeventhPage extends StatelessWidget {
-  const PageViewBasedSeventhPage({super.key, required this.config, required this.viewType, required this.invitationId});
+  const PageViewBasedSeventhPage({
+    super.key,
+    required this.config,
+    required this.viewType,
+    required this.invitationId,
+    required this.noAnimate,
+  });
 
   final PageViewBasedSeventhPageConfig config;
   final ViewType viewType;
   final String invitationId;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -144,28 +151,14 @@ class PageViewBasedSeventhPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.event_available, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          if (!noAnimate)
+            Positioned(
+              top: 0,
+              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            )
+          else
+            Positioned(top: 0, child: _title(langCode)),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -245,114 +238,20 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                         submitButtonBorderColor: config.submitButtonBorderColor,
                         viewType: viewType,
                         invitationId: invitationId,
+                        noAnimate: noAnimate,
                       ),
                       SizedBox(height: H.x8s),
-                      Expanded(
-                        child: FadeAndSlideTransition(
-                          slideFromOffset: .5,
-                          slideFrom: .bottom,
-                          delayBeforeStart: const Duration(milliseconds: 2000),
-                          child: SizedBox(
-                            width: .maxFinite,
-                            child: Padding(
-                              padding: .symmetric(horizontal: W.x6s),
-                              child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  color: config.rsvpBackgroundColor,
-                                  border: .all(color: config.rsvpBorderColor, width: config.rsvpBorderWidth),
-                                  borderRadius: .only(
-                                    topLeft: const .circular(10),
-                                    topRight: const .circular(10),
-                                    bottomLeft: .circular((W.lg + H.x10s) / 2),
-                                    bottomRight: .circular((W.lg + H.x10s) / 2),
-                                  ),
-                                ),
-                                child: Stack(
-                                  alignment: .bottomCenter,
-                                  children: [
-                                    _RSVPsWidget(
-                                      rsvpNameTextColor: config.rsvpNameTextColor,
-                                      rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
-                                      rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
-                                      rsvpAttendanceTextColorLighten: config.rsvpAttendanceTextColorLighten,
-                                      rsvpMessageTextColor: config.rsvpMessageTextColor,
-                                      invitationId: invitationId,
-                                      viewType: viewType,
-                                      isShowMore: false,
-                                    ),
-                                    GeneralEffectsButton(
-                                      onTap: () {
-                                        ShowModal.bottomSheet(
-                                          context,
-                                          barrierColor: Colors.grey.shade700.withValues(alpha: .5),
-                                          header: BottomSheetHeader(
-                                            title: .handleBar(color: config.bottomSheetHandleColor),
-                                            action: HeaderAction(
-                                              actionIcon: Icons.close_rounded,
-                                              iconColor: config.bottomSheetCloseIconColor,
-                                              onHoverIconColor: config.bottomSheetOnHoverCloseIconColor,
-                                              onTap: () => NavigationService.pop(),
-                                            ),
-                                          ),
-                                          decoration: BottomSheetDecoration(
-                                            color: config.bottomSheetBackgroundColor,
-                                            borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
-                                          ),
-                                          contentBuilder: (_) {
-                                            return SizedBox(
-                                              height: Screen.height - H.x15l,
-                                              child: Padding(
-                                                padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
-                                                child: DecoratedBox(
-                                                  decoration: BoxDecoration(
-                                                    color: config.bottomSheetContentScaffoldColor,
-                                                    borderRadius: .circular(16),
-                                                  ),
-                                                  child: _RSVPsWidget(
-                                                    rsvpNameTextColor: config.rsvpNameTextColor,
-                                                    rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
-                                                    rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
-                                                    rsvpAttendanceTextColorLighten: config.rsvpAttendanceTextColorLighten,
-                                                    rsvpMessageTextColor: config.rsvpMessageTextColor,
-                                                    invitationId: invitationId,
-                                                    viewType: viewType,
-                                                    isShowMore: true,
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
-                                      },
-                                      width: .maxFinite,
-                                      height: W.lg + H.x10s,
-                                      borderRadius: .circular(30),
-                                      border: .all(
-                                        width: config.seeMoreButtonBorderWidth,
-                                        color: config.seeMoreButtonBorderColor,
-                                      ),
-                                      color: config.seeMoreButtonColor,
-                                      child: Stack(
-                                        alignment: .center,
-                                        children: [
-                                          Text(
-                                            langCode == 'en' ? 'See More' : 'Selengkapnya',
-                                            style: AppFonts.inter(
-                                              color: config.seeMoreButtonLabelColor,
-                                              fontSize: FontSize.md,
-                                              fontWeight: .w600,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                      if (!noAnimate)
+                        Expanded(
+                          child: FadeAndSlideTransition(
+                            slideFromOffset: .5,
+                            slideFrom: .bottom,
+                            delayBeforeStart: const Duration(milliseconds: 2000),
+                            child: _rsvpList(context, langCode),
                           ),
-                        ),
-                      ),
+                        )
+                      else
+                        Expanded(child: _rsvpList(context, langCode)),
                       SizedBox(height: W.x5s),
                     ],
                   ),
@@ -376,6 +275,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 3600),
                   animationInterval: const Duration(milliseconds: 3500),
+                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -385,6 +285,112 @@ class PageViewBasedSeventhPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.event_available, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _rsvpList(BuildContext context, String langCode) => SizedBox(
+    width: .maxFinite,
+    child: Padding(
+      padding: .symmetric(horizontal: W.x6s),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: config.rsvpBackgroundColor,
+          border: .all(color: config.rsvpBorderColor, width: config.rsvpBorderWidth),
+          borderRadius: .only(
+            topLeft: const .circular(10),
+            topRight: const .circular(10),
+            bottomLeft: .circular((W.lg + H.x10s) / 2),
+            bottomRight: .circular((W.lg + H.x10s) / 2),
+          ),
+        ),
+        child: Stack(
+          alignment: .bottomCenter,
+          children: [
+            _RSVPsWidget(
+              rsvpNameTextColor: config.rsvpNameTextColor,
+              rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
+              rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
+              rsvpAttendanceTextColorLighten: config.rsvpAttendanceTextColorLighten,
+              rsvpMessageTextColor: config.rsvpMessageTextColor,
+              invitationId: invitationId,
+              viewType: viewType,
+              isShowMore: false,
+            ),
+            GeneralEffectsButton(
+              onTap: () {
+                ShowModal.bottomSheet(
+                  context,
+                  barrierColor: Colors.grey.shade700.withValues(alpha: .5),
+                  header: BottomSheetHeader(
+                    title: .handleBar(color: config.bottomSheetHandleColor),
+                    action: HeaderAction(
+                      actionIcon: Icons.close_rounded,
+                      iconColor: config.bottomSheetCloseIconColor,
+                      onHoverIconColor: config.bottomSheetOnHoverCloseIconColor,
+                      onTap: () => NavigationService.pop(),
+                    ),
+                  ),
+                  decoration: BottomSheetDecoration(
+                    color: config.bottomSheetBackgroundColor,
+                    borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
+                  ),
+                  contentBuilder: (_) {
+                    return SizedBox(
+                      height: Screen.height - H.x15l,
+                      child: Padding(
+                        padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(color: config.bottomSheetContentScaffoldColor, borderRadius: .circular(16)),
+                          child: _RSVPsWidget(
+                            rsvpNameTextColor: config.rsvpNameTextColor,
+                            rsvpTimeAgoTextColor: config.rsvpTimeAgoTextColor,
+                            rsvpNameInstanceTextColor: config.rsvpNameInstanceTextColor,
+                            rsvpAttendanceTextColorLighten: config.rsvpAttendanceTextColorLighten,
+                            rsvpMessageTextColor: config.rsvpMessageTextColor,
+                            invitationId: invitationId,
+                            viewType: viewType,
+                            isShowMore: true,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              width: .maxFinite,
+              height: W.lg + H.x10s,
+              borderRadius: .circular(30),
+              border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+              color: config.seeMoreButtonColor,
+              child: Stack(
+                alignment: .center,
+                children: [
+                  Text(
+                    langCode == 'en' ? 'See More' : 'Selengkapnya',
+                    style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 class RSVPForm extends StatefulWidget {
@@ -408,6 +414,7 @@ class RSVPForm extends StatefulWidget {
     required this.submitButtonBorderColor,
     required this.viewType,
     required this.invitationId,
+    required this.noAnimate,
   });
 
   final Color fieldTextColor;
@@ -428,6 +435,7 @@ class RSVPForm extends StatefulWidget {
   final Color submitButtonBorderColor;
   final ViewType viewType;
   final String invitationId;
+  final bool noAnimate;
 
   @override
   State<RSVPForm> createState() => _RSVPFormState();
@@ -510,251 +518,286 @@ class _RSVPFormState extends State<RSVPForm> {
 
     return Column(
       children: [
-        Padding(
-          padding: .symmetric(horizontal: W.x6s),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .4,
-            slideFrom: .left,
-            delayBeforeStart: const Duration(milliseconds: 800),
-            child: EnhancedGeneralTextField(
-              fieldTextColor: widget.fieldTextColor,
-              fieldLabelColor: widget.fieldLabelColor,
-              fieldFillColor: widget.fieldFillColor,
-              fieldBorderColor: widget.fieldBorderColor,
-              textEditingController: _nameController,
-              labelTextBuilder: () => langCode == 'id' ? 'Nama' : 'Name',
-              maxLength: 18,
+        if (!widget.noAnimate) ...[
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .4,
+              slideFrom: .left,
+              delayBeforeStart: const Duration(milliseconds: 800),
+              child: _nameField(langCode),
             ),
           ),
-        ),
-        SizedBox(height: H.x8s),
-        Padding(
-          padding: .symmetric(horizontal: W.x6s),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .4,
-            slideFrom: .left,
-            delayBeforeStart: const Duration(milliseconds: 700),
-            child: ValueListenableBuilder(
-              valueListenable: _avatar,
-              builder: (_, _, _) {
-                return OverlayDropdownField(
-                  height: H.x3l,
-                  style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
-                  decoration: FieldDecoration(
-                    labelText: 'Avatar',
-                    labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
-                    filled: true,
-                    fillColor: widget.fieldFillColor,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-                      borderRadius: const .all(.circular(8)),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-                      borderRadius: const .all(.circular(8)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-                      borderRadius: const .all(.circular(8)),
-                    ),
-                    suffixIcons: () {
-                      return [
-                        PreSufFixIcon(
-                          onTap: () {},
-                          child: Image.asset(
-                            'assets/avatars/${_avatar.value ?? 'avatars'}.png',
-                            package: 'iv_project_invitation_theme',
-                            height: 24,
-                            width: 24,
-                          ),
-                        ),
-                      ];
-                    },
-                  ),
-                  splashColor: widget.fieldSplashColor,
-                  overlayYOffset: 6,
-                  overlayBarrier: const ModalBarrier(),
-                  overlaydecoration: OverlayDecoration(
-                    height: H.x15l,
-                    color: widget.overlayColor,
-                    padding: const .symmetric(vertical: 10),
-                    border: .all(color: widget.overlayBorderColor),
-                  ),
-                  dropdownItemDecoration: DropdownItemDecoration(
-                    padding: const .symmetric(vertical: 10, horizontal: 14),
-                    selectedColor: widget.dropdownItemSelectedColor,
-                    hoveredColor: widget.dropdownItemHoveredColor,
-                    splashColor: widget.dropdownItemSplashColor,
-                  ),
-                  value: _avatar.value,
-                  dropdownItems: Avatars.values.map((item) => item.name).toList(),
-                  dropdownItemBuilder: (value) {
-                    return Row(
-                      children: [
-                        Image.asset('assets/avatars/$value.png', package: 'iv_project_invitation_theme', height: 28, width: 28),
-                        const SizedBox(width: 6),
-                        Text(
-                          value,
-                          style: AppFonts.inter(
-                            color: _avatar.value == value ? widget.dropdownItemSelectedTextColor : widget.dropdownItemTextColor,
-                            fontSize: FontSize.md,
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                  onSelected: (value) => _avatar.value = value,
-                );
-              },
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .4,
+              slideFrom: .left,
+              delayBeforeStart: const Duration(milliseconds: 700),
+              child: _avatarField(),
             ),
           ),
-        ),
-        SizedBox(height: H.x8s),
-        Padding(
-          padding: .symmetric(horizontal: W.x6s),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .4,
-            slideFrom: .left,
-            delayBeforeStart: const Duration(milliseconds: 600),
-            child: ValueListenableBuilder(
-              valueListenable: _possiblePresence,
-              builder: (_, _, _) {
-                return OverlayDropdownField(
-                  height: H.x3l,
-                  style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
-                  decoration: FieldDecoration(
-                    labelText: langCode == 'id' ? 'Kemungkinan Kehadiran' : 'Possible Presence',
-                    labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
-                    filled: true,
-                    fillColor: widget.fieldFillColor,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-                      borderRadius: const .all(.circular(8)),
-                    ),
-                    disabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-                      borderRadius: const .all(.circular(8)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-                      borderRadius: const .all(.circular(8)),
-                    ),
-                    suffixIcons: () {
-                      return [
-                        PreSufFixIcon(
-                          onTap: () {},
-                          child: Icon(Icons.arrow_drop_down, color: Colors.grey.shade100),
-                        ),
-                      ];
-                    },
-                  ),
-                  splashColor: widget.fieldSplashColor,
-                  overlayYOffset: 6,
-                  overlayBarrier: const ModalBarrier(),
-                  overlaydecoration: OverlayDecoration(
-                    color: widget.overlayColor,
-                    padding: const .symmetric(vertical: 10),
-                    border: .all(color: widget.overlayBorderColor),
-                  ),
-                  dropdownItemDecoration: DropdownItemDecoration(
-                    padding: const .symmetric(vertical: 12, horizontal: 14),
-                    selectedColor: widget.dropdownItemSelectedColor,
-                    hoveredColor: widget.dropdownItemHoveredColor,
-                    splashColor: widget.dropdownItemSplashColor,
-                  ),
-                  value: _possiblePresence.value,
-                  dropdownItems: Attendance.values.map((item) => item.description).toList(),
-                  dropdownItemBuilder: (value) {
-                    return Text(
-                      value,
-                      style: AppFonts.inter(
-                        color: _possiblePresence.value == value
-                            ? widget.dropdownItemSelectedTextColor
-                            : widget.dropdownItemTextColor,
-                        fontSize: FontSize.md,
-                      ),
-                    );
-                  },
-                  onSelected: (value) => _possiblePresence.value = value,
-                );
-              },
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .4,
+              slideFrom: .left,
+              delayBeforeStart: const Duration(milliseconds: 600),
+              child: _possiblePresenceField(langCode),
             ),
           ),
-        ),
-        SizedBox(height: H.x8s),
-        Padding(
-          padding: .symmetric(horizontal: W.x6s),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .4,
-            slideFrom: .left,
-            delayBeforeStart: const Duration(milliseconds: 500),
-            child: EnhancedGeneralTextField(
-              fieldTextColor: widget.fieldTextColor,
-              fieldLabelColor: widget.fieldLabelColor,
-              fieldFillColor: widget.fieldFillColor,
-              fieldBorderColor: widget.fieldBorderColor,
-              textEditingController: _greetingController,
-              labelTextBuilder: () => langCode == 'id' ? 'Ucapan' : 'Greetings',
-              maxLines: 2,
-              isMandatory: false,
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .4,
+              slideFrom: .left,
+              delayBeforeStart: const Duration(milliseconds: 500),
+              child: _greetingsField(langCode),
             ),
           ),
-        ),
-        SizedBox(height: H.x8s),
-        Padding(
-          padding: .symmetric(horizontal: W.x6s),
-          child: FadeAndSlideTransition(
-            slideFromOffset: .8,
-            slideFrom: .bottom,
-            animationSpeed: const Duration(milliseconds: 300),
-            delayBeforeStart: const Duration(milliseconds: 1200),
-            child: widget.viewType != ViewType.live
-                ? GeneralEffectsButton(
-                    onTap: () {},
-                    width: .maxFinite,
-                    height: W.lg + H.x10s,
-                    borderRadius: .circular(30),
-                    border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
-                    color: widget.submitButtonColor,
-                    child: Row(
-                      mainAxisAlignment: .center,
-                      children: [
-                        Text(
-                          'Submit',
-                          style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
-                        ),
-                      ],
-                    ),
-                  )
-                : BlocSelector<RSVPCubit, RSVPState, bool>(
-                    selector: (state) => state.isLoadingCreate,
-                    builder: (context, isLoadingCreate) => GeneralEffectsButton(
-                      onTap: _submit,
-                      width: .maxFinite,
-                      height: W.lg + H.x10s,
-                      borderRadius: .circular(30),
-                      border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
-                      color: widget.submitButtonColor,
-                      child: Row(
-                        mainAxisAlignment: .center,
-                        children: [
-                          if (isLoadingCreate) ...[
-                            SharedPersonalize.loadingWidget(size: 22, color: Colors.white),
-                            const SizedBox(width: 10),
-                          ],
-                          Text(
-                            'Submit',
-                            style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .8,
+              slideFrom: .bottom,
+              animationSpeed: const Duration(milliseconds: 300),
+              delayBeforeStart: const Duration(milliseconds: 1200),
+              child: _submitButton(),
+            ),
           ),
-        ),
+        ] else ...[
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: _nameField(langCode),
+          ),
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: _avatarField(),
+          ),
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: _possiblePresenceField(langCode),
+          ),
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: _greetingsField(langCode),
+          ),
+          SizedBox(height: H.x8s),
+          Padding(
+            padding: .symmetric(horizontal: W.x6s),
+            child: _submitButton(),
+          ),
+        ],
       ],
     );
   }
+
+  Widget _nameField(String langCode) => EnhancedGeneralTextField(
+    fieldTextColor: widget.fieldTextColor,
+    fieldLabelColor: widget.fieldLabelColor,
+    fieldFillColor: widget.fieldFillColor,
+    fieldBorderColor: widget.fieldBorderColor,
+    textEditingController: _nameController,
+    labelTextBuilder: () => langCode == 'id' ? 'Nama' : 'Name',
+    maxLength: 18,
+  );
+
+  Widget _avatarField() => ValueListenableBuilder(
+    valueListenable: _avatar,
+    builder: (_, _, _) {
+      return OverlayDropdownField(
+        height: H.x3l,
+        style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
+        decoration: FieldDecoration(
+          labelText: 'Avatar',
+          labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
+          filled: true,
+          fillColor: widget.fieldFillColor,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            borderRadius: const .all(.circular(8)),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            borderRadius: const .all(.circular(8)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            borderRadius: const .all(.circular(8)),
+          ),
+          suffixIcons: () {
+            return [
+              PreSufFixIcon(
+                onTap: () {},
+                child: Image.asset(
+                  'assets/avatars/${_avatar.value ?? 'avatars'}.png',
+                  package: 'iv_project_invitation_theme',
+                  height: 24,
+                  width: 24,
+                ),
+              ),
+            ];
+          },
+        ),
+        splashColor: widget.fieldSplashColor,
+        overlayYOffset: 6,
+        overlayBarrier: const ModalBarrier(),
+        overlaydecoration: OverlayDecoration(
+          height: H.x15l,
+          color: widget.overlayColor,
+          padding: const .symmetric(vertical: 10),
+          border: .all(color: widget.overlayBorderColor),
+        ),
+        dropdownItemDecoration: DropdownItemDecoration(
+          padding: const .symmetric(vertical: 10, horizontal: 14),
+          selectedColor: widget.dropdownItemSelectedColor,
+          hoveredColor: widget.dropdownItemHoveredColor,
+          splashColor: widget.dropdownItemSplashColor,
+        ),
+        value: _avatar.value,
+        dropdownItems: Avatars.values.map((item) => item.name).toList(),
+        dropdownItemBuilder: (value) {
+          return Row(
+            children: [
+              Image.asset('assets/avatars/$value.png', package: 'iv_project_invitation_theme', height: 28, width: 28),
+              const SizedBox(width: 6),
+              Text(
+                value,
+                style: AppFonts.inter(
+                  color: _avatar.value == value ? widget.dropdownItemSelectedTextColor : widget.dropdownItemTextColor,
+                  fontSize: FontSize.md,
+                ),
+              ),
+            ],
+          );
+        },
+        onSelected: (value) => _avatar.value = value,
+      );
+    },
+  );
+
+  Widget _possiblePresenceField(String langCode) => ValueListenableBuilder(
+    valueListenable: _possiblePresence,
+    builder: (_, _, _) {
+      return OverlayDropdownField(
+        height: H.x3l,
+        style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
+        decoration: FieldDecoration(
+          labelText: langCode == 'id' ? 'Kemungkinan Kehadiran' : 'Possible Presence',
+          labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
+          filled: true,
+          fillColor: widget.fieldFillColor,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            borderRadius: const .all(.circular(8)),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            borderRadius: const .all(.circular(8)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
+            borderRadius: const .all(.circular(8)),
+          ),
+          suffixIcons: () {
+            return [
+              PreSufFixIcon(
+                onTap: () {},
+                child: Icon(Icons.arrow_drop_down, color: Colors.grey.shade100),
+              ),
+            ];
+          },
+        ),
+        splashColor: widget.fieldSplashColor,
+        overlayYOffset: 6,
+        overlayBarrier: const ModalBarrier(),
+        overlaydecoration: OverlayDecoration(
+          color: widget.overlayColor,
+          padding: const .symmetric(vertical: 10),
+          border: .all(color: widget.overlayBorderColor),
+        ),
+        dropdownItemDecoration: DropdownItemDecoration(
+          padding: const .symmetric(vertical: 12, horizontal: 14),
+          selectedColor: widget.dropdownItemSelectedColor,
+          hoveredColor: widget.dropdownItemHoveredColor,
+          splashColor: widget.dropdownItemSplashColor,
+        ),
+        value: _possiblePresence.value,
+        dropdownItems: Attendance.values.map((item) => item.description).toList(),
+        dropdownItemBuilder: (value) {
+          return Text(
+            value,
+            style: AppFonts.inter(
+              color: _possiblePresence.value == value ? widget.dropdownItemSelectedTextColor : widget.dropdownItemTextColor,
+              fontSize: FontSize.md,
+            ),
+          );
+        },
+        onSelected: (value) => _possiblePresence.value = value,
+      );
+    },
+  );
+
+  Widget _greetingsField(String langCode) => EnhancedGeneralTextField(
+    fieldTextColor: widget.fieldTextColor,
+    fieldLabelColor: widget.fieldLabelColor,
+    fieldFillColor: widget.fieldFillColor,
+    fieldBorderColor: widget.fieldBorderColor,
+    textEditingController: _greetingController,
+    labelTextBuilder: () => langCode == 'id' ? 'Ucapan' : 'Greetings',
+    maxLines: 2,
+    isMandatory: false,
+  );
+
+  Widget _submitButton() => widget.viewType != ViewType.live
+      ? GeneralEffectsButton(
+          onTap: () {},
+          width: .maxFinite,
+          height: W.lg + H.x10s,
+          borderRadius: .circular(30),
+          border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
+          color: widget.submitButtonColor,
+          child: Row(
+            mainAxisAlignment: .center,
+            children: [
+              Text(
+                'Submit',
+                style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+              ),
+            ],
+          ),
+        )
+      : BlocSelector<RSVPCubit, RSVPState, bool>(
+          selector: (state) => state.isLoadingCreate,
+          builder: (context, isLoadingCreate) => GeneralEffectsButton(
+            onTap: _submit,
+            width: .maxFinite,
+            height: W.lg + H.x10s,
+            borderRadius: .circular(30),
+            border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
+            color: widget.submitButtonColor,
+            child: Row(
+              mainAxisAlignment: .center,
+              children: [
+                if (isLoadingCreate) ...[
+                  SharedPersonalize.loadingWidget(size: 22, color: Colors.white),
+                  const SizedBox(width: 10),
+                ],
+                Text(
+                  'Submit',
+                  style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+                ),
+              ],
+            ),
+          ),
+        );
 }
 
 class _RSVPsWidget extends StatefulWidget {

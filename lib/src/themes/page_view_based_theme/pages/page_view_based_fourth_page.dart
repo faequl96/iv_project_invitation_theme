@@ -60,10 +60,11 @@ class PageViewBasedFourthPageConfig {
 }
 
 class PageViewBasedFourthPage extends StatelessWidget {
-  const PageViewBasedFourthPage({super.key, required this.config, required this.receptionEvent});
+  const PageViewBasedFourthPage({super.key, required this.config, required this.receptionEvent, required this.noAnimate});
 
   final PageViewBasedFourthPageConfig config;
   final EventResponse receptionEvent;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -92,28 +93,14 @@ class PageViewBasedFourthPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.location_pin, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          if (!noAnimate)
+            Positioned(
+              top: 0,
+              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            )
+          else
+            Positioned(top: 0, child: _title(langCode)),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -173,86 +160,58 @@ class PageViewBasedFourthPage extends StatelessWidget {
                 child: ClipRect(
                   child: Column(
                     children: [
-                      SizedBox(height: H.lg),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .0,
-                        slideFrom: .top,
-                        delayBeforeStart: const Duration(milliseconds: 200),
-                        child: Column(
-                          children: [
-                            Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
-                            const SizedBox(height: 4),
-                            Text(
-                              receptionEvent.place,
-                              style: AppFonts.inter(color: config.placeTextColor, fontSize: FontSize.xl, fontWeight: .w600),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              height: config.dividingLineWidth,
-                              width: W.x18l,
-                              child: ColoredBox(color: config.dividingLineColor),
-                            ),
-                          ],
+                      if (!noAnimate) ...[
+                        SizedBox(height: H.lg),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .0,
+                          slideFrom: .top,
+                          delayBeforeStart: const Duration(milliseconds: 200),
+                          child: _place(),
                         ),
-                      ),
-                      const SizedBox(height: 8),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .8,
-                        slideFrom: .bottom,
-                        animationSpeed: const Duration(milliseconds: 300),
-                        delayBeforeStart: const Duration(milliseconds: 400),
-                        child: Padding(
-                          padding: const .symmetric(horizontal: 20),
-                          child: Text(
-                            receptionEvent.address,
-                            style: AppFonts.inter(color: config.addressTextColor, fontSize: FontSize.xs, fontWeight: .w400),
-                            textAlign: .center,
-                          ),
+                        const SizedBox(height: 8),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: .bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 400),
+                          child: _address(),
                         ),
-                      ),
-                      const Spacer(),
-                      Maps(
-                        borderColor: config.mapsBorderColor,
-                        width: Screen.width - (W.x6s * 5),
-                        height: Screen.height - (H.x22l),
-                        delayBeforeStart: const Duration(milliseconds: 1000),
-                        url: receptionEvent.mapsUrl,
-                      ),
-                      SizedBox(height: H.x2s),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .8,
-                        slideFrom: .bottom,
-                        animationSpeed: const Duration(milliseconds: 300),
-                        delayBeforeStart: const Duration(milliseconds: 1000),
-                        child: GeneralEffectsButton(
-                          onTap: () {
-                            launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
-                          },
-                          padding: const .symmetric(horizontal: 24),
-                          height: W.lg + H.x10s,
-                          borderRadius: .circular(30),
-                          border: .all(
-                            width: config.getDirectionsButtonBorderWidth,
-                            color: config.getDirectionsButtonBorderColor,
-                          ),
-                          color: config.getDirectionsButtonColor,
-                          child: Stack(
-                            alignment: .center,
-                            children: [
-                              Text(
-                                langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(
-                                  color: config.getDirectionsButtonLabelColor,
-                                  fontSize: FontSize.md,
-                                  fontWeight: .w600,
-                                ),
-                              ),
-                            ],
-                          ),
+                        const Spacer(),
+                        Maps(
+                          borderColor: config.mapsBorderColor,
+                          width: Screen.width - (W.x6s * 5),
+                          height: Screen.height - (H.x22l),
+                          delayBeforeStart: const Duration(milliseconds: 1000),
+                          url: receptionEvent.mapsUrl,
                         ),
-                      ),
-                      const Spacer(),
-                      const Spacer(),
+                        SizedBox(height: H.x2s),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: .bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 1000),
+                          child: _getDirection(langCode),
+                        ),
+                        const Spacer(),
+                        const Spacer(),
+                      ] else ...[
+                        SizedBox(height: H.lg),
+                        _place(),
+                        const SizedBox(height: 8),
+                        _address(),
+                        const Spacer(),
+                        Maps(
+                          borderColor: config.mapsBorderColor,
+                          width: Screen.width - (W.x6s * 5),
+                          height: Screen.height - (H.x22l),
+                          delayBeforeStart: const Duration(milliseconds: 1000),
+                          url: receptionEvent.mapsUrl,
+                        ),
+                        SizedBox(height: H.x2s),
+                        _getDirection(langCode),
+                        const Spacer(),
+                        const Spacer(),
+                      ],
                     ],
                   ),
                 ),
@@ -275,6 +234,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 2200),
                   animationInterval: const Duration(milliseconds: 3500),
+                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -284,4 +244,61 @@ class PageViewBasedFourthPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.location_pin, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _place() => Column(
+    children: [
+      Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
+      const SizedBox(height: 4),
+      Text(
+        receptionEvent.place,
+        style: AppFonts.inter(color: config.placeTextColor, fontSize: FontSize.xl, fontWeight: .w600),
+      ),
+      const SizedBox(height: 8),
+      SizedBox(
+        height: config.dividingLineWidth,
+        width: W.x18l,
+        child: ColoredBox(color: config.dividingLineColor),
+      ),
+    ],
+  );
+
+  Widget _address() => Padding(
+    padding: const .symmetric(horizontal: 20),
+    child: Text(
+      receptionEvent.address,
+      style: AppFonts.inter(color: config.addressTextColor, fontSize: FontSize.xs, fontWeight: .w400),
+      textAlign: .center,
+    ),
+  );
+
+  Widget _getDirection(String langCode) => GeneralEffectsButton(
+    onTap: () {
+      launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
+    },
+    padding: const .symmetric(horizontal: 24),
+    height: W.lg + H.x10s,
+    borderRadius: .circular(30),
+    border: .all(width: config.getDirectionsButtonBorderWidth, color: config.getDirectionsButtonBorderColor),
+    color: config.getDirectionsButtonColor,
+    child: Text(
+      langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
+      style: AppFonts.inter(color: config.getDirectionsButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+    ),
+  );
 }

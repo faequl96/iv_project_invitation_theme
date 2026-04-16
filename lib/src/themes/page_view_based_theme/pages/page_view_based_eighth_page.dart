@@ -52,6 +52,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
     required this.brideName,
     required this.groomName,
     required this.brandProfile,
+    required this.noAnimate,
   });
 
   final PageViewBasedEighthPageConfig config;
@@ -59,6 +60,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
   final String brideName;
   final String groomName;
   final BrandProfileResponse brandProfile;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -87,28 +89,14 @@ class PageViewBasedEighthPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.emoji_emotions, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+          if (!noAnimate)
+            Positioned(
+              top: 0,
+              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            )
+          else
+            Positioned(top: 0, child: _title(langCode)),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -170,41 +158,39 @@ class PageViewBasedEighthPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: .center,
                     children: [
-                      Padding(
-                        padding: .symmetric(horizontal: W.md),
-                        child: FadeAndSlideTransition(
-                          slideFromOffset: .8,
-                          slideFrom: .bottom,
-                          animationSpeed: const Duration(milliseconds: 500),
-                          delayBeforeStart: const Duration(milliseconds: 700),
-                          child: Text(
-                            general.closing.isNotEmpty
-                                ? general.closing
-                                : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
-                            style: AppFonts.inter(color: config.closingTextColor, fontSize: FontSize.md, fontWeight: .w600),
-                            textAlign: .center,
+                      if (!noAnimate) ...[
+                        Padding(
+                          padding: .symmetric(horizontal: W.md),
+                          child: FadeAndSlideTransition(
+                            slideFromOffset: .8,
+                            slideFrom: .bottom,
+                            animationSpeed: const Duration(milliseconds: 500),
+                            delayBeforeStart: const Duration(milliseconds: 700),
+                            child: _closing(),
                           ),
                         ),
-                      ),
-                      SizedBox(height: H.lg),
-                      Padding(
-                        padding: .symmetric(horizontal: W.md),
-                        child: FadeAndSlideTransition(
-                          slideFromOffset: .9,
-                          slideFrom: .bottom,
-                          animationSpeed: const Duration(milliseconds: 500),
-                          delayBeforeStart: const Duration(milliseconds: 1100),
-                          child: Text(
-                            '$brideName & $groomName',
-                            style: AppFonts.pacifico(
-                              color: config.brideGroomNameColor,
-                              fontSize: FontSize.x5l,
-                              fontWeight: .w500,
-                            ),
-                            textAlign: .center,
+                        SizedBox(height: H.lg),
+                        Padding(
+                          padding: .symmetric(horizontal: W.md),
+                          child: FadeAndSlideTransition(
+                            slideFromOffset: .9,
+                            slideFrom: .bottom,
+                            animationSpeed: const Duration(milliseconds: 500),
+                            delayBeforeStart: const Duration(milliseconds: 1100),
+                            child: _brideGroomName(),
                           ),
                         ),
-                      ),
+                      ] else ...[
+                        Padding(
+                          padding: .symmetric(horizontal: W.md),
+                          child: _closing(),
+                        ),
+                        SizedBox(height: H.lg),
+                        Padding(
+                          padding: .symmetric(horizontal: W.md),
+                          child: _brideGroomName(),
+                        ),
+                      ],
                     ],
                   ),
                 ),
@@ -227,6 +213,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 1900),
                   animationInterval: const Duration(milliseconds: 3500),
+                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -341,4 +328,34 @@ class PageViewBasedEighthPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.emoji_emotions, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Thank You' : 'Terima Kasih',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _closing() => Text(
+    general.closing.isNotEmpty
+        ? general.closing
+        : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
+    style: AppFonts.inter(color: config.closingTextColor, fontSize: FontSize.md, fontWeight: .w600),
+    textAlign: .center,
+  );
+
+  Widget _brideGroomName() => Text(
+    '$brideName & $groomName',
+    style: AppFonts.pacifico(color: config.brideGroomNameColor, fontSize: FontSize.x5l, fontWeight: .w500),
+    textAlign: .center,
+  );
 }

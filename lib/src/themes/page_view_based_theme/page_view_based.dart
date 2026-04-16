@@ -175,7 +175,11 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             receptionEvent: widget.invitationData.receptionEvent,
             noAnimate: widget.noAnimate,
           ),
-          PageViewBasedFourthPage(config: widget.configs.fourthPageConfig, receptionEvent: widget.invitationData.receptionEvent),
+          PageViewBasedFourthPage(
+            config: widget.configs.fourthPageConfig,
+            receptionEvent: widget.invitationData.receptionEvent,
+            noAnimate: widget.noAnimate,
+          ),
         ] else ...[
           PageViewBasedThirdDifferentLocationPage(
             config: widget.configs.thirdDifferentLocationPageConfig,
@@ -194,13 +198,19 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             viewType: widget.viewType,
             galleries: widget.imagesRaw?.galleries,
             gallery: widget.invitationData.gallery,
+            noAnimate: widget.noAnimate,
           ),
         if (widget.invitationData.bankAccounts.isNotEmpty)
-          PageViewBasedSixthPage(config: widget.configs.sixthPageConfig, bankAccounts: widget.invitationData.bankAccounts),
+          PageViewBasedSixthPage(
+            config: widget.configs.sixthPageConfig,
+            bankAccounts: widget.invitationData.bankAccounts,
+            noAnimate: widget.noAnimate,
+          ),
         PageViewBasedSeventhPage(
           config: widget.configs.seventhPageConfig,
           viewType: widget.viewType,
           invitationId: widget.invitationId,
+          noAnimate: widget.noAnimate,
         ),
         PageViewBasedEighthPage(
           config: widget.configs.eighthPageConfig,
@@ -208,6 +218,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           brideName: widget.invitationData.bride.nickname,
           groomName: widget.invitationData.groom.nickname,
           brandProfile: widget.brandProfile,
+          noAnimate: widget.noAnimate,
         ),
       ],
       tabsBuilder: (ValueNotifier<int> tabActive) => [
