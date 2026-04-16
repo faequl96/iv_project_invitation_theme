@@ -101,7 +101,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                       borderRadius: 60,
                       animationSpeed: const Duration(seconds: 2),
                       ligthningColor: Colors.black,
-                      staticValue: widget.noAnimate ? .3 : null,
+                      staticValue: widget.noAnimate ? .4 : null,
                     ),
                   ],
                 ),

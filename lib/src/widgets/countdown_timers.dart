@@ -63,6 +63,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remaining = widget.time.difference(.now());
+      if (widget.noAnimate) _timer.cancel();
       if (_remaining.isNegative) {
         _remaining = .zero;
         _timer.cancel();
@@ -75,12 +76,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
   void initState() {
     super.initState();
 
-    if (widget.noAnimate) {
-      _remaining = widget.time.difference(.now());
-      _formatDuration(_remaining);
-    } else {
-      _startTimer();
-    }
+    _startTimer();
   }
 
   @override

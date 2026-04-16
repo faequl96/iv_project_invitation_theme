@@ -32,7 +32,7 @@ class Padlock extends StatelessWidget {
             width: W.x12l,
             borderRadius: 40,
             color: Colors.grey.shade200.withValues(alpha: .5),
-            staticValue: noAnimate ? .8 : null,
+            staticValue: noAnimate ? .7 : null,
           ),
           Text(
             langCode == 'en' ? 'Open Invitation' : 'Buka Undangan',
