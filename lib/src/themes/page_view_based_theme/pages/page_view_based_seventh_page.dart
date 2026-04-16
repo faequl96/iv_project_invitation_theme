@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -14,115 +15,12 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class PageViewBasedSeventhPageConfig {
-  const PageViewBasedSeventhPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.fieldTextColor,
-    required this.fieldLabelColor,
-    required this.fieldFillColor,
-    required this.fieldBorderColor,
-    required this.fieldSplashColor,
-    required this.overlayColor,
-    required this.overlayBorderColor,
-    required this.dropdownItemSelectedColor,
-    required this.dropdownItemTextColor,
-    required this.dropdownItemSelectedTextColor,
-    required this.dropdownItemHoveredColor,
-    required this.dropdownItemSplashColor,
-    required this.submitButtonColor,
-    required this.submitButtonLabelColor,
-    required this.submitButtonBorderWidth,
-    required this.submitButtonBorderColor,
-    required this.rsvpBackgroundColor,
-    required this.rsvpBorderColor,
-    this.rsvpBorderWidth = .5,
-    required this.rsvpNameTextColor,
-    required this.rsvpTimeAgoTextColor,
-    required this.rsvpNameInstanceTextColor,
-    required this.rsvpAttendanceTextColorLighten,
-    required this.rsvpMessageTextColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
-    required this.bottomSheetBackgroundColor,
-    required this.bottomSheetCloseIconColor,
-    this.bottomSheetOnHoverCloseIconColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color fieldTextColor;
-  final Color fieldLabelColor;
-  final Color fieldFillColor;
-  final Color fieldBorderColor;
-  final Color fieldSplashColor;
-  final Color overlayColor;
-  final Color overlayBorderColor;
-  final Color dropdownItemSelectedColor;
-  final Color dropdownItemTextColor;
-  final Color dropdownItemSelectedTextColor;
-  final Color dropdownItemHoveredColor;
-  final Color dropdownItemSplashColor;
-  final Color submitButtonColor;
-  final Color submitButtonLabelColor;
-  final double submitButtonBorderWidth;
-  final Color submitButtonBorderColor;
-  final Color rsvpBackgroundColor;
-  final Color rsvpBorderColor;
-  final double rsvpBorderWidth;
-  final Color rsvpNameTextColor;
-  final Color rsvpTimeAgoTextColor;
-  final Color rsvpNameInstanceTextColor;
-  final int rsvpAttendanceTextColorLighten;
-  final Color rsvpMessageTextColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
-  final Color bottomSheetBackgroundColor;
-  final Color bottomSheetCloseIconColor;
-  final Color? bottomSheetOnHoverCloseIconColor;
-}
-
 class PageViewBasedSeventhPage extends StatelessWidget {
-  const PageViewBasedSeventhPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    required this.invitationId,
-    required this.noAnimate,
-  });
+  const PageViewBasedSeventhPage({super.key, required this.config, required this.viewType, required this.invitationId});
 
   final PageViewBasedSeventhPageConfig config;
   final ViewType viewType;
   final String invitationId;
-  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -151,13 +49,10 @@ class PageViewBasedSeventhPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          if (!noAnimate)
-            Positioned(
-              top: 0,
-              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
-            )
-          else
-            Positioned(top: 0, child: _title(langCode)),
+          Positioned(
+            top: 0,
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+          ),
 
           if (config.useBackdropBlurOnScaffold)
             Positioned(
@@ -238,20 +133,16 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                         submitButtonBorderColor: config.submitButtonBorderColor,
                         viewType: viewType,
                         invitationId: invitationId,
-                        noAnimate: noAnimate,
                       ),
                       SizedBox(height: H.x8s),
-                      if (!noAnimate)
-                        Expanded(
-                          child: FadeAndSlideTransition(
-                            slideFromOffset: .5,
-                            slideFrom: .bottom,
-                            delayBeforeStart: const Duration(milliseconds: 2000),
-                            child: _rsvpList(context, langCode),
-                          ),
-                        )
-                      else
-                        Expanded(child: _rsvpList(context, langCode)),
+                      Expanded(
+                        child: FadeAndSlideTransition(
+                          slideFromOffset: .5,
+                          slideFrom: .bottom,
+                          delayBeforeStart: const Duration(milliseconds: 2000),
+                          child: _rsvpList(context, langCode),
+                        ),
+                      ),
                       SizedBox(height: W.x5s),
                     ],
                   ),
@@ -275,7 +166,6 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 3600),
                   animationInterval: const Duration(milliseconds: 3500),
-                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -414,7 +304,6 @@ class RSVPForm extends StatefulWidget {
     required this.submitButtonBorderColor,
     required this.viewType,
     required this.invitationId,
-    required this.noAnimate,
   });
 
   final Color fieldTextColor;
@@ -435,7 +324,6 @@ class RSVPForm extends StatefulWidget {
   final Color submitButtonBorderColor;
   final ViewType viewType;
   final String invitationId;
-  final bool noAnimate;
 
   @override
   State<RSVPForm> createState() => _RSVPFormState();
@@ -518,83 +406,56 @@ class _RSVPFormState extends State<RSVPForm> {
 
     return Column(
       children: [
-        if (!widget.noAnimate) ...[
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .4,
-              slideFrom: .left,
-              delayBeforeStart: const Duration(milliseconds: 800),
-              child: _nameField(langCode),
-            ),
-          ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .4,
-              slideFrom: .left,
-              delayBeforeStart: const Duration(milliseconds: 700),
-              child: _avatarField(),
-            ),
-          ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .4,
-              slideFrom: .left,
-              delayBeforeStart: const Duration(milliseconds: 600),
-              child: _possiblePresenceField(langCode),
-            ),
-          ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .4,
-              slideFrom: .left,
-              delayBeforeStart: const Duration(milliseconds: 500),
-              child: _greetingsField(langCode),
-            ),
-          ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
-            child: FadeAndSlideTransition(
-              slideFromOffset: .8,
-              slideFrom: .bottom,
-              animationSpeed: const Duration(milliseconds: 300),
-              delayBeforeStart: const Duration(milliseconds: 1200),
-              child: _submitButton(),
-            ),
-          ),
-        ] else ...[
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
+        Padding(
+          padding: .symmetric(horizontal: W.x6s),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: .left,
+            delayBeforeStart: const Duration(milliseconds: 800),
             child: _nameField(langCode),
           ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
+        ),
+        SizedBox(height: H.x8s),
+        Padding(
+          padding: .symmetric(horizontal: W.x6s),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: .left,
+            delayBeforeStart: const Duration(milliseconds: 700),
             child: _avatarField(),
           ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
+        ),
+        SizedBox(height: H.x8s),
+        Padding(
+          padding: .symmetric(horizontal: W.x6s),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: .left,
+            delayBeforeStart: const Duration(milliseconds: 600),
             child: _possiblePresenceField(langCode),
           ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
+        ),
+        SizedBox(height: H.x8s),
+        Padding(
+          padding: .symmetric(horizontal: W.x6s),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .4,
+            slideFrom: .left,
+            delayBeforeStart: const Duration(milliseconds: 500),
             child: _greetingsField(langCode),
           ),
-          SizedBox(height: H.x8s),
-          Padding(
-            padding: .symmetric(horizontal: W.x6s),
+        ),
+        SizedBox(height: H.x8s),
+        Padding(
+          padding: .symmetric(horizontal: W.x6s),
+          child: FadeAndSlideTransition(
+            slideFromOffset: .8,
+            slideFrom: .bottom,
+            animationSpeed: const Duration(milliseconds: 300),
+            delayBeforeStart: const Duration(milliseconds: 1200),
             child: _submitButton(),
           ),
-        ],
+        ),
       ],
     );
   }

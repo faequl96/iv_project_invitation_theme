@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class PageViewBasedSixthPage extends StatelessWidget {
-  const PageViewBasedSixthPage({super.key, required this.config, this.bankAccounts = const []});
+class PageViewBasedSixthPageAsImage extends StatelessWidget {
+  const PageViewBasedSixthPageAsImage({super.key, required this.config, this.bankAccounts = const []});
 
   final PageViewBasedSixthPageConfig config;
   final List<BankAccountResponse> bankAccounts;
@@ -19,82 +16,58 @@ class PageViewBasedSixthPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
-    return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
-      selector: (state) => state.size,
-      builder: (_, _) => Stack(
-        children: [
-          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
-            Positioned(
-              bottom: 0,
-              height: Screen.height / 1.2,
-              width: Screen.width,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: .topCenter,
-                    end: .bottomCenter,
-                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
-                    stops: const [.2, .8],
-                  ),
+    return Stack(
+      children: [
+        if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+          Positioned(
+            bottom: 0,
+            height: Screen.height / 1.2,
+            width: Screen.width,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: .topCenter,
+                  end: .bottomCenter,
+                  colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  stops: const [.2, .8],
                 ),
               ),
             ),
-
-          config.background ?? const SizedBox.shrink(),
-
-          Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
 
-          if (config.useBackdropBlurOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-                child: RepaintBoundary(
-                  child: ClipRRect(
-                    borderRadius: .circular(20),
-                    child: BackdropFilter(
-                      filter: .blur(sigmaX: 3, sigmaY: 3),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: .circular(20),
-                          gradient: LinearGradient(
-                            begin: .topCenter,
-                            end: .bottomCenter,
-                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                            stops: config.stopsGradientScaffoldColor,
-                          ),
+        config.background ?? const SizedBox.shrink(),
+
+        Positioned(top: 0, child: _title(langCode)),
+
+        if (config.useBackdropBlurOnScaffold)
+          Positioned(
+            bottom: 0,
+            height: Screen.height,
+            width: Screen.width,
+            child: Padding(
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              child: RepaintBoundary(
+                child: ClipRRect(
+                  borderRadius: .circular(20),
+                  child: BackdropFilter(
+                    filter: .blur(sigmaX: 3, sigmaY: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        borderRadius: .circular(20),
+                        gradient: LinearGradient(
+                          begin: .topCenter,
+                          end: .bottomCenter,
+                          colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          stops: config.stopsGradientScaffoldColor,
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            )
-          else
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(20),
-                    gradient: LinearGradient(
-                      begin: .topCenter,
-                      end: .bottomCenter,
-                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                      stops: config.stopsGradientScaffoldColor,
-                    ),
-                  ),
-                ),
-              ),
             ),
+          )
+        else
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -102,80 +75,89 @@ class PageViewBasedSixthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
-                child: ClipRect(
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .4,
-                        slideFrom: .left,
-                        delayBeforeStart: const Duration(milliseconds: 500),
-                        child: Padding(
-                          padding: .symmetric(horizontal: W.x6s),
-                          child: DecoratedBox(
-                            decoration: BoxDecoration(
-                              border: .all(width: config.introductionBorderWidth, color: config.introductionBorderColor),
-                              borderRadius: .circular(10),
-                              color: config.introductionColor,
-                            ),
-                            child: Padding(
-                              padding: .only(top: H.sm, left: 24, right: 24, bottom: H.sm),
-                              child: FadeAndSlideTransition(
-                                slideFromOffset: .3,
-                                slideFrom: .top,
-                                delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: _introduction(langCode),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          for (final bankAccount in bankAccounts) ...[
-                            SizedBox(height: H.x4s),
-                            _BankAccount(
-                              color: config.bankColor,
-                              borderWidth: config.bankBorderWidth,
-                              borderColor: config.bankBorderColor,
-                              textColor: config.bankTextColor,
-                              copyBaseColor: config.bankCopyBaseColor,
-                              bankAccount: bankAccount,
-                            ),
-                          ],
-                        ],
-                      ),
-                      const Spacer(),
-                    ],
+                decoration: BoxDecoration(
+                  borderRadius: .circular(20),
+                  gradient: LinearGradient(
+                    begin: .topCenter,
+                    end: .bottomCenter,
+                    colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                    stops: config.stopsGradientScaffoldColor,
                   ),
                 ),
               ),
             ),
           ),
-          if (config.useGlassEffectOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-                child: GlassEffectBox(
-                  width: Screen.width - 32,
-                  height: Screen.height - (76 + H.x6l),
-                  borderRadius: 20,
-                  sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
-                  animationSpeed: const Duration(milliseconds: 600),
-                  delayBeforeStart: const Duration(milliseconds: 2800),
-                  animationInterval: const Duration(milliseconds: 3500),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+            child: DecoratedBox(
+              decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+              child: ClipRect(
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Padding(
+                      padding: .symmetric(horizontal: W.x6s),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          border: .all(width: config.introductionBorderWidth, color: config.introductionBorderColor),
+                          borderRadius: .circular(10),
+                          color: config.introductionColor,
+                        ),
+                        child: Padding(
+                          padding: .only(top: H.sm, left: 24, right: 24, bottom: H.sm),
+                          child: _introduction(langCode),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      children: [
+                        for (final bankAccount in bankAccounts) ...[
+                          SizedBox(height: H.x4s),
+                          _BankAccount(
+                            color: config.bankColor,
+                            borderWidth: config.bankBorderWidth,
+                            borderColor: config.bankBorderColor,
+                            textColor: config.bankTextColor,
+                            copyBaseColor: config.bankCopyBaseColor,
+                            bankAccount: bankAccount,
+                          ),
+                        ],
+                      ],
+                    ),
+                    const Spacer(),
+                  ],
                 ),
               ),
             ),
+          ),
+        ),
+        if (config.useGlassEffectOnScaffold)
+          Positioned(
+            bottom: 0,
+            height: Screen.height,
+            width: Screen.width,
+            child: Padding(
+              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              child: GlassEffectBox(
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
+                borderRadius: 20,
+                sliderWidth: 90,
+                color: Colors.white.withValues(alpha: config.glassEffectOpacity),
+                animationSpeed: const Duration(milliseconds: 600),
+                delayBeforeStart: const Duration(milliseconds: 2800),
+                animationInterval: const Duration(milliseconds: 3500),
+                staticValue: .67,
+              ),
+            ),
+          ),
 
-          config.foreground ?? const SizedBox.shrink(),
-        ],
-      ),
+        config.foreground ?? const SizedBox.shrink(),
+      ],
     );
   }
 
@@ -226,20 +208,8 @@ class _BankAccount extends StatelessWidget {
     return Row(
       children: [
         SizedBox(width: W.x6s),
-        FadeAndSlideTransition(
-          slideFromOffset: .0,
-          slideFrom: .top,
-          delayBeforeStart: const Duration(milliseconds: 1500),
-          child: _bankLogo(),
-        ),
-        ClipRect(
-          child: FadeAndSlideTransition(
-            slideFromOffset: 1,
-            slideFrom: .left,
-            delayBeforeStart: const Duration(milliseconds: 1800),
-            child: _bankInfo(),
-          ),
-        ),
+        _bankLogo(),
+        _bankInfo(),
         SizedBox(width: W.x6s),
       ],
     );
@@ -345,19 +315,12 @@ class _CopyBankAccountNumberButton extends StatefulWidget {
 }
 
 class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButton> {
-  bool _isCopied = false;
+  final bool _isCopied = false;
 
   @override
   Widget build(BuildContext context) {
     return GeneralEffectsButton(
-      onTap: () async {
-        _isCopied = true;
-        setState(() {});
-        Clipboard.setData(ClipboardData(text: widget.bankAccountNumber));
-        await Future<void>.delayed(const Duration(milliseconds: 800));
-        _isCopied = false;
-        setState(() {});
-      },
+      onTap: () {},
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: _isCopied ? ColorConverter.lighten(AppColor.primaryColor, 90) : widget.baseColor.withValues(alpha: .1),

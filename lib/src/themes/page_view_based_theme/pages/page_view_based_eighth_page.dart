@@ -2,47 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
-
-class PageViewBasedEighthPageConfig {
-  const PageViewBasedEighthPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.closingTextColor,
-    required this.brideGroomNameColor,
-    required this.brandBackgroundColor,
-    required this.brandTextColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color closingTextColor;
-  final Color brideGroomNameColor;
-  final Color brandBackgroundColor;
-  final Color brandTextColor;
-}
 
 class PageViewBasedEighthPage extends StatelessWidget {
   const PageViewBasedEighthPage({
@@ -52,7 +15,6 @@ class PageViewBasedEighthPage extends StatelessWidget {
     required this.brideName,
     required this.groomName,
     required this.brandProfile,
-    required this.noAnimate,
   });
 
   final PageViewBasedEighthPageConfig config;
@@ -60,7 +22,6 @@ class PageViewBasedEighthPage extends StatelessWidget {
   final String brideName;
   final String groomName;
   final BrandProfileResponse brandProfile;
-  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +50,10 @@ class PageViewBasedEighthPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          if (!noAnimate)
-            Positioned(
-              top: 0,
-              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
-            )
-          else
-            Positioned(top: 0, child: _title(langCode)),
+          Positioned(
+            top: 0,
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+          ),
 
           if (config.useBackdropBlurOnScaffold)
             Positioned(
@@ -158,39 +116,27 @@ class PageViewBasedEighthPage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: .center,
                     children: [
-                      if (!noAnimate) ...[
-                        Padding(
-                          padding: .symmetric(horizontal: W.md),
-                          child: FadeAndSlideTransition(
-                            slideFromOffset: .8,
-                            slideFrom: .bottom,
-                            animationSpeed: const Duration(milliseconds: 500),
-                            delayBeforeStart: const Duration(milliseconds: 700),
-                            child: _closing(),
-                          ),
-                        ),
-                        SizedBox(height: H.lg),
-                        Padding(
-                          padding: .symmetric(horizontal: W.md),
-                          child: FadeAndSlideTransition(
-                            slideFromOffset: .9,
-                            slideFrom: .bottom,
-                            animationSpeed: const Duration(milliseconds: 500),
-                            delayBeforeStart: const Duration(milliseconds: 1100),
-                            child: _brideGroomName(),
-                          ),
-                        ),
-                      ] else ...[
-                        Padding(
-                          padding: .symmetric(horizontal: W.md),
+                      Padding(
+                        padding: .symmetric(horizontal: W.md),
+                        child: FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: .bottom,
+                          animationSpeed: const Duration(milliseconds: 500),
+                          delayBeforeStart: const Duration(milliseconds: 700),
                           child: _closing(),
                         ),
-                        SizedBox(height: H.lg),
-                        Padding(
-                          padding: .symmetric(horizontal: W.md),
+                      ),
+                      SizedBox(height: H.lg),
+                      Padding(
+                        padding: .symmetric(horizontal: W.md),
+                        child: FadeAndSlideTransition(
+                          slideFromOffset: .9,
+                          slideFrom: .bottom,
+                          animationSpeed: const Duration(milliseconds: 500),
+                          delayBeforeStart: const Duration(milliseconds: 1100),
                           child: _brideGroomName(),
                         ),
-                      ],
+                      ),
                     ],
                   ),
                 ),
@@ -213,7 +159,6 @@ class PageViewBasedEighthPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 1900),
                   animationInterval: const Duration(milliseconds: 3500),
-                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),

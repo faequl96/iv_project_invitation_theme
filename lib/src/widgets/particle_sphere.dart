@@ -71,7 +71,6 @@ class ParticleSphere extends StatefulWidget {
     this.initialPage = 0,
     this.viewAsSinglePage = false,
     this.useWrapper = true,
-    this.noAnimate = false,
     this.child = const SizedBox.shrink(),
   });
 
@@ -79,7 +78,6 @@ class ParticleSphere extends StatefulWidget {
   final int initialPage;
   final bool viewAsSinglePage;
   final bool useWrapper;
-  final bool noAnimate;
   final Widget child;
 
   @override
@@ -172,11 +170,9 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
 
     _init();
 
-    if (!widget.noAnimate) {
-      _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
-        ..addListener(_updateRotation)
-        ..repeat();
-    }
+    _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
+      ..addListener(_updateRotation)
+      ..repeat();
 
     _secondController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
 
@@ -194,35 +190,24 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
       ),
     );
 
-    if (widget.noAnimate) {
-      final explose = widget.config.noExplosionOnCoverPage
-          ? widget.initialPage == 1
-          : widget.initialPage == 0 && !widget.useWrapper;
-      if (explose) {
-        _secondController.value = 1;
-      } else {
-        if (widget.initialPage != 0) _secondController.value = 1;
-      }
-    } else {
-      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-        if (widget.viewAsSinglePage) {
-          final explose = widget.config.noExplosionOnCoverPage
-              ? widget.initialPage == 1
-              : widget.initialPage == 0 && !widget.useWrapper;
-          if (explose) {
-            _secondController.forward();
-          } else {
-            if (widget.initialPage != 0) _secondController.value = 1;
-          }
+    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+      if (widget.viewAsSinglePage) {
+        final explose = widget.config.noExplosionOnCoverPage
+            ? widget.initialPage == 1
+            : widget.initialPage == 0 && !widget.useWrapper;
+        if (explose) {
+          _secondController.forward();
         } else {
-          final explose = widget.config.noExplosionOnCoverPage ? state.pageActive == 1 : true;
-          if (explose && state.animationTrigger == 1) {
-            _secondController.forward();
-            _sub?.cancel();
-          }
+          if (widget.initialPage != 0) _secondController.value = 1;
         }
-      });
-    }
+      } else {
+        final explose = widget.config.noExplosionOnCoverPage ? state.pageActive == 1 : true;
+        if (explose && state.animationTrigger == 1) {
+          _secondController.forward();
+          _sub?.cancel();
+        }
+      }
+    });
   }
 
   @override
@@ -271,6 +256,122 @@ class _ParticleSphereState extends State<ParticleSphere> with TickerProviderStat
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class ParticleSphereAsImage extends StatefulWidget {
+  const ParticleSphereAsImage({super.key, required this.config, this.child = const SizedBox.shrink()});
+
+  final ParticleSphereConfig config;
+  final Widget child;
+
+  @override
+  State<ParticleSphereAsImage> createState() => _ParticleSphereAsImageState();
+}
+
+class _ParticleSphereAsImageState extends State<ParticleSphereAsImage> with TickerProviderStateMixin {
+  final List<_Particle> _particles = [];
+  final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
+
+  double _rotateX = .003;
+  double _rotateY = .003;
+  double _targetRotateX = .003;
+  double _targetRotateY = .003;
+
+  static const String _packageName = 'iv_project_invitation_theme';
+  final _loadedImages = <String, ui.Image>{};
+
+  void _updateRotation() {
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
+
+    _rotation.rotateY(_rotateY);
+    _rotation.rotateX(_rotateX);
+
+    final rand = math.Random();
+    if (rand.nextInt(100) == 1) {
+      _targetRotateX = (rand.nextDouble() - .5) * .015;
+      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    }
+  }
+
+  Future<ui.Image> _loadAssetImage(String path) async {
+    final data = await rootBundle.load('packages/$_packageName/$path');
+    final codec = await ui.instantiateImageCodec(data.buffer.asUint8List());
+    final frame = await codec.getNextFrame();
+    return frame.image;
+  }
+
+  void _generateParticles() {
+    final rand = math.Random();
+    const goldenRatio = 1.61803398875;
+    double radius = widget.config.size / 3;
+
+    for (int i = 0; i < widget.config.particleCount; i++) {
+      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      double radiusAtY = math.sqrt(1 - y * y);
+      double theta = 2 * math.pi * goldenRatio * i;
+
+      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+
+      final variation = widget.config.particleVariatios[rand.nextInt(widget.config.particleVariatios.length)];
+
+      _particles.add(
+        _Particle(
+          basePosition: pos,
+          type: variation.type,
+          color: variation.type == ParticleType.circle ? variation.color : Colors.white,
+          image: variation.type == ParticleType.image ? _loadedImages[variation.imagePath] : null,
+          isFlickering: rand.nextDouble() < .4,
+        ),
+      );
+    }
+  }
+
+  Future<void> _init() async {
+    for (var variation in widget.config.particleVariatios) {
+      if (variation.type == ParticleType.image && !_loadedImages.containsKey(variation.imagePath)) {
+        final img = await _loadAssetImage(variation.imagePath);
+        _loadedImages[variation.imagePath] = img;
+      }
+    }
+
+    _generateParticles();
+
+    _updateRotation();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: .center,
+      children: [
+        if (widget.config.groundType == .both || widget.config.groundType == .back) _buildPainter(isForeground: false),
+        widget.child,
+        if (widget.config.groundType == .both || widget.config.groundType == .fore)
+          IgnorePointer(child: _buildPainter(isForeground: true)),
+      ],
+    );
+  }
+
+  Widget _buildPainter({required bool isForeground}) {
+    return CustomPaint(
+      size: Size(widget.config.size, widget.config.size),
+      painter: _ParticlePainter(
+        particles: _particles,
+        rotation: _rotation,
+        explosionForce: 2,
+        scaleSize: widget.config.particleScaleSize,
+        drawForeground: isForeground,
       ),
     );
   }

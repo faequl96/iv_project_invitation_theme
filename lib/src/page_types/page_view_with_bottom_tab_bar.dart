@@ -2,32 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
+import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
-
-class TabConfig {
-  const TabConfig({
-    required this.useGlassEffect,
-    this.useBackdropBlur = true,
-    this.widthFull = false,
-    required this.indicatorColor,
-    required this.backgroundColor,
-    required this.titleActiveColor,
-    required this.titleInactiveColor,
-    required this.iconActiveColor,
-    required this.iconInactiveColor,
-  });
-
-  final bool useGlassEffect;
-  final bool useBackdropBlur;
-  final bool widthFull;
-  final Color indicatorColor;
-  final Color backgroundColor;
-  final Color titleActiveColor;
-  final Color titleInactiveColor;
-  final Color iconActiveColor;
-  final Color iconInactiveColor;
-}
 
 class PageViewWithBottomTabBar extends StatefulWidget {
   const PageViewWithBottomTabBar({
@@ -35,7 +12,6 @@ class PageViewWithBottomTabBar extends StatefulWidget {
     this.initialPage = 0,
     this.viewAsSinglePage = false,
     this.wrapper,
-    required this.noAnimate,
     this.backgrounds,
     this.particleSphere,
     required this.tabConfig,
@@ -46,10 +22,9 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   final int initialPage;
   final bool viewAsSinglePage;
   final Widget? wrapper;
-  final bool noAnimate;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
-  final TabConfig tabConfig;
+  final PageViewWithBottomTabBarConfig tabConfig;
   final List<Widget> pages;
   final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
 
@@ -72,27 +47,21 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
   late final InvitationThemeCoreCubit _coreCubit;
 
   void _scrollListener() async {
-    print('tessssssssss');
-    if (widget.noAnimate) return;
-
     final offset = _pageController?.page ?? 0;
     final offsetPage = (offset - offset.floor()).abs();
     if (offsetPage < 0.01) {
       if (_coreCubit.state.animationTrigger == 0) {
         await Future<void>.delayed(const Duration(milliseconds: 50));
         _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
-        print('tessssssssss1');
       }
     } else {
       if (offsetPage < 0.96) {
         if (_coreCubit.state.animationTrigger == 1) {
           _coreCubit.state.copyWith(animationTrigger: 0, pageActive: _indexActive.value).emitState();
-          print('tessssssssss2');
         }
       } else {
         if (_coreCubit.state.animationTrigger == 0) {
           _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
-          print('tessssssssss3');
         }
       }
     }
@@ -104,7 +73,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
 
     _indexActive = ValueNotifier(widget.initialPage);
     _buildTabs();
-    _tabController = TabController(initialIndex: widget.noAnimate ? widget.initialPage : 0, length: _tabs.length, vsync: this);
+    _tabController = TabController(length: _tabs.length, vsync: this);
     _pageController = PageController(initialPage: widget.viewAsSinglePage ? widget.initialPage : 0);
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
@@ -112,12 +81,10 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     if (!widget.viewAsSinglePage) _pageController?.addListener(_scrollListener);
 
     if (widget.viewAsSinglePage) {
-      if (widget.initialPage > 1 && widget.initialPage < _tabs.length - 2) _isLowerTab.value = false;
-
       WidgetsBinding.instance.addPostFrameCallback((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 200));
         if (widget.initialPage == 0) {
-          if (widget.wrapper == null && !widget.noAnimate) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+          if (widget.wrapper == null) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
         } else {
           _tabController?.animateTo(widget.initialPage);
           _isLowerTab.value = widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? true : false;
@@ -160,20 +127,17 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                     initialPage: widget.initialPage,
                     viewAsSinglePage: widget.viewAsSinglePage,
                     useWrapper: widget.wrapper != null,
-                    noAnimate: widget.noAnimate,
                     child: _page,
                   ),
                 )
               else
                 _page,
-              if (!widget.noAnimate)
-                ValueListenableBuilder(
-                  valueListenable: _isLowerTab,
-                  builder: (_, isLowerTab, _) =>
-                      AnimatedPositioned(bottom: isLowerTab ? -55 : 0, duration: const Duration(milliseconds: 300), child: _tab),
-                )
-              else
-                Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),
+
+              ValueListenableBuilder(
+                valueListenable: _isLowerTab,
+                builder: (_, isLowerTab, _) =>
+                    AnimatedPositioned(bottom: isLowerTab ? -55 : 0, duration: const Duration(milliseconds: 300), child: _tab),
+              ),
 
               widget.wrapper ?? const SizedBox.shrink(),
               if (widget.viewAsSinglePage)
@@ -198,8 +162,6 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
       scrollDirection: .vertical,
       itemBuilder: (_, i) => (i == 0 && widget.initialPage != 0) ? const SizedBox.shrink() : widget.pages[i],
       onPageChanged: (index) {
-        if (widget.noAnimate) return;
-
         if (_isTabTaped) {
           _isTabTaped = false;
         } else {
@@ -237,7 +199,6 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
               delayBeforeStart: const Duration(milliseconds: 1200),
               color: Colors.grey.shade300.withValues(alpha: .5),
               sliderWidth: 90,
-              staticValue: widget.noAnimate ? .75 : null,
             ),
         ],
       ),
@@ -252,8 +213,6 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
         tabs: _tabs,
         controller: _tabController,
         onTap: (value) {
-          if (widget.noAnimate) return;
-
           _isTabTaped = true;
           _pageController?.animateToPage(value, duration: const Duration(milliseconds: 300), curve: Curves.ease);
           _indexActive.value = value;

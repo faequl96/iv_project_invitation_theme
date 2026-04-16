@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
+import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_first_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fourth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_second_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_seventh_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -26,7 +16,6 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
     this.initialPage = 0,
     required this.useWrapper,
     required this.viewAsSinglePage,
-    required this.noAnimate,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -38,7 +27,6 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
   final int initialPage;
   final bool useWrapper;
   final bool viewAsSinglePage;
-  final bool noAnimate;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -49,7 +37,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
   Widget build(BuildContext context) {
     return PageViewBased(
       configs: PageViewBasedConfigs(
-        tabConfig: TabConfig(
+        tabConfig: PageViewWithBottomTabBarConfig(
           useGlassEffect: true,
           indicatorColor: Colors.green.shade50,
           backgroundColor: ColorConverter.darken(Colors.green.shade900, 50),
@@ -66,7 +54,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
             bubbleColor3: ColorConverter.darken(Colors.green.shade700, 40),
             bubbleColor4: ColorConverter.darken(Colors.green.shade400, 5),
             bubbleColor5: ColorConverter.darken(Colors.lightGreenAccent, 10),
-            noAnimate: noAnimate,
+            noAnimate: false,
           ),
         ],
         particleSphere: ParticleSphereConfig(
@@ -501,7 +489,6 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
       initialPage: initialPage,
       useWrapper: useWrapper,
       viewAsSinglePage: viewAsSinglePage,
-      noAnimate: noAnimate,
       viewType: viewType,
       invitationId: invitationId,
       invitationData: invitationData,

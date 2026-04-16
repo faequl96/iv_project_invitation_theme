@@ -1,41 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantRedVelvetGlass extends StatelessWidget {
-  const ElegantRedVelvetGlass({
+class ElegantRedVelvetGlassAsImage extends StatelessWidget {
+  const ElegantRedVelvetGlassAsImage({
     super.key,
     this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    required this.viewAsSinglePage,
-    required this.viewType,
-    required this.invitationId,
     required this.invitationData,
-    this.imagesRaw,
     required this.brandProfile,
   });
 
   final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsSinglePage;
-  final ViewType viewType;
-  final String invitationId;
   final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBased(
+    return PageViewBasedAsImage(
       configs: PageViewBasedConfigs(
         tabConfig: PageViewWithBottomTabBarConfig(
           useGlassEffect: true,
@@ -54,7 +45,7 @@ class ElegantRedVelvetGlass extends StatelessWidget {
             bubbleColor3: ColorConverter.darken(Colors.red.shade700, 40),
             bubbleColor4: ColorConverter.darken(Colors.red.shade400, 5),
             bubbleColor5: ColorConverter.darken(Colors.redAccent, 5),
-            noAnimate: false,
+            noAnimate: true,
           ),
         ],
         particleSphere: ParticleSphereConfig(
@@ -488,11 +479,7 @@ class ElegantRedVelvetGlass extends StatelessWidget {
       heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
-      viewAsSinglePage: viewAsSinglePage,
-      viewType: viewType,
-      invitationId: invitationId,
       invitationData: invitationData,
-      imagesRaw: imagesRaw,
       brandProfile: brandProfile,
     );
   }

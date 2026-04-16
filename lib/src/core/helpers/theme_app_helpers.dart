@@ -6,8 +6,8 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class AppHelpers {
-  const AppHelpers._();
+class ThemeAppHelpers {
+  const ThemeAppHelpers._();
 
   static bool isGalleriesNotEmptyChecker(ViewType viewType, ImagesRaw? imagesRaw, InvitationDataResponse invitationData) {
     bool returnValue = false;

@@ -16,7 +16,6 @@ class InvitationThemeLauncher extends StatefulWidget {
     this.initialPage = 0,
     this.useWrapper = true,
     this.viewAsSinglePage = false,
-    this.noAnimate = false,
     required this.viewType,
     required this.invitationThemeId,
     required this.invitationId,
@@ -29,7 +28,6 @@ class InvitationThemeLauncher extends StatefulWidget {
   final int initialPage;
   final bool useWrapper;
   final bool viewAsSinglePage;
-  final bool noAnimate;
   final ViewType viewType;
   final int invitationThemeId;
   final String invitationId;
@@ -53,92 +51,77 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
-      child: _content(),
+      child: _content,
     );
   }
 
-  Widget _content() {
-    switch (widget.invitationThemeId) {
-      case 1:
-        return ElegantBlackAndWhiteGlass(
-          heightAdjustment: widget.heightAdjustment,
-          initialPage: widget.initialPage,
-          useWrapper: widget.useWrapper,
-          viewAsSinglePage: widget.viewAsSinglePage,
-          noAnimate: widget.noAnimate,
-          viewType: widget.viewType,
-          invitationId: widget.invitationId,
-          invitationData: widget.invitationData,
-          imagesRaw: widget.imagesRaw,
-          brandProfile: widget.brandProfile,
-        );
-      case 2:
-        return ElegantRedVelvetGlass(
-          heightAdjustment: widget.heightAdjustment,
-          initialPage: widget.initialPage,
-          useWrapper: widget.useWrapper,
-          viewAsSinglePage: widget.viewAsSinglePage,
-          noAnimate: widget.noAnimate,
-          viewType: widget.viewType,
-          invitationId: widget.invitationId,
-          invitationData: widget.invitationData,
-          imagesRaw: widget.imagesRaw,
-          brandProfile: widget.brandProfile,
-        );
-      case 3:
-        return ElegantGreenMatchaGlass(
-          heightAdjustment: widget.heightAdjustment,
-          initialPage: widget.initialPage,
-          useWrapper: widget.useWrapper,
-          viewAsSinglePage: widget.viewAsSinglePage,
-          noAnimate: widget.noAnimate,
-          viewType: widget.viewType,
-          invitationId: widget.invitationId,
-          invitationData: widget.invitationData,
-          imagesRaw: widget.imagesRaw,
-          brandProfile: widget.brandProfile,
-        );
-      case 4:
-        return ElegantBlueSkyGlass(
-          heightAdjustment: widget.heightAdjustment,
-          initialPage: widget.initialPage,
-          useWrapper: widget.useWrapper,
-          viewAsSinglePage: widget.viewAsSinglePage,
-          noAnimate: widget.noAnimate,
-          viewType: widget.viewType,
-          invitationId: widget.invitationId,
-          invitationData: widget.invitationData,
-          imagesRaw: widget.imagesRaw,
-          brandProfile: widget.brandProfile,
-        );
-      case 5:
-        return JavaneseRoseGold(
-          heightAdjustment: widget.heightAdjustment,
-          initialPage: widget.initialPage,
-          useWrapper: widget.useWrapper,
-          viewAsSinglePage: widget.viewAsSinglePage,
-          noAnimate: widget.noAnimate,
-          viewType: widget.viewType,
-          invitationId: widget.invitationId,
-          invitationData: widget.invitationData,
-          imagesRaw: widget.imagesRaw,
-          brandProfile: widget.brandProfile,
-        );
-      case 6:
-        return CanvasTheme(
-          heightAdjustment: widget.heightAdjustment,
-          initialPage: widget.initialPage,
-          useWrapper: widget.useWrapper,
-          viewAsSinglePage: widget.viewAsSinglePage,
-          noAnimate: widget.noAnimate,
-          viewType: widget.viewType,
-          invitationId: widget.invitationId,
-          invitationData: widget.invitationData,
-          imagesRaw: widget.imagesRaw,
-          brandProfile: widget.brandProfile,
-        );
-      default:
-        return const SizedBox.shrink();
-    }
-  }
+  Widget get _content => switch (widget.invitationThemeId) {
+    1 => ElegantBlackAndWhiteGlass(
+      heightAdjustment: widget.heightAdjustment,
+      initialPage: widget.initialPage,
+      useWrapper: widget.useWrapper,
+      viewAsSinglePage: widget.viewAsSinglePage,
+      viewType: widget.viewType,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    2 => ElegantRedVelvetGlass(
+      heightAdjustment: widget.heightAdjustment,
+      initialPage: widget.initialPage,
+      useWrapper: widget.useWrapper,
+      viewAsSinglePage: widget.viewAsSinglePage,
+      viewType: widget.viewType,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    3 => ElegantGreenMatchaGlass(
+      heightAdjustment: widget.heightAdjustment,
+      initialPage: widget.initialPage,
+      useWrapper: widget.useWrapper,
+      viewAsSinglePage: widget.viewAsSinglePage,
+      viewType: widget.viewType,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    4 => ElegantBlueSkyGlass(
+      heightAdjustment: widget.heightAdjustment,
+      initialPage: widget.initialPage,
+      useWrapper: widget.useWrapper,
+      viewAsSinglePage: widget.viewAsSinglePage,
+      viewType: widget.viewType,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    5 => JavaneseRoseGold(
+      heightAdjustment: widget.heightAdjustment,
+      initialPage: widget.initialPage,
+      useWrapper: widget.useWrapper,
+      viewAsSinglePage: widget.viewAsSinglePage,
+      viewType: widget.viewType,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    6 => CanvasTheme(
+      heightAdjustment: widget.heightAdjustment,
+      initialPage: widget.initialPage,
+      useWrapper: widget.useWrapper,
+      viewAsSinglePage: widget.viewAsSinglePage,
+      viewType: widget.viewType,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    int() => const SizedBox.shrink(),
+  };
 }

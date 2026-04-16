@@ -2,70 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class PageViewBasedFirstPageConfig {
-  const PageViewBasedFirstPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    this.scaffoldBoxShadow,
-    required this.scaffoldBorder,
-    this.scaffoldBorderRadius = const BorderRadius.all(Radius.circular(20)),
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.openingTextColor,
-    required this.generalTextColor,
-    required this.firstSubScaffoldColor,
-    this.firstSubScaffoldBoxShadow,
-    required this.firstSubScaffoldBorderColor,
-    required this.firstSubScaffoldBorderWidth,
-    required this.secondSubScaffoldColor,
-    this.secondSubScaffoldBoxShadow,
-    required this.secondSubScaffoldBorderColor,
-    required this.secondSubScaffoldBorderWidth,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final List<BoxShadow>? scaffoldBoxShadow;
-  final BoxBorder scaffoldBorder;
-  final BorderRadiusGeometry scaffoldBorderRadius;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color openingTextColor;
-  final Color generalTextColor;
-  final Color firstSubScaffoldColor;
-  final List<BoxShadow>? firstSubScaffoldBoxShadow;
-  final Color firstSubScaffoldBorderColor;
-  final double firstSubScaffoldBorderWidth;
-  final Color secondSubScaffoldColor;
-  final List<BoxShadow>? secondSubScaffoldBoxShadow;
-  final Color secondSubScaffoldBorderColor;
-  final double secondSubScaffoldBorderWidth;
-}
-
 class PageViewBasedFirstPage extends StatelessWidget {
-  const PageViewBasedFirstPage({super.key, required this.config, required this.general, required this.noAnimate});
+  const PageViewBasedFirstPage({super.key, required this.config, required this.general});
 
   final PageViewBasedFirstPageConfig config;
   final GeneralResponse general;
-  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -94,13 +40,10 @@ class PageViewBasedFirstPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          if (!noAnimate)
-            Positioned(
-              top: 0,
-              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
-            )
-          else
-            Positioned(top: 0, child: _title(langCode)),
+          Positioned(
+            top: 0,
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+          ),
 
           if (config.useBackdropBlurOnScaffold)
             Positioned(
@@ -163,103 +106,19 @@ class PageViewBasedFirstPage extends StatelessWidget {
                 child: ClipRect(
                   child: Column(
                     children: [
-                      if (!noAnimate) ...[
-                        const Spacer(),
-                        FadeAndSlideTransition(
-                          slideFromOffset: .5,
-                          slideFrom: .top,
-                          delayBeforeStart: const Duration(milliseconds: 500),
-                          child: _opening(),
-                        ),
-                        const Spacer(),
-                        FadeAndSlideTransition(
-                          slideFromOffset: .4,
-                          slideFrom: .left,
-                          delayBeforeStart: const Duration(milliseconds: 500),
-                          child: Padding(
-                            padding: .symmetric(horizontal: W.x6s),
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                boxShadow: config.firstSubScaffoldBoxShadow,
-                                border: .all(
-                                  width: config.firstSubScaffoldBorderWidth,
-                                  color: config.firstSubScaffoldBorderColor,
-                                ),
-                                borderRadius: .circular(10),
-                                color: config.firstSubScaffoldColor,
-                              ),
-                              child: Padding(
-                                padding: .only(top: H.md, left: 20, right: 20, bottom: H.sm),
-                                child: Column(
-                                  mainAxisSize: .min,
-                                  children: [
-                                    FadeAndSlideTransition(
-                                      slideFromOffset: .3,
-                                      slideFrom: .top,
-                                      delayBeforeStart: const Duration(milliseconds: 1000),
-                                      child: _openingQuote(),
-                                    ),
-                                    SizedBox(height: H.x6s),
-                                    FadeAndSlideTransition(
-                                      slideFromOffset: 1,
-                                      slideFrom: .bottom,
-                                      delayBeforeStart: const Duration(milliseconds: 1000),
-                                      child: _quoteFrom(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: H.x4s),
-                        FadeAndSlideTransition(
-                          slideFromOffset: .4,
-                          slideFrom: .right,
-                          delayBeforeStart: const Duration(milliseconds: 500),
-                          child: Padding(
-                            padding: .symmetric(horizontal: W.x6s),
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                boxShadow: config.secondSubScaffoldBoxShadow,
-                                border: .all(
-                                  width: config.secondSubScaffoldBorderWidth,
-                                  color: config.secondSubScaffoldBorderColor,
-                                ),
-                                borderRadius: .circular(10),
-                                color: config.secondSubScaffoldColor,
-                              ),
-                              child: Padding(
-                                padding: .only(top: H.xs, left: 20, right: 20, bottom: H.sm),
-                                child: Column(
-                                  mainAxisSize: .min,
-                                  children: [
-                                    FadeAndSlideTransition(
-                                      slideFromOffset: 1,
-                                      slideFrom: .top,
-                                      delayBeforeStart: const Duration(milliseconds: 1000),
-                                      child: _regards(),
-                                    ),
-                                    SizedBox(height: H.x6s),
-                                    FadeAndSlideTransition(
-                                      slideFromOffset: .4,
-                                      slideFrom: .bottom,
-                                      delayBeforeStart: const Duration(milliseconds: 1000),
-                                      child: _greeting(),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const Spacer(),
-                        const Spacer(),
-                      ] else ...[
-                        const Spacer(),
-                        _opening(),
-                        const Spacer(),
-                        Padding(
+                      const Spacer(),
+                      FadeAndSlideTransition(
+                        slideFromOffset: .5,
+                        slideFrom: .top,
+                        delayBeforeStart: const Duration(milliseconds: 500),
+                        child: _opening(),
+                      ),
+                      const Spacer(),
+                      FadeAndSlideTransition(
+                        slideFromOffset: .4,
+                        slideFrom: .left,
+                        delayBeforeStart: const Duration(milliseconds: 500),
+                        child: Padding(
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
@@ -273,16 +132,31 @@ class PageViewBasedFirstPage extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: .min,
                                 children: [
-                                  _openingQuote(),
+                                  FadeAndSlideTransition(
+                                    slideFromOffset: .3,
+                                    slideFrom: .top,
+                                    delayBeforeStart: const Duration(milliseconds: 1000),
+                                    child: _openingQuote(),
+                                  ),
                                   SizedBox(height: H.x6s),
-                                  _quoteFrom(),
+                                  FadeAndSlideTransition(
+                                    slideFromOffset: 1,
+                                    slideFrom: .bottom,
+                                    delayBeforeStart: const Duration(milliseconds: 1000),
+                                    child: _quoteFrom(),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(height: H.x4s),
-                        Padding(
+                      ),
+                      SizedBox(height: H.x4s),
+                      FadeAndSlideTransition(
+                        slideFromOffset: .4,
+                        slideFrom: .right,
+                        delayBeforeStart: const Duration(milliseconds: 500),
+                        child: Padding(
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
@@ -299,17 +173,27 @@ class PageViewBasedFirstPage extends StatelessWidget {
                               child: Column(
                                 mainAxisSize: .min,
                                 children: [
-                                  _regards(),
+                                  FadeAndSlideTransition(
+                                    slideFromOffset: 1,
+                                    slideFrom: .top,
+                                    delayBeforeStart: const Duration(milliseconds: 1000),
+                                    child: _regards(),
+                                  ),
                                   SizedBox(height: H.x6s),
-                                  _greeting(),
+                                  FadeAndSlideTransition(
+                                    slideFromOffset: .4,
+                                    slideFrom: .bottom,
+                                    delayBeforeStart: const Duration(milliseconds: 1000),
+                                    child: _greeting(),
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                        const Spacer(),
-                        const Spacer(),
-                      ],
+                      ),
+                      const Spacer(),
+                      const Spacer(),
                     ],
                   ),
                 ),
@@ -332,7 +216,6 @@ class PageViewBasedFirstPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 2200),
                   animationInterval: const Duration(milliseconds: 3500),
-                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),

@@ -4,81 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class PageViewBasedFifthPageConfig {
-  const PageViewBasedFifthPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
-    required this.bottomSheetBackgroundColor,
-    required this.bottomSheetCloseIconColor,
-    this.bottomSheetOnHoverCloseIconColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
-  final Color bottomSheetBackgroundColor;
-  final Color bottomSheetCloseIconColor;
-  final Color? bottomSheetOnHoverCloseIconColor;
-}
-
 class PageViewBasedFifthPage extends StatelessWidget {
-  const PageViewBasedFifthPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.galleries,
-    this.gallery,
-    required this.noAnimate,
-  });
+  const PageViewBasedFifthPage({super.key, required this.config, required this.viewType, this.galleries, this.gallery});
 
   final PageViewBasedFifthPageConfig config;
   final ViewType viewType;
   final List<File?>? galleries;
   final GalleryResponse? gallery;
-  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
@@ -106,13 +45,10 @@ class PageViewBasedFifthPage extends StatelessWidget {
 
           config.background ?? const SizedBox.shrink(),
 
-          if (!noAnimate)
-            Positioned(
-              top: 0,
-              child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
-            )
-          else
-            Positioned(top: 0, child: _title(langCode)),
+          Positioned(
+            top: 0,
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+          ),
 
           if (config.useBackdropBlurOnScaffold)
             Positioned(
@@ -183,7 +119,6 @@ class PageViewBasedFifthPage extends StatelessWidget {
                         viewType: viewType,
                         galleries: galleries,
                         gallery: gallery,
-                        noAnimate: noAnimate,
                       ),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
@@ -217,7 +152,6 @@ class PageViewBasedFifthPage extends StatelessWidget {
                   animationSpeed: const Duration(milliseconds: 600),
                   delayBeforeStart: const Duration(milliseconds: 3000),
                   animationInterval: const Duration(milliseconds: 3500),
-                  staticValue: noAnimate ? .67 : null,
                 ),
               ),
             ),
@@ -278,7 +212,6 @@ class PageViewBasedFifthPage extends StatelessWidget {
                     viewType: viewType,
                     galleries: galleries,
                     gallery: gallery,
-                    noAnimate: noAnimate,
                   ),
                 ),
               ),
@@ -308,7 +241,6 @@ class _Gallery extends StatelessWidget {
     required this.viewType,
     this.galleries,
     this.gallery,
-    required this.noAnimate,
   });
 
   final double dividingLineWidth;
@@ -318,297 +250,205 @@ class _Gallery extends StatelessWidget {
   final ViewType viewType;
   final List<File?>? galleries;
   final GalleryResponse? gallery;
-  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        if (!noAnimate) ...[
-          SizedBox(height: H.x2s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                flex: 5,
-                child: FadeAndSlideTransition(
-                  slideFrom: .left,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 500),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 1, viewType: viewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x7s),
-              SizedBox(
-                height: W.x11l + 4,
-                width: dividingLineWidth,
-                child: ColoredBox(color: dividingVerticalLineColor),
-              ),
-              SizedBox(width: W.x7s),
-              Expanded(
-                flex: 3,
-                child: FadeAndSlideTransition(
-                  slideFrom: .right,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 1000),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 2, viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          SizedBox(height: W.x7s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                child: SizedBox(
-                  height: dividingLineWidth,
-                  child: ColoredBox(color: dividingHorizontalLineColor),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          SizedBox(height: W.x7s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                flex: 3,
-                child: FadeAndSlideTransition(
-                  slideFrom: .right,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 1000),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 3, viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x7s),
-              SizedBox(
-                height: W.x11l + 4,
-                width: dividingLineWidth,
-                child: ColoredBox(color: dividingVerticalLineColor),
-              ),
-              SizedBox(width: W.x7s),
-              Expanded(
-                flex: 5,
-                child: FadeAndSlideTransition(
-                  slideFrom: .left,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 500),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 4, viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          SizedBox(height: W.x7s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                child: SizedBox(
-                  height: dividingLineWidth,
-                  child: ColoredBox(color: dividingHorizontalLineColor),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          SizedBox(height: W.x7s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                child: FadeAndSlideTransition(
-                  slideFrom: .bottom,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 1500),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x10l - 4,
-                    child: _ImageViewer(id: 5, viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x7s),
-              SizedBox(
-                height: W.x10l - 4,
-                width: dividingLineWidth,
-                child: ColoredBox(color: dividingVerticalLineColor),
-              ),
-              SizedBox(width: W.x7s),
-              Expanded(
-                child: FadeAndSlideTransition(
-                  slideFrom: .bottom,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 1500),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x10l - 4,
-                    child: _ImageViewer(id: 6, viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x7s),
-              SizedBox(
-                height: W.x10l - 4,
-                width: dividingLineWidth,
-                child: ColoredBox(color: dividingVerticalLineColor),
-              ),
-              SizedBox(width: W.x7s),
-              Expanded(
-                child: FadeAndSlideTransition(
-                  slideFrom: .bottom,
-                  slideFromOffset: .3,
-                  delayBeforeStart: const Duration(milliseconds: 1500),
-                  isNoNeedTrigger: isShowMore ? true : false,
-                  child: SizedBox(
-                    height: W.x10l - 4,
-                    child: _ImageViewer(id: 7, viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
-                  ),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          if (isShowMore) ...[
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  child: SizedBox(
-                    height: dividingLineWidth,
-                    child: ColoredBox(color: dividingHorizontalLineColor),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  flex: 5,
-                  child: FadeAndSlideTransition(
-                    slideFrom: .bottom,
-                    slideFromOffset: .3,
-                    delayBeforeStart: const Duration(milliseconds: 2000),
-                    isNoNeedTrigger: isShowMore ? true : false,
-                    child: SizedBox(
-                      height: W.x11l + 4,
-                      child: _ImageViewer(id: 8, viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
-                    ),
-                  ),
-                ),
-                SizedBox(width: W.x7s),
-                SizedBox(
-                  height: W.x11l + 4,
-                  width: dividingLineWidth,
-                  child: ColoredBox(color: dividingVerticalLineColor),
-                ),
-                SizedBox(width: W.x7s),
-                Expanded(
-                  flex: 3,
-                  child: FadeAndSlideTransition(
-                    slideFrom: .bottom,
-                    slideFromOffset: .3,
-                    delayBeforeStart: const Duration(milliseconds: 2000),
-                    isNoNeedTrigger: isShowMore ? true : false,
-                    child: SizedBox(
-                      height: W.x11l + 4,
-                      child: _ImageViewer(id: 9, viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
-                    ),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  child: SizedBox(
-                    height: dividingLineWidth,
-                    child: ColoredBox(color: dividingHorizontalLineColor),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  flex: 3,
-                  child: FadeAndSlideTransition(
-                    slideFrom: .bottom,
-                    slideFromOffset: .3,
-                    delayBeforeStart: const Duration(milliseconds: 2500),
-                    isNoNeedTrigger: isShowMore ? true : false,
-                    child: SizedBox(
-                      height: W.x11l + 4,
-                      child: _ImageViewer(id: 10, viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
-                    ),
-                  ),
-                ),
-                SizedBox(width: W.x7s),
-                SizedBox(
-                  height: W.x11l + 4,
-                  width: dividingLineWidth,
-                  child: ColoredBox(color: dividingVerticalLineColor),
-                ),
-                SizedBox(width: W.x7s),
-                Expanded(
-                  flex: 5,
-                  child: FadeAndSlideTransition(
-                    slideFrom: .bottom,
-                    slideFromOffset: .3,
-                    delayBeforeStart: const Duration(milliseconds: 2500),
-                    isNoNeedTrigger: isShowMore ? true : false,
-                    child: SizedBox(
-                      height: W.x11l + 4,
-                      child: _ImageViewer(id: 11, viewType: viewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
-                    ),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-          ],
-          SizedBox(height: H.x2s),
-        ] else ...[
-          SizedBox(height: H.x2s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                flex: 5,
+        SizedBox(height: H.x2s),
+        Row(
+          children: [
+            SizedBox(width: W.x4s),
+            Expanded(
+              flex: 5,
+              child: FadeAndSlideTransition(
+                slideFrom: .left,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 500),
+                isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
                   child: _ImageViewer(id: 1, viewType: viewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
                 ),
               ),
+            ),
+            SizedBox(width: W.x7s),
+            SizedBox(
+              height: W.x11l + 4,
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
+            ),
+            SizedBox(width: W.x7s),
+            Expanded(
+              flex: 3,
+              child: FadeAndSlideTransition(
+                slideFrom: .right,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1000),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: W.x11l + 4,
+                  child: _ImageViewer(id: 2, viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
+                ),
+              ),
+            ),
+            SizedBox(width: W.x4s),
+          ],
+        ),
+        SizedBox(height: W.x7s),
+        Row(
+          children: [
+            SizedBox(width: W.x4s),
+            Expanded(
+              child: SizedBox(
+                height: dividingLineWidth,
+                child: ColoredBox(color: dividingHorizontalLineColor),
+              ),
+            ),
+            SizedBox(width: W.x4s),
+          ],
+        ),
+        SizedBox(height: W.x7s),
+        Row(
+          children: [
+            SizedBox(width: W.x4s),
+            Expanded(
+              flex: 3,
+              child: FadeAndSlideTransition(
+                slideFrom: .right,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1000),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: W.x11l + 4,
+                  child: _ImageViewer(id: 3, viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
+                ),
+              ),
+            ),
+            SizedBox(width: W.x7s),
+            SizedBox(
+              height: W.x11l + 4,
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
+            ),
+            SizedBox(width: W.x7s),
+            Expanded(
+              flex: 5,
+              child: FadeAndSlideTransition(
+                slideFrom: .left,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: W.x11l + 4,
+                  child: _ImageViewer(id: 4, viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
+                ),
+              ),
+            ),
+            SizedBox(width: W.x4s),
+          ],
+        ),
+        SizedBox(height: W.x7s),
+        Row(
+          children: [
+            SizedBox(width: W.x4s),
+            Expanded(
+              child: SizedBox(
+                height: dividingLineWidth,
+                child: ColoredBox(color: dividingHorizontalLineColor),
+              ),
+            ),
+            SizedBox(width: W.x4s),
+          ],
+        ),
+        SizedBox(height: W.x7s),
+        Row(
+          children: [
+            SizedBox(width: W.x4s),
+            Expanded(
+              child: FadeAndSlideTransition(
+                slideFrom: .bottom,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: W.x10l - 4,
+                  child: _ImageViewer(id: 5, viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
+                ),
+              ),
+            ),
+            SizedBox(width: W.x7s),
+            SizedBox(
+              height: W.x10l - 4,
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
+            ),
+            SizedBox(width: W.x7s),
+            Expanded(
+              child: FadeAndSlideTransition(
+                slideFrom: .bottom,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: W.x10l - 4,
+                  child: _ImageViewer(id: 6, viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
+                ),
+              ),
+            ),
+            SizedBox(width: W.x7s),
+            SizedBox(
+              height: W.x10l - 4,
+              width: dividingLineWidth,
+              child: ColoredBox(color: dividingVerticalLineColor),
+            ),
+            SizedBox(width: W.x7s),
+            Expanded(
+              child: FadeAndSlideTransition(
+                slideFrom: .bottom,
+                slideFromOffset: .3,
+                delayBeforeStart: const Duration(milliseconds: 1500),
+                isNoNeedTrigger: isShowMore ? true : false,
+                child: SizedBox(
+                  height: W.x10l - 4,
+                  child: _ImageViewer(id: 7, viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
+                ),
+              ),
+            ),
+            SizedBox(width: W.x4s),
+          ],
+        ),
+        if (isShowMore) ...[
+          SizedBox(height: W.x7s),
+          Row(
+            children: [
+              SizedBox(width: W.x4s),
+              Expanded(
+                child: SizedBox(
+                  height: dividingLineWidth,
+                  child: ColoredBox(color: dividingHorizontalLineColor),
+                ),
+              ),
+              SizedBox(width: W.x4s),
+            ],
+          ),
+          SizedBox(height: W.x7s),
+          Row(
+            children: [
+              SizedBox(width: W.x4s),
+              Expanded(
+                flex: 5,
+                child: FadeAndSlideTransition(
+                  slideFrom: .bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2000),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: W.x11l + 4,
+                    child: _ImageViewer(id: 8, viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
+                  ),
+                ),
+              ),
               SizedBox(width: W.x7s),
               SizedBox(
                 height: W.x11l + 4,
@@ -618,9 +458,15 @@ class _Gallery extends StatelessWidget {
               SizedBox(width: W.x7s),
               Expanded(
                 flex: 3,
-                child: SizedBox(
-                  height: W.x11l + 4,
-                  child: _ImageViewer(id: 2, viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
+                child: FadeAndSlideTransition(
+                  slideFrom: .bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2000),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: W.x11l + 4,
+                    child: _ImageViewer(id: 9, viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
+                  ),
                 ),
               ),
               SizedBox(width: W.x4s),
@@ -645,9 +491,15 @@ class _Gallery extends StatelessWidget {
               SizedBox(width: W.x4s),
               Expanded(
                 flex: 3,
-                child: SizedBox(
-                  height: W.x11l + 4,
-                  child: _ImageViewer(id: 3, viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
+                child: FadeAndSlideTransition(
+                  slideFrom: .bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2500),
+                  isNoNeedTrigger: isShowMore ? true : false,
+                  child: SizedBox(
+                    height: W.x11l + 4,
+                    child: _ImageViewer(id: 10, viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
+                  ),
                 ),
               ),
               SizedBox(width: W.x7s),
@@ -659,152 +511,22 @@ class _Gallery extends StatelessWidget {
               SizedBox(width: W.x7s),
               Expanded(
                 flex: 5,
-                child: SizedBox(
-                  height: W.x11l + 4,
-                  child: _ImageViewer(id: 4, viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          SizedBox(height: W.x7s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                child: SizedBox(
-                  height: dividingLineWidth,
-                  child: ColoredBox(color: dividingHorizontalLineColor),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          SizedBox(height: W.x7s),
-          Row(
-            children: [
-              SizedBox(width: W.x4s),
-              Expanded(
-                child: SizedBox(
-                  height: W.x10l - 4,
-                  child: _ImageViewer(id: 5, viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
-                ),
-              ),
-              SizedBox(width: W.x7s),
-              SizedBox(
-                height: W.x10l - 4,
-                width: dividingLineWidth,
-                child: ColoredBox(color: dividingVerticalLineColor),
-              ),
-              SizedBox(width: W.x7s),
-              Expanded(
-                child: SizedBox(
-                  height: W.x10l - 4,
-                  child: _ImageViewer(id: 6, viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
-                ),
-              ),
-              SizedBox(width: W.x7s),
-              SizedBox(
-                height: W.x10l - 4,
-                width: dividingLineWidth,
-                child: ColoredBox(color: dividingVerticalLineColor),
-              ),
-              SizedBox(width: W.x7s),
-              Expanded(
-                child: SizedBox(
-                  height: W.x10l - 4,
-                  child: _ImageViewer(id: 7, viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
-                ),
-              ),
-              SizedBox(width: W.x4s),
-            ],
-          ),
-          if (isShowMore) ...[
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  child: SizedBox(
-                    height: dividingLineWidth,
-                    child: ColoredBox(color: dividingHorizontalLineColor),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  flex: 5,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 8, viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
-                  ),
-                ),
-                SizedBox(width: W.x7s),
-                SizedBox(
-                  height: W.x11l + 4,
-                  width: dividingLineWidth,
-                  child: ColoredBox(color: dividingVerticalLineColor),
-                ),
-                SizedBox(width: W.x7s),
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 9, viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  child: SizedBox(
-                    height: dividingLineWidth,
-                    child: ColoredBox(color: dividingHorizontalLineColor),
-                  ),
-                ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-            SizedBox(height: W.x7s),
-            Row(
-              children: [
-                SizedBox(width: W.x4s),
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(
-                    height: W.x11l + 4,
-                    child: _ImageViewer(id: 10, viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
-                  ),
-                ),
-                SizedBox(width: W.x7s),
-                SizedBox(
-                  height: W.x11l + 4,
-                  width: dividingLineWidth,
-                  child: ColoredBox(color: dividingVerticalLineColor),
-                ),
-                SizedBox(width: W.x7s),
-                Expanded(
-                  flex: 5,
+                child: FadeAndSlideTransition(
+                  slideFrom: .bottom,
+                  slideFromOffset: .3,
+                  delayBeforeStart: const Duration(milliseconds: 2500),
+                  isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
                     child: _ImageViewer(id: 11, viewType: viewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
                   ),
                 ),
-                SizedBox(width: W.x4s),
-              ],
-            ),
-          ],
-          SizedBox(height: H.x2s),
+              ),
+              SizedBox(width: W.x4s),
+            ],
+          ),
         ],
+        SizedBox(height: H.x2s),
       ],
     );
   }
