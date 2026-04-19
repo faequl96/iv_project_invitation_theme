@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/widgets/atlas_particle_sphere.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
 class PageViewWithBottomTabBarAsImage extends StatefulWidget {
@@ -61,14 +61,22 @@ class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabB
         alignment: .center,
         children: [
           ...(widget.backgrounds ?? []),
-          if (widget.particleSphere != null && widget.wrapper == null)
-            ClipRect(
-              child: CircleParticleSphereAsImage(
-                config: widget.particleSphere!,
-                child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
+          if (widget.particleSphere != null && widget.wrapper == null) ...[
+            if (widget.particleSphere!.type == ParticleType.circle)
+              ClipRect(
+                child: CircleParticleSphereAsImage(
+                  config: widget.particleSphere!,
+                  child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
+                ),
+              )
+            else
+              ClipRect(
+                child: ImageParticleSphereAsImage(
+                  config: widget.particleSphere!,
+                  child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
+                ),
               ),
-            )
-          else
+          ] else
             SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
 
           Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),

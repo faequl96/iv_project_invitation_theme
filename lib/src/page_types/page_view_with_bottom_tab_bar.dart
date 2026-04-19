@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/widgets/atlas_particle_sphere.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
 class PageViewWithBottomTabBar extends StatefulWidget {
@@ -122,17 +122,28 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
             alignment: .center,
             children: [
               ...(widget.backgrounds ?? []),
-              if (widget.particleSphere != null)
-                ClipRect(
-                  child: CircleParticleSphere(
-                    config: widget.particleSphere!,
-                    initialPage: widget.initialPage,
-                    viewAsSinglePage: widget.viewAsSinglePage,
-                    useWrapper: widget.wrapper != null,
-                    child: _page,
+              if (widget.particleSphere != null) ...[
+                if (widget.particleSphere!.type == ParticleType.circle)
+                  ClipRect(
+                    child: CircleParticleSphere(
+                      config: widget.particleSphere!,
+                      initialPage: widget.initialPage,
+                      viewAsSinglePage: widget.viewAsSinglePage,
+                      useWrapper: widget.wrapper != null,
+                      child: _page,
+                    ),
+                  )
+                else
+                  ClipRect(
+                    child: ImageParticleSphere(
+                      config: widget.particleSphere!,
+                      initialPage: widget.initialPage,
+                      viewAsSinglePage: widget.viewAsSinglePage,
+                      useWrapper: widget.wrapper != null,
+                      child: _page,
+                    ),
                   ),
-                )
-              else
+              ] else
                 _page,
 
               ValueListenableBuilder(
