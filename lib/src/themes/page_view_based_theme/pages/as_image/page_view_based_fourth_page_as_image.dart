@@ -196,9 +196,14 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     borderRadius: .circular(30),
     border: .all(width: config.getDirectionsButtonBorderWidth, color: config.getDirectionsButtonBorderColor),
     color: config.getDirectionsButtonColor,
-    child: Text(
-      langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-      style: AppFonts.inter(color: config.getDirectionsButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+    child: Stack(
+      alignment: .center,
+      children: [
+        Text(
+          langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
+          style: AppFonts.inter(color: config.getDirectionsButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+        ),
+      ],
     ),
   );
 }

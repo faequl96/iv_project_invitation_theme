@@ -4,21 +4,18 @@ import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom
 import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_global_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class CanvasThemeAsImage extends StatelessWidget {
   const CanvasThemeAsImage({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
     required this.invitationData,
     required this.brandProfile,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
   final InvitationDataResponse invitationData;
@@ -50,15 +47,14 @@ class CanvasThemeAsImage extends StatelessWidget {
             iconInactiveColor: Colors.white,
           ),
           globalBackgroundsBuilder: () => [const CanvasThemeGlobalBackground()],
-          particleSphere: ParticleSphereConfig(
-            particleCount: 22,
-            particleVariatios: [
-              Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
-              Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
-              Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
-            ],
-            noExplosionOnCoverPage: true,
-          ),
+          // particleSphere: ParticleSphereConfig(
+          //   particleCount: 22,
+          //   particleVariatios: [
+          //     Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+          //     Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+          //     Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+          //   ],
+          // ),
           coverPageConfig: PageViewBasedCoverPageConfig(
             gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
             brideNameColor: ColorConverter.darken(Colors.blue.shade100, 10),
@@ -391,7 +387,6 @@ class CanvasThemeAsImage extends StatelessWidget {
             brandTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
           ),
         ),
-        heightAdjustment: heightAdjustment,
         initialPage: initialPage,
         useWrapper: useWrapper,
         invitationData: invitationData,

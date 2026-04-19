@@ -4,8 +4,8 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/widgets/atlas_particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -57,11 +57,11 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
             noAnimate: false,
           ),
         ],
-        particleSphere: ParticleSphereConfig(
-          particleVariatios: [
-            Particle.circle(color: ColorConverter.darken(Colors.lightGreenAccent, 5)),
-            Particle.circle(color: Colors.white),
-            Particle.circle(color: ColorConverter.darken(Colors.green.shade700, 40)),
+        particleSphere: ParticleSphereConfig.circle(
+          circleParticleVariatios: [
+            CircleParticle(color: ColorConverter.darken(Colors.lightGreenAccent, 5)),
+            const CircleParticle(color: Colors.white),
+            CircleParticle(color: ColorConverter.darken(Colors.green.shade700, 40)),
           ],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(

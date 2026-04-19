@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
+import 'package:iv_project_invitation_theme/src/widgets/atlas_particle_sphere.dart';
 
 class PageViewBasedConfigs {
   const PageViewBasedConfigs({

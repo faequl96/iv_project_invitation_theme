@@ -10,7 +10,6 @@ import 'package:iv_project_model/iv_project_model.dart';
 class InvitationThemeAsImageLauncher extends StatelessWidget {
   const InvitationThemeAsImageLauncher({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     this.useWrapper = true,
     required this.invitationThemeId,
@@ -18,7 +17,6 @@ class InvitationThemeAsImageLauncher extends StatelessWidget {
     required this.brandProfile,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
   final int invitationThemeId;
@@ -35,42 +33,36 @@ class InvitationThemeAsImageLauncher extends StatelessWidget {
 
   Widget get _content => switch (invitationThemeId) {
     1 => ElegantBlackAndWhiteGlassAsImage(
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,
       brandProfile: brandProfile,
     ),
     2 => ElegantRedVelvetGlassAsImage(
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,
       brandProfile: brandProfile,
     ),
     3 => ElegantGreenMatchaGlassAsImage(
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,
       brandProfile: brandProfile,
     ),
     4 => ElegantBlueSkyGlassAsImage(
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,
       brandProfile: brandProfile,
     ),
     5 => JavaneseRoseGoldAsImage(
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,
       brandProfile: brandProfile,
     ),
     6 => CanvasThemeAsImage(
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,

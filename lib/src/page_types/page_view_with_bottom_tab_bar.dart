@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
+import 'package:iv_project_invitation_theme/src/widgets/atlas_particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
 class PageViewWithBottomTabBar extends StatefulWidget {
   const PageViewWithBottomTabBar({
@@ -81,8 +81,10 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     if (!widget.viewAsSinglePage) _pageController?.addListener(_scrollListener);
 
     if (widget.viewAsSinglePage) {
+      if (widget.initialPage > 1 && widget.initialPage < _tabs.length - 2) _isLowerTab.value = false;
+
       WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await Future<void>.delayed(const Duration(milliseconds: 200));
+        await Future<void>.delayed(const Duration(milliseconds: 300));
         if (widget.initialPage == 0) {
           if (widget.wrapper == null) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
         } else {
@@ -122,7 +124,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
               ...(widget.backgrounds ?? []),
               if (widget.particleSphere != null)
                 ClipRect(
-                  child: ParticleSphere(
+                  child: CircleParticleSphere(
                     config: widget.particleSphere!,
                     initialPage: widget.initialPage,
                     viewAsSinglePage: widget.viewAsSinglePage,

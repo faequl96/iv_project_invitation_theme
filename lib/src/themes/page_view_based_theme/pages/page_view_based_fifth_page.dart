@@ -225,9 +225,14 @@ class PageViewBasedFifthPage extends StatelessWidget {
     borderRadius: .circular(30),
     border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
     color: config.seeMoreButtonColor,
-    child: Text(
-      langCode == 'en' ? 'See More' : 'Selengkapnya',
-      style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+    child: Stack(
+      alignment: .center,
+      children: [
+        Text(
+          langCode == 'en' ? 'See More' : 'Selengkapnya',
+          style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+        ),
+      ],
     ),
   );
 }

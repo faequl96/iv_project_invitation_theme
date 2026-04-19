@@ -20,7 +20,6 @@ class PageViewBasedAsImage extends StatelessWidget {
   const PageViewBasedAsImage({
     super.key,
     required this.configs,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
     required this.invitationData,
@@ -28,7 +27,6 @@ class PageViewBasedAsImage extends StatelessWidget {
   });
 
   final PageViewBasedConfigs configs;
-  final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
   final InvitationDataResponse invitationData;

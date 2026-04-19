@@ -13,14 +13,12 @@ import 'package:iv_project_model/iv_project_model.dart';
 class JavaneseRoseGoldAsImage extends StatelessWidget {
   const JavaneseRoseGoldAsImage({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
     required this.invitationData,
     required this.brandProfile,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
   final InvitationDataResponse invitationData;
@@ -398,7 +396,6 @@ class JavaneseRoseGoldAsImage extends StatelessWidget {
           brandTextColor: Colors.grey.shade50,
         ),
       ),
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationData: invitationData,
