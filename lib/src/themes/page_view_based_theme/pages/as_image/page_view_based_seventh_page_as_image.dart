@@ -337,6 +337,14 @@ class _RSVPFormState extends State<RSVPForm> {
         borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
         borderRadius: const .all(.circular(8)),
       ),
+      suffixIcons: () {
+        return [
+          PreSufFixIcon(
+            onTap: () {},
+            child: Image.asset('assets/avatars/avatars.png', package: 'iv_project_invitation_theme', height: 24, width: 24),
+          ),
+        ];
+      },
     ),
     splashColor: widget.fieldSplashColor,
     overlayYOffset: 6,
