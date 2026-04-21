@@ -189,6 +189,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                           if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                         },
+                        noAnimate: false,
                       ),
                     );
                   } else {
@@ -215,6 +216,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                     if (invitedGuest != null && context.mounted) CheckInQr.show(context);
                   },
+                  noAnimate: false,
                 ),
               ),
           ],

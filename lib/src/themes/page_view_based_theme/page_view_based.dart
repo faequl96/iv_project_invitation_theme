@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/core/helpers/app_helpers.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar.dart';
+import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_cover_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_eighth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_fifth_page.dart';
@@ -16,42 +17,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_sixth_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_different_location_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pages/page_view_based_third_page.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
-
-class PageViewBasedConfigs {
-  const PageViewBasedConfigs({
-    required this.tabConfig,
-    this.globalBackgroundsBuilder,
-    this.particleSphere,
-    required this.coverPageConfig,
-    required this.firstPageConfig,
-    required this.secondPageConfig,
-    required this.thirdPageConfig,
-    required this.thirdDifferentLocationPageConfig,
-    required this.fourthPageConfig,
-    required this.fourthDifferentLocationPageConfig,
-    required this.fifthPageConfig,
-    required this.sixthPageConfig,
-    required this.seventhPageConfig,
-    required this.eighthPageConfig,
-  });
-
-  final TabConfig tabConfig;
-  final List<Widget> Function()? globalBackgroundsBuilder;
-  final ParticleSphereConfig? particleSphere;
-  final PageViewBasedCoverPageConfig coverPageConfig;
-  final PageViewBasedFirstPageConfig firstPageConfig;
-  final PageViewBasedSecondPageConfig secondPageConfig;
-  final PageViewBasedThirdPageConfig thirdPageConfig;
-  final PageViewBasedThirdDifferentLocationPageConfig thirdDifferentLocationPageConfig;
-  final PageViewBasedFourthPageConfig fourthPageConfig;
-  final PageViewBasedFourthDifferentLocationPageConfig fourthDifferentLocationPageConfig;
-  final PageViewBasedFifthPageConfig fifthPageConfig;
-  final PageViewBasedSixthPageConfig sixthPageConfig;
-  final PageViewBasedSeventhPageConfig seventhPageConfig;
-  final PageViewBasedEighthPageConfig eighthPageConfig;
-}
 
 class PageViewBased extends StatefulWidget {
   const PageViewBased({
@@ -60,7 +26,7 @@ class PageViewBased extends StatefulWidget {
     this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    this.viewAsImage = false,
+    required this.viewAsSinglePage,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -72,7 +38,7 @@ class PageViewBased extends StatefulWidget {
   final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsImage;
+  final bool viewAsSinglePage;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -96,21 +62,21 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
 
-    _isGalleriesNotEmpty = AppHelpers.isGalleriesNotEmptyChecker(widget.viewType, widget.imagesRaw, widget.invitationData);
+    _isGalleriesNotEmpty = ThemeAppHelpers.isGalleriesNotEmptyChecker(widget.viewType, widget.imagesRaw, widget.invitationData);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    AppHelpers.setSize(_coreCubit, widget.heightAdjustment);
+    ThemeAppHelpers.setSize(_coreCubit, widget.heightAdjustment);
   }
 
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
 
-    AppHelpers.setSize(_coreCubit, widget.heightAdjustment);
+    ThemeAppHelpers.setSize(_coreCubit, widget.heightAdjustment);
   }
 
   @override
@@ -126,7 +92,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 
     return PageViewWithBottomTabBar(
       initialPage: widget.initialPage,
-      viewAsImage: widget.viewAsImage,
+      viewAsSinglePage: widget.viewAsSinglePage,
       tabConfig: widget.configs.tabConfig,
       wrapper: widget.useWrapper
           ? InitializerWrapper(
@@ -147,6 +113,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
+          useWrapper: widget.useWrapper,
         ),
         PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
         PageViewBasedSecondPage(
@@ -314,7 +281,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 class _Tab extends StatelessWidget {
   const _Tab({required this.config, required this.title, required this.icon, required this.tabIndex, required this.tabActive});
 
-  final TabConfig config;
+  final PageViewWithBottomTabBarConfig config;
   final String title;
   final IconData icon;
   final int tabIndex;

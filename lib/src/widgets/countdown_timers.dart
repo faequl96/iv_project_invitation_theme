@@ -19,6 +19,7 @@ class CountdownTimers extends StatefulWidget {
     required this.useLightningEffect,
     this.animationDelayBeforeStart = .zero,
     this.lightningEffectDelayBeforeShowed = const Duration(milliseconds: 1200),
+    required this.noAnimate,
   });
 
   final Color oddColor;
@@ -32,6 +33,7 @@ class CountdownTimers extends StatefulWidget {
   final bool useLightningEffect;
   final Duration animationDelayBeforeStart;
   final Duration lightningEffectDelayBeforeShowed;
+  final bool noAnimate;
 
   @override
   State<CountdownTimers> createState() => _CountdownTimersState();
@@ -61,6 +63,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       _remaining = widget.time.difference(.now());
+      if (widget.noAnimate) _timer.cancel();
       if (_remaining.isNegative) {
         _remaining = .zero;
         _timer.cancel();
@@ -92,98 +95,71 @@ class _CountdownTimersState extends State<CountdownTimers> {
     return Row(
       mainAxisAlignment: .center,
       children: [
-        FadeAndSlideTransition(
-          slideFromOffset: 1.5,
-          slideFrom: .bottom,
-          delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-          child: ValueListenableBuilder(
-            valueListenable: _days,
-            builder: (_, days, _) {
-              return _CountdownTimer(
-                color: widget.oddColor,
-                borderColor: widget.oddBorderColor,
-                numberColor: widget.numberColor,
-                unitColor: widget.unitColor,
-                borderWidth: widget.borderWidth,
-                useLightningEffect: widget.useLightningEffect,
-                number: days,
-                unit: 'Hari',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 200) + widget.lightningEffectDelayBeforeShowed,
-              );
-            },
+        if (!widget.noAnimate) ...[
+          FadeAndSlideTransition(
+            slideFromOffset: 1.5,
+            slideFrom: .bottom,
+            delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
+            child: _countdownTimer(_days, 'Hari', lightningEffectDelayBase: const Duration(milliseconds: 200)),
           ),
-        ),
-        SizedBox(width: W.x4s),
-        FadeAndSlideTransition(
-          slideFromOffset: 2.5,
-          slideFrom: .left,
-          animationSpeed: const Duration(milliseconds: 700),
-          delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-          child: ValueListenableBuilder(
-            valueListenable: _hours,
-            builder: (_, hours, _) {
-              return _CountdownTimer(
-                color: widget.evenColor,
-                borderColor: widget.evenBorderColor,
-                numberColor: widget.numberColor,
-                unitColor: widget.unitColor,
-                borderWidth: widget.borderWidth,
-                useLightningEffect: widget.useLightningEffect,
-                number: hours,
-                unit: 'Jam',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 400) + widget.lightningEffectDelayBeforeShowed,
-              );
-            },
+          SizedBox(width: W.x4s),
+          FadeAndSlideTransition(
+            slideFromOffset: 2.5,
+            slideFrom: .left,
+            animationSpeed: const Duration(milliseconds: 700),
+            delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
+            child: _countdownTimer(_hours, 'Jam', lightningEffectDelayBase: const Duration(milliseconds: 400)),
           ),
-        ),
-        SizedBox(width: W.x4s),
-        FadeAndSlideTransition(
-          slideFromOffset: 2.5,
-          slideFrom: .right,
-          animationSpeed: const Duration(milliseconds: 700),
-          delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-          child: ValueListenableBuilder(
-            valueListenable: _minutes,
-            builder: (_, minutes, _) {
-              return _CountdownTimer(
-                color: widget.oddColor,
-                borderColor: widget.oddBorderColor,
-                numberColor: widget.numberColor,
-                unitColor: widget.unitColor,
-                borderWidth: widget.borderWidth,
-                useLightningEffect: widget.useLightningEffect,
-                number: minutes,
-                unit: 'Menit',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 600) + widget.lightningEffectDelayBeforeShowed,
-              );
-            },
+          SizedBox(width: W.x4s),
+          FadeAndSlideTransition(
+            slideFromOffset: 2.5,
+            slideFrom: .right,
+            animationSpeed: const Duration(milliseconds: 700),
+            delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
+            child: _countdownTimer(_minutes, 'Menit', lightningEffectDelayBase: const Duration(milliseconds: 600)),
           ),
-        ),
-        SizedBox(width: W.x4s),
-        FadeAndSlideTransition(
-          slideFromOffset: 1.5,
-          slideFrom: .bottom,
-          delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-          child: ValueListenableBuilder(
-            valueListenable: _seconds,
-            builder: (_, seconds, _) {
-              return _CountdownTimer(
-                color: widget.evenColor,
-                borderColor: widget.evenBorderColor,
-                numberColor: widget.numberColor,
-                unitColor: widget.unitColor,
-                borderWidth: widget.borderWidth,
-                useLightningEffect: widget.useLightningEffect,
-                number: seconds,
-                unit: 'Detik',
-                lightningEffectDelayBeforeShowed: const Duration(milliseconds: 800) + widget.lightningEffectDelayBeforeShowed,
-              );
-            },
+          SizedBox(width: W.x4s),
+          FadeAndSlideTransition(
+            slideFromOffset: 1.5,
+            slideFrom: .bottom,
+            delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
+            child: _countdownTimer(_seconds, 'Detik', lightningEffectDelayBase: const Duration(milliseconds: 800)),
           ),
-        ),
+        ] else ...[
+          _countdownTimer(_days, 'Hari', staticLightningEffectValue: .6),
+          SizedBox(width: W.x4s),
+          _countdownTimer(_hours, 'Jam', staticLightningEffectValue: .45),
+          SizedBox(width: W.x4s),
+          _countdownTimer(_minutes, 'Menit', staticLightningEffectValue: .3),
+          SizedBox(width: W.x4s),
+          _countdownTimer(_seconds, 'Detik', staticLightningEffectValue: .15),
+        ],
       ],
     );
   }
+
+  Widget _countdownTimer(
+    ValueNotifier<int> valueListenable,
+    String unit, {
+    Duration? lightningEffectDelayBase,
+    double? staticLightningEffectValue,
+  }) => ValueListenableBuilder(
+    valueListenable: valueListenable,
+    builder: (_, value, _) {
+      return _CountdownTimer(
+        color: widget.evenColor,
+        borderColor: widget.evenBorderColor,
+        numberColor: widget.numberColor,
+        unitColor: widget.unitColor,
+        borderWidth: widget.borderWidth,
+        useLightningEffect: widget.useLightningEffect,
+        number: value,
+        unit: unit,
+        lightningEffectDelayBeforeShowed: (lightningEffectDelayBase ?? Duration.zero) + widget.lightningEffectDelayBeforeShowed,
+        staticLightningEffectValue: staticLightningEffectValue,
+      );
+    },
+  );
 }
 
 class _CountdownTimer extends StatelessWidget {
@@ -197,6 +173,7 @@ class _CountdownTimer extends StatelessWidget {
     required this.number,
     required this.unit,
     required this.lightningEffectDelayBeforeShowed,
+    this.staticLightningEffectValue,
   });
 
   final Color color;
@@ -208,6 +185,7 @@ class _CountdownTimer extends StatelessWidget {
   final int number;
   final String unit;
   final Duration lightningEffectDelayBeforeShowed;
+  final double? staticLightningEffectValue;
 
   @override
   Widget build(BuildContext context) {
@@ -245,6 +223,7 @@ class _CountdownTimer extends StatelessWidget {
             ligthningWidth: borderWidth,
             isFlash: true,
             delayBeforeShowed: lightningEffectDelayBeforeShowed,
+            staticValue: staticLightningEffectValue,
           ),
       ],
     );

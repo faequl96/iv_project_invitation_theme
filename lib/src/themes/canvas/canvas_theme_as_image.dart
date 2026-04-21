@@ -1,36 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
 import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_global_background.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class CanvasTheme extends StatelessWidget {
-  const CanvasTheme({
+class CanvasThemeAsImage extends StatelessWidget {
+  const CanvasThemeAsImage({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    required this.viewAsSinglePage,
-    required this.viewType,
-    required this.invitationId,
     required this.invitationData,
-    this.imagesRaw,
     required this.brandProfile,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsSinglePage;
-  final ViewType viewType;
-  final String invitationId;
   final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
 
   @override
@@ -45,7 +33,7 @@ class CanvasTheme extends StatelessWidget {
           selectionHandleColor: ColorConverter.darken(Colors.blue.shade400, 50),
         ),
       ),
-      child: PageViewBased(
+      child: PageViewBasedAsImage(
         configs: PageViewBasedConfigs(
           tabConfig: PageViewWithBottomTabBarConfig(
             useGlassEffect: false,
@@ -59,14 +47,14 @@ class CanvasTheme extends StatelessWidget {
             iconInactiveColor: Colors.white,
           ),
           globalBackgroundsBuilder: () => [const CanvasThemeGlobalBackground()],
-          particleSphere: ParticleSphereConfig.image(
-            particleCount: 22,
-            imageParticleVariatios: [
-              const ImageParticle(imagePath: 'assets/backgrounds/floral_leaf.png'),
-              const ImageParticle(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
-              const ImageParticle(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
-            ],
-          ),
+          // particleSphere: ParticleSphereConfig(
+          //   particleCount: 22,
+          //   particleVariatios: [
+          //     Particle.image(imagePath: 'assets/backgrounds/floral_leaf.png'),
+          //     Particle.image(imagePath: 'assets/backgrounds/floral_flower_pink.png'),
+          //     Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
+          //   ],
+          // ),
           coverPageConfig: PageViewBasedCoverPageConfig(
             gradientBaseColor: ColorConverter.darken(Colors.blue.shade700, 60),
             brideNameColor: ColorConverter.darken(Colors.blue.shade100, 10),
@@ -399,14 +387,9 @@ class CanvasTheme extends StatelessWidget {
             brandTextColor: ColorConverter.darken(Colors.blue.shade500, 40),
           ),
         ),
-        heightAdjustment: heightAdjustment,
         initialPage: initialPage,
         useWrapper: useWrapper,
-        viewAsSinglePage: viewAsSinglePage,
-        viewType: viewType,
-        invitationId: invitationId,
         invitationData: invitationData,
-        imagesRaw: imagesRaw,
         brandProfile: brandProfile,
       ),
     );

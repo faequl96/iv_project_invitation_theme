@@ -2,62 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-class PageViewBasedFourthPageConfig {
-  const PageViewBasedFourthPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.placeIconColor,
-    required this.placeTextColor,
-    required this.addressTextColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.mapsBorderColor,
-    required this.getDirectionsButtonColor,
-    required this.getDirectionsButtonLabelColor,
-    required this.getDirectionsButtonBorderWidth,
-    required this.getDirectionsButtonBorderColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color placeIconColor;
-  final Color placeTextColor;
-  final Color addressTextColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final Color mapsBorderColor;
-  final Color getDirectionsButtonColor;
-  final Color getDirectionsButtonLabelColor;
-  final double getDirectionsButtonBorderWidth;
-  final Color getDirectionsButtonBorderColor;
-}
 
 class PageViewBasedFourthPage extends StatelessWidget {
   const PageViewBasedFourthPage({super.key, required this.config, required this.receptionEvent});
@@ -94,26 +45,9 @@ class PageViewBasedFourthPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.location_pin, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -178,22 +112,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         slideFromOffset: .0,
                         slideFrom: .top,
                         delayBeforeStart: const Duration(milliseconds: 200),
-                        child: Column(
-                          children: [
-                            Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
-                            const SizedBox(height: 4),
-                            Text(
-                              receptionEvent.place,
-                              style: AppFonts.inter(color: config.placeTextColor, fontSize: FontSize.xl, fontWeight: .w600),
-                            ),
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              height: config.dividingLineWidth,
-                              width: W.x18l,
-                              child: ColoredBox(color: config.dividingLineColor),
-                            ),
-                          ],
-                        ),
+                        child: _place(),
                       ),
                       const SizedBox(height: 8),
                       FadeAndSlideTransition(
@@ -201,14 +120,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 400),
-                        child: Padding(
-                          padding: const .symmetric(horizontal: 20),
-                          child: Text(
-                            receptionEvent.address,
-                            style: AppFonts.inter(color: config.addressTextColor, fontSize: FontSize.xs, fontWeight: .w400),
-                            textAlign: .center,
-                          ),
-                        ),
+                        child: _address(),
                       ),
                       const Spacer(),
                       Maps(
@@ -224,32 +136,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1000),
-                        child: GeneralEffectsButton(
-                          onTap: () {
-                            launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
-                          },
-                          padding: const .symmetric(horizontal: 24),
-                          height: W.lg + H.x10s,
-                          borderRadius: .circular(30),
-                          border: .all(
-                            width: config.getDirectionsButtonBorderWidth,
-                            color: config.getDirectionsButtonBorderColor,
-                          ),
-                          color: config.getDirectionsButtonColor,
-                          child: Stack(
-                            alignment: .center,
-                            children: [
-                              Text(
-                                langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-                                style: AppFonts.inter(
-                                  color: config.getDirectionsButtonLabelColor,
-                                  fontSize: FontSize.md,
-                                  fontWeight: .w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: _getDirection(langCode),
                       ),
                       const Spacer(),
                       const Spacer(),
@@ -284,4 +171,66 @@ class PageViewBasedFourthPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.location_pin, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _place() => Column(
+    children: [
+      Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
+      const SizedBox(height: 4),
+      Text(
+        receptionEvent.place,
+        style: AppFonts.inter(color: config.placeTextColor, fontSize: FontSize.xl, fontWeight: .w600),
+      ),
+      const SizedBox(height: 8),
+      SizedBox(
+        height: config.dividingLineWidth,
+        width: W.x18l,
+        child: ColoredBox(color: config.dividingLineColor),
+      ),
+    ],
+  );
+
+  Widget _address() => Padding(
+    padding: const .symmetric(horizontal: 20),
+    child: Text(
+      receptionEvent.address,
+      style: AppFonts.inter(color: config.addressTextColor, fontSize: FontSize.xs, fontWeight: .w400),
+      textAlign: .center,
+    ),
+  );
+
+  Widget _getDirection(String langCode) => GeneralEffectsButton(
+    onTap: () {
+      launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
+    },
+    padding: const .symmetric(horizontal: 24),
+    height: W.lg + H.x10s,
+    borderRadius: .circular(30),
+    border: .all(width: config.getDirectionsButtonBorderWidth, color: config.getDirectionsButtonBorderColor),
+    color: config.getDirectionsButtonColor,
+    child: Stack(
+      alignment: .center,
+      children: [
+        Text(
+          langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
+          style: AppFonts.inter(color: config.getDirectionsButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+        ),
+      ],
+    ),
+  );
 }

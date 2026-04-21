@@ -2,63 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
-
-class PageViewBasedFirstPageConfig {
-  const PageViewBasedFirstPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    this.scaffoldBoxShadow,
-    required this.scaffoldBorder,
-    this.scaffoldBorderRadius = const BorderRadius.all(Radius.circular(20)),
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.openingTextColor,
-    required this.generalTextColor,
-    required this.firstSubScaffoldColor,
-    this.firstSubScaffoldBoxShadow,
-    required this.firstSubScaffoldBorderColor,
-    required this.firstSubScaffoldBorderWidth,
-    required this.secondSubScaffoldColor,
-    this.secondSubScaffoldBoxShadow,
-    required this.secondSubScaffoldBorderColor,
-    required this.secondSubScaffoldBorderWidth,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final List<BoxShadow>? scaffoldBoxShadow;
-  final BoxBorder scaffoldBorder;
-  final BorderRadiusGeometry scaffoldBorderRadius;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color openingTextColor;
-  final Color generalTextColor;
-  final Color firstSubScaffoldColor;
-  final List<BoxShadow>? firstSubScaffoldBoxShadow;
-  final Color firstSubScaffoldBorderColor;
-  final double firstSubScaffoldBorderWidth;
-  final Color secondSubScaffoldColor;
-  final List<BoxShadow>? secondSubScaffoldBoxShadow;
-  final Color secondSubScaffoldBorderColor;
-  final double secondSubScaffoldBorderWidth;
-}
 
 class PageViewBasedFirstPage extends StatelessWidget {
   const PageViewBasedFirstPage({super.key, required this.config, required this.general});
@@ -95,21 +42,9 @@ class PageViewBasedFirstPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Center(
-                  child: Text(
-                    langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
-                    style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                  ),
-                ),
-              ),
-            ),
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -176,10 +111,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                         slideFromOffset: .5,
                         slideFrom: .top,
                         delayBeforeStart: const Duration(milliseconds: 500),
-                        child: Text(
-                          general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
-                          style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
-                        ),
+                        child: _opening(),
                       ),
                       const Spacer(),
                       FadeAndSlideTransition(
@@ -204,32 +136,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                     slideFromOffset: .3,
                                     slideFrom: .top,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.openingQuote.isNotEmpty
-                                          ? general.openingQuote
-                                          : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.md,
-                                        fontWeight: .w500,
-                                        fontStyle: .italic,
-                                      ),
-                                      textAlign: .center,
-                                    ),
+                                    child: _openingQuote(),
                                   ),
                                   SizedBox(height: H.x6s),
                                   FadeAndSlideTransition(
                                     slideFromOffset: 1,
                                     slideFrom: .bottom,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.lg,
-                                        fontWeight: .w600,
-                                      ),
-                                    ),
+                                    child: _quoteFrom(),
                                   ),
                                 ],
                               ),
@@ -263,31 +177,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                     slideFromOffset: 1,
                                     slideFrom: .top,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.x2l,
-                                        fontWeight: .w600,
-                                      ),
-                                    ),
+                                    child: _regards(),
                                   ),
                                   SizedBox(height: H.x6s),
                                   FadeAndSlideTransition(
                                     slideFromOffset: .4,
                                     slideFrom: .bottom,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: Text(
-                                      general.greeting.isNotEmpty
-                                          ? general.greeting
-                                          : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
-                                      style: AppFonts.inter(
-                                        color: config.generalTextColor,
-                                        fontSize: FontSize.md,
-                                        fontWeight: .w400,
-                                      ),
-                                      textAlign: .center,
-                                    ),
+                                    child: _greeting(),
                                   ),
                                 ],
                               ),
@@ -328,4 +225,46 @@ class PageViewBasedFirstPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Center(
+      child: Text(
+        langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
+        style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+      ),
+    ),
+  );
+
+  Widget _opening() => Text(
+    general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
+    style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
+  );
+
+  Widget _openingQuote() => Text(
+    general.openingQuote.isNotEmpty
+        ? general.openingQuote
+        : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.md, fontWeight: .w500, fontStyle: .italic),
+    textAlign: .center,
+  );
+
+  Widget _quoteFrom() => Text(
+    general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.lg, fontWeight: .w600),
+  );
+
+  Widget _regards() => Text(
+    general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.x2l, fontWeight: .w600),
+  );
+
+  Widget _greeting() => Text(
+    general.greeting.isNotEmpty
+        ? general.greeting
+        : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
+    style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.md, fontWeight: .w400),
+    textAlign: .center,
+  );
 }

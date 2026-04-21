@@ -15,6 +15,7 @@ class AnimatedPhotoSequence extends StatefulWidget {
     this.borderWidth = .5,
     required this.imageUrl,
     this.image,
+    required this.noAnimate,
   }) : isLeft = true;
   const AnimatedPhotoSequence.right({
     super.key,
@@ -24,6 +25,7 @@ class AnimatedPhotoSequence extends StatefulWidget {
     this.borderWidth = .5,
     required this.imageUrl,
     this.image,
+    required this.noAnimate,
   }) : isLeft = false;
 
   final ViewType viewType;
@@ -33,13 +35,14 @@ class AnimatedPhotoSequence extends StatefulWidget {
   final double borderWidth;
   final String? imageUrl;
   final File? image;
+  final bool noAnimate;
 
   @override
   State<AnimatedPhotoSequence> createState() => _AnimatedPhotoSequenceState();
 }
 
 class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with SingleTickerProviderStateMixin {
-  late final StreamSubscription _sub;
+  StreamSubscription? _sub;
 
   late final AnimationController _controller;
   late final Animation<double> _fadeAnimation;
@@ -114,14 +117,18 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
 
     _initAnimation();
 
-    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      _runAnimation(state.animationTrigger);
-    });
+    if (widget.noAnimate) {
+      _controller.value = 1;
+    } else {
+      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+        _runAnimation(state.animationTrigger);
+      });
+    }
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    _sub?.cancel();
     _controller.dispose();
 
     super.dispose();

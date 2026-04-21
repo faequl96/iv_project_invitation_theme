@@ -6,18 +6,19 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedInviter extends StatefulWidget {
-  const AnimatedInviter.left({super.key, required this.children}) : isLeft = true;
-  const AnimatedInviter.right({super.key, required this.children}) : isLeft = false;
+  const AnimatedInviter.left({super.key, required this.children, required this.noAnimate}) : isLeft = true;
+  const AnimatedInviter.right({super.key, required this.children, required this.noAnimate}) : isLeft = false;
 
   final bool isLeft;
   final List<Widget> children;
+  final bool noAnimate;
 
   @override
   State<AnimatedInviter> createState() => _AnimatedInviterState();
 }
 
 class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProviderStateMixin {
-  late final StreamSubscription _sub;
+  StreamSubscription? _sub;
 
   late final AnimationController _controller;
   late final Animation<double> _lineFadeAnimation;
@@ -57,14 +58,18 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
 
     _initAnimation();
 
-    _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-      _runAnimation(state.animationTrigger);
-    });
+    if (widget.noAnimate) {
+      _controller.value = 1;
+    } else {
+      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+        _runAnimation(state.animationTrigger);
+      });
+    }
   }
 
   @override
   void dispose() {
-    _sub.cancel();
+    _sub?.cancel();
     _controller.dispose();
 
     super.dispose();

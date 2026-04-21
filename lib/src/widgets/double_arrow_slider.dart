@@ -11,6 +11,7 @@ class DoubleArrowSlider extends StatefulWidget {
     this.sliderPathLength = 60,
     this.animationSpeed = const Duration(milliseconds: 500),
     this.animationInterval = const Duration(milliseconds: 500),
+    this.staticValue,
   });
 
   final Color firstArrowColor;
@@ -19,6 +20,7 @@ class DoubleArrowSlider extends StatefulWidget {
   final double sliderPathLength;
   final Duration animationSpeed;
   final Duration animationInterval;
+  final double? staticValue;
 
   @override
   State<DoubleArrowSlider> createState() => _DoubleArrowSliderState();
@@ -46,7 +48,11 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
     super.initState();
 
     _initAnimation();
-    _startAnimationLoop();
+    if (widget.staticValue != null) {
+      _controller.value = widget.staticValue!;
+    } else {
+      _startAnimationLoop();
+    }
   }
 
   @override

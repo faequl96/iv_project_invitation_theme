@@ -2,47 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
-
-class PageViewBasedEighthPageConfig {
-  const PageViewBasedEighthPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.closingTextColor,
-    required this.brideGroomNameColor,
-    required this.brandBackgroundColor,
-    required this.brandTextColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color closingTextColor;
-  final Color brideGroomNameColor;
-  final Color brandBackgroundColor;
-  final Color brandTextColor;
-}
 
 class PageViewBasedEighthPage extends StatelessWidget {
   const PageViewBasedEighthPage({
@@ -89,26 +52,9 @@ class PageViewBasedEighthPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.emoji_emotions, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -177,13 +123,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           slideFrom: .bottom,
                           animationSpeed: const Duration(milliseconds: 500),
                           delayBeforeStart: const Duration(milliseconds: 700),
-                          child: Text(
-                            general.closing.isNotEmpty
-                                ? general.closing
-                                : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
-                            style: AppFonts.inter(color: config.closingTextColor, fontSize: FontSize.md, fontWeight: .w600),
-                            textAlign: .center,
-                          ),
+                          child: _closing(),
                         ),
                       ),
                       SizedBox(height: H.lg),
@@ -194,15 +134,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           slideFrom: .bottom,
                           animationSpeed: const Duration(milliseconds: 500),
                           delayBeforeStart: const Duration(milliseconds: 1100),
-                          child: Text(
-                            '$brideName & $groomName',
-                            style: AppFonts.pacifico(
-                              color: config.brideGroomNameColor,
-                              fontSize: FontSize.x5l,
-                              fontWeight: .w500,
-                            ),
-                            textAlign: .center,
-                          ),
+                          child: _brideGroomName(),
                         ),
                       ),
                     ],
@@ -341,4 +273,34 @@ class PageViewBasedEighthPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.emoji_emotions, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Thank You' : 'Terima Kasih',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _closing() => Text(
+    general.closing.isNotEmpty
+        ? general.closing
+        : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
+    style: AppFonts.inter(color: config.closingTextColor, fontSize: FontSize.md, fontWeight: .w600),
+    textAlign: .center,
+  );
+
+  Widget _brideGroomName() => Text(
+    '$brideName & $groomName',
+    style: AppFonts.pacifico(color: config.brideGroomNameColor, fontSize: FontSize.x5l, fontWeight: .w500),
+    textAlign: .center,
+  );
 }

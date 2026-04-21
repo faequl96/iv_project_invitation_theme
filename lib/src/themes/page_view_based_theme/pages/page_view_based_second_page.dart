@@ -4,84 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_border_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
-
-class PageViewBasedSecondPageConfig {
-  const PageViewBasedSecondPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.generalTextColor,
-    required this.brideDividingBorderWidth,
-    required this.brideImageBorderWidth,
-    required this.brideDividingLineWidth,
-    required this.brideDividingBorderColor,
-    required this.brideImageFrameColor,
-    required this.brideImageFrameBorderColor,
-    required this.brideDividingLineColor,
-    required this.brideNameTextColor,
-    required this.brideFatherNameTextColor,
-    required this.brideMotherNameTextColor,
-    required this.groomDividingBorderWidth,
-    required this.groomImageBorderWidth,
-    required this.groomDividingLineWidth,
-    required this.groomDividingBorderColor,
-    required this.groomImageFrameColor,
-    required this.groomImageFrameBorderColor,
-    required this.groomDividingLineColor,
-    required this.groomNameTextColor,
-    required this.groomFatherNameTextColor,
-    required this.groomMotherNameTextColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color generalTextColor;
-  final double brideDividingBorderWidth;
-  final double brideImageBorderWidth;
-  final double brideDividingLineWidth;
-  final Color brideDividingBorderColor;
-  final Color brideImageFrameColor;
-  final Color brideImageFrameBorderColor;
-  final Color brideDividingLineColor;
-  final Color? brideNameTextColor;
-  final Color? brideFatherNameTextColor;
-  final Color? brideMotherNameTextColor;
-  final double groomDividingBorderWidth;
-  final double groomImageBorderWidth;
-  final double groomDividingLineWidth;
-  final Color groomDividingBorderColor;
-  final Color groomImageFrameColor;
-  final Color groomImageFrameBorderColor;
-  final Color groomDividingLineColor;
-  final Color? groomNameTextColor;
-  final Color? groomFatherNameTextColor;
-  final Color? groomMotherNameTextColor;
-}
 
 class PageViewBasedSecondPage extends StatelessWidget {
   const PageViewBasedSecondPage({
@@ -129,26 +58,9 @@ class PageViewBasedSecondPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.people, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -218,6 +130,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                         borderWidth: config.groomImageBorderWidth,
                         imageUrl: groom.imageUrl,
                         image: groomImage,
+                        noAnimate: false,
                       ),
                       AnimatedPhotoSequence.right(
                         viewType: viewType,
@@ -226,8 +139,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                         borderWidth: config.brideImageBorderWidth,
                         imageUrl: bride.imageUrl,
                         image: brideImage,
+                        noAnimate: false,
                       ),
                       AnimatedInviter.left(
+                        noAnimate: false,
                         children: [
                           Text.rich(
                             TextSpan(
@@ -333,6 +248,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
                         ],
                       ),
                       AnimatedInviter.right(
+                        noAnimate: false,
                         children: [
                           Text.rich(
                             TextSpan(
@@ -443,10 +359,12 @@ class PageViewBasedSecondPage extends StatelessWidget {
                       AnimatedBorderInviter.top(
                         color: config.brideDividingBorderColor,
                         borderWidth: config.brideDividingBorderWidth,
+                        noAnimate: false,
                       ),
                       AnimatedBorderInviter.bottom(
                         color: config.groomDividingBorderColor,
                         borderWidth: config.groomDividingBorderWidth,
+                        noAnimate: false,
                       ),
                     ],
                   ),
@@ -479,4 +397,20 @@ class PageViewBasedSecondPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.people, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
 }

@@ -4,65 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
-
-class PageViewBasedFifthPageConfig {
-  const PageViewBasedFifthPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
-    required this.bottomSheetBackgroundColor,
-    required this.bottomSheetCloseIconColor,
-    this.bottomSheetOnHoverCloseIconColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
-  final Color bottomSheetBackgroundColor;
-  final Color bottomSheetCloseIconColor;
-  final Color? bottomSheetOnHoverCloseIconColor;
-}
 
 class PageViewBasedFifthPage extends StatelessWidget {
   const PageViewBasedFifthPage({super.key, required this.config, required this.viewType, this.galleries, this.gallery});
@@ -100,26 +47,9 @@ class PageViewBasedFifthPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.photo_library_rounded, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -195,70 +125,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 2000),
-                        child: GeneralEffectsButton(
-                          onTap: () {
-                            ShowModal.bottomSheet(
-                              context,
-                              barrierColor: Colors.grey.shade700.withValues(alpha: .5),
-                              header: BottomSheetHeader(
-                                title: .handleBar(color: config.bottomSheetHandleColor),
-                                action: HeaderAction(
-                                  actionIcon: Icons.close_rounded,
-                                  iconColor: config.bottomSheetCloseIconColor,
-                                  onHoverIconColor: config.bottomSheetOnHoverCloseIconColor,
-                                  onTap: () => NavigationService.pop(),
-                                ),
-                              ),
-                              decoration: BottomSheetDecoration(
-                                color: config.bottomSheetBackgroundColor,
-                                borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
-                              ),
-                              contentBuilder: (_) {
-                                return SizedBox(
-                                  height: Screen.height - H.x10l,
-                                  child: Padding(
-                                    padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        color: config.bottomSheetContentScaffoldColor,
-                                        borderRadius: .circular(16),
-                                      ),
-                                      child: SingleChildScrollView(
-                                        child: _Gallery(
-                                          dividingLineWidth: config.dividingLineWidth,
-                                          dividingVerticalLineColor: config.dividingVerticalLineColor,
-                                          dividingHorizontalLineColor: config.dividingHorizontalLineColor,
-                                          isShowMore: true,
-                                          viewType: viewType,
-                                          galleries: galleries,
-                                          gallery: gallery,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          padding: const .symmetric(horizontal: 48),
-                          height: W.lg + H.x10s,
-                          borderRadius: .circular(30),
-                          border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
-                          color: config.seeMoreButtonColor,
-                          child: Stack(
-                            alignment: .center,
-                            children: [
-                              Text(
-                                langCode == 'en' ? 'See More' : 'Selengkapnya',
-                                style: AppFonts.inter(
-                                  color: config.seeMoreButtonLabelColor,
-                                  fontSize: FontSize.md,
-                                  fontWeight: .w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        child: _seeMore(context, langCode),
                       ),
                       const Spacer(),
                       const Spacer(),
@@ -294,6 +161,80 @@ class PageViewBasedFifthPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.photo_library_rounded, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _seeMore(BuildContext context, String langCode) => GeneralEffectsButton(
+    onTap: () {
+      ShowModal.bottomSheet(
+        context,
+        barrierColor: Colors.grey.shade700.withValues(alpha: .5),
+        header: BottomSheetHeader(
+          title: .handleBar(color: config.bottomSheetHandleColor),
+          action: HeaderAction(
+            actionIcon: Icons.close_rounded,
+            iconColor: config.bottomSheetCloseIconColor,
+            onHoverIconColor: config.bottomSheetOnHoverCloseIconColor,
+            onTap: () => NavigationService.pop(),
+          ),
+        ),
+        decoration: BottomSheetDecoration(
+          color: config.bottomSheetBackgroundColor,
+          borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
+        ),
+        contentBuilder: (_) {
+          return SizedBox(
+            height: Screen.height - H.x10l,
+            child: Padding(
+              padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: config.bottomSheetContentScaffoldColor, borderRadius: .circular(16)),
+                child: SingleChildScrollView(
+                  child: _Gallery(
+                    dividingLineWidth: config.dividingLineWidth,
+                    dividingVerticalLineColor: config.dividingVerticalLineColor,
+                    dividingHorizontalLineColor: config.dividingHorizontalLineColor,
+                    isShowMore: true,
+                    viewType: viewType,
+                    galleries: galleries,
+                    gallery: gallery,
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    },
+    padding: const .symmetric(horizontal: 48),
+    height: W.lg + H.x10s,
+    borderRadius: .circular(30),
+    border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+    color: config.seeMoreButtonColor,
+    child: Stack(
+      alignment: .center,
+      children: [
+        Text(
+          langCode == 'en' ? 'See More' : 'Selengkapnya',
+          style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+        ),
+      ],
+    ),
+  );
 }
 
 class _Gallery extends StatelessWidget {

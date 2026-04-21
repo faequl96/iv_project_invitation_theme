@@ -10,15 +10,46 @@ class BridegroomName extends StatelessWidget {
     required this.groomNameColor,
     required this.bride,
     required this.groom,
+    required this.noAnimate,
   });
 
   final Color brideNameColor;
   final Color groomNameColor;
   final BridegroomResponse bride;
   final BridegroomResponse groom;
+  final bool noAnimate;
 
   @override
   Widget build(BuildContext context) {
+    if (noAnimate) {
+      return Stack(
+        children: [
+          Align(
+            alignment: const Alignment(0, 0),
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: bride.nickname,
+                    style: TextStyle(fontSize: FontSize.x8l, color: brideNameColor),
+                  ),
+                  TextSpan(
+                    text: ' & ',
+                    style: TextStyle(fontSize: FontSize.x4l, color: Colors.grey.shade300),
+                  ),
+                  TextSpan(
+                    text: groom.nickname,
+                    style: TextStyle(fontSize: FontSize.x8l, color: groomNameColor),
+                  ),
+                ],
+              ),
+              style: AppFonts.pacifico(fontSize: FontSize.x8l, height: 1.1),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Stack(
       children: [
         Align(

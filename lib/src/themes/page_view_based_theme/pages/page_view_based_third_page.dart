@@ -2,82 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
-
-class PageViewBasedThirdPageConfig {
-  const PageViewBasedThirdPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.contractTitleColor,
-    required this.contractBaseTextColor,
-    required this.receptionTitleColor,
-    required this.receptionBaseTextColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.contractCountdownBorderWidth,
-    required this.contractCountdownOddColor,
-    required this.contractCountdownEvenColor,
-    required this.contractCountdownOddBorderColor,
-    required this.contractCountdownEvenBorderColor,
-    required this.contractCountdownNumberColor,
-    required this.contractCountdownUnitColor,
-    required this.receptionCountdownBorderWidth,
-    required this.receptionCountdownOddColor,
-    required this.receptionCountdownEvenColor,
-    required this.receptionCountdownOddBorderColor,
-    required this.receptionCountdownEvenBorderColor,
-    required this.receptionCountdownNumberColor,
-    required this.receptionCountdownUnitColor,
-    required this.useLightningEffectOnCountdown,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color contractTitleColor;
-  final Color contractBaseTextColor;
-  final Color receptionTitleColor;
-  final Color receptionBaseTextColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final double contractCountdownBorderWidth;
-  final Color contractCountdownOddColor;
-  final Color contractCountdownEvenColor;
-  final Color contractCountdownOddBorderColor;
-  final Color contractCountdownEvenBorderColor;
-  final Color contractCountdownNumberColor;
-  final Color contractCountdownUnitColor;
-  final double receptionCountdownBorderWidth;
-  final Color receptionCountdownOddColor;
-  final Color receptionCountdownEvenColor;
-  final Color receptionCountdownOddBorderColor;
-  final Color receptionCountdownEvenBorderColor;
-  final Color receptionCountdownNumberColor;
-  final Color receptionCountdownUnitColor;
-  final bool useLightningEffectOnCountdown;
-}
 
 class PageViewBasedThirdPage extends StatelessWidget {
   const PageViewBasedThirdPage({super.key, required this.config, required this.contractEvent, required this.receptionEvent});
@@ -115,26 +44,9 @@ class PageViewBasedThirdPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.event, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Weddings Event' : 'Acara Pernikahan',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
           ),
+
           if (config.useBackdropBlurOnScaffold)
             Positioned(
               bottom: 0,
@@ -202,23 +114,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                           FadeAndSlideTransition(
                             slideFromOffset: .0,
                             delayBeforeStart: const Duration(milliseconds: 500),
-                            child: Row(
-                              mainAxisSize: .min,
-                              children: [
-                                Icon(Icons.volunteer_activism, color: config.contractTitleColor),
-                                const SizedBox(width: 8),
-                                Text(
-                                  langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
-                                  style: AppFonts.inter(
-                                    color: config.contractTitleColor,
-                                    fontSize: FontSize.x2l,
-                                    fontWeight: .w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(Icons.menu_book, color: config.contractTitleColor),
-                              ],
-                            ),
+                            child: _contractTitle(langCode),
                           ),
                           SizedBox(height: H.x2s),
                           FadeAndSlideTransition(
@@ -226,29 +122,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                             slideFrom: .bottom,
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
-                            child: Column(
-                              children: [
-                                Text(
-                                  DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
-                                  style: AppFonts.inter(
-                                    color: config.contractBaseTextColor,
-                                    fontSize: FontSize.lg,
-                                    fontWeight: .w500,
-                                  ),
-                                ),
-                                SizedBox(height: H.x10s),
-                                Text(
-                                  langCode == 'en'
-                                      ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
-                                      : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
-                                  style: AppFonts.inter(
-                                    color: config.contractBaseTextColor,
-                                    fontSize: FontSize.md,
-                                    fontWeight: .w300,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            child: _contractTime(langCode),
                           ),
                           SizedBox(height: H.md),
                           SizedBox(
@@ -265,6 +139,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                               time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: false,
                             ),
                           ),
                         ],
@@ -286,23 +161,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                           FadeAndSlideTransition(
                             slideFromOffset: .0,
                             delayBeforeStart: const Duration(milliseconds: 500),
-                            child: Row(
-                              mainAxisSize: .min,
-                              children: [
-                                Icon(Icons.celebration, color: config.receptionTitleColor),
-                                const SizedBox(width: 8),
-                                Text(
-                                  langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
-                                  style: AppFonts.inter(
-                                    color: config.receptionTitleColor,
-                                    fontSize: FontSize.x2l,
-                                    fontWeight: .w500,
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Icon(Icons.restaurant, color: config.receptionTitleColor),
-                              ],
-                            ),
+                            child: _receptionTitle(langCode),
                           ),
                           SizedBox(height: H.x2s),
                           FadeAndSlideTransition(
@@ -310,29 +169,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                             slideFrom: .bottom,
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
-                            child: Column(
-                              children: [
-                                Text(
-                                  DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),
-                                  style: AppFonts.inter(
-                                    color: config.receptionBaseTextColor,
-                                    fontSize: FontSize.lg,
-                                    fontWeight: .w500,
-                                  ),
-                                ),
-                                SizedBox(height: H.x10s),
-                                Text(
-                                  langCode == 'en'
-                                      ? '${DateUtil.format(receptionEvent.startTime, .HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, .HHmm)} o\'clock WIB'}'
-                                      : 'Pukul ${DateUtil.format(receptionEvent.startTime, .HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, .HHmm)} WIB'}',
-                                  style: AppFonts.inter(
-                                    color: config.receptionBaseTextColor,
-                                    fontSize: FontSize.md,
-                                    fontWeight: .w300,
-                                  ),
-                                ),
-                              ],
-                            ),
+                            child: _receptionTime(langCode),
                           ),
                           SizedBox(height: H.md),
                           SizedBox(
@@ -349,6 +186,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: false,
                             ),
                           ),
                         ],
@@ -386,4 +224,80 @@ class PageViewBasedThirdPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _title(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.event, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Weddings Event' : 'Acara Pernikahan',
+          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+        ),
+      ],
+    ),
+  );
+
+  Widget _contractTitle(String langCode) => Row(
+    mainAxisSize: .min,
+    children: [
+      Icon(Icons.volunteer_activism, color: config.contractTitleColor),
+      const SizedBox(width: 8),
+      Text(
+        langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
+        style: AppFonts.inter(color: config.contractTitleColor, fontSize: FontSize.x2l, fontWeight: .w500),
+      ),
+      const SizedBox(width: 8),
+      Icon(Icons.menu_book, color: config.contractTitleColor),
+    ],
+  );
+
+  Widget _contractTime(String langCode) => Column(
+    children: [
+      Text(
+        DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
+        style: AppFonts.inter(color: config.contractBaseTextColor, fontSize: FontSize.lg, fontWeight: .w500),
+      ),
+      SizedBox(height: H.x10s),
+      Text(
+        langCode == 'en'
+            ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
+            : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
+        style: AppFonts.inter(color: config.contractBaseTextColor, fontSize: FontSize.md, fontWeight: .w300),
+      ),
+    ],
+  );
+
+  Widget _receptionTitle(String langCode) => Row(
+    mainAxisSize: .min,
+    children: [
+      Icon(Icons.celebration, color: config.receptionTitleColor),
+      const SizedBox(width: 8),
+      Text(
+        langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
+        style: AppFonts.inter(color: config.receptionTitleColor, fontSize: FontSize.x2l, fontWeight: .w500),
+      ),
+      const SizedBox(width: 8),
+      Icon(Icons.restaurant, color: config.receptionTitleColor),
+    ],
+  );
+
+  Widget _receptionTime(String langCode) => Column(
+    children: [
+      Text(
+        DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),
+        style: AppFonts.inter(color: config.receptionBaseTextColor, fontSize: FontSize.lg, fontWeight: .w500),
+      ),
+      SizedBox(height: H.x10s),
+      Text(
+        langCode == 'en'
+            ? '${DateUtil.format(receptionEvent.startTime, .HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, .HHmm)} o\'clock WIB'}'
+            : 'Pukul ${DateUtil.format(receptionEvent.startTime, .HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, .HHmm)} WIB'}',
+        style: AppFonts.inter(color: config.receptionBaseTextColor, fontSize: FontSize.md, fontWeight: .w300),
+      ),
+    ],
+  );
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -9,76 +10,6 @@ import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-class PageViewBasedFourthDifferentLocationPageConfig {
-  const PageViewBasedFourthDifferentLocationPageConfig({
-    this.foreground,
-    this.background,
-    required this.useBackdropBlurOnScaffold,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.dateTimeIconColor,
-    required this.dateTimeBaseTextColor,
-    required this.countdownBorderWidth,
-    required this.countdownOddColor,
-    required this.countdownEvenColor,
-    required this.countdownOddBorderColor,
-    required this.countdownEvenBorderColor,
-    required this.countdownNumberColor,
-    required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.placeIconColor,
-    required this.placeBaseTextColor,
-    required this.addressTextColor,
-    required this.mapsBorderColor,
-    required this.getDirectionsButtonColor,
-    required this.getDirectionsButtonLabelColor,
-    required this.getDirectionsButtonBorderWidth,
-    required this.getDirectionsButtonBorderColor,
-  });
-
-  final Widget? foreground;
-  final Widget? background;
-  final bool useBackdropBlurOnScaffold;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color dateTimeIconColor;
-  final Color dateTimeBaseTextColor;
-  final double countdownBorderWidth;
-  final Color countdownOddColor;
-  final Color countdownEvenColor;
-  final Color countdownOddBorderColor;
-  final Color countdownEvenBorderColor;
-  final Color countdownNumberColor;
-  final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final Color placeIconColor;
-  final Color placeBaseTextColor;
-  final Color addressTextColor;
-  final Color mapsBorderColor;
-  final Color getDirectionsButtonColor;
-  final Color getDirectionsButtonLabelColor;
-  final double getDirectionsButtonBorderWidth;
-  final Color getDirectionsButtonBorderColor;
-}
 
 class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
   const PageViewBasedFourthDifferentLocationPage({super.key, required this.config, required this.receptionEvent});
@@ -251,6 +182,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
+                              noAnimate: false,
                             ),
                           ),
                         ],

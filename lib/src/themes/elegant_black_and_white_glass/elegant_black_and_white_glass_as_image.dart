@@ -1,40 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlackAndWhiteGlass extends StatelessWidget {
-  const ElegantBlackAndWhiteGlass({
+class ElegantBlackAndWhiteGlassAsImage extends StatelessWidget {
+  const ElegantBlackAndWhiteGlassAsImage({
     super.key,
-    this.heightAdjustment = 0,
     this.initialPage = 0,
     required this.useWrapper,
-    required this.viewAsSinglePage,
-    required this.viewType,
-    required this.invitationId,
     required this.invitationData,
-    this.imagesRaw,
     required this.brandProfile,
   });
 
-  final double heightAdjustment;
   final int initialPage;
   final bool useWrapper;
-  final bool viewAsSinglePage;
-  final ViewType viewType;
-  final String invitationId;
   final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBased(
+    return PageViewBasedAsImage(
       configs: PageViewBasedConfigs(
         tabConfig: PageViewWithBottomTabBarConfig(
           useGlassEffect: true,
@@ -53,7 +42,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
             bubbleColor3: Colors.grey.shade600,
             bubbleColor4: Colors.grey.shade500,
             bubbleColor5: Colors.grey.shade400,
-            noAnimate: false,
+            noAnimate: true,
           ),
         ],
         particleSphere: ParticleSphereConfig.circle(
@@ -328,14 +317,9 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           brandTextColor: Colors.grey.shade600,
         ),
       ),
-      heightAdjustment: heightAdjustment,
       initialPage: initialPage,
       useWrapper: useWrapper,
-      viewAsSinglePage: viewAsSinglePage,
-      viewType: viewType,
-      invitationId: invitationId,
       invitationData: invitationData,
-      imagesRaw: imagesRaw,
       brandProfile: brandProfile,
     );
   }
