@@ -73,7 +73,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         firstPageConfig: PageViewBasedFirstPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -99,7 +99,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         secondPageConfig: PageViewBasedSecondPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -138,7 +138,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         thirdPageConfig: PageViewBasedThirdPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -177,7 +177,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -215,7 +215,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         fourthPageConfig: PageViewBasedFourthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -243,7 +243,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -281,7 +281,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         fifthPageConfig: PageViewBasedFifthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -310,7 +310,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         sixthPageConfig: PageViewBasedSixthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -337,7 +337,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         seventhPageConfig: PageViewBasedSeventhPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
@@ -386,7 +386,7 @@ class JavaneseRoseGold extends StatelessWidget {
         ),
         eighthPageConfig: PageViewBasedEighthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
-          background: const JavaneseRoseGoldPageBackground(),
+          background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),

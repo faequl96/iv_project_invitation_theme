@@ -43,8 +43,6 @@ class _ForegroundSlideTransitionState extends State<ForegroundSlideTransition> w
   }
 
   void _initAnimation() {
-    _controller = AnimationController(vsync: this, duration: widget.animationSpeed);
-
     final beginOffset = widget.slideFrom == .left ? const Offset(-1, 0) : const Offset(1, 0);
     final endOffset = widget.slideFrom == .left ? const Offset(.08, 0) : const Offset(-.08, 0);
 
@@ -66,6 +64,8 @@ class _ForegroundSlideTransitionState extends State<ForegroundSlideTransition> w
   @override
   void initState() {
     super.initState();
+
+    _controller = AnimationController(vsync: this, duration: widget.animationSpeed);
 
     _initAnimation();
 
