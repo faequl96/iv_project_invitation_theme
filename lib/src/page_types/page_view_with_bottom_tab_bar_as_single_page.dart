@@ -6,86 +6,64 @@ import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
-class PageViewWithBottomTabBar extends StatefulWidget {
-  const PageViewWithBottomTabBar({
+class PageViewWithBottomTabBarAsSinglePage extends StatefulWidget {
+  const PageViewWithBottomTabBarAsSinglePage({
     super.key,
-    required this.wrapper,
+    this.initialPage = 0,
+    this.wrapper,
     this.backgrounds,
     this.particleSphere,
     required this.tabConfig,
-    required this.pages,
+    required this.page,
     required this.tabsBuilder,
   });
 
-  final Widget wrapper;
+  final int initialPage;
+  final Widget? wrapper;
   final List<Widget>? backgrounds;
   final ParticleSphereConfig? particleSphere;
   final PageViewWithBottomTabBarConfig tabConfig;
-  final List<Widget> pages;
-  final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
+  final Widget page;
+  final List<Widget> Function(int tabActive) tabsBuilder;
 
   @override
-  State<PageViewWithBottomTabBar> createState() => _PageViewWithBottomTabBarState();
+  State<PageViewWithBottomTabBarAsSinglePage> createState() => _PageViewWithBottomTabBarAsSinglePageState();
 }
 
-class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> with SingleTickerProviderStateMixin {
+class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBottomTabBarAsSinglePage>
+    with SingleTickerProviderStateMixin {
   TabController? _tabController;
-  PageController? _pageController;
 
   List<Widget> _tabs = [];
   void _buildTabs() => _tabs = widget.tabsBuilder(_indexActive);
 
-  late final ValueNotifier<int> _indexActive;
-  bool _isTabTaped = false;
-
-  final _isLowerTab = ValueNotifier(true);
+  late final int _indexActive;
 
   late final InvitationThemeCoreCubit _coreCubit;
-
-  void _scrollListener() async {
-    final offset = _pageController?.page ?? 0;
-    final offsetPage = (offset - offset.floor()).abs();
-    if (offsetPage < 0.01) {
-      if (_coreCubit.state.animationTrigger == 0) {
-        await Future<void>.delayed(const Duration(milliseconds: 50));
-        _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
-      }
-    } else {
-      if (offsetPage < 0.96) {
-        if (_coreCubit.state.animationTrigger == 1) {
-          _coreCubit.state.copyWith(animationTrigger: 0, pageActive: _indexActive.value).emitState();
-        }
-      } else {
-        if (_coreCubit.state.animationTrigger == 0) {
-          _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
-        }
-      }
-    }
-  }
 
   @override
   void initState() {
     super.initState();
 
-    _indexActive = ValueNotifier(0);
+    _indexActive = widget.initialPage;
     _buildTabs();
-    _tabController = TabController(length: _tabs.length, vsync: this);
-    _pageController = PageController();
+    _tabController = TabController(initialIndex: widget.initialPage, length: _tabs.length, vsync: this);
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
 
-    _pageController?.addListener(_scrollListener);
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future<void>.delayed(const Duration(milliseconds: 300));
+      if (widget.initialPage == 0) {
+        if (widget.wrapper == null) _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+      } else {
+        _coreCubit.state.copyWith(animationTrigger: 1).emitState();
+      }
+    });
   }
 
   @override
   void dispose() {
-    _pageController?.removeListener(_scrollListener);
-
     _tabController?.dispose();
-    _pageController?.dispose();
-
-    _indexActive.dispose();
-    _isLowerTab.dispose();
 
     super.dispose();
   }
@@ -107,59 +85,40 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
                   ClipRect(
                     child: CircleParticleSphere(
                       config: widget.particleSphere!,
-                      initialPage: 0,
-                      viewAsSinglePage: false,
-                      useWrapper: true,
-                      child: _page,
+                      initialPage: widget.initialPage,
+                      viewAsSinglePage: true,
+                      useWrapper: widget.wrapper != null,
+                      child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
                     ),
                   )
                 else
                   ClipRect(
                     child: ImageParticleSphere(
                       config: widget.particleSphere!,
-                      initialPage: 0,
-                      viewAsSinglePage: false,
-                      useWrapper: true,
-                      child: _page,
+                      initialPage: widget.initialPage,
+                      viewAsSinglePage: true,
+                      useWrapper: widget.wrapper != null,
+                      child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
                     ),
                   ),
               ] else
-                _page,
+                SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
 
-              ValueListenableBuilder(
-                valueListenable: _isLowerTab,
-                builder: (_, isLowerTab, _) =>
-                    AnimatedPositioned(bottom: isLowerTab ? -55 : 0, duration: const Duration(milliseconds: 300), child: _tab),
+              Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),
+
+              widget.wrapper ?? const SizedBox.shrink(),
+
+              const SizedBox(
+                height: .maxFinite,
+                width: .maxFinite,
+                child: ColoredBox(color: Colors.transparent),
               ),
-
-              widget.wrapper,
             ],
           ),
         ),
       ),
     );
   }
-
-  Widget get _page => SizedBox(
-    height: Screen.height,
-    width: Screen.width,
-    child: PageView.builder(
-      controller: _pageController,
-      itemCount: widget.pages.length,
-      scrollDirection: .vertical,
-      itemBuilder: (_, i) => widget.pages[i],
-      onPageChanged: (index) {
-        if (_isTabTaped) {
-          _isTabTaped = false;
-        } else {
-          _tabController?.animateTo(index);
-          _indexActive.value = index;
-        }
-
-        _isLowerTab.value = index == 0 || index == _tabs.length - 1 ? true : false;
-      },
-    ),
-  );
 
   Widget get _tab => SizedBox(
     width: Screen.width,
@@ -176,7 +135,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
             )
           else
             _tabBar,
-          if (widget.tabConfig.useGlassEffect && _indexActive.value > 0)
+          if (widget.tabConfig.useGlassEffect && _indexActive > 0)
             GlassEffectBox(
               width: Screen.width - 28,
               height: 52,
@@ -199,11 +158,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
       child: TabBar(
         tabs: _tabs,
         controller: _tabController,
-        onTap: (value) {
-          _isTabTaped = true;
-          _pageController?.animateToPage(value, duration: const Duration(milliseconds: 300), curve: Curves.ease);
-          _indexActive.value = value;
-        },
+        onTap: (value) {},
         isScrollable: true,
         padding: const .symmetric(horizontal: 14),
         dividerHeight: 0,

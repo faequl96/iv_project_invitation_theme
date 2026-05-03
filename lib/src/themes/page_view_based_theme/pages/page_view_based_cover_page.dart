@@ -22,7 +22,6 @@ class PageViewBasedCoverPage extends StatelessWidget {
     required this.bride,
     required this.groom,
     required this.time,
-    required this.useWrapper,
   });
 
   final PageViewBasedCoverPageConfig config;
@@ -32,7 +31,6 @@ class PageViewBasedCoverPage extends StatelessWidget {
   final BridegroomResponse bride;
   final BridegroomResponse groom;
   final EventResponse time;
-  final bool useWrapper;
 
   @override
   Widget build(BuildContext context) {

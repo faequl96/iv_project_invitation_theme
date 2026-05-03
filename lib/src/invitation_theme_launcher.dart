@@ -13,9 +13,6 @@ class InvitationThemeLauncher extends StatefulWidget {
   const InvitationThemeLauncher({
     super.key,
     this.heightAdjustment = 0,
-    this.initialPage = 0,
-    this.useWrapper = true,
-    this.viewAsSinglePage = false,
     required this.viewType,
     required this.invitationThemeId,
     required this.invitationId,
@@ -25,9 +22,6 @@ class InvitationThemeLauncher extends StatefulWidget {
   });
 
   final double heightAdjustment;
-  final int initialPage;
-  final bool useWrapper;
-  final bool viewAsSinglePage;
   final ViewType viewType;
   final int invitationThemeId;
   final String invitationId;
@@ -58,9 +52,6 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   Widget get _content => switch (widget.invitationThemeId) {
     1 => ElegantBlackAndWhiteGlass(
       heightAdjustment: widget.heightAdjustment,
-      initialPage: widget.initialPage,
-      useWrapper: widget.useWrapper,
-      viewAsSinglePage: widget.viewAsSinglePage,
       viewType: widget.viewType,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
@@ -69,9 +60,6 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
     ),
     2 => ElegantRedVelvetGlass(
       heightAdjustment: widget.heightAdjustment,
-      initialPage: widget.initialPage,
-      useWrapper: widget.useWrapper,
-      viewAsSinglePage: widget.viewAsSinglePage,
       viewType: widget.viewType,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
@@ -80,9 +68,6 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
     ),
     3 => ElegantGreenMatchaGlass(
       heightAdjustment: widget.heightAdjustment,
-      initialPage: widget.initialPage,
-      useWrapper: widget.useWrapper,
-      viewAsSinglePage: widget.viewAsSinglePage,
       viewType: widget.viewType,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
@@ -91,9 +76,6 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
     ),
     4 => ElegantBlueSkyGlass(
       heightAdjustment: widget.heightAdjustment,
-      initialPage: widget.initialPage,
-      useWrapper: widget.useWrapper,
-      viewAsSinglePage: widget.viewAsSinglePage,
       viewType: widget.viewType,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
@@ -102,9 +84,6 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
     ),
     5 => JavaneseRoseGold(
       heightAdjustment: widget.heightAdjustment,
-      initialPage: widget.initialPage,
-      useWrapper: widget.useWrapper,
-      viewAsSinglePage: widget.viewAsSinglePage,
       viewType: widget.viewType,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
@@ -113,9 +92,6 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
     ),
     6 => CanvasTheme(
       heightAdjustment: widget.heightAdjustment,
-      initialPage: widget.initialPage,
-      useWrapper: widget.useWrapper,
-      viewAsSinglePage: widget.viewAsSinglePage,
       viewType: widget.viewType,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
