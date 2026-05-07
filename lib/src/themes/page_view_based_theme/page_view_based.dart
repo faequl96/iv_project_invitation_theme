@@ -24,9 +24,6 @@ class PageViewBased extends StatefulWidget {
     super.key,
     required this.configs,
     this.heightAdjustment = 0,
-    this.initialPage = 0,
-    required this.useWrapper,
-    required this.viewAsSinglePage,
     required this.viewType,
     required this.invitationId,
     required this.invitationData,
@@ -36,9 +33,6 @@ class PageViewBased extends StatefulWidget {
 
   final PageViewBasedConfigs configs;
   final double heightAdjustment;
-  final int initialPage;
-  final bool useWrapper;
-  final bool viewAsSinglePage;
   final ViewType viewType;
   final String invitationId;
   final InvitationDataResponse invitationData;
@@ -91,17 +85,13 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
     return PageViewWithBottomTabBar(
-      initialPage: widget.initialPage,
-      viewAsSinglePage: widget.viewAsSinglePage,
       tabConfig: widget.configs.tabConfig,
-      wrapper: widget.useWrapper
-          ? InitializerWrapper(
-              viewType: widget.viewType,
-              bride: widget.invitationData.bride,
-              groom: widget.invitationData.groom,
-              time: widget.invitationData.contractEvent,
-            )
-          : null,
+      wrapper: InitializerWrapper(
+        viewType: widget.viewType,
+        bride: widget.invitationData.bride,
+        groom: widget.invitationData.groom,
+        time: widget.invitationData.contractEvent,
+      ),
       backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
       particleSphere: widget.configs.particleSphere,
       pages: [
@@ -113,7 +103,6 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
-          useWrapper: widget.useWrapper,
         ),
         PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
         PageViewBasedSecondPage(

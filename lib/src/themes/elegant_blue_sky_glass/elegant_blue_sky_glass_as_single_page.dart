@@ -1,35 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_single_page.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class ElegantBlueSkyGlass extends StatelessWidget {
-  const ElegantBlueSkyGlass({
+class ElegantBlueSkyGlassAsSinglePage extends StatelessWidget {
+  const ElegantBlueSkyGlassAsSinglePage({
     super.key,
-    this.heightAdjustment = 0,
-    required this.viewType,
-    required this.invitationId,
+    this.initialPage = 0,
+    required this.useWrapper,
     required this.invitationData,
-    this.imagesRaw,
     required this.brandProfile,
   });
 
-  final double heightAdjustment;
-  final ViewType viewType;
-  final String invitationId;
+  final int initialPage;
+  final bool useWrapper;
   final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
   final BrandProfileResponse brandProfile;
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBased(
+    return PageViewBasedAsSinglePage(
       configs: PageViewBasedConfigs(
         tabConfig: PageViewWithBottomTabBarConfig(
           useGlassEffect: true,
@@ -488,11 +483,9 @@ class ElegantBlueSkyGlass extends StatelessWidget {
           brandTextColor: Colors.grey.shade600,
         ),
       ),
-      heightAdjustment: heightAdjustment,
-      viewType: viewType,
-      invitationId: invitationId,
+      initialPage: initialPage,
+      useWrapper: useWrapper,
       invitationData: invitationData,
-      imagesRaw: imagesRaw,
       brandProfile: brandProfile,
     );
   }
