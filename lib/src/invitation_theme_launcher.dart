@@ -44,7 +44,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+      data: MediaQuery.of(context).copyWith(textScaler: const .linear(1)),
       child: _content,
     );
   }

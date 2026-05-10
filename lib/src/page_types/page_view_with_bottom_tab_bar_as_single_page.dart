@@ -79,9 +79,9 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
           child: Stack(
             alignment: .center,
             children: [
-              ...(widget.backgrounds ?? []),
+              ...?widget.backgrounds,
               if (widget.particleSphere != null) ...[
-                if (widget.particleSphere!.type == ParticleType.circle)
+                if (widget.particleSphere!.type == .circle)
                   ClipRect(
                     child: CircleParticleSphere(
                       config: widget.particleSphere!,
@@ -106,7 +106,7 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
 
               Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),
 
-              widget.wrapper ?? const SizedBox.shrink(),
+              ?widget.wrapper,
 
               const SizedBox(
                 height: .maxFinite,

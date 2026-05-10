@@ -60,9 +60,9 @@ class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabB
       child: Stack(
         alignment: .center,
         children: [
-          ...(widget.backgrounds ?? []),
+          ...?widget.backgrounds,
           if (widget.particleSphere != null && widget.wrapper == null) ...[
-            if (widget.particleSphere!.type == ParticleType.circle)
+            if (widget.particleSphere!.type == .circle)
               ClipRect(
                 child: CircleParticleSphereAsImage(
                   config: widget.particleSphere!,
@@ -81,7 +81,7 @@ class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabB
 
           Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),
 
-          widget.wrapper ?? const SizedBox.shrink(),
+          ?widget.wrapper,
 
           const SizedBox(
             height: .maxFinite,
