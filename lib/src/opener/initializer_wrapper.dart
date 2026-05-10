@@ -127,7 +127,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 alignment: const Alignment(0, .3),
                 child: Text(
                   DateUtil.format(widget.time.startTime, .EEEEddMMMMyyyy),
-                  style: AppFonts.inter(fontSize: FontSize.md, color: Colors.grey.shade300, fontWeight: .w300),
+                  style: AppFonts.inter(fontSize: FontSize.md, color: Colors.grey.shade300, fontWeight: .w400),
                 ),
               ),
               Align(
@@ -139,7 +139,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                     children: [
                       Text(
                         langCode == 'en' ? 'To :' : 'Kepada :',
-                        style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w300, color: Colors.grey.shade300),
+                        style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w400, color: Colors.grey.shade300),
                       ),
                       const SizedBox(height: 6),
                       if (invitedGuest != null)
