@@ -36,7 +36,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
             ),
           ),
 
-        config.background ?? const SizedBox.shrink(),
+        ?config.background,
 
         Positioned(top: 0, child: _title(langCode)),
 
@@ -142,7 +142,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
             ),
           ),
 
-        config.foreground ?? const SizedBox.shrink(),
+        ?config.foreground,
       ],
     );
   }

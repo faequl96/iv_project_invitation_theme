@@ -54,7 +54,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
               ),
             ),
 
-          config.background ?? const SizedBox.shrink(),
+          ?config.background,
 
           Positioned(
             top: 0,
@@ -392,7 +392,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
               ),
             ),
 
-          config.foreground ?? const SizedBox.shrink(),
+          ?config.foreground,
         ],
       ),
     );

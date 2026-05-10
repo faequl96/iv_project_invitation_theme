@@ -42,7 +42,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
               ),
             ),
 
-          config.background ?? const SizedBox.shrink(),
+          ?config.background,
 
           Positioned(
             top: 0,
@@ -304,7 +304,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
             ),
           ),
 
-          config.foreground ?? const SizedBox.shrink(),
+          ?config.foreground,
         ],
       ),
     );
