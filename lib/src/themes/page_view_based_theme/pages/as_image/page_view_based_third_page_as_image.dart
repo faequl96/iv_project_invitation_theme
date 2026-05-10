@@ -240,7 +240,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
         langCode == 'en'
             ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
             : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
-        style: AppFonts.inter(color: config.contractBaseTextColor, fontSize: FontSize.md, fontWeight: .w300),
+        style: AppFonts.inter(color: config.contractBaseTextColor, fontSize: FontSize.md, fontWeight: .w400),
       ),
     ],
   );
@@ -270,7 +270,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
         langCode == 'en'
             ? '${DateUtil.format(receptionEvent.startTime, .HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, .HHmm)} o\'clock WIB'}'
             : 'Pukul ${DateUtil.format(receptionEvent.startTime, .HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, .HHmm)} WIB'}',
-        style: AppFonts.inter(color: config.receptionBaseTextColor, fontSize: FontSize.md, fontWeight: .w300),
+        style: AppFonts.inter(color: config.receptionBaseTextColor, fontSize: FontSize.md, fontWeight: .w400),
       ),
     ],
   );

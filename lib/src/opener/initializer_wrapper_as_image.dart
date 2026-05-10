@@ -88,7 +88,7 @@ class InitializerWrapperAsImage extends StatelessWidget {
             alignment: const Alignment(0, .3),
             child: Text(
               DateUtil.format(time.startTime, .EEEEddMMMMyyyy),
-              style: AppFonts.inter(fontSize: FontSize.md, color: Colors.grey.shade300, fontWeight: .w300),
+              style: AppFonts.inter(fontSize: FontSize.md, color: Colors.grey.shade300, fontWeight: .w400),
             ),
           ),
           Align(
@@ -100,7 +100,7 @@ class InitializerWrapperAsImage extends StatelessWidget {
                 children: [
                   Text(
                     langCode == 'en' ? 'To :' : 'Kepada :',
-                    style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w300, color: Colors.grey.shade300),
+                    style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w400, color: Colors.grey.shade300),
                   ),
                   const SizedBox(height: 6),
                   Text(

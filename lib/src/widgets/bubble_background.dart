@@ -35,6 +35,11 @@ class BubbleBackground extends StatelessWidget {
               SizedBox(
                 height: Screen.height,
                 width: Screen.width,
+                child: DecoratedBox(decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9))),
+              ),
+              SizedBox(
+                height: Screen.height,
+                width: Screen.width,
                 child: DecoratedBox(decoration: BoxDecoration(color: backgroundColor)),
               ),
               Positioned(
@@ -101,6 +106,11 @@ class BubbleBackground extends StatelessWidget {
                 child: Bubble.fill(size: W.md, color: Colors.white),
               ),
             ] else ...[
+              SizedBox(
+                height: Screen.height,
+                width: Screen.width,
+                child: DecoratedBox(decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9))),
+              ),
               SizedBox(
                 height: Screen.height,
                 width: Screen.width,

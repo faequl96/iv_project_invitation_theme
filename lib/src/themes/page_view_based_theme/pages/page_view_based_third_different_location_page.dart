@@ -163,7 +163,7 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                               style: AppFonts.inter(
                                 color: config.dateTimeBaseTextColor,
                                 fontSize: FontSize.md,
-                                fontWeight: .w300,
+                                fontWeight: .w400,
                               ),
                             ),
                           ),
