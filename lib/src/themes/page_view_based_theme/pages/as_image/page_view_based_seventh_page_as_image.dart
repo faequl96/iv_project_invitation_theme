@@ -37,7 +37,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
             ),
           ),
 
-        config.background ?? const SizedBox.shrink(),
+        ?config.background,
 
         Positioned(top: 0, child: _title(langCode)),
 
@@ -149,7 +149,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
             ),
           ),
 
-        config.foreground ?? const SizedBox.shrink(),
+        ?config.foreground,
       ],
     );
   }

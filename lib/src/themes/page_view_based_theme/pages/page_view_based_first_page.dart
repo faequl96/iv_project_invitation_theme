@@ -38,7 +38,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
               ),
             ),
 
-          config.background ?? const SizedBox.shrink(),
+          ?config.background,
 
           Positioned(
             top: 0,
@@ -220,7 +220,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
               ),
             ),
 
-          config.foreground ?? const SizedBox.shrink(),
+          ?config.foreground,
         ],
       ),
     );

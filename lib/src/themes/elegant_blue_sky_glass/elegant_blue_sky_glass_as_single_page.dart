@@ -55,7 +55,7 @@ class ElegantBlueSkyGlassAsSinglePage extends StatelessWidget {
           //   ),
           // ),
         ],
-        particleSphere: ParticleSphereConfig.circle(
+        particleSphere: .circle(
           circleParticleVariatios: [
             const CircleParticle(color: Colors.lightBlueAccent),
             const CircleParticle(color: Colors.white),

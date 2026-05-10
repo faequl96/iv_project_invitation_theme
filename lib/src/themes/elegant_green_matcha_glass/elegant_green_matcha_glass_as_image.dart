@@ -46,7 +46,7 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
             noAnimate: true,
           ),
         ],
-        particleSphere: ParticleSphereConfig.circle(
+        particleSphere: .circle(
           circleParticleVariatios: [
             CircleParticle(color: ColorConverter.darken(Colors.lightGreenAccent, 5)),
             const CircleParticle(color: Colors.white),

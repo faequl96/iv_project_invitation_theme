@@ -40,7 +40,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
               ),
             ),
 
-          config.background ?? const SizedBox.shrink(),
+          ?config.background,
 
           Positioned(
             top: 0,
@@ -173,7 +173,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
               ),
             ),
 
-          config.foreground ?? const SizedBox.shrink(),
+          ?config.foreground,
         ],
       ),
     );

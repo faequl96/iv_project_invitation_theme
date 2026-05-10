@@ -101,9 +101,9 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
           child: Stack(
             alignment: .center,
             children: [
-              ...(widget.backgrounds ?? []),
+              ...?widget.backgrounds,
               if (widget.particleSphere != null) ...[
-                if (widget.particleSphere!.type == ParticleType.circle)
+                if (widget.particleSphere!.type == .circle)
                   ClipRect(
                     child: CircleParticleSphere(
                       config: widget.particleSphere!,

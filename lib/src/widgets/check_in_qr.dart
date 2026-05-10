@@ -49,7 +49,7 @@ class _CheckInQrContent extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             localeCubit.state.languageCode == 'id' ? 'Kode QR untuk Check-In' : 'QR Code for Check-In',
-            style: AppFonts.nunito(fontSize: 16, fontWeight: .w800),
+            style: AppFonts.inter(fontSize: 16, fontWeight: .w800),
           ),
           const SizedBox(height: 18),
           QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
@@ -58,7 +58,7 @@ class _CheckInQrContent extends StatelessWidget {
             localeCubit.state.languageCode == 'id'
                 ? 'Silahkan tunjukkan Kode QR ini untuk Check-In ke acara pernikahan'
                 : 'Please show this QR Code to Check-In to the wedding event',
-            style: AppFonts.nunito(fontSize: 15, fontWeight: .w500),
+            style: AppFonts.inter(fontSize: 15, fontWeight: .w500),
             textAlign: .center,
           ),
           const SizedBox(height: 40),

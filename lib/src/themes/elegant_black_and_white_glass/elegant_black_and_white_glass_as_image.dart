@@ -45,7 +45,7 @@ class ElegantBlackAndWhiteGlassAsImage extends StatelessWidget {
             noAnimate: true,
           ),
         ],
-        particleSphere: ParticleSphereConfig.circle(
+        particleSphere: .circle(
           circleParticleVariatios: [
             const CircleParticle(color: Colors.grey),
             const CircleParticle(color: Colors.white),
