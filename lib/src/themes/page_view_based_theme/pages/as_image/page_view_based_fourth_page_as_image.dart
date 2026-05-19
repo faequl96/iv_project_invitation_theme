@@ -189,13 +189,15 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _getDirection(String langCode) => GeneralEffectsButton(
+  Widget _getDirection(String langCode) => QuickButton(
     onTap: () {},
-    padding: const .symmetric(horizontal: 24),
-    height: W.lg + H.x10s,
-    borderRadius: .circular(30),
-    border: .all(width: config.getDirectionsButtonBorderWidth, color: config.getDirectionsButtonBorderColor),
-    color: config.getDirectionsButtonColor,
+    style: QuickButtonStyle(
+      padding: const .symmetric(horizontal: 24),
+      height: W.lg + H.x10s,
+      borderRadius: .circular(30),
+      border: .all(width: config.getDirectionsButtonBorderWidth, color: config.getDirectionsButtonBorderColor),
+      color: config.getDirectionsButtonColor,
+    ),
     child: Stack(
       alignment: .center,
       children: [

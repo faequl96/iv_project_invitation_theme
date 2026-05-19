@@ -14,16 +14,18 @@ class Padlock extends StatelessWidget {
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
-    return GeneralEffectsButton(
+    return QuickButton(
       onTap: () async {
         onOpened();
         await Future<void>.delayed(const Duration(seconds: 2));
       },
-      height: W.lg + H.x10s,
-      width: W.x12l,
-      borderRadius: .circular(30),
-      color: Colors.grey.shade900.withValues(alpha: .2),
-      border: .all(width: .5, color: Colors.grey.shade500),
+      style: QuickButtonStyle(
+        height: W.lg + H.x10s,
+        width: W.x12l,
+        borderRadius: .circular(30),
+        color: Colors.grey.shade900.withValues(alpha: .2),
+        border: .all(width: .5, color: Colors.grey.shade500),
+      ),
       child: Stack(
         alignment: .center,
         children: [

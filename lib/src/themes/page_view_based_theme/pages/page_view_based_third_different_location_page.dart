@@ -251,16 +251,18 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1800),
-                        child: GeneralEffectsButton(
+                        child: QuickButton(
                           onTap: () => launchUrl(Uri.parse(contractEvent.mapsUrl), mode: .externalNonBrowserApplication),
-                          padding: const .symmetric(horizontal: 24),
-                          height: W.lg + H.x10s,
-                          borderRadius: .circular(30),
-                          border: .all(
-                            width: config.getDirectionsButtonBorderWidth,
-                            color: config.getDirectionsButtonBorderColor,
+                          style: QuickButtonStyle(
+                            padding: const .symmetric(horizontal: 24),
+                            height: W.lg + H.x10s,
+                            borderRadius: .circular(30),
+                            border: .all(
+                              width: config.getDirectionsButtonBorderWidth,
+                              color: config.getDirectionsButtonBorderColor,
+                            ),
+                            color: config.getDirectionsButtonColor,
                           ),
-                          color: config.getDirectionsButtonColor,
                           child: Stack(
                             alignment: .center,
                             children: [

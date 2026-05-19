@@ -349,7 +349,7 @@ class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButt
 
   @override
   Widget build(BuildContext context) {
-    return GeneralEffectsButton(
+    return QuickButton(
       onTap: () async {
         _isCopied = true;
         setState(() {});
@@ -360,7 +360,7 @@ class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButt
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: _isCopied ? ColorConverter.lighten(AppColor.primaryColor, 90) : widget.baseColor.withValues(alpha: .1),
+          color: _isCopied ? ColorUtil.lighten(AppColor.primaryColor, 90) : widget.baseColor.withValues(alpha: .1),
           borderRadius: .circular(5),
           border: .all(width: .5, color: _isCopied ? AppColor.primaryColor : widget.baseColor),
         ),

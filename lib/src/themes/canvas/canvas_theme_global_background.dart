@@ -22,10 +22,7 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [
-                  ColorConverter.darken(Colors.blue.shade700, 40).withValues(alpha: .6),
-                  Colors.white.withValues(alpha: .0),
-                ],
+                colors: [ColorUtil.darken(Colors.blue.shade700, 40).withValues(alpha: .6), Colors.white.withValues(alpha: .0)],
               ),
             ),
           ),

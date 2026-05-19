@@ -585,7 +585,7 @@ class PageViewBasedSeventhPageConfig {
     required this.dropdownItemTextColor,
     required this.dropdownItemSelectedTextColor,
     required this.dropdownItemHoveredColor,
-    required this.dropdownItemSplashColor,
+    // required this.dropdownItemSplashColor,
     required this.submitButtonColor,
     required this.submitButtonLabelColor,
     required this.submitButtonBorderWidth,
@@ -632,7 +632,7 @@ class PageViewBasedSeventhPageConfig {
   final Color dropdownItemTextColor;
   final Color dropdownItemSelectedTextColor;
   final Color dropdownItemHoveredColor;
-  final Color dropdownItemSplashColor;
+  // final Color dropdownItemSplashColor;
   final Color submitButtonColor;
   final Color submitButtonLabelColor;
   final double submitButtonBorderWidth;

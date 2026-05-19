@@ -178,9 +178,9 @@ class PageViewBasedFifthPage extends StatelessWidget {
     ),
   );
 
-  Widget _seeMore(BuildContext context, String langCode) => GeneralEffectsButton(
+  Widget _seeMore(BuildContext context, String langCode) => QuickButton(
     onTap: () {
-      ShowModal.bottomSheet(
+      FloatingOverlay.showBottomSheet(
         context,
         barrierColor: Colors.grey.shade700.withValues(alpha: .5),
         header: BottomSheetHeader(
@@ -220,11 +220,13 @@ class PageViewBasedFifthPage extends StatelessWidget {
         },
       );
     },
-    padding: const .symmetric(horizontal: 48),
-    height: W.lg + H.x10s,
-    borderRadius: .circular(30),
-    border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
-    color: config.seeMoreButtonColor,
+    style: QuickButtonStyle(
+      padding: const .symmetric(horizontal: 48),
+      height: W.lg + H.x10s,
+      borderRadius: .circular(30),
+      border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+      color: config.seeMoreButtonColor,
+    ),
     child: Stack(
       alignment: .center,
       children: [

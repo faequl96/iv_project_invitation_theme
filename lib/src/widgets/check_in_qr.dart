@@ -9,7 +9,7 @@ class CheckInQr {
   const CheckInQr._();
 
   static void show(BuildContext context) {
-    ShowModal.bottomSheet(
+    FloatingOverlay.showBottomSheet(
       context,
       barrierColor: Colors.grey.shade700.withValues(alpha: .5),
       dismissible: false,
@@ -22,7 +22,7 @@ class CheckInQr {
         ),
       ),
       decoration: BottomSheetDecoration(
-        color: ColorConverter.lighten(AppColor.primaryColor, 94),
+        color: ColorUtil.lighten(AppColor.primaryColor, 94),
         borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
       ),
       contentBuilder: (_) => const _CheckInQrContent(),

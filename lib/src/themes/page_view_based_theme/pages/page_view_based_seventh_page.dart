@@ -7,7 +7,7 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/time_ago.dart';
-import 'package:iv_project_invitation_theme/src/widgets/enhanced_general_text_field.dart';
+import 'package:iv_project_invitation_theme/src/widgets/general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -126,7 +126,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                         dropdownItemTextColor: config.dropdownItemTextColor,
                         dropdownItemSelectedTextColor: config.dropdownItemSelectedTextColor,
                         dropdownItemHoveredColor: config.dropdownItemHoveredColor,
-                        dropdownItemSplashColor: config.dropdownItemSplashColor,
+                        // dropdownItemSplashColor: config.dropdownItemSplashColor,
                         submitButtonColor: config.submitButtonColor,
                         submitButtonLabelColor: config.submitButtonLabelColor,
                         submitButtonBorderWidth: config.submitButtonBorderWidth,
@@ -220,9 +220,9 @@ class PageViewBasedSeventhPage extends StatelessWidget {
               viewType: viewType,
               isShowMore: false,
             ),
-            GeneralEffectsButton(
+            QuickButton(
               onTap: () {
-                ShowModal.bottomSheet(
+                FloatingOverlay.showBottomSheet(
                   context,
                   barrierColor: Colors.grey.shade700.withValues(alpha: .5),
                   header: BottomSheetHeader(
@@ -261,11 +261,13 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                   },
                 );
               },
-              width: .maxFinite,
-              height: W.lg + H.x10s,
-              borderRadius: .circular(30),
-              border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
-              color: config.seeMoreButtonColor,
+              style: QuickButtonStyle(
+                width: .maxFinite,
+                height: W.lg + H.x10s,
+                borderRadius: .circular(30),
+                border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+                color: config.seeMoreButtonColor,
+              ),
               child: Stack(
                 alignment: .center,
                 children: [
@@ -297,7 +299,7 @@ class RSVPForm extends StatefulWidget {
     required this.dropdownItemTextColor,
     required this.dropdownItemSelectedTextColor,
     required this.dropdownItemHoveredColor,
-    required this.dropdownItemSplashColor,
+    // required this.dropdownItemSplashColor,
     required this.submitButtonColor,
     required this.submitButtonLabelColor,
     required this.submitButtonBorderWidth,
@@ -317,7 +319,7 @@ class RSVPForm extends StatefulWidget {
   final Color dropdownItemTextColor;
   final Color dropdownItemSelectedTextColor;
   final Color dropdownItemHoveredColor;
-  final Color dropdownItemSplashColor;
+  // final Color dropdownItemSplashColor;
   final Color submitButtonColor;
   final Color submitButtonLabelColor;
   final double submitButtonBorderWidth;
@@ -460,7 +462,7 @@ class _RSVPFormState extends State<RSVPForm> {
     );
   }
 
-  Widget _nameField(String langCode) => EnhancedGeneralTextField(
+  Widget _nameField(String langCode) => GeneralTextField(
     fieldTextColor: widget.fieldTextColor,
     fieldLabelColor: widget.fieldLabelColor,
     fieldFillColor: widget.fieldFillColor,
@@ -473,7 +475,7 @@ class _RSVPFormState extends State<RSVPForm> {
   Widget _avatarField() => ValueListenableBuilder(
     valueListenable: _avatar,
     builder: (_, _, _) {
-      return OverlayDropdownField(
+      return QuickDropdownField(
         height: H.x3l,
         style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
         decoration: FieldDecoration(
@@ -509,7 +511,6 @@ class _RSVPFormState extends State<RSVPForm> {
         ),
         splashColor: widget.fieldSplashColor,
         overlayYOffset: 6,
-        overlayBarrier: const ModalBarrier(),
         overlaydecoration: OverlayDecoration(
           height: H.x15l,
           color: widget.overlayColor,
@@ -520,7 +521,7 @@ class _RSVPFormState extends State<RSVPForm> {
           padding: const .symmetric(vertical: 10, horizontal: 14),
           selectedColor: widget.dropdownItemSelectedColor,
           hoveredColor: widget.dropdownItemHoveredColor,
-          splashColor: widget.dropdownItemSplashColor,
+          // splashColor: widget.dropdownItemSplashColor,
         ),
         value: _avatar.value,
         dropdownItems: Avatars.values.map((item) => item.name).toList(),
@@ -547,7 +548,7 @@ class _RSVPFormState extends State<RSVPForm> {
   Widget _possiblePresenceField(String langCode) => ValueListenableBuilder(
     valueListenable: _possiblePresence,
     builder: (_, _, _) {
-      return OverlayDropdownField(
+      return QuickDropdownField(
         height: H.x3l,
         style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
         decoration: FieldDecoration(
@@ -578,7 +579,6 @@ class _RSVPFormState extends State<RSVPForm> {
         ),
         splashColor: widget.fieldSplashColor,
         overlayYOffset: 6,
-        overlayBarrier: const ModalBarrier(),
         overlaydecoration: OverlayDecoration(
           color: widget.overlayColor,
           padding: const .symmetric(vertical: 10),
@@ -588,7 +588,7 @@ class _RSVPFormState extends State<RSVPForm> {
           padding: const .symmetric(vertical: 12, horizontal: 14),
           selectedColor: widget.dropdownItemSelectedColor,
           hoveredColor: widget.dropdownItemHoveredColor,
-          splashColor: widget.dropdownItemSplashColor,
+          // splashColor: widget.dropdownItemSplashColor,
         ),
         value: _possiblePresence.value,
         dropdownItems: Attendance.values.map((item) => item.description).toList(),
@@ -606,7 +606,7 @@ class _RSVPFormState extends State<RSVPForm> {
     },
   );
 
-  Widget _greetingsField(String langCode) => EnhancedGeneralTextField(
+  Widget _greetingsField(String langCode) => GeneralTextField(
     fieldTextColor: widget.fieldTextColor,
     fieldLabelColor: widget.fieldLabelColor,
     fieldFillColor: widget.fieldFillColor,
@@ -618,13 +618,15 @@ class _RSVPFormState extends State<RSVPForm> {
   );
 
   Widget _submitButton() => widget.viewType != ViewType.live
-      ? GeneralEffectsButton(
+      ? QuickButton(
           onTap: () {},
-          width: .maxFinite,
-          height: W.lg + H.x10s,
-          borderRadius: .circular(30),
-          border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
-          color: widget.submitButtonColor,
+          style: QuickButtonStyle(
+            width: .maxFinite,
+            height: W.lg + H.x10s,
+            borderRadius: .circular(30),
+            border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
+            color: widget.submitButtonColor,
+          ),
           child: Row(
             mainAxisAlignment: .center,
             children: [
@@ -637,13 +639,15 @@ class _RSVPFormState extends State<RSVPForm> {
         )
       : BlocSelector<RSVPCubit, RSVPState, bool>(
           selector: (state) => state.isLoadingCreate,
-          builder: (context, isLoadingCreate) => GeneralEffectsButton(
+          builder: (context, isLoadingCreate) => QuickButton(
             onTap: _submit,
-            width: .maxFinite,
-            height: W.lg + H.x10s,
-            borderRadius: .circular(30),
-            border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
-            color: widget.submitButtonColor,
+            style: QuickButtonStyle(
+              width: .maxFinite,
+              height: W.lg + H.x10s,
+              borderRadius: .circular(30),
+              border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
+              color: widget.submitButtonColor,
+            ),
             child: Row(
               mainAxisAlignment: .center,
               children: [
@@ -953,8 +957,8 @@ class _RSVPItem extends StatelessWidget {
                         : 'Did not Attend',
                     style: AppFonts.inter(
                       color: invitedGuest.attendance == true
-                          ? ColorConverter.lighten(Colors.green, attendanceTextColorLighten)
-                          : ColorConverter.lighten(Colors.red, attendanceTextColorLighten),
+                          ? ColorUtil.lighten(Colors.green, attendanceTextColorLighten)
+                          : ColorUtil.lighten(Colors.red, attendanceTextColorLighten),
                       fontWeight: .w400,
                       fontSize: FontSize.xs,
                     ),
@@ -964,8 +968,8 @@ class _RSVPItem extends StatelessWidget {
                     invitedGuest.possiblePresence ?? '-',
                     style: AppFonts.inter(
                       color: invitedGuest.possiblePresence == 'Mungkin Hadir'
-                          ? ColorConverter.lighten(Colors.green, attendanceTextColorLighten)
-                          : ColorConverter.lighten(Colors.red, attendanceTextColorLighten),
+                          ? ColorUtil.lighten(Colors.green, attendanceTextColorLighten)
+                          : ColorUtil.lighten(Colors.red, attendanceTextColorLighten),
                       fontWeight: .w400,
                       fontSize: FontSize.xs,
                     ),

@@ -357,7 +357,7 @@ class JavaneseRoseGold extends StatelessWidget {
           dropdownItemTextColor: Colors.grey.shade100,
           dropdownItemSelectedTextColor: Colors.grey.shade100,
           dropdownItemHoveredColor: Colors.grey.shade400,
-          dropdownItemSplashColor: Colors.grey.shade400,
+          // dropdownItemSplashColor: Colors.grey.shade400,
           submitButtonColor: ThemeColors.gold.withValues(alpha: .2),
           submitButtonLabelColor: ThemeColors.gold,
           submitButtonBorderWidth: 2,

@@ -5,8 +5,8 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class EnhancedGeneralTextField extends StatefulWidget {
-  const EnhancedGeneralTextField({
+class GeneralTextField extends StatefulWidget {
+  const GeneralTextField({
     super.key,
     required this.fieldTextColor,
     required this.fieldLabelColor,
@@ -38,15 +38,15 @@ class EnhancedGeneralTextField extends StatefulWidget {
   final TextFieldValidator Function(String)? validator;
 
   @override
-  State<EnhancedGeneralTextField> createState() => _EnhancedGeneralTextFieldState();
+  State<GeneralTextField> createState() => _GeneralTextFieldState();
 }
 
-class _EnhancedGeneralTextFieldState extends State<EnhancedGeneralTextField> {
+class _GeneralTextFieldState extends State<GeneralTextField> {
   @override
   Widget build(BuildContext context) {
     final lang = context.read<LocaleCubit>().state.languageCode;
 
-    return GeneralTextField(
+    return QuickTextField(
       controller: widget.textEditingController,
       height: (widget.maxLines ?? 1) > 1 ? null : H.x3l,
       maxLines: widget.maxLines,

@@ -49,7 +49,7 @@ class ElegantBlackAndWhiteGlassAsImage extends StatelessWidget {
           circleParticleVariatios: [
             const CircleParticle(color: Colors.grey),
             const CircleParticle(color: Colors.white),
-            CircleParticle(color: ColorConverter.darken(Colors.grey.shade700, 40)),
+            CircleParticle(color: ColorUtil.darken(Colors.grey.shade700, 40)),
           ],
         ),
         coverPageConfig: PageViewBasedCoverPageConfig(
@@ -283,7 +283,7 @@ class ElegantBlackAndWhiteGlassAsImage extends StatelessWidget {
           dropdownItemTextColor: Colors.grey.shade100,
           dropdownItemSelectedTextColor: Colors.grey.shade100,
           dropdownItemHoveredColor: Colors.grey.shade400,
-          dropdownItemSplashColor: Colors.grey.shade400,
+          // dropdownItemSplashColor: Colors.grey.shade400,
           submitButtonColor: Colors.black.withValues(alpha: .3),
           submitButtonLabelColor: Colors.grey.shade100,
           submitButtonBorderWidth: .5,

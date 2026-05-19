@@ -158,13 +158,15 @@ class PageViewBasedFifthPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _seeMore(BuildContext context, String langCode) => GeneralEffectsButton(
+  Widget _seeMore(BuildContext context, String langCode) => QuickButton(
     onTap: () {},
-    padding: const .symmetric(horizontal: 48),
-    height: W.lg + H.x10s,
-    borderRadius: .circular(30),
-    border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
-    color: config.seeMoreButtonColor,
+    style: QuickButtonStyle(
+      padding: const .symmetric(horizontal: 48),
+      height: W.lg + H.x10s,
+      borderRadius: .circular(30),
+      border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+      color: config.seeMoreButtonColor,
+    ),
     child: Stack(
       alignment: .center,
       children: [
