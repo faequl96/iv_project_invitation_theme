@@ -39,7 +39,8 @@ class PageViewBasedAsSinglePage extends StatefulWidget {
   State<PageViewBasedAsSinglePage> createState() => _PageViewBasedAsSinglePageState();
 }
 
-class _PageViewBasedAsSinglePageState extends State<PageViewBasedAsSinglePage> with WidgetsBindingObserver {
+class _PageViewBasedAsSinglePageState extends State<PageViewBasedAsSinglePage>
+    with WidgetsBindingObserver {
   late final InvitationThemeCoreCubit _coreCubit;
 
   @override
@@ -93,7 +94,13 @@ class _PageViewBasedAsSinglePageState extends State<PageViewBasedAsSinglePage> w
       tabsBuilder: (int tabActive) => [
         Tab(
           height: 48,
-          child: _Tab(config: widget.configs.tabConfig, title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
+          child: _Tab(
+            config: widget.configs.tabConfig,
+            title: 'Cover',
+            icon: Icons.image,
+            tabIndex: 0,
+            tabActive: tabActive,
+          ),
         ),
         Tab(
           height: 48,
@@ -188,7 +195,10 @@ class _PageViewBasedAsSinglePageState extends State<PageViewBasedAsSinglePage> w
       groom: widget.invitationData.groom,
       time: widget.invitationData.contractEvent,
     ),
-    1 => PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
+    1 => PageViewBasedFirstPage(
+      config: widget.configs.firstPageConfig,
+      general: widget.invitationData.general,
+    ),
     2 => PageViewBasedSecondPage(
       config: widget.configs.secondPageConfig,
       viewType: widget.viewType,
@@ -201,14 +211,24 @@ class _PageViewBasedAsSinglePageState extends State<PageViewBasedAsSinglePage> w
       receptionEvent: widget.invitationData.receptionEvent,
     ),
 
-    4 => PageViewBasedFourthPage(config: widget.configs.fourthPageConfig, receptionEvent: widget.invitationData.receptionEvent),
+    4 => PageViewBasedFourthPage(
+      config: widget.configs.fourthPageConfig,
+      receptionEvent: widget.invitationData.receptionEvent,
+    ),
     5 => PageViewBasedFifthPage(
       config: widget.configs.fifthPageConfig,
       viewType: widget.viewType,
       gallery: widget.invitationData.gallery,
     ),
-    6 => PageViewBasedSixthPage(config: widget.configs.sixthPageConfig, bankAccounts: widget.invitationData.bankAccounts),
-    7 => PageViewBasedSeventhPage(config: widget.configs.seventhPageConfig, viewType: widget.viewType, invitationId: ''),
+    6 => PageViewBasedSixthPage(
+      config: widget.configs.sixthPageConfig,
+      bankAccounts: widget.invitationData.bankAccounts,
+    ),
+    7 => PageViewBasedSeventhPage(
+      config: widget.configs.seventhPageConfig,
+      viewType: widget.viewType,
+      invitationId: '',
+    ),
 
     8 => PageViewBasedEighthPage(
       config: widget.configs.eighthPageConfig,
@@ -222,7 +242,13 @@ class _PageViewBasedAsSinglePageState extends State<PageViewBasedAsSinglePage> w
 }
 
 class _Tab extends StatelessWidget {
-  const _Tab({required this.config, required this.title, required this.icon, required this.tabIndex, required this.tabActive});
+  const _Tab({
+    required this.config,
+    required this.title,
+    required this.icon,
+    required this.tabIndex,
+    required this.tabActive,
+  });
 
   final PageViewWithBottomTabBarConfig config;
   final String title;
@@ -240,12 +266,18 @@ class _Tab extends StatelessWidget {
           padding: const .symmetric(horizontal: 6),
           child: Row(
             children: [
-              Icon(icon, size: 20, color: tabIndex == tabActive ? config.iconActiveColor : config.iconInactiveColor),
+              Icon(
+                icon,
+                size: 20,
+                color: tabIndex == tabActive ? config.iconActiveColor : config.iconInactiveColor,
+              ),
               const SizedBox(width: 8),
               Text(
                 title,
                 style: AppFonts.inter(
-                  color: tabIndex == tabActive ? config.titleActiveColor : config.titleInactiveColor,
+                  color: tabIndex == tabActive
+                      ? config.titleActiveColor
+                      : config.titleInactiveColor,
                   fontWeight: .w500,
                 ),
               ),

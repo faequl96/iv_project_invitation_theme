@@ -56,7 +56,11 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
 
-    _isGalleriesNotEmpty = ThemeAppHelpers.isGalleriesNotEmptyChecker(widget.viewType, widget.imagesRaw, widget.invitationData);
+    _isGalleriesNotEmpty = ThemeAppHelpers.isGalleriesNotEmptyChecker(
+      widget.viewType,
+      widget.imagesRaw,
+      widget.invitationData,
+    );
   }
 
   @override
@@ -104,7 +108,10 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           groom: widget.invitationData.groom,
           time: widget.invitationData.contractEvent,
         ),
-        PageViewBasedFirstPage(config: widget.configs.firstPageConfig, general: widget.invitationData.general),
+        PageViewBasedFirstPage(
+          config: widget.configs.firstPageConfig,
+          general: widget.invitationData.general,
+        ),
         PageViewBasedSecondPage(
           config: widget.configs.secondPageConfig,
           viewType: widget.viewType,
@@ -113,13 +120,17 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           bride: widget.invitationData.bride,
           groom: widget.invitationData.groom,
         ),
-        if (widget.invitationData.contractEvent.mapsUrl == widget.invitationData.receptionEvent.mapsUrl) ...[
+        if (widget.invitationData.contractEvent.mapsUrl ==
+            widget.invitationData.receptionEvent.mapsUrl) ...[
           PageViewBasedThirdPage(
             config: widget.configs.thirdPageConfig,
             contractEvent: widget.invitationData.contractEvent,
             receptionEvent: widget.invitationData.receptionEvent,
           ),
-          PageViewBasedFourthPage(config: widget.configs.fourthPageConfig, receptionEvent: widget.invitationData.receptionEvent),
+          PageViewBasedFourthPage(
+            config: widget.configs.fourthPageConfig,
+            receptionEvent: widget.invitationData.receptionEvent,
+          ),
         ] else ...[
           PageViewBasedThirdDifferentLocationPage(
             config: widget.configs.thirdDifferentLocationPageConfig,
@@ -138,7 +149,10 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             gallery: widget.invitationData.gallery,
           ),
         if (widget.invitationData.bankAccounts.isNotEmpty)
-          PageViewBasedSixthPage(config: widget.configs.sixthPageConfig, bankAccounts: widget.invitationData.bankAccounts),
+          PageViewBasedSixthPage(
+            config: widget.configs.sixthPageConfig,
+            bankAccounts: widget.invitationData.bankAccounts,
+          ),
         PageViewBasedSeventhPage(
           config: widget.configs.seventhPageConfig,
           viewType: widget.viewType,
@@ -155,7 +169,13 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
       tabsBuilder: (ValueNotifier<int> tabActive) => [
         Tab(
           height: 48,
-          child: _Tab(config: widget.configs.tabConfig, title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
+          child: _Tab(
+            config: widget.configs.tabConfig,
+            title: 'Cover',
+            icon: Icons.image,
+            tabIndex: 0,
+            tabActive: tabActive,
+          ),
         ),
         Tab(
           height: 48,
@@ -177,7 +197,8 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             tabActive: tabActive,
           ),
         ),
-        if (widget.invitationData.contractEvent.mapsUrl != widget.invitationData.receptionEvent.mapsUrl) ...[
+        if (widget.invitationData.contractEvent.mapsUrl !=
+            widget.invitationData.receptionEvent.mapsUrl) ...[
           Tab(
             height: 48,
             child: _Tab(
@@ -268,7 +289,13 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
 }
 
 class _Tab extends StatelessWidget {
-  const _Tab({required this.config, required this.title, required this.icon, required this.tabIndex, required this.tabActive});
+  const _Tab({
+    required this.config,
+    required this.title,
+    required this.icon,
+    required this.tabIndex,
+    required this.tabActive,
+  });
 
   final PageViewWithBottomTabBarConfig config;
   final String title;
@@ -289,12 +316,20 @@ class _Tab extends StatelessWidget {
             builder: (_, tabActive, _) {
               return Row(
                 children: [
-                  Icon(icon, size: 20, color: tabIndex == tabActive ? config.iconActiveColor : config.iconInactiveColor),
+                  Icon(
+                    icon,
+                    size: 20,
+                    color: tabIndex == tabActive
+                        ? config.iconActiveColor
+                        : config.iconInactiveColor,
+                  ),
                   const SizedBox(width: 8),
                   Text(
                     title,
                     style: AppFonts.inter(
-                      color: tabIndex == tabActive ? config.titleActiveColor : config.titleInactiveColor,
+                      color: tabIndex == tabActive
+                          ? config.titleActiveColor
+                          : config.titleInactiveColor,
                       fontWeight: .w500,
                     ),
                   ),

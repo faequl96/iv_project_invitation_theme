@@ -73,13 +73,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           firstPageConfig: PageViewBasedFirstPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -97,13 +103,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           secondPageConfig: PageViewBasedSecondPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -134,13 +146,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           thirdPageConfig: PageViewBasedThirdPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -153,15 +171,27 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             dividingLineWidth: 2,
             dividingLineColor: ColorUtil.darken(Colors.blue.shade500, 40),
             contractCountdownBorderWidth: 2.5,
-            contractCountdownOddColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
-            contractCountdownEvenColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            contractCountdownOddColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
+            contractCountdownEvenColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
             contractCountdownOddBorderColor: Colors.white,
             contractCountdownEvenBorderColor: Colors.white,
             contractCountdownNumberColor: ColorUtil.darken(Colors.blue.shade500, 40),
             contractCountdownUnitColor: ColorUtil.darken(Colors.blue.shade500, 40),
             receptionCountdownBorderWidth: 2.5,
-            receptionCountdownOddColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
-            receptionCountdownEvenColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            receptionCountdownOddColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
+            receptionCountdownEvenColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
             receptionCountdownOddBorderColor: Colors.white,
             receptionCountdownEvenBorderColor: Colors.white,
             receptionCountdownNumberColor: ColorUtil.darken(Colors.blue.shade500, 40),
@@ -171,13 +201,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -199,7 +235,10 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             placeBaseTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             addressTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             mapsBorderColor: Colors.grey.shade400,
-            getDirectionsButtonColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            getDirectionsButtonColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
             getDirectionsButtonLabelColor: ColorUtil.darken(Colors.blue.shade500, 40),
             getDirectionsButtonBorderWidth: 2,
             getDirectionsButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
@@ -207,13 +246,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           fourthPageConfig: PageViewBasedFourthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -225,7 +270,10 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             dividingLineWidth: 2,
             dividingLineColor: ColorUtil.darken(Colors.blue.shade500, 40),
             mapsBorderColor: Colors.grey.shade400,
-            getDirectionsButtonColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            getDirectionsButtonColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
             getDirectionsButtonLabelColor: ColorUtil.darken(Colors.blue.shade500, 40),
             getDirectionsButtonBorderWidth: 2,
             getDirectionsButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
@@ -233,13 +281,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -261,7 +315,10 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             placeBaseTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             addressTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             mapsBorderColor: Colors.grey.shade400,
-            getDirectionsButtonColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+            getDirectionsButtonColor: ColorUtil.darken(
+              Colors.blue.shade200,
+              8,
+            ).withValues(alpha: .2),
             getDirectionsButtonLabelColor: ColorUtil.darken(Colors.blue.shade500, 40),
             getDirectionsButtonBorderWidth: 2,
             getDirectionsButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
@@ -269,13 +326,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           fifthPageConfig: PageViewBasedFifthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -290,19 +353,28 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             seeMoreButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
             bottomSheetHandleColor: Colors.grey.shade300,
             bottomSheetContentScaffoldColor: Colors.white.withValues(alpha: .75),
-            bottomSheetBackgroundColor: ColorUtil.darken(Colors.blue.shade100, 40).withValues(alpha: .95),
+            bottomSheetBackgroundColor: ColorUtil.darken(
+              Colors.blue.shade100,
+              40,
+            ).withValues(alpha: .95),
             bottomSheetCloseIconColor: Colors.grey.shade300,
           ),
           sixthPageConfig: PageViewBasedSixthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -321,13 +393,19 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
           seventhPageConfig: PageViewBasedSeventhPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),
@@ -343,7 +421,10 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             dropdownItemSelectedColor: ColorUtil.darken(Colors.blue.shade100, 5),
             dropdownItemTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             dropdownItemSelectedTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
-            dropdownItemHoveredColor: ColorUtil.darken(Colors.blue.shade50, 10).withValues(alpha: .95),
+            dropdownItemHoveredColor: ColorUtil.darken(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .95),
             // dropdownItemSplashColor: ColorUtil.darken(Colors.blue.shade100, 5),
             submitButtonColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
             submitButtonLabelColor: ColorUtil.darken(Colors.blue.shade500, 40),
@@ -363,19 +444,28 @@ class CanvasThemeAsSinglePage extends StatelessWidget {
             seeMoreButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
             bottomSheetHandleColor: Colors.grey.shade300,
             bottomSheetContentScaffoldColor: Colors.white.withValues(alpha: .75),
-            bottomSheetBackgroundColor: ColorUtil.darken(Colors.blue.shade100, 40).withValues(alpha: .95),
+            bottomSheetBackgroundColor: ColorUtil.darken(
+              Colors.blue.shade100,
+              40,
+            ).withValues(alpha: .95),
             bottomSheetCloseIconColor: Colors.grey.shade300,
           ),
           eighthPageConfig: PageViewBasedEighthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
-            secondGradientScaffoldColor: ColorUtil.lighten(Colors.blue.shade50, 10).withValues(alpha: .9),
+            secondGradientScaffoldColor: ColorUtil.lighten(
+              Colors.blue.shade50,
+              10,
+            ).withValues(alpha: .9),
             scaffoldBorder: GradientBoxBorder(
               width: 4,
               gradient: LinearGradient(
                 begin: .topCenter,
                 end: .bottomCenter,
-                colors: [ColorUtil.darken(Colors.blue.shade100, 10), ColorUtil.darken(Colors.blue.shade300, 30)],
+                colors: [
+                  ColorUtil.darken(Colors.blue.shade100, 10),
+                  ColorUtil.darken(Colors.blue.shade300, 30),
+                ],
                 transform: const GradientRotation(-.2),
               ),
             ),

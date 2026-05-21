@@ -95,7 +95,9 @@ class _MapsState extends State<Maps> {
                 width: widget.width,
                 child: ColoredBox(
                   color: Colors.grey.shade300,
-                  child: Center(child: SharedPersonalize.loadingWidget(color: Colors.grey.shade900)),
+                  child: Center(
+                    child: SharedPersonalize.loadingWidget(color: Colors.grey.shade900),
+                  ),
                 ),
               ),
             ),
@@ -160,7 +162,10 @@ class _MapsWidgetState extends State<MapsWidget> {
       width: widget.width,
       height: widget.height,
       child: FlutterMap(
-        options: MapOptions(initialCenter: LatLng(widget.latitude, widget.longitude), initialZoom: 15),
+        options: MapOptions(
+          initialCenter: LatLng(widget.latitude, widget.longitude),
+          initialZoom: 15,
+        ),
         children: [
           // Layer untuk tile peta
           TileLayer(

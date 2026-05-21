@@ -20,7 +20,8 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
 
     return Stack(
       children: [
-        if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+        if (config.firstGradientBackgroundColor != null &&
+            config.secondGradientBackgroundColor != null)
           Positioned(
             top: 0,
             height: Screen.height / 1.2,
@@ -30,7 +31,10 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  colors: [
+                    config.firstGradientBackgroundColor!,
+                    config.secondGradientBackgroundColor!,
+                  ],
                   stops: const [.2, .8],
                 ),
               ),
@@ -59,7 +63,10 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: .topCenter,
                           end: .bottomCenter,
-                          colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          colors: [
+                            config.firstGradientScaffoldColor,
+                            config.secondGradientScaffoldColor,
+                          ],
                           stops: config.stopsGradientScaffoldColor,
                         ),
                       ),
@@ -164,7 +171,11 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'RSVP and Greetings' : 'RSVP Dan Ucapan',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
@@ -201,7 +212,10 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                 width: .maxFinite,
                 height: W.lg + H.x10s,
                 borderRadius: .circular(30),
-                border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+                border: .all(
+                  width: config.seeMoreButtonBorderWidth,
+                  color: config.seeMoreButtonBorderColor,
+                ),
                 color: config.seeMoreButtonColor,
               ),
               child: Stack(
@@ -209,7 +223,11 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                 children: [
                   Text(
                     langCode == 'en' ? 'See More' : 'Selengkapnya',
-                    style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+                    style: AppFonts.inter(
+                      color: config.seeMoreButtonLabelColor,
+                      fontSize: FontSize.md,
+                      fontWeight: .w600,
+                    ),
                   ),
                 ],
               ),
@@ -343,28 +361,32 @@ class _RSVPFormState extends State<RSVPForm> {
         return [
           PreSufFixIcon(
             onTap: () {},
-            child: Image.asset('assets/avatars/avatars.png', package: 'iv_project_invitation_theme', height: 24, width: 24),
+            child: Image.asset(
+              'assets/avatars/avatars.png',
+              package: 'iv_project_invitation_theme',
+              height: 24,
+              width: 24,
+            ),
           ),
         ];
       },
     ),
     splashColor: widget.fieldSplashColor,
-    overlayYOffset: 6,
-    overlaydecoration: OverlayDecoration(
+    overlaydecoration: .fitToTargetWidth(
       height: H.x15l,
       color: widget.overlayColor,
       padding: const .symmetric(vertical: 10),
       border: .all(color: widget.overlayBorderColor),
     ),
-    dropdownItemDecoration: DropdownItemDecoration(
+    itemDecoration: DropdownItemDecoration(
       padding: const .symmetric(vertical: 10, horizontal: 14),
       selectedColor: widget.dropdownItemSelectedColor,
       hoveredColor: widget.dropdownItemHoveredColor,
       // splashColor: widget.dropdownItemSplashColor,
     ),
     value: null,
-    dropdownItems: Avatars.values.map((item) => item.name).toList(),
-    dropdownItemBuilder: (value) {
+    items: Avatars.values.map((item) => item.name).toList(),
+    itemBuilder: (value) {
       return const SizedBox.shrink();
     },
     onSelected: (value) {},
@@ -392,21 +414,20 @@ class _RSVPFormState extends State<RSVPForm> {
       ),
     ),
     splashColor: widget.fieldSplashColor,
-    overlayYOffset: 6,
-    overlaydecoration: OverlayDecoration(
+    overlaydecoration: .fitToTargetWidth(
       color: widget.overlayColor,
       padding: const .symmetric(vertical: 10),
       border: .all(color: widget.overlayBorderColor),
     ),
-    dropdownItemDecoration: DropdownItemDecoration(
+    itemDecoration: DropdownItemDecoration(
       padding: const .symmetric(vertical: 12, horizontal: 14),
       selectedColor: widget.dropdownItemSelectedColor,
       hoveredColor: widget.dropdownItemHoveredColor,
       // splashColor: widget.dropdownItemSplashColor,
     ),
     value: null,
-    dropdownItems: Attendance.values.map((item) => item.description).toList(),
-    dropdownItemBuilder: (value) {
+    items: Attendance.values.map((item) => item.description).toList(),
+    itemBuilder: (value) {
       return const SizedBox.shrink();
     },
     onSelected: (value) {},
@@ -437,7 +458,11 @@ class _RSVPFormState extends State<RSVPForm> {
       children: [
         Text(
           'Submit',
-          style: AppFonts.inter(color: widget.submitButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+          style: AppFonts.inter(
+            color: widget.submitButtonLabelColor,
+            fontSize: FontSize.md,
+            fontWeight: .w600,
+          ),
         ),
       ],
     ),
@@ -478,7 +503,8 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
         possiblePresence: 'Mungkin Tidak Hadir',
         // attendance: false,
       ),
-      message: 'Happy wedding Milea dan Dilan.. Samawa yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      message:
+          'Happy wedding Milea dan Dilan.. Samawa yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
       createdAt: .now().subtract(const Duration(minutes: 324)),
     ),
     RSVPResponse(
@@ -592,7 +618,12 @@ class _RSVPItem extends StatelessWidget {
                   children: [
                     Text(
                       invitedGuest.nickname ?? invitedGuest.name,
-                      style: AppFonts.inter(color: nameTextColor, fontSize: FontSize.sm, fontWeight: .w700, height: 1.16),
+                      style: AppFonts.inter(
+                        color: nameTextColor,
+                        fontSize: FontSize.sm,
+                        fontWeight: .w700,
+                        height: 1.16,
+                      ),
                     ),
                     SizedBox(width: W.x10s),
                     SizedBox(
@@ -610,7 +641,11 @@ class _RSVPItem extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   '@${invitedGuest.nameInstance}',
-                  style: AppFonts.inter(color: nameInstanceTextColor, fontSize: FontSize.xs, height: 1.16),
+                  style: AppFonts.inter(
+                    color: nameInstanceTextColor,
+                    fontSize: FontSize.xs,
+                    height: 1.16,
+                  ),
                 ),
                 const SizedBox(height: 4),
                 if (invitedGuest.attendance != null)

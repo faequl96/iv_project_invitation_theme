@@ -6,10 +6,19 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedBorderInviter extends StatefulWidget {
-  const AnimatedBorderInviter.top({super.key, required this.color, this.borderWidth = .5, required this.noAnimate})
-    : isTop = true;
-  const AnimatedBorderInviter.bottom({super.key, required this.color, this.borderWidth = .5, required this.noAnimate})
-    : isTop = false;
+  const AnimatedBorderInviter.top({
+    super.key,
+    required this.color,
+    this.borderWidth = .5,
+    required this.noAnimate,
+  }) : isTop = true;
+
+  const AnimatedBorderInviter.bottom({
+    super.key,
+    required this.color,
+    this.borderWidth = .5,
+    required this.noAnimate,
+  }) : isTop = false;
 
   final bool isTop;
   final Color color;
@@ -20,7 +29,8 @@ class AnimatedBorderInviter extends StatefulWidget {
   State<AnimatedBorderInviter> createState() => _AnimatedBorderInviterState();
 }
 
-class _AnimatedBorderInviterState extends State<AnimatedBorderInviter> with SingleTickerProviderStateMixin {
+class _AnimatedBorderInviterState extends State<AnimatedBorderInviter>
+    with SingleTickerProviderStateMixin {
   StreamSubscription? _sub;
 
   late final AnimationController _controller;

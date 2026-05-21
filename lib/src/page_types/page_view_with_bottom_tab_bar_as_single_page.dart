@@ -27,7 +27,8 @@ class PageViewWithBottomTabBarAsSinglePage extends StatefulWidget {
   final List<Widget> Function(int tabActive) tabsBuilder;
 
   @override
-  State<PageViewWithBottomTabBarAsSinglePage> createState() => _PageViewWithBottomTabBarAsSinglePageState();
+  State<PageViewWithBottomTabBarAsSinglePage> createState() =>
+      _PageViewWithBottomTabBarAsSinglePageState();
 }
 
 class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBottomTabBarAsSinglePage>
@@ -47,7 +48,11 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
 
     _indexActive = widget.initialPage;
     _buildTabs();
-    _tabController = TabController(initialIndex: widget.initialPage, length: _tabs.length, vsync: this);
+    _tabController = TabController(
+      initialIndex: widget.initialPage,
+      length: _tabs.length,
+      vsync: this,
+    );
 
     _coreCubit = context.read<InvitationThemeCoreCubit>();
 
@@ -88,7 +93,11 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
                       initialPage: widget.initialPage,
                       viewAsSinglePage: true,
                       useWrapper: widget.wrapper != null,
-                      child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
+                      child: SizedBox(
+                        height: Screen.height,
+                        width: Screen.width,
+                        child: widget.page,
+                      ),
                     ),
                   )
                 else
@@ -98,13 +107,20 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
                       initialPage: widget.initialPage,
                       viewAsSinglePage: true,
                       useWrapper: widget.wrapper != null,
-                      child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
+                      child: SizedBox(
+                        height: Screen.height,
+                        width: Screen.width,
+                        child: widget.page,
+                      ),
                     ),
                   ),
               ] else
                 SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
 
-              Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),
+              Positioned(
+                bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0,
+                child: _tab,
+              ),
 
               ?widget.wrapper,
 
@@ -154,7 +170,10 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
   Widget get _tabBar => SizedBox(
     height: 52,
     child: DecoratedBox(
-      decoration: BoxDecoration(color: widget.tabConfig.backgroundColor, borderRadius: .circular(36)),
+      decoration: BoxDecoration(
+        color: widget.tabConfig.backgroundColor,
+        borderRadius: .circular(36),
+      ),
       child: TabBar(
         tabs: _tabs,
         controller: _tabController,

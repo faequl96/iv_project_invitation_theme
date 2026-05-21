@@ -12,7 +12,13 @@ import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class PageViewBasedFifthPage extends StatelessWidget {
-  const PageViewBasedFifthPage({super.key, required this.config, required this.viewType, this.galleries, this.gallery});
+  const PageViewBasedFifthPage({
+    super.key,
+    required this.config,
+    required this.viewType,
+    this.galleries,
+    this.gallery,
+  });
 
   final PageViewBasedFifthPageConfig config;
   final ViewType viewType;
@@ -27,7 +33,8 @@ class PageViewBasedFifthPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+          if (config.firstGradientBackgroundColor != null &&
+              config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
               height: Screen.height,
@@ -37,7 +44,10 @@ class PageViewBasedFifthPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    colors: [
+                      config.firstGradientBackgroundColor!,
+                      config.secondGradientBackgroundColor!,
+                    ],
                   ),
                 ),
               ),
@@ -47,7 +57,11 @@ class PageViewBasedFifthPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .5,
+              slideFrom: .top,
+              child: _title(langCode),
+            ),
           ),
 
           if (config.useBackdropBlurOnScaffold)
@@ -68,7 +82,10 @@ class PageViewBasedFifthPage extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: .topCenter,
                             end: .bottomCenter,
-                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                            colors: [
+                              config.firstGradientScaffoldColor,
+                              config.secondGradientScaffoldColor,
+                            ],
                             stops: config.stopsGradientScaffoldColor,
                           ),
                         ),
@@ -91,7 +108,10 @@ class PageViewBasedFifthPage extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
-                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
                       stops: config.stopsGradientScaffoldColor,
                     ),
                   ),
@@ -105,7 +125,10 @@ class PageViewBasedFifthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+                decoration: BoxDecoration(
+                  borderRadius: .circular(20),
+                  border: config.scaffoldBorder,
+                ),
                 child: ClipRRect(
                   borderRadius: .circular(20),
                   child: Column(
@@ -172,7 +195,11 @@ class PageViewBasedFifthPage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
@@ -202,7 +229,10 @@ class PageViewBasedFifthPage extends StatelessWidget {
             child: Padding(
               padding: .only(left: W.x6s, right: W.x6s, bottom: W.x6s),
               child: DecoratedBox(
-                decoration: BoxDecoration(color: config.bottomSheetContentScaffoldColor, borderRadius: .circular(16)),
+                decoration: BoxDecoration(
+                  color: config.bottomSheetContentScaffoldColor,
+                  borderRadius: .circular(16),
+                ),
                 child: SingleChildScrollView(
                   child: _Gallery(
                     dividingLineWidth: config.dividingLineWidth,
@@ -232,7 +262,11 @@ class PageViewBasedFifthPage extends StatelessWidget {
       children: [
         Text(
           langCode == 'en' ? 'See More' : 'Selengkapnya',
-          style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+          style: AppFonts.inter(
+            color: config.seeMoreButtonLabelColor,
+            fontSize: FontSize.md,
+            fontWeight: .w600,
+          ),
         ),
       ],
     ),
@@ -275,7 +309,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(id: 1, viewType: viewType, image: galleries?[0], imageUrl: gallery?.imageURL1),
+                  child: _ImageViewer(
+                    id: 1,
+                    viewType: viewType,
+                    image: galleries?[0],
+                    imageUrl: gallery?.imageURL1,
+                  ),
                 ),
               ),
             ),
@@ -295,7 +334,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(id: 2, viewType: viewType, image: galleries?[1], imageUrl: gallery?.imageURL2),
+                  child: _ImageViewer(
+                    id: 2,
+                    viewType: viewType,
+                    image: galleries?[1],
+                    imageUrl: gallery?.imageURL2,
+                  ),
                 ),
               ),
             ),
@@ -328,7 +372,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(id: 3, viewType: viewType, image: galleries?[2], imageUrl: gallery?.imageURL3),
+                  child: _ImageViewer(
+                    id: 3,
+                    viewType: viewType,
+                    image: galleries?[2],
+                    imageUrl: gallery?.imageURL3,
+                  ),
                 ),
               ),
             ),
@@ -348,7 +397,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x11l + 4,
-                  child: _ImageViewer(id: 4, viewType: viewType, image: galleries?[3], imageUrl: gallery?.imageURL4),
+                  child: _ImageViewer(
+                    id: 4,
+                    viewType: viewType,
+                    image: galleries?[3],
+                    imageUrl: gallery?.imageURL4,
+                  ),
                 ),
               ),
             ),
@@ -380,7 +434,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x10l - 4,
-                  child: _ImageViewer(id: 5, viewType: viewType, image: galleries?[4], imageUrl: gallery?.imageURL5),
+                  child: _ImageViewer(
+                    id: 5,
+                    viewType: viewType,
+                    image: galleries?[4],
+                    imageUrl: gallery?.imageURL5,
+                  ),
                 ),
               ),
             ),
@@ -399,7 +458,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x10l - 4,
-                  child: _ImageViewer(id: 6, viewType: viewType, image: galleries?[5], imageUrl: gallery?.imageURL6),
+                  child: _ImageViewer(
+                    id: 6,
+                    viewType: viewType,
+                    image: galleries?[5],
+                    imageUrl: gallery?.imageURL6,
+                  ),
                 ),
               ),
             ),
@@ -418,7 +482,12 @@ class _Gallery extends StatelessWidget {
                 isNoNeedTrigger: isShowMore ? true : false,
                 child: SizedBox(
                   height: W.x10l - 4,
-                  child: _ImageViewer(id: 7, viewType: viewType, image: galleries?[6], imageUrl: gallery?.imageURL7),
+                  child: _ImageViewer(
+                    id: 7,
+                    viewType: viewType,
+                    image: galleries?[6],
+                    imageUrl: gallery?.imageURL7,
+                  ),
                 ),
               ),
             ),
@@ -452,7 +521,12 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(id: 8, viewType: viewType, image: galleries?[7], imageUrl: gallery?.imageURL8),
+                    child: _ImageViewer(
+                      id: 8,
+                      viewType: viewType,
+                      image: galleries?[7],
+                      imageUrl: gallery?.imageURL8,
+                    ),
                   ),
                 ),
               ),
@@ -472,7 +546,12 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(id: 9, viewType: viewType, image: galleries?[8], imageUrl: gallery?.imageURL9),
+                    child: _ImageViewer(
+                      id: 9,
+                      viewType: viewType,
+                      image: galleries?[8],
+                      imageUrl: gallery?.imageURL9,
+                    ),
                   ),
                 ),
               ),
@@ -505,7 +584,12 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(id: 10, viewType: viewType, image: galleries?[9], imageUrl: gallery?.imageURL10),
+                    child: _ImageViewer(
+                      id: 10,
+                      viewType: viewType,
+                      image: galleries?[9],
+                      imageUrl: gallery?.imageURL10,
+                    ),
                   ),
                 ),
               ),
@@ -525,7 +609,12 @@ class _Gallery extends StatelessWidget {
                   isNoNeedTrigger: isShowMore ? true : false,
                   child: SizedBox(
                     height: W.x11l + 4,
-                    child: _ImageViewer(id: 11, viewType: viewType, image: galleries?[10], imageUrl: gallery?.imageURL11),
+                    child: _ImageViewer(
+                      id: 11,
+                      viewType: viewType,
+                      image: galleries?[10],
+                      imageUrl: gallery?.imageURL11,
+                    ),
                   ),
                 ),
               ),
@@ -566,7 +655,9 @@ class _ImageViewer extends StatelessWidget {
     }
 
     if (viewType == ViewType.preview) {
-      if (image != null) return wrapper(Image.file(image!, fit: .cover), Image.file(image!, fit: .contain));
+      if (image != null) {
+        return wrapper(Image.file(image!, fit: .cover), Image.file(image!, fit: .contain));
+      }
     } else if (viewType == ViewType.example) {
       if (imageUrl != null) {
         return wrapper(
@@ -576,7 +667,10 @@ class _ImageViewer extends StatelessWidget {
       }
     } else {
       if (imageUrl != null) {
-        return wrapper(Image.network(imageUrl!, fit: .cover), Image.network(imageUrl!, fit: .contain));
+        return wrapper(
+          Image.network(imageUrl!, fit: .cover),
+          Image.network(imageUrl!, fit: .contain),
+        );
       }
     }
 

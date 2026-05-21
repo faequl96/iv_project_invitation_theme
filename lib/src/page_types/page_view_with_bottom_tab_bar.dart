@@ -28,7 +28,8 @@ class PageViewWithBottomTabBar extends StatefulWidget {
   State<PageViewWithBottomTabBar> createState() => _PageViewWithBottomTabBarState();
 }
 
-class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> with SingleTickerProviderStateMixin {
+class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
+    with SingleTickerProviderStateMixin {
   TabController? _tabController;
   PageController? _pageController;
 
@@ -53,11 +54,15 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
     } else {
       if (offsetPage < 0.96) {
         if (_coreCubit.state.animationTrigger == 1) {
-          _coreCubit.state.copyWith(animationTrigger: 0, pageActive: _indexActive.value).emitState();
+          _coreCubit.state
+              .copyWith(animationTrigger: 0, pageActive: _indexActive.value)
+              .emitState();
         }
       } else {
         if (_coreCubit.state.animationTrigger == 0) {
-          _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
+          _coreCubit.state
+              .copyWith(animationTrigger: 1, pageActive: _indexActive.value)
+              .emitState();
         }
       }
     }
@@ -128,8 +133,11 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
 
               ValueListenableBuilder(
                 valueListenable: _isLowerTab,
-                builder: (_, isLowerTab, _) =>
-                    AnimatedPositioned(bottom: isLowerTab ? -55 : 0, duration: const Duration(milliseconds: 300), child: _tab),
+                builder: (_, isLowerTab, _) => AnimatedPositioned(
+                  bottom: isLowerTab ? -55 : 0,
+                  duration: const Duration(milliseconds: 300),
+                  child: _tab,
+                ),
               ),
 
               widget.wrapper,
@@ -195,13 +203,20 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar> wit
   Widget get _tabBar => SizedBox(
     height: 52,
     child: DecoratedBox(
-      decoration: BoxDecoration(color: widget.tabConfig.backgroundColor, borderRadius: .circular(36)),
+      decoration: BoxDecoration(
+        color: widget.tabConfig.backgroundColor,
+        borderRadius: .circular(36),
+      ),
       child: TabBar(
         tabs: _tabs,
         controller: _tabController,
         onTap: (value) {
           _isTabTaped = true;
-          _pageController?.animateToPage(value, duration: const Duration(milliseconds: 300), curve: Curves.ease);
+          _pageController?.animateToPage(
+            value,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
           _indexActive.value = value;
         },
         isScrollable: true,

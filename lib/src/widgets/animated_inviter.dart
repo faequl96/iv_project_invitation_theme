@@ -6,8 +6,11 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedInviter extends StatefulWidget {
-  const AnimatedInviter.left({super.key, required this.children, required this.noAnimate}) : isLeft = true;
-  const AnimatedInviter.right({super.key, required this.children, required this.noAnimate}) : isLeft = false;
+  const AnimatedInviter.left({super.key, required this.children, required this.noAnimate})
+    : isLeft = true;
+
+  const AnimatedInviter.right({super.key, required this.children, required this.noAnimate})
+    : isLeft = false;
 
   final bool isLeft;
   final List<Widget> children;
@@ -44,12 +47,13 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
         curve: const Interval(.7, .86, curve: Curves.easeIn),
       ),
     );
-    _textSlideHorizontalAnimation = Tween<Offset>(begin: Offset(widget.isLeft ? 1 : -1, 0), end: Offset.zero).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(.9, 1, curve: Curves.easeIn),
-      ),
-    );
+    _textSlideHorizontalAnimation =
+        Tween<Offset>(begin: Offset(widget.isLeft ? 1 : -1, 0), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: const Interval(.9, 1, curve: Curves.easeIn),
+          ),
+        );
   }
 
   @override
@@ -93,7 +97,10 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                     child: SizedBox(
                       width: .maxFinite,
                       child: Padding(
-                        padding: .only(left: widget.isLeft ? W.x5s : W.x8s, right: widget.isLeft ? W.x8s : W.x5s),
+                        padding: .only(
+                          left: widget.isLeft ? W.x5s : W.x8s,
+                          right: widget.isLeft ? W.x8s : W.x5s,
+                        ),
                         child: Column(
                           mainAxisAlignment: .center,
                           crossAxisAlignment: widget.isLeft ? .start : .end,

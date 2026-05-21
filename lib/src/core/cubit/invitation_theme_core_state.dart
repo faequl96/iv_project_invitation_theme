@@ -1,7 +1,11 @@
 part of 'invitation_theme_core_cubit.dart';
 
 class InvitationThemeCoreState extends Equatable {
-  const InvitationThemeCoreState({this.size = const Size(0, 0), this.animationTrigger = 0, this.pageActive = 0});
+  const InvitationThemeCoreState({
+    this.size = const Size(0, 0),
+    this.animationTrigger = 0,
+    this.pageActive = 0,
+  });
 
   final Size size;
 

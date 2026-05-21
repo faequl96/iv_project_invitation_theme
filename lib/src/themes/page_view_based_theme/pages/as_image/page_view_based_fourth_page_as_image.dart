@@ -8,7 +8,11 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class PageViewBasedFourthPageAsImage extends StatelessWidget {
-  const PageViewBasedFourthPageAsImage({super.key, required this.config, required this.receptionEvent});
+  const PageViewBasedFourthPageAsImage({
+    super.key,
+    required this.config,
+    required this.receptionEvent,
+  });
 
   final PageViewBasedFourthPageConfig config;
   final EventResponse receptionEvent;
@@ -19,7 +23,8 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
 
     return Stack(
       children: [
-        if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+        if (config.firstGradientBackgroundColor != null &&
+            config.secondGradientBackgroundColor != null)
           Positioned(
             top: 0,
             height: Screen.height / 1.2,
@@ -29,7 +34,10 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  colors: [
+                    config.firstGradientBackgroundColor!,
+                    config.secondGradientBackgroundColor!,
+                  ],
                   stops: const [.2, .8],
                 ),
               ),
@@ -58,7 +66,10 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: .topCenter,
                           end: .bottomCenter,
-                          colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          colors: [
+                            config.firstGradientScaffoldColor,
+                            config.secondGradientScaffoldColor,
+                          ],
                           stops: config.stopsGradientScaffoldColor,
                         ),
                       ),
@@ -157,7 +168,11 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'Event Location' : 'Lokasi Acara',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
@@ -169,7 +184,11 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
       const SizedBox(height: 4),
       Text(
         receptionEvent.place,
-        style: AppFonts.inter(color: config.placeTextColor, fontSize: FontSize.xl, fontWeight: .w600),
+        style: AppFonts.inter(
+          color: config.placeTextColor,
+          fontSize: FontSize.xl,
+          fontWeight: .w600,
+        ),
       ),
       const SizedBox(height: 8),
       SizedBox(
@@ -184,7 +203,11 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     padding: const .symmetric(horizontal: 20),
     child: Text(
       receptionEvent.address,
-      style: AppFonts.inter(color: config.addressTextColor, fontSize: FontSize.xs, fontWeight: .w400),
+      style: AppFonts.inter(
+        color: config.addressTextColor,
+        fontSize: FontSize.xs,
+        fontWeight: .w400,
+      ),
       textAlign: .center,
     ),
   );
@@ -195,7 +218,10 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
       padding: const .symmetric(horizontal: 24),
       height: W.lg + H.x10s,
       borderRadius: .circular(30),
-      border: .all(width: config.getDirectionsButtonBorderWidth, color: config.getDirectionsButtonBorderColor),
+      border: .all(
+        width: config.getDirectionsButtonBorderWidth,
+        color: config.getDirectionsButtonBorderColor,
+      ),
       color: config.getDirectionsButtonColor,
     ),
     child: Stack(
@@ -203,7 +229,11 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
       children: [
         Text(
           langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
-          style: AppFonts.inter(color: config.getDirectionsButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+          style: AppFonts.inter(
+            color: config.getDirectionsButtonLabelColor,
+            fontSize: FontSize.md,
+            fontWeight: .w600,
+          ),
         ),
       ],
     ),

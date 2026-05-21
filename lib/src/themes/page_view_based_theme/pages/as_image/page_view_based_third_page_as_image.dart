@@ -24,7 +24,8 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
 
     return Stack(
       children: [
-        if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+        if (config.firstGradientBackgroundColor != null &&
+            config.secondGradientBackgroundColor != null)
           Positioned(
             bottom: 0,
             height: Screen.height / 1.2,
@@ -34,7 +35,10 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  colors: [
+                    config.firstGradientBackgroundColor!,
+                    config.secondGradientBackgroundColor!,
+                  ],
                   stops: const [.2, .8],
                 ),
               ),
@@ -63,7 +67,10 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: .topCenter,
                           end: .bottomCenter,
-                          colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          colors: [
+                            config.firstGradientScaffoldColor,
+                            config.secondGradientScaffoldColor,
+                          ],
                           stops: config.stopsGradientScaffoldColor,
                         ),
                       ),
@@ -209,7 +216,11 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'Weddings Event' : 'Acara Pernikahan',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
@@ -222,7 +233,11 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
       const SizedBox(width: 8),
       Text(
         langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
-        style: AppFonts.inter(color: config.contractTitleColor, fontSize: FontSize.x2l, fontWeight: .w500),
+        style: AppFonts.inter(
+          color: config.contractTitleColor,
+          fontSize: FontSize.x2l,
+          fontWeight: .w500,
+        ),
       ),
       const SizedBox(width: 8),
       Icon(Icons.menu_book, color: config.contractTitleColor),
@@ -233,14 +248,22 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     children: [
       Text(
         DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
-        style: AppFonts.inter(color: config.contractBaseTextColor, fontSize: FontSize.lg, fontWeight: .w500),
+        style: AppFonts.inter(
+          color: config.contractBaseTextColor,
+          fontSize: FontSize.lg,
+          fontWeight: .w500,
+        ),
       ),
       SizedBox(height: H.x10s),
       Text(
         langCode == 'en'
             ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
             : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
-        style: AppFonts.inter(color: config.contractBaseTextColor, fontSize: FontSize.md, fontWeight: .w400),
+        style: AppFonts.inter(
+          color: config.contractBaseTextColor,
+          fontSize: FontSize.md,
+          fontWeight: .w400,
+        ),
       ),
     ],
   );
@@ -252,7 +275,11 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
       const SizedBox(width: 8),
       Text(
         langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
-        style: AppFonts.inter(color: config.receptionTitleColor, fontSize: FontSize.x2l, fontWeight: .w500),
+        style: AppFonts.inter(
+          color: config.receptionTitleColor,
+          fontSize: FontSize.x2l,
+          fontWeight: .w500,
+        ),
       ),
       const SizedBox(width: 8),
       Icon(Icons.restaurant, color: config.receptionTitleColor),
@@ -263,14 +290,22 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     children: [
       Text(
         DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),
-        style: AppFonts.inter(color: config.receptionBaseTextColor, fontSize: FontSize.lg, fontWeight: .w500),
+        style: AppFonts.inter(
+          color: config.receptionBaseTextColor,
+          fontSize: FontSize.lg,
+          fontWeight: .w500,
+        ),
       ),
       SizedBox(height: H.x10s),
       Text(
         langCode == 'en'
             ? '${DateUtil.format(receptionEvent.startTime, .HHmm)} o\'clock WIB - ${receptionEvent.endTime == null ? 'Finished' : '${DateUtil.format(receptionEvent.endTime!, .HHmm)} o\'clock WIB'}'
             : 'Pukul ${DateUtil.format(receptionEvent.startTime, .HHmm)} WIB - ${receptionEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(receptionEvent.endTime!, .HHmm)} WIB'}',
-        style: AppFonts.inter(color: config.receptionBaseTextColor, fontSize: FontSize.md, fontWeight: .w400),
+        style: AppFonts.inter(
+          color: config.receptionBaseTextColor,
+          fontSize: FontSize.md,
+          fontWeight: .w400,
+        ),
       ),
     ],
   );

@@ -12,28 +12,32 @@ class RandomSlideTransition extends StatefulWidget {
   State<RandomSlideTransition> createState() => _RandomSlideTransitionState();
 }
 
-class _RandomSlideTransitionState extends State<RandomSlideTransition> with SingleTickerProviderStateMixin {
+class _RandomSlideTransitionState extends State<RandomSlideTransition>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
-  Offset _startOffset = Offset.zero;
-  Offset _targetOffset = Offset.zero;
+  Offset _startOffset = .zero;
+  Offset _targetOffset = .zero;
 
   final Random _random = Random();
 
   Offset _randomOffset() {
-    return Offset((_random.nextDouble() * 2 - 1) * widget.maxSlideOffset, (_random.nextDouble() * 2 - 1) * widget.maxSlideOffset);
+    return Offset(
+      (_random.nextDouble() * 2 - 1) * widget.maxSlideOffset,
+      (_random.nextDouble() * 2 - 1) * widget.maxSlideOffset,
+    );
   }
 
   @override
   void initState() {
     super.initState();
 
-    _startOffset = Offset.zero;
+    _startOffset = .zero;
     _targetOffset = _randomOffset();
 
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 3))
       ..addListener(() {
         setState(() {
-          if (_controller.status == AnimationStatus.completed) {
+          if (_controller.status == .completed) {
             _startOffset = _targetOffset;
             _targetOffset = _randomOffset();
             _controller.forward(from: 0);

@@ -24,7 +24,8 @@ class ForegroundSlideTransition extends StatefulWidget {
   State<ForegroundSlideTransition> createState() => _ForegroundSlideTransitionState();
 }
 
-class _ForegroundSlideTransitionState extends State<ForegroundSlideTransition> with TickerProviderStateMixin {
+class _ForegroundSlideTransitionState extends State<ForegroundSlideTransition>
+    with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 
   late final AnimationController _controller;

@@ -28,11 +28,19 @@ class GeneralDialogButton extends StatelessWidget {
       child: QuickButton(
         onTap: onTap,
         disabled: isBusy || isDisabled,
-        style: QuickButtonStyle(height: 52, color: color, splashColor: Colors.grey.shade300, borderRadius: .circular(40)),
+        style: QuickButtonStyle(
+          height: 52,
+          color: color,
+          splashColor: Colors.grey.shade300,
+          borderRadius: .circular(40),
+        ),
         child: Row(
           mainAxisAlignment: .center,
           children: [
-            if (isLoading) ...[SharedPersonalize.loadingWidget(size: 16, color: Colors.white), const SizedBox(width: 10)],
+            if (isLoading) ...[
+              SharedPersonalize.loadingWidget(size: 16, color: Colors.white),
+              const SizedBox(width: 10),
+            ],
             Text(
               title,
               style: AppFonts.inter(fontWeight: .w700, color: Colors.white),

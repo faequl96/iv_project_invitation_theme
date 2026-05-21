@@ -10,7 +10,12 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedSecondPageAsImage extends StatelessWidget {
-  const PageViewBasedSecondPageAsImage({super.key, required this.config, required this.bride, required this.groom});
+  const PageViewBasedSecondPageAsImage({
+    super.key,
+    required this.config,
+    required this.bride,
+    required this.groom,
+  });
 
   final PageViewBasedSecondPageConfig config;
   final BridegroomResponse bride;
@@ -22,7 +27,8 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
 
     return Stack(
       children: [
-        if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+        if (config.firstGradientBackgroundColor != null &&
+            config.secondGradientBackgroundColor != null)
           Positioned(
             top: 0,
             height: Screen.height,
@@ -32,7 +38,10 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  colors: [
+                    config.firstGradientBackgroundColor!,
+                    config.secondGradientBackgroundColor!,
+                  ],
                 ),
               ),
             ),
@@ -60,7 +69,10 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: .topCenter,
                           end: .bottomCenter,
-                          colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          colors: [
+                            config.firstGradientScaffoldColor,
+                            config.secondGradientScaffoldColor,
+                          ],
                           stops: config.stopsGradientScaffoldColor,
                         ),
                       ),
@@ -133,7 +145,10 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                                 ),
                               TextSpan(
                                 text: bride.fullName,
-                                style: AppFonts.inter(fontWeight: .w700, color: config.brideNameTextColor),
+                                style: AppFonts.inter(
+                                  fontWeight: .w700,
+                                  color: config.brideNameTextColor,
+                                ),
                               ),
                               if ((bride.backTitle ?? '').isNotEmpty)
                                 TextSpan(
@@ -142,7 +157,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                                 ),
                             ],
                           ),
-                          style: AppFonts.inter(fontSize: FontSize.x2l, color: config.generalTextColor, height: 1.2),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.x2l,
+                            color: config.generalTextColor,
+                            height: 1.2,
+                          ),
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
@@ -153,7 +172,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                         const SizedBox(height: 6),
                         Text(
                           langCode == 'en' ? 'Daughter of' : 'Putri dari',
-                          style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.xs + .2,
+                            fontWeight: .w500,
+                            color: config.generalTextColor,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text.rich(
@@ -190,7 +213,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           langCode == 'en' ? 'and' : 'dan',
-                          style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.xs + .2,
+                            fontWeight: .w500,
+                            color: config.generalTextColor,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text.rich(
@@ -239,7 +266,10 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                                 ),
                               TextSpan(
                                 text: groom.fullName,
-                                style: AppFonts.inter(fontWeight: .w700, color: config.groomNameTextColor),
+                                style: AppFonts.inter(
+                                  fontWeight: .w700,
+                                  color: config.groomNameTextColor,
+                                ),
                               ),
                               if ((groom.backTitle ?? '').isNotEmpty)
                                 TextSpan(
@@ -248,7 +278,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                                 ),
                             ],
                           ),
-                          style: AppFonts.inter(fontSize: FontSize.x2l, color: config.generalTextColor, height: 1.2),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.x2l,
+                            color: config.generalTextColor,
+                            height: 1.2,
+                          ),
                           textAlign: .end,
                         ),
                         const SizedBox(height: 8),
@@ -260,7 +294,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                         const SizedBox(height: 6),
                         Text(
                           langCode == 'en' ? 'Son of' : 'Putra dari',
-                          style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.xs + .2,
+                            fontWeight: .w500,
+                            color: config.generalTextColor,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text.rich(
@@ -298,7 +336,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                         const SizedBox(height: 2),
                         Text(
                           langCode == 'en' ? 'and' : 'dan',
-                          style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.xs + .2,
+                            fontWeight: .w500,
+                            color: config.generalTextColor,
+                          ),
                         ),
                         const SizedBox(height: 2),
                         Text.rich(
@@ -387,7 +429,11 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),

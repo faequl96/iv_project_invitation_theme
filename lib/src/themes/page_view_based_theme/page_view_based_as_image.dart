@@ -52,7 +52,13 @@ class PageViewBasedAsImage extends StatelessWidget {
       tabsBuilder: (int tabActive) => [
         Tab(
           height: 48,
-          child: _Tab(config: configs.tabConfig, title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
+          child: _Tab(
+            config: configs.tabConfig,
+            title: 'Cover',
+            icon: Icons.image,
+            tabIndex: 0,
+            tabActive: tabActive,
+          ),
         ),
         Tab(
           height: 48,
@@ -116,7 +122,13 @@ class PageViewBasedAsImage extends StatelessWidget {
         ),
         Tab(
           height: 48,
-          child: _Tab(config: configs.tabConfig, title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),
+          child: _Tab(
+            config: configs.tabConfig,
+            title: 'RSVP',
+            icon: Icons.event_available,
+            tabIndex: 7,
+            tabActive: tabActive,
+          ),
         ),
         Tab(
           height: 48,
@@ -141,7 +153,10 @@ class PageViewBasedAsImage extends StatelessWidget {
       time: invitationData.contractEvent,
       useWrapper: useWrapper,
     ),
-    1 => PageViewBasedFirstPageAsImage(config: configs.firstPageConfig, general: invitationData.general),
+    1 => PageViewBasedFirstPageAsImage(
+      config: configs.firstPageConfig,
+      general: invitationData.general,
+    ),
     2 => PageViewBasedSecondPageAsImage(
       config: configs.secondPageConfig,
       bride: invitationData.bride,
@@ -152,9 +167,18 @@ class PageViewBasedAsImage extends StatelessWidget {
       contractEvent: invitationData.contractEvent,
       receptionEvent: invitationData.receptionEvent,
     ),
-    4 => PageViewBasedFourthPageAsImage(config: configs.fourthPageConfig, receptionEvent: invitationData.receptionEvent),
-    5 => PageViewBasedFifthPageAsImage(config: configs.fifthPageConfig, gallery: invitationData.gallery),
-    6 => PageViewBasedSixthPageAsImage(config: configs.sixthPageConfig, bankAccounts: invitationData.bankAccounts),
+    4 => PageViewBasedFourthPageAsImage(
+      config: configs.fourthPageConfig,
+      receptionEvent: invitationData.receptionEvent,
+    ),
+    5 => PageViewBasedFifthPageAsImage(
+      config: configs.fifthPageConfig,
+      gallery: invitationData.gallery,
+    ),
+    6 => PageViewBasedSixthPageAsImage(
+      config: configs.sixthPageConfig,
+      bankAccounts: invitationData.bankAccounts,
+    ),
     7 => PageViewBasedSeventhPageAsImage(config: configs.seventhPageConfig),
     8 => PageViewBasedEighthPageAsImage(
       config: configs.eighthPageConfig,
@@ -168,7 +192,13 @@ class PageViewBasedAsImage extends StatelessWidget {
 }
 
 class _Tab extends StatelessWidget {
-  const _Tab({required this.config, required this.title, required this.icon, required this.tabIndex, required this.tabActive});
+  const _Tab({
+    required this.config,
+    required this.title,
+    required this.icon,
+    required this.tabIndex,
+    required this.tabActive,
+  });
 
   final PageViewWithBottomTabBarConfig config;
   final String title;
@@ -186,12 +216,18 @@ class _Tab extends StatelessWidget {
           padding: const .symmetric(horizontal: 6),
           child: Row(
             children: [
-              Icon(icon, size: 20, color: tabIndex == tabActive ? config.iconActiveColor : config.iconInactiveColor),
+              Icon(
+                icon,
+                size: 20,
+                color: tabIndex == tabActive ? config.iconActiveColor : config.iconInactiveColor,
+              ),
               const SizedBox(width: 8),
               Text(
                 title,
                 style: AppFonts.inter(
-                  color: tabIndex == tabActive ? config.titleActiveColor : config.titleInactiveColor,
+                  color: tabIndex == tabActive
+                      ? config.titleActiveColor
+                      : config.titleInactiveColor,
                   fontWeight: .w500,
                 ),
               ),

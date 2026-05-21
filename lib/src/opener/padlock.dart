@@ -38,7 +38,11 @@ class Padlock extends StatelessWidget {
           ),
           Text(
             langCode == 'en' ? 'Open Invitation' : 'Buka Undangan',
-            style: AppFonts.inter(color: Colors.grey.shade300, fontSize: FontSize.sm, fontWeight: .w600),
+            style: AppFonts.inter(
+              color: Colors.grey.shade300,
+              fontSize: FontSize.sm,
+              fontWeight: .w600,
+            ),
           ),
         ],
       ),

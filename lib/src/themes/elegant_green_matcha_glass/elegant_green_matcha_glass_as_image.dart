@@ -71,7 +71,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
         firstPageConfig: PageViewBasedFirstPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
-          secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: .0),
+          secondGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: .0),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           scaffoldBorder: GradientBoxBorder(
@@ -129,7 +132,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
           brideDividingLineWidth: 1,
           brideDividingBorderColor: Colors.green.shade400,
           brideImageFrameColor: ColorUtil.darken(Colors.green.shade400, 5).withValues(alpha: .3),
-          brideImageFrameBorderColor: ColorUtil.darken(Colors.green.shade400, 5).withValues(alpha: .8),
+          brideImageFrameBorderColor: ColorUtil.darken(
+            Colors.green.shade400,
+            5,
+          ).withValues(alpha: .8),
           brideDividingLineColor: Colors.green.shade400,
           brideNameTextColor: ColorUtil.darken(Colors.green.shade700),
           brideFatherNameTextColor: ColorUtil.darken(Colors.green.shade700),
@@ -139,7 +145,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
           groomDividingLineWidth: 1,
           groomDividingBorderColor: Colors.green.shade400,
           groomImageFrameColor: ColorUtil.darken(Colors.green.shade400, 5).withValues(alpha: .3),
-          groomImageFrameBorderColor: ColorUtil.darken(Colors.green.shade400, 5).withValues(alpha: .8),
+          groomImageFrameBorderColor: ColorUtil.darken(
+            Colors.green.shade400,
+            5,
+          ).withValues(alpha: .8),
           groomDividingLineColor: Colors.green.shade400,
           groomNameTextColor: ColorUtil.darken(Colors.green.shade700),
           groomFatherNameTextColor: ColorUtil.darken(Colors.green.shade700),
@@ -147,7 +156,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
         ),
         thirdPageConfig: PageViewBasedThirdPageConfig(
           useBackdropBlurOnScaffold: true,
-          firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: .0),
+          firstGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: .0),
           secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .7),
@@ -194,7 +206,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
         ),
         thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
-          firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: .0),
+          firstGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: .0),
           secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .7),
@@ -241,7 +256,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
         fourthPageConfig: PageViewBasedFourthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
-          secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: .0),
+          secondGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: .0),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
           scaffoldBorder: GradientBoxBorder(
@@ -276,7 +294,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
         fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
-          secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: .0),
+          secondGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: .0),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
           scaffoldBorder: GradientBoxBorder(
@@ -349,13 +370,19 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
           seeMoreButtonBorderColor: Colors.white,
           bottomSheetHandleColor: Colors.white,
           bottomSheetContentScaffoldColor: Colors.white.withValues(alpha: .8),
-          bottomSheetBackgroundColor: ColorUtil.darken(Colors.green.shade900, 50).withValues(alpha: .8),
+          bottomSheetBackgroundColor: ColorUtil.darken(
+            Colors.green.shade900,
+            50,
+          ).withValues(alpha: .8),
           bottomSheetCloseIconColor: Colors.white,
           bottomSheetOnHoverCloseIconColor: Colors.green.shade400,
         ),
         sixthPageConfig: PageViewBasedSixthPageConfig(
           useBackdropBlurOnScaffold: true,
-          firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: 0),
+          firstGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: 0),
           secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .5),
@@ -391,7 +418,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
         seventhPageConfig: PageViewBasedSeventhPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
-          secondGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60).withValues(alpha: 0),
+          secondGradientBackgroundColor: ColorUtil.darken(
+            Colors.green.shade700,
+            60,
+          ).withValues(alpha: 0),
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .5),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           stopsGradientScaffoldColor: [.5, 1],
@@ -442,7 +472,10 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
           seeMoreButtonBorderColor: Colors.white,
           bottomSheetHandleColor: Colors.white,
           bottomSheetContentScaffoldColor: Colors.white.withValues(alpha: .9),
-          bottomSheetBackgroundColor: ColorUtil.darken(Colors.green.shade900, 50).withValues(alpha: .8),
+          bottomSheetBackgroundColor: ColorUtil.darken(
+            Colors.green.shade900,
+            50,
+          ).withValues(alpha: .8),
           bottomSheetCloseIconColor: Colors.white,
           bottomSheetOnHoverCloseIconColor: Colors.green.shade300,
         ),

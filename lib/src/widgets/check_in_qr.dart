@@ -48,11 +48,18 @@ class _CheckInQrContent extends StatelessWidget {
         children: [
           const SizedBox(height: 8),
           Text(
-            localeCubit.state.languageCode == 'id' ? 'Kode QR untuk Check-In' : 'QR Code for Check-In',
+            localeCubit.state.languageCode == 'id'
+                ? 'Kode QR untuk Check-In'
+                : 'QR Code for Check-In',
             style: AppFonts.inter(fontSize: 16, fontWeight: .w800),
           ),
           const SizedBox(height: 18),
-          QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
+          QrImageView(
+            data: invitedGuestId,
+            version: QrVersions.auto,
+            size: size.width - 40,
+            gapless: true,
+          ),
           const SizedBox(height: 20),
           Text(
             localeCubit.state.languageCode == 'id'

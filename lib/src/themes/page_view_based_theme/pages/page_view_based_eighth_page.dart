@@ -31,7 +31,8 @@ class PageViewBasedEighthPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+          if (config.firstGradientBackgroundColor != null &&
+              config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
               height: Screen.height,
@@ -41,7 +42,10 @@ class PageViewBasedEighthPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    colors: [
+                      config.firstGradientBackgroundColor!,
+                      config.secondGradientBackgroundColor!,
+                    ],
                     stops: const [.2, .8],
                   ),
                 ),
@@ -52,7 +56,11 @@ class PageViewBasedEighthPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .5,
+              slideFrom: .top,
+              child: _title(langCode),
+            ),
           ),
 
           if (config.useBackdropBlurOnScaffold)
@@ -73,7 +81,10 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: .topCenter,
                             end: .bottomCenter,
-                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                            colors: [
+                              config.firstGradientScaffoldColor,
+                              config.secondGradientScaffoldColor,
+                            ],
                             stops: config.stopsGradientScaffoldColor,
                           ),
                         ),
@@ -96,7 +107,10 @@ class PageViewBasedEighthPage extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
-                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
                       stops: config.stopsGradientScaffoldColor,
                     ),
                   ),
@@ -110,7 +124,10 @@ class PageViewBasedEighthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+                decoration: BoxDecoration(
+                  borderRadius: .circular(20),
+                  border: config.scaffoldBorder,
+                ),
                 child: ClipRRect(
                   borderRadius: .circular(20),
                   child: Column(
@@ -204,11 +221,16 @@ class PageViewBasedEighthPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: .center,
                         children: [
-                          if (brandProfile.logoUrl != null) Image.network(brandProfile.logoUrl!, height: 44),
+                          if (brandProfile.logoUrl != null)
+                            Image.network(brandProfile.logoUrl!, height: 44),
                           if (brandProfile.logoUrl != null) const SizedBox(width: 10),
                           Text(
                             brandProfile.name,
-                            style: AppFonts.inter(fontWeight: .w700, fontSize: 15, color: config.brandTextColor),
+                            style: AppFonts.inter(
+                              fontWeight: .w700,
+                              fontSize: 15,
+                              color: config.brandTextColor,
+                            ),
                           ),
                         ],
                       ),
@@ -232,11 +254,17 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           children: [
                             Text(
                               'WhatsApp : ',
-                              style: AppFonts.inter(fontWeight: .w400, color: config.brandTextColor),
+                              style: AppFonts.inter(
+                                fontWeight: .w400,
+                                color: config.brandTextColor,
+                              ),
                             ),
                             Text(
                               brandProfile.phone!,
-                              style: AppFonts.inter(fontWeight: .w700, color: config.brandTextColor),
+                              style: AppFonts.inter(
+                                fontWeight: .w700,
+                                color: config.brandTextColor,
+                              ),
                             ),
                           ],
                         ),
@@ -246,11 +274,17 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           children: [
                             Text(
                               'Instagram : ',
-                              style: AppFonts.inter(fontWeight: .w400, color: config.brandTextColor),
+                              style: AppFonts.inter(
+                                fontWeight: .w400,
+                                color: config.brandTextColor,
+                              ),
                             ),
                             Text.rich(
                               TextSpan(children: [TextSpan(text: brandProfile.instagram!)]),
-                              style: AppFonts.inter(fontWeight: .w700, color: config.brandTextColor),
+                              style: AppFonts.inter(
+                                fontWeight: .w700,
+                                color: config.brandTextColor,
+                              ),
                             ),
                           ],
                         ),
@@ -258,7 +292,11 @@ class PageViewBasedEighthPage extends StatelessWidget {
                       if (brandProfile.address != null)
                         Text(
                           brandProfile.address!,
-                          style: AppFonts.inter(fontWeight: .w400, color: config.brandTextColor, fontSize: 13),
+                          style: AppFonts.inter(
+                            fontWeight: .w400,
+                            color: config.brandTextColor,
+                            fontSize: 13,
+                          ),
                           textAlign: .center,
                         ),
                     ],
@@ -284,7 +322,11 @@ class PageViewBasedEighthPage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
@@ -300,7 +342,11 @@ class PageViewBasedEighthPage extends StatelessWidget {
 
   Widget _brideGroomName() => Text(
     '$brideName & $groomName',
-    style: AppFonts.pacifico(color: config.brideGroomNameColor, fontSize: FontSize.x5l, fontWeight: .w500),
+    style: AppFonts.pacifico(
+      color: config.brideGroomNameColor,
+      fontSize: FontSize.x5l,
+      fontWeight: .w500,
+    ),
     textAlign: .center,
   );
 }
