@@ -557,13 +557,14 @@ class _RSVPFormState extends State<RSVPForm> {
         ),
         splashColor: widget.fieldSplashColor,
         overlaydecoration: .fitToTargetWidth(
-          height: H.x15l,
+          height: H.x16l,
           color: widget.overlayColor,
           padding: const .symmetric(vertical: 10),
           border: .all(color: widget.overlayBorderColor),
         ),
         itemDecoration: DropdownItemDecoration(
           padding: const .symmetric(vertical: 10, horizontal: 14),
+          margin: .zero,
           selectedColor: widget.dropdownItemSelectedColor,
           hoveredColor: widget.dropdownItemHoveredColor,
           // splashColor: widget.dropdownItemSplashColor,
@@ -637,6 +638,7 @@ class _RSVPFormState extends State<RSVPForm> {
         ),
         itemDecoration: DropdownItemDecoration(
           padding: const .symmetric(vertical: 12, horizontal: 14),
+          margin: .zero,
           selectedColor: widget.dropdownItemSelectedColor,
           hoveredColor: widget.dropdownItemHoveredColor,
           // splashColor: widget.dropdownItemSplashColor,

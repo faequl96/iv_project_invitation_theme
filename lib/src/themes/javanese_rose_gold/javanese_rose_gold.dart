@@ -395,7 +395,7 @@ class JavaneseRoseGold extends StatelessWidget {
           fieldLabelColor: Colors.grey.shade300,
           fieldFillColor: Colors.grey.shade500.withValues(alpha: .3),
           fieldBorderColor: Colors.grey.shade600,
-          fieldSplashColor: Colors.grey.shade400,
+          fieldSplashColor: Colors.grey.shade700,
           overlayColor: Colors.grey.shade700.withValues(alpha: .95),
           overlayBorderColor: Colors.grey.shade500,
           dropdownItemSelectedColor: Colors.grey.shade500,
