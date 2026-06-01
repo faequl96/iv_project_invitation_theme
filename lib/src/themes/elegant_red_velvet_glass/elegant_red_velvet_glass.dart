@@ -458,7 +458,7 @@ class ElegantRedVelvetGlass extends StatelessWidget {
           dropdownItemSelectedColor: Colors.red.shade200,
           dropdownItemTextColor: Colors.red.shade700,
           dropdownItemSelectedTextColor: Colors.white,
-          dropdownItemHoveredColor: Colors.grey.shade100,
+          // dropdownItemHoveredColor: Colors.grey.shade100,
           // dropdownItemSplashColor: Colors.grey.shade100,
           submitButtonColor: ColorUtil.darken(Colors.red.shade500).withValues(alpha: .8),
           submitButtonLabelColor: Colors.white,

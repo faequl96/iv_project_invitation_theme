@@ -427,10 +427,10 @@ class CanvasTheme extends StatelessWidget {
             dropdownItemSelectedColor: ColorUtil.darken(Colors.blue.shade100, 5),
             dropdownItemTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             dropdownItemSelectedTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
-            dropdownItemHoveredColor: ColorUtil.darken(
-              Colors.blue.shade50,
-              10,
-            ).withValues(alpha: .95),
+            // dropdownItemHoveredColor: ColorUtil.darken(
+            //   Colors.blue.shade50,
+            //   10,
+            // ).withValues(alpha: .95),
             // dropdownItemSplashColor: ColorUtil.darken(Colors.blue.shade100, 5),
             submitButtonColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
             submitButtonLabelColor: ColorUtil.darken(Colors.blue.shade500, 40),

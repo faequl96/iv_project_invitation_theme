@@ -70,16 +70,14 @@ class _GeneralTextFieldState extends State<GeneralTextField> {
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
           borderRadius: const .all(.circular(8)),
         ),
-        suffixIcons: () {
+        suffixIcons: (controller) {
           if (!widget.enabled) return [];
           if (!widget.isMandatory) {
-            if (widget.textEditingController.text.isEmpty) return [];
-            return [SharedPersonalize.suffixClear(() => widget.textEditingController.reset())];
+            if (controller.text.isEmpty) return [];
+            return [SharedPersonalize.suffixClear(() => controller.reset())];
           }
-          if (widget.textEditingController.text.isEmpty) {
-            return [SharedPersonalize.suffixMandatory()];
-          }
-          return [SharedPersonalize.suffixClear(() => widget.textEditingController.reset())];
+          if (controller.text.isEmpty) return [SharedPersonalize.suffixMandatory()];
+          return [SharedPersonalize.suffixClear(() => controller.reset())];
         },
       ),
       inputFormatters: widget.inputFormatters,

@@ -119,7 +119,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                       dropdownItemSelectedColor: config.dropdownItemSelectedColor,
                       dropdownItemTextColor: config.dropdownItemTextColor,
                       dropdownItemSelectedTextColor: config.dropdownItemSelectedTextColor,
-                      dropdownItemHoveredColor: config.dropdownItemHoveredColor,
+                      // dropdownItemHoveredColor: config.dropdownItemHoveredColor,
                       // dropdownItemSplashColor: config.dropdownItemSplashColor,
                       submitButtonColor: config.submitButtonColor,
                       submitButtonLabelColor: config.submitButtonLabelColor,
@@ -252,7 +252,7 @@ class RSVPForm extends StatefulWidget {
     required this.dropdownItemSelectedColor,
     required this.dropdownItemTextColor,
     required this.dropdownItemSelectedTextColor,
-    required this.dropdownItemHoveredColor,
+    // required this.dropdownItemHoveredColor,
     // required this.dropdownItemSplashColor,
     required this.submitButtonColor,
     required this.submitButtonLabelColor,
@@ -270,7 +270,7 @@ class RSVPForm extends StatefulWidget {
   final Color dropdownItemSelectedColor;
   final Color dropdownItemTextColor;
   final Color dropdownItemSelectedTextColor;
-  final Color dropdownItemHoveredColor;
+  // final Color dropdownItemHoveredColor;
   // final Color dropdownItemSplashColor;
   final Color submitButtonColor;
   final Color submitButtonLabelColor;
@@ -339,8 +339,8 @@ class _RSVPFormState extends State<RSVPForm> {
 
   Widget _avatarField() => QuickDropdownField(
     height: H.x3l,
-    style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
-    decoration: FieldDecoration(
+    fieldTextStyle: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
+    fieldDecoration: FieldDecoration(
       labelText: 'Avatar',
       labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
       filled: true,
@@ -357,7 +357,7 @@ class _RSVPFormState extends State<RSVPForm> {
         borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
         borderRadius: const .all(.circular(8)),
       ),
-      suffixIcons: () {
+      suffixIcons: (_) {
         return [
           PreSufFixIcon(
             onTap: () {},
@@ -371,7 +371,7 @@ class _RSVPFormState extends State<RSVPForm> {
         ];
       },
     ),
-    splashColor: widget.fieldSplashColor,
+    fieldSplashColor: widget.fieldSplashColor,
     overlaydecoration: .fitToTargetWidth(
       height: H.x15l,
       color: widget.overlayColor,
@@ -381,12 +381,15 @@ class _RSVPFormState extends State<RSVPForm> {
     itemDecoration: DropdownItemDecoration(
       padding: const .symmetric(vertical: 10, horizontal: 14),
       selectedColor: widget.dropdownItemSelectedColor,
-      hoveredColor: widget.dropdownItemHoveredColor,
+      margin: .zero,
+      // hoveredColor: widget.dropdownItemHoveredColor,
       // splashColor: widget.dropdownItemSplashColor,
     ),
+    disabled: true,
     value: null,
+    fieldValueBuilder: (_) => '',
     items: Avatars.values.map((item) => item.name).toList(),
-    itemBuilder: (value) {
+    itemBuilder: (_, _) {
       return const SizedBox.shrink();
     },
     onSelected: (value) {},
@@ -394,8 +397,8 @@ class _RSVPFormState extends State<RSVPForm> {
 
   Widget _possiblePresenceField(String langCode) => QuickDropdownField(
     height: H.x3l,
-    style: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
-    decoration: FieldDecoration(
+    fieldTextStyle: AppFonts.inter(color: widget.fieldTextColor, fontSize: FontSize.md),
+    fieldDecoration: FieldDecoration(
       labelText: langCode == 'id' ? 'Kemungkinan Kehadiran' : 'Possible Presence',
       labelStyle: AppFonts.inter(color: widget.fieldLabelColor, fontSize: FontSize.md),
       filled: true,
@@ -413,7 +416,7 @@ class _RSVPFormState extends State<RSVPForm> {
         borderRadius: const .all(.circular(8)),
       ),
     ),
-    splashColor: widget.fieldSplashColor,
+    fieldSplashColor: widget.fieldSplashColor,
     overlaydecoration: .fitToTargetWidth(
       color: widget.overlayColor,
       padding: const .symmetric(vertical: 10),
@@ -422,12 +425,15 @@ class _RSVPFormState extends State<RSVPForm> {
     itemDecoration: DropdownItemDecoration(
       padding: const .symmetric(vertical: 12, horizontal: 14),
       selectedColor: widget.dropdownItemSelectedColor,
-      hoveredColor: widget.dropdownItemHoveredColor,
+      margin: .zero,
+      // hoveredColor: widget.dropdownItemHoveredColor,
       // splashColor: widget.dropdownItemSplashColor,
     ),
+    disabled: true,
     value: null,
+    fieldValueBuilder: (_) => '',
     items: Attendance.values.map((item) => item.description).toList(),
-    itemBuilder: (value) {
+    itemBuilder: (_, _) {
       return const SizedBox.shrink();
     },
     onSelected: (value) {},

@@ -462,7 +462,7 @@ class ElegantBlueSkyGlassAsSinglePage extends StatelessWidget {
           dropdownItemSelectedColor: Colors.blue.shade200,
           dropdownItemTextColor: Colors.blue.shade700,
           dropdownItemSelectedTextColor: Colors.white,
-          dropdownItemHoveredColor: Colors.grey.shade100,
+          // dropdownItemHoveredColor: Colors.grey.shade100,
           // dropdownItemSplashColor: Colors.grey.shade100,
           submitButtonColor: ColorUtil.darken(Colors.blue.shade500).withValues(alpha: .8),
           submitButtonLabelColor: Colors.white,

@@ -453,7 +453,7 @@ class ElegantGreenMatchaGlassAsImage extends StatelessWidget {
           dropdownItemSelectedColor: Colors.green.shade200,
           dropdownItemTextColor: Colors.green.shade700,
           dropdownItemSelectedTextColor: Colors.white,
-          dropdownItemHoveredColor: Colors.grey.shade100,
+          // dropdownItemHoveredColor: Colors.grey.shade100,
           // dropdownItemSplashColor: Colors.grey.shade100,
           submitButtonColor: ColorUtil.darken(Colors.green.shade500).withValues(alpha: .8),
           submitButtonLabelColor: Colors.white,

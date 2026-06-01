@@ -287,7 +287,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           dropdownItemSelectedColor: Colors.grey.shade500,
           dropdownItemTextColor: Colors.grey.shade100,
           dropdownItemSelectedTextColor: Colors.grey.shade100,
-          dropdownItemHoveredColor: Colors.grey.shade400,
+          // dropdownItemHoveredColor: Colors.grey.shade400,
           // dropdownItemSplashColor: Colors.grey.shade400,
           submitButtonColor: Colors.black.withValues(alpha: .3),
           submitButtonLabelColor: Colors.grey.shade100,
