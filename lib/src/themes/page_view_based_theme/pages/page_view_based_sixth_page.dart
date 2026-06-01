@@ -23,7 +23,8 @@ class PageViewBasedSixthPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+          if (config.firstGradientBackgroundColor != null &&
+              config.secondGradientBackgroundColor != null)
             Positioned(
               bottom: 0,
               height: Screen.height / 1.2,
@@ -33,7 +34,10 @@ class PageViewBasedSixthPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    colors: [
+                      config.firstGradientBackgroundColor!,
+                      config.secondGradientBackgroundColor!,
+                    ],
                     stops: const [.2, .8],
                   ),
                 ),
@@ -44,7 +48,11 @@ class PageViewBasedSixthPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .5,
+              slideFrom: .top,
+              child: _title(langCode),
+            ),
           ),
 
           if (config.useBackdropBlurOnScaffold)
@@ -65,7 +73,10 @@ class PageViewBasedSixthPage extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: .topCenter,
                             end: .bottomCenter,
-                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                            colors: [
+                              config.firstGradientScaffoldColor,
+                              config.secondGradientScaffoldColor,
+                            ],
                             stops: config.stopsGradientScaffoldColor,
                           ),
                         ),
@@ -88,7 +99,10 @@ class PageViewBasedSixthPage extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
-                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
                       stops: config.stopsGradientScaffoldColor,
                     ),
                   ),
@@ -102,7 +116,10 @@ class PageViewBasedSixthPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+                decoration: BoxDecoration(
+                  borderRadius: .circular(20),
+                  border: config.scaffoldBorder,
+                ),
                 child: ClipRect(
                   child: Column(
                     children: [
@@ -115,7 +132,10 @@ class PageViewBasedSixthPage extends StatelessWidget {
                           padding: .symmetric(horizontal: W.x6s),
                           child: DecoratedBox(
                             decoration: BoxDecoration(
-                              border: .all(width: config.introductionBorderWidth, color: config.introductionBorderColor),
+                              border: .all(
+                                width: config.introductionBorderWidth,
+                                color: config.introductionBorderColor,
+                              ),
                               borderRadius: .circular(10),
                               color: config.introductionColor,
                             ),
@@ -189,7 +209,11 @@ class PageViewBasedSixthPage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'Wedding Gift' : 'Kado Pernikahan',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
@@ -199,7 +223,11 @@ class PageViewBasedSixthPage extends StatelessWidget {
     langCode == 'en'
         ? 'Your prayers and blessings are a truly meaningful gift to us. And if giving is an expression of your love, you can give a cashless gift.'
         : 'Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.',
-    style: AppFonts.inter(color: config.introductionTextColor, fontSize: FontSize.md, fontWeight: .w400),
+    style: AppFonts.inter(
+      color: config.introductionTextColor,
+      fontSize: FontSize.md,
+      fontWeight: .w400,
+    ),
     textAlign: .center,
   );
 }
@@ -257,7 +285,10 @@ class _BankAccount extends StatelessWidget {
       child: Padding(
         padding: const .all(6),
         child: DecoratedBox(
-          decoration: BoxDecoration(color: Colors.white.withValues(alpha: .4), borderRadius: .circular(6)),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: .4),
+            borderRadius: .circular(6),
+          ),
           child: Image.asset(
             'assets/banks/${bankAccount.bankName}.png',
             package: 'iv_project_invitation_theme',
@@ -274,7 +305,11 @@ class _BankAccount extends StatelessWidget {
                   child: Center(
                     child: Text(
                       bankName,
-                      style: TextStyle(fontSize: FontSize.xl, color: Colors.grey.shade800, fontWeight: .w700),
+                      style: TextStyle(
+                        fontSize: FontSize.xl,
+                        color: Colors.grey.shade800,
+                        fontWeight: .w700,
+                      ),
                     ),
                   ),
                 ),
@@ -316,16 +351,29 @@ class _BankAccount extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   bankAccount.number,
-                  style: AppFonts.inter(color: textColor, fontSize: FontSize.md, fontWeight: .w500, height: 1.3),
+                  style: AppFonts.inter(
+                    color: textColor,
+                    fontSize: FontSize.md,
+                    fontWeight: .w500,
+                    height: 1.3,
+                  ),
                 ),
                 Text(
                   'a.n ${bankAccount.accountName}',
-                  style: AppFonts.inter(color: textColor, fontSize: FontSize.x2s, fontWeight: .w400, height: 1.3),
+                  style: AppFonts.inter(
+                    color: textColor,
+                    fontSize: FontSize.x2s,
+                    fontWeight: .w400,
+                    height: 1.3,
+                  ),
                 ),
               ],
             ),
             const Spacer(),
-            _CopyBankAccountNumberButton(baseColor: copyBaseColor, bankAccountNumber: bankAccount.number),
+            _CopyBankAccountNumberButton(
+              baseColor: copyBaseColor,
+              bankAccountNumber: bankAccount.number,
+            ),
             SizedBox(width: W.x7s),
           ],
         ),
@@ -349,7 +397,7 @@ class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButt
 
   @override
   Widget build(BuildContext context) {
-    return GeneralEffectsButton(
+    return QuickButton(
       onTap: () async {
         _isCopied = true;
         setState(() {});
@@ -360,13 +408,18 @@ class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButt
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: _isCopied ? ColorConverter.lighten(AppColor.primaryColor, 90) : widget.baseColor.withValues(alpha: .1),
+          color: _isCopied
+              ? ColorUtil.lighten(AppColor.primaryColor, 90)
+              : widget.baseColor.withValues(alpha: .1),
           borderRadius: .circular(5),
           border: .all(width: .5, color: _isCopied ? AppColor.primaryColor : widget.baseColor),
         ),
         child: Padding(
           padding: const .only(top: 5, bottom: 5, left: 4, right: 3),
-          child: Icon(Icons.content_copy_rounded, color: _isCopied ? AppColor.primaryColor : widget.baseColor),
+          child: Icon(
+            Icons.content_copy_rounded,
+            color: _isCopied ? AppColor.primaryColor : widget.baseColor,
+          ),
         ),
       ),
     );

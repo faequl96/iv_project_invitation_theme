@@ -32,7 +32,8 @@ class LightningEffectBox extends StatefulWidget {
   State<LightningEffectBox> createState() => _LightningEffectBoxState();
 }
 
-class _LightningEffectBoxState extends State<LightningEffectBox> with SingleTickerProviderStateMixin {
+class _LightningEffectBoxState extends State<LightningEffectBox>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
 

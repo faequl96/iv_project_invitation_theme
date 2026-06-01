@@ -9,7 +9,7 @@ class CheckInQr {
   const CheckInQr._();
 
   static void show(BuildContext context) {
-    ShowModal.bottomSheet(
+    FloatingOverlay.showBottomSheet(
       context,
       barrierColor: Colors.grey.shade700.withValues(alpha: .5),
       dismissible: false,
@@ -22,7 +22,7 @@ class CheckInQr {
         ),
       ),
       decoration: BottomSheetDecoration(
-        color: ColorConverter.lighten(AppColor.primaryColor, 94),
+        color: ColorUtil.lighten(AppColor.primaryColor, 94),
         borderRadius: const .only(topLeft: .circular(20), topRight: .circular(20)),
       ),
       contentBuilder: (_) => const _CheckInQrContent(),
@@ -48,11 +48,18 @@ class _CheckInQrContent extends StatelessWidget {
         children: [
           const SizedBox(height: 8),
           Text(
-            localeCubit.state.languageCode == 'id' ? 'Kode QR untuk Check-In' : 'QR Code for Check-In',
+            localeCubit.state.languageCode == 'id'
+                ? 'Kode QR untuk Check-In'
+                : 'QR Code for Check-In',
             style: AppFonts.inter(fontSize: 16, fontWeight: .w800),
           ),
           const SizedBox(height: 18),
-          QrImageView(data: invitedGuestId, version: QrVersions.auto, size: size.width - 40, gapless: true),
+          QrImageView(
+            data: invitedGuestId,
+            version: QrVersions.auto,
+            size: size.width - 40,
+            gapless: true,
+          ),
           const SizedBox(height: 20),
           Text(
             localeCubit.state.languageCode == 'id'

@@ -7,7 +7,12 @@ import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dar
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InitializerWrapperAsImage extends StatelessWidget {
-  const InitializerWrapperAsImage({super.key, required this.bride, required this.groom, required this.time});
+  const InitializerWrapperAsImage({
+    super.key,
+    required this.bride,
+    required this.groom,
+    required this.time,
+  });
 
   final BridegroomResponse bride;
   final BridegroomResponse groom;
@@ -42,7 +47,11 @@ class InitializerWrapperAsImage extends StatelessWidget {
                     child: Center(
                       child: Text(
                         langCode == 'en' ? 'Wedding Invitation' : 'Undangan Pernikahan',
-                        style: AppFonts.pacifico(fontSize: FontSize.x4l, fontWeight: .w700, color: Colors.grey.shade900),
+                        style: AppFonts.pacifico(
+                          fontSize: FontSize.x4l,
+                          fontWeight: .w700,
+                          color: Colors.grey.shade900,
+                        ),
                       ),
                     ),
                   ),
@@ -66,7 +75,11 @@ class InitializerWrapperAsImage extends StatelessWidget {
               child: Center(
                 child: Text(
                   bride.nickname.isNotEmpty ? bride.nickname[0] : '',
-                  style: AppFonts.pacifico(fontSize: FontSize.xl + H.xl, fontWeight: .w500, color: Colors.grey.shade300),
+                  style: AppFonts.pacifico(
+                    fontSize: FontSize.xl + H.xl,
+                    fontWeight: .w500,
+                    color: Colors.grey.shade300,
+                  ),
                 ),
               ),
             ),
@@ -79,7 +92,11 @@ class InitializerWrapperAsImage extends StatelessWidget {
               child: Center(
                 child: Text(
                   groom.nickname.isNotEmpty ? groom.nickname[0] : '',
-                  style: AppFonts.pacifico(fontSize: FontSize.xl + H.xl, fontWeight: .w500, color: Colors.grey.shade300),
+                  style: AppFonts.pacifico(
+                    fontSize: FontSize.xl + H.xl,
+                    fontWeight: .w500,
+                    color: Colors.grey.shade300,
+                  ),
                 ),
               ),
             ),
@@ -88,7 +105,11 @@ class InitializerWrapperAsImage extends StatelessWidget {
             alignment: const Alignment(0, .3),
             child: Text(
               DateUtil.format(time.startTime, .EEEEddMMMMyyyy),
-              style: AppFonts.inter(fontSize: FontSize.md, color: Colors.grey.shade300, fontWeight: .w400),
+              style: AppFonts.inter(
+                fontSize: FontSize.md,
+                color: Colors.grey.shade300,
+                fontWeight: .w400,
+              ),
             ),
           ),
           Align(
@@ -100,12 +121,20 @@ class InitializerWrapperAsImage extends StatelessWidget {
                 children: [
                   Text(
                     langCode == 'en' ? 'To :' : 'Kepada :',
-                    style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w400, color: Colors.grey.shade300),
+                    style: AppFonts.inter(
+                      fontSize: FontSize.sm,
+                      fontWeight: .w400,
+                      color: Colors.grey.shade300,
+                    ),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     '-',
-                    style: AppFonts.inter(fontSize: FontSize.md, fontWeight: .w500, color: Colors.grey.shade300),
+                    style: AppFonts.inter(
+                      fontSize: FontSize.md,
+                      fontWeight: .w500,
+                      color: Colors.grey.shade300,
+                    ),
                   ),
                   const SizedBox(height: 4),
                 ],

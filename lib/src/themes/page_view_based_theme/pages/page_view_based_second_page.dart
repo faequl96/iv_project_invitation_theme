@@ -38,7 +38,8 @@ class PageViewBasedSecondPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+          if (config.firstGradientBackgroundColor != null &&
+              config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
               height: Screen.height,
@@ -48,7 +49,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    colors: [
+                      config.firstGradientBackgroundColor!,
+                      config.secondGradientBackgroundColor!,
+                    ],
                   ),
                 ),
               ),
@@ -58,7 +62,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
 
           Positioned(
             top: 0,
-            child: FadeAndSlideTransition(slideFromOffset: .5, slideFrom: .top, child: _title(langCode)),
+            child: FadeAndSlideTransition(
+              slideFromOffset: .5,
+              slideFrom: .top,
+              child: _title(langCode),
+            ),
           ),
 
           if (config.useBackdropBlurOnScaffold)
@@ -79,7 +87,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: .topCenter,
                             end: .bottomCenter,
-                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                            colors: [
+                              config.firstGradientScaffoldColor,
+                              config.secondGradientScaffoldColor,
+                            ],
                             stops: config.stopsGradientScaffoldColor,
                           ),
                         ),
@@ -102,7 +113,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
-                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
                       stops: config.stopsGradientScaffoldColor,
                     ),
                   ),
@@ -116,7 +130,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+                decoration: BoxDecoration(
+                  borderRadius: .circular(20),
+                  border: config.scaffoldBorder,
+                ),
                 child: ClipRRect(
                   borderRadius: .circular(20),
                   child: Stack(
@@ -154,7 +171,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: bride.fullName,
-                                  style: AppFonts.inter(fontWeight: .w700, color: config.brideNameTextColor),
+                                  style: AppFonts.inter(
+                                    fontWeight: .w700,
+                                    color: config.brideNameTextColor,
+                                  ),
                                 ),
                                 if ((bride.backTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -163,7 +183,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            style: AppFonts.inter(fontSize: FontSize.x2l, color: config.generalTextColor, height: 1.2),
+                            style: AppFonts.inter(
+                              fontSize: FontSize.x2l,
+                              color: config.generalTextColor,
+                              height: 1.2,
+                            ),
                           ),
                           const SizedBox(height: 8),
                           SizedBox(
@@ -174,7 +198,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 6),
                           Text(
                             langCode == 'en' ? 'Daughter of' : 'Putri dari',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                            style: AppFonts.inter(
+                              fontSize: FontSize.xs + .2,
+                              fontWeight: .w500,
+                              color: config.generalTextColor,
+                            ),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -211,7 +239,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 2),
                           Text(
                             langCode == 'en' ? 'and' : 'dan',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                            style: AppFonts.inter(
+                              fontSize: FontSize.xs + .2,
+                              fontWeight: .w500,
+                              color: config.generalTextColor,
+                            ),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -260,7 +292,10 @@ class PageViewBasedSecondPage extends StatelessWidget {
                                   ),
                                 TextSpan(
                                   text: groom.fullName,
-                                  style: AppFonts.inter(fontWeight: .w700, color: config.groomNameTextColor),
+                                  style: AppFonts.inter(
+                                    fontWeight: .w700,
+                                    color: config.groomNameTextColor,
+                                  ),
                                 ),
                                 if ((groom.backTitle ?? '').isNotEmpty)
                                   TextSpan(
@@ -269,7 +304,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
                                   ),
                               ],
                             ),
-                            style: AppFonts.inter(fontSize: FontSize.x2l, color: config.generalTextColor, height: 1.2),
+                            style: AppFonts.inter(
+                              fontSize: FontSize.x2l,
+                              color: config.generalTextColor,
+                              height: 1.2,
+                            ),
                             textAlign: .end,
                           ),
                           const SizedBox(height: 8),
@@ -281,7 +320,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 6),
                           Text(
                             langCode == 'en' ? 'Son of' : 'Putra dari',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                            style: AppFonts.inter(
+                              fontSize: FontSize.xs + .2,
+                              fontWeight: .w500,
+                              color: config.generalTextColor,
+                            ),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -319,7 +362,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
                           const SizedBox(height: 2),
                           Text(
                             langCode == 'en' ? 'and' : 'dan',
-                            style: AppFonts.inter(fontSize: FontSize.xs + .2, fontWeight: .w500, color: config.generalTextColor),
+                            style: AppFonts.inter(
+                              fontSize: FontSize.xs + .2,
+                              fontWeight: .w500,
+                              color: config.generalTextColor,
+                            ),
                           ),
                           const SizedBox(height: 2),
                           Text.rich(
@@ -408,7 +455,11 @@ class PageViewBasedSecondPage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),

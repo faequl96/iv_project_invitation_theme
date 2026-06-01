@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 enum SlideFrom { top, left, right, bottom }
 
 enum GroundSlideFrom { left, right }

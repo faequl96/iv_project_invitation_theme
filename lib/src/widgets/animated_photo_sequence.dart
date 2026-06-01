@@ -41,7 +41,8 @@ class AnimatedPhotoSequence extends StatefulWidget {
   State<AnimatedPhotoSequence> createState() => _AnimatedPhotoSequenceState();
 }
 
-class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with SingleTickerProviderStateMixin {
+class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
+    with SingleTickerProviderStateMixin {
   StreamSubscription? _sub;
 
   late final AnimationController _controller;
@@ -79,18 +80,20 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
         curve: const Interval(.0, .4, curve: Curves.ease),
       ),
     );
-    _slideHorizontalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(widget.isLeft ? -.38 : .38, .0)).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(.44, .68, curve: Curves.easeIn),
-      ),
-    );
-    _slideVerticalAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .685 : -.685)).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: const Interval(.74, 1, curve: Curves.easeIn),
-      ),
-    );
+    _slideHorizontalAnimation =
+        Tween<Offset>(begin: Offset.zero, end: Offset(widget.isLeft ? -.38 : .38, .0)).animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: const Interval(.44, .68, curve: Curves.easeIn),
+          ),
+        );
+    _slideVerticalAnimation =
+        Tween<Offset>(begin: Offset.zero, end: Offset(.0, widget.isLeft ? .685 : -.685)).animate(
+          CurvedAnimation(
+            parent: _controller,
+            curve: const Interval(.74, 1, curve: Curves.easeIn),
+          ),
+        );
     _frameScaleAnimation = Tween<double>(begin: .95, end: 1.2).animate(
       CurvedAnimation(
         parent: _controller,
@@ -178,17 +181,26 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence> with Sing
                           builder: (_, _) {
                             Widget? child;
                             if (widget.viewType == ViewType.preview) {
-                              if (widget.image != null) child = Image.file(widget.image!, fit: .cover);
+                              if (widget.image != null) {
+                                child = Image.file(widget.image!, fit: .cover);
+                              }
                             } else if (widget.viewType == ViewType.example) {
                               if (widget.imageUrl != null) {
-                                child = Image.asset(widget.imageUrl!, fit: .cover, package: 'iv_project_invitation_theme');
+                                child = Image.asset(
+                                  widget.imageUrl!,
+                                  fit: .cover,
+                                  package: 'iv_project_invitation_theme',
+                                );
                               }
                             } else {
                               if (widget.imageUrl != null) {
                                 child = Image.network(widget.imageUrl!, fit: .cover);
                               }
                             }
-                            return ClipRRect(borderRadius: _clipRRectAnimation.value ?? .zero, child: child);
+                            return ClipRRect(
+                              borderRadius: _clipRRectAnimation.value ?? .zero,
+                              child: child,
+                            );
                           },
                         ),
                       ),

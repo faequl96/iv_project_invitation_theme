@@ -44,7 +44,13 @@ class PageViewBasedCoverPage extends StatelessWidget {
             config.coverBackground!
           else ...[
             if (viewType == ViewType.preview) ...[
-              if (coverImage != null) Image.file(coverImage!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+              if (coverImage != null)
+                Image.file(
+                  coverImage!,
+                  height: Screen.height / 1.2,
+                  width: Screen.width,
+                  fit: .cover,
+                ),
             ] else if (viewType == ViewType.example) ...[
               if (general.coverImageUrl != null)
                 Image.asset(
@@ -56,7 +62,12 @@ class PageViewBasedCoverPage extends StatelessWidget {
                 ),
             ] else ...[
               if (general.coverImageUrl != null)
-                Image.network(general.coverImageUrl!, height: Screen.height / 1.2, width: Screen.width, fit: .cover),
+                Image.network(
+                  general.coverImageUrl!,
+                  height: Screen.height / 1.2,
+                  width: Screen.width,
+                  fit: .cover,
+                ),
             ],
           ],
           Positioned(
@@ -68,7 +79,10 @@ class PageViewBasedCoverPage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [config.gradientBaseColor.withValues(alpha: .0), config.gradientBaseColor],
+                  colors: [
+                    config.gradientBaseColor.withValues(alpha: .0),
+                    config.gradientBaseColor,
+                  ],
                   stops: const [.3, .8],
                 ),
               ),

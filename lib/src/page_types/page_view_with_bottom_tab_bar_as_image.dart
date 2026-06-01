@@ -28,7 +28,8 @@ class PageViewWithBottomTabBarAsImage extends StatefulWidget {
   State<PageViewWithBottomTabBarAsImage> createState() => _PageViewWithBottomTabBarAsImageState();
 }
 
-class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabBarAsImage> with SingleTickerProviderStateMixin {
+class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabBarAsImage>
+    with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
   List<Widget> _tabs = [];
@@ -42,7 +43,11 @@ class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabB
 
     _indexActive = widget.initialPage;
     _buildTabs();
-    _tabController = TabController(initialIndex: widget.initialPage, length: _tabs.length, vsync: this);
+    _tabController = TabController(
+      initialIndex: widget.initialPage,
+      length: _tabs.length,
+      vsync: this,
+    );
   }
 
   @override
@@ -79,7 +84,10 @@ class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabB
           ] else
             SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
 
-          Positioned(bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0, child: _tab),
+          Positioned(
+            bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0,
+            child: _tab,
+          ),
 
           ?widget.wrapper,
 
@@ -128,7 +136,10 @@ class _PageViewWithBottomTabBarAsImageState extends State<PageViewWithBottomTabB
   Widget get _tabBar => SizedBox(
     height: 52,
     child: DecoratedBox(
-      decoration: BoxDecoration(color: widget.tabConfig.backgroundColor, borderRadius: .circular(36)),
+      decoration: BoxDecoration(
+        color: widget.tabConfig.backgroundColor,
+        borderRadius: .circular(36),
+      ),
       child: TabBar(
         tabs: _tabs,
         controller: _tabController,

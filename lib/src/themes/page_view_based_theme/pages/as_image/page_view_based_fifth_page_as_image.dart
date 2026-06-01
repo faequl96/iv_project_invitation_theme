@@ -18,7 +18,8 @@ class PageViewBasedFifthPageAsImage extends StatelessWidget {
 
     return Stack(
       children: [
-        if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+        if (config.firstGradientBackgroundColor != null &&
+            config.secondGradientBackgroundColor != null)
           Positioned(
             top: 0,
             height: Screen.height,
@@ -28,7 +29,10 @@ class PageViewBasedFifthPageAsImage extends StatelessWidget {
                 gradient: LinearGradient(
                   begin: .topCenter,
                   end: .bottomCenter,
-                  colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                  colors: [
+                    config.firstGradientBackgroundColor!,
+                    config.secondGradientBackgroundColor!,
+                  ],
                 ),
               ),
             ),
@@ -56,7 +60,10 @@ class PageViewBasedFifthPageAsImage extends StatelessWidget {
                         gradient: LinearGradient(
                           begin: .topCenter,
                           end: .bottomCenter,
-                          colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                          colors: [
+                            config.firstGradientScaffoldColor,
+                            config.secondGradientScaffoldColor,
+                          ],
                           stops: config.stopsGradientScaffoldColor,
                         ),
                       ),
@@ -152,25 +159,35 @@ class PageViewBasedFifthPageAsImage extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           langCode == 'en' ? 'Our Gallery' : 'Galeri Kami',
-          style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
         ),
       ],
     ),
   );
 
-  Widget _seeMore(BuildContext context, String langCode) => GeneralEffectsButton(
+  Widget _seeMore(BuildContext context, String langCode) => QuickButton(
     onTap: () {},
-    padding: const .symmetric(horizontal: 48),
-    height: W.lg + H.x10s,
-    borderRadius: .circular(30),
-    border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
-    color: config.seeMoreButtonColor,
+    style: QuickButtonStyle(
+      padding: const .symmetric(horizontal: 48),
+      height: W.lg + H.x10s,
+      borderRadius: .circular(30),
+      border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
+      color: config.seeMoreButtonColor,
+    ),
     child: Stack(
       alignment: .center,
       children: [
         Text(
           langCode == 'en' ? 'See More' : 'Selengkapnya',
-          style: AppFonts.inter(color: config.seeMoreButtonLabelColor, fontSize: FontSize.md, fontWeight: .w600),
+          style: AppFonts.inter(
+            color: config.seeMoreButtonLabelColor,
+            fontSize: FontSize.md,
+            fontWeight: .w600,
+          ),
         ),
       ],
     ),

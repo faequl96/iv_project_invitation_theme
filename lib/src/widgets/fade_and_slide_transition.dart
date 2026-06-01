@@ -30,7 +30,8 @@ class FadeAndSlideTransition extends StatefulWidget {
   State<FadeAndSlideTransition> createState() => _FadeAndSlideTransitionState();
 }
 
-class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with TickerProviderStateMixin {
+class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition>
+    with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 
   late final AnimationController _controller;
@@ -51,21 +52,13 @@ class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition> with Ti
   void _initAnimation() {
     _controller = AnimationController(vsync: this, duration: widget.animationSpeed);
 
-    late final Offset beginOffset;
-    switch (widget.slideFrom) {
-      case .top:
-        beginOffset = Offset(0, -widget.slideFromOffset);
-        break;
-      case .left:
-        beginOffset = Offset(-widget.slideFromOffset, 0);
-        break;
-      case .right:
-        beginOffset = Offset(widget.slideFromOffset, 0);
-        break;
-      case .bottom:
-        beginOffset = Offset(0, widget.slideFromOffset);
-        break;
-    }
+    final beginOffset = switch (widget.slideFrom) {
+      .top => Offset(0, -widget.slideFromOffset),
+      .left => Offset(-widget.slideFromOffset, 0),
+      .right => Offset(widget.slideFromOffset, 0),
+      .bottom => Offset(0, widget.slideFromOffset),
+    };
+
     _slideAnimation = Tween<Offset>(
       begin: beginOffset,
       end: Offset.zero,

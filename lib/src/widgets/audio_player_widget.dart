@@ -35,7 +35,8 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
         final processingState = playerState?.processingState;
         final playing = playerState?.playing;
 
-        final isLoading = processingState == .loading || processingState == .buffering || processingState == null;
+        final isLoading =
+            processingState == .loading || processingState == .buffering || processingState == null;
 
         if (isLoading) {
           return Padding(
@@ -90,8 +91,11 @@ class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTicker
               ),
               Container(
                 padding: .all(W.x14s),
-                decoration: BoxDecoration(shape: .circle, color: ColorConverter.lighten(Colors.grey.shade700, 90)),
-                child: Icon(icon, size: W.xs, color: ColorConverter.darken(Colors.grey.shade700)),
+                decoration: BoxDecoration(
+                  shape: .circle,
+                  color: ColorUtil.lighten(Colors.grey.shade700, 90),
+                ),
+                child: Icon(icon, size: W.xs, color: ColorUtil.darken(Colors.grey.shade700)),
               ),
             ],
           ),

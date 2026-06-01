@@ -69,7 +69,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -94,7 +99,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -132,7 +142,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -170,7 +185,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -207,7 +227,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -234,7 +259,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -271,7 +301,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -299,7 +334,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -325,7 +365,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),
@@ -335,14 +380,14 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
           fieldLabelColor: Colors.grey.shade300,
           fieldFillColor: Colors.grey.shade500.withValues(alpha: .3),
           fieldBorderColor: Colors.grey.shade600,
-          fieldSplashColor: Colors.grey.shade400,
+          fieldSplashColor: Colors.grey.shade700,
           overlayColor: Colors.grey.shade700.withValues(alpha: .95),
           overlayBorderColor: Colors.grey.shade500,
           dropdownItemSelectedColor: Colors.grey.shade500,
           dropdownItemTextColor: Colors.grey.shade100,
           dropdownItemSelectedTextColor: Colors.grey.shade100,
-          dropdownItemHoveredColor: Colors.grey.shade400,
-          dropdownItemSplashColor: Colors.grey.shade400,
+          // dropdownItemHoveredColor: Colors.grey.shade400,
+          // dropdownItemSplashColor: Colors.grey.shade400,
           submitButtonColor: ThemeColors.gold.withValues(alpha: .2),
           submitButtonLabelColor: ThemeColors.gold,
           submitButtonBorderWidth: 2,
@@ -373,7 +418,12 @@ class JavaneseRoseGoldAsSinglePage extends StatelessWidget {
             gradient: LinearGradient(
               begin: .topLeft,
               end: .bottomRight,
-              colors: [ThemeColors.roseGold, ThemeColors.gold, ThemeColors.roseGold, ThemeColors.gold],
+              colors: [
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+                ThemeColors.roseGold,
+                ThemeColors.gold,
+              ],
               transform: GradientRotation(-0.2),
             ),
           ),

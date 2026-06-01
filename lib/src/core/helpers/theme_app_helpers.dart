@@ -9,7 +9,11 @@ import 'package:iv_project_model/iv_project_model.dart';
 class ThemeAppHelpers {
   const ThemeAppHelpers._();
 
-  static bool isGalleriesNotEmptyChecker(ViewType viewType, ImagesRaw? imagesRaw, InvitationDataResponse invitationData) {
+  static bool isGalleriesNotEmptyChecker(
+    ViewType viewType,
+    ImagesRaw? imagesRaw,
+    InvitationDataResponse invitationData,
+  ) {
     bool returnValue = false;
 
     if (viewType == ViewType.preview) {
@@ -43,8 +47,8 @@ class ThemeAppHelpers {
   }
 
   static void setSize(InvitationThemeCoreCubit coreCubit, double heightAdjustment) {
-    final size = MediaQuery.of(GlobalContextService.value).size;
-    final padding = MediaQuery.of(GlobalContextService.value).padding;
+    final size = MediaQuery.sizeOf(GlobalContextService.value);
+    final padding = MediaQuery.paddingOf(GlobalContextService.value);
 
     bool isMobile() {
       if (!kIsWeb) return Platform.isAndroid || Platform.isIOS;
@@ -62,7 +66,10 @@ class ThemeAppHelpers {
       }
     } else {
       if (isMobile()) {
-        finalSize = Size(size.width, size.height - (padding.top + heightAdjustment + padding.bottom));
+        finalSize = Size(
+          size.width,
+          size.height - (padding.top + heightAdjustment + padding.bottom),
+        );
       } else {
         finalSize = Size(size.width, 812);
       }

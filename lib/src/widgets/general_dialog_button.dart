@@ -25,18 +25,22 @@ class GeneralDialogButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const .only(top: 14, left: 14, right: 14, bottom: 20),
-      child: GeneralEffectsButton(
+      child: QuickButton(
         onTap: onTap,
-        isDisabled: isBusy || isDisabled,
-        height: 52,
-        color: color,
-        splashColor: Colors.grey.shade300,
-        borderRadius: .circular(40),
-        useInitialElevation: true,
+        disabled: isBusy || isDisabled,
+        style: QuickButtonStyle(
+          height: 52,
+          color: color,
+          splashColor: Colors.grey.shade300,
+          borderRadius: .circular(40),
+        ),
         child: Row(
           mainAxisAlignment: .center,
           children: [
-            if (isLoading) ...[SharedPersonalize.loadingWidget(size: 16, color: Colors.white), const SizedBox(width: 10)],
+            if (isLoading) ...[
+              SharedPersonalize.loadingWidget(size: 16, color: Colors.white),
+              const SizedBox(width: 10),
+            ],
             Text(
               title,
               style: AppFonts.inter(fontWeight: .w700, color: Colors.white),

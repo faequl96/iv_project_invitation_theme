@@ -88,11 +88,19 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
           children: [
             Positioned(
               top: -(widget.arrowSize / 8),
-              child: Icon(Icons.keyboard_arrow_up_rounded, size: widget.arrowSize, color: widget.firstArrowColor),
+              child: Icon(
+                Icons.keyboard_arrow_up_rounded,
+                size: widget.arrowSize,
+                color: widget.firstArrowColor,
+              ),
             ),
             Positioned(
               bottom: -(widget.arrowSize / 8),
-              child: Icon(Icons.keyboard_arrow_up_rounded, size: widget.arrowSize, color: widget.secondArrowColor),
+              child: Icon(
+                Icons.keyboard_arrow_up_rounded,
+                size: widget.arrowSize,
+                color: widget.secondArrowColor,
+              ),
             ),
           ],
         ),

@@ -3,7 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 
 class TimeAgo extends StatelessWidget {
-  const TimeAgo({super.key, required this.dateTime, this.textStyle = const TextStyle(fontSize: 13)});
+  const TimeAgo({
+    super.key,
+    required this.dateTime,
+    this.textStyle = const TextStyle(fontSize: 13),
+  });
 
   final DateTime dateTime;
   final TextStyle textStyle;
@@ -15,7 +19,9 @@ class TimeAgo extends StatelessWidget {
     if (diff.inSeconds < 60) {
       return locale.languageCode == 'id' ? 'Baru saja' : 'Recently';
     } else if (diff.inMinutes < 60) {
-      return locale.languageCode == 'id' ? '${diff.inMinutes} menit lalu' : '${diff.inMinutes} minutes ago';
+      return locale.languageCode == 'id'
+          ? '${diff.inMinutes} menit lalu'
+          : '${diff.inMinutes} minutes ago';
     } else if (diff.inHours < 24) {
       return locale.languageCode == 'id' ? '${diff.inHours} jam lalu' : '${diff.inHours} hours ago';
     } else if (diff.inDays < 7) {

@@ -24,7 +24,8 @@ class BackgroundSlideTransition extends StatefulWidget {
   State<BackgroundSlideTransition> createState() => _BackgroundSlideTransitionState();
 }
 
-class _BackgroundSlideTransitionState extends State<BackgroundSlideTransition> with TickerProviderStateMixin {
+class _BackgroundSlideTransitionState extends State<BackgroundSlideTransition>
+    with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 
   late final AnimationController _controller;

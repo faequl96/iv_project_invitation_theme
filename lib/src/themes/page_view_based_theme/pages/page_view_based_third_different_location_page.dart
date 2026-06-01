@@ -12,7 +12,11 @@ import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
-  const PageViewBasedThirdDifferentLocationPage({super.key, required this.config, required this.contractEvent});
+  const PageViewBasedThirdDifferentLocationPage({
+    super.key,
+    required this.config,
+    required this.contractEvent,
+  });
 
   final PageViewBasedThirdDifferentLocationPageConfig config;
   final EventResponse contractEvent;
@@ -25,7 +29,8 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (config.firstGradientBackgroundColor != null && config.secondGradientBackgroundColor != null)
+          if (config.firstGradientBackgroundColor != null &&
+              config.secondGradientBackgroundColor != null)
             Positioned(
               bottom: 0,
               height: Screen.height / 1.2,
@@ -35,7 +40,10 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
-                    colors: [config.firstGradientBackgroundColor!, config.secondGradientBackgroundColor!],
+                    colors: [
+                      config.firstGradientBackgroundColor!,
+                      config.secondGradientBackgroundColor!,
+                    ],
                     stops: const [.2, .8],
                   ),
                 ),
@@ -59,7 +67,11 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                     const SizedBox(width: 10),
                     Text(
                       langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
-                      style: AppFonts.inter(color: config.titlePageColor, fontSize: FontSize.x3l, fontWeight: .w700),
+                      style: AppFonts.inter(
+                        color: config.titlePageColor,
+                        fontSize: FontSize.x3l,
+                        fontWeight: .w700,
+                      ),
                     ),
                     const SizedBox(width: 10),
                     Icon(Icons.menu_book, size: W.xs, color: config.titlePageColor),
@@ -86,7 +98,10 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                           gradient: LinearGradient(
                             begin: .topCenter,
                             end: .bottomCenter,
-                            colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                            colors: [
+                              config.firstGradientScaffoldColor,
+                              config.secondGradientScaffoldColor,
+                            ],
                             stops: config.stopsGradientScaffoldColor,
                           ),
                         ),
@@ -109,7 +124,10 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
-                      colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
                       stops: config.stopsGradientScaffoldColor,
                     ),
                   ),
@@ -123,7 +141,10 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
             child: Padding(
               padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
               child: DecoratedBox(
-                decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
+                decoration: BoxDecoration(
+                  borderRadius: .circular(20),
+                  border: config.scaffoldBorder,
+                ),
                 child: ClipRect(
                   child: Column(
                     children: [
@@ -208,7 +229,11 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                             const SizedBox(height: 3),
                             Text(
                               contractEvent.place,
-                              style: AppFonts.inter(color: config.placeBaseTextColor, fontSize: FontSize.lg, fontWeight: .w600),
+                              style: AppFonts.inter(
+                                color: config.placeBaseTextColor,
+                                fontSize: FontSize.lg,
+                                fontWeight: .w600,
+                              ),
                             ),
                           ],
                         ),
@@ -251,16 +276,21 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1800),
-                        child: GeneralEffectsButton(
-                          onTap: () => launchUrl(Uri.parse(contractEvent.mapsUrl), mode: .externalNonBrowserApplication),
-                          padding: const .symmetric(horizontal: 24),
-                          height: W.lg + H.x10s,
-                          borderRadius: .circular(30),
-                          border: .all(
-                            width: config.getDirectionsButtonBorderWidth,
-                            color: config.getDirectionsButtonBorderColor,
+                        child: QuickButton(
+                          onTap: () => launchUrl(
+                            Uri.parse(contractEvent.mapsUrl),
+                            mode: .externalNonBrowserApplication,
                           ),
-                          color: config.getDirectionsButtonColor,
+                          style: QuickButtonStyle(
+                            padding: const .symmetric(horizontal: 24),
+                            height: W.lg + H.x10s,
+                            borderRadius: .circular(30),
+                            border: .all(
+                              width: config.getDirectionsButtonBorderWidth,
+                              color: config.getDirectionsButtonBorderColor,
+                            ),
+                            color: config.getDirectionsButtonColor,
+                          ),
                           child: Stack(
                             alignment: .center,
                             children: [

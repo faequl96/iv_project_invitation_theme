@@ -12,7 +12,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
         SizedBox(
           width: Screen.width,
           height: Screen.height,
-          child: Image.asset('assets/backgrounds/base_canvas.jpg', fit: .cover, package: 'iv_project_invitation_theme'),
+          child: Image.asset(
+            'assets/backgrounds/base_canvas.jpg',
+            fit: .cover,
+            package: 'iv_project_invitation_theme',
+          ),
         ),
         SizedBox(
           width: Screen.width,
@@ -23,7 +27,7 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
                 begin: .topCenter,
                 end: .bottomCenter,
                 colors: [
-                  ColorConverter.darken(Colors.blue.shade700, 40).withValues(alpha: .6),
+                  ColorUtil.darken(Colors.blue.shade700, 40).withValues(alpha: .6),
                   Colors.white.withValues(alpha: .0),
                 ],
               ),
@@ -38,7 +42,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipY: true,
             child: SizedBox(
               width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -50,7 +58,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipY: true,
             child: SizedBox(
               width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -60,7 +72,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
           child: Transform.flip(
             child: SizedBox(
               width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -71,7 +87,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipX: true,
             child: SizedBox(
               width: 40,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -85,7 +105,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
               quarterTurns: 2,
               child: SizedBox(
                 width: Screen.width / 2.4,
-                child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+                child: Image.asset(
+                  'assets/backgrounds/floral_1.png',
+                  fit: .cover,
+                  package: 'iv_project_invitation_theme',
+                ),
               ),
             ),
           ),
@@ -97,7 +121,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             quarterTurns: 2,
             child: SizedBox(
               width: Screen.width / 2.4,
-              child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_1.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -106,7 +134,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
           left: -100,
           child: SizedBox(
             width: Screen.width / 2.2,
-            child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+            child: Image.asset(
+              'assets/backgrounds/floral_1.png',
+              fit: .cover,
+              package: 'iv_project_invitation_theme',
+            ),
           ),
         ),
         Positioned(
@@ -116,7 +148,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipX: true,
             child: SizedBox(
               width: Screen.width / 2.2,
-              child: Image.asset('assets/backgrounds/floral_1.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_1.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -128,7 +164,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipY: true,
             child: SizedBox(
               width: 30,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -138,7 +178,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
           child: Transform.flip(
             child: SizedBox(
               width: 30,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -150,7 +194,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipX: true,
             child: SizedBox(
               width: 30,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -161,7 +209,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipX: true,
             child: SizedBox(
               width: 30,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -171,7 +223,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
           child: Transform.flip(
             child: SizedBox(
               width: 20,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),
@@ -182,7 +238,11 @@ class CanvasThemeGlobalBackground extends StatelessWidget {
             flipX: true,
             child: SizedBox(
               width: 20,
-              child: Image.asset('assets/backgrounds/floral_leaf.png', fit: .cover, package: 'iv_project_invitation_theme'),
+              child: Image.asset(
+                'assets/backgrounds/floral_leaf.png',
+                fit: .cover,
+                package: 'iv_project_invitation_theme',
+              ),
             ),
           ),
         ),

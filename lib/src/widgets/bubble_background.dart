@@ -35,7 +35,9 @@ class BubbleBackground extends StatelessWidget {
               SizedBox(
                 height: Screen.height,
                 width: Screen.width,
-                child: DecoratedBox(decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9))),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9)),
+                ),
               ),
               SizedBox(
                 height: Screen.height,
@@ -109,7 +111,9 @@ class BubbleBackground extends StatelessWidget {
               SizedBox(
                 height: Screen.height,
                 width: Screen.width,
-                child: DecoratedBox(decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9))),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9)),
+                ),
               ),
               SizedBox(
                 height: Screen.height,
@@ -175,8 +179,12 @@ class BubbleBackground extends StatelessWidget {
 }
 
 class Bubble extends StatelessWidget {
-  const Bubble.fill({super.key, required this.size, required this.color}) : isBorder = false, borderWidth = 0;
-  const Bubble.border({super.key, required this.size, required this.color, this.borderWidth = 2}) : isBorder = true;
+  const Bubble.fill({super.key, required this.size, required this.color})
+    : isBorder = false,
+      borderWidth = 0;
+
+  const Bubble.border({super.key, required this.size, required this.color, this.borderWidth = 2})
+    : isBorder = true;
 
   final bool isBorder;
   final double size;

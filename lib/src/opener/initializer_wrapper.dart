@@ -11,7 +11,13 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:just_audio/just_audio.dart';
 
 class InitializerWrapper extends StatefulWidget {
-  const InitializerWrapper({super.key, required this.viewType, required this.bride, required this.groom, required this.time});
+  const InitializerWrapper({
+    super.key,
+    required this.viewType,
+    required this.bride,
+    required this.groom,
+    required this.time,
+  });
 
   final ViewType viewType;
   final BridegroomResponse bride;
@@ -43,7 +49,9 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
-    final invitedGuest = (widget.viewType == ViewType.live) ? _invitedGuestCubit.state.invitedGuest : null;
+    final invitedGuest = (widget.viewType == ViewType.live)
+        ? _invitedGuestCubit.state.invitedGuest
+        : null;
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
@@ -82,7 +90,11 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                         child: Center(
                           child: Text(
                             langCode == 'en' ? 'Wedding Invitation' : 'Undangan Pernikahan',
-                            style: AppFonts.pacifico(fontSize: FontSize.x4l, fontWeight: .w700, color: Colors.grey.shade900),
+                            style: AppFonts.pacifico(
+                              fontSize: FontSize.x4l,
+                              fontWeight: .w700,
+                              color: Colors.grey.shade900,
+                            ),
                           ),
                         ),
                       ),
@@ -105,7 +117,11 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   child: Center(
                     child: Text(
                       widget.bride.nickname.isNotEmpty ? widget.bride.nickname[0] : '',
-                      style: AppFonts.pacifico(fontSize: FontSize.xl + H.xl, fontWeight: .w500, color: Colors.grey.shade300),
+                      style: AppFonts.pacifico(
+                        fontSize: FontSize.xl + H.xl,
+                        fontWeight: .w500,
+                        color: Colors.grey.shade300,
+                      ),
                     ),
                   ),
                 ),
@@ -118,7 +134,11 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                   child: Center(
                     child: Text(
                       widget.groom.nickname.isNotEmpty ? widget.groom.nickname[0] : '',
-                      style: AppFonts.pacifico(fontSize: FontSize.xl + H.xl, fontWeight: .w500, color: Colors.grey.shade300),
+                      style: AppFonts.pacifico(
+                        fontSize: FontSize.xl + H.xl,
+                        fontWeight: .w500,
+                        color: Colors.grey.shade300,
+                      ),
                     ),
                   ),
                 ),
@@ -127,7 +147,11 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 alignment: const Alignment(0, .3),
                 child: Text(
                   DateUtil.format(widget.time.startTime, .EEEEddMMMMyyyy),
-                  style: AppFonts.inter(fontSize: FontSize.md, color: Colors.grey.shade300, fontWeight: .w400),
+                  style: AppFonts.inter(
+                    fontSize: FontSize.md,
+                    color: Colors.grey.shade300,
+                    fontWeight: .w400,
+                  ),
                 ),
               ),
               Align(
@@ -139,18 +163,30 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                     children: [
                       Text(
                         langCode == 'en' ? 'To :' : 'Kepada :',
-                        style: AppFonts.inter(fontSize: FontSize.sm, fontWeight: .w400, color: Colors.grey.shade300),
+                        style: AppFonts.inter(
+                          fontSize: FontSize.sm,
+                          fontWeight: .w400,
+                          color: Colors.grey.shade300,
+                        ),
                       ),
                       const SizedBox(height: 6),
                       if (invitedGuest != null)
                         Text(
                           '${invitedGuest.nickname} - ${invitedGuest.nameInstance.split('_').last.replaceAll('-', ' ')}',
-                          style: AppFonts.inter(fontSize: FontSize.md, fontWeight: .w500, color: Colors.grey.shade300),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.md,
+                            fontWeight: .w500,
+                            color: Colors.grey.shade300,
+                          ),
                         )
                       else
                         Text(
                           '-',
-                          style: AppFonts.inter(fontSize: FontSize.md, fontWeight: .w500, color: Colors.grey.shade300),
+                          style: AppFonts.inter(
+                            fontSize: FontSize.md,
+                            fontWeight: .w500,
+                            color: Colors.grey.shade300,
+                          ),
                         ),
                       const SizedBox(height: 4),
                     ],
@@ -164,11 +200,11 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 builder: (_, snapshot) {
                   final processingState = snapshot.data;
 
-                  if (processingState == ProcessingState.loading ||
-                      processingState == ProcessingState.buffering ||
+                  if (processingState == .loading ||
+                      processingState == .buffering ||
                       processingState == null) {
                     return const SizedBox.shrink();
-                  } else if (processingState == ProcessingState.ready) {
+                  } else if (processingState == .ready) {
                     return AnimatedPositioned(
                       duration: const Duration(milliseconds: 200),
                       bottom: _onOpenedStarted ? -50 : 40,

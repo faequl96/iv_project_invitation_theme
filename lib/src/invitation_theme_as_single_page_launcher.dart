@@ -28,7 +28,8 @@ class InvitationThemeAsSinglePageLauncher extends StatefulWidget {
   final BrandProfileResponse brandProfile;
 
   @override
-  State<InvitationThemeAsSinglePageLauncher> createState() => _InvitationThemeAsSinglePageLauncherState();
+  State<InvitationThemeAsSinglePageLauncher> createState() =>
+      _InvitationThemeAsSinglePageLauncherState();
 }
 
 class _InvitationThemeAsSinglePageLauncherState extends State<InvitationThemeAsSinglePageLauncher> {

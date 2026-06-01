@@ -40,8 +40,11 @@ class ParticleSphereConfig {
 }
 
 class _CircleParticle {
-  _CircleParticle({required this.basePosition, this.color = Colors.white, this.isFlickering = false})
-    : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5;
+  _CircleParticle({
+    required this.basePosition,
+    this.color = Colors.white,
+    this.isFlickering = false,
+  }) : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5;
 
   final v_math.Vector3 basePosition;
   final double velocityMultiplier;
@@ -117,11 +120,20 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
       double radiusAtY = math.sqrt(1 - y * y);
       double theta = 2 * math.pi * goldenRatio * i;
 
-      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
 
-      final variation = widget.config.circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
+      final variation = widget
+          .config
+          .circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
 
-      _particles.add(_CircleParticle(basePosition: pos, color: variation.color, isFlickering: rand.nextDouble() < .4));
+      _particles.add(
+        _CircleParticle(
+          basePosition: pos,
+          color: variation.color,
+          isFlickering: rand.nextDouble() < .4,
+        ),
+      );
     }
   }
 
@@ -143,7 +155,10 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
       ..addListener(_updateRotation)
       ..repeat();
 
-    _secondController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _secondController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
 
     _explosionAnimation = Tween<double>(begin: .0, end: 2).animate(
       CurvedAnimation(
@@ -195,7 +210,8 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
     return Stack(
       alignment: .center,
       children: [
-        if (widget.config.groundType == .both || widget.config.groundType == .back) _buildPainter(isForeground: false),
+        if (widget.config.groundType == .both || widget.config.groundType == .back)
+          _buildPainter(isForeground: false),
         widget.child,
         if (widget.config.groundType == .both || widget.config.groundType == .fore)
           IgnorePointer(child: _buildPainter(isForeground: true)),
@@ -229,7 +245,11 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
 }
 
 class CircleParticleSphereAsImage extends StatefulWidget {
-  const CircleParticleSphereAsImage({super.key, required this.config, this.child = const SizedBox.shrink()});
+  const CircleParticleSphereAsImage({
+    super.key,
+    required this.config,
+    this.child = const SizedBox.shrink(),
+  });
 
   final ParticleSphereConfig config;
   final Widget child;
@@ -273,11 +293,16 @@ class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImag
       double radiusAtY = math.sqrt(1 - y * y);
       double theta = 2 * math.pi * goldenRatio * i;
 
-      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
 
-      final variation = widget.config.circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
+      final variation = widget
+          .config
+          .circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
 
-      _particles.add(_CircleParticle(basePosition: pos, color: variation.color, isFlickering: false));
+      _particles.add(
+        _CircleParticle(basePosition: pos, color: variation.color, isFlickering: false),
+      );
     }
   }
 
@@ -304,7 +329,8 @@ class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImag
     return Stack(
       alignment: .center,
       children: [
-        if (widget.config.groundType == .both || widget.config.groundType == .back) _buildPainter(isForeground: false),
+        if (widget.config.groundType == .both || widget.config.groundType == .back)
+          _buildPainter(isForeground: false),
         widget.child,
         if (widget.config.groundType == .both || widget.config.groundType == .fore)
           IgnorePointer(child: _buildPainter(isForeground: true)),
@@ -402,7 +428,15 @@ class _CircleParticlePainter extends CustomPainter {
     }
 
     if (_transforms.isNotEmpty) {
-      canvas.drawAtlas(AppParticles.circle!, _transforms, _rects, _colors, ui.BlendMode.modulate, null, _paint);
+      canvas.drawAtlas(
+        AppParticles.circle!,
+        _transforms,
+        _rects,
+        _colors,
+        ui.BlendMode.modulate,
+        null,
+        _paint,
+      );
     }
   }
 
@@ -493,7 +527,8 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
       double radiusAtY = math.sqrt(1 - y * y);
       double theta = 2 * math.pi * goldenRatio * i;
 
-      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
 
       _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
     }
@@ -518,7 +553,9 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
     }
 
     particleImagesId = particleFileNames.join('_');
-    if (AppParticles.images[particleImagesId] == null) await AppParticles.initCreateImages(loadedImages, particleImagesId);
+    if (AppParticles.images[particleImagesId] == null) {
+      await AppParticles.initCreateImages(loadedImages, particleImagesId);
+    }
 
     _generateParticles(loadedImages.length);
 
@@ -535,7 +572,10 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
       ..addListener(_updateRotation)
       ..repeat();
 
-    _secondController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _secondController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
 
     _explosionAnimation = Tween<double>(begin: .0, end: 2).animate(
       CurvedAnimation(
@@ -587,7 +627,8 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
     return Stack(
       alignment: .center,
       children: [
-        if (widget.config.groundType == .both || widget.config.groundType == .back) _buildPainter(isForeground: false),
+        if (widget.config.groundType == .both || widget.config.groundType == .back)
+          _buildPainter(isForeground: false),
         widget.child,
         if (widget.config.groundType == .both || widget.config.groundType == .fore)
           IgnorePointer(child: _buildPainter(isForeground: true)),
@@ -623,7 +664,11 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
 }
 
 class ImageParticleSphereAsImage extends StatefulWidget {
-  const ImageParticleSphereAsImage({super.key, required this.config, this.child = const SizedBox.shrink()});
+  const ImageParticleSphereAsImage({
+    super.key,
+    required this.config,
+    this.child = const SizedBox.shrink(),
+  });
 
   final ParticleSphereConfig config;
   final Widget child;
@@ -669,7 +714,8 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
       double radiusAtY = math.sqrt(1 - y * y);
       double theta = 2 * math.pi * goldenRatio * i;
 
-      v_math.Vector3 pos = v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
 
       _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
     }
@@ -694,7 +740,9 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
     }
 
     particleImagesId = particleFileNames.join('_');
-    if (AppParticles.images[particleImagesId] == null) await AppParticles.initCreateImages(loadedImages, particleImagesId);
+    if (AppParticles.images[particleImagesId] == null) {
+      await AppParticles.initCreateImages(loadedImages, particleImagesId);
+    }
 
     _generateParticles(loadedImages.length);
     _updateRotation();
@@ -716,7 +764,8 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
     return Stack(
       alignment: .center,
       children: [
-        if (widget.config.groundType == .both || widget.config.groundType == .back) _buildPainter(isForeground: false),
+        if (widget.config.groundType == .both || widget.config.groundType == .back)
+          _buildPainter(isForeground: false),
         widget.child,
         if (widget.config.groundType == .both || widget.config.groundType == .fore)
           IgnorePointer(child: _buildPainter(isForeground: true)),
@@ -804,7 +853,15 @@ class _ImageParticlePainter extends CustomPainter {
     }
 
     if (_transforms.isNotEmpty) {
-      canvas.drawAtlas(particleImage, _transforms, _rects, _colors, ui.BlendMode.modulate, null, _paint);
+      canvas.drawAtlas(
+        particleImage,
+        _transforms,
+        _rects,
+        _colors,
+        ui.BlendMode.modulate,
+        null,
+        _paint,
+      );
     }
   }
 
