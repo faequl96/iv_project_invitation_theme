@@ -88,13 +88,15 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
+    final invitationData = widget.invitationData;
+
     return PageViewWithBottomTabBar(
       tabConfig: widget.configs.tabConfig,
       wrapper: InitializerWrapper(
         viewType: widget.viewType,
-        bride: widget.invitationData.bride,
-        groom: widget.invitationData.groom,
-        time: widget.invitationData.contractEvent,
+        bride: invitationData.bride,
+        groom: invitationData.groom,
+        time: invitationData.contractEvent,
       ),
       backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
       particleSphere: widget.configs.particleSphere,
@@ -103,42 +105,41 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
           config: widget.configs.coverPageConfig,
           viewType: widget.viewType,
           coverImage: widget.imagesRaw?.coverImage,
-          general: widget.invitationData.general,
-          bride: widget.invitationData.bride,
-          groom: widget.invitationData.groom,
-          time: widget.invitationData.contractEvent,
+          general: invitationData.general,
+          bride: invitationData.bride,
+          groom: invitationData.groom,
+          time: invitationData.contractEvent,
         ),
         PageViewBasedFirstPage(
           config: widget.configs.firstPageConfig,
-          general: widget.invitationData.general,
+          general: invitationData.general,
         ),
         PageViewBasedSecondPage(
           config: widget.configs.secondPageConfig,
           viewType: widget.viewType,
           brideImage: widget.imagesRaw?.brideImage,
           groomImage: widget.imagesRaw?.groomImage,
-          bride: widget.invitationData.bride,
-          groom: widget.invitationData.groom,
+          bride: invitationData.bride,
+          groom: invitationData.groom,
         ),
-        if (widget.invitationData.contractEvent.mapsUrl ==
-            widget.invitationData.receptionEvent.mapsUrl) ...[
+        if (invitationData.contractEvent.mapsUrl == invitationData.receptionEvent.mapsUrl) ...[
           PageViewBasedThirdPage(
             config: widget.configs.thirdPageConfig,
-            contractEvent: widget.invitationData.contractEvent,
-            receptionEvent: widget.invitationData.receptionEvent,
+            contractEvent: invitationData.contractEvent,
+            receptionEvent: invitationData.receptionEvent,
           ),
           PageViewBasedFourthPage(
             config: widget.configs.fourthPageConfig,
-            receptionEvent: widget.invitationData.receptionEvent,
+            receptionEvent: invitationData.receptionEvent,
           ),
         ] else ...[
           PageViewBasedThirdDifferentLocationPage(
             config: widget.configs.thirdDifferentLocationPageConfig,
-            contractEvent: widget.invitationData.contractEvent,
+            contractEvent: invitationData.contractEvent,
           ),
           PageViewBasedFourthDifferentLocationPage(
             config: widget.configs.fourthDifferentLocationPageConfig,
-            receptionEvent: widget.invitationData.receptionEvent,
+            receptionEvent: invitationData.receptionEvent,
           ),
         ],
         if (_isGalleriesNotEmpty)
@@ -146,12 +147,12 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             config: widget.configs.fifthPageConfig,
             viewType: widget.viewType,
             galleries: widget.imagesRaw?.galleries,
-            gallery: widget.invitationData.gallery,
+            gallery: invitationData.gallery,
           ),
-        if (widget.invitationData.bankAccounts.isNotEmpty)
+        if (invitationData.bankAccounts.isNotEmpty)
           PageViewBasedSixthPage(
             config: widget.configs.sixthPageConfig,
-            bankAccounts: widget.invitationData.bankAccounts,
+            bankAccounts: invitationData.bankAccounts,
           ),
         PageViewBasedSeventhPage(
           config: widget.configs.seventhPageConfig,
@@ -160,9 +161,9 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
         ),
         PageViewBasedEighthPage(
           config: widget.configs.eighthPageConfig,
-          general: widget.invitationData.general,
-          brideName: widget.invitationData.bride.nickname,
-          groomName: widget.invitationData.groom.nickname,
+          general: invitationData.general,
+          brideName: invitationData.bride.nickname,
+          groomName: invitationData.groom.nickname,
           brandProfile: widget.brandProfile,
         ),
       ],
@@ -197,8 +198,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
             tabActive: tabActive,
           ),
         ),
-        if (widget.invitationData.contractEvent.mapsUrl !=
-            widget.invitationData.receptionEvent.mapsUrl) ...[
+        if (invitationData.contractEvent.mapsUrl != invitationData.receptionEvent.mapsUrl) ...[
           Tab(
             height: 48,
             child: _Tab(
@@ -252,7 +252,7 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
               tabActive: tabActive,
             ),
           ),
-        if (widget.invitationData.bankAccounts.isNotEmpty)
+        if (invitationData.bankAccounts.isNotEmpty)
           Tab(
             height: 48,
             child: _Tab(

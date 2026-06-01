@@ -654,11 +654,11 @@ class _ImageViewer extends StatelessWidget {
       );
     }
 
-    if (viewType == ViewType.preview) {
+    if (viewType == .preview) {
       if (image != null) {
         return wrapper(Image.file(image!, fit: .cover), Image.file(image!, fit: .contain));
       }
-    } else if (viewType == ViewType.example) {
+    } else if (viewType == .example) {
       if (imageUrl != null) {
         return wrapper(
           Image.asset(imageUrl!, fit: .cover, package: 'iv_project_invitation_theme'),

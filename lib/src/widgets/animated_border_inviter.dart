@@ -83,12 +83,15 @@ class _AnimatedBorderInviterState extends State<AnimatedBorderInviter>
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isTop ? -.75 : .75)),
-      child: FadeTransition(
-        opacity: _lineFadeAnimation,
-        child: ScaleTransition(
-          scale: const AlwaysStoppedAnimation<double>(1.12),
+    final containerHeight = (W.x8l * 2) - (W.x3s * 1.4);
+    final containerWidth = Screen.width - (W.x6s * 6);
+
+    return FractionalTranslation(
+      translation: Offset(0, widget.isTop ? -.75 : .75),
+      child: Transform.scale(
+        scale: 1.12,
+        child: FadeTransition(
+          opacity: _lineFadeAnimation,
           child: DecoratedBox(
             decoration: BoxDecoration(
               border: Border(
@@ -96,7 +99,7 @@ class _AnimatedBorderInviterState extends State<AnimatedBorderInviter>
                 bottom: BorderSide(width: widget.borderWidth, color: widget.color),
               ),
             ),
-            child: SizedBox(height: (W.x8l * 2) - (W.x3s * 1.4), width: Screen.width - (W.x6s * 6)),
+            child: SizedBox(height: containerHeight, width: containerWidth),
           ),
         ),
       ),

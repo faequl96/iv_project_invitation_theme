@@ -16,7 +16,7 @@ class ThemeAppHelpers {
   ) {
     bool returnValue = false;
 
-    if (viewType == ViewType.preview) {
+    if (viewType == .preview) {
       if (imagesRaw != null) {
         for (final file in imagesRaw.galleries) {
           if (file != null) {
@@ -54,7 +54,7 @@ class ThemeAppHelpers {
       if (!kIsWeb) return Platform.isAndroid || Platform.isIOS;
 
       final userAgent = defaultTargetPlatform;
-      return userAgent == TargetPlatform.android || userAgent == TargetPlatform.iOS;
+      return userAgent == .android || userAgent == .iOS;
     }
 
     late final Size finalSize;

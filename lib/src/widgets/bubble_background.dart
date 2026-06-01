@@ -31,146 +31,87 @@ class BubbleBackground extends StatelessWidget {
       builder: (_, _) => RepaintBoundary(
         child: Stack(
           children: [
-            if (!noAnimate) ...[
-              SizedBox(
-                height: Screen.height,
-                width: Screen.width,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9)),
-                ),
+            SizedBox(
+              height: Screen.height,
+              width: Screen.width,
+              child: DecoratedBox(
+                decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9)),
               ),
-              SizedBox(
-                height: Screen.height,
-                width: Screen.width,
-                child: DecoratedBox(decoration: BoxDecoration(color: backgroundColor)),
-              ),
-              Positioned(
-                left: -110,
-                bottom: -80,
-                child: Bubble.fill(size: W.x16l, color: bubbleColor1),
-              ),
-              Positioned(
-                left: 80,
-                bottom: H.x9l,
-                child: RandomSlideTransition(
-                  child: Bubble.border(size: W.x5l, color: Colors.white),
-                ),
-              ),
-              Positioned(
-                right: -40,
-                bottom: -90,
-                child: Bubble.fill(size: W.x15l, color: Colors.white),
-              ),
-              Positioned(
-                right: 90,
-                bottom: 120,
-                child: RandomSlideTransition(
-                  child: Bubble.border(size: W.x4l, color: bubbleColor2, borderWidth: 1),
-                ),
-              ),
-              Positioned(
-                right: 4,
-                bottom: H.x18l,
-                child: RandomSlideTransition(
-                  maxSlideOffset: .2,
-                  child: Bubble.border(size: W.x9l, color: bubbleColor3, borderWidth: 1),
-                ),
-              ),
-              Positioned(
-                right: 80,
-                bottom: H.x20l,
-                child: RandomSlideTransition(
-                  child: Bubble.fill(size: W.x5l, color: Colors.white),
-                ),
-              ),
-              Positioned(
-                left: 4,
-                bottom: H.x20l,
-                child: RandomSlideTransition(
-                  child: Bubble.border(size: W.x6l, color: Colors.white),
-                ),
-              ),
-              Positioned(
-                left: 40,
-                bottom: H.x20l - 20,
-                child: RandomSlideTransition(
-                  child: Bubble.fill(size: W.xl, color: bubbleColor4),
-                ),
-              ),
-              Positioned(
-                left: 90,
-                top: H.x5l,
-                child: Bubble.fill(size: W.x6l, color: bubbleColor5),
-              ),
-              Positioned(
-                left: 140,
-                top: H.x10l,
-                child: Bubble.fill(size: W.md, color: Colors.white),
-              ),
-            ] else ...[
-              SizedBox(
-                height: Screen.height,
-                width: Screen.width,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: .9)),
-                ),
-              ),
-              SizedBox(
-                height: Screen.height,
-                width: Screen.width,
-                child: DecoratedBox(decoration: BoxDecoration(color: backgroundColor)),
-              ),
-              Positioned(
-                left: -110,
-                bottom: -80,
-                child: Bubble.fill(size: W.x16l, color: bubbleColor1),
-              ),
-              Positioned(
-                left: 80,
-                bottom: H.x9l,
+            ),
+            SizedBox(
+              height: Screen.height,
+              width: Screen.width,
+              child: DecoratedBox(decoration: BoxDecoration(color: backgroundColor)),
+            ),
+            Positioned(
+              left: -110,
+              bottom: -80,
+              child: Bubble.fill(size: W.x16l, color: bubbleColor1),
+            ),
+            Positioned(
+              left: 80,
+              bottom: H.x9l,
+              child: _NoAnimateWrapper(
+                noAnimate: noAnimate,
                 child: Bubble.border(size: W.x5l, color: Colors.white),
               ),
-              Positioned(
-                right: -40,
-                bottom: -90,
-                child: Bubble.fill(size: W.x15l, color: Colors.white),
-              ),
-              Positioned(
-                right: 90,
-                bottom: 120,
+            ),
+            Positioned(
+              right: -40,
+              bottom: -90,
+              child: Bubble.fill(size: W.x15l, color: Colors.white),
+            ),
+            Positioned(
+              right: 90,
+              bottom: 120,
+              child: _NoAnimateWrapper(
+                noAnimate: noAnimate,
                 child: Bubble.border(size: W.x4l, color: bubbleColor2, borderWidth: 1),
               ),
-              Positioned(
-                right: 4,
-                bottom: H.x18l,
+            ),
+            Positioned(
+              right: 4,
+              bottom: H.x18l,
+              child: _NoAnimateWrapper(
+                noAnimate: noAnimate,
+                maxSlideOffset: .2,
                 child: Bubble.border(size: W.x9l, color: bubbleColor3, borderWidth: 1),
               ),
-              Positioned(
-                right: 80,
-                bottom: H.x20l,
+            ),
+            Positioned(
+              right: 80,
+              bottom: H.x20l,
+              child: _NoAnimateWrapper(
+                noAnimate: noAnimate,
                 child: Bubble.fill(size: W.x5l, color: Colors.white),
               ),
-              Positioned(
-                left: 4,
-                bottom: H.x20l,
+            ),
+            Positioned(
+              left: 4,
+              bottom: H.x20l,
+              child: _NoAnimateWrapper(
+                noAnimate: noAnimate,
                 child: Bubble.border(size: W.x6l, color: Colors.white),
               ),
-              Positioned(
-                left: 40,
-                bottom: H.x20l - 20,
+            ),
+            Positioned(
+              left: 40,
+              bottom: H.x20l - 20,
+              child: _NoAnimateWrapper(
+                noAnimate: noAnimate,
                 child: Bubble.fill(size: W.xl, color: bubbleColor4),
               ),
-              Positioned(
-                left: 90,
-                top: H.x5l,
-                child: Bubble.fill(size: W.x6l, color: bubbleColor5),
-              ),
-              Positioned(
-                left: 140,
-                top: H.x10l,
-                child: Bubble.fill(size: W.md, color: Colors.white),
-              ),
-            ],
+            ),
+            Positioned(
+              left: 90,
+              top: H.x5l,
+              child: Bubble.fill(size: W.x6l, color: bubbleColor5),
+            ),
+            Positioned(
+              left: 140,
+              top: H.x10l,
+              child: Bubble.fill(size: W.md, color: Colors.white),
+            ),
           ],
         ),
       ),
@@ -204,5 +145,19 @@ class Bubble extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class _NoAnimateWrapper extends StatelessWidget {
+  const _NoAnimateWrapper({required this.noAnimate, this.maxSlideOffset = .5, required this.child});
+
+  final bool noAnimate;
+  final double maxSlideOffset;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (noAnimate) return child;
+    return RandomSlideTransition(maxSlideOffset: maxSlideOffset, child: child);
   }
 }

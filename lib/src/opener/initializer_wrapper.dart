@@ -40,7 +40,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
     super.initState();
 
     _invitationThemeCoreCubit = context.read<InvitationThemeCoreCubit>();
-    if (widget.viewType == ViewType.live) _invitedGuestCubit = context.read<InvitedGuestCubit>();
+    if (widget.viewType == .live) _invitedGuestCubit = context.read<InvitedGuestCubit>();
   }
 
   @override
@@ -49,9 +49,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
-    final invitedGuest = (widget.viewType == ViewType.live)
-        ? _invitedGuestCubit.state.invitedGuest
-        : null;
+    final invitedGuest = (widget.viewType == .live) ? _invitedGuestCubit.state.invitedGuest : null;
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
@@ -194,7 +192,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
                 ),
               ),
             ],
-            if (widget.viewType == ViewType.live && Audio.player.audioSource != null)
+            if (widget.viewType == .live && Audio.player.audioSource != null)
               StreamBuilder<ProcessingState>(
                 stream: Audio.player.processingStateStream,
                 builder: (_, snapshot) {
@@ -217,7 +215,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                           _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
 
-                          if (widget.viewType != ViewType.live) return;
+                          if (widget.viewType != .live) return;
 
                           await Future<void>.delayed(const Duration(milliseconds: 1000));
 
@@ -246,7 +244,7 @@ class _InitializerWrapperState extends State<InitializerWrapper> {
 
                     _invitationThemeCoreCubit.state.copyWith(animationTrigger: 1).emitState();
 
-                    if (widget.viewType != ViewType.live) return;
+                    if (widget.viewType != .live) return;
 
                     await Future<void>.delayed(const Duration(milliseconds: 1000));
 
