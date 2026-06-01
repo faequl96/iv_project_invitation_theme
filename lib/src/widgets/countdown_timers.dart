@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
+import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
@@ -40,37 +41,13 @@ class CountdownTimers extends StatefulWidget {
 }
 
 class _CountdownTimersState extends State<CountdownTimers> {
-  late final Timer _timer;
+  Timer? _timer;
   late Duration _remaining;
 
   final _days = ValueNotifier(0);
   final _hours = ValueNotifier(0);
   final _minutes = ValueNotifier(0);
   final _seconds = ValueNotifier(0);
-
-  void _formatDuration(Duration d) {
-    final days = d.inDays;
-    final hours = d.inHours % 24;
-    final minutes = d.inMinutes % 60;
-    final seconds = d.inSeconds % 60;
-
-    _days.value = days;
-    _hours.value = hours;
-    _minutes.value = minutes;
-    _seconds.value = seconds;
-  }
-
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      _remaining = widget.time.difference(.now());
-      if (widget.noAnimate) _timer.cancel();
-      if (_remaining.isNegative) {
-        _remaining = .zero;
-        _timer.cancel();
-      }
-      _formatDuration(_remaining);
-    });
-  }
 
   @override
   void initState() {
@@ -81,7 +58,8 @@ class _CountdownTimersState extends State<CountdownTimers> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
+
     _days.dispose();
     _hours.dispose();
     _minutes.dispose();
@@ -90,70 +68,89 @@ class _CountdownTimersState extends State<CountdownTimers> {
     super.dispose();
   }
 
+  void _formatDuration(Duration d) {
+    final days = d.inDays;
+    final hours = d.inHours % 24;
+    final minutes = d.inMinutes % 60;
+    final seconds = d.inSeconds % 60;
+
+    if (_days.value != days) _days.value = days;
+    if (_hours.value != hours) _hours.value = hours;
+    if (_minutes.value != minutes) _minutes.value = minutes;
+    if (_seconds.value != seconds) _seconds.value = seconds;
+  }
+
+  void _startTimer() {
+    _remaining = widget.time.difference(.now());
+    if (_remaining.isNegative) _remaining = .zero;
+    _formatDuration(_remaining);
+
+    if (widget.noAnimate || _remaining == .zero) return;
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      _remaining = widget.time.difference(.now());
+      if (_remaining.isNegative) {
+        _remaining = .zero;
+        timer.cancel();
+      }
+      _formatDuration(_remaining);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: .center,
       children: [
-        if (!widget.noAnimate) ...[
-          FadeAndSlideTransition(
-            slideFromOffset: 1.5,
-            slideFrom: .bottom,
-            delayBeforeStart:
-                (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(
-              _days,
-              'Hari',
-              lightningEffectDelayBase: const Duration(milliseconds: 200),
-            ),
+        _NoAnimateWrapper(
+          noAnimate: widget.noAnimate,
+          slideFromOffset: 1.5,
+          slideFrom: .bottom,
+          delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
+          child: _countdownTimer(
+            _days,
+            'Hari',
+            lightningEffectDelayBase: const Duration(milliseconds: 200),
           ),
-          SizedBox(width: W.x4s),
-          FadeAndSlideTransition(
-            slideFromOffset: 2.5,
-            slideFrom: .left,
-            animationSpeed: const Duration(milliseconds: 700),
-            delayBeforeStart:
-                (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(
-              _hours,
-              'Jam',
-              lightningEffectDelayBase: const Duration(milliseconds: 400),
-            ),
+        ),
+        SizedBox(width: W.x4s),
+        _NoAnimateWrapper(
+          noAnimate: widget.noAnimate,
+          slideFromOffset: 2.5,
+          slideFrom: .left,
+          animationSpeed: const Duration(milliseconds: 700),
+          delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
+          child: _countdownTimer(
+            _hours,
+            'Jam',
+            lightningEffectDelayBase: const Duration(milliseconds: 400),
           ),
-          SizedBox(width: W.x4s),
-          FadeAndSlideTransition(
-            slideFromOffset: 2.5,
-            slideFrom: .right,
-            animationSpeed: const Duration(milliseconds: 700),
-            delayBeforeStart:
-                (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(
-              _minutes,
-              'Menit',
-              lightningEffectDelayBase: const Duration(milliseconds: 600),
-            ),
+        ),
+        SizedBox(width: W.x4s),
+        _NoAnimateWrapper(
+          noAnimate: widget.noAnimate,
+          slideFromOffset: 2.5,
+          slideFrom: .right,
+          animationSpeed: const Duration(milliseconds: 700),
+          delayBeforeStart: (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
+          child: _countdownTimer(
+            _minutes,
+            'Menit',
+            lightningEffectDelayBase: const Duration(milliseconds: 600),
           ),
-          SizedBox(width: W.x4s),
-          FadeAndSlideTransition(
-            slideFromOffset: 1.5,
-            slideFrom: .bottom,
-            delayBeforeStart:
-                (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-            child: _countdownTimer(
-              _seconds,
-              'Detik',
-              lightningEffectDelayBase: const Duration(milliseconds: 800),
-            ),
+        ),
+        SizedBox(width: W.x4s),
+        _NoAnimateWrapper(
+          noAnimate: widget.noAnimate,
+          slideFromOffset: 1.5,
+          slideFrom: .bottom,
+          delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
+          child: _countdownTimer(
+            _seconds,
+            'Detik',
+            lightningEffectDelayBase: const Duration(milliseconds: 800),
           ),
-        ] else ...[
-          _countdownTimer(_days, 'Hari', staticLightningEffectValue: .6),
-          SizedBox(width: W.x4s),
-          _countdownTimer(_hours, 'Jam', staticLightningEffectValue: .45),
-          SizedBox(width: W.x4s),
-          _countdownTimer(_minutes, 'Menit', staticLightningEffectValue: .3),
-          SizedBox(width: W.x4s),
-          _countdownTimer(_seconds, 'Detik', staticLightningEffectValue: .15),
-        ],
+        ),
       ],
     );
   }
@@ -252,6 +249,37 @@ class _CountdownTimer extends StatelessWidget {
             staticValue: staticLightningEffectValue,
           ),
       ],
+    );
+  }
+}
+
+class _NoAnimateWrapper extends StatelessWidget {
+  const _NoAnimateWrapper({
+    required this.noAnimate,
+    required this.slideFromOffset,
+    required this.slideFrom,
+    this.animationSpeed = const Duration(milliseconds: 500),
+    required this.delayBeforeStart,
+    required this.child,
+  });
+
+  final bool noAnimate;
+  final double slideFromOffset;
+  final SlideFrom slideFrom;
+  final Duration animationSpeed;
+  final Duration delayBeforeStart;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    if (noAnimate) return child;
+
+    return FadeAndSlideTransition(
+      slideFromOffset: slideFromOffset,
+      slideFrom: slideFrom,
+      animationSpeed: animationSpeed,
+      delayBeforeStart: delayBeforeStart,
+      child: child,
     );
   }
 }

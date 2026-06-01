@@ -17,6 +17,7 @@ class AnimatedPhotoSequence extends StatefulWidget {
     this.image,
     required this.noAnimate,
   }) : isLeft = true;
+
   const AnimatedPhotoSequence.right({
     super.key,
     required this.viewType,
@@ -54,7 +55,45 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
   late final Animation<double> _frameScaleAnimation;
   late final Animation<BorderRadius?> _clipRRectAnimation;
 
+  Widget? _cachedImage;
+
   int _animationRequestId = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initAnimation();
+    _buildImageCache();
+
+    if (widget.noAnimate) {
+      _controller.value = 1;
+    } else {
+      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
+        _runAnimation(state.animationTrigger);
+      });
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant AnimatedPhotoSequence oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.image != oldWidget.image ||
+        widget.imageUrl != oldWidget.imageUrl ||
+        widget.viewType != oldWidget.viewType) {
+      _buildImageCache();
+    }
+  }
+
+  @override
+  void dispose() {
+    _sub?.cancel();
+    _controller.dispose();
+
+    super.dispose();
+  }
+
   void _runAnimation(int animationTrigger) async {
     final currentId = ++_animationRequestId;
     await Future<void>.delayed(const Duration(milliseconds: 300));
@@ -114,31 +153,25 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
         );
   }
 
-  @override
-  void initState() {
-    super.initState();
-
-    _initAnimation();
-
-    if (widget.noAnimate) {
-      _controller.value = 1;
-    } else {
-      _sub = context.read<InvitationThemeCoreCubit>().stream.listen((state) {
-        _runAnimation(state.animationTrigger);
-      });
+  void _buildImageCache() {
+    if (widget.viewType == .preview && widget.image != null) {
+      _cachedImage = Image.file(widget.image!, fit: .cover);
+    } else if (widget.viewType == .example && widget.imageUrl != null) {
+      _cachedImage = Image.asset(
+        widget.imageUrl!,
+        fit: .cover,
+        package: 'iv_project_invitation_theme',
+      );
+    } else if (widget.imageUrl != null) {
+      _cachedImage = Image.network(widget.imageUrl!, fit: .cover);
     }
   }
 
   @override
-  void dispose() {
-    _sub?.cancel();
-    _controller.dispose();
-
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final containerHeight = (W.x8l * 2) - (W.x6s);
+    final spacer = SizedBox(height: containerHeight, width: W.x8l);
+
     return SlideTransition(
       position: _slideVerticalAnimation,
       child: SlideTransition(
@@ -150,14 +183,14 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
             child: Row(
               mainAxisSize: .min,
               children: [
-                if (!widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x6s), width: W.x8l),
+                if (!widget.isLeft) spacer,
                 Stack(
                   alignment: .center,
                   children: [
                     ScaleTransition(
                       scale: _frameScaleAnimation,
                       child: SizedBox(
-                        height: (W.x8l * 2) - (W.x6s),
+                        height: containerHeight,
                         width: W.x8l,
                         child: Padding(
                           padding: const .symmetric(vertical: 24, horizontal: 2),
@@ -172,42 +205,23 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
                       ),
                     ),
                     SizedBox(
-                      height: (W.x8l * 2) - (W.x6s),
+                      height: containerHeight,
                       width: W.x8l,
                       child: Padding(
                         padding: const .symmetric(vertical: 24),
                         child: AnimatedBuilder(
                           animation: _clipRRectAnimation,
-                          builder: (_, _) {
-                            Widget? child;
-                            if (widget.viewType == ViewType.preview) {
-                              if (widget.image != null) {
-                                child = Image.file(widget.image!, fit: .cover);
-                              }
-                            } else if (widget.viewType == ViewType.example) {
-                              if (widget.imageUrl != null) {
-                                child = Image.asset(
-                                  widget.imageUrl!,
-                                  fit: .cover,
-                                  package: 'iv_project_invitation_theme',
-                                );
-                              }
-                            } else {
-                              if (widget.imageUrl != null) {
-                                child = Image.network(widget.imageUrl!, fit: .cover);
-                              }
-                            }
-                            return ClipRRect(
-                              borderRadius: _clipRRectAnimation.value ?? .zero,
-                              child: child,
-                            );
-                          },
+                          builder: (_, child) => ClipRRect(
+                            borderRadius: _clipRRectAnimation.value ?? .zero,
+                            child: child,
+                          ),
+                          child: _cachedImage,
                         ),
                       ),
                     ),
                   ],
                 ),
-                if (widget.isLeft) SizedBox(height: (W.x8l * 2) - (W.x6s), width: W.x8l),
+                if (widget.isLeft) spacer,
               ],
             ),
           ),

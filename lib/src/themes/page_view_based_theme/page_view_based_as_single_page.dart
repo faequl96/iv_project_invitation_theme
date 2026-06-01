@@ -33,7 +33,7 @@ class PageViewBasedAsSinglePage extends StatefulWidget {
   final InvitationDataResponse invitationData;
   final BrandProfileResponse brandProfile;
 
-  final ViewType viewType = ViewType.example;
+  final ViewType viewType = .example;
 
   @override
   State<PageViewBasedAsSinglePage> createState() => _PageViewBasedAsSinglePageState();

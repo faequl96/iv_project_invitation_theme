@@ -43,7 +43,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
           if (config.coverBackground != null)
             config.coverBackground!
           else ...[
-            if (viewType == ViewType.preview) ...[
+            if (viewType == .preview) ...[
               if (coverImage != null)
                 Image.file(
                   coverImage!,
@@ -51,7 +51,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
                   width: Screen.width,
                   fit: .cover,
                 ),
-            ] else if (viewType == ViewType.example) ...[
+            ] else if (viewType == .example) ...[
               if (general.coverImageUrl != null)
                 Image.asset(
                   general.coverImageUrl!,
@@ -133,7 +133,7 @@ class PageViewBasedCoverPage extends StatelessWidget {
               ],
             ),
           ),
-          if (viewType == ViewType.live && Audio.player.audioSource != null)
+          if (viewType == .live && Audio.player.audioSource != null)
             const Positioned(top: 10, right: 10, child: AudioPlayerWidget()),
         ],
       ),

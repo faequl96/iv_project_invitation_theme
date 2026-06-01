@@ -81,15 +81,17 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-    return SlideTransition(
-      position: AlwaysStoppedAnimation<Offset>(Offset(0, widget.isLeft ? -.75 : .75)),
+    final spacer = SizedBox(width: W.x10l);
+
+    return FractionalTranslation(
+      translation: Offset(0, widget.isLeft ? -.75 : .75),
       child: FadeTransition(
         opacity: _lineFadeAnimation,
         child: SizedBox(
           height: (W.x8l * 2) - (W.x3s * 1.4),
           child: Row(
             children: [
-              if (!widget.isLeft) ...[SizedBox(width: W.x10l)],
+              if (!widget.isLeft) spacer,
               Expanded(
                 child: ClipRect(
                   child: SlideTransition(
@@ -111,7 +113,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                   ),
                 ),
               ),
-              if (widget.isLeft) ...[SizedBox(width: W.x10l)],
+              if (widget.isLeft) spacer,
             ],
           ),
         ),

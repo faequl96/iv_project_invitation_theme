@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
-import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_border_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
@@ -117,7 +116,7 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                   alignment: .center,
                   children: [
                     AnimatedPhotoSequence.left(
-                      viewType: ViewType.example,
+                      viewType: .example,
                       frameColor: config.groomImageFrameColor,
                       borderColor: config.groomImageFrameBorderColor,
                       borderWidth: config.groomImageBorderWidth,
@@ -125,7 +124,7 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                       noAnimate: true,
                     ),
                     AnimatedPhotoSequence.right(
-                      viewType: ViewType.example,
+                      viewType: .example,
                       frameColor: config.brideImageFrameColor,
                       borderColor: config.brideImageFrameBorderColor,
                       borderWidth: config.brideImageBorderWidth,

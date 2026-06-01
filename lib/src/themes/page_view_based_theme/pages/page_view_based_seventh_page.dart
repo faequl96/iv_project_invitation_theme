@@ -378,7 +378,7 @@ class _RSVPFormState extends State<RSVPForm> {
   late final InvitedGuestCubit _invitedGuestCubit;
 
   Future<void> _submit() async {
-    if (widget.viewType != ViewType.live) return;
+    if (widget.viewType != .live) return;
 
     if (_possiblePresence.value == null) {
       GeneralDialog.showValidateStateError(
@@ -424,7 +424,7 @@ class _RSVPFormState extends State<RSVPForm> {
   void initState() {
     super.initState();
 
-    if (widget.viewType != ViewType.live) return;
+    if (widget.viewType != .live) return;
 
     _rsvpCubit = context.read<RSVPCubit>();
     _invitedGuestCubit = context.read<InvitedGuestCubit>();
@@ -670,7 +670,7 @@ class _RSVPFormState extends State<RSVPForm> {
     isMandatory: false,
   );
 
-  Widget _submitButton() => widget.viewType != ViewType.live
+  Widget _submitButton() => widget.viewType != .live
       ? QuickButton(
           onTap: () {},
           style: QuickButtonStyle(
@@ -811,7 +811,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
   void initState() {
     super.initState();
 
-    if (widget.viewType != ViewType.live) return;
+    if (widget.viewType != .live) return;
 
     _rsvpCubit = context.read<RSVPCubit>();
 
@@ -820,7 +820,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.viewType != ViewType.live) return _content(_rsvps);
+    if (widget.viewType != .live) return _content(_rsvps);
     return BlocSelector<RSVPCubit, RSVPState, bool>(
       selector: (state) => state.isLoadingGetsByInvitationId || state.isLoadingCreate,
       builder: (context, isLoading) {
