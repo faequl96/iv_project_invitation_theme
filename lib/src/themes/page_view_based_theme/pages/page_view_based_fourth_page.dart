@@ -6,6 +6,7 @@ import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/pag
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +20,8 @@ class PageViewBasedFourthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
@@ -56,44 +59,14 @@ class PageViewBasedFourthPage extends StatelessWidget {
             ),
           ),
 
-          if (config.useBackdropBlurOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-                child: RepaintBoundary(
-                  child: ClipRRect(
-                    borderRadius: .circular(20),
-                    child: BackdropFilter(
-                      filter: .blur(sigmaX: 3, sigmaY: 3),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: .circular(20),
-                          gradient: LinearGradient(
-                            begin: .topCenter,
-                            end: .bottomCenter,
-                            colors: [
-                              config.firstGradientScaffoldColor,
-                              config.secondGradientScaffoldColor,
-                            ],
-                            stops: config.stopsGradientScaffoldColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          else
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+          Positioned(
+            bottom: 0,
+            height: Screen.height,
+            width: Screen.width,
+            child: Padding(
+              padding: contentPadding,
+              child: PageViewBasedScaffoldWrapper(
+                useBackdropBlur: config.useBackdropBlurOnScaffold,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: .circular(20),
@@ -110,12 +83,14 @@ class PageViewBasedFourthPage extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -163,13 +138,14 @@ class PageViewBasedFourthPage extends StatelessWidget {
               ),
             ),
           ),
+
           if (config.useGlassEffectOnScaffold)
             Positioned(
               bottom: 0,
               height: Screen.height,
               width: Screen.width,
               child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                padding: contentPadding,
                 child: GlassEffectBox(
                   width: Screen.width - 32,
                   height: Screen.height - (76 + H.x6l),

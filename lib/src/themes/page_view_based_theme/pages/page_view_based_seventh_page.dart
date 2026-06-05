@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
@@ -30,6 +31,8 @@ class PageViewBasedSeventhPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
@@ -67,44 +70,14 @@ class PageViewBasedSeventhPage extends StatelessWidget {
             ),
           ),
 
-          if (config.useBackdropBlurOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-                child: RepaintBoundary(
-                  child: ClipRRect(
-                    borderRadius: .circular(20),
-                    child: BackdropFilter(
-                      filter: .blur(sigmaX: 3, sigmaY: 3),
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          borderRadius: .circular(20),
-                          gradient: LinearGradient(
-                            begin: .topCenter,
-                            end: .bottomCenter,
-                            colors: [
-                              config.firstGradientScaffoldColor,
-                              config.secondGradientScaffoldColor,
-                            ],
-                            stops: config.stopsGradientScaffoldColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            )
-          else
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+          Positioned(
+            bottom: 0,
+            height: Screen.height,
+            width: Screen.width,
+            child: Padding(
+              padding: contentPadding,
+              child: PageViewBasedScaffoldWrapper(
+                useBackdropBlur: config.useBackdropBlurOnScaffold,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: .circular(20),
@@ -121,6 +94,8 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+
           Positioned(
             bottom: 0,
             height: Screen.height,
@@ -136,33 +111,37 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(height: W.x5s),
-                      RSVPForm(
-                        fieldTextColor: config.fieldTextColor,
-                        fieldLabelColor: config.fieldLabelColor,
-                        fieldFillColor: config.fieldFillColor,
-                        fieldBorderColor: config.fieldBorderColor,
-                        fieldSplashColor: config.fieldSplashColor,
-                        overlayColor: config.overlayColor,
-                        overlayBorderColor: config.overlayBorderColor,
-                        dropdownItemSelectedColor: config.dropdownItemSelectedColor,
-                        dropdownItemTextColor: config.dropdownItemTextColor,
-                        dropdownItemSelectedTextColor: config.dropdownItemSelectedTextColor,
-                        // dropdownItemHoveredColor: config.dropdownItemHoveredColor,
-                        // dropdownItemSplashColor: config.dropdownItemSplashColor,
-                        submitButtonColor: config.submitButtonColor,
-                        submitButtonLabelColor: config.submitButtonLabelColor,
-                        submitButtonBorderWidth: config.submitButtonBorderWidth,
-                        submitButtonBorderColor: config.submitButtonBorderColor,
-                        viewType: viewType,
-                        invitationId: invitationId,
+                      RepaintBoundary(
+                        child: RSVPForm(
+                          fieldTextColor: config.fieldTextColor,
+                          fieldLabelColor: config.fieldLabelColor,
+                          fieldFillColor: config.fieldFillColor,
+                          fieldBorderColor: config.fieldBorderColor,
+                          fieldSplashColor: config.fieldSplashColor,
+                          overlayColor: config.overlayColor,
+                          overlayBorderColor: config.overlayBorderColor,
+                          dropdownItemSelectedColor: config.dropdownItemSelectedColor,
+                          dropdownItemTextColor: config.dropdownItemTextColor,
+                          dropdownItemSelectedTextColor: config.dropdownItemSelectedTextColor,
+                          // dropdownItemHoveredColor: config.dropdownItemHoveredColor,
+                          // dropdownItemSplashColor: config.dropdownItemSplashColor,
+                          submitButtonColor: config.submitButtonColor,
+                          submitButtonLabelColor: config.submitButtonLabelColor,
+                          submitButtonBorderWidth: config.submitButtonBorderWidth,
+                          submitButtonBorderColor: config.submitButtonBorderColor,
+                          viewType: viewType,
+                          invitationId: invitationId,
+                        ),
                       ),
                       SizedBox(height: H.x8s),
                       Expanded(
-                        child: FadeAndSlideTransition(
-                          slideFromOffset: .5,
-                          slideFrom: .bottom,
-                          delayBeforeStart: const Duration(milliseconds: 2000),
-                          child: _rsvpList(context, langCode),
+                        child: RepaintBoundary(
+                          child: FadeAndSlideTransition(
+                            slideFromOffset: .5,
+                            slideFrom: .bottom,
+                            delayBeforeStart: const Duration(milliseconds: 2000),
+                            child: _rsvpList(context, langCode),
+                          ),
                         ),
                       ),
                       SizedBox(height: W.x5s),
@@ -172,6 +151,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
               ),
             ),
           ),
+
           if (config.useGlassEffectOnScaffold)
             Positioned(
               bottom: 0,
@@ -556,7 +536,7 @@ class _RSVPFormState extends State<RSVPForm> {
           },
         ),
         fieldSplashColor: widget.fieldSplashColor,
-        overlaydecoration: .fitToTargetWidth(
+        overlayDecoration: .fitToTargetWidth(
           height: H.x16l,
           color: widget.overlayColor,
           padding: const .symmetric(vertical: 10),
@@ -630,7 +610,7 @@ class _RSVPFormState extends State<RSVPForm> {
           },
         ),
         fieldSplashColor: widget.fieldSplashColor,
-        overlaydecoration: .fitToTargetWidth(
+        overlayDecoration: .fitToTargetWidth(
           color: widget.overlayColor,
           padding: const .symmetric(vertical: 10),
           border: .all(color: widget.overlayBorderColor),
