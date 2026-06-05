@@ -1,6 +1,6 @@
 name: iv_project_invitation_theme
 description: "IV Project Invitation Theme"
-version: 0.3.1
+version: 0.3.2
 homepage:
 publish_to: "none"
 
@@ -29,12 +29,12 @@ dependencies:
   iv_project_widget_core:
     git:
       url: https://github.com/faequl96/iv_project_widget_core.git
-      ref: 0.0.8
+      ref: 0.0.9
 
   quick_dev_sdk:
     git:
       url: https://github.com/faequl96/quick_dev_sdk.git
-      ref: 0.4.0
+      ref: 0.5.0
 
   bloc: ^9.2.1
   flutter_bloc: ^9.1.1
