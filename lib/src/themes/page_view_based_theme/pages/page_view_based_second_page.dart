@@ -10,6 +10,7 @@ import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedSecondPage extends StatelessWidget {
@@ -34,8 +35,6 @@ class PageViewBasedSecondPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
-    final screenWidth = Screen.width;
-    final screenHeight = Screen.height;
     final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
@@ -46,8 +45,8 @@ class PageViewBasedSecondPage extends StatelessWidget {
               config.secondGradientBackgroundColor != null)
             Positioned(
               top: 0,
-              height: screenHeight,
-              width: screenWidth,
+              height: Screen.height,
+              width: Screen.width,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -69,58 +68,40 @@ class PageViewBasedSecondPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _buildTitle(langCode, screenWidth),
+              child: _buildTitle(langCode),
             ),
           ),
 
           Positioned(
             bottom: 0,
-            height: screenHeight,
-            width: screenWidth,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: contentPadding,
-              child: config.useBackdropBlurOnScaffold
-                  ? ClipRRect(
-                      borderRadius: .circular(20),
-                      child: BackdropFilter(
-                        filter: .blur(sigmaX: 3, sigmaY: 3),
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: .circular(20),
-                            gradient: LinearGradient(
-                              begin: .topCenter,
-                              end: .bottomCenter,
-                              colors: [
-                                config.firstGradientScaffoldColor,
-                                config.secondGradientScaffoldColor,
-                              ],
-                              stops: config.stopsGradientScaffoldColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  : DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: .circular(20),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
+              child: PageViewBasedScaffoldWrapper(
+                useBackdropBlur: config.useBackdropBlurOnScaffold,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
+                      stops: config.stopsGradientScaffoldColor,
                     ),
+                  ),
+                ),
+              ),
             ),
           ),
 
           Positioned(
             bottom: 0,
-            height: screenHeight,
-            width: screenWidth,
+            height: Screen.height,
+            width: Screen.width,
             child: Padding(
               padding: contentPadding,
               child: DecoratedBox(
@@ -286,13 +267,13 @@ class PageViewBasedSecondPage extends StatelessWidget {
           if (config.useGlassEffectOnScaffold)
             Positioned(
               bottom: 0,
-              height: screenHeight,
-              width: screenWidth,
+              height: Screen.height,
+              width: Screen.width,
               child: Padding(
                 padding: contentPadding,
                 child: GlassEffectBox(
-                  width: screenWidth - 32,
-                  height: screenHeight - (76 + H.x6l),
+                  width: Screen.width - 32,
+                  height: Screen.height - (76 + H.x6l),
                   borderRadius: 20,
                   sliderWidth: 90,
                   color: Colors.white.withValues(alpha: config.glassEffectOpacity),
@@ -303,7 +284,7 @@ class PageViewBasedSecondPage extends StatelessWidget {
               ),
             ),
 
-          if (config.foreground != null) config.foreground!,
+          ?config.foreground,
         ],
       ),
     );
@@ -380,9 +361,9 @@ class PageViewBasedSecondPage extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle(String langCode, double screenWidth) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
-    width: screenWidth,
+    width: Screen.width,
     child: Row(
       mainAxisAlignment: .center,
       children: [

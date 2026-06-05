@@ -140,15 +140,18 @@ class _CountdownTimersState extends State<CountdownTimers> {
           ),
         ),
         SizedBox(width: W.x4s),
-        _NoAnimateWrapper(
-          noAnimate: widget.noAnimate,
-          slideFromOffset: 1.5,
-          slideFrom: .bottom,
-          delayBeforeStart: (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-          child: _countdownTimer(
-            _seconds,
-            'Detik',
-            lightningEffectDelayBase: const Duration(milliseconds: 800),
+        RepaintBoundary(
+          child: _NoAnimateWrapper(
+            noAnimate: widget.noAnimate,
+            slideFromOffset: 1.5,
+            slideFrom: .bottom,
+            delayBeforeStart:
+                (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
+            child: _countdownTimer(
+              _seconds,
+              'Detik',
+              lightningEffectDelayBase: const Duration(milliseconds: 800),
+            ),
           ),
         ),
       ],
@@ -173,7 +176,7 @@ class _CountdownTimersState extends State<CountdownTimers> {
         number: value,
         unit: unit,
         lightningEffectDelayBeforeShowed:
-            (lightningEffectDelayBase ?? Duration.zero) + widget.lightningEffectDelayBeforeShowed,
+            (lightningEffectDelayBase ?? .zero) + widget.lightningEffectDelayBeforeShowed,
         staticLightningEffectValue: staticLightningEffectValue,
       );
     },

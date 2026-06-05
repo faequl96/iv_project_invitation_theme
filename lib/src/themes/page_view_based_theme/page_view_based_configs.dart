@@ -80,7 +80,7 @@ class PageViewBasedFirstPageConfig {
     this.stopsGradientScaffoldColor,
     this.scaffoldBoxShadow,
     required this.scaffoldBorder,
-    this.scaffoldBorderRadius = const BorderRadius.all(Radius.circular(20)),
+    this.scaffoldBorderRadius = const .all(.circular(20)),
     required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,

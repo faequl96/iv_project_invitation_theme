@@ -372,7 +372,7 @@ class _RSVPFormState extends State<RSVPForm> {
       },
     ),
     fieldSplashColor: widget.fieldSplashColor,
-    overlaydecoration: .fitToTargetWidth(
+    overlayDecoration: .fitToTargetWidth(
       height: H.x15l,
       color: widget.overlayColor,
       padding: const .symmetric(vertical: 10),
@@ -417,7 +417,7 @@ class _RSVPFormState extends State<RSVPForm> {
       ),
     ),
     fieldSplashColor: widget.fieldSplashColor,
-    overlaydecoration: .fitToTargetWidth(
+    overlayDecoration: .fitToTargetWidth(
       color: widget.overlayColor,
       padding: const .symmetric(vertical: 10),
       border: .all(color: widget.overlayBorderColor),
