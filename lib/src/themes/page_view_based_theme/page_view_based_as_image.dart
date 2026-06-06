@@ -48,103 +48,57 @@ class PageViewBasedAsImage extends StatelessWidget {
           : null,
       backgrounds: configs.globalBackgroundsBuilder?.call(),
       particleSphere: configs.particleSphere,
-      page: _page,
+      page: _buildPage,
       tabsBuilder: (int tabActive) => [
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: 'Cover',
-            icon: Icons.image,
-            tabIndex: 0,
-            tabActive: tabActive,
-          ),
+        _buildTab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
+        _buildTab(
+          title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
+          icon: Icons.lightbulb,
+          tabIndex: 1,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
-            icon: Icons.lightbulb,
-            tabIndex: 1,
-            tabActive: tabActive,
-          ),
+        _buildTab(
+          title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+          icon: Icons.people,
+          tabIndex: 2,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Inviter' : 'Pengundang',
-            icon: Icons.people,
-            tabIndex: 2,
-            tabActive: tabActive,
-          ),
+        _buildTab(
+          title: langCode == 'en' ? 'Event' : 'Acara',
+          icon: Icons.event,
+          tabIndex: 3,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Event' : 'Acara',
-            icon: Icons.event,
-            tabIndex: 3,
-            tabActive: tabActive,
-          ),
+        _buildTab(
+          title: langCode == 'en' ? 'Location' : 'Lokasi',
+          icon: Icons.location_pin,
+          tabIndex: 4,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Location' : 'Lokasi',
-            icon: Icons.location_pin,
-            tabIndex: 4,
-            tabActive: tabActive,
-          ),
+        _buildTab(
+          title: langCode == 'en' ? 'Gallery' : 'Galeri',
+          icon: Icons.photo_library_rounded,
+          tabIndex: 5,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Gallery' : 'Galeri',
-            icon: Icons.photo_library_rounded,
-            tabIndex: 5,
-            tabActive: tabActive,
-          ),
+        _buildTab(
+          title: langCode == 'en' ? 'Gift' : 'Kado',
+          icon: Icons.card_giftcard,
+          tabIndex: 6,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Gift' : 'Kado',
-            icon: Icons.card_giftcard,
-            tabIndex: 6,
-            tabActive: tabActive,
-          ),
-        ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: 'RSVP',
-            icon: Icons.event_available,
-            tabIndex: 7,
-            tabActive: tabActive,
-          ),
-        ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: configs.tabConfig,
-            title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-            icon: Icons.emoji_emotions,
-            tabIndex: 8,
-            tabActive: tabActive,
-          ),
+        _buildTab(title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),
+        _buildTab(
+          title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
+          icon: Icons.emoji_emotions,
+          tabIndex: 8,
+          tabActive: tabActive,
         ),
       ],
     );
   }
 
-  Widget get _page => switch (initialPage) {
+  Widget get _buildPage => switch (initialPage) {
     0 => PageViewBasedCoverPageAsImage(
       config: configs.coverPageConfig,
       general: invitationData.general,
@@ -189,6 +143,22 @@ class PageViewBasedAsImage extends StatelessWidget {
     ),
     int() => const SizedBox.shrink(),
   };
+
+  Widget _buildTab({
+    required String title,
+    required IconData icon,
+    required int tabIndex,
+    required int tabActive,
+  }) => Tab(
+    height: 48,
+    child: _Tab(
+      config: configs.tabConfig,
+      title: title,
+      icon: icon,
+      tabIndex: tabIndex,
+      tabActive: tabActive,
+    ),
+  );
 }
 
 class _Tab extends StatelessWidget {

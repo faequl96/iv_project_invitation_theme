@@ -63,7 +63,7 @@ class PageViewBasedCoverPageAsImage extends StatelessWidget {
             mainAxisSize: .min,
             children: [
               if (!useWrapper) ...[
-                _theWeddingOf(langCode),
+                _buildTheWeddingOf(langCode),
                 SizedBox(height: H.x9s),
                 BridegroomName(
                   brideNameColor: config.brideNameColor,
@@ -73,7 +73,7 @@ class PageViewBasedCoverPageAsImage extends StatelessWidget {
                   noAnimate: true,
                 ),
                 SizedBox(height: H.md),
-                _headingIn(langCode),
+                _buildHeadingIn(langCode),
                 SizedBox(height: H.x8s),
                 CountdownTimers(
                   oddColor: config.countdownOddColor,
@@ -88,8 +88,8 @@ class PageViewBasedCoverPageAsImage extends StatelessWidget {
                   noAnimate: true,
                 ),
                 SizedBox(height: H.x5s),
-                _arrowSlider(),
-                _swipeUp(langCode),
+                _buildArrowSlider(),
+                _buildSwipeUp(langCode),
                 SizedBox(height: H.x2s),
               ],
             ],
@@ -99,22 +99,22 @@ class PageViewBasedCoverPageAsImage extends StatelessWidget {
     );
   }
 
-  Widget _theWeddingOf(String langCode) => Text(
+  Widget _buildTheWeddingOf(String langCode) => Text(
     langCode == 'en' ? 'The Wedding of' : 'Pernikahan Dari',
     style: TextStyle(fontSize: FontSize.lg, fontWeight: .w500, color: Colors.grey.shade300),
   );
 
-  Widget _headingIn(String langCode) => Text(
+  Widget _buildHeadingIn(String langCode) => Text(
     langCode == 'en' ? 'Heading in' : 'Menuju dalam waktu',
     style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
   );
 
-  Widget _swipeUp(String langCode) => Text(
+  Widget _buildSwipeUp(String langCode) => Text(
     langCode == 'en' ? 'Swipe up' : 'Geser ke atas',
     style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
   );
 
-  Widget _arrowSlider() => DoubleArrowSlider(
+  Widget _buildArrowSlider() => DoubleArrowSlider(
     firstArrowColor: config.firstArrowColor,
     secondArrowColor: config.secondArrowColor,
     arrowSize: W.lg,

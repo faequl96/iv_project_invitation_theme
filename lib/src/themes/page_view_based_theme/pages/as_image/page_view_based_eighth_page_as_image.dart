@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedEighthPageAsImage extends StatelessWidget {
@@ -24,6 +25,8 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l);
 
     return Stack(
       children: [
@@ -52,44 +55,14 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
 
         Positioned(top: 0, child: _title(langCode)),
 
-        if (config.useBackdropBlurOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: .circular(20),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        else
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: contentPadding,
+            child: PageViewBasedScaffoldWrapper(
+              useBackdropBlur: config.useBackdropBlurOnScaffold,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -103,12 +76,14 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+        ),
+
         Positioned(
           bottom: 0,
           height: Screen.height,
           width: Screen.width,
           child: Padding(
-            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
+            padding: contentPadding,
             child: DecoratedBox(
               decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
               child: ClipRRect(
@@ -118,12 +93,12 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
                   children: [
                     Padding(
                       padding: .symmetric(horizontal: W.md),
-                      child: _closing(),
+                      child: _buildClosing(),
                     ),
                     SizedBox(height: H.lg),
                     Padding(
                       padding: .symmetric(horizontal: W.md),
-                      child: _brideGroomName(),
+                      child: _buildBrideGroomName(),
                     ),
                   ],
                 ),
@@ -131,13 +106,14 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
             ),
           ),
         ),
+
         if (config.useGlassEffectOnScaffold)
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: H.x18l),
+              padding: contentPadding,
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -151,6 +127,7 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+
         Positioned(
           bottom: 0,
           height: H.x18l - H.x4s,
@@ -291,7 +268,7 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _closing() => Text(
+  Widget _buildClosing() => Text(
     general.closing.isNotEmpty
         ? general.closing
         : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
@@ -299,7 +276,7 @@ class PageViewBasedEighthPageAsImage extends StatelessWidget {
     textAlign: .center,
   );
 
-  Widget _brideGroomName() => Text(
+  Widget _buildBrideGroomName() => Text(
     '$brideName & $groomName',
     style: AppFonts.pacifico(
       color: config.brideGroomNameColor,

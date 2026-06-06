@@ -43,10 +43,10 @@ class _PageViewBasedCoverPageState extends State<PageViewBasedCoverPage> {
   void initState() {
     super.initState();
 
-    _buildImageCache();
+    _buildCachedImage();
   }
 
-  void _buildImageCache() {
+  void _buildCachedImage() {
     if (widget.viewType == .preview && widget.coverImage != null) {
       _cachedImage = Image.file(
         widget.coverImage!,
@@ -109,7 +109,7 @@ class _PageViewBasedCoverPageState extends State<PageViewBasedCoverPage> {
             child: Column(
               mainAxisSize: .min,
               children: [
-                FadeAndSlideTransition(slideFromOffset: 0, child: _theWeddingOf(langCode)),
+                FadeAndSlideTransition(slideFromOffset: 0, child: _buildTheWeddingOf(langCode)),
                 SizedBox(height: H.x9s),
                 BridegroomName(
                   brideNameColor: widget.config.brideNameColor,
@@ -119,7 +119,7 @@ class _PageViewBasedCoverPageState extends State<PageViewBasedCoverPage> {
                   noAnimate: false,
                 ),
                 SizedBox(height: H.md),
-                FadeAndSlideTransition(slideFromOffset: 0, child: _headingIn(langCode)),
+                FadeAndSlideTransition(slideFromOffset: 0, child: _buildHeadingIn(langCode)),
                 SizedBox(height: H.x8s),
                 CountdownTimers(
                   oddColor: widget.config.countdownOddColor,
@@ -137,12 +137,12 @@ class _PageViewBasedCoverPageState extends State<PageViewBasedCoverPage> {
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   delayBeforeStart: const Duration(milliseconds: 500),
-                  child: _arrowSlider(),
+                  child: _buildArrowSlider(),
                 ),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   delayBeforeStart: const Duration(milliseconds: 500),
-                  child: _swipeUp(langCode),
+                  child: _buildSwipeUp(langCode),
                 ),
                 SizedBox(height: H.x2s),
               ],
@@ -155,22 +155,22 @@ class _PageViewBasedCoverPageState extends State<PageViewBasedCoverPage> {
     );
   }
 
-  Widget _theWeddingOf(String langCode) => Text(
+  Widget _buildTheWeddingOf(String langCode) => Text(
     langCode == 'en' ? 'The Wedding of' : 'Pernikahan Dari',
     style: TextStyle(fontSize: FontSize.lg, fontWeight: .w500, color: Colors.grey.shade300),
   );
 
-  Widget _headingIn(String langCode) => Text(
+  Widget _buildHeadingIn(String langCode) => Text(
     langCode == 'en' ? 'Heading in' : 'Menuju dalam waktu',
     style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
   );
 
-  Widget _swipeUp(String langCode) => Text(
+  Widget _buildSwipeUp(String langCode) => Text(
     langCode == 'en' ? 'Swipe up' : 'Geser ke atas',
     style: AppFonts.inter(fontSize: FontSize.xs, color: Colors.grey.shade300),
   );
 
-  Widget _arrowSlider() => DoubleArrowSlider(
+  Widget _buildArrowSlider() => DoubleArrowSlider(
     firstArrowColor: widget.config.firstArrowColor,
     secondArrowColor: widget.config.secondArrowColor,
     arrowSize: W.lg,

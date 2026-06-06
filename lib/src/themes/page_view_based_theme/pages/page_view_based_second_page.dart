@@ -290,6 +290,26 @@ class PageViewBasedSecondPage extends StatelessWidget {
     );
   }
 
+  Widget _buildTitle(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.people, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
+        ),
+      ],
+    ),
+  );
+
   Widget _buildBrideGroomText({
     String? frontTitle,
     required String fullName,
@@ -360,24 +380,4 @@ class PageViewBasedSecondPage extends StatelessWidget {
       ),
     );
   }
-
-  Widget _buildTitle(String langCode) => SizedBox(
-    height: H.x6l,
-    width: Screen.width,
-    child: Row(
-      mainAxisAlignment: .center,
-      children: [
-        Icon(Icons.people, size: W.xs, color: config.titlePageColor),
-        const SizedBox(width: 10),
-        Text(
-          langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
-          style: AppFonts.inter(
-            color: config.titlePageColor,
-            fontSize: FontSize.x3l,
-            fontWeight: .w700,
-          ),
-        ),
-      ],
-    ),
-  );
 }

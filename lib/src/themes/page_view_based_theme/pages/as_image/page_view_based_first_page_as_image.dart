@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedFirstPageAsImage extends StatelessWidget {
@@ -14,6 +15,8 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return Stack(
       children: [
@@ -40,51 +43,19 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
 
         ?config.background,
 
-        Positioned(top: 0, child: _title(langCode)),
+        Positioned(top: 0, child: _buildTitle(langCode)),
 
-        if (config.useBackdropBlurOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: config.scaffoldBorderRadius,
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: config.scaffoldBorderRadius,
-                        boxShadow: config.scaffoldBoxShadow,
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        else
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: contentPadding,
+            child: PageViewBasedScaffoldWrapper(
+              useBackdropBlur: config.useBackdropBlurOnScaffold,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: config.scaffoldBorderRadius,
-                  boxShadow: config.scaffoldBoxShadow,
+                  borderRadius: .circular(20),
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
@@ -95,12 +66,14 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+        ),
+
         Positioned(
           bottom: 0,
           height: Screen.height,
           width: Screen.width,
           child: Padding(
-            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+            padding: contentPadding,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 borderRadius: config.scaffoldBorderRadius,
@@ -110,7 +83,7 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
                 child: Column(
                   children: [
                     const Spacer(),
-                    _opening(),
+                    _buildOpening(),
                     const Spacer(),
                     Padding(
                       padding: .symmetric(horizontal: W.x6s),
@@ -129,9 +102,9 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
                           child: Column(
                             mainAxisSize: .min,
                             children: [
-                              _openingQuote(),
+                              _buildOpeningQuote(),
                               SizedBox(height: H.x6s),
-                              _quoteFrom(),
+                              _buildQuoteFrom(),
                             ],
                           ),
                         ),
@@ -155,9 +128,9 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
                           child: Column(
                             mainAxisSize: .min,
                             children: [
-                              _regards(),
+                              _buildRegards(),
                               SizedBox(height: H.x6s),
-                              _greeting(),
+                              _buildGreeting(),
                             ],
                           ),
                         ),
@@ -171,13 +144,14 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
             ),
           ),
         ),
+
         if (config.useGlassEffectOnScaffold)
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -197,7 +171,7 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Center(
@@ -212,12 +186,12 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _opening() => Text(
+  Widget _buildOpening() => Text(
     general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
     style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
   );
 
-  Widget _openingQuote() => Text(
+  Widget _buildOpeningQuote() => Text(
     general.openingQuote.isNotEmpty
         ? general.openingQuote
         : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
@@ -230,12 +204,12 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
     textAlign: .center,
   );
 
-  Widget _quoteFrom() => Text(
+  Widget _buildQuoteFrom() => Text(
     general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
     style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.lg, fontWeight: .w600),
   );
 
-  Widget _regards() => Text(
+  Widget _buildRegards() => Text(
     general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
     style: AppFonts.inter(
       color: config.generalTextColor,
@@ -244,7 +218,7 @@ class PageViewBasedFirstPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _greeting() => Text(
+  Widget _buildGreeting() => Text(
     general.greeting.isNotEmpty
         ? general.greeting
         : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',

@@ -6,6 +6,7 @@ import 'package:iv_project_invitation_theme/src/widgets/animated_border_inviter.
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedSecondPageAsImage extends StatelessWidget {
@@ -23,6 +24,8 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return Stack(
       children: [
@@ -48,46 +51,16 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
 
         ?config.background,
 
-        Positioned(top: 0, child: _title(langCode)),
+        Positioned(top: 0, child: _buildTitle(langCode)),
 
-        if (config.useBackdropBlurOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: .circular(20),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        else
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: contentPadding,
+            child: PageViewBasedScaffoldWrapper(
+              useBackdropBlur: config.useBackdropBlurOnScaffold,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -101,12 +74,14 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+        ),
+
         Positioned(
           bottom: 0,
           height: Screen.height,
           width: Screen.width,
           child: Padding(
-            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+            padding: contentPadding,
             child: DecoratedBox(
               decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
               child: ClipRRect(
@@ -132,35 +107,14 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                       noAnimate: true,
                     ),
                     AnimatedInviter.left(
-                      noAnimate: true,
+                      noAnimate: false,
                       children: [
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              if ((bride.frontTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: '${bride.frontTitle} ',
-                                  style: AppFonts.inter(fontWeight: .w500),
-                                ),
-                              TextSpan(
-                                text: bride.fullName,
-                                style: AppFonts.inter(
-                                  fontWeight: .w700,
-                                  color: config.brideNameTextColor,
-                                ),
-                              ),
-                              if ((bride.backTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: ', ${bride.backTitle}',
-                                  style: AppFonts.inter(fontWeight: .w500),
-                                ),
-                            ],
-                          ),
-                          style: AppFonts.inter(
-                            fontSize: FontSize.x2l,
-                            color: config.generalTextColor,
-                            height: 1.2,
-                          ),
+                        _buildBrideGroomText(
+                          frontTitle: bride.frontTitle,
+                          fullName: bride.fullName,
+                          backTitle: bride.backTitle,
+                          nameColor: config.brideNameTextColor,
+                          generalColor: config.generalTextColor,
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
@@ -178,36 +132,14 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: langCode == 'en' ? 'Mr. ' : 'Bp. '),
-                              if ((bride.fatherFrontTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: '${bride.fatherFrontTitle} ',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                              TextSpan(
-                                text: bride.fatherName,
-                                style: AppFonts.inter(
-                                  fontWeight: .w700,
-                                  fontStyle: .italic,
-                                  color: config.brideFatherNameTextColor,
-                                ),
-                              ),
-                              if ((bride.fatherBackTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: ', ${bride.fatherBackTitle}',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                            ],
-                          ),
-                          style: AppFonts.inter(
-                            fontSize: FontSize.xs + .2,
-                            fontStyle: .italic,
-                            color: config.generalTextColor,
-                            height: 1.2,
-                          ),
+                        _buildFatherMotherText(
+                          isFather: true,
+                          frontTitle: bride.fatherFrontTitle,
+                          name: bride.fatherName,
+                          backTitle: bride.fatherBackTitle,
+                          nameColor: config.brideFatherNameTextColor,
+                          generalColor: config.generalTextColor,
+                          langCode: langCode,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -219,70 +151,26 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: langCode == 'en' ? 'Mrs. ' : 'Ibu '),
-                              if ((bride.motherFrontTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: '${bride.motherFrontTitle} ',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                              TextSpan(
-                                text: bride.motherName,
-                                style: AppFonts.inter(
-                                  fontWeight: .w700,
-                                  fontStyle: .italic,
-                                  color: config.brideMotherNameTextColor,
-                                ),
-                              ),
-                              if ((bride.motherBackTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: ', ${bride.motherBackTitle}',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                            ],
-                          ),
-                          style: AppFonts.inter(
-                            fontSize: FontSize.xs + .2,
-                            fontStyle: .italic,
-                            color: config.generalTextColor,
-                            height: 1.2,
-                          ),
+                        _buildFatherMotherText(
+                          isFather: false,
+                          frontTitle: bride.motherFrontTitle,
+                          name: bride.motherName,
+                          backTitle: bride.motherBackTitle,
+                          nameColor: config.brideMotherNameTextColor,
+                          generalColor: config.generalTextColor,
+                          langCode: langCode,
                         ),
                       ],
                     ),
                     AnimatedInviter.right(
-                      noAnimate: true,
+                      noAnimate: false,
                       children: [
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              if ((groom.frontTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: '${groom.frontTitle} ',
-                                  style: AppFonts.inter(fontWeight: .w500),
-                                ),
-                              TextSpan(
-                                text: groom.fullName,
-                                style: AppFonts.inter(
-                                  fontWeight: .w700,
-                                  color: config.groomNameTextColor,
-                                ),
-                              ),
-                              if ((groom.backTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: ', ${groom.backTitle}',
-                                  style: AppFonts.inter(fontWeight: .w500),
-                                ),
-                            ],
-                          ),
-                          style: AppFonts.inter(
-                            fontSize: FontSize.x2l,
-                            color: config.generalTextColor,
-                            height: 1.2,
-                          ),
-                          textAlign: .end,
+                        _buildBrideGroomText(
+                          frontTitle: groom.frontTitle,
+                          fullName: groom.fullName,
+                          backTitle: groom.backTitle,
+                          nameColor: config.groomNameTextColor,
+                          generalColor: config.generalTextColor,
                         ),
                         const SizedBox(height: 8),
                         SizedBox(
@@ -300,37 +188,14 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: langCode == 'en' ? 'Mr. ' : 'Bp. '),
-                              if ((groom.fatherFrontTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: '${groom.fatherFrontTitle} ',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                              TextSpan(
-                                text: groom.fatherName,
-                                style: AppFonts.inter(
-                                  fontWeight: .w700,
-                                  fontStyle: .italic,
-                                  color: config.groomFatherNameTextColor,
-                                ),
-                              ),
-                              if ((groom.fatherBackTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: ', ${groom.fatherBackTitle}',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                            ],
-                          ),
-                          style: AppFonts.inter(
-                            fontSize: FontSize.xs + .2,
-                            fontStyle: .italic,
-                            color: config.generalTextColor,
-                            height: 1.2,
-                          ),
-                          textAlign: .right,
+                        _buildFatherMotherText(
+                          isFather: true,
+                          frontTitle: groom.fatherFrontTitle,
+                          name: groom.fatherName,
+                          backTitle: groom.fatherBackTitle,
+                          nameColor: config.groomFatherNameTextColor,
+                          generalColor: config.generalTextColor,
+                          langCode: langCode,
                         ),
                         const SizedBox(height: 2),
                         Text(
@@ -342,37 +207,14 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 2),
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: langCode == 'en' ? 'Mrs. ' : 'Ibu '),
-                              if ((groom.motherFrontTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: '${groom.motherFrontTitle} ',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                              TextSpan(
-                                text: groom.motherName,
-                                style: AppFonts.inter(
-                                  fontWeight: .w700,
-                                  fontStyle: .italic,
-                                  color: config.groomMotherNameTextColor,
-                                ),
-                              ),
-                              if ((groom.motherBackTitle ?? '').isNotEmpty)
-                                TextSpan(
-                                  text: ', ${groom.motherBackTitle}',
-                                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-                                ),
-                            ],
-                          ),
-                          style: AppFonts.inter(
-                            fontSize: FontSize.xs + .2,
-                            fontStyle: .italic,
-                            color: config.generalTextColor,
-                            height: 1.2,
-                          ),
-                          textAlign: .right,
+                        _buildFatherMotherText(
+                          isFather: false,
+                          frontTitle: groom.motherFrontTitle,
+                          name: groom.motherName,
+                          backTitle: groom.motherBackTitle,
+                          nameColor: config.groomMotherNameTextColor,
+                          generalColor: config.generalTextColor,
+                          langCode: langCode,
                         ),
                       ],
                     ),
@@ -392,13 +234,14 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
             ),
           ),
         ),
+
         if (config.useGlassEffectOnScaffold)
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -418,7 +261,7 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -437,4 +280,75 @@ class PageViewBasedSecondPageAsImage extends StatelessWidget {
       ],
     ),
   );
+
+  Widget _buildBrideGroomText({
+    String? frontTitle,
+    required String fullName,
+    String? backTitle,
+    Color? nameColor,
+    required Color generalColor,
+  }) {
+    return Text.rich(
+      TextSpan(
+        children: [
+          if ((frontTitle ?? '').isNotEmpty)
+            TextSpan(
+              text: '$frontTitle ',
+              style: AppFonts.inter(fontWeight: .w500),
+            ),
+          TextSpan(
+            text: fullName,
+            style: AppFonts.inter(fontWeight: .w700, color: nameColor),
+          ),
+          if ((backTitle ?? '').isNotEmpty)
+            TextSpan(
+              text: ', $backTitle',
+              style: AppFonts.inter(fontWeight: .w500),
+            ),
+        ],
+      ),
+      style: AppFonts.inter(fontSize: FontSize.x2l, color: generalColor, height: 1.2),
+    );
+  }
+
+  Widget _buildFatherMotherText({
+    required bool isFather,
+    String? frontTitle,
+    required String name,
+    String? backTitle,
+    Color? nameColor,
+    required Color generalColor,
+    required String langCode,
+  }) {
+    final prefix = isFather
+        ? (langCode == 'en' ? 'Mr. ' : 'Bp. ')
+        : (langCode == 'en' ? 'Mrs. ' : 'Ibu ');
+    return Text.rich(
+      TextSpan(
+        children: [
+          TextSpan(text: prefix),
+          if ((frontTitle ?? '').isNotEmpty)
+            TextSpan(
+              text: '$frontTitle ',
+              style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
+            ),
+          TextSpan(
+            text: name,
+            style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: nameColor),
+          ),
+          if ((backTitle ?? '').isNotEmpty)
+            TextSpan(
+              text: ', $backTitle',
+              style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
+            ),
+        ],
+      ),
+      style: AppFonts.inter(
+        fontSize: FontSize.xs + .2,
+        fontStyle: .italic,
+        color: generalColor,
+        height: 1.2,
+      ),
+    );
+  }
 }

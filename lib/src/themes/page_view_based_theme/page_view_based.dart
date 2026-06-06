@@ -168,124 +168,86 @@ class _PageViewBasedState extends State<PageViewBased> with WidgetsBindingObserv
         ),
       ],
       tabsBuilder: (ValueNotifier<int> tabActive) => [
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: widget.configs.tabConfig,
-            title: 'Cover',
-            icon: Icons.image,
-            tabIndex: 0,
-            tabActive: tabActive,
-          ),
+        _buildTab(title: 'Cover', icon: Icons.image, tabIndex: 0, tabActive: tabActive),
+        _buildTab(
+          title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
+          icon: Icons.lightbulb,
+          tabIndex: 1,
+          tabActive: tabActive,
         ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: widget.configs.tabConfig,
-            title: langCode == 'en' ? 'Intent and Purpose' : 'Maksud Dan Tujuan',
-            icon: Icons.lightbulb,
-            tabIndex: 1,
-            tabActive: tabActive,
-          ),
-        ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: widget.configs.tabConfig,
-            title: langCode == 'en' ? 'Inviter' : 'Pengundang',
-            icon: Icons.people,
-            tabIndex: 2,
-            tabActive: tabActive,
-          ),
+        _buildTab(
+          title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+          icon: Icons.people,
+          tabIndex: 2,
+          tabActive: tabActive,
         ),
         if (invitationData.contractEvent.mapsUrl != invitationData.receptionEvent.mapsUrl) ...[
-          Tab(
-            height: 48,
-            child: _Tab(
-              config: widget.configs.tabConfig,
-              title: langCode == 'en' ? 'Contract' : 'Akad Nikah',
-              icon: Icons.volunteer_activism,
-              tabIndex: 3,
-              tabActive: tabActive,
-            ),
+          _buildTab(
+            title: langCode == 'en' ? 'Contract' : 'Akad Nikah',
+            icon: Icons.volunteer_activism,
+            tabIndex: 3,
+            tabActive: tabActive,
           ),
-          Tab(
-            height: 48,
-            child: _Tab(
-              config: widget.configs.tabConfig,
-              title: langCode == 'en' ? 'Reception' : 'Resepsi',
-              icon: Icons.celebration,
-              tabIndex: 4,
-              tabActive: tabActive,
-            ),
+          _buildTab(
+            title: langCode == 'en' ? 'Reception' : 'Resepsi',
+            icon: Icons.celebration,
+            tabIndex: 4,
+            tabActive: tabActive,
           ),
         ] else ...[
-          Tab(
-            height: 48,
-            child: _Tab(
-              config: widget.configs.tabConfig,
-              title: langCode == 'en' ? 'Event' : 'Acara',
-              icon: Icons.event,
-              tabIndex: 3,
-              tabActive: tabActive,
-            ),
+          _buildTab(
+            title: langCode == 'en' ? 'Event' : 'Acara',
+            icon: Icons.event,
+            tabIndex: 3,
+            tabActive: tabActive,
           ),
-          Tab(
-            height: 48,
-            child: _Tab(
-              config: widget.configs.tabConfig,
-              title: langCode == 'en' ? 'Location' : 'Lokasi',
-              icon: Icons.location_pin,
-              tabIndex: 4,
-              tabActive: tabActive,
-            ),
+          _buildTab(
+            title: langCode == 'en' ? 'Location' : 'Lokasi',
+            icon: Icons.location_pin,
+            tabIndex: 4,
+            tabActive: tabActive,
           ),
         ],
         if (_isGalleriesNotEmpty)
-          Tab(
-            height: 48,
-            child: _Tab(
-              config: widget.configs.tabConfig,
-              title: langCode == 'en' ? 'Gallery' : 'Galeri',
-              icon: Icons.photo_library_rounded,
-              tabIndex: 5,
-              tabActive: tabActive,
-            ),
+          _buildTab(
+            title: langCode == 'en' ? 'Gallery' : 'Galeri',
+            icon: Icons.photo_library_rounded,
+            tabIndex: 5,
+            tabActive: tabActive,
           ),
         if (invitationData.bankAccounts.isNotEmpty)
-          Tab(
-            height: 48,
-            child: _Tab(
-              config: widget.configs.tabConfig,
-              title: langCode == 'en' ? 'Gift' : 'Kado',
-              icon: Icons.card_giftcard,
-              tabIndex: 6,
-              tabActive: tabActive,
-            ),
-          ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: widget.configs.tabConfig,
-            title: 'RSVP',
-            icon: Icons.event_available,
-            tabIndex: 7,
+          _buildTab(
+            title: langCode == 'en' ? 'Gift' : 'Kado',
+            icon: Icons.card_giftcard,
+            tabIndex: 6,
             tabActive: tabActive,
           ),
-        ),
-        Tab(
-          height: 48,
-          child: _Tab(
-            config: widget.configs.tabConfig,
-            title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
-            icon: Icons.emoji_emotions,
-            tabIndex: 8,
-            tabActive: tabActive,
-          ),
+        _buildTab(title: 'RSVP', icon: Icons.event_available, tabIndex: 7, tabActive: tabActive),
+        _buildTab(
+          title: langCode == 'en' ? 'Thank You' : 'Terima Kasih',
+          icon: Icons.emoji_emotions,
+          tabIndex: 8,
+          tabActive: tabActive,
         ),
       ],
     );
   }
+
+  Widget _buildTab({
+    required String title,
+    required IconData icon,
+    required int tabIndex,
+    required ValueNotifier<int> tabActive,
+  }) => Tab(
+    height: 48,
+    child: _Tab(
+      config: widget.configs.tabConfig,
+      title: title,
+      icon: icon,
+      tabIndex: tabIndex,
+      tabActive: tabActive,
+    ),
+  );
 }
 
 class _Tab extends StatelessWidget {

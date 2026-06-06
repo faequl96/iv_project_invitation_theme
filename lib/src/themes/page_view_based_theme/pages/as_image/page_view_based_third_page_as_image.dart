@@ -4,6 +4,7 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class PageViewBasedThirdPageAsImage extends StatelessWidget {
@@ -21,6 +22,8 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return Stack(
       children: [
@@ -47,46 +50,16 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
 
         ?config.background,
 
-        Positioned(top: 0, child: _title(langCode)),
+        Positioned(top: 0, child: _buildTitle(langCode)),
 
-        if (config.useBackdropBlurOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: .circular(20),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        else
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: contentPadding,
+            child: PageViewBasedScaffoldWrapper(
+              useBackdropBlur: config.useBackdropBlurOnScaffold,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -100,12 +73,14 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+        ),
+
         Positioned(
           bottom: 0,
           height: Screen.height,
           width: Screen.width,
           child: Padding(
-            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+            padding: contentPadding,
             child: DecoratedBox(
               decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
               child: ClipRect(
@@ -116,9 +91,9 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
                     Column(
                       mainAxisSize: .min,
                       children: [
-                        _contractTitle(langCode),
+                        _buildContractTitle(langCode),
                         SizedBox(height: H.x2s),
-                        _contractTime(langCode),
+                        _buildContractTime(langCode),
                         SizedBox(height: H.md),
                         SizedBox(
                           height: W.x3l,
@@ -149,9 +124,9 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
                     Column(
                       mainAxisSize: .min,
                       children: [
-                        _receptionTitle(langCode),
+                        _buildReceptionTitle(langCode),
                         SizedBox(height: H.x2s),
-                        _receptionTime(langCode),
+                        _buildReceptionTime(langCode),
                         SizedBox(height: H.md),
                         SizedBox(
                           height: W.x3l,
@@ -180,13 +155,14 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
             ),
           ),
         ),
+
         if (config.useGlassEffectOnScaffold)
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -206,7 +182,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -226,7 +202,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _contractTitle(String langCode) => Row(
+  Widget _buildContractTitle(String langCode) => Row(
     mainAxisSize: .min,
     children: [
       Icon(Icons.volunteer_activism, color: config.contractTitleColor),
@@ -244,7 +220,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     ],
   );
 
-  Widget _contractTime(String langCode) => Column(
+  Widget _buildContractTime(String langCode) => Column(
     children: [
       Text(
         DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
@@ -268,7 +244,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     ],
   );
 
-  Widget _receptionTitle(String langCode) => Row(
+  Widget _buildReceptionTitle(String langCode) => Row(
     mainAxisSize: .min,
     children: [
       Icon(Icons.celebration, color: config.receptionTitleColor),
@@ -286,7 +262,7 @@ class PageViewBasedThirdPageAsImage extends StatelessWidget {
     ],
   );
 
-  Widget _receptionTime(String langCode) => Column(
+  Widget _buildReceptionTime(String langCode) => Column(
     children: [
       Text(
         DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),

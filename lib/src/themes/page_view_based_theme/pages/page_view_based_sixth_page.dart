@@ -54,7 +54,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -120,7 +120,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
                                 slideFromOffset: .3,
                                 slideFrom: .top,
                                 delayBeforeStart: const Duration(milliseconds: 1000),
-                                child: _introduction(langCode),
+                                child: _buildIntroduction(langCode),
                               ),
                             ),
                           ),
@@ -175,7 +175,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -195,7 +195,7 @@ class PageViewBasedSixthPage extends StatelessWidget {
     ),
   );
 
-  Widget _introduction(String langCode) => Text(
+  Widget _buildIntroduction(String langCode) => Text(
     langCode == 'en'
         ? 'Your prayers and blessings are a truly meaningful gift to us. And if giving is an expression of your love, you can give a cashless gift.'
         : 'Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Dan jika memberi adalah ungkapan tanda kasih Anda, Anda dapat memberi kado secara cashless.',

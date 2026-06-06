@@ -62,7 +62,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -115,7 +115,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           slideFrom: .bottom,
                           animationSpeed: const Duration(milliseconds: 500),
                           delayBeforeStart: const Duration(milliseconds: 700),
-                          child: _closing(),
+                          child: _buildClosing(),
                         ),
                       ),
                       SizedBox(height: H.lg),
@@ -126,7 +126,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
                           slideFrom: .bottom,
                           animationSpeed: const Duration(milliseconds: 500),
                           delayBeforeStart: const Duration(milliseconds: 1100),
-                          child: _brideGroomName(),
+                          child: _buildBrideGroomName(),
                         ),
                       ),
                     ],
@@ -289,7 +289,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -309,7 +309,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
     ),
   );
 
-  Widget _closing() => Text(
+  Widget _buildClosing() => Text(
     general.closing.isNotEmpty
         ? general.closing
         : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
@@ -317,7 +317,7 @@ class PageViewBasedEighthPage extends StatelessWidget {
     textAlign: .center,
   );
 
-  Widget _brideGroomName() => Text(
+  Widget _buildBrideGroomName() => Text(
     '$brideName & $groomName',
     style: AppFonts.pacifico(
       color: config.brideGroomNameColor,

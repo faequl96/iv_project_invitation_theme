@@ -27,11 +27,11 @@ class InvitationThemeAsImageLauncher extends StatelessWidget {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const .linear(1)),
-      child: _content,
+      child: _buildContent,
     );
   }
 
-  Widget get _content => switch (invitationThemeId) {
+  Widget get _buildContent => switch (invitationThemeId) {
     1 => ElegantBlackAndWhiteGlassAsImage(
       initialPage: initialPage,
       useWrapper: useWrapper,

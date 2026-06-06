@@ -52,7 +52,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -103,7 +103,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
                         slideFromOffset: .5,
                         slideFrom: .top,
                         delayBeforeStart: const Duration(milliseconds: 500),
-                        child: _opening(),
+                        child: _buildOpening(),
                       ),
                       const Spacer(),
                       FadeAndSlideTransition(
@@ -131,14 +131,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                     slideFromOffset: .3,
                                     slideFrom: .top,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: _openingQuote(),
+                                    child: _buildOpeningQuote(),
                                   ),
                                   SizedBox(height: H.x6s),
                                   FadeAndSlideTransition(
                                     slideFromOffset: 1,
                                     slideFrom: .bottom,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: _quoteFrom(),
+                                    child: _buildQuoteFrom(),
                                   ),
                                 ],
                               ),
@@ -172,14 +172,14 @@ class PageViewBasedFirstPage extends StatelessWidget {
                                     slideFromOffset: 1,
                                     slideFrom: .top,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: _regards(),
+                                    child: _buildRegards(),
                                   ),
                                   SizedBox(height: H.x6s),
                                   FadeAndSlideTransition(
                                     slideFromOffset: .4,
                                     slideFrom: .bottom,
                                     delayBeforeStart: const Duration(milliseconds: 1000),
-                                    child: _greeting(),
+                                    child: _buildGreeting(),
                                   ),
                                 ],
                               ),
@@ -222,7 +222,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Center(
@@ -237,12 +237,12 @@ class PageViewBasedFirstPage extends StatelessWidget {
     ),
   );
 
-  Widget _opening() => Text(
+  Widget _buildOpening() => Text(
     general.opening.isNotEmpty ? general.opening : 'بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ',
     style: AppFonts.arefRuqaa(color: config.openingTextColor, fontSize: FontSize.x7l),
   );
 
-  Widget _openingQuote() => Text(
+  Widget _buildOpeningQuote() => Text(
     general.openingQuote.isNotEmpty
         ? general.openingQuote
         : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
@@ -255,12 +255,12 @@ class PageViewBasedFirstPage extends StatelessWidget {
     textAlign: .center,
   );
 
-  Widget _quoteFrom() => Text(
+  Widget _buildQuoteFrom() => Text(
     general.quoteFrom.isNotEmpty ? general.quoteFrom : '(Ar-Ruum Ayat 21)',
     style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.lg, fontWeight: .w600),
   );
 
-  Widget _regards() => Text(
+  Widget _buildRegards() => Text(
     general.regards.isNotEmpty ? general.regards : 'Assalamu\'alaikum Wr. Wb.',
     style: AppFonts.inter(
       color: config.generalTextColor,
@@ -269,7 +269,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
     ),
   );
 
-  Widget _greeting() => Text(
+  Widget _buildGreeting() => Text(
     general.greeting.isNotEmpty
         ? general.greeting
         : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',

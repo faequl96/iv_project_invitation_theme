@@ -60,27 +60,7 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: SizedBox(
-                height: H.x6l,
-                width: Screen.width,
-                child: Row(
-                  mainAxisAlignment: .center,
-                  children: [
-                    Icon(Icons.celebration, size: W.xs, color: config.titlePageColor),
-                    const SizedBox(width: 10),
-                    Text(
-                      langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
-                      style: AppFonts.inter(
-                        color: config.titlePageColor,
-                        fontSize: FontSize.x3l,
-                        fontWeight: .w700,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Icon(Icons.restaurant, size: W.xs, color: config.titlePageColor),
-                  ],
-                ),
-              ),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -317,4 +297,26 @@ class PageViewBasedFourthDifferentLocationPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildTitle(String langCode) => SizedBox(
+    height: H.x6l,
+    width: Screen.width,
+    child: Row(
+      mainAxisAlignment: .center,
+      children: [
+        Icon(Icons.celebration, size: W.xs, color: config.titlePageColor),
+        const SizedBox(width: 10),
+        Text(
+          langCode == 'en' ? 'Marriage Reception' : 'Resepsi Pernikahan',
+          style: AppFonts.inter(
+            color: config.titlePageColor,
+            fontSize: FontSize.x3l,
+            fontWeight: .w700,
+          ),
+        ),
+        const SizedBox(width: 10),
+        Icon(Icons.restaurant, size: W.xs, color: config.titlePageColor),
+      ],
+    ),
+  );
 }

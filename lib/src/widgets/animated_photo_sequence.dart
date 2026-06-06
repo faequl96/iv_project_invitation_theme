@@ -64,7 +64,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
     super.initState();
 
     _initAnimation();
-    _buildImageCache();
+    _buildCachedImage();
 
     if (widget.noAnimate) {
       _controller.value = 1;
@@ -82,7 +82,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
     if (widget.image != oldWidget.image ||
         widget.imageUrl != oldWidget.imageUrl ||
         widget.viewType != oldWidget.viewType) {
-      _buildImageCache();
+      _buildCachedImage();
     }
   }
 
@@ -153,7 +153,7 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
         );
   }
 
-  void _buildImageCache() {
+  void _buildCachedImage() {
     if (widget.viewType == .preview && widget.image != null) {
       _cachedImage = Image.file(widget.image!, fit: .cover);
     } else if (widget.viewType == .example && widget.imageUrl != null) {
