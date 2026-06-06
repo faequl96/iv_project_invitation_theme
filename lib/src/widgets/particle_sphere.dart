@@ -384,7 +384,7 @@ class _CircleParticlePainter extends CustomPainter {
     _colors.clear();
 
     final center = Offset(size.width / 2, size.height / 2);
-    const viewDistance = 600.0;
+    const viewDistance = 600;
     const rectCircle = Rect.fromLTWH(0, 0, 50, 50);
     final random = math.Random();
 
@@ -407,9 +407,9 @@ class _CircleParticlePainter extends CustomPainter {
 
       final double scale = viewDistance / (viewDistance + pos.z);
 
-      double flicker = 1.0;
+      double flicker = 1;
       if (p.isFlickering) {
-        flicker = random.nextDouble() > 0.5 ? 1.0 : 0.3;
+        flicker = random.nextDouble() > .5 ? 1 : .3;
       }
 
       _rects.add(rectCircle);
@@ -424,7 +424,7 @@ class _CircleParticlePainter extends CustomPainter {
         ),
       );
 
-      _colors.add(p.color.withValues(alpha: (scale * .8 * flicker).clamp(0.1, 1.0)));
+      _colors.add(p.color.withValues(alpha: (scale * .8 * flicker).clamp(.1, 1)));
     }
 
     if (_transforms.isNotEmpty) {
@@ -540,9 +540,7 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
           if (widget.initialPage != 0) _secondController.value = 1;
         }
       } else {
-        print('tes1');
         if (state.animationTrigger == 1) {
-          print('tes2');
           _secondController.forward();
           _sub?.cancel();
         }
@@ -838,14 +836,23 @@ class _ImageParticlePainter extends CustomPainter {
     _colors.clear();
 
     final center = Offset(size.width / 2, size.height / 2);
-    const double viewDistance = 600.0;
+    const double viewDistance = 600;
     final double sourceSize = particleImage.width / imageCount;
 
     for (int i = 0; i < particles.length; i++) {
       final p = particles[i];
-      final v_math.Vector3 explodedPosition = p.basePosition * explosionForce;
 
-      final v_math.Vector3 pos = rotation.transformed3(explodedPosition);
+      final v_math.Vector3 pos = rotation.transformed3(p.basePosition);
+
+      if (explosionForce > .01) {
+        final double len = pos.length;
+        if (len > 0) {
+          final double factor = (explosionForce * 50 * p.velocityMultiplier) / len;
+          pos.x += pos.x * factor;
+          pos.y += pos.y * factor;
+          pos.z += pos.z * factor;
+        }
+      }
 
       if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
 
@@ -855,10 +862,12 @@ class _ImageParticlePainter extends CustomPainter {
 
       _rects.add(Rect.fromLTWH(p.atlasIndex * sourceSize, 0, sourceSize, sourceSize));
 
+      final double sizeMultiplier = 1.75;
+
       _transforms.add(
         RSTransform.fromComponents(
           rotation: p.rotationAngle,
-          scale: (scaleSize * scale) / (sourceSize / 2),
+          scale: ((scaleSize * scale) / (sourceSize / 2)) * sizeMultiplier,
           anchorX: sourceSize / 2,
           anchorY: sourceSize / 2,
           translateX: x,
@@ -866,7 +875,7 @@ class _ImageParticlePainter extends CustomPainter {
         ),
       );
 
-      _colors.add(Colors.white.withValues(alpha: (scale * 0.9).clamp(0.1, 1.0)));
+      _colors.add(Colors.white.withValues(alpha: (scale * .9).clamp(.1, 1)));
     }
 
     if (_transforms.isNotEmpty) {
