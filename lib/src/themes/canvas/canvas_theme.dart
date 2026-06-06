@@ -53,7 +53,7 @@ class CanvasTheme extends StatelessWidget {
             iconInactiveColor: Colors.white,
           ),
           globalBackgroundsBuilder: () => [const CanvasThemeGlobalBackground()],
-          particleSphere: ParticleSphereConfig.image(
+          particleSphere: .image(
             particleCount: 22,
             imageParticleVariatios: [
               const ImageParticle(imagePath: 'assets/backgrounds/floral_leaf.png'),

@@ -27,7 +27,7 @@ class ParticleSphereConfig {
     this.particleScaleSize = 6,
     required this.imageParticleVariatios,
     this.groundType = .both,
-  }) : type = ParticleType.circle,
+  }) : type = ParticleType.image,
        circleParticleVariatios = const [];
 
   final ParticleType type;
@@ -96,55 +96,6 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
 
   bool _isLoading = true;
 
-  void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
-
-    _rotation.rotateY(_rotateY);
-    _rotation.rotateX(_rotateX);
-
-    final rand = math.Random();
-    if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - .5) * .015;
-      _targetRotateY = (rand.nextDouble() - .5) * .015;
-    }
-  }
-
-  void _generateParticles() {
-    final rand = math.Random();
-    const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
-
-    for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
-
-      v_math.Vector3 pos =
-          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
-
-      final variation = widget
-          .config
-          .circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
-
-      _particles.add(
-        _CircleParticle(
-          basePosition: pos,
-          color: variation.color,
-          isFlickering: rand.nextDouble() < .4,
-        ),
-      );
-    }
-  }
-
-  void _init() async {
-    if (AppParticles.circle == null) await AppParticles.initCreateCircle();
-
-    _generateParticles();
-
-    if (mounted) setState(() => _isLoading = false);
-  }
-
   @override
   void initState() {
     super.initState();
@@ -201,6 +152,55 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
     _secondController.dispose();
 
     super.dispose();
+  }
+
+  void _init() async {
+    if (AppParticles.circle == null) await AppParticles.initCreateCircle();
+
+    _generateParticles();
+
+    if (mounted) setState(() => _isLoading = false);
+  }
+
+  void _generateParticles() {
+    final rand = math.Random();
+    const goldenRatio = 1.61803398875;
+    double radius = widget.config.size / 3;
+
+    for (int i = 0; i < widget.config.particleCount; i++) {
+      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      double radiusAtY = math.sqrt(1 - y * y);
+      double theta = 2 * math.pi * goldenRatio * i;
+
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+
+      final variation = widget
+          .config
+          .circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
+
+      _particles.add(
+        _CircleParticle(
+          basePosition: pos,
+          color: variation.color,
+          isFlickering: rand.nextDouble() < .4,
+        ),
+      );
+    }
+  }
+
+  void _updateRotation() {
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
+
+    _rotation.rotateY(_rotateY);
+    _rotation.rotateX(_rotateX);
+
+    final rand = math.Random();
+    if (rand.nextInt(100) == 1) {
+      _targetRotateX = (rand.nextDouble() - .5) * .015;
+      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    }
   }
 
   @override
@@ -269,18 +269,20 @@ class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImag
 
   bool _isLoading = true;
 
-  void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
+  @override
+  void initState() {
+    super.initState();
 
-    _rotation.rotateY(_rotateY);
-    _rotation.rotateX(_rotateX);
+    _init();
+  }
 
-    final rand = math.Random();
-    if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - .5) * .015;
-      _targetRotateY = (rand.nextDouble() - .5) * .015;
-    }
+  void _init() async {
+    if (AppParticles.circle == null) await AppParticles.initCreateCircle();
+
+    _generateParticles();
+    _updateRotation();
+
+    if (mounted) setState(() => _isLoading = false);
   }
 
   void _generateParticles() {
@@ -306,20 +308,18 @@ class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImag
     }
   }
 
-  void _init() async {
-    if (AppParticles.circle == null) await AppParticles.initCreateCircle();
+  void _updateRotation() {
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
 
-    _generateParticles();
-    _updateRotation();
+    _rotation.rotateY(_rotateY);
+    _rotation.rotateX(_rotateX);
 
-    if (mounted) setState(() => _isLoading = false);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _init();
+    final rand = math.Random();
+    if (rand.nextInt(100) == 1) {
+      _targetRotateX = (rand.nextDouble() - .5) * .015;
+      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    }
   }
 
   @override
@@ -500,73 +500,13 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
   double _targetRotateY = .003;
 
   bool _isLoading = true;
+  bool _hasInitialized = false;
 
   late final String particleImagesId;
-
-  void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
-
-    _rotation.rotateY(_rotateY);
-    _rotation.rotateX(_rotateX);
-
-    final rand = math.Random();
-    if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - .5) * .015;
-      _targetRotateY = (rand.nextDouble() - .5) * .015;
-    }
-  }
-
-  void _generateParticles(int imageCount) {
-    final rand = math.Random();
-    const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
-
-    for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
-
-      v_math.Vector3 pos =
-          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
-
-      _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
-    }
-  }
-
-  Future<ui.Image> _loadUiImage(String path) async {
-    final completer = Completer<ui.Image>();
-    final config = createLocalImageConfiguration(context);
-    final asset = AssetImage(path);
-    final stream = asset.resolve(config);
-    stream.addListener(ImageStreamListener((info, _) => completer.complete(info.image)));
-    return completer.future;
-  }
-
-  void _init() async {
-    final particleFileNames = <String>[];
-    final loadedImages = <ui.Image>[];
-    for (final variation in widget.config.imageParticleVariatios) {
-      particleFileNames.add(variation.imagePath.split('/').last);
-      final img = await _loadUiImage(variation.imagePath);
-      loadedImages.add(img);
-    }
-
-    particleImagesId = particleFileNames.join('_');
-    if (AppParticles.images[particleImagesId] == null) {
-      await AppParticles.initCreateImages(loadedImages, particleImagesId);
-    }
-
-    _generateParticles(loadedImages.length);
-
-    if (mounted) setState(() => _isLoading = false);
-  }
 
   @override
   void initState() {
     super.initState();
-
-    _init();
 
     _controller = AnimationController(vsync: this, duration: const Duration(seconds: 2))
       ..addListener(_updateRotation)
@@ -600,12 +540,24 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
           if (widget.initialPage != 0) _secondController.value = 1;
         }
       } else {
+        print('tes1');
         if (state.animationTrigger == 1) {
+          print('tes2');
           _secondController.forward();
           _sub?.cancel();
         }
       }
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (!_hasInitialized) {
+      _init();
+      _hasInitialized = true;
+    }
   }
 
   @override
@@ -618,6 +570,65 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
     _secondController.dispose();
 
     super.dispose();
+  }
+
+  void _init() async {
+    final particleFileNames = <String>[];
+    final loadedImages = <ui.Image>[];
+    for (final variation in widget.config.imageParticleVariatios) {
+      particleFileNames.add(variation.imagePath.split('/').last);
+      final img = await _loadUiImage(variation.imagePath);
+      loadedImages.add(img);
+    }
+
+    particleImagesId = particleFileNames.join('_');
+    if (AppParticles.images[particleImagesId] == null) {
+      await AppParticles.initCreateImages(loadedImages, particleImagesId);
+    }
+
+    _generateParticles(loadedImages.length);
+
+    if (mounted) setState(() => _isLoading = false);
+  }
+
+  Future<ui.Image> _loadUiImage(String path) async {
+    final completer = Completer<ui.Image>();
+    final config = createLocalImageConfiguration(context);
+    final asset = AssetImage(path, package: 'iv_project_invitation_theme');
+    final stream = asset.resolve(config);
+    stream.addListener(ImageStreamListener((info, _) => completer.complete(info.image)));
+    return completer.future;
+  }
+
+  void _generateParticles(int imageCount) {
+    final rand = math.Random();
+    const goldenRatio = 1.61803398875;
+    double radius = widget.config.size / 3;
+
+    for (int i = 0; i < widget.config.particleCount; i++) {
+      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      double radiusAtY = math.sqrt(1 - y * y);
+      double theta = 2 * math.pi * goldenRatio * i;
+
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+
+      _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
+    }
+  }
+
+  void _updateRotation() {
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
+
+    _rotation.rotateY(_rotateY);
+    _rotation.rotateX(_rotateX);
+
+    final rand = math.Random();
+    if (rand.nextInt(100) == 1) {
+      _targetRotateX = (rand.nextDouble() - .5) * .015;
+      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    }
   }
 
   @override
@@ -687,47 +698,18 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
   double _targetRotateY = .003;
 
   bool _isLoading = true;
+  bool _hasInitialized = false;
 
   late final String particleImagesId;
 
-  void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-    _rotation.rotateY(_rotateY);
-    _rotation.rotateX(_rotateX);
-
-    final rand = math.Random();
-    if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - .5) * .015;
-      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    if (!_hasInitialized) {
+      _init();
+      _hasInitialized = true;
     }
-  }
-
-  void _generateParticles(int imageCount) {
-    final rand = math.Random();
-    const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
-
-    for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
-
-      v_math.Vector3 pos =
-          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
-
-      _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
-    }
-  }
-
-  Future<ui.Image> _loadUiImage(String path) async {
-    final completer = Completer<ui.Image>();
-    final config = createLocalImageConfiguration(context);
-    final asset = AssetImage(path);
-    final stream = asset.resolve(config);
-    stream.addListener(ImageStreamListener((info, _) => completer.complete(info.image)));
-    return completer.future;
   }
 
   void _init() async {
@@ -750,11 +732,44 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
     if (mounted) setState(() => _isLoading = false);
   }
 
-  @override
-  void initState() {
-    super.initState();
+  Future<ui.Image> _loadUiImage(String path) async {
+    final completer = Completer<ui.Image>();
+    final config = createLocalImageConfiguration(context);
+    final asset = AssetImage(path, package: 'iv_project_invitation_theme');
+    final stream = asset.resolve(config);
+    stream.addListener(ImageStreamListener((info, _) => completer.complete(info.image)));
+    return completer.future;
+  }
 
-    _init();
+  void _generateParticles(int imageCount) {
+    final rand = math.Random();
+    const goldenRatio = 1.61803398875;
+    double radius = widget.config.size / 3;
+
+    for (int i = 0; i < widget.config.particleCount; i++) {
+      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      double radiusAtY = math.sqrt(1 - y * y);
+      double theta = 2 * math.pi * goldenRatio * i;
+
+      v_math.Vector3 pos =
+          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
+
+      _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
+    }
+  }
+
+  void _updateRotation() {
+    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
+    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
+
+    _rotation.rotateY(_rotateY);
+    _rotation.rotateX(_rotateX);
+
+    final rand = math.Random();
+    if (rand.nextInt(100) == 1) {
+      _targetRotateX = (rand.nextDouble() - .5) * .015;
+      _targetRotateY = (rand.nextDouble() - .5) * .015;
+    }
   }
 
   @override
@@ -828,7 +843,9 @@ class _ImageParticlePainter extends CustomPainter {
 
     for (int i = 0; i < particles.length; i++) {
       final p = particles[i];
-      final v_math.Vector3 pos = rotation.transformed3(p.basePosition);
+      final v_math.Vector3 explodedPosition = p.basePosition * explosionForce;
+
+      final v_math.Vector3 pos = rotation.transformed3(explodedPosition);
 
       if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
 
