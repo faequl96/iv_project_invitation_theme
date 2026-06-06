@@ -193,6 +193,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                   color: config.seeMoreButtonBorderColor,
                 ),
                 color: config.seeMoreButtonColor,
+                elevation: 0,
               ),
               child: Stack(
                 alignment: .center,
@@ -434,6 +435,7 @@ class _RSVPFormState extends State<RSVPForm> {
       borderRadius: .circular(30),
       border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
       color: widget.submitButtonColor,
+      elevation: 0,
     ),
     child: Row(
       mainAxisAlignment: .center,

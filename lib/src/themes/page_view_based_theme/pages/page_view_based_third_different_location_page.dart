@@ -246,6 +246,7 @@ class PageViewBasedThirdDifferentLocationPage extends StatelessWidget {
                               color: config.getDirectionsButtonBorderColor,
                             ),
                             color: config.getDirectionsButtonColor,
+                            elevation: 0,
                           ),
                           child: Stack(
                             alignment: .center,

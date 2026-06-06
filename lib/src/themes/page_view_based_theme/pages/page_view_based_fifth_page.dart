@@ -234,6 +234,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
       borderRadius: .circular(30),
       border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
       color: config.seeMoreButtonColor,
+      elevation: 0,
     ),
     child: Stack(
       alignment: .center,
