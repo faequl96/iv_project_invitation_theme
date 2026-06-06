@@ -16,26 +16,26 @@ class ParticleSphereConfig {
     this.size = 200,
     this.particleCount = 30,
     this.particleScaleSize = 6,
-    required this.circleParticleVariatios,
+    required this.circleParticleVariations,
     this.groundType = .both,
   }) : type = ParticleType.circle,
-       imageParticleVariatios = const [];
+       imageParticleVariations = const [];
 
   ParticleSphereConfig.image({
     this.size = 200,
     this.particleCount = 30,
     this.particleScaleSize = 6,
-    required this.imageParticleVariatios,
+    required this.imageParticleVariations,
     this.groundType = .both,
   }) : type = ParticleType.image,
-       circleParticleVariatios = const [];
+       circleParticleVariations = const [];
 
   final ParticleType type;
   final double size;
   final int particleCount;
   final double particleScaleSize;
-  final List<CircleParticle> circleParticleVariatios;
-  final List<ImageParticle> imageParticleVariatios;
+  final List<CircleParticle> circleParticleVariations;
+  final List<ImageParticle> imageParticleVariations;
   final GroundType groundType;
 }
 
@@ -177,7 +177,7 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
 
       final variation = widget
           .config
-          .circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
+          .circleParticleVariations[rand.nextInt(widget.config.circleParticleVariations.length)];
 
       _particles.add(
         _CircleParticle(
@@ -300,7 +300,7 @@ class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImag
 
       final variation = widget
           .config
-          .circleParticleVariatios[rand.nextInt(widget.config.circleParticleVariatios.length)];
+          .circleParticleVariations[rand.nextInt(widget.config.circleParticleVariations.length)];
 
       _particles.add(
         _CircleParticle(basePosition: pos, color: variation.color, isFlickering: false),
@@ -375,6 +375,10 @@ class _CircleParticlePainter extends CustomPainter {
   static final List<Rect> _rects = [];
   static final List<Color> _colors = [];
 
+  final math.Random _random = math.Random();
+
+  final v_math.Vector3 _calcPos = v_math.Vector3.zero();
+
   @override
   void paint(Canvas canvas, Size size) {
     if (particles.isEmpty) return;
@@ -386,30 +390,30 @@ class _CircleParticlePainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     const viewDistance = 600;
     const rectCircle = Rect.fromLTWH(0, 0, 50, 50);
-    final random = math.Random();
 
     for (int i = 0; i < particles.length; i++) {
       final p = particles[i];
 
-      final v_math.Vector3 pos = rotation.transformed3(p.basePosition);
+      _calcPos.setFrom(p.basePosition);
+      rotation.transform3(_calcPos);
 
       if (explosionForce > .01) {
-        final double len = pos.length;
+        final double len = _calcPos.length;
         if (len > 0) {
           final double factor = (explosionForce * 50 * p.velocityMultiplier) / len;
-          pos.x += pos.x * factor;
-          pos.y += pos.y * factor;
-          pos.z += pos.z * factor;
+          _calcPos.x += _calcPos.x * factor;
+          _calcPos.y += _calcPos.y * factor;
+          _calcPos.z += _calcPos.z * factor;
         }
       }
 
-      if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
+      if (drawForeground ? _calcPos.z >= 0 : _calcPos.z < 0) continue;
 
-      final double scale = viewDistance / (viewDistance + pos.z);
+      final double scale = viewDistance / (viewDistance + _calcPos.z);
 
       double flicker = 1;
       if (p.isFlickering) {
-        flicker = random.nextDouble() > .5 ? 1 : .3;
+        flicker = _random.nextDouble() > .5 ? 1 : .3;
       }
 
       _rects.add(rectCircle);
@@ -419,8 +423,8 @@ class _CircleParticlePainter extends CustomPainter {
           scale: (scaleSize * scale) / 25,
           anchorX: 25,
           anchorY: 25,
-          translateX: pos.x * scale + center.dx,
-          translateY: pos.y * scale + center.dy,
+          translateX: _calcPos.x * scale + center.dx,
+          translateY: _calcPos.y * scale + center.dy,
         ),
       );
 
@@ -573,7 +577,7 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
   void _init() async {
     final particleFileNames = <String>[];
     final loadedImages = <ui.Image>[];
-    for (final variation in widget.config.imageParticleVariatios) {
+    for (final variation in widget.config.imageParticleVariations) {
       particleFileNames.add(variation.imagePath.split('/').last);
       final img = await _loadUiImage(variation.imagePath);
       loadedImages.add(img);
@@ -662,7 +666,7 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
                 drawForeground: isForeground,
                 shouldRepaintValue: true,
                 particleImage: AppParticles.images[particleImagesId]!,
-                imageCount: widget.config.imageParticleVariatios.length,
+                imageCount: widget.config.imageParticleVariations.length,
               ),
             ),
           );
@@ -713,7 +717,7 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
   void _init() async {
     final particleFileNames = <String>[];
     final loadedImages = <ui.Image>[];
-    for (final variation in widget.config.imageParticleVariatios) {
+    for (final variation in widget.config.imageParticleVariations) {
       particleFileNames.add(variation.imagePath.split('/').last);
       final img = await _loadUiImage(variation.imagePath);
       loadedImages.add(img);
@@ -797,7 +801,7 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
         drawForeground: isForeground,
         shouldRepaintValue: false,
         particleImage: AppParticles.images[particleImagesId]!,
-        imageCount: widget.config.imageParticleVariatios.length,
+        imageCount: widget.config.imageParticleVariations.length,
       ),
     );
   }
@@ -829,36 +833,43 @@ class _ImageParticlePainter extends CustomPainter {
   static final List<Rect> _rects = [];
   static final List<Color> _colors = [];
 
+  final v_math.Vector3 _calcPos = v_math.Vector3.zero();
+
   @override
   void paint(Canvas canvas, Size size) {
+    if (particles.isEmpty) return;
+
     _transforms.clear();
     _rects.clear();
     _colors.clear();
 
     final center = Offset(size.width / 2, size.height / 2);
     const double viewDistance = 600;
+
     final double sourceSize = particleImage.width / imageCount;
+    final double halfSourceSize = sourceSize / 2;
 
     for (int i = 0; i < particles.length; i++) {
       final p = particles[i];
 
-      final v_math.Vector3 pos = rotation.transformed3(p.basePosition);
+      _calcPos.setFrom(p.basePosition);
+      rotation.transform3(_calcPos);
 
       if (explosionForce > .01) {
-        final double len = pos.length;
+        final double len = _calcPos.length;
         if (len > 0) {
           final double factor = (explosionForce * 50 * p.velocityMultiplier) / len;
-          pos.x += pos.x * factor;
-          pos.y += pos.y * factor;
-          pos.z += pos.z * factor;
+          _calcPos.x += _calcPos.x * factor;
+          _calcPos.y += _calcPos.y * factor;
+          _calcPos.z += _calcPos.z * factor;
         }
       }
 
-      if (drawForeground ? pos.z >= 0 : pos.z < 0) continue;
+      if (drawForeground ? _calcPos.z >= 0 : _calcPos.z < 0) continue;
 
-      final double scale = viewDistance / (viewDistance + pos.z);
-      final double x = pos.x * scale + center.dx;
-      final double y = pos.y * scale + center.dy;
+      final double scale = viewDistance / (viewDistance + _calcPos.z);
+      final double x = _calcPos.x * scale + center.dx;
+      final double y = _calcPos.y * scale + center.dy;
 
       _rects.add(Rect.fromLTWH(p.atlasIndex * sourceSize, 0, sourceSize, sourceSize));
 
@@ -867,9 +878,9 @@ class _ImageParticlePainter extends CustomPainter {
       _transforms.add(
         RSTransform.fromComponents(
           rotation: p.rotationAngle,
-          scale: ((scaleSize * scale) / (sourceSize / 2)) * sizeMultiplier,
-          anchorX: sourceSize / 2,
-          anchorY: sourceSize / 2,
+          scale: ((scaleSize * scale) / halfSourceSize) * sizeMultiplier,
+          anchorX: halfSourceSize,
+          anchorY: halfSourceSize,
           translateX: x,
           translateY: y,
         ),
