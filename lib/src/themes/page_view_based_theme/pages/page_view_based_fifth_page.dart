@@ -63,7 +63,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -125,7 +125,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 2000),
-                        child: _seeMore(context, langCode),
+                        child: _buildSeeMore(context, langCode),
                       ),
                       const Spacer(),
                       const Spacer(),
@@ -163,7 +163,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -183,7 +183,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
     ),
   );
 
-  Widget _seeMore(BuildContext context, String langCode) => QuickButton(
+  Widget _buildSeeMore(BuildContext context, String langCode) => QuickButton(
     onTap: () {
       FloatingOverlay.showBottomSheet(
         context,
@@ -234,6 +234,7 @@ class PageViewBasedFifthPage extends StatelessWidget {
       borderRadius: .circular(30),
       border: .all(width: config.seeMoreButtonBorderWidth, color: config.seeMoreButtonBorderColor),
       color: config.seeMoreButtonColor,
+      elevation: 0,
     ),
     child: Stack(
       alignment: .center,

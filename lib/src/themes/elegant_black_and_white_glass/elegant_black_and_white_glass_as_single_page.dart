@@ -46,7 +46,7 @@ class ElegantBlackAndWhiteGlassAsSinglePage extends StatelessWidget {
           ),
         ],
         particleSphere: .circle(
-          circleParticleVariatios: [
+          circleParticleVariations: [
             const CircleParticle(color: Colors.grey),
             const CircleParticle(color: Colors.white),
             CircleParticle(color: ColorUtil.darken(Colors.grey.shade700, 40)),
@@ -170,7 +170,7 @@ class ElegantBlackAndWhiteGlassAsSinglePage extends StatelessWidget {
           placeBaseTextColor: Colors.grey.shade100,
           addressTextColor: Colors.grey.shade100,
           mapsBorderColor: Colors.grey.shade400,
-          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonColor: Colors.black.withValues(alpha: .5),
           getDirectionsButtonLabelColor: Colors.white,
           getDirectionsButtonBorderWidth: .5,
           getDirectionsButtonBorderColor: Colors.grey.shade500,
@@ -190,7 +190,7 @@ class ElegantBlackAndWhiteGlassAsSinglePage extends StatelessWidget {
           dividingLineWidth: .5,
           dividingLineColor: Colors.grey.shade50,
           mapsBorderColor: Colors.grey.shade400,
-          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonColor: Colors.black.withValues(alpha: .5),
           getDirectionsButtonLabelColor: Colors.white,
           getDirectionsButtonBorderWidth: .5,
           getDirectionsButtonBorderColor: Colors.grey.shade500,
@@ -220,7 +220,7 @@ class ElegantBlackAndWhiteGlassAsSinglePage extends StatelessWidget {
           placeBaseTextColor: Colors.grey.shade50,
           addressTextColor: Colors.grey.shade50,
           mapsBorderColor: Colors.grey.shade400,
-          getDirectionsButtonColor: Colors.grey.shade300.withValues(alpha: .2),
+          getDirectionsButtonColor: Colors.black.withValues(alpha: .5),
           getDirectionsButtonLabelColor: Colors.white,
           getDirectionsButtonBorderWidth: .5,
           getDirectionsButtonBorderColor: Colors.grey.shade500,

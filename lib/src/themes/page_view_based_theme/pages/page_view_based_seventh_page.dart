@@ -66,7 +66,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -140,7 +140,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                             slideFromOffset: .5,
                             slideFrom: .bottom,
                             delayBeforeStart: const Duration(milliseconds: 2000),
-                            child: _rsvpList(context, langCode),
+                            child: _buildRsvpList(context, langCode),
                           ),
                         ),
                       ),
@@ -178,7 +178,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -198,7 +198,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
     ),
   );
 
-  Widget _rsvpList(BuildContext context, String langCode) => SizedBox(
+  Widget _buildRsvpList(BuildContext context, String langCode) => SizedBox(
     width: .maxFinite,
     child: Padding(
       padding: .symmetric(horizontal: W.x6s),
@@ -279,6 +279,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
                   color: config.seeMoreButtonBorderColor,
                 ),
                 color: config.seeMoreButtonColor,
+                elevation: 0,
               ),
               child: Stack(
                 alignment: .center,
@@ -662,6 +663,7 @@ class _RSVPFormState extends State<RSVPForm> {
               color: widget.submitButtonBorderColor,
             ),
             color: widget.submitButtonColor,
+            elevation: 0,
           ),
           child: Row(
             mainAxisAlignment: .center,

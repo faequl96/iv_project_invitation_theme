@@ -52,7 +52,7 @@ class ElegantGreenMatchaGlass extends StatelessWidget {
           ),
         ],
         particleSphere: .circle(
-          circleParticleVariatios: [
+          circleParticleVariations: [
             CircleParticle(color: ColorUtil.darken(Colors.lightGreenAccent, 5)),
             const CircleParticle(color: Colors.white),
             CircleParticle(color: ColorUtil.darken(Colors.green.shade700, 40)),

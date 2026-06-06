@@ -45,11 +45,11 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const .linear(1)),
-      child: _content,
+      child: _buildContent,
     );
   }
 
-  Widget get _content => switch (widget.invitationThemeId) {
+  Widget get _buildContent => switch (widget.invitationThemeId) {
     1 => ElegantBlackAndWhiteGlass(
       heightAdjustment: widget.heightAdjustment,
       viewType: widget.viewType,

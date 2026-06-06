@@ -36,7 +36,6 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
   TabController? _tabController;
 
   List<Widget> _tabs = [];
-  void _buildTabs() => _tabs = widget.tabsBuilder(_indexActive);
 
   late final int _indexActive;
 
@@ -72,6 +71,8 @@ class _PageViewWithBottomTabBarAsSinglePageState extends State<PageViewWithBotto
 
     super.dispose();
   }
+
+  void _buildTabs() => _tabs = widget.tabsBuilder(_indexActive);
 
   @override
   Widget build(BuildContext context) {

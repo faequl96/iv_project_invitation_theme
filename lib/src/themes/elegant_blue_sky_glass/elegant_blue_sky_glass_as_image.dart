@@ -56,7 +56,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           // ),
         ],
         particleSphere: .circle(
-          circleParticleVariatios: [
+          circleParticleVariations: [
             const CircleParticle(color: Colors.lightBlueAccent),
             const CircleParticle(color: Colors.white),
             CircleParticle(color: ColorUtil.darken(Colors.blue.shade700, 40)),

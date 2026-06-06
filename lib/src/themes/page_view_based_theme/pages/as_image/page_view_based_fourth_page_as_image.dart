@@ -4,6 +4,7 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -20,6 +21,8 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return Stack(
       children: [
@@ -46,46 +49,16 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
 
         ?config.background,
 
-        Positioned(top: 0, child: _title(langCode)),
+        Positioned(top: 0, child: _buildTitle(langCode)),
 
-        if (config.useBackdropBlurOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: .circular(20),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        else
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: contentPadding,
+            child: PageViewBasedScaffoldWrapper(
+              useBackdropBlur: config.useBackdropBlurOnScaffold,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -99,21 +72,23 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+        ),
+
         Positioned(
           bottom: 0,
           height: Screen.height,
           width: Screen.width,
           child: Padding(
-            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+            padding: contentPadding,
             child: DecoratedBox(
               decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
               child: ClipRect(
                 child: Column(
                   children: [
                     SizedBox(height: H.lg),
-                    _place(),
+                    _buildPlace(),
                     const SizedBox(height: 8),
-                    _address(),
+                    _buildAddress(),
                     const Spacer(),
                     Maps(
                       borderColor: config.mapsBorderColor,
@@ -123,7 +98,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
                       url: receptionEvent.mapsUrl,
                     ),
                     SizedBox(height: H.x2s),
-                    _getDirection(langCode),
+                    _buildGetDirection(langCode),
                     const Spacer(),
                     const Spacer(),
                   ],
@@ -132,13 +107,14 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
             ),
           ),
         ),
+
         if (config.useGlassEffectOnScaffold)
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -158,7 +134,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -178,7 +154,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _place() => Column(
+  Widget _buildPlace() => Column(
     children: [
       Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
       const SizedBox(height: 4),
@@ -199,7 +175,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     ],
   );
 
-  Widget _address() => Padding(
+  Widget _buildAddress() => Padding(
     padding: const .symmetric(horizontal: 20),
     child: Text(
       receptionEvent.address,
@@ -212,7 +188,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _getDirection(String langCode) => QuickButton(
+  Widget _buildGetDirection(String langCode) => QuickButton(
     onTap: () {},
     style: QuickButtonStyle(
       padding: const .symmetric(horizontal: 24),
@@ -223,6 +199,7 @@ class PageViewBasedFourthPageAsImage extends StatelessWidget {
         color: config.getDirectionsButtonBorderColor,
       ),
       color: config.getDirectionsButtonColor,
+      elevation: 0,
     ),
     child: Stack(
       alignment: .center,

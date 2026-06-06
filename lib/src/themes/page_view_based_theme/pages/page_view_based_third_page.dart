@@ -59,7 +59,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -111,7 +111,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                           FadeAndSlideTransition(
                             slideFromOffset: .0,
                             delayBeforeStart: const Duration(milliseconds: 500),
-                            child: _contractTitle(langCode),
+                            child: _buildContractTitle(langCode),
                           ),
                           SizedBox(height: H.x2s),
                           FadeAndSlideTransition(
@@ -119,7 +119,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                             slideFrom: .bottom,
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
-                            child: _contractTime(langCode),
+                            child: _buildContractTime(langCode),
                           ),
                           SizedBox(height: H.md),
                           SizedBox(
@@ -158,7 +158,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                           FadeAndSlideTransition(
                             slideFromOffset: .0,
                             delayBeforeStart: const Duration(milliseconds: 500),
-                            child: _receptionTitle(langCode),
+                            child: _buildReceptionTitle(langCode),
                           ),
                           SizedBox(height: H.x2s),
                           FadeAndSlideTransition(
@@ -166,7 +166,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
                             slideFrom: .bottom,
                             animationSpeed: const Duration(milliseconds: 300),
                             delayBeforeStart: const Duration(milliseconds: 800),
-                            child: _receptionTime(langCode),
+                            child: _buildReceptionTime(langCode),
                           ),
                           SizedBox(height: H.md),
                           SizedBox(
@@ -223,7 +223,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -243,7 +243,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
     ),
   );
 
-  Widget _contractTitle(String langCode) => Row(
+  Widget _buildContractTitle(String langCode) => Row(
     mainAxisSize: .min,
     children: [
       Icon(Icons.volunteer_activism, color: config.contractTitleColor),
@@ -261,7 +261,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
     ],
   );
 
-  Widget _contractTime(String langCode) => Column(
+  Widget _buildContractTime(String langCode) => Column(
     children: [
       Text(
         DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
@@ -285,7 +285,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
     ],
   );
 
-  Widget _receptionTitle(String langCode) => Row(
+  Widget _buildReceptionTitle(String langCode) => Row(
     mainAxisSize: .min,
     children: [
       Icon(Icons.celebration, color: config.receptionTitleColor),
@@ -303,7 +303,7 @@ class PageViewBasedThirdPage extends StatelessWidget {
     ],
   );
 
-  Widget _receptionTime(String langCode) => Column(
+  Widget _buildReceptionTime(String langCode) => Column(
     children: [
       Text(
         DateUtil.format(receptionEvent.startTime, .EEEEddMMMMyyyy),

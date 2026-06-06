@@ -47,7 +47,7 @@ class ElegantRedVelvetGlassAsSinglePage extends StatelessWidget {
           ),
         ],
         particleSphere: .circle(
-          circleParticleVariatios: [
+          circleParticleVariations: [
             CircleParticle(color: ColorUtil.darken(Colors.redAccent, 5)),
             const CircleParticle(color: Colors.white),
             CircleParticle(color: ColorUtil.darken(Colors.red.shade700, 40)),

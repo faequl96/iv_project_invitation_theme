@@ -34,7 +34,6 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   PageController? _pageController;
 
   List<Widget> _tabs = [];
-  void _buildTabs() => _tabs = widget.tabsBuilder(_indexActive);
 
   late final ValueNotifier<int> _indexActive;
   bool _isTabTaped = false;
@@ -42,31 +41,6 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
   final _isLowerTab = ValueNotifier(true);
 
   late final InvitationThemeCoreCubit _coreCubit;
-
-  void _scrollListener() async {
-    final offset = _pageController?.page ?? 0;
-    final offsetPage = (offset - offset.floor()).abs();
-    if (offsetPage < 0.01) {
-      if (_coreCubit.state.animationTrigger == 0) {
-        await Future<void>.delayed(const Duration(milliseconds: 50));
-        _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
-      }
-    } else {
-      if (offsetPage < 0.96) {
-        if (_coreCubit.state.animationTrigger == 1) {
-          _coreCubit.state
-              .copyWith(animationTrigger: 0, pageActive: _indexActive.value)
-              .emitState();
-        }
-      } else {
-        if (_coreCubit.state.animationTrigger == 0) {
-          _coreCubit.state
-              .copyWith(animationTrigger: 1, pageActive: _indexActive.value)
-              .emitState();
-        }
-      }
-    }
-  }
 
   @override
   void initState() {
@@ -95,6 +69,33 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
     super.dispose();
   }
 
+  void _buildTabs() => _tabs = widget.tabsBuilder(_indexActive);
+
+  void _scrollListener() async {
+    final offset = _pageController?.page ?? 0;
+    final offsetPage = (offset - offset.floor()).abs();
+    if (offsetPage < 0.01) {
+      if (_coreCubit.state.animationTrigger == 0) {
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
+      }
+    } else {
+      if (offsetPage < 0.96) {
+        if (_coreCubit.state.animationTrigger == 1) {
+          _coreCubit.state
+              .copyWith(animationTrigger: 0, pageActive: _indexActive.value)
+              .emitState();
+        }
+      } else {
+        if (_coreCubit.state.animationTrigger == 0) {
+          _coreCubit.state
+              .copyWith(animationTrigger: 1, pageActive: _indexActive.value)
+              .emitState();
+        }
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
@@ -115,7 +116,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                       initialPage: 0,
                       viewAsSinglePage: false,
                       useWrapper: true,
-                      child: _page,
+                      child: _buildPage,
                     ),
                   )
                 else
@@ -125,18 +126,18 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
                       initialPage: 0,
                       viewAsSinglePage: false,
                       useWrapper: true,
-                      child: _page,
+                      child: _buildPage,
                     ),
                   ),
               ] else
-                _page,
+                _buildPage,
 
               ValueListenableBuilder(
                 valueListenable: _isLowerTab,
                 builder: (_, isLowerTab, _) => AnimatedPositioned(
                   bottom: isLowerTab ? -55 : 0,
                   duration: const Duration(milliseconds: 300),
-                  child: _tab,
+                  child: _buildTab,
                 ),
               ),
 
@@ -148,7 +149,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
     );
   }
 
-  Widget get _page => SizedBox(
+  Widget get _buildPage => SizedBox(
     height: Screen.height,
     width: Screen.width,
     child: PageView.builder(
@@ -169,7 +170,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
     ),
   );
 
-  Widget get _tab => SizedBox(
+  Widget get _buildTab => SizedBox(
     width: Screen.width,
     child: Padding(
       padding: .symmetric(vertical: 12, horizontal: widget.tabConfig.widthFull ? 0 : 14),
@@ -179,11 +180,11 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
             RepaintBoundary(
               child: ClipRRect(
                 borderRadius: .circular(36),
-                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tabBar),
+                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _buildTabBar),
               ),
             )
           else
-            _tabBar,
+            _buildTabBar,
           if (widget.tabConfig.useGlassEffect && _indexActive.value > 0)
             GlassEffectBox(
               width: Screen.width - 28,
@@ -200,7 +201,7 @@ class _PageViewWithBottomTabBarState extends State<PageViewWithBottomTabBar>
     ),
   );
 
-  Widget get _tabBar => SizedBox(
+  Widget get _buildTabBar => SizedBox(
     height: 52,
     child: DecoratedBox(
       decoration: BoxDecoration(

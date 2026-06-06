@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/widgets/page_view_based_scaffold_wrapper.dart';
 import 'package:iv_project_invitation_theme/src/widgets/time_ago.dart';
 import 'package:iv_project_invitation_theme/src/widgets/general_text_field.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
@@ -17,6 +18,8 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
+
+    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
 
     return Stack(
       children: [
@@ -43,46 +46,16 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
 
         ?config.background,
 
-        Positioned(top: 0, child: _title(langCode)),
+        Positioned(top: 0, child: _buildTitle(langCode)),
 
-        if (config.useBackdropBlurOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
-              child: RepaintBoundary(
-                child: ClipRRect(
-                  borderRadius: .circular(20),
-                  child: BackdropFilter(
-                    filter: .blur(sigmaX: 3, sigmaY: 3),
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                        borderRadius: .circular(20),
-                        gradient: LinearGradient(
-                          begin: .topCenter,
-                          end: .bottomCenter,
-                          colors: [
-                            config.firstGradientScaffoldColor,
-                            config.secondGradientScaffoldColor,
-                          ],
-                          stops: config.stopsGradientScaffoldColor,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          )
-        else
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+        Positioned(
+          bottom: 0,
+          height: Screen.height,
+          width: Screen.width,
+          child: Padding(
+            padding: contentPadding,
+            child: PageViewBasedScaffoldWrapper(
+              useBackdropBlur: config.useBackdropBlurOnScaffold,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -96,12 +69,14 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
               ),
             ),
           ),
+        ),
+
         Positioned(
           bottom: 0,
           height: Screen.height,
           width: Screen.width,
           child: Padding(
-            padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+            padding: contentPadding,
             child: DecoratedBox(
               decoration: BoxDecoration(borderRadius: .circular(20), border: config.scaffoldBorder),
               child: ClipRect(
@@ -127,7 +102,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                       submitButtonBorderColor: config.submitButtonBorderColor,
                     ),
                     SizedBox(height: H.x8s),
-                    Expanded(child: _rsvpList(context, langCode)),
+                    Expanded(child: _buildRsvpList(context, langCode)),
                     SizedBox(height: W.x5s),
                   ],
                 ),
@@ -135,13 +110,14 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
             ),
           ),
         ),
+
         if (config.useGlassEffectOnScaffold)
           Positioned(
             bottom: 0,
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: GlassEffectBox(
                 width: Screen.width - 32,
                 height: Screen.height - (76 + H.x6l),
@@ -161,7 +137,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -181,7 +157,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
     ),
   );
 
-  Widget _rsvpList(BuildContext context, String langCode) => SizedBox(
+  Widget _buildRsvpList(BuildContext context, String langCode) => SizedBox(
     width: .maxFinite,
     child: Padding(
       padding: .symmetric(horizontal: W.x6s),
@@ -217,6 +193,7 @@ class PageViewBasedSeventhPageAsImage extends StatelessWidget {
                   color: config.seeMoreButtonBorderColor,
                 ),
                 color: config.seeMoreButtonColor,
+                elevation: 0,
               ),
               child: Stack(
                 alignment: .center,
@@ -458,6 +435,7 @@ class _RSVPFormState extends State<RSVPForm> {
       borderRadius: .circular(30),
       border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
       color: widget.submitButtonColor,
+      elevation: 0,
     ),
     child: Row(
       mainAxisAlignment: .center,

@@ -55,7 +55,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
             child: FadeAndSlideTransition(
               slideFromOffset: .5,
               slideFrom: .top,
-              child: _title(langCode),
+              child: _buildTitle(langCode),
             ),
           ),
 
@@ -104,7 +104,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         slideFromOffset: .0,
                         slideFrom: .top,
                         delayBeforeStart: const Duration(milliseconds: 200),
-                        child: _place(),
+                        child: _buildPlace(),
                       ),
                       const SizedBox(height: 8),
                       FadeAndSlideTransition(
@@ -112,7 +112,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 400),
-                        child: _address(),
+                        child: _buildAddress(),
                       ),
                       const Spacer(),
                       Maps(
@@ -128,7 +128,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
                         slideFrom: .bottom,
                         animationSpeed: const Duration(milliseconds: 300),
                         delayBeforeStart: const Duration(milliseconds: 1000),
-                        child: _getDirection(langCode),
+                        child: _buildGetDirection(langCode),
                       ),
                       const Spacer(),
                       const Spacer(),
@@ -165,7 +165,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
     );
   }
 
-  Widget _title(String langCode) => SizedBox(
+  Widget _buildTitle(String langCode) => SizedBox(
     height: H.x6l,
     width: Screen.width,
     child: Row(
@@ -185,7 +185,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
     ),
   );
 
-  Widget _place() => Column(
+  Widget _buildPlace() => Column(
     children: [
       Icon(Icons.maps_home_work_rounded, size: 32, color: config.placeIconColor),
       const SizedBox(height: 4),
@@ -206,7 +206,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
     ],
   );
 
-  Widget _address() => Padding(
+  Widget _buildAddress() => Padding(
     padding: const .symmetric(horizontal: 20),
     child: Text(
       receptionEvent.address,
@@ -219,7 +219,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
     ),
   );
 
-  Widget _getDirection(String langCode) => QuickButton(
+  Widget _buildGetDirection(String langCode) => QuickButton(
     onTap: () {
       launchUrl(Uri.parse(receptionEvent.mapsUrl), mode: .externalNonBrowserApplication);
     },
@@ -232,6 +232,7 @@ class PageViewBasedFourthPage extends StatelessWidget {
         color: config.getDirectionsButtonBorderColor,
       ),
       color: config.getDirectionsButtonColor,
+      elevation: 0,
     ),
     child: Stack(
       alignment: .center,
