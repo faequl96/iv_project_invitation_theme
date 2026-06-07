@@ -76,17 +76,6 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
   }
 
   @override
-  void didUpdateWidget(covariant AnimatedPhotoSequence oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    if (widget.image != oldWidget.image ||
-        widget.imageUrl != oldWidget.imageUrl ||
-        widget.viewType != oldWidget.viewType) {
-      _buildCachedImage();
-    }
-  }
-
-  @override
   void dispose() {
     _sub?.cancel();
     _controller.dispose();
@@ -155,15 +144,24 @@ class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
 
   void _buildCachedImage() {
     if (widget.viewType == .preview && widget.image != null) {
-      _cachedImage = Image.file(widget.image!, fit: .cover);
+      _cachedImage = Image.file(
+        widget.image!,
+        fit: .fitHeight,
+        alignment: widget.isLeft ? .centerLeft : .centerRight,
+      );
     } else if (widget.viewType == .example && widget.imageUrl != null) {
       _cachedImage = Image.asset(
         widget.imageUrl!,
-        fit: .cover,
+        fit: .fitHeight,
+        alignment: widget.isLeft ? .centerLeft : .centerRight,
         package: 'iv_project_invitation_theme',
       );
     } else if (widget.imageUrl != null) {
-      _cachedImage = Image.network(widget.imageUrl!, fit: .cover);
+      _cachedImage = Image.network(
+        widget.imageUrl!,
+        fit: .fitHeight,
+        alignment: widget.isLeft ? .centerLeft : .centerRight,
+      );
     }
   }
 

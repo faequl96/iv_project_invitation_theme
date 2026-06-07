@@ -33,6 +33,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
     final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
+    // final contentPadding = EdgeInsets.only(top: H.x6l, left: 0, right: 0, bottom: 76);
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
@@ -101,7 +102,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+              padding: contentPadding,
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   borderRadius: .circular(20),
@@ -158,7 +159,7 @@ class PageViewBasedSeventhPage extends StatelessWidget {
               height: Screen.height,
               width: Screen.width,
               child: Padding(
-                padding: .only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76),
+                padding: contentPadding,
                 child: GlassEffectBox(
                   width: Screen.width - 32,
                   height: Screen.height - (76 + H.x6l),

@@ -19,6 +19,7 @@ class PageViewBasedFirstPage extends StatelessWidget {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
     final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
+    // final contentPadding = EdgeInsets.only(top: H.x6l, left: 0, right: 0, bottom: 76);
 
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
