@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -28,9 +27,9 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBased(
-      configs: PageViewBasedConfigs(
-        tabConfig: PageViewWithBottomTabBarConfig(
+    return PageViewTabBarTheme(
+      configs: PageViewTabBarConfigs(
+        tabConfig: PageViewTabBarTabConfig(
           useGlassEffect: true,
           indicatorColor: Colors.grey.shade50,
           backgroundColor: Colors.black.withValues(alpha: .5),
@@ -57,7 +56,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
             CircleParticle(color: ColorUtil.darken(Colors.grey.shade700, 40)),
           ],
         ),
-        coverPageConfig: PageViewBasedCoverPageConfig(
+        coverPageConfig: PageViewTabBarCoverPageConfig(
           gradientBaseColor: Colors.grey.shade900,
           brideNameColor: Colors.grey.shade300,
           groomNameColor: Colors.grey.shade300,
@@ -72,7 +71,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           firstArrowColor: Colors.grey.shade100.withValues(alpha: .7),
           secondArrowColor: Colors.grey.shade300.withValues(alpha: .5),
         ),
-        firstPageConfig: PageViewBasedFirstPageConfig(
+        firstPageConfig: PageViewTabBarFirstPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.grey.shade900,
           secondGradientBackgroundColor: Colors.transparent,
@@ -90,7 +89,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           secondSubScaffoldBorderColor: Colors.grey.shade500,
           secondSubScaffoldBorderWidth: .5,
         ),
-        secondPageConfig: PageViewBasedSecondPageConfig(
+        secondPageConfig: PageViewTabBarSecondPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
@@ -119,7 +118,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           groomFatherNameTextColor: null,
           groomMotherNameTextColor: null,
         ),
-        thirdPageConfig: PageViewBasedThirdPageConfig(
+        thirdPageConfig: PageViewTabBarThirdPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.transparent,
           secondGradientBackgroundColor: Colors.grey.shade900,
@@ -150,7 +149,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           receptionCountdownUnitColor: Colors.grey.shade200,
           useLightningEffectOnCountdown: true,
         ),
-        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+        thirdDifferentLocationPageConfig: PageViewTabBarThirdDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.transparent,
           secondGradientBackgroundColor: Colors.grey.shade900,
@@ -180,7 +179,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           getDirectionsButtonBorderWidth: .5,
           getDirectionsButtonBorderColor: Colors.grey.shade500,
         ),
-        fourthPageConfig: PageViewBasedFourthPageConfig(
+        fourthPageConfig: PageViewTabBarFourthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.grey.shade900,
           secondGradientBackgroundColor: Colors.transparent,
@@ -200,7 +199,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           getDirectionsButtonBorderWidth: .5,
           getDirectionsButtonBorderColor: Colors.grey.shade500,
         ),
-        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+        fourthDifferentLocationPageConfig: PageViewTabBarFourthDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.grey.shade900,
           secondGradientBackgroundColor: Colors.transparent,
@@ -230,7 +229,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           getDirectionsButtonBorderWidth: .5,
           getDirectionsButtonBorderColor: Colors.grey.shade500,
         ),
-        fifthPageConfig: PageViewBasedFifthPageConfig(
+        fifthPageConfig: PageViewTabBarFifthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
@@ -249,7 +248,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
           bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
-        sixthPageConfig: PageViewBasedSixthPageConfig(
+        sixthPageConfig: PageViewTabBarSixthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.transparent,
           secondGradientBackgroundColor: Colors.grey.shade900,
@@ -268,7 +267,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           bankTextColor: Colors.grey.shade100,
           bankCopyBaseColor: Colors.grey.shade400,
         ),
-        seventhPageConfig: PageViewBasedSeventhPageConfig(
+        seventhPageConfig: PageViewTabBarSeventhPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: Colors.grey.shade900,
           secondGradientBackgroundColor: Colors.transparent,
@@ -309,7 +308,7 @@ class ElegantBlackAndWhiteGlass extends StatelessWidget {
           bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
           bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
-        eighthPageConfig: PageViewBasedEighthPageConfig(
+        eighthPageConfig: PageViewTabBarEighthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
           secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),

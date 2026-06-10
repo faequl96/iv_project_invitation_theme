@@ -3,9 +3,8 @@ import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_theme.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/cover_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/page_background.dart';
 import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/page_foreground.dart';
@@ -31,9 +30,9 @@ class JavaneseRoseGold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBased(
-      configs: PageViewBasedConfigs(
-        tabConfig: PageViewWithBottomTabBarConfig(
+    return PageViewTabBarTheme(
+      configs: PageViewTabBarConfigs(
+        tabConfig: PageViewTabBarTabConfig(
           useGlassEffect: false,
           indicatorColor: ThemeColors.gold,
           backgroundColor: Colors.black.withValues(alpha: .5),
@@ -49,7 +48,7 @@ class JavaneseRoseGold extends StatelessWidget {
             child: const ColoredBox(color: Color.fromARGB(255, 11, 15, 19)),
           ),
         ],
-        coverPageConfig: PageViewBasedCoverPageConfig(
+        coverPageConfig: PageViewTabBarCoverPageConfig(
           coverBackground: const CoverBackground(),
           gradientBaseColor: Colors.grey.shade900,
           brideNameColor: ThemeColors.roseGold,
@@ -65,7 +64,7 @@ class JavaneseRoseGold extends StatelessWidget {
           firstArrowColor: ThemeColors.gold.withValues(alpha: .9),
           secondArrowColor: ThemeColors.roseGold.withValues(alpha: .7),
         ),
-        firstPageConfig: PageViewBasedFirstPageConfig(
+        firstPageConfig: PageViewTabBarFirstPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -96,7 +95,7 @@ class JavaneseRoseGold extends StatelessWidget {
           secondSubScaffoldBorderColor: ThemeColors.roseGold,
           secondSubScaffoldBorderWidth: 1.5,
         ),
-        secondPageConfig: PageViewBasedSecondPageConfig(
+        secondPageConfig: PageViewTabBarSecondPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -140,7 +139,7 @@ class JavaneseRoseGold extends StatelessWidget {
           groomFatherNameTextColor: ThemeColors.gold,
           groomMotherNameTextColor: ThemeColors.roseGold,
         ),
-        thirdPageConfig: PageViewBasedThirdPageConfig(
+        thirdPageConfig: PageViewTabBarThirdPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -184,7 +183,7 @@ class JavaneseRoseGold extends StatelessWidget {
           receptionCountdownUnitColor: ThemeColors.roseGold,
           useLightningEffectOnCountdown: false,
         ),
-        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+        thirdDifferentLocationPageConfig: PageViewTabBarThirdDifferentLocationPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -227,7 +226,7 @@ class JavaneseRoseGold extends StatelessWidget {
           getDirectionsButtonBorderWidth: 2,
           getDirectionsButtonBorderColor: ThemeColors.gold,
         ),
-        fourthPageConfig: PageViewBasedFourthPageConfig(
+        fourthPageConfig: PageViewTabBarFourthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -260,7 +259,7 @@ class JavaneseRoseGold extends StatelessWidget {
           getDirectionsButtonBorderWidth: 2,
           getDirectionsButtonBorderColor: ThemeColors.gold,
         ),
-        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+        fourthDifferentLocationPageConfig: PageViewTabBarFourthDifferentLocationPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -303,7 +302,7 @@ class JavaneseRoseGold extends StatelessWidget {
           getDirectionsButtonBorderWidth: 2,
           getDirectionsButtonBorderColor: ThemeColors.gold,
         ),
-        fifthPageConfig: PageViewBasedFifthPageConfig(
+        fifthPageConfig: PageViewTabBarFifthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -337,7 +336,7 @@ class JavaneseRoseGold extends StatelessWidget {
           bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
           bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
-        sixthPageConfig: PageViewBasedSixthPageConfig(
+        sixthPageConfig: PageViewTabBarSixthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -369,7 +368,7 @@ class JavaneseRoseGold extends StatelessWidget {
           bankTextColor: Colors.grey.shade100,
           bankCopyBaseColor: Colors.grey.shade400,
         ),
-        seventhPageConfig: PageViewBasedSeventhPageConfig(
+        seventhPageConfig: PageViewTabBarSeventhPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,
@@ -423,7 +422,7 @@ class JavaneseRoseGold extends StatelessWidget {
           bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
           bottomSheetCloseIconColor: Colors.grey.shade400,
         ),
-        eighthPageConfig: PageViewBasedEighthPageConfig(
+        eighthPageConfig: PageViewTabBarEighthPageConfig(
           foreground: const JavaneseRoseGoldPageForeground(),
           background: const JavaneseRoseGoldPageBackground(noAnimate: false),
           useBackdropBlurOnScaffold: false,

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
 import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_global_background.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_theme_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -33,9 +32,9 @@ class CanvasThemeAsImage extends StatelessWidget {
           selectionHandleColor: ColorUtil.darken(Colors.blue.shade400, 50),
         ),
       ),
-      child: PageViewBasedAsImage(
-        configs: PageViewBasedConfigs(
-          tabConfig: PageViewWithBottomTabBarConfig(
+      child: PageViewTabBarThemeAsImage(
+        configs: PageViewTabBarConfigs(
+          tabConfig: PageViewTabBarTabConfig(
             useGlassEffect: false,
             useBackdropBlur: false,
             widthFull: true,
@@ -55,7 +54,7 @@ class CanvasThemeAsImage extends StatelessWidget {
           //     Particle.image(imagePath: 'assets/backgrounds/floral_flower_blue.png'),
           //   ],
           // ),
-          coverPageConfig: PageViewBasedCoverPageConfig(
+          coverPageConfig: PageViewTabBarCoverPageConfig(
             gradientBaseColor: ColorUtil.darken(Colors.blue.shade700, 60),
             brideNameColor: ColorUtil.darken(Colors.blue.shade100, 10),
             groomNameColor: ColorUtil.darken(Colors.blue.shade100, 10),
@@ -70,7 +69,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             firstArrowColor: ColorUtil.darken(Colors.blue.shade100, 5),
             secondArrowColor: ColorUtil.darken(Colors.blue.shade100, 25).withValues(alpha: .8),
           ),
-          firstPageConfig: PageViewBasedFirstPageConfig(
+          firstPageConfig: PageViewTabBarFirstPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -100,7 +99,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             secondSubScaffoldBorderColor: Colors.white,
             secondSubScaffoldBorderWidth: 2.5,
           ),
-          secondPageConfig: PageViewBasedSecondPageConfig(
+          secondPageConfig: PageViewTabBarSecondPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -143,7 +142,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             groomFatherNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             groomMotherNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
           ),
-          thirdPageConfig: PageViewBasedThirdPageConfig(
+          thirdPageConfig: PageViewTabBarThirdPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -198,7 +197,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             receptionCountdownUnitColor: ColorUtil.darken(Colors.blue.shade500, 40),
             useLightningEffectOnCountdown: false,
           ),
-          thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+          thirdDifferentLocationPageConfig: PageViewTabBarThirdDifferentLocationPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -243,7 +242,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             getDirectionsButtonBorderWidth: 2,
             getDirectionsButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
           ),
-          fourthPageConfig: PageViewBasedFourthPageConfig(
+          fourthPageConfig: PageViewTabBarFourthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -278,7 +277,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             getDirectionsButtonBorderWidth: 2,
             getDirectionsButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
           ),
-          fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+          fourthDifferentLocationPageConfig: PageViewTabBarFourthDifferentLocationPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -323,7 +322,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             getDirectionsButtonBorderWidth: 2,
             getDirectionsButtonBorderColor: ColorUtil.darken(Colors.blue.shade500, 40),
           ),
-          fifthPageConfig: PageViewBasedFifthPageConfig(
+          fifthPageConfig: PageViewTabBarFifthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -359,7 +358,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             ).withValues(alpha: .95),
             bottomSheetCloseIconColor: Colors.grey.shade300,
           ),
-          sixthPageConfig: PageViewBasedSixthPageConfig(
+          sixthPageConfig: PageViewTabBarSixthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -390,7 +389,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             bankTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
             bankCopyBaseColor: ColorUtil.darken(Colors.blue.shade500, 40),
           ),
-          seventhPageConfig: PageViewBasedSeventhPageConfig(
+          seventhPageConfig: PageViewTabBarSeventhPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(
@@ -450,7 +449,7 @@ class CanvasThemeAsImage extends StatelessWidget {
             ).withValues(alpha: .95),
             bottomSheetCloseIconColor: Colors.grey.shade300,
           ),
-          eighthPageConfig: PageViewBasedEighthPageConfig(
+          eighthPageConfig: PageViewTabBarEighthPageConfig(
             useBackdropBlurOnScaffold: false,
             firstGradientScaffoldColor: Colors.white.withValues(alpha: .85),
             secondGradientScaffoldColor: ColorUtil.lighten(

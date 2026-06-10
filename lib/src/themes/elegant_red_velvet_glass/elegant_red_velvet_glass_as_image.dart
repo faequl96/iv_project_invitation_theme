@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_theme_as_image.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -24,9 +23,9 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBasedAsImage(
-      configs: PageViewBasedConfigs(
-        tabConfig: PageViewWithBottomTabBarConfig(
+    return PageViewTabBarThemeAsImage(
+      configs: PageViewTabBarConfigs(
+        tabConfig: PageViewTabBarTabConfig(
           useGlassEffect: true,
           indicatorColor: Colors.red.shade50,
           backgroundColor: ColorUtil.darken(Colors.red.shade900, 50),
@@ -53,7 +52,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
             CircleParticle(color: ColorUtil.darken(Colors.red.shade700, 40)),
           ],
         ),
-        coverPageConfig: PageViewBasedCoverPageConfig(
+        coverPageConfig: PageViewTabBarCoverPageConfig(
           gradientBaseColor: ColorUtil.darken(Colors.red.shade700, 60),
           brideNameColor: Colors.red.shade200,
           groomNameColor: Colors.red.shade200,
@@ -68,7 +67,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           firstArrowColor: Colors.red.shade100.withValues(alpha: .7),
           secondArrowColor: Colors.red.shade300.withValues(alpha: .5),
         ),
-        firstPageConfig: PageViewBasedFirstPageConfig(
+        firstPageConfig: PageViewTabBarFirstPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -104,7 +103,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           secondSubScaffoldBorderColor: Colors.white.withValues(alpha: .7),
           secondSubScaffoldBorderWidth: 1,
         ),
-        secondPageConfig: PageViewBasedSecondPageConfig(
+        secondPageConfig: PageViewTabBarSecondPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
@@ -154,7 +153,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           groomFatherNameTextColor: ColorUtil.darken(Colors.red.shade700),
           groomMotherNameTextColor: ColorUtil.darken(Colors.red.shade700),
         ),
-        thirdPageConfig: PageViewBasedThirdPageConfig(
+        thirdPageConfig: PageViewTabBarThirdPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(
             Colors.red.shade700,
@@ -204,7 +203,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           receptionCountdownUnitColor: ColorUtil.darken(Colors.red.shade700),
           useLightningEffectOnCountdown: true,
         ),
-        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+        thirdDifferentLocationPageConfig: PageViewTabBarThirdDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(
             Colors.red.shade700,
@@ -253,7 +252,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           getDirectionsButtonBorderWidth: 1.5,
           getDirectionsButtonBorderColor: Colors.white,
         ),
-        fourthPageConfig: PageViewBasedFourthPageConfig(
+        fourthPageConfig: PageViewTabBarFourthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -291,7 +290,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           getDirectionsButtonBorderWidth: 1.5,
           getDirectionsButtonBorderColor: Colors.white,
         ),
-        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+        fourthDifferentLocationPageConfig: PageViewTabBarFourthDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -339,7 +338,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           getDirectionsButtonBorderWidth: 1.5,
           getDirectionsButtonBorderColor: Colors.white,
         ),
-        fifthPageConfig: PageViewBasedFifthPageConfig(
+        fifthPageConfig: PageViewTabBarFifthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
@@ -377,7 +376,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           bottomSheetCloseIconColor: Colors.white,
           bottomSheetOnHoverCloseIconColor: Colors.red.shade400,
         ),
-        sixthPageConfig: PageViewBasedSixthPageConfig(
+        sixthPageConfig: PageViewTabBarSixthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(
             Colors.red.shade700,
@@ -415,7 +414,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           bankTextColor: ColorUtil.darken(Colors.red.shade700),
           bankCopyBaseColor: ColorUtil.darken(Colors.red.shade500),
         ),
-        seventhPageConfig: PageViewBasedSeventhPageConfig(
+        seventhPageConfig: PageViewTabBarSeventhPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -479,7 +478,7 @@ class ElegantRedVelvetGlassAsImage extends StatelessWidget {
           bottomSheetCloseIconColor: Colors.white,
           bottomSheetOnHoverCloseIconColor: Colors.red.shade300,
         ),
-        eighthPageConfig: PageViewBasedEighthPageConfig(
+        eighthPageConfig: PageViewTabBarEighthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),

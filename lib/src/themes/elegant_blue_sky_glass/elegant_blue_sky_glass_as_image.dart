@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/src/page_types/page_view_with_bottom_tab_bar_config.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/page_view_based_theme/page_view_based_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_configs.dart';
+import 'package:iv_project_invitation_theme/src/themes/page_view_tab_bar/page_view_tab_bar_theme_as_image.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -24,9 +23,9 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PageViewBasedAsImage(
-      configs: PageViewBasedConfigs(
-        tabConfig: PageViewWithBottomTabBarConfig(
+    return PageViewTabBarThemeAsImage(
+      configs: PageViewTabBarConfigs(
+        tabConfig: PageViewTabBarTabConfig(
           useGlassEffect: true,
           indicatorColor: Colors.blue.shade50,
           backgroundColor: ColorUtil.darken(Colors.blue.shade900, 50),
@@ -62,7 +61,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
             CircleParticle(color: ColorUtil.darken(Colors.blue.shade700, 40)),
           ],
         ),
-        coverPageConfig: PageViewBasedCoverPageConfig(
+        coverPageConfig: PageViewTabBarCoverPageConfig(
           gradientBaseColor: ColorUtil.darken(Colors.blue.shade700, 60),
           brideNameColor: Colors.blue.shade200,
           groomNameColor: Colors.blue.shade200,
@@ -77,7 +76,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           firstArrowColor: Colors.blue.shade100.withValues(alpha: .7),
           secondArrowColor: Colors.blue.shade300.withValues(alpha: .5),
         ),
-        firstPageConfig: PageViewBasedFirstPageConfig(
+        firstPageConfig: PageViewTabBarFirstPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.blue.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -113,7 +112,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           secondSubScaffoldBorderColor: Colors.white.withValues(alpha: .7),
           secondSubScaffoldBorderWidth: 1,
         ),
-        secondPageConfig: PageViewBasedSecondPageConfig(
+        secondPageConfig: PageViewTabBarSecondPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
@@ -163,7 +162,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           groomFatherNameTextColor: ColorUtil.darken(Colors.blue.shade700),
           groomMotherNameTextColor: ColorUtil.darken(Colors.blue.shade700),
         ),
-        thirdPageConfig: PageViewBasedThirdPageConfig(
+        thirdPageConfig: PageViewTabBarThirdPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(
             Colors.blue.shade700,
@@ -213,7 +212,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           receptionCountdownUnitColor: ColorUtil.darken(Colors.blue.shade700),
           useLightningEffectOnCountdown: true,
         ),
-        thirdDifferentLocationPageConfig: PageViewBasedThirdDifferentLocationPageConfig(
+        thirdDifferentLocationPageConfig: PageViewTabBarThirdDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(
             Colors.blue.shade700,
@@ -262,7 +261,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           getDirectionsButtonBorderWidth: 1.5,
           getDirectionsButtonBorderColor: Colors.white,
         ),
-        fourthPageConfig: PageViewBasedFourthPageConfig(
+        fourthPageConfig: PageViewTabBarFourthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.blue.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -300,7 +299,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           getDirectionsButtonBorderWidth: 1.5,
           getDirectionsButtonBorderColor: Colors.white,
         ),
-        fourthDifferentLocationPageConfig: PageViewBasedFourthDifferentLocationPageConfig(
+        fourthDifferentLocationPageConfig: PageViewTabBarFourthDifferentLocationPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.blue.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -348,7 +347,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           getDirectionsButtonBorderWidth: 1.5,
           getDirectionsButtonBorderColor: Colors.white,
         ),
-        fifthPageConfig: PageViewBasedFifthPageConfig(
+        fifthPageConfig: PageViewTabBarFifthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
@@ -386,7 +385,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           bottomSheetCloseIconColor: Colors.white,
           bottomSheetOnHoverCloseIconColor: Colors.red.shade400,
         ),
-        sixthPageConfig: PageViewBasedSixthPageConfig(
+        sixthPageConfig: PageViewTabBarSixthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(
             Colors.blue.shade700,
@@ -424,7 +423,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           bankTextColor: ColorUtil.darken(Colors.blue.shade700),
           bankCopyBaseColor: ColorUtil.darken(Colors.blue.shade500),
         ),
-        seventhPageConfig: PageViewBasedSeventhPageConfig(
+        seventhPageConfig: PageViewTabBarSeventhPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientBackgroundColor: ColorUtil.darken(Colors.blue.shade700, 60),
           secondGradientBackgroundColor: ColorUtil.darken(
@@ -488,7 +487,7 @@ class ElegantBlueSkyGlassAsImage extends StatelessWidget {
           bottomSheetCloseIconColor: Colors.white,
           bottomSheetOnHoverCloseIconColor: Colors.red.shade300,
         ),
-        eighthPageConfig: PageViewBasedEighthPageConfig(
+        eighthPageConfig: PageViewTabBarEighthPageConfig(
           useBackdropBlurOnScaffold: true,
           firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
           secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
