@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_blue_sky_glass/elegant_blue_sky_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_green_matcha_glass/elegant_green_matcha_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_red_velvet_glass/elegant_red_velvet_glass.dart';
-import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/javanese_rose_gold.dart';
+import 'package:iv_project_invitation_theme/src/theme_types/page_view_tab_bar/page_view_tab_bar_theme_launcher.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeLauncher extends StatefulWidget {
@@ -45,59 +40,20 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const .linear(1)),
-      child: _buildContent,
+      child: _buildContent(),
     );
   }
 
-  Widget get _buildContent => switch (widget.invitationThemeId) {
-    1 => ElegantBlackAndWhiteGlass(
+  Widget _buildContent() => switch (widget.invitationThemeId) {
+    1 || 2 || 3 || 4 || 5 || 6 => PageViewTabBarThemeLauncher(
       heightAdjustment: widget.heightAdjustment,
       viewType: widget.viewType,
+      invitationThemeId: widget.invitationThemeId,
       invitationId: widget.invitationId,
       invitationData: widget.invitationData,
       imagesRaw: widget.imagesRaw,
       brandProfile: widget.brandProfile,
     ),
-    2 => ElegantRedVelvetGlass(
-      heightAdjustment: widget.heightAdjustment,
-      viewType: widget.viewType,
-      invitationId: widget.invitationId,
-      invitationData: widget.invitationData,
-      imagesRaw: widget.imagesRaw,
-      brandProfile: widget.brandProfile,
-    ),
-    3 => ElegantGreenMatchaGlass(
-      heightAdjustment: widget.heightAdjustment,
-      viewType: widget.viewType,
-      invitationId: widget.invitationId,
-      invitationData: widget.invitationData,
-      imagesRaw: widget.imagesRaw,
-      brandProfile: widget.brandProfile,
-    ),
-    4 => ElegantBlueSkyGlass(
-      heightAdjustment: widget.heightAdjustment,
-      viewType: widget.viewType,
-      invitationId: widget.invitationId,
-      invitationData: widget.invitationData,
-      imagesRaw: widget.imagesRaw,
-      brandProfile: widget.brandProfile,
-    ),
-    5 => JavaneseRoseGold(
-      heightAdjustment: widget.heightAdjustment,
-      viewType: widget.viewType,
-      invitationId: widget.invitationId,
-      invitationData: widget.invitationData,
-      imagesRaw: widget.imagesRaw,
-      brandProfile: widget.brandProfile,
-    ),
-    6 => CanvasTheme(
-      heightAdjustment: widget.heightAdjustment,
-      viewType: widget.viewType,
-      invitationId: widget.invitationId,
-      invitationData: widget.invitationData,
-      imagesRaw: widget.imagesRaw,
-      brandProfile: widget.brandProfile,
-    ),
-    int() => const SizedBox.shrink(),
+    _ => const SizedBox.shrink(),
   };
 }
