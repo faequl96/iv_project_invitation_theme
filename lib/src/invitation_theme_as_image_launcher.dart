@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/src/themes/canvas/canvas_theme_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_black_and_white_glass/elegant_black_and_white_glass_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_blue_sky_glass/elegant_blue_sky_glass_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_green_matcha_glass/elegant_green_matcha_glass_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/elegant_red_velvet_glass/elegant_red_velvet_glass_as_image.dart';
-import 'package:iv_project_invitation_theme/src/themes/javanese_rose_gold/javanese_rose_gold_as_image.dart';
+import 'package:iv_project_invitation_theme/src/theme_types/page_view_tab_bar/page_view_tab_bar_theme_launcher_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeAsImageLauncher extends StatelessWidget {
@@ -27,47 +22,18 @@ class InvitationThemeAsImageLauncher extends StatelessWidget {
   Widget build(BuildContext context) {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaler: const .linear(1)),
-      child: _buildContent,
+      child: _buildContent(),
     );
   }
 
-  Widget get _buildContent => switch (invitationThemeId) {
-    1 => ElegantBlackAndWhiteGlassAsImage(
+  Widget _buildContent() => switch (invitationThemeId) {
+    1 || 2 || 3 || 4 || 5 || 6 => PageViewTabBarThemeLauncherAsImage(
       initialPage: initialPage,
       useWrapper: useWrapper,
+      invitationThemeId: invitationThemeId,
       invitationData: invitationData,
       brandProfile: brandProfile,
     ),
-    2 => ElegantRedVelvetGlassAsImage(
-      initialPage: initialPage,
-      useWrapper: useWrapper,
-      invitationData: invitationData,
-      brandProfile: brandProfile,
-    ),
-    3 => ElegantGreenMatchaGlassAsImage(
-      initialPage: initialPage,
-      useWrapper: useWrapper,
-      invitationData: invitationData,
-      brandProfile: brandProfile,
-    ),
-    4 => ElegantBlueSkyGlassAsImage(
-      initialPage: initialPage,
-      useWrapper: useWrapper,
-      invitationData: invitationData,
-      brandProfile: brandProfile,
-    ),
-    5 => JavaneseRoseGoldAsImage(
-      initialPage: initialPage,
-      useWrapper: useWrapper,
-      invitationData: invitationData,
-      brandProfile: brandProfile,
-    ),
-    6 => CanvasThemeAsImage(
-      initialPage: initialPage,
-      useWrapper: useWrapper,
-      invitationData: invitationData,
-      brandProfile: brandProfile,
-    ),
-    int() => const SizedBox.shrink(),
+    _ => const SizedBox.shrink(),
   };
 }
