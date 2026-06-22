@@ -392,7 +392,7 @@ class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButt
           border: .all(width: .5, color: _isCopied ? AppColor.primaryColor : widget.baseColor),
         ),
         child: Padding(
-          padding: const .only(top: 5, bottom: 5, left: 4, right: 3),
+          padding: const .only(top: 7, bottom: 7, left: 5, right: 4),
           child: Icon(
             Icons.content_copy_rounded,
             color: _isCopied ? AppColor.primaryColor : widget.baseColor,
