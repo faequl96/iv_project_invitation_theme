@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/page_view_tab_bar/page_view_tab_bar_theme_launcher_as_image.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme_launcher_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeAsImageLauncher extends StatelessWidget {
@@ -27,7 +27,7 @@ class InvitationThemeAsImageLauncher extends StatelessWidget {
   }
 
   Widget _buildContent() => switch (invitationThemeId) {
-    1 || 2 || 3 || 4 || 5 || 6 => PageViewTabBarThemeLauncherAsImage(
+    1 || 2 || 3 || 4 || 5 || 6 => GenericThemeLauncherAsImage(
       initialPage: initialPage,
       useWrapper: useWrapper,
       invitationThemeId: invitationThemeId,

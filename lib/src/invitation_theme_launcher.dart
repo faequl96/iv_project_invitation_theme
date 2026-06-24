@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 // import 'package:iv_project_invitation_theme/src/theme_types/page_view_immersive/page_view_immersive_theme_launcher.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/page_view_tab_bar/page_view_tab_bar_theme_launcher.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme_launcher.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeLauncher extends StatefulWidget {
@@ -46,7 +46,7 @@ class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
   }
 
   Widget _buildContent() => switch (widget.invitationThemeId) {
-    1 || 2 || 3 || 4 || 5 || 6 => PageViewTabBarThemeLauncher(
+    1 || 2 || 3 || 4 || 5 || 6 => GenericThemeLauncher(
       heightAdjustment: widget.heightAdjustment,
       viewType: widget.viewType,
       invitationThemeId: widget.invitationThemeId,
