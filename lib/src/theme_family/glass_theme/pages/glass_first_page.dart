@@ -62,12 +62,10 @@ class GlassFirstPage extends StatelessWidget {
             child: Padding(
               padding: contentPadding,
               child: GlassScaffoldWrapper(
-                useBackdropBlur: config.useBackdropBlurOnScaffold,
-                borderRadius: config.scaffoldBorderRadius,
+                useBackdropBlur: true,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
-                    borderRadius: config.scaffoldBorderRadius,
-                    boxShadow: config.scaffoldBoxShadow,
+                    borderRadius: .circular(20),
                     gradient: LinearGradient(
                       begin: .topCenter,
                       end: .bottomCenter,
@@ -91,7 +89,7 @@ class GlassFirstPage extends StatelessWidget {
               padding: contentPadding,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: config.scaffoldBorderRadius,
+                  borderRadius: .circular(20),
                   border: config.scaffoldBorder,
                 ),
                 child: ClipRect(
@@ -193,25 +191,24 @@ class GlassFirstPage extends StatelessWidget {
             ),
           ),
 
-          if (config.useGlassEffectOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: contentPadding,
-                child: GlassEffectBox(
-                  width: Screen.width - 32,
-                  height: Screen.height - (76 + H.x6l),
-                  borderRadius: 20,
-                  sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
-                  animationSpeed: const Duration(milliseconds: 600),
-                  delayBeforeStart: const Duration(milliseconds: 2200),
-                  animationInterval: const Duration(milliseconds: 3500),
-                ),
+          Positioned(
+            bottom: 0,
+            height: Screen.height,
+            width: Screen.width,
+            child: Padding(
+              padding: contentPadding,
+              child: GlassEffectBox(
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
+                borderRadius: 20,
+                sliderWidth: 90,
+                color: Colors.white.withValues(alpha: config.glassEffectOpacity),
+                animationSpeed: const Duration(milliseconds: 600),
+                delayBeforeStart: const Duration(milliseconds: 2200),
+                animationInterval: const Duration(milliseconds: 3500),
               ),
             ),
+          ),
         ],
       ),
     );

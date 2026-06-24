@@ -64,7 +64,7 @@ class GlassSixthPage extends StatelessWidget {
             child: Padding(
               padding: contentPadding,
               child: GlassScaffoldWrapper(
-                useBackdropBlur: config.useBackdropBlurOnScaffold,
+                useBackdropBlur: true,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     borderRadius: .circular(20),
@@ -148,25 +148,24 @@ class GlassSixthPage extends StatelessWidget {
             ),
           ),
 
-          if (config.useGlassEffectOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: contentPadding,
-                child: GlassEffectBox(
-                  width: Screen.width - 32,
-                  height: Screen.height - (76 + H.x6l),
-                  borderRadius: 20,
-                  sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
-                  animationSpeed: const Duration(milliseconds: 600),
-                  delayBeforeStart: const Duration(milliseconds: 2800),
-                  animationInterval: const Duration(milliseconds: 3500),
-                ),
+          Positioned(
+            bottom: 0,
+            height: Screen.height,
+            width: Screen.width,
+            child: Padding(
+              padding: contentPadding,
+              child: GlassEffectBox(
+                width: Screen.width - 32,
+                height: Screen.height - (76 + H.x6l),
+                borderRadius: 20,
+                sliderWidth: 90,
+                color: Colors.white.withValues(alpha: config.glassEffectOpacity),
+                animationSpeed: const Duration(milliseconds: 600),
+                delayBeforeStart: const Duration(milliseconds: 2800),
+                animationInterval: const Duration(milliseconds: 3500),
               ),
             ),
+          ),
         ],
       ),
     );

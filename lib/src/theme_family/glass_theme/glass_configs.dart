@@ -37,9 +37,6 @@ class GlassConfigs {
 
 class GlassTabConfig {
   const GlassTabConfig({
-    required this.useGlassEffect,
-    this.useBackdropBlur = true,
-    this.widthFull = false,
     required this.indicatorColor,
     required this.backgroundColor,
     required this.titleActiveColor,
@@ -48,9 +45,6 @@ class GlassTabConfig {
     required this.iconInactiveColor,
   });
 
-  final bool useGlassEffect;
-  final bool useBackdropBlur;
-  final bool widthFull;
   final Color indicatorColor;
   final Color backgroundColor;
   final Color titleActiveColor;
@@ -71,7 +65,6 @@ class GlassCoverPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
     required this.firstArrowColor,
     required this.secondArrowColor,
   });
@@ -86,21 +79,16 @@ class GlassCoverPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
   final Color firstArrowColor;
   final Color secondArrowColor;
 }
 
 class GlassFirstPageConfig {
   const GlassFirstPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
-    this.scaffoldBoxShadow,
     required this.scaffoldBorder,
-    this.scaffoldBorderRadius = const .all(.circular(20)),
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -115,14 +103,10 @@ class GlassFirstPageConfig {
     required this.secondSubScaffoldBorderWidth,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
-  final List<BoxShadow>? scaffoldBoxShadow;
   final BoxBorder scaffoldBorder;
-  final BorderRadiusGeometry scaffoldBorderRadius;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -139,12 +123,10 @@ class GlassFirstPageConfig {
 
 class GlassSecondPageConfig {
   const GlassSecondPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -172,12 +154,10 @@ class GlassSecondPageConfig {
     required this.groomMotherNameTextColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -207,12 +187,10 @@ class GlassSecondPageConfig {
 
 class GlassThirdPageConfig {
   const GlassThirdPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -240,12 +218,10 @@ class GlassThirdPageConfig {
     required this.useLightningEffectOnCountdown,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -275,12 +251,10 @@ class GlassThirdPageConfig {
 
 class GlassThirdDifferentLocationPageConfig {
   const GlassThirdDifferentLocationPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -307,12 +281,10 @@ class GlassThirdDifferentLocationPageConfig {
     required this.getDirectionsButtonBorderColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -341,12 +313,10 @@ class GlassThirdDifferentLocationPageConfig {
 
 class GlassFourthPageConfig {
   const GlassFourthPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -363,12 +333,10 @@ class GlassFourthPageConfig {
     required this.getDirectionsButtonBorderColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -387,12 +355,10 @@ class GlassFourthPageConfig {
 
 class GlassFourthDifferentLocationPageConfig {
   const GlassFourthDifferentLocationPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -419,12 +385,10 @@ class GlassFourthDifferentLocationPageConfig {
     required this.getDirectionsButtonBorderColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -453,12 +417,10 @@ class GlassFourthDifferentLocationPageConfig {
 
 class GlassFifthPageConfig {
   const GlassFifthPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -477,12 +439,10 @@ class GlassFifthPageConfig {
     this.bottomSheetOnHoverCloseIconColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -503,12 +463,10 @@ class GlassFifthPageConfig {
 
 class GlassSixthPageConfig {
   const GlassSixthPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -524,12 +482,10 @@ class GlassSixthPageConfig {
     required this.bankCopyBaseColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -547,12 +503,10 @@ class GlassSixthPageConfig {
 
 class GlassSeventhPageConfig {
   const GlassSeventhPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -592,12 +546,10 @@ class GlassSeventhPageConfig {
     this.bottomSheetOnHoverCloseIconColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
@@ -639,12 +591,10 @@ class GlassSeventhPageConfig {
 
 class GlassEighthPageConfig {
   const GlassEighthPageConfig({
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
     this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
@@ -655,12 +605,10 @@ class GlassEighthPageConfig {
     required this.brandTextColor,
   });
 
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
   final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;

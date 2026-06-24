@@ -104,30 +104,24 @@ class _GlassCoreAsImageState extends State<GlassCoreAsImage> with SingleTickerPr
   Widget get _tab => SizedBox(
     width: Screen.width,
     child: Padding(
-      padding: .symmetric(vertical: 12, horizontal: widget.tabConfig.widthFull ? 0 : 14),
+      padding: const .symmetric(vertical: 12, horizontal: 14),
       child: Stack(
         children: [
-          if (widget.tabConfig.useBackdropBlur)
-            RepaintBoundary(
-              child: ClipRRect(
-                borderRadius: .circular(36),
-                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tabBar),
-              ),
-            )
-          else
-            _tabBar,
-          if (widget.tabConfig.useGlassEffect && _indexActive > 0)
-            GlassEffectBox(
-              width: Screen.width - 28,
-              height: 52,
-              borderRadius: 36,
-              animationSpeed: const Duration(milliseconds: 600),
-              animationInterval: const Duration(seconds: 7),
-              delayBeforeStart: const Duration(milliseconds: 1200),
-              color: Colors.grey.shade300.withValues(alpha: .5),
-              sliderWidth: 90,
-              staticValue: .75,
-            ),
+          ClipRRect(
+            borderRadius: .circular(36),
+            child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tabBar),
+          ),
+          GlassEffectBox(
+            width: Screen.width - 28,
+            height: 52,
+            borderRadius: 36,
+            animationSpeed: const Duration(milliseconds: 600),
+            animationInterval: const Duration(seconds: 7),
+            delayBeforeStart: const Duration(milliseconds: 1200),
+            color: Colors.grey.shade300.withValues(alpha: .5),
+            sliderWidth: 90,
+            staticValue: .75,
+          ),
         ],
       ),
     ),

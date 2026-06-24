@@ -81,7 +81,7 @@ class GlassCoverPageAsImage extends StatelessWidget {
                   numberColor: config.countdownNumberColor,
                   unitColor: config.countdownUnitColor,
                   borderWidth: config.countdownBorderWidth,
-                  useLightningEffect: config.useLightningEffectOnCountdown,
+                  useLightningEffect: true,
                   time: time.startTime,
                   noAnimate: true,
                 ),

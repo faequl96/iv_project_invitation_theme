@@ -126,7 +126,7 @@ class _GlassCoverPageState extends State<GlassCoverPage> {
                   numberColor: widget.config.countdownNumberColor,
                   unitColor: widget.config.countdownUnitColor,
                   borderWidth: widget.config.countdownBorderWidth,
-                  useLightningEffect: widget.config.useLightningEffectOnCountdown,
+                  useLightningEffect: true,
                   time: widget.time.startTime,
                   noAnimate: false,
                 ),

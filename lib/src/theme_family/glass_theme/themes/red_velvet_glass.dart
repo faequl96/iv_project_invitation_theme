@@ -10,7 +10,6 @@ class RedVelvetGlass {
 
   static GlassConfigs get configs => GlassConfigs(
     tabConfig: GlassTabConfig(
-      useGlassEffect: true,
       indicatorColor: Colors.red.shade50,
       backgroundColor: ColorUtil.darken(Colors.red.shade900, 50),
       titleActiveColor: Colors.white,
@@ -47,12 +46,10 @@ class RedVelvetGlass {
       countdownEvenBorderColor: Colors.red.shade200,
       countdownNumberColor: Colors.red.shade50,
       countdownUnitColor: Colors.red.shade50,
-      useLightningEffectOnCountdown: true,
       firstArrowColor: Colors.red.shade100.withValues(alpha: .7),
       secondArrowColor: Colors.red.shade300.withValues(alpha: .5),
     ),
     firstPageConfig: GlassFirstPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.red.shade700,
@@ -75,7 +72,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       openingTextColor: Colors.white,
@@ -88,7 +84,6 @@ class RedVelvetGlass {
       secondSubScaffoldBorderWidth: 1,
     ),
     secondPageConfig: GlassSecondPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
       secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
       scaffoldBorder: GradientBoxBorder(
@@ -106,7 +101,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .6,
       titlePageColor: ColorUtil.darken(Colors.red.shade900, 20),
       generalTextColor: ColorUtil.darken(Colors.red.shade500, 5),
@@ -132,7 +126,6 @@ class RedVelvetGlass {
       groomMotherNameTextColor: ColorUtil.darken(Colors.red.shade700),
     ),
     thirdPageConfig: GlassThirdPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60).withValues(alpha: .0),
       secondGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
@@ -153,7 +146,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: ColorUtil.darken(Colors.red.shade900, 20),
       contractTitleColor: ColorUtil.darken(Colors.red.shade700),
@@ -179,7 +171,6 @@ class RedVelvetGlass {
       useLightningEffectOnCountdown: true,
     ),
     thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60).withValues(alpha: .0),
       secondGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
@@ -200,7 +191,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: ColorUtil.darken(Colors.red.shade900, 20),
       dateTimeIconColor: ColorUtil.darken(Colors.red.shade700),
@@ -225,7 +215,6 @@ class RedVelvetGlass {
       getDirectionsButtonBorderColor: Colors.white,
     ),
     fourthPageConfig: GlassFourthPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.red.shade700,
@@ -248,7 +237,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       placeIconColor: Colors.white,
@@ -263,7 +251,6 @@ class RedVelvetGlass {
       getDirectionsButtonBorderColor: Colors.white,
     ),
     fourthDifferentLocationPageConfig: GlassFourthDifferentLocationPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.red.shade700,
@@ -286,7 +273,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       dateTimeIconColor: Colors.white,
@@ -311,7 +297,6 @@ class RedVelvetGlass {
       getDirectionsButtonBorderColor: Colors.white,
     ),
     fifthPageConfig: GlassFifthPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
       secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
       scaffoldBorder: GradientBoxBorder(
@@ -329,7 +314,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .6,
       titlePageColor: ColorUtil.darken(Colors.red.shade900, 20),
       dividingLineWidth: 1,
@@ -346,7 +330,6 @@ class RedVelvetGlass {
       bottomSheetOnHoverCloseIconColor: Colors.red.shade400,
     ),
     sixthPageConfig: GlassSixthPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60).withValues(alpha: 0),
       secondGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
@@ -367,7 +350,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: ColorUtil.darken(Colors.red.shade900, 20),
       introductionTextColor: ColorUtil.darken(Colors.red.shade700),
@@ -381,7 +363,6 @@ class RedVelvetGlass {
       bankCopyBaseColor: ColorUtil.darken(Colors.red.shade500),
     ),
     seventhPageConfig: GlassSeventhPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60).withValues(alpha: 0),
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .5),
@@ -402,7 +383,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       fieldTextColor: Colors.white,
@@ -439,7 +419,6 @@ class RedVelvetGlass {
       bottomSheetOnHoverCloseIconColor: Colors.red.shade300,
     ),
     eighthPageConfig: GlassEighthPageConfig(
-      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
       secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
       scaffoldBorder: GradientBoxBorder(
@@ -457,7 +436,6 @@ class RedVelvetGlass {
           transform: const GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .6,
       titlePageColor: ColorUtil.darken(Colors.red.shade900, 20),
       closingTextColor: ColorUtil.darken(Colors.red.shade700),
