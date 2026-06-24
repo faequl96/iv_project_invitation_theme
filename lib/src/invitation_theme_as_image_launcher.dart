@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/src/theme_types/page_view_tab_bar/page_view_tab_bar_theme_launcher_as_image.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/page_view_tab_bar/page_view_tab_bar_theme_launcher_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class InvitationThemeAsImageLauncher extends StatelessWidget {
