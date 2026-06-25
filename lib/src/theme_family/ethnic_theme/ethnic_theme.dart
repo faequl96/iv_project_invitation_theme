@@ -3,6 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/opener/initializer_wrapper.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_core.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_cover_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_eighth_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_fifth_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_first_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_fourth_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_fourth_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_second_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_seventh_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_sixth_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_third_different_location_page.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_third_page.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class EthnicTheme extends StatefulWidget {

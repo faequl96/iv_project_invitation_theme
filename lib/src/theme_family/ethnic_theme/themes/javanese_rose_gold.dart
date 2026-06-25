@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/theme_colors.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/Ethnic_theme/Ethnic_configs.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/background_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/foreground_slide_transition.dart';
 

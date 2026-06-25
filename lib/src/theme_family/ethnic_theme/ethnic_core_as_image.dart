@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
+import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
 class EthnicCoreAsImage extends StatefulWidget {
   const EthnicCoreAsImage({
