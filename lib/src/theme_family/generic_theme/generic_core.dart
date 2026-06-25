@@ -176,11 +176,9 @@ class _GenericCoreState extends State<GenericCore> with SingleTickerProviderStat
       child: Stack(
         children: [
           if (widget.tabConfig.useBackdropBlur)
-            RepaintBoundary(
-              child: ClipRRect(
-                borderRadius: .circular(36),
-                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _buildTabBar),
-              ),
+            ClipRRect(
+              borderRadius: .circular(36),
+              child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _buildTabBar),
             )
           else
             _buildTabBar,

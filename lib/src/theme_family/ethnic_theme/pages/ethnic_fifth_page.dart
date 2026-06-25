@@ -102,15 +102,13 @@ class EthnicFifthPage extends StatelessWidget {
                     mainAxisAlignment: .center,
                     children: [
                       const Spacer(),
-                      RepaintBoundary(
-                        child: _Gallery(
-                          dividingLineWidth: config.dividingLineWidth,
-                          dividingVerticalLineColor: config.dividingVerticalLineColor,
-                          dividingHorizontalLineColor: config.dividingHorizontalLineColor,
-                          viewType: viewType,
-                          galleries: galleries,
-                          gallery: gallery,
-                        ),
+                      _Gallery(
+                        dividingLineWidth: config.dividingLineWidth,
+                        dividingVerticalLineColor: config.dividingVerticalLineColor,
+                        dividingHorizontalLineColor: config.dividingHorizontalLineColor,
+                        viewType: viewType,
+                        galleries: galleries,
+                        gallery: gallery,
                       ),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
