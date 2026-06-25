@@ -11,7 +11,6 @@ class JavaneseRoseGold {
 
   static EthnicConfigs get configs => EthnicConfigs(
     tabConfig: EthnicTabConfig(
-      useGlassEffect: false,
       indicatorColor: ThemeColors.gold,
       backgroundColor: Colors.black.withValues(alpha: .5),
       titleActiveColor: ThemeColors.gold,
@@ -38,14 +37,12 @@ class JavaneseRoseGold {
       countdownEvenBorderColor: ThemeColors.roseGold,
       countdownNumberColor: ThemeColors.gold,
       countdownUnitColor: ThemeColors.roseGold,
-      useLightningEffectOnCountdown: false,
       firstArrowColor: ThemeColors.gold.withValues(alpha: .9),
       secondArrowColor: ThemeColors.roseGold.withValues(alpha: .7),
     ),
     firstPageConfig: EthnicFirstPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -57,7 +54,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       openingTextColor: Colors.grey.shade100,
       generalTextColor: Colors.grey.shade100,
@@ -71,7 +67,6 @@ class JavaneseRoseGold {
     secondPageConfig: EthnicSecondPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -83,7 +78,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       generalTextColor: Colors.grey.shade200,
       brideDividingBorderWidth: .5,
@@ -110,7 +104,6 @@ class JavaneseRoseGold {
     thirdPageConfig: EthnicThirdPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -122,7 +115,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       contractTitleColor: ThemeColors.gold,
       contractBaseTextColor: Colors.grey.shade100,
@@ -144,12 +136,10 @@ class JavaneseRoseGold {
       receptionCountdownEvenBorderColor: ThemeColors.roseGold,
       receptionCountdownNumberColor: ThemeColors.gold,
       receptionCountdownUnitColor: ThemeColors.roseGold,
-      useLightningEffectOnCountdown: false,
     ),
     thirdDifferentLocationPageConfig: EthnicThirdDifferentLocationPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -161,7 +151,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       dateTimeIconColor: ThemeColors.gold,
       dateTimeBaseTextColor: Colors.grey.shade100,
@@ -172,7 +161,6 @@ class JavaneseRoseGold {
       countdownEvenBorderColor: ThemeColors.roseGold,
       countdownNumberColor: ThemeColors.gold,
       countdownUnitColor: ThemeColors.roseGold,
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: ThemeColors.gold,
       placeIconColor: ThemeColors.gold,
@@ -187,7 +175,6 @@ class JavaneseRoseGold {
     fourthPageConfig: EthnicFourthPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -199,7 +186,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       placeIconColor: ThemeColors.gold,
       placeTextColor: ThemeColors.roseGold,
@@ -215,7 +201,6 @@ class JavaneseRoseGold {
     fourthDifferentLocationPageConfig: EthnicFourthDifferentLocationPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -227,7 +212,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       dateTimeIconColor: ThemeColors.gold,
       dateTimeBaseTextColor: Colors.grey.shade100,
@@ -238,7 +222,6 @@ class JavaneseRoseGold {
       countdownEvenBorderColor: ThemeColors.roseGold,
       countdownNumberColor: ThemeColors.gold,
       countdownUnitColor: ThemeColors.roseGold,
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: ThemeColors.gold,
       placeIconColor: ThemeColors.gold,
@@ -253,7 +236,6 @@ class JavaneseRoseGold {
     fifthPageConfig: EthnicFifthPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -265,7 +247,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       dividingLineWidth: .5,
       dividingVerticalLineColor: Colors.grey.shade100,
@@ -282,7 +263,6 @@ class JavaneseRoseGold {
     sixthPageConfig: EthnicSixthPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -294,7 +274,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       introductionTextColor: Colors.grey.shade100,
       introductionColor: Colors.grey.shade500.withValues(alpha: .3),
@@ -309,7 +288,6 @@ class JavaneseRoseGold {
     seventhPageConfig: EthnicSeventhPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -321,7 +299,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       fieldTextColor: Colors.grey.shade100,
       fieldLabelColor: Colors.grey.shade300,
@@ -358,7 +335,6 @@ class JavaneseRoseGold {
     eighthPageConfig: EthnicEighthPageConfig(
       foreground: const _PageForeground(),
       background: const _PageBackground(noAnimate: false),
-      useBackdropBlurOnScaffold: false,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .7),
       scaffoldBorder: const GradientBoxBorder(
@@ -370,7 +346,6 @@ class JavaneseRoseGold {
           transform: GradientRotation(-0.2),
         ),
       ),
-      useGlassEffectOnScaffold: false,
       titlePageColor: ThemeColors.gold,
       closingTextColor: Colors.grey.shade100,
       brideGroomNameColor: ThemeColors.gold,

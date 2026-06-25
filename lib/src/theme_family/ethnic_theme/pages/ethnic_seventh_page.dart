@@ -8,7 +8,6 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/general_text_field.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/time_ago.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_web_data/iv_project_web_data.dart';
@@ -83,7 +82,6 @@ class EthnicSeventhPage extends StatelessWidget {
                     begin: .topCenter,
                     end: .bottomCenter,
                     colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                    stops: config.stopsGradientScaffoldColor,
                   ),
                 ),
               ),
@@ -145,26 +143,6 @@ class EthnicSeventhPage extends StatelessWidget {
               ),
             ),
           ),
-
-          if (config.useGlassEffectOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: contentPadding,
-                child: GlassEffectBox(
-                  width: Screen.width - 32,
-                  height: Screen.height - (76 + H.x6l),
-                  borderRadius: 20,
-                  sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
-                  animationSpeed: const Duration(milliseconds: 600),
-                  delayBeforeStart: const Duration(milliseconds: 3600),
-                  animationInterval: const Duration(milliseconds: 3500),
-                ),
-              ),
-            ),
 
           ?config.foreground,
         ],

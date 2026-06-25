@@ -98,7 +98,6 @@ class _EthnicThemeState extends State<EthnicTheme> with WidgetsBindingObserver {
         time: invitationData.contractEvent,
       ),
       backgrounds: widget.configs.globalBackgroundsBuilder?.call(),
-      particleSphere: widget.configs.particleSphere,
       pages: [
         EthnicCoverPage(
           config: widget.configs.coverPageConfig,

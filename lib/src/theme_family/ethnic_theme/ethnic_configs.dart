@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
 class EthnicConfigs {
   const EthnicConfigs({
     required this.tabConfig,
     this.globalBackgroundsBuilder,
-    this.particleSphere,
     required this.coverPageConfig,
     required this.firstPageConfig,
     required this.secondPageConfig,
@@ -21,7 +19,6 @@ class EthnicConfigs {
 
   final EthnicTabConfig tabConfig;
   final List<Widget> Function()? globalBackgroundsBuilder;
-  final ParticleSphereConfig? particleSphere;
   final EthnicCoverPageConfig coverPageConfig;
   final EthnicFirstPageConfig firstPageConfig;
   final EthnicSecondPageConfig secondPageConfig;
@@ -37,9 +34,6 @@ class EthnicConfigs {
 
 class EthnicTabConfig {
   const EthnicTabConfig({
-    required this.useGlassEffect,
-    this.useBackdropBlur = true,
-    this.widthFull = false,
     required this.indicatorColor,
     required this.backgroundColor,
     required this.titleActiveColor,
@@ -48,9 +42,6 @@ class EthnicTabConfig {
     required this.iconInactiveColor,
   });
 
-  final bool useGlassEffect;
-  final bool useBackdropBlur;
-  final bool widthFull;
   final Color indicatorColor;
   final Color backgroundColor;
   final Color titleActiveColor;
@@ -72,7 +63,6 @@ class EthnicCoverPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
     required this.firstArrowColor,
     required this.secondArrowColor,
   });
@@ -88,7 +78,6 @@ class EthnicCoverPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
   final Color firstArrowColor;
   final Color secondArrowColor;
 }
@@ -97,52 +86,38 @@ class EthnicFirstPageConfig {
   const EthnicFirstPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    this.scaffoldBoxShadow,
     required this.scaffoldBorder,
     this.scaffoldBorderRadius = const .all(.circular(20)),
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
     required this.openingTextColor,
     required this.generalTextColor,
     required this.firstSubScaffoldColor,
-    this.firstSubScaffoldBoxShadow,
     required this.firstSubScaffoldBorderColor,
     required this.firstSubScaffoldBorderWidth,
     required this.secondSubScaffoldColor,
-    this.secondSubScaffoldBoxShadow,
     required this.secondSubScaffoldBorderColor,
     required this.secondSubScaffoldBorderWidth,
   });
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final List<BoxShadow>? scaffoldBoxShadow;
   final BoxBorder scaffoldBorder;
   final BorderRadiusGeometry scaffoldBorderRadius;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
   final Color openingTextColor;
   final Color generalTextColor;
   final Color firstSubScaffoldColor;
-  final List<BoxShadow>? firstSubScaffoldBoxShadow;
   final Color firstSubScaffoldBorderColor;
   final double firstSubScaffoldBorderWidth;
   final Color secondSubScaffoldColor;
-  final List<BoxShadow>? secondSubScaffoldBoxShadow;
   final Color secondSubScaffoldBorderColor;
   final double secondSubScaffoldBorderWidth;
 }
@@ -151,13 +126,9 @@ class EthnicSecondPageConfig {
   const EthnicSecondPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -186,13 +157,9 @@ class EthnicSecondPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -223,13 +190,9 @@ class EthnicThirdPageConfig {
   const EthnicThirdPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -253,18 +216,13 @@ class EthnicThirdPageConfig {
     required this.receptionCountdownEvenBorderColor,
     required this.receptionCountdownNumberColor,
     required this.receptionCountdownUnitColor,
-    required this.useLightningEffectOnCountdown,
   });
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -288,20 +246,15 @@ class EthnicThirdPageConfig {
   final Color receptionCountdownEvenBorderColor;
   final Color receptionCountdownNumberColor;
   final Color receptionCountdownUnitColor;
-  final bool useLightningEffectOnCountdown;
 }
 
 class EthnicThirdDifferentLocationPageConfig {
   const EthnicThirdDifferentLocationPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -314,7 +267,6 @@ class EthnicThirdDifferentLocationPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
     required this.dividingLineWidth,
     required this.dividingLineColor,
     required this.placeIconColor,
@@ -329,13 +281,9 @@ class EthnicThirdDifferentLocationPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -348,7 +296,6 @@ class EthnicThirdDifferentLocationPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
   final double dividingLineWidth;
   final Color dividingLineColor;
   final Color placeIconColor;
@@ -365,13 +312,9 @@ class EthnicFourthPageConfig {
   const EthnicFourthPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -389,13 +332,9 @@ class EthnicFourthPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -415,13 +354,9 @@ class EthnicFourthDifferentLocationPageConfig {
   const EthnicFourthDifferentLocationPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -434,7 +369,6 @@ class EthnicFourthDifferentLocationPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
     required this.dividingLineWidth,
     required this.dividingLineColor,
     required this.placeIconColor,
@@ -449,13 +383,9 @@ class EthnicFourthDifferentLocationPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -468,7 +398,6 @@ class EthnicFourthDifferentLocationPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
   final double dividingLineWidth;
   final Color dividingLineColor;
   final Color placeIconColor;
@@ -485,13 +414,9 @@ class EthnicFifthPageConfig {
   const EthnicFifthPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -511,13 +436,9 @@ class EthnicFifthPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -539,13 +460,9 @@ class EthnicSixthPageConfig {
   const EthnicSixthPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -562,13 +479,9 @@ class EthnicSixthPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -587,13 +500,9 @@ class EthnicSeventhPageConfig {
   const EthnicSeventhPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -634,13 +543,9 @@ class EthnicSeventhPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -683,13 +588,9 @@ class EthnicEighthPageConfig {
   const EthnicEighthPageConfig({
     this.foreground,
     this.background,
-    required this.useBackdropBlurOnScaffold,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
     required this.scaffoldBorder,
-    required this.useGlassEffectOnScaffold,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -701,13 +602,9 @@ class EthnicEighthPageConfig {
 
   final Widget? foreground;
   final Widget? background;
-  final bool useBackdropBlurOnScaffold;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
   final BoxBorder scaffoldBorder;
-  final bool useGlassEffectOnScaffold;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;

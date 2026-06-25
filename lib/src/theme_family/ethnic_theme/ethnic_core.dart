@@ -3,15 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
 class EthnicCore extends StatefulWidget {
   const EthnicCore({
     super.key,
     required this.wrapper,
     this.backgrounds,
-    this.particleSphere,
     required this.tabConfig,
     required this.pages,
     required this.tabsBuilder,
@@ -19,7 +16,6 @@ class EthnicCore extends StatefulWidget {
 
   final Widget wrapper;
   final List<Widget>? backgrounds;
-  final ParticleSphereConfig? particleSphere;
   final EthnicTabConfig tabConfig;
   final List<Widget> pages;
   final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
@@ -107,29 +103,8 @@ class _EthnicCoreState extends State<EthnicCore> with SingleTickerProviderStateM
             alignment: .center,
             children: [
               ...?widget.backgrounds,
-              if (widget.particleSphere != null) ...[
-                if (widget.particleSphere!.type == .circle)
-                  ClipRect(
-                    child: CircleParticleSphere(
-                      config: widget.particleSphere!,
-                      initialPage: 0,
-                      viewAsSinglePage: false,
-                      useWrapper: true,
-                      child: _buildPage,
-                    ),
-                  )
-                else
-                  ClipRect(
-                    child: ImageParticleSphere(
-                      config: widget.particleSphere!,
-                      initialPage: 0,
-                      viewAsSinglePage: false,
-                      useWrapper: true,
-                      child: _buildPage,
-                    ),
-                  ),
-              ] else
-                _buildPage,
+
+              _buildPage,
 
               ValueListenableBuilder(
                 valueListenable: _isLowerTab,
@@ -171,33 +146,7 @@ class _EthnicCoreState extends State<EthnicCore> with SingleTickerProviderStateM
 
   Widget get _buildTab => SizedBox(
     width: Screen.width,
-    child: Padding(
-      padding: .symmetric(vertical: 12, horizontal: widget.tabConfig.widthFull ? 0 : 14),
-      child: Stack(
-        children: [
-          if (widget.tabConfig.useBackdropBlur)
-            RepaintBoundary(
-              child: ClipRRect(
-                borderRadius: .circular(36),
-                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _buildTabBar),
-              ),
-            )
-          else
-            _buildTabBar,
-          if (widget.tabConfig.useGlassEffect && _indexActive.value > 0)
-            GlassEffectBox(
-              width: Screen.width - 28,
-              height: 52,
-              borderRadius: 36,
-              animationSpeed: const Duration(milliseconds: 600),
-              animationInterval: const Duration(seconds: 7),
-              delayBeforeStart: const Duration(milliseconds: 1200),
-              color: Colors.grey.shade300.withValues(alpha: .5),
-              sliderWidth: 90,
-            ),
-        ],
-      ),
-    ),
+    child: Padding(padding: const .symmetric(vertical: 12, horizontal: 14), child: _buildTabBar),
   );
 
   Widget get _buildTabBar => SizedBox(

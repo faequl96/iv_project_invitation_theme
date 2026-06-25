@@ -12,7 +12,7 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/as_image/ethnic_second_page_as_image.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/as_image/ethnic_seventh_page_as_image.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/as_image/ethnic_sixth_page_as_image.dart';
-import 'package:iv_project_invitation_theme/src/widgets/ethnic_theme/pages/as_image/ethnic_third_page_as_image.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/as_image/ethnic_third_page_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class EthnicThemeAsImage extends StatelessWidget {
@@ -46,7 +46,6 @@ class EthnicThemeAsImage extends StatelessWidget {
             )
           : null,
       backgrounds: configs.globalBackgroundsBuilder?.call(),
-      particleSphere: configs.particleSphere,
       page: _buildPage,
       tabsBuilder: (int tabActive) {
         int index = 0;

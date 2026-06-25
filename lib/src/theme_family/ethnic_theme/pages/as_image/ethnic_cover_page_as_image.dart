@@ -83,7 +83,7 @@ class EthnicCoverPageAsImage extends StatelessWidget {
                   numberColor: config.countdownNumberColor,
                   unitColor: config.countdownUnitColor,
                   borderWidth: config.countdownBorderWidth,
-                  useLightningEffect: config.useLightningEffectOnCountdown,
+                  useLightningEffect: false,
                   time: time.startTime,
                   noAnimate: true,
                 ),

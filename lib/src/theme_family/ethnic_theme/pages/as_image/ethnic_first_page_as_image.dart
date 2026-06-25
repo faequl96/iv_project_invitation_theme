@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class EthnicFirstPageAsImage extends StatelessWidget {
@@ -57,7 +56,6 @@ class EthnicFirstPageAsImage extends StatelessWidget {
                   begin: .topCenter,
                   end: .bottomCenter,
                   colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                  stops: config.stopsGradientScaffoldColor,
                 ),
               ),
             ),
@@ -85,7 +83,6 @@ class EthnicFirstPageAsImage extends StatelessWidget {
                       padding: .symmetric(horizontal: W.x6s),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          boxShadow: config.firstSubScaffoldBoxShadow,
                           border: .all(
                             width: config.firstSubScaffoldBorderWidth,
                             color: config.firstSubScaffoldBorderColor,
@@ -111,7 +108,6 @@ class EthnicFirstPageAsImage extends StatelessWidget {
                       padding: .symmetric(horizontal: W.x6s),
                       child: DecoratedBox(
                         decoration: BoxDecoration(
-                          boxShadow: config.secondSubScaffoldBoxShadow,
                           border: .all(
                             width: config.secondSubScaffoldBorderWidth,
                             color: config.secondSubScaffoldBorderColor,
@@ -140,27 +136,6 @@ class EthnicFirstPageAsImage extends StatelessWidget {
             ),
           ),
         ),
-
-        if (config.useGlassEffectOnScaffold)
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: contentPadding,
-              child: GlassEffectBox(
-                width: Screen.width - 32,
-                height: Screen.height - (76 + H.x6l),
-                borderRadius: 20,
-                sliderWidth: 90,
-                color: Colors.white.withValues(alpha: config.glassEffectOpacity),
-                animationSpeed: const Duration(milliseconds: 600),
-                delayBeforeStart: const Duration(milliseconds: 2200),
-                animationInterval: const Duration(milliseconds: 3500),
-                staticValue: .67,
-              ),
-            ),
-          ),
 
         ?config.foreground,
       ],

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
 class EthnicCoreAsImage extends StatefulWidget {
   const EthnicCoreAsImage({
@@ -10,7 +8,6 @@ class EthnicCoreAsImage extends StatefulWidget {
     this.initialPage = 0,
     this.wrapper,
     this.backgrounds,
-    this.particleSphere,
     required this.tabConfig,
     required this.page,
     required this.tabsBuilder,
@@ -19,7 +16,6 @@ class EthnicCoreAsImage extends StatefulWidget {
   final int initialPage;
   final Widget? wrapper;
   final List<Widget>? backgrounds;
-  final ParticleSphereConfig? particleSphere;
   final EthnicTabConfig tabConfig;
   final Widget page;
   final List<Widget> Function(int tabActive) tabsBuilder;
@@ -66,23 +62,8 @@ class _EthnicCoreAsImageState extends State<EthnicCoreAsImage> with SingleTicker
         alignment: .center,
         children: [
           ...?widget.backgrounds,
-          if (widget.particleSphere != null && widget.wrapper == null) ...[
-            if (widget.particleSphere!.type == .circle)
-              ClipRect(
-                child: CircleParticleSphereAsImage(
-                  config: widget.particleSphere!,
-                  child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
-                ),
-              )
-            else
-              ClipRect(
-                child: ImageParticleSphereAsImage(
-                  config: widget.particleSphere!,
-                  child: SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
-                ),
-              ),
-          ] else
-            SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
+
+          SizedBox(height: Screen.height, width: Screen.width, child: widget.page),
 
           Positioned(
             bottom: widget.initialPage == 0 || widget.initialPage == _tabs.length - 1 ? -55 : 0,
@@ -103,34 +84,7 @@ class _EthnicCoreAsImageState extends State<EthnicCoreAsImage> with SingleTicker
 
   Widget get _tab => SizedBox(
     width: Screen.width,
-    child: Padding(
-      padding: .symmetric(vertical: 12, horizontal: widget.tabConfig.widthFull ? 0 : 14),
-      child: Stack(
-        children: [
-          if (widget.tabConfig.useBackdropBlur)
-            RepaintBoundary(
-              child: ClipRRect(
-                borderRadius: .circular(36),
-                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tabBar),
-              ),
-            )
-          else
-            _tabBar,
-          if (widget.tabConfig.useGlassEffect && _indexActive > 0)
-            GlassEffectBox(
-              width: Screen.width - 28,
-              height: 52,
-              borderRadius: 36,
-              animationSpeed: const Duration(milliseconds: 600),
-              animationInterval: const Duration(seconds: 7),
-              delayBeforeStart: const Duration(milliseconds: 1200),
-              color: Colors.grey.shade300.withValues(alpha: .5),
-              sliderWidth: 90,
-              staticValue: .75,
-            ),
-        ],
-      ),
-    ),
+    child: Padding(padding: const .symmetric(vertical: 12, horizontal: 14), child: _tabBar),
   );
 
   Widget get _tabBar => SizedBox(

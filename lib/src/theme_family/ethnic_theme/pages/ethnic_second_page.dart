@@ -9,7 +9,6 @@ import 'package:iv_project_invitation_theme/src/widgets/animated_border_inviter.
 import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class EthnicSecondPage extends StatelessWidget {
@@ -85,7 +84,6 @@ class EthnicSecondPage extends StatelessWidget {
                     begin: .topCenter,
                     end: .bottomCenter,
                     colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                    stops: config.stopsGradientScaffoldColor,
                   ),
                 ),
               ),
@@ -257,26 +255,6 @@ class EthnicSecondPage extends StatelessWidget {
               ),
             ),
           ),
-
-          if (config.useGlassEffectOnScaffold)
-            Positioned(
-              bottom: 0,
-              height: Screen.height,
-              width: Screen.width,
-              child: Padding(
-                padding: contentPadding,
-                child: GlassEffectBox(
-                  width: Screen.width - 32,
-                  height: Screen.height - (76 + H.x6l),
-                  borderRadius: 20,
-                  sliderWidth: 90,
-                  color: Colors.white.withValues(alpha: config.glassEffectOpacity),
-                  animationSpeed: const Duration(milliseconds: 600),
-                  delayBeforeStart: const Duration(milliseconds: 3000),
-                  animationInterval: const Duration(milliseconds: 3500),
-                ),
-              ),
-            ),
 
           ?config.foreground,
         ],

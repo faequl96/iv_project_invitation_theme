@@ -129,7 +129,7 @@ class _EthnicCoverPageState extends State<EthnicCoverPage> {
                   numberColor: widget.config.countdownNumberColor,
                   unitColor: widget.config.countdownUnitColor,
                   borderWidth: widget.config.countdownBorderWidth,
-                  useLightningEffect: widget.config.useLightningEffectOnCountdown,
+                  useLightningEffect: false,
                   time: widget.time.startTime,
                   noAnimate: false,
                 ),
