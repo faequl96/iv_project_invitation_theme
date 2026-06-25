@@ -180,7 +180,6 @@ class BlueSkyGlass {
       receptionCountdownEvenBorderColor: Colors.blue.shade500,
       receptionCountdownNumberColor: ColorUtil.darken(Colors.blue.shade700),
       receptionCountdownUnitColor: ColorUtil.darken(Colors.blue.shade700),
-      useLightningEffectOnCountdown: true,
     ),
     thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
       firstGradientBackgroundColor: ColorUtil.darken(
@@ -217,7 +216,6 @@ class BlueSkyGlass {
       countdownEvenBorderColor: Colors.blue.shade500,
       countdownNumberColor: ColorUtil.darken(Colors.blue.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.blue.shade700),
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: ColorUtil.darken(Colors.blue.shade500),
       placeIconColor: ColorUtil.darken(Colors.blue.shade700),
@@ -299,7 +297,6 @@ class BlueSkyGlass {
       countdownEvenBorderColor: Colors.white,
       countdownNumberColor: ColorUtil.darken(Colors.blue.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.blue.shade700),
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: Colors.white,
       placeIconColor: Colors.white,

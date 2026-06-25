@@ -7,7 +7,6 @@ import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -69,19 +68,22 @@ class GlassFourthDifferentLocationPage extends StatelessWidget {
             width: Screen.width,
             child: Padding(
               padding: contentPadding,
-              child: GlassScaffoldWrapper(
-                useBackdropBlur: true,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(20),
-                    gradient: LinearGradient(
-                      begin: .topCenter,
-                      end: .bottomCenter,
-                      colors: [
-                        config.firstGradientScaffoldColor,
-                        config.secondGradientScaffoldColor,
-                      ],
-                      stops: config.stopsGradientScaffoldColor,
+              child: ClipRRect(
+                borderRadius: .circular(20),
+                child: BackdropFilter(
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: .circular(20),
+                      gradient: LinearGradient(
+                        begin: .topCenter,
+                        end: .bottomCenter,
+                        colors: [
+                          config.firstGradientScaffoldColor,
+                          config.secondGradientScaffoldColor,
+                        ],
+                        stops: config.stopsGradientScaffoldColor,
+                      ),
                     ),
                   ),
                 ),
@@ -154,7 +156,7 @@ class GlassFourthDifferentLocationPage extends StatelessWidget {
                               numberColor: config.countdownNumberColor,
                               unitColor: config.countdownUnitColor,
                               borderWidth: config.countdownBorderWidth,
-                              useLightningEffect: config.useLightningEffectOnCountdown,
+                              useLightningEffect: true,
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),

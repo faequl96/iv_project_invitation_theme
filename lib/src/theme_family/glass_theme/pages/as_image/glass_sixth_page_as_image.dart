@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
@@ -50,16 +49,22 @@ class GlassSixthPageAsImage extends StatelessWidget {
           width: Screen.width,
           child: Padding(
             padding: contentPadding,
-            child: GlassScaffoldWrapper(
-              useBackdropBlur: true,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  gradient: LinearGradient(
-                    begin: .topCenter,
-                    end: .bottomCenter,
-                    colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                    stops: config.stopsGradientScaffoldColor,
+            child: ClipRRect(
+              borderRadius: .circular(20),
+              child: BackdropFilter(
+                filter: .blur(sigmaX: 3, sigmaY: 3),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: .circular(20),
+                    gradient: LinearGradient(
+                      begin: .topCenter,
+                      end: .bottomCenter,
+                      colors: [
+                        config.firstGradientScaffoldColor,
+                        config.secondGradientScaffoldColor,
+                      ],
+                      stops: config.stopsGradientScaffoldColor,
+                    ),
                   ),
                 ),
               ),

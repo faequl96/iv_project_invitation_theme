@@ -6,7 +6,6 @@ import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_c
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
-import 'package:iv_project_invitation_theme/src/widgets/glass_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class GlassThirdPage extends StatelessWidget {
@@ -68,19 +67,22 @@ class GlassThirdPage extends StatelessWidget {
             width: Screen.width,
             child: Padding(
               padding: contentPadding,
-              child: GlassScaffoldWrapper(
-                useBackdropBlur: true,
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    borderRadius: .circular(20),
-                    gradient: LinearGradient(
-                      begin: .topCenter,
-                      end: .bottomCenter,
-                      colors: [
-                        config.firstGradientScaffoldColor,
-                        config.secondGradientScaffoldColor,
-                      ],
-                      stops: config.stopsGradientScaffoldColor,
+              child: ClipRRect(
+                borderRadius: .circular(20),
+                child: BackdropFilter(
+                  filter: .blur(sigmaX: 3, sigmaY: 3),
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      borderRadius: .circular(20),
+                      gradient: LinearGradient(
+                        begin: .topCenter,
+                        end: .bottomCenter,
+                        colors: [
+                          config.firstGradientScaffoldColor,
+                          config.secondGradientScaffoldColor,
+                        ],
+                        stops: config.stopsGradientScaffoldColor,
+                      ),
                     ),
                   ),
                 ),
@@ -131,7 +133,7 @@ class GlassThirdPage extends StatelessWidget {
                               numberColor: config.contractCountdownNumberColor,
                               unitColor: config.contractCountdownUnitColor,
                               borderWidth: config.contractCountdownBorderWidth,
-                              useLightningEffect: config.useLightningEffectOnCountdown,
+                              useLightningEffect: true,
                               time: contractEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
@@ -178,7 +180,7 @@ class GlassThirdPage extends StatelessWidget {
                               numberColor: config.receptionCountdownNumberColor,
                               unitColor: config.receptionCountdownUnitColor,
                               borderWidth: config.receptionCountdownBorderWidth,
-                              useLightningEffect: config.useLightningEffectOnCountdown,
+                              useLightningEffect: true,
                               time: receptionEvent.startTime,
                               animationDelayBeforeStart: const Duration(milliseconds: 800),
                               lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),

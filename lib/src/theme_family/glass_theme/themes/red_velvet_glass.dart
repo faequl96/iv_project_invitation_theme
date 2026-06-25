@@ -168,7 +168,6 @@ class RedVelvetGlass {
       receptionCountdownEvenBorderColor: Colors.red.shade500,
       receptionCountdownNumberColor: ColorUtil.darken(Colors.red.shade700),
       receptionCountdownUnitColor: ColorUtil.darken(Colors.red.shade700),
-      useLightningEffectOnCountdown: true,
     ),
     thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
       firstGradientBackgroundColor: ColorUtil.darken(Colors.red.shade700, 60).withValues(alpha: .0),
@@ -202,7 +201,6 @@ class RedVelvetGlass {
       countdownEvenBorderColor: Colors.red.shade500,
       countdownNumberColor: ColorUtil.darken(Colors.red.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.red.shade700),
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: ColorUtil.darken(Colors.red.shade500),
       placeIconColor: ColorUtil.darken(Colors.red.shade700),
@@ -284,7 +282,6 @@ class RedVelvetGlass {
       countdownEvenBorderColor: Colors.white,
       countdownNumberColor: ColorUtil.darken(Colors.red.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.red.shade700),
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: Colors.white,
       placeIconColor: Colors.white,

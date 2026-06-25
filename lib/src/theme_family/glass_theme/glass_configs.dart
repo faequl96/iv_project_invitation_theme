@@ -215,7 +215,6 @@ class GlassThirdPageConfig {
     required this.receptionCountdownEvenBorderColor,
     required this.receptionCountdownNumberColor,
     required this.receptionCountdownUnitColor,
-    required this.useLightningEffectOnCountdown,
   });
 
   final Color firstGradientScaffoldColor;
@@ -246,7 +245,6 @@ class GlassThirdPageConfig {
   final Color receptionCountdownEvenBorderColor;
   final Color receptionCountdownNumberColor;
   final Color receptionCountdownUnitColor;
-  final bool useLightningEffectOnCountdown;
 }
 
 class GlassThirdDifferentLocationPageConfig {
@@ -268,7 +266,6 @@ class GlassThirdDifferentLocationPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
     required this.dividingLineWidth,
     required this.dividingLineColor,
     required this.placeIconColor,
@@ -298,7 +295,6 @@ class GlassThirdDifferentLocationPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
   final double dividingLineWidth;
   final Color dividingLineColor;
   final Color placeIconColor;
@@ -372,7 +368,6 @@ class GlassFourthDifferentLocationPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.useLightningEffectOnCountdown,
     required this.dividingLineWidth,
     required this.dividingLineColor,
     required this.placeIconColor,
@@ -402,7 +397,6 @@ class GlassFourthDifferentLocationPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final bool useLightningEffectOnCountdown;
   final double dividingLineWidth;
   final Color dividingLineColor;
   final Color placeIconColor;

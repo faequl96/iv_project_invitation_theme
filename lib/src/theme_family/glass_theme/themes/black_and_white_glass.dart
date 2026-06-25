@@ -118,7 +118,6 @@ class BlackAndWhiteGlass {
       receptionCountdownEvenBorderColor: Colors.grey.shade600,
       receptionCountdownNumberColor: Colors.grey.shade200,
       receptionCountdownUnitColor: Colors.grey.shade200,
-      useLightningEffectOnCountdown: true,
     ),
     thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
       firstGradientBackgroundColor: Colors.transparent,
@@ -136,7 +135,6 @@ class BlackAndWhiteGlass {
       countdownEvenBorderColor: Colors.grey.shade500,
       countdownNumberColor: Colors.grey.shade200,
       countdownUnitColor: Colors.grey.shade200,
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: .5,
       dividingLineColor: Colors.grey.shade100,
       placeIconColor: Colors.grey.shade100,
@@ -182,7 +180,6 @@ class BlackAndWhiteGlass {
       countdownEvenBorderColor: Colors.grey.shade600,
       countdownNumberColor: Colors.grey.shade200,
       countdownUnitColor: Colors.grey.shade200,
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: .5,
       dividingLineColor: Colors.grey.shade50,
       placeIconColor: Colors.grey.shade50,

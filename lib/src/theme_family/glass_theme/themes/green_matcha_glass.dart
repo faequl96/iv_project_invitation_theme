@@ -171,7 +171,6 @@ class GreenMatchaGlass {
       receptionCountdownEvenBorderColor: Colors.green.shade500,
       receptionCountdownNumberColor: ColorUtil.darken(Colors.green.shade700),
       receptionCountdownUnitColor: ColorUtil.darken(Colors.green.shade700),
-      useLightningEffectOnCountdown: true,
     ),
     thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
       firstGradientBackgroundColor: ColorUtil.darken(
@@ -208,7 +207,6 @@ class GreenMatchaGlass {
       countdownEvenBorderColor: Colors.green.shade500,
       countdownNumberColor: ColorUtil.darken(Colors.green.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.green.shade700),
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: ColorUtil.darken(Colors.green.shade500),
       placeIconColor: ColorUtil.darken(Colors.green.shade700),
@@ -290,7 +288,6 @@ class GreenMatchaGlass {
       countdownEvenBorderColor: Colors.white,
       countdownNumberColor: ColorUtil.darken(Colors.green.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.green.shade700),
-      useLightningEffectOnCountdown: false,
       dividingLineWidth: 1,
       dividingLineColor: Colors.white,
       placeIconColor: Colors.white,
