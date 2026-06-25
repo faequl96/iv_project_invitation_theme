@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_theme.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/themes/javanese_rose_gold.dart';
+import 'package:iv_project_invitation_theme/src/widgets/ethnic_theme/ethnic_theme.dart';
+import 'package:iv_project_invitation_theme/src/widgets/ethnic_theme/themes/javanese_rose_gold.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class EthnicThemeLauncher extends StatelessWidget {
