@@ -109,11 +109,9 @@ class _GenericCoreAsImageState extends State<GenericCoreAsImage>
       child: Stack(
         children: [
           if (widget.tabConfig.useBackdropBlur)
-            RepaintBoundary(
-              child: ClipRRect(
-                borderRadius: .circular(36),
-                child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tabBar),
-              ),
+            ClipRRect(
+              borderRadius: .circular(36),
+              child: BackdropFilter(filter: .blur(sigmaX: 5, sigmaY: 5), child: _tabBar),
             )
           else
             _tabBar,

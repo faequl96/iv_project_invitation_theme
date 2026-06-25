@@ -160,16 +160,14 @@ class GenericEighthPage extends StatelessWidget {
             bottom: 0,
             height: H.x18l - H.x4s,
             width: Screen.width,
-            child: RepaintBoundary(
-              child: ClipRRect(
-                borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
-                child: BackdropFilter(
-                  filter: .blur(sigmaX: 3, sigmaY: 3),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: config.brandBackgroundColor,
-                      borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
-                    ),
+            child: ClipRRect(
+              borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
+              child: BackdropFilter(
+                filter: .blur(sigmaX: 3, sigmaY: 3),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: config.brandBackgroundColor,
+                    borderRadius: const .only(topLeft: .circular(36), topRight: .circular(36)),
                   ),
                 ),
               ),
