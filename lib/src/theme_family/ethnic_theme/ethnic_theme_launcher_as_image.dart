@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme_launcher_as_image.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_theme_as_image.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/themes/javanese_rose_gold.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class InvitationThemeAsImageLauncher extends StatelessWidget {
-  const InvitationThemeAsImageLauncher({
+class EthnicThemeLauncherAsImage extends StatelessWidget {
+  const EthnicThemeLauncherAsImage({
     super.key,
     this.initialPage = 0,
-    this.useWrapper = true,
+    required this.useWrapper,
     required this.invitationThemeId,
     required this.invitationData,
     required this.brandProfile,
@@ -20,20 +21,17 @@ class InvitationThemeAsImageLauncher extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).copyWith(textScaler: const .linear(1)),
-      child: _buildContent(),
-    );
-  }
-
-  Widget _buildContent() => switch (invitationThemeId) {
-    1 || 2 || 3 || 4 || 5 || 6 => GenericThemeLauncherAsImage(
+    final content = EthnicThemeAsImage(
+      configs: switch (invitationThemeId) {
+        5 => JavaneseRoseGold.configs,
+        int() => JavaneseRoseGold.configs,
+      },
       initialPage: initialPage,
       useWrapper: useWrapper,
-      invitationThemeId: invitationThemeId,
       invitationData: invitationData,
       brandProfile: brandProfile,
-    ),
-    _ => const SizedBox.shrink(),
-  };
+    );
+
+    return content;
+  }
 }
