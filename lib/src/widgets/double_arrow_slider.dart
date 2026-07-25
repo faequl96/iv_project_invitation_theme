@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class DoubleArrowSlider extends StatefulWidget {
   const DoubleArrowSlider({
     super.key,
+    this.axis = .vertical,
     required this.firstArrowColor,
     required this.secondArrowColor,
     this.arrowSize = 44,
@@ -14,6 +15,7 @@ class DoubleArrowSlider extends StatefulWidget {
     this.staticValue,
   });
 
+  final Axis axis;
   final Color firstArrowColor;
   final Color secondArrowColor;
   final double arrowSize;
@@ -73,9 +75,13 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
           return Stack(
             alignment: .center,
             children: [
-              SizedBox(width: widget.arrowSize, height: widget.sliderPathLength),
+              SizedBox(
+                width: widget.axis == .vertical ? widget.arrowSize : widget.sliderPathLength,
+                height: widget.axis == .vertical ? widget.sliderPathLength : widget.arrowSize,
+              ),
               Positioned(
-                bottom: slide,
+                bottom: widget.axis == .vertical ? slide : null,
+                right: widget.axis == .vertical ? null : slide,
                 height: widget.arrowSize,
                 width: widget.arrowSize,
                 child: child ?? const SizedBox.shrink(),
@@ -87,17 +93,23 @@ class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTicker
           clipBehavior: .none,
           children: [
             Positioned(
-              top: -(widget.arrowSize / 8),
+              top: widget.axis == .vertical ? -(widget.arrowSize / 8) : null,
+              left: widget.axis == .vertical ? null : -(widget.arrowSize / 8),
               child: Icon(
-                Icons.keyboard_arrow_up_rounded,
+                widget.axis == .vertical
+                    ? Icons.keyboard_arrow_up_rounded
+                    : Icons.keyboard_arrow_left_rounded,
                 size: widget.arrowSize,
                 color: widget.firstArrowColor,
               ),
             ),
             Positioned(
-              bottom: -(widget.arrowSize / 8),
+              bottom: widget.axis == .vertical ? -(widget.arrowSize / 8) : null,
+              right: widget.axis == .vertical ? null : -(widget.arrowSize / 8),
               child: Icon(
-                Icons.keyboard_arrow_up_rounded,
+                widget.axis == .vertical
+                    ? Icons.keyboard_arrow_up_rounded
+                    : Icons.keyboard_arrow_left_rounded,
                 size: widget.arrowSize,
                 color: widget.secondArrowColor,
               ),
