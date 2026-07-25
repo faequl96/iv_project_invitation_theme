@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 class Maps extends StatefulWidget {
   const Maps({
     super.key,
+    this.useBorder = true,
     required this.borderColor,
     required this.height,
     required this.width,
@@ -14,6 +15,7 @@ class Maps extends StatefulWidget {
     required this.url,
   });
 
+  final bool useBorder;
   final Color borderColor;
   final double height;
   final double width;
@@ -66,6 +68,7 @@ class _MapsState extends State<Maps> {
     final latLng = _getLatLngFromGoogleMaps(widget.url);
 
     if (latLng == null) {
+      if (!widget.useBorder) return SizedBox(height: widget.height, width: widget.width);
       return DecoratedBox(
         decoration: BoxDecoration(
           border: .all(width: 2, color: widget.borderColor),
@@ -75,6 +78,28 @@ class _MapsState extends State<Maps> {
           padding: .all(W.x6s / 2),
           child: SizedBox(height: widget.height, width: widget.width),
         ),
+      );
+    }
+
+    if (!widget.useBorder) {
+      return Stack(
+        children: [
+          SizedBox(
+            height: widget.height,
+            width: widget.width,
+            child: ColoredBox(
+              color: Colors.grey.shade300,
+              child: Center(child: SharedPersonalize.loadingWidget(color: Colors.grey.shade900)),
+            ),
+          ),
+          MapsWidget(
+            latitude: latLng.latitude,
+            longitude: latLng.longitude,
+            height: widget.height,
+            width: widget.width,
+            delayBeforeStart: widget.delayBeforeStart,
+          ),
+        ],
       );
     }
 

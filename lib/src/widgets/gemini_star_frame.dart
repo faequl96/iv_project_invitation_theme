@@ -99,10 +99,10 @@ class _GeminiStarFramePainter extends CustomPainter {
     final innerR = r * .65;
     final hw = lineWidth / 2;
 
-    final tl = Offset(starOffsets.left + r, starOffsets.top + r);
-    final tr = Offset(size.width - starOffsets.right - r, starOffsets.top + r);
-    final bl = Offset(starOffsets.left + r, size.height - starOffsets.bottom - r);
-    final br = Offset(size.width - starOffsets.right - r, size.height - starOffsets.bottom - r);
+    final tl = Offset(starOffsets.left, starOffsets.top);
+    final tr = Offset(size.width - starOffsets.right, starOffsets.top);
+    final bl = Offset(starOffsets.left, size.height - starOffsets.bottom);
+    final br = Offset(size.width - starOffsets.right, size.height - starOffsets.bottom);
 
     final drawTop = showStars.topLeft || showStars.topRight;
     final drawBottom = showStars.bottomLeft || showStars.bottomRight;

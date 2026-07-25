@@ -107,6 +107,7 @@ class _GlassCoreState extends State<GlassCore> with SingleTickerProviderStateMix
             alignment: .center,
             children: [
               ...?widget.backgrounds,
+
               if (widget.particleSphere != null) ...[
                 if (widget.particleSphere!.type == .circle)
                   ClipRect(

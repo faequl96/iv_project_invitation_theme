@@ -140,16 +140,17 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                       mainAxisSize: .min,
                       children: [
                         for (int i = 0; i < widget.navs.length; i++) ...[
-                          if (i != 0) const SizedBox(height: 4),
+                          if (i != 0) const SizedBox(height: 3),
                           _buildNav(
                             index: i,
-                            delayBeforeStart: Duration(milliseconds: 50 * (i + 1)),
+                            delayBeforeStart: Duration(milliseconds: 40 * (i + 1)),
                             content: widget.navs[i],
+                            closeOverlay: closeOverlay,
                           ),
                         ],
                       ],
                     ),
-                    child: const Icon(Icons.drag_handle_rounded, size: 40, color: Colors.grey),
+                    child: Icon(Icons.drag_handle_rounded, size: 40, color: Colors.grey.shade200),
                   ),
                 ),
 
@@ -180,6 +181,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
     required int index,
     required Duration delayBeforeStart,
     required Widget content,
+    void Function()? closeOverlay,
   }) => SizedBox(
     width: .infinity,
     child: FadeAndSlideTransition(
@@ -192,15 +194,17 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
         padding: const .symmetric(horizontal: 4),
         child: QuickButton(
           onTap: () {
+            closeOverlay?.call();
             _pageController?.animateToPage(
               index,
               duration: const Duration(milliseconds: 300),
               curve: Curves.ease,
             );
           },
-          style: const .lite(
-            color: Colors.black54,
-            padding: .symmetric(vertical: 12, horizontal: 16),
+          style: .lite(
+            color: Colors.grey.shade800.withValues(alpha: .96),
+            padding: const .symmetric(vertical: 15, horizontal: 16),
+            border: .symmetric(horizontal: .new(color: Colors.grey.shade400, width: .75)),
             elevation: 0,
           ),
           child: content,

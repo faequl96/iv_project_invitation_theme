@@ -7,7 +7,7 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/audio_player_widget.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bride_groom_name.dart';
-import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
+import 'package:iv_project_invitation_theme/src/widgets/countdown_timers_grid.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -118,10 +118,11 @@ class _GeminiStarCoverPageState extends State<GeminiStarCoverPage> {
                   groom: widget.groom,
                   noAnimate: false,
                 ),
-                SizedBox(height: H.md),
+                SizedBox(height: H.x2s),
                 FadeAndSlideTransition(slideFromOffset: 0, child: _buildHeadingIn(langCode)),
-                SizedBox(height: H.x8s),
-                CountdownTimers(
+                SizedBox(height: H.x10s),
+                CountdownTimersGrid(
+                  paddingHorizontal: W.sm,
                   oddColor: widget.config.countdownOddColor,
                   evenColor: widget.config.countdownEvenColor,
                   oddBorderColor: widget.config.countdownOddBorderColor,
@@ -129,11 +130,11 @@ class _GeminiStarCoverPageState extends State<GeminiStarCoverPage> {
                   numberColor: widget.config.countdownNumberColor,
                   unitColor: widget.config.countdownUnitColor,
                   borderWidth: widget.config.countdownBorderWidth,
-                  useLightningEffect: widget.config.useLightningEffectOnCountdown,
+                  // useLightningEffect: false,
                   time: widget.time.startTime,
                   noAnimate: false,
                 ),
-                SizedBox(height: H.x5s),
+                SizedBox(height: H.x8s),
                 FadeAndSlideTransition(
                   slideFromOffset: 0,
                   delayBeforeStart: const Duration(milliseconds: 500),
