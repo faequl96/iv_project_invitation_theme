@@ -146,7 +146,7 @@ class GeminiStarFourthPage extends StatelessWidget {
 
   Widget _buildTitle(String langCode, {bool isRight = false}) {
     final contract = langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah';
-    final reception = langCode == 'en' ? 'Reception' : 'Resepsi';
+    final reception = langCode == 'en' ? 'Marriage Reception' : 'Resepsi Nikah';
     final titleTop = isRight ? contract : reception;
     final titleBottom = isRight ? reception : contract;
 

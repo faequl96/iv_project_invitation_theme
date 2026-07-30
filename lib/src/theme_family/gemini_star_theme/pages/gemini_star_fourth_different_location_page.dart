@@ -1,9 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_configs.dart';
-import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
+import 'package:iv_project_invitation_theme/src/widgets/countdown_timers_grid.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
 import 'package:iv_project_model/iv_project_model.dart';
@@ -24,18 +26,16 @@ class GeminiStarFourthDifferentLocationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
 
-    final contentPadding = EdgeInsets.only(top: H.x6l, left: W.x6s, right: W.x6s, bottom: 76);
-    // final contentPadding = EdgeInsets.only(top: H.x6l, left: 0, right: 0, bottom: 76);
-
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
       selector: (state) => state.size,
       builder: (_, _) => Stack(
+        alignment: .center,
         children: [
           if (config.firstGradientBackgroundColor != null &&
               config.secondGradientBackgroundColor != null)
             Positioned(
               bottom: 0,
-              height: Screen.height / 1.2,
+              height: Screen.height,
               width: Screen.width,
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -52,15 +52,14 @@ class GeminiStarFourthDifferentLocationPage extends StatelessWidget {
               ),
             ),
 
-          ?config.background,
+          Positioned(
+            left: (-Screen.height / 2) + W.sm / 2,
+            child: Transform.rotate(angle: -(pi / 2), child: _buildTitle(langCode)),
+          ),
 
           Positioned(
-            top: 0,
-            child: FadeAndSlideTransition(
-              slideFromOffset: .5,
-              slideFrom: .top,
-              child: _buildTitle(langCode),
-            ),
+            right: (-Screen.height / 2) + W.sm / 2,
+            child: Transform.rotate(angle: (pi / 2), child: _buildTitle(langCode, isRight: true)),
           ),
 
           Positioned(
@@ -68,227 +67,224 @@ class GeminiStarFourthDifferentLocationPage extends StatelessWidget {
             height: Screen.height,
             width: Screen.width,
             child: Padding(
-              padding: contentPadding,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  gradient: LinearGradient(
-                    begin: .topCenter,
-                    end: .bottomCenter,
-                    colors: [config.firstGradientScaffoldColor, config.secondGradientScaffoldColor],
-                    stops: config.stopsGradientScaffoldColor,
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          Positioned(
-            bottom: 0,
-            height: Screen.height,
-            width: Screen.width,
-            child: Padding(
-              padding: contentPadding,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  borderRadius: .circular(20),
-                  border: config.scaffoldBorder,
-                ),
-                child: ClipRect(
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      Column(
-                        mainAxisSize: .min,
-                        children: [
-                          FadeAndSlideTransition(
-                            slideFromOffset: .0,
-                            slideFrom: .bottom,
-                            delayBeforeStart: const Duration(milliseconds: 500),
-                            child: Column(
-                              children: [
-                                Icon(Icons.event, size: 32, color: config.dateTimeIconColor),
-                                const SizedBox(height: 4),
-                                Text(
-                                  DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
-                                  style: AppFonts.inter(
-                                    color: config.dateTimeBaseTextColor,
-                                    fontSize: FontSize.lg,
-                                    fontWeight: .w500,
+              padding: .symmetric(horizontal: W.sm),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: H.x20l + H.md,
+                    child: Column(
+                      children: [
+                        const Spacer(flex: 2),
+                        Column(
+                          mainAxisSize: .min,
+                          children: [
+                            FadeAndSlideTransition(
+                              slideFromOffset: .0,
+                              slideFrom: .bottom,
+                              child: Column(
+                                children: [
+                                  Icon(Icons.event, size: 32, color: config.dateTimeIconColor),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    DateUtil.format(contractEvent.startTime, .EEEEddMMMMyyyy),
+                                    style: AppFonts.inter(
+                                      color: config.dateTimeBaseTextColor,
+                                      fontSize: FontSize.xl,
+                                      fontWeight: .w500,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: H.x14s),
-                          FadeAndSlideTransition(
-                            slideFromOffset: .8,
-                            slideFrom: .bottom,
-                            animationSpeed: const Duration(milliseconds: 300),
-                            delayBeforeStart: const Duration(milliseconds: 800),
-                            child: Text(
-                              langCode == 'en'
-                                  ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
-                                  : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
-                              style: AppFonts.inter(
-                                color: config.dateTimeBaseTextColor,
-                                fontSize: FontSize.md,
-                                fontWeight: .w400,
+                                ],
                               ),
                             ),
-                          ),
-                          SizedBox(height: H.x6s),
-                          SizedBox(
-                            height: W.x3l,
-                            child: CountdownTimers(
-                              oddColor: config.countdownOddColor,
-                              evenColor: config.countdownEvenColor,
-                              oddBorderColor: config.countdownOddBorderColor,
-                              evenBorderColor: config.countdownEvenBorderColor,
-                              numberColor: config.countdownNumberColor,
-                              unitColor: config.countdownUnitColor,
-                              borderWidth: config.countdownBorderWidth,
-                              useLightningEffect: false,
-                              time: contractEvent.startTime,
-                              animationDelayBeforeStart: const Duration(milliseconds: 800),
-                              lightningEffectDelayBeforeShowed: const Duration(milliseconds: 1800),
-                              noAnimate: false,
+                            SizedBox(height: H.x10s),
+                            FadeAndSlideTransition(
+                              slideFromOffset: .8,
+                              slideFrom: .bottom,
+                              animationSpeed: const Duration(milliseconds: 300),
+                              delayBeforeStart: const Duration(milliseconds: 300),
+                              child: Text(
+                                langCode == 'en'
+                                    ? '${DateUtil.format(contractEvent.startTime, .HHmm)} o\'clock WIB - ${contractEvent.endTime == null ? 'Finished' : '${DateUtil.format(contractEvent.endTime!, .HHmm)} o\'clock WIB'}'
+                                    : 'Pukul ${DateUtil.format(contractEvent.startTime, .HHmm)} WIB - ${contractEvent.endTime == null ? 'Selesai' : 'Pukul ${DateUtil.format(contractEvent.endTime!, .HHmm)} WIB'}',
+                                style: AppFonts.inter(
+                                  color: config.dateTimeBaseTextColor,
+                                  fontSize: FontSize.md,
+                                  fontWeight: .w400,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: H.x4s),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .0,
-                        delayBeforeStart: const Duration(milliseconds: 1400),
-                        child: SizedBox(
-                          height: config.dividingLineWidth,
-                          width: W.x18l,
-                          child: ColoredBox(color: config.dividingLineColor),
-                        ),
-                      ),
-                      SizedBox(height: H.x4s),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .0,
-                        slideFrom: .top,
-                        delayBeforeStart: const Duration(milliseconds: 500),
-                        child: Column(
-                          children: [
-                            Icon(Icons.location_pin, size: 32, color: config.placeIconColor),
-                            const SizedBox(height: 3),
-                            Text(
-                              contractEvent.place,
-                              style: AppFonts.inter(
-                                color: config.placeBaseTextColor,
-                                fontSize: FontSize.lg,
-                                fontWeight: .w600,
+                            SizedBox(height: H.x6s),
+                            SizedBox(
+                              height: (W.x3l * 2) + W.x14s,
+                              child: CountdownTimersGrid(
+                                paddingHorizontal: W.x5s,
+                                oddColor: config.countdownOddColor,
+                                evenColor: config.countdownEvenColor,
+                                oddBorderColor: config.countdownOddBorderColor,
+                                evenBorderColor: config.countdownEvenBorderColor,
+                                numberColor: config.countdownNumberColor,
+                                unitColor: config.countdownUnitColor,
+                                borderWidth: config.countdownBorderWidth,
+                                time: contractEvent.startTime,
+                                animationDelayBeforeStart: const Duration(milliseconds: 300),
+                                noAnimate: false,
                               ),
                             ),
                           ],
                         ),
-                      ),
-                      SizedBox(height: H.x10s),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .8,
-                        slideFrom: .bottom,
-                        animationSpeed: const Duration(milliseconds: 300),
-                        delayBeforeStart: const Duration(milliseconds: 800),
-                        child: Padding(
-                          padding: const .symmetric(horizontal: 20),
-                          child: Text(
-                            contractEvent.address,
-                            style: AppFonts.inter(
-                              color: config.addressTextColor,
-                              fontSize: FontSize.xs,
-                              fontWeight: .w400,
-                              height: 1.3,
-                            ),
-                            textAlign: .center,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: H.x6s),
-                      FadeAndSlideTransition(
-                        slideFrom: .bottom,
-                        delayBeforeStart: const Duration(milliseconds: 1100),
-                        child: Maps(
-                          borderColor: config.mapsBorderColor,
-                          width: Screen.width - (W.x6s * 5),
-                          height: Screen.height - (H.x18l * 2.1),
-                          delayBeforeStart: const Duration(milliseconds: 2200),
-                          url: contractEvent.mapsUrl,
-                        ),
-                      ),
-                      SizedBox(height: H.x6s),
-                      FadeAndSlideTransition(
-                        slideFromOffset: .8,
-                        slideFrom: .bottom,
-                        animationSpeed: const Duration(milliseconds: 300),
-                        delayBeforeStart: const Duration(milliseconds: 1800),
-                        child: QuickButton(
-                          onTap: () => launchUrl(
-                            Uri.parse(contractEvent.mapsUrl),
-                            mode: .externalNonBrowserApplication,
-                          ),
-                          style: QuickButtonStyle(
-                            padding: const .symmetric(horizontal: 24),
-                            height: W.lg + H.x10s,
-                            borderRadius: .circular(30),
-                            border: .all(
-                              width: config.getDirectionsButtonBorderWidth,
-                              color: config.getDirectionsButtonBorderColor,
-                            ),
-                            color: config.getDirectionsButtonColor,
-                            elevation: 0,
-                          ),
-                          child: Stack(
-                            alignment: .center,
+                        const Spacer(),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .0,
+                          slideFrom: .top,
+                          child: Column(
                             children: [
+                              Icon(Icons.location_pin, size: 32, color: config.placeIconColor),
+                              const SizedBox(height: 3),
                               Text(
-                                langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
+                                contractEvent.place,
                                 style: AppFonts.inter(
-                                  color: config.getDirectionsButtonLabelColor,
-                                  fontSize: FontSize.md,
+                                  color: config.placeBaseTextColor,
+                                  fontSize: FontSize.xl,
                                   fontWeight: .w600,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                    ],
+                        SizedBox(height: H.x10s),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: .bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 300),
+                          child: Padding(
+                            padding: const .symmetric(horizontal: 20),
+                            child: Text(
+                              contractEvent.address,
+                              style: AppFonts.inter(
+                                color: config.addressTextColor,
+                                fontSize: FontSize.xs,
+                                fontWeight: .w400,
+                                height: 1.3,
+                              ),
+                              textAlign: .center,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: H.x4s),
+                      ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Maps(
+                      useBorder: false,
+                      borderColor: config.mapsBorderColor,
+                      width: .infinity,
+                      height: .infinity,
+                      delayBeforeStart: const Duration(milliseconds: 2200),
+                      url: contractEvent.mapsUrl,
+                    ),
+                  ),
+                  SizedBox(
+                    height: H.x12l - H.x3s,
+                    child: Column(
+                      children: [
+                        SizedBox(height: H.x2s),
+                        FadeAndSlideTransition(
+                          slideFromOffset: .8,
+                          slideFrom: .bottom,
+                          animationSpeed: const Duration(milliseconds: 300),
+                          delayBeforeStart: const Duration(milliseconds: 1800),
+                          child: QuickButton(
+                            onTap: () => launchUrl(
+                              Uri.parse(contractEvent.mapsUrl),
+                              mode: .externalNonBrowserApplication,
+                            ),
+                            style: QuickButtonStyle(
+                              padding: const .symmetric(horizontal: 24),
+                              height: W.lg + H.x10s,
+                              borderRadius: .circular(30),
+                              border: .all(
+                                width: config.getDirectionsButtonBorderWidth,
+                                color: config.getDirectionsButtonBorderColor,
+                              ),
+                              color: config.getDirectionsButtonColor,
+                              elevation: 0,
+                            ),
+                            child: Stack(
+                              alignment: .center,
+                              children: [
+                                Text(
+                                  langCode == 'en' ? 'Get Directions' : 'Dapatkan Petunjuk Arah',
+                                  style: AppFonts.inter(
+                                    color: config.getDirectionsButtonLabelColor,
+                                    fontSize: FontSize.md,
+                                    fontWeight: .w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
 
-          ?config.foreground,
+          if (config.decorationBuilder != null)
+            SizedBox(
+              height: Screen.height,
+              width: Screen.width,
+              child: config.decorationBuilder!(),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildTitle(String langCode) => SizedBox(
-    height: H.x6l,
-    width: Screen.width,
-    child: Row(
-      mainAxisAlignment: .center,
-      children: [
-        Icon(Icons.volunteer_activism, size: W.xs, color: config.titlePageColor),
-        const SizedBox(width: 10),
-        Text(
-          langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
-          style: AppFonts.inter(
-            color: config.titlePageColor,
-            fontSize: FontSize.x3l,
-            fontWeight: .w700,
+  Widget _buildTitle(String langCode, {bool isRight = false}) => SizedBox(
+    height: W.sm,
+    width: Screen.height,
+    child: ColoredBox(
+      color: Colors.black54,
+      child: Row(
+        children: [
+          if (!isRight) ...[SizedBox(width: H.x12l - H.x3s), const Spacer()],
+          SizedBox(
+            width: H.x20l + H.md,
+            child: Row(
+              children: [
+                if (isRight) const Spacer(),
+                if (!isRight) SizedBox(width: H.x2s),
+                Column(
+                  mainAxisAlignment: .center,
+                  children: [
+                    FadeAndSlideTransition(
+                      slideFromOffset: 1.5,
+                      slideFrom: isRight ? .left : .right,
+                      child: Text(
+                        langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah',
+                        style: AppFonts.inter(
+                          color: config.titlePageColor,
+                          fontSize: FontSize.x3l,
+                          fontWeight: .w700,
+                        ),
+                      ),
+                    ),
+                    if (!isRight) const SizedBox(height: 2),
+                  ],
+                ),
+                if (isRight) SizedBox(width: H.x2s),
+                if (!isRight) const Spacer(),
+              ],
+            ),
           ),
-        ),
-        const SizedBox(width: 10),
-        Icon(Icons.menu_book, size: W.xs, color: config.titlePageColor),
-      ],
+          if (isRight) ...[SizedBox(width: H.x12l - H.x3s), const Spacer()],
+        ],
+      ),
     ),
   );
 }

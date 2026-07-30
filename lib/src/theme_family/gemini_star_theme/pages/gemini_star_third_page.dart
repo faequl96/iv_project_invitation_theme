@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_configs.dart';
+import 'package:iv_project_invitation_theme/src/widgets/auto_size_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
@@ -39,15 +40,27 @@ class _GeminiStarThirdPageState extends State<GeminiStarThirdPage> {
 
   void _buildCachedImage() {
     if (widget.viewType == .preview && widget.groomImage != null) {
-      _cachedImage = Image.file(widget.groomImage!, fit: .cover);
+      _cachedImage = Image.file(
+        widget.groomImage!,
+        width: .infinity,
+        height: .infinity,
+        fit: .cover,
+      );
     } else if (widget.viewType == .example) {
       _cachedImage = Image.asset(
         widget.groom.imageUrl,
+        width: .infinity,
+        height: .infinity,
         fit: .cover,
         package: 'iv_project_invitation_theme',
       );
     } else {
-      _cachedImage = Image.network(widget.groom.imageUrl, fit: .cover);
+      _cachedImage = Image.network(
+        widget.groom.imageUrl,
+        width: .infinity,
+        height: .infinity,
+        fit: .cover,
+      );
     }
   }
 
@@ -120,63 +133,67 @@ class _GeminiStarThirdPageState extends State<GeminiStarThirdPage> {
 
           Positioned(
             bottom: 0,
-            child: SizedBox(
-              height: H.x16l + W.sm + .5,
-              width: Screen.width,
-              child: ColoredBox(
-                color: Colors.grey.shade900,
-                child: Padding(
-                  padding: .symmetric(horizontal: W.sm),
-                  child: Column(
-                    children: [
-                      const Spacer(flex: 5),
-                      _buildBrideGroomText(
-                        frontTitle: widget.groom.frontTitle,
-                        fullName: widget.groom.fullName,
-                        backTitle: widget.groom.backTitle,
-                        nameColor: widget.config.brideNameTextColor,
-                        generalColor: widget.config.generalTextColor,
-                      ),
-                      SizedBox(height: H.x3s),
-                      Text(
-                        langCode == 'en' ? 'Son of' : 'Putra dari',
-                        style: AppFonts.inter(
-                          fontSize: FontSize.md,
-                          fontWeight: .w500,
-                          color: widget.config.generalTextColor,
+            child: AutoSizeTransition(
+              slideFrom: .bottom,
+              delayBeforeStart: const Duration(milliseconds: 300),
+              child: SizedBox(
+                height: H.x16l + W.sm + .5,
+                width: Screen.width,
+                child: ColoredBox(
+                  color: Colors.grey.shade900,
+                  child: Padding(
+                    padding: .symmetric(horizontal: W.sm),
+                    child: Column(
+                      children: [
+                        const Spacer(flex: 5),
+                        _buildBrideGroomText(
+                          frontTitle: widget.groom.frontTitle,
+                          fullName: widget.groom.fullName,
+                          backTitle: widget.groom.backTitle,
+                          nameColor: widget.config.brideNameTextColor,
+                          generalColor: widget.config.generalTextColor,
                         ),
-                      ),
-                      SizedBox(height: H.x9s),
-                      _buildFatherMotherText(
-                        isFather: true,
-                        frontTitle: widget.groom.fatherFrontTitle,
-                        name: widget.groom.fatherName,
-                        backTitle: widget.groom.fatherBackTitle,
-                        nameColor: widget.config.brideFatherNameTextColor,
-                        generalColor: widget.config.generalTextColor,
-                        langCode: langCode,
-                      ),
-                      SizedBox(height: H.x9s),
-                      Text(
-                        langCode == 'en' ? 'and' : 'dan',
-                        style: AppFonts.inter(
-                          fontSize: FontSize.md,
-                          fontWeight: .w500,
-                          color: widget.config.generalTextColor,
+                        SizedBox(height: H.x3s),
+                        Text(
+                          langCode == 'en' ? 'Son of' : 'Putra dari',
+                          style: AppFonts.inter(
+                            fontSize: FontSize.md,
+                            fontWeight: .w500,
+                            color: widget.config.generalTextColor,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: H.x9s),
-                      _buildFatherMotherText(
-                        isFather: false,
-                        frontTitle: widget.groom.motherFrontTitle,
-                        name: widget.groom.motherName,
-                        backTitle: widget.groom.motherBackTitle,
-                        nameColor: widget.config.brideMotherNameTextColor,
-                        generalColor: widget.config.generalTextColor,
-                        langCode: langCode,
-                      ),
-                      const Spacer(flex: 10),
-                    ],
+                        SizedBox(height: H.x9s),
+                        _buildFatherMotherText(
+                          isFather: true,
+                          frontTitle: widget.groom.fatherFrontTitle,
+                          name: widget.groom.fatherName,
+                          backTitle: widget.groom.fatherBackTitle,
+                          nameColor: widget.config.brideFatherNameTextColor,
+                          generalColor: widget.config.generalTextColor,
+                          langCode: langCode,
+                        ),
+                        SizedBox(height: H.x9s),
+                        Text(
+                          langCode == 'en' ? 'and' : 'dan',
+                          style: AppFonts.inter(
+                            fontSize: FontSize.md,
+                            fontWeight: .w500,
+                            color: widget.config.generalTextColor,
+                          ),
+                        ),
+                        SizedBox(height: H.x9s),
+                        _buildFatherMotherText(
+                          isFather: false,
+                          frontTitle: widget.groom.motherFrontTitle,
+                          name: widget.groom.motherName,
+                          backTitle: widget.groom.motherBackTitle,
+                          nameColor: widget.config.brideMotherNameTextColor,
+                          generalColor: widget.config.generalTextColor,
+                          langCode: langCode,
+                        ),
+                        const Spacer(flex: 10),
+                      ],
+                    ),
                   ),
                 ),
               ),
