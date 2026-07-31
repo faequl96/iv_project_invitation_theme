@@ -234,18 +234,61 @@ class _Gallery extends StatelessWidget {
                     width: W.x10l * 2.1,
                     child: ColoredBox(
                       color: Colors.grey.shade800,
-                      child: Center(
-                        child: Transform.rotate(
-                          angle: -(pi / 20),
-                          child: Text(
-                            'Our Moments',
-                            style: AppFonts.pacifico(
-                              color: Colors.grey.shade400,
-                              fontSize: W.xs,
-                              fontStyle: .italic,
+                      child: Column(
+                        mainAxisAlignment: .center,
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(width: W.x6s),
+                              Transform.rotate(
+                                angle: -(pi / 20),
+                                child: Text(
+                                  'A glimpse of our journey.',
+                                  style: AppFonts.pacifico(
+                                    color: Colors.grey.shade400,
+                                    fontSize: FontSize.md,
+                                    fontStyle: .italic,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: H.x8s),
+                          Transform.rotate(
+                            angle: -(pi / 20),
+                            child: Padding(
+                              padding: .symmetric(horizontal: W.x6s),
+                              child: Text(
+                                'Moments captured in time.',
+                                style: AppFonts.pacifico(
+                                  color: Colors.grey.shade400,
+                                  fontSize: FontSize.x6l,
+                                  fontStyle: .italic,
+                                  height: 1.3,
+                                ),
+                                textAlign: .center,
+                              ),
                             ),
                           ),
-                        ),
+                          SizedBox(height: H.x8s),
+                          Row(
+                            mainAxisAlignment: .end,
+                            children: [
+                              Transform.rotate(
+                                angle: -(pi / 20),
+                                child: Text(
+                                  'The start of forever.',
+                                  style: AppFonts.pacifico(
+                                    color: Colors.grey.shade400,
+                                    fontSize: FontSize.md,
+                                    fontStyle: .italic,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: W.x6s),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),

@@ -133,7 +133,7 @@ class GeminiStarSeventhPage extends StatelessWidget {
     height: W.sm,
     width: Screen.height,
     child: ColoredBox(
-      color: Colors.black54,
+      color: Colors.black12,
       child: Row(
         children: [
           if (!isRight) ...[

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/gemini_star_frame.dart';
+import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class BlackAndWhiteGeminiStar {
   BlackAndWhiteGeminiStar._();
@@ -24,13 +25,13 @@ class BlackAndWhiteGeminiStar {
     ),
     firstPageConfig: GeminiStarFirstPageConfig(
       decorationBuilder: () => GeminiStarFrame(
-        color: Colors.grey.shade600,
+        color: ColorUtil.lighten(Colors.grey.shade600, 25),
         lineWidth: 2,
         starRadius: 20,
         showStars: const ShowStars(topRight: false, bottomLeft: false),
         starOffsets: StarOffsets(left: W.sm, top: 60, right: W.sm, bottom: W.sm),
       ),
-      firstGradientBackgroundColor: Colors.grey.shade900.withValues(alpha: .2),
+      firstGradientBackgroundColor: Colors.grey.shade900.withValues(alpha: .1),
       secondGradientBackgroundColor: Colors.grey.shade900.withValues(alpha: .75),
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
@@ -145,7 +146,7 @@ class BlackAndWhiteGeminiStar {
         showStars: const ShowStars(bottomLeft: false, bottomRight: false),
         starOffsets: StarOffsets(left: W.sm, top: Screen.height / 2, right: W.sm, bottom: W.sm),
       ),
-      firstGradientBackgroundColor: Colors.grey.shade900.withValues(alpha: .5),
+      firstGradientBackgroundColor: Colors.grey.shade900.withValues(alpha: .3),
       secondGradientBackgroundColor: Colors.grey.shade900.withValues(alpha: .75),
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
