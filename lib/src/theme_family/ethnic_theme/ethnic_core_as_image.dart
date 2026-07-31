@@ -73,8 +73,8 @@ class _EthnicCoreAsImageState extends State<EthnicCoreAsImage> with SingleTicker
           ?widget.wrapper,
 
           const SizedBox(
-            height: .maxFinite,
-            width: .maxFinite,
+            height: .infinity,
+            width: .infinity,
             child: ColoredBox(color: Colors.transparent),
           ),
         ],

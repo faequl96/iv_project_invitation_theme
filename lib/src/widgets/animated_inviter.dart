@@ -97,7 +97,7 @@ class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProv
                   child: SlideTransition(
                     position: _textSlideHorizontalAnimation,
                     child: SizedBox(
-                      width: .maxFinite,
+                      width: .infinity,
                       child: Padding(
                         padding: .only(
                           left: widget.isLeft ? W.x5s : W.x8s,

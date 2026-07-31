@@ -146,7 +146,7 @@ class GeminiStarFourthPage extends StatelessWidget {
 
   Widget _buildTitle(String langCode, {bool isRight = false}) {
     final contract = langCode == 'en' ? 'Marriage Contract' : 'Akad Nikah';
-    final reception = langCode == 'en' ? 'Reception' : 'Resepsi';
+    final reception = langCode == 'en' ? 'Marriage Reception' : 'Resepsi Nikah';
     final titleTop = isRight ? contract : reception;
     final titleBottom = isRight ? reception : contract;
 
@@ -181,7 +181,7 @@ class GeminiStarFourthPage extends StatelessWidget {
       height: W.sm,
       width: Screen.height,
       child: ColoredBox(
-        color: Colors.black54,
+        color: Colors.black12,
         child: Row(children: [buildTitle(titleTop), buildTitle(titleBottom)]),
       ),
     );

@@ -92,8 +92,8 @@ class _GlassCoreAsImageState extends State<GlassCoreAsImage> with SingleTickerPr
           ?widget.wrapper,
 
           const SizedBox(
-            height: .maxFinite,
-            width: .maxFinite,
+            height: .infinity,
+            width: .infinity,
             child: ColoredBox(color: Colors.transparent),
           ),
         ],

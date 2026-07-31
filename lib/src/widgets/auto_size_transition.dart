@@ -69,13 +69,24 @@ class _AutoSizeTransitionState extends State<AutoSizeTransition> with TickerProv
     super.dispose();
   }
 
+  AlignmentGeometry get _alignment => switch (widget.slideFrom) {
+    .top => .topCenter,
+    .bottom => .bottomCenter,
+    .left => .centerLeft,
+    .right => .centerRight,
+  };
+
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-      axis: .horizontal,
-      sizeFactor: _animation,
-      alignment: .centerLeft,
-      child: widget.child,
+    final slideFrom = widget.slideFrom;
+    return Align(
+      alignment: .bottomCenter,
+      child: SizeTransition(
+        axis: slideFrom == .top || slideFrom == .bottom ? .vertical : .horizontal,
+        sizeFactor: _animation,
+        alignment: _alignment,
+        child: widget.child,
+      ),
     );
   }
 }

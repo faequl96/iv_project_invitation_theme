@@ -7,6 +7,7 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
+import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class GeminiStarFirstPage extends StatelessWidget {
   const GeminiStarFirstPage({super.key, required this.config, required this.general});
@@ -150,7 +151,7 @@ class GeminiStarFirstPage extends StatelessWidget {
     height: W.sm,
     width: Screen.height,
     child: ColoredBox(
-      color: Colors.black54,
+      color: Colors.grey.shade900.withValues(alpha: .05),
       child: Row(
         children: [
           const Spacer(),
@@ -163,7 +164,9 @@ class GeminiStarFirstPage extends StatelessWidget {
                 child: Text(
                   langCode == 'en' ? 'Intent and Purpose' : 'Maksud dan Tujuan',
                   style: AppFonts.inter(
-                    color: config.titlePageColor,
+                    color: isRight
+                        ? config.titlePageColor
+                        : ColorUtil.lighten(config.titlePageColor, 60),
                     fontSize: FontSize.x3l,
                     fontWeight: .w700,
                   ),

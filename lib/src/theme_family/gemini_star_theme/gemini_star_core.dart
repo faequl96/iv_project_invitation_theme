@@ -130,6 +130,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                       color: Colors.transparent,
                       alignment: .right,
                       offsetX: 14,
+                      marginX: 0,
                       elevation: 0,
                       borderRadius: 0,
                       border: .all(width: .5, color: Colors.transparent),
@@ -140,7 +141,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                       mainAxisSize: .min,
                       children: [
                         for (int i = 0; i < widget.navs.length; i++) ...[
-                          if (i != 0) const SizedBox(height: 3),
+                          // if (i != 0) const SizedBox(height: 3),
                           _buildNav(
                             index: i,
                             delayBeforeStart: Duration(milliseconds: 40 * (i + 1)),
@@ -190,24 +191,27 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
       animationSpeed: const Duration(milliseconds: 450),
       delayBeforeStart: delayBeforeStart,
       isNoNeedTrigger: true,
-      child: Padding(
-        padding: const .symmetric(horizontal: 4),
-        child: QuickButton(
-          onTap: () {
-            closeOverlay?.call();
-            _pageController?.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.ease,
-            );
-          },
-          style: .lite(
-            color: Colors.grey.shade800.withValues(alpha: .96),
-            padding: const .symmetric(vertical: 15, horizontal: 16),
-            border: .symmetric(horizontal: .new(color: Colors.grey.shade400, width: .75)),
-            elevation: 0,
+      child: ColoredBox(
+        color: Colors.black45,
+        child: Padding(
+          padding: const .symmetric(vertical: 1.5),
+          child: QuickButton(
+            onTap: () {
+              closeOverlay?.call();
+              _pageController?.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease,
+              );
+            },
+            style: .lite(
+              color: Colors.grey.shade800.withValues(alpha: .96),
+              padding: const .symmetric(vertical: 15, horizontal: 16),
+              border: .symmetric(horizontal: .new(color: Colors.grey.shade400, width: .75)),
+              elevation: 0,
+            ),
+            child: content,
           ),
-          child: content,
         ),
       ),
     ),

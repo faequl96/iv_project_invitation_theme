@@ -302,8 +302,7 @@ class GeminiStarFourthPageConfig {
 
 class GeminiStarFourthDifferentLocationPageConfig {
   const GeminiStarFourthDifferentLocationPageConfig({
-    this.foreground,
-    this.background,
+    this.decorationBuilder,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
@@ -333,8 +332,7 @@ class GeminiStarFourthDifferentLocationPageConfig {
     required this.getDirectionsButtonBorderColor,
   });
 
-  final Widget? foreground;
-  final Widget? background;
+  final Widget Function()? decorationBuilder;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;
@@ -410,8 +408,7 @@ class GeminiStarFifthPageConfig {
 
 class GeminiStarFifthDifferentLocationPageConfig {
   const GeminiStarFifthDifferentLocationPageConfig({
-    this.foreground,
-    this.background,
+    this.decorationBuilder,
     required this.firstGradientScaffoldColor,
     required this.secondGradientScaffoldColor,
     this.stopsGradientScaffoldColor,
@@ -441,8 +438,7 @@ class GeminiStarFifthDifferentLocationPageConfig {
     required this.getDirectionsButtonBorderColor,
   });
 
-  final Widget? foreground;
-  final Widget? background;
+  final Widget Function()? decorationBuilder;
   final Color firstGradientScaffoldColor;
   final Color secondGradientScaffoldColor;
   final List<double>? stopsGradientScaffoldColor;

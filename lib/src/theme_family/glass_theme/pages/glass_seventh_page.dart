@@ -193,7 +193,7 @@ class GlassSeventhPage extends StatelessWidget {
   );
 
   Widget _buildRsvpList(BuildContext context, String langCode) => SizedBox(
-    width: .maxFinite,
+    width: .infinity,
     child: Padding(
       padding: .symmetric(horizontal: W.x6s),
       child: DecoratedBox(
@@ -265,7 +265,7 @@ class GlassSeventhPage extends StatelessWidget {
                 );
               },
               style: QuickButtonStyle(
-                width: .maxFinite,
+                width: .infinity,
                 height: W.lg + H.x10s,
                 borderRadius: .circular(30),
                 border: .all(
@@ -649,7 +649,7 @@ class _RSVPFormState extends State<RSVPForm> {
       ? QuickButton(
           onTap: () {},
           style: QuickButtonStyle(
-            width: .maxFinite,
+            width: .infinity,
             height: W.lg + H.x10s,
             borderRadius: .circular(30),
             border: .all(
@@ -678,7 +678,7 @@ class _RSVPFormState extends State<RSVPForm> {
           builder: (context, isLoadingCreate) => QuickButton(
             onTap: _submit,
             style: QuickButtonStyle(
-              width: .maxFinite,
+              width: .infinity,
               height: W.lg + H.x10s,
               borderRadius: .circular(30),
               border: .all(
@@ -825,7 +825,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                 padding: const .symmetric(horizontal: 16, vertical: 8),
                 child: SizedBox(
                   height: .5,
-                  width: .maxFinite,
+                  width: .infinity,
                   child: ColoredBox(color: Colors.grey.shade500),
                 ),
               ),
@@ -858,7 +858,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   child: SizedBox(
                     height: .5,
-                    width: .maxFinite,
+                    width: .infinity,
                     child: ColoredBox(color: Colors.grey.shade500),
                   ),
                 ),
@@ -890,7 +890,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
                   padding: const .symmetric(horizontal: 16, vertical: 8),
                   child: SizedBox(
                     height: .5,
-                    width: .maxFinite,
+                    width: .infinity,
                     child: ColoredBox(color: Colors.grey.shade500),
                   ),
                 ),
@@ -1100,7 +1100,7 @@ class _RSVPItemSkeleton extends StatelessWidget {
                   children: [
                     Text('', style: AppFonts.inter(fontSize: FontSize.sm)),
                     Expanded(
-                      child: SkeletonBox(width: .maxFinite, height: FontSize.sm),
+                      child: SkeletonBox(width: .infinity, height: FontSize.sm),
                     ),
                     SizedBox(width: W.x4s),
                   ],
@@ -1109,7 +1109,7 @@ class _RSVPItemSkeleton extends StatelessWidget {
                   children: [
                     Text('', style: AppFonts.inter(fontSize: FontSize.sm)),
                     Expanded(
-                      child: SkeletonBox(width: .maxFinite, height: FontSize.sm),
+                      child: SkeletonBox(width: .infinity, height: FontSize.sm),
                     ),
                     SizedBox(width: W.x6s),
                   ],
@@ -1118,7 +1118,7 @@ class _RSVPItemSkeleton extends StatelessWidget {
                   children: [
                     Text('', style: AppFonts.inter(fontSize: FontSize.sm)),
                     Expanded(
-                      child: SkeletonBox(width: .maxFinite, height: FontSize.sm),
+                      child: SkeletonBox(width: .infinity, height: FontSize.sm),
                     ),
                     SizedBox(width: W.x6l),
                   ],

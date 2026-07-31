@@ -131,7 +131,7 @@ class EthnicSeventhPageAsImage extends StatelessWidget {
   );
 
   Widget _buildRsvpList(BuildContext context, String langCode) => SizedBox(
-    width: .maxFinite,
+    width: .infinity,
     child: Padding(
       padding: .symmetric(horizontal: W.x6s),
       child: DecoratedBox(
@@ -158,7 +158,7 @@ class EthnicSeventhPageAsImage extends StatelessWidget {
             QuickButton(
               onTap: () {},
               style: QuickButtonStyle(
-                width: .maxFinite,
+                width: .infinity,
                 height: W.lg + H.x10s,
                 borderRadius: .circular(30),
                 border: .all(
@@ -403,7 +403,7 @@ class _RSVPFormState extends State<RSVPForm> {
   Widget _submitButton() => QuickButton(
     onTap: () {},
     style: QuickButtonStyle(
-      width: .maxFinite,
+      width: .infinity,
       height: W.lg + H.x10s,
       borderRadius: .circular(30),
       border: .all(width: widget.submitButtonBorderWidth, color: widget.submitButtonBorderColor),
@@ -515,7 +515,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
               padding: const .symmetric(horizontal: 16, vertical: 8),
               child: SizedBox(
                 height: .5,
-                width: .maxFinite,
+                width: .infinity,
                 child: ColoredBox(color: Colors.grey.shade500),
               ),
             ),
