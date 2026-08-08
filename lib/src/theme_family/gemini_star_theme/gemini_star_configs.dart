@@ -67,104 +67,44 @@ class GeminiStarCoverPageConfig {
 class GeminiStarFirstPageConfig {
   const GeminiStarFirstPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.scaffoldBorderRadius = const .all(.circular(20)),
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
     required this.openingTextColor,
     required this.generalTextColor,
-    required this.firstSubScaffoldColor,
-    required this.firstSubScaffoldBorderColor,
-    required this.firstSubScaffoldBorderWidth,
-    required this.secondSubScaffoldColor,
-    required this.secondSubScaffoldBorderColor,
-    required this.secondSubScaffoldBorderWidth,
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final BorderRadiusGeometry scaffoldBorderRadius;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
   final Color openingTextColor;
   final Color generalTextColor;
-  final Color firstSubScaffoldColor;
-  final Color firstSubScaffoldBorderColor;
-  final double firstSubScaffoldBorderWidth;
-  final Color secondSubScaffoldColor;
-  final Color secondSubScaffoldBorderColor;
-  final double secondSubScaffoldBorderWidth;
 }
 
 class GeminiStarSecondPageConfig {
   const GeminiStarSecondPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
     required this.generalTextColor,
-    required this.brideDividingBorderWidth,
-    required this.brideImageBorderWidth,
-    required this.brideDividingLineWidth,
-    required this.brideDividingBorderColor,
-    required this.brideImageFrameColor,
-    required this.brideImageFrameBorderColor,
-    required this.brideDividingLineColor,
     required this.brideNameTextColor,
     required this.brideFatherNameTextColor,
     required this.brideMotherNameTextColor,
-    required this.groomDividingBorderWidth,
-    required this.groomImageBorderWidth,
-    required this.groomDividingLineWidth,
-    required this.groomDividingBorderColor,
-    required this.groomImageFrameColor,
-    required this.groomImageFrameBorderColor,
-    required this.groomDividingLineColor,
     required this.groomNameTextColor,
     required this.groomFatherNameTextColor,
     required this.groomMotherNameTextColor,
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
   final Color generalTextColor;
-  final double brideDividingBorderWidth;
-  final double brideImageBorderWidth;
-  final double brideDividingLineWidth;
-  final Color brideDividingBorderColor;
-  final Color brideImageFrameColor;
-  final Color brideImageFrameBorderColor;
-  final Color brideDividingLineColor;
   final Color? brideNameTextColor;
   final Color? brideFatherNameTextColor;
   final Color? brideMotherNameTextColor;
-  final double groomDividingBorderWidth;
-  final double groomImageBorderWidth;
-  final double groomDividingLineWidth;
-  final Color groomDividingBorderColor;
-  final Color groomImageFrameColor;
-  final Color groomImageFrameBorderColor;
-  final Color groomDividingLineColor;
   final Color? groomNameTextColor;
   final Color? groomFatherNameTextColor;
   final Color? groomMotherNameTextColor;
@@ -173,64 +113,26 @@ class GeminiStarSecondPageConfig {
 class GeminiStarThirdPageConfig {
   const GeminiStarThirdPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
     required this.generalTextColor,
-    required this.brideDividingBorderWidth,
-    required this.brideImageBorderWidth,
-    required this.brideDividingLineWidth,
-    required this.brideDividingBorderColor,
-    required this.brideImageFrameColor,
-    required this.brideImageFrameBorderColor,
-    required this.brideDividingLineColor,
     required this.brideNameTextColor,
     required this.brideFatherNameTextColor,
     required this.brideMotherNameTextColor,
-    required this.groomDividingBorderWidth,
-    required this.groomImageBorderWidth,
-    required this.groomDividingLineWidth,
-    required this.groomDividingBorderColor,
-    required this.groomImageFrameColor,
-    required this.groomImageFrameBorderColor,
-    required this.groomDividingLineColor,
     required this.groomNameTextColor,
     required this.groomFatherNameTextColor,
     required this.groomMotherNameTextColor,
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
   final Color generalTextColor;
-  final double brideDividingBorderWidth;
-  final double brideImageBorderWidth;
-  final double brideDividingLineWidth;
-  final Color brideDividingBorderColor;
-  final Color brideImageFrameColor;
-  final Color brideImageFrameBorderColor;
-  final Color brideDividingLineColor;
   final Color? brideNameTextColor;
   final Color? brideFatherNameTextColor;
   final Color? brideMotherNameTextColor;
-  final double groomDividingBorderWidth;
-  final double groomImageBorderWidth;
-  final double groomDividingLineWidth;
-  final Color groomDividingBorderColor;
-  final Color groomImageFrameColor;
-  final Color groomImageFrameBorderColor;
-  final Color groomDividingLineColor;
   final Color? groomNameTextColor;
   final Color? groomFatherNameTextColor;
   final Color? groomMotherNameTextColor;
@@ -239,20 +141,11 @@ class GeminiStarThirdPageConfig {
 class GeminiStarFourthPageConfig {
   const GeminiStarFourthPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
-    required this.contractTitleColor,
     required this.contractBaseTextColor,
-    required this.receptionTitleColor,
     required this.receptionBaseTextColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
     required this.contractCountdownBorderWidth,
     required this.contractCountdownOddColor,
     required this.contractCountdownEvenColor,
@@ -270,20 +163,11 @@ class GeminiStarFourthPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
-  final Color contractTitleColor;
   final Color contractBaseTextColor;
-  final Color receptionTitleColor;
   final Color receptionBaseTextColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
   final double contractCountdownBorderWidth;
   final Color contractCountdownOddColor;
   final Color contractCountdownEvenColor;
@@ -303,11 +187,6 @@ class GeminiStarFourthPageConfig {
 class GeminiStarFourthDifferentLocationPageConfig {
   const GeminiStarFourthDifferentLocationPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -320,12 +199,9 @@ class GeminiStarFourthDifferentLocationPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
     required this.placeIconColor,
     required this.placeBaseTextColor,
     required this.addressTextColor,
-    required this.mapsBorderColor,
     required this.getDirectionsButtonColor,
     required this.getDirectionsButtonLabelColor,
     required this.getDirectionsButtonBorderWidth,
@@ -333,11 +209,6 @@ class GeminiStarFourthDifferentLocationPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -350,12 +221,9 @@ class GeminiStarFourthDifferentLocationPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
   final Color placeIconColor;
   final Color placeBaseTextColor;
   final Color addressTextColor;
-  final Color mapsBorderColor;
   final Color getDirectionsButtonColor;
   final Color getDirectionsButtonLabelColor;
   final double getDirectionsButtonBorderWidth;
@@ -365,20 +233,12 @@ class GeminiStarFourthDifferentLocationPageConfig {
 class GeminiStarFifthPageConfig {
   const GeminiStarFifthPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
     required this.placeIconColor,
     required this.placeTextColor,
     required this.addressTextColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.mapsBorderColor,
     required this.getDirectionsButtonColor,
     required this.getDirectionsButtonLabelColor,
     required this.getDirectionsButtonBorderWidth,
@@ -386,20 +246,12 @@ class GeminiStarFifthPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
   final Color placeIconColor;
   final Color placeTextColor;
   final Color addressTextColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final Color mapsBorderColor;
   final Color getDirectionsButtonColor;
   final Color getDirectionsButtonLabelColor;
   final double getDirectionsButtonBorderWidth;
@@ -409,11 +261,6 @@ class GeminiStarFifthPageConfig {
 class GeminiStarFifthDifferentLocationPageConfig {
   const GeminiStarFifthDifferentLocationPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -426,12 +273,9 @@ class GeminiStarFifthDifferentLocationPageConfig {
     required this.countdownEvenBorderColor,
     required this.countdownNumberColor,
     required this.countdownUnitColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
     required this.placeIconColor,
     required this.placeBaseTextColor,
     required this.addressTextColor,
-    required this.mapsBorderColor,
     required this.getDirectionsButtonColor,
     required this.getDirectionsButtonLabelColor,
     required this.getDirectionsButtonBorderWidth,
@@ -439,11 +283,6 @@ class GeminiStarFifthDifferentLocationPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -456,12 +295,9 @@ class GeminiStarFifthDifferentLocationPageConfig {
   final Color countdownEvenBorderColor;
   final Color countdownNumberColor;
   final Color countdownUnitColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
   final Color placeIconColor;
   final Color placeBaseTextColor;
   final Color addressTextColor;
-  final Color mapsBorderColor;
   final Color getDirectionsButtonColor;
   final Color getDirectionsButtonLabelColor;
   final double getDirectionsButtonBorderWidth;
@@ -471,59 +307,20 @@ class GeminiStarFifthDifferentLocationPageConfig {
 class GeminiStarSixthPageConfig {
   const GeminiStarSixthPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
-    required this.bottomSheetBackgroundColor,
-    required this.bottomSheetCloseIconColor,
-    this.bottomSheetOnHoverCloseIconColor,
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
-  final Color bottomSheetBackgroundColor;
-  final Color bottomSheetCloseIconColor;
-  final Color? bottomSheetOnHoverCloseIconColor;
 }
 
 class GeminiStarSeventhPageConfig {
   const GeminiStarSeventhPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -539,11 +336,6 @@ class GeminiStarSeventhPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -561,11 +353,6 @@ class GeminiStarSeventhPageConfig {
 class GeminiStarEighthPageConfig {
   const GeminiStarEighthPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -605,11 +392,6 @@ class GeminiStarEighthPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;
@@ -651,11 +433,6 @@ class GeminiStarEighthPageConfig {
 class GeminiStarNinthPageConfig {
   const GeminiStarNinthPageConfig({
     this.decorationBuilder,
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
     this.firstGradientBackgroundColor,
     this.secondGradientBackgroundColor,
     required this.titlePageColor,
@@ -666,11 +443,6 @@ class GeminiStarNinthPageConfig {
   });
 
   final Widget Function()? decorationBuilder;
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
   final Color? firstGradientBackgroundColor;
   final Color? secondGradientBackgroundColor;
   final Color titlePageColor;

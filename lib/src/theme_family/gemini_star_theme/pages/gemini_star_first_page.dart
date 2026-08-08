@@ -166,7 +166,7 @@ class GeminiStarFirstPage extends StatelessWidget {
                   style: AppFonts.inter(
                     color: isRight
                         ? config.titlePageColor
-                        : ColorUtil.lighten(config.titlePageColor, 60),
+                        : ColorUtil.lighten(config.titlePageColor, 50),
                     fontSize: FontSize.x3l,
                     fontWeight: .w700,
                   ),

@@ -90,14 +90,7 @@ class GeminiStarSixthPage extends StatelessWidget {
                   child: Padding(
                     padding: const .only(),
                     child: AutoSizeTransition(
-                      child: _Gallery(
-                        dividingLineWidth: config.dividingLineWidth,
-                        dividingVerticalLineColor: config.dividingVerticalLineColor,
-                        dividingHorizontalLineColor: config.dividingHorizontalLineColor,
-                        viewType: viewType,
-                        galleries: galleries,
-                        gallery: gallery,
-                      ),
+                      child: _Gallery(viewType: viewType, galleries: galleries, gallery: gallery),
                     ),
                   ),
                 ),
@@ -200,18 +193,8 @@ class GeminiStarSixthPage extends StatelessWidget {
 }
 
 class _Gallery extends StatelessWidget {
-  const _Gallery({
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    required this.viewType,
-    this.galleries,
-    this.gallery,
-  });
+  const _Gallery({required this.viewType, this.galleries, this.gallery});
 
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
   final ViewType viewType;
   final List<File?>? galleries;
   final GalleryResponse? gallery;
