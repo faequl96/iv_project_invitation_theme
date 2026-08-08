@@ -178,7 +178,7 @@ class GeminiStarFifthDifferentLocationPage extends StatelessWidget {
                   Expanded(
                     child: Maps(
                       useBorder: false,
-                      borderColor: config.mapsBorderColor,
+                      borderColor: Colors.transparent,
                       width: .infinity,
                       height: .infinity,
                       delayBeforeStart: const Duration(milliseconds: 2200),

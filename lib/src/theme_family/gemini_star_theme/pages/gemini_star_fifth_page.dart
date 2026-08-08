@@ -90,7 +90,7 @@ class GeminiStarFifthPage extends StatelessWidget {
                     padding: .symmetric(horizontal: W.sm),
                     child: Maps(
                       useBorder: false,
-                      borderColor: config.mapsBorderColor,
+                      borderColor: Colors.transparent,
                       width: .infinity,
                       height: .infinity,
                       delayBeforeStart: const Duration(milliseconds: 1000),
@@ -182,12 +182,6 @@ class GeminiStarFifthPage extends StatelessWidget {
           fontSize: FontSize.xl,
           fontWeight: .w600,
         ),
-      ),
-      const SizedBox(height: 8),
-      SizedBox(
-        height: config.dividingLineWidth,
-        width: W.x18l,
-        child: ColoredBox(color: config.dividingLineColor),
       ),
     ],
   );

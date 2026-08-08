@@ -129,6 +129,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                       width: Screen.width,
                       color: Colors.transparent,
                       alignment: .right,
+                      offsetY: 0,
                       offsetX: 14,
                       marginX: 0,
                       elevation: 0,
@@ -140,15 +141,16 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                     contentBuilder: (context, {closeOverlay}) => Column(
                       mainAxisSize: .min,
                       children: [
-                        for (int i = 0; i < widget.navs.length; i++) ...[
-                          // if (i != 0) const SizedBox(height: 3),
+                        for (int i = 0; i < widget.navs.length; i++)
                           _buildNav(
                             index: i,
-                            delayBeforeStart: Duration(milliseconds: 40 * (i + 1)),
+                            isFirstItem: i == 0,
+                            isLastItem: i == widget.navs.length - 1,
+                            delayBeforeStart: Duration(milliseconds: 80 * (i + 1)),
+                            animationSpeed: Duration(milliseconds: 600 - (i * 50)),
                             content: widget.navs[i],
                             closeOverlay: closeOverlay,
                           ),
-                        ],
                       ],
                     ),
                     child: Icon(Icons.drag_handle_rounded, size: 40, color: Colors.grey.shade200),
@@ -180,7 +182,10 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
 
   Widget _buildNav({
     required int index,
+    bool isFirstItem = false,
+    bool isLastItem = false,
     required Duration delayBeforeStart,
+    required Duration animationSpeed,
     required Widget content,
     void Function()? closeOverlay,
   }) => SizedBox(
@@ -188,13 +193,13 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
     child: FadeAndSlideTransition(
       slideFromOffset: 1,
       slideFrom: .left,
-      animationSpeed: const Duration(milliseconds: 450),
+      animationSpeed: animationSpeed,
       delayBeforeStart: delayBeforeStart,
       isNoNeedTrigger: true,
       child: ColoredBox(
-        color: Colors.black45,
+        color: Colors.grey.shade100.withValues(alpha: .6),
         child: Padding(
-          padding: const .symmetric(vertical: 1.5),
+          padding: .only(top: isFirstItem ? 14 : 1.5, bottom: isLastItem ? 14 : 1.5),
           child: QuickButton(
             onTap: () {
               closeOverlay?.call();

@@ -217,7 +217,7 @@ class _GeminiStarSecondPageState extends State<GeminiStarSecondPage> {
     child: Row(
       crossAxisAlignment: .center,
       children: [
-        if (!isRight) SizedBox(width: H.x16l),
+        if (!isRight) SizedBox(width: H.x16l + W.sm),
         Expanded(
           child: ColoredBox(
             color: Colors.grey.shade400.withValues(alpha: .2),
@@ -247,7 +247,7 @@ class _GeminiStarSecondPageState extends State<GeminiStarSecondPage> {
             ),
           ),
         ),
-        if (isRight) SizedBox(width: H.x16l),
+        if (isRight) SizedBox(width: H.x16l + W.sm),
       ],
     ),
   );
