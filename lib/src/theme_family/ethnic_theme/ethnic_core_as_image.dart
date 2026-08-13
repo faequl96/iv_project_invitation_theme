@@ -2,29 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
 
-class EthnicCoreAsImage extends StatefulWidget {
-  const EthnicCoreAsImage({
-    super.key,
-    this.initialPage = 0,
-    this.wrapper,
-    this.backgrounds,
-    required this.tabConfig,
-    required this.page,
-    required this.tabsBuilder,
-  });
-
-  final int initialPage;
-  final Widget? wrapper;
-  final List<Widget>? backgrounds;
-  final EthnicTabConfig tabConfig;
-  final Widget page;
-  final List<Widget> Function(int tabActive) tabsBuilder;
-
+class const EthnicCoreAsImage({
+  super.key,
+  final int initialPage = 0,
+  final Widget? wrapper,
+  final List<Widget>? backgrounds,
+  required final EthnicTabConfig tabConfig,
+  required final Widget page,
+  required final List<Widget> Function(int tabActive) tabsBuilder,
+}) extends StatefulWidget {
   @override
   State<EthnicCoreAsImage> createState() => _EthnicCoreAsImageState();
 }
 
-class _EthnicCoreAsImageState extends State<EthnicCoreAsImage> with SingleTickerProviderStateMixin {
+class _EthnicCoreAsImageState()
+    extends State<EthnicCoreAsImage>
+    with SingleTickerProviderStateMixin {
   TabController? _tabController;
 
   List<Widget> _tabs = [];

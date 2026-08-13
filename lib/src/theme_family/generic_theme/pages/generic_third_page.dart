@@ -9,18 +9,12 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/generic_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GenericThirdPage extends StatelessWidget {
-  const GenericThirdPage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-    required this.receptionEvent,
-  });
-
-  final GenericThirdPageConfig config;
-  final EventResponse contractEvent;
-  final EventResponse receptionEvent;
-
+class const GenericThirdPage({
+  super.key,
+  required final GenericThirdPageConfig config,
+  required final EventResponse contractEvent,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

@@ -1,51 +1,34 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class ShowStars extends Equatable {
-  const ShowStars({
-    this.topLeft = true,
-    this.topRight = true,
-    this.bottomLeft = true,
-    this.bottomRight = true,
-  });
-
-  final bool topLeft;
-  final bool topRight;
-  final bool bottomLeft;
-  final bool bottomRight;
-
+class const ShowStars({
+  final bool topLeft = true,
+  final bool topRight = true,
+  final bool bottomLeft = true,
+  final bool bottomRight = true,
+}) extends Equatable {
   @override
   List<Object?> get props => [topLeft, topRight, bottomLeft, bottomRight];
 }
 
-class StarOffsets extends Equatable {
-  const StarOffsets({this.left = 0, this.right = 0, this.top = 0, this.bottom = 0});
-
-  final double left;
-  final double right;
-  final double top;
-  final double bottom;
-
+class const StarOffsets({
+  final double left = 0,
+  final double right = 0,
+  final double top = 0,
+  final double bottom = 0,
+}) extends Equatable {
   @override
   List<Object?> get props => [left, right, top, bottom];
 }
 
-class GeminiStarFrame extends StatelessWidget {
-  const GeminiStarFrame({
-    super.key,
-    this.color = Colors.grey,
-    this.lineWidth = .5,
-    this.starRadius = 22,
-    this.showStars = const ShowStars(),
-    this.starOffsets = const StarOffsets(),
-  });
-
-  final Color color;
-  final double lineWidth;
-  final double starRadius;
-  final ShowStars showStars;
-  final StarOffsets starOffsets;
-
+class const GeminiStarFrame({
+  super.key,
+  final Color color = Colors.grey,
+  final double lineWidth = .5,
+  final double starRadius = 22,
+  final ShowStars showStars = const ShowStars(),
+  final StarOffsets starOffsets = const StarOffsets(),
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRect(
@@ -62,14 +45,14 @@ class GeminiStarFrame extends StatelessWidget {
   }
 }
 
-class _GeminiStarFramePainter extends CustomPainter {
-  _GeminiStarFramePainter({
-    required this.color,
-    required this.lineWidth,
-    required this.starRadius,
-    required this.showStars,
-    required this.starOffsets,
-  }) {
+class _GeminiStarFramePainter({
+  required final Color color,
+  required final double lineWidth,
+  required final double starRadius,
+  required final ShowStars showStars,
+  required final StarOffsets starOffsets,
+}) extends CustomPainter {
+  this {
     _framePaint = Paint()
       ..color = color
       ..strokeWidth = lineWidth
@@ -83,11 +66,6 @@ class _GeminiStarFramePainter extends CustomPainter {
       ..isAntiAlias = true;
   }
 
-  final Color color;
-  final double lineWidth;
-  final double starRadius;
-  final ShowStars showStars;
-  final StarOffsets starOffsets;
   late final Paint _framePaint;
   late final Paint _starPaint;
 

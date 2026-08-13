@@ -15,22 +15,14 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/as_image/ethnic_third_page_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicThemeAsImage extends StatelessWidget {
-  const EthnicThemeAsImage({
+class const EthnicThemeAsImage({
     super.key,
-    required this.configs,
-    this.initialPage = 0,
-    required this.useWrapper,
-    required this.invitationData,
-    required this.brandProfile,
-  });
-
-  final EthnicConfigs configs;
-  final int initialPage;
-  final bool useWrapper;
-  final InvitationDataResponse invitationData;
-  final BrandProfileResponse brandProfile;
-
+    required final EthnicConfigs configs,
+    final int initialPage = 0,
+    required final bool useWrapper,
+    required final InvitationDataResponse invitationData,
+    required final BrandProfileResponse brandProfile,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -161,21 +153,13 @@ class EthnicThemeAsImage extends StatelessWidget {
   );
 }
 
-class _Tab extends StatelessWidget {
-  const _Tab({
-    required this.config,
-    required this.title,
-    required this.icon,
-    required this.tabIndex,
-    required this.tabActive,
-  });
-
-  final EthnicTabConfig config;
-  final String title;
-  final IconData icon;
-  final int tabIndex;
-  final int tabActive;
-
+class const _Tab({
+    required final EthnicTabConfig config,
+    required final String title,
+    required final IconData icon,
+    required final int tabIndex,
+    required final int tabActive,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

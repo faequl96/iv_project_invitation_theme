@@ -5,18 +5,12 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicThirdPageAsImage extends StatelessWidget {
-  const EthnicThirdPageAsImage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-    required this.receptionEvent,
-  });
-
-  final EthnicThirdPageConfig config;
-  final EventResponse contractEvent;
-  final EventResponse receptionEvent;
-
+class const EthnicThirdPageAsImage({
+  super.key,
+  required final EthnicThirdPageConfig config,
+  required final EventResponse contractEvent,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

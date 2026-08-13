@@ -6,8 +6,8 @@ import 'package:iv_project_core/iv_project_core.dart';
 
 part 'invitation_theme_core_state.dart';
 
-class InvitationThemeCoreCubit extends Cubit<InvitationThemeCoreState> {
-  InvitationThemeCoreCubit() : super(const InvitationThemeCoreState());
+class InvitationThemeCoreCubit() extends Cubit<InvitationThemeCoreState> {
+  this : super(const InvitationThemeCoreState());
 
   void emitState(InvitationThemeCoreState state) => emit(state);
 }

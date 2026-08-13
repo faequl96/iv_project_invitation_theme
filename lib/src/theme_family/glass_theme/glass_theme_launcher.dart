@@ -7,26 +7,16 @@ import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/themes/
 import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/themes/red_velvet_glass.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GlassThemeLauncher extends StatelessWidget {
-  const GlassThemeLauncher({
-    super.key,
-    this.heightAdjustment = 0,
-    required this.viewType,
-    required this.invitationThemeId,
-    required this.invitationId,
-    required this.invitationData,
-    this.imagesRaw,
-    required this.brandProfile,
-  });
-
-  final double heightAdjustment;
-  final ViewType viewType;
-  final int invitationThemeId;
-  final String invitationId;
-  final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
-  final BrandProfileResponse brandProfile;
-
+class const GlassThemeLauncher({
+  super.key,
+  final double heightAdjustment = 0,
+  required final ViewType viewType,
+  required final int invitationThemeId,
+  required final String invitationId,
+  required final InvitationDataResponse invitationData,
+  final ImagesRaw? imagesRaw,
+  required final BrandProfileResponse brandProfile,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = GlassTheme(

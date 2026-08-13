@@ -3,30 +3,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
-import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GeminiStarCore extends StatefulWidget {
-  const GeminiStarCore({
+class const GeminiStarCore({
     super.key,
-    required this.wrapper,
-    this.backgrounds,
-    this.particleSphere,
-    required this.pages,
-    required this.navs,
-  });
-
-  final Widget wrapper;
-  final List<Widget>? backgrounds;
-  final ParticleSphereConfig? particleSphere;
-  final List<Widget> pages;
-  final List<Widget> navs;
-
+    required final Widget wrapper,
+    final List<Widget>? backgrounds,
+    required final List<Widget> pages,
+    required final List<Widget> navs,
+  }) extends StatefulWidget {
   @override
   State<GeminiStarCore> createState() => _GeminiStarCoreState();
 }
 
-class _GeminiStarCoreState extends State<GeminiStarCore> {
+class _GeminiStarCoreState() extends State<GeminiStarCore> {
   PageController? _pageController;
 
   late final ValueNotifier<int> _indexActive;
@@ -96,29 +86,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
               children: [
                 ...?widget.backgrounds,
 
-                if (widget.particleSphere != null) ...[
-                  if (widget.particleSphere!.type == .circle)
-                    ClipRect(
-                      child: CircleParticleSphere(
-                        config: widget.particleSphere!,
-                        initialPage: 0,
-                        viewAsSinglePage: false,
-                        useWrapper: true,
-                        child: _buildPage,
-                      ),
-                    )
-                  else
-                    ClipRect(
-                      child: ImageParticleSphere(
-                        config: widget.particleSphere!,
-                        initialPage: 0,
-                        viewAsSinglePage: false,
-                        useWrapper: true,
-                        child: _buildPage,
-                      ),
-                    ),
-                ] else
-                  _buildPage,
+                _buildPage,
 
                 Positioned(
                   top: 10,
@@ -129,7 +97,6 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                       width: Screen.width,
                       color: Colors.transparent,
                       alignment: .right,
-                      offsetY: 0,
                       offsetX: 14,
                       marginX: 0,
                       elevation: 0,
@@ -146,8 +113,8 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
                             index: i,
                             isFirstItem: i == 0,
                             isLastItem: i == widget.navs.length - 1,
-                            delayBeforeStart: Duration(milliseconds: 80 * (i + 1)),
-                            animationSpeed: Duration(milliseconds: 600 - (i * 50)),
+                            delayBeforeStart: Duration(milliseconds: 80 * i),
+                            animationSpeed: Duration(milliseconds: 500 - (i * 50)),
                             content: widget.navs[i],
                             closeOverlay: closeOverlay,
                           ),
@@ -174,9 +141,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
       itemCount: widget.pages.length,
       scrollDirection: .vertical,
       itemBuilder: (_, i) => widget.pages[i],
-      onPageChanged: (index) {
-        _indexActive.value = index;
-      },
+      onPageChanged: (index) => _indexActive.value = index,
     ),
   );
 
@@ -197,7 +162,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
       delayBeforeStart: delayBeforeStart,
       isNoNeedTrigger: true,
       child: ColoredBox(
-        color: Colors.grey.shade100.withValues(alpha: .6),
+        color: Colors.grey.shade300.withValues(alpha: .7),
         child: Padding(
           padding: .only(top: isFirstItem ? 14 : 1.5, bottom: isLastItem ? 14 : 1.5),
           child: QuickButton(
@@ -212,7 +177,7 @@ class _GeminiStarCoreState extends State<GeminiStarCore> {
             style: .lite(
               color: Colors.grey.shade800.withValues(alpha: .96),
               padding: const .symmetric(vertical: 15, horizontal: 16),
-              border: .symmetric(horizontal: .new(color: Colors.grey.shade400, width: .75)),
+              border: .symmetric(horizontal: .new(color: Colors.grey.shade50, width: .75)),
               elevation: 0,
             ),
             child: content,

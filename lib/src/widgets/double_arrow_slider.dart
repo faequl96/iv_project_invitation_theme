@@ -2,33 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class DoubleArrowSlider extends StatefulWidget {
-  const DoubleArrowSlider({
-    super.key,
-    this.axis = .vertical,
-    required this.firstArrowColor,
-    required this.secondArrowColor,
-    this.arrowSize = 44,
-    this.sliderPathLength = 60,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    this.animationInterval = const Duration(milliseconds: 500),
-    this.staticValue,
-  });
-
-  final Axis axis;
-  final Color firstArrowColor;
-  final Color secondArrowColor;
-  final double arrowSize;
-  final double sliderPathLength;
-  final Duration animationSpeed;
-  final Duration animationInterval;
-  final double? staticValue;
-
+class const DoubleArrowSlider({
+  super.key,
+  final Axis axis = .vertical,
+  required final Color firstArrowColor,
+  required final Color secondArrowColor,
+  final double arrowSize = 44,
+  final double sliderPathLength = 60,
+  final Duration animationSpeed = const Duration(milliseconds: 500),
+  final Duration animationInterval = const Duration(milliseconds: 500),
+  final double? staticValue,
+}) extends StatefulWidget {
   @override
   State<DoubleArrowSlider> createState() => _DoubleArrowSliderState();
 }
 
-class _DoubleArrowSliderState extends State<DoubleArrowSlider> with SingleTickerProviderStateMixin {
+class _DoubleArrowSliderState()
+    extends State<DoubleArrowSlider>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
 

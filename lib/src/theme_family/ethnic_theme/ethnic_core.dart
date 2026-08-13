@@ -4,27 +4,19 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_configs.dart';
 
-class EthnicCore extends StatefulWidget {
-  const EthnicCore({
+class const EthnicCore({
     super.key,
-    required this.wrapper,
-    this.backgrounds,
-    required this.tabConfig,
-    required this.pages,
-    required this.tabsBuilder,
-  });
-
-  final Widget wrapper;
-  final List<Widget>? backgrounds;
-  final EthnicTabConfig tabConfig;
-  final List<Widget> pages;
-  final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
-
+    required final Widget wrapper,
+    final List<Widget>? backgrounds,
+    required final EthnicTabConfig tabConfig,
+    required final List<Widget> pages,
+    required final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder,
+  }) extends StatefulWidget {
   @override
   State<EthnicCore> createState() => _EthnicCoreState();
 }
 
-class _EthnicCoreState extends State<EthnicCore> with SingleTickerProviderStateMixin {
+class _EthnicCoreState() extends State<EthnicCore> with SingleTickerProviderStateMixin {
   TabController? _tabController;
   PageController? _pageController;
 

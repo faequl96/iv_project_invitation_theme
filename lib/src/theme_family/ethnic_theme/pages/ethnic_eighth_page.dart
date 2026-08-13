@@ -6,22 +6,14 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicEighthPage extends StatelessWidget {
-  const EthnicEighthPage({
+class const EthnicEighthPage({
     super.key,
-    required this.config,
-    required this.general,
-    required this.brideName,
-    required this.groomName,
-    required this.brandProfile,
-  });
-
-  final EthnicEighthPageConfig config;
-  final GeneralResponse general;
-  final String brideName;
-  final String groomName;
-  final BrandProfileResponse brandProfile;
-
+    required final EthnicEighthPageConfig config,
+    required final GeneralResponse general,
+    required final String brideName,
+    required final String groomName,
+    required final BrandProfileResponse brandProfile,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

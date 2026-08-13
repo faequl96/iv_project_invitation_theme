@@ -12,16 +12,11 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GeminiStarFourthDifferentLocationPage extends StatelessWidget {
-  const GeminiStarFourthDifferentLocationPage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-  });
-
-  final GeminiStarFourthDifferentLocationPageConfig config;
-  final EventResponse contractEvent;
-
+class const GeminiStarFourthDifferentLocationPage({
+  super.key,
+  required final GeminiStarFourthDifferentLocationPageConfig config,
+  required final EventResponse contractEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

@@ -3,22 +3,14 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class BridegroomName extends StatelessWidget {
-  const BridegroomName({
-    super.key,
-    required this.brideNameColor,
-    required this.groomNameColor,
-    required this.bride,
-    required this.groom,
-    required this.noAnimate,
-  });
-
-  final Color brideNameColor;
-  final Color groomNameColor;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final bool noAnimate;
-
+class const BridegroomName({
+  super.key,
+  required final Color brideNameColor,
+  required final Color groomNameColor,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+  required final bool noAnimate,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (noAnimate) {

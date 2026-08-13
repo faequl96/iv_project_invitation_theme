@@ -12,20 +12,13 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GenericFifthPage extends StatelessWidget {
-  const GenericFifthPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.galleries,
-    this.gallery,
-  });
-
-  final GenericFifthPageConfig config;
-  final ViewType viewType;
-  final List<File?>? galleries;
-  final GalleryResponse? gallery;
-
+class const GenericFifthPage({
+  super.key,
+  required final GenericFifthPageConfig config,
+  required final ViewType viewType,
+  final List<File?>? galleries,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -251,25 +244,15 @@ class GenericFifthPage extends StatelessWidget {
   );
 }
 
-class _Gallery extends StatelessWidget {
-  const _Gallery({
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    this.isShowMore = false,
-    required this.viewType,
-    this.galleries,
-    this.gallery,
-  });
-
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final bool isShowMore;
-  final ViewType viewType;
-  final List<File?>? galleries;
-  final GalleryResponse? gallery;
-
+class const _Gallery({
+  required final double dividingLineWidth,
+  required final Color dividingVerticalLineColor,
+  required final Color dividingHorizontalLineColor,
+  final bool isShowMore = false,
+  required final ViewType viewType,
+  final List<File?>? galleries,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -606,14 +589,12 @@ class _Gallery extends StatelessWidget {
   }
 }
 
-class _ImageViewer extends StatelessWidget {
-  const _ImageViewer({required this.id, required this.viewType, this.image, this.imageUrl});
-
-  final int id;
-  final ViewType viewType;
-  final File? image;
-  final String? imageUrl;
-
+class const _ImageViewer({
+  required final int id,
+  required final ViewType viewType,
+  final File? image,
+  final String? imageUrl,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(borderRadius: .circular(8), child: _content(context, 'image_$id'));

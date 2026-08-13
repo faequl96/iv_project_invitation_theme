@@ -3,22 +3,14 @@ import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/gener
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/floral_canvas.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GenericThemeLauncherAsImage extends StatelessWidget {
-  const GenericThemeLauncherAsImage({
-    super.key,
-    this.initialPage = 0,
-    required this.useWrapper,
-    required this.invitationThemeId,
-    required this.invitationData,
-    required this.brandProfile,
-  });
-
-  final int initialPage;
-  final bool useWrapper;
-  final int invitationThemeId;
-  final InvitationDataResponse invitationData;
-  final BrandProfileResponse brandProfile;
-
+class const GenericThemeLauncherAsImage({
+  super.key,
+  final int initialPage = 0,
+  required final bool useWrapper,
+  required final int invitationThemeId,
+  required final InvitationDataResponse invitationData,
+  required final BrandProfileResponse brandProfile,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final content = GenericThemeAsImage(

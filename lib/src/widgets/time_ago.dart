@@ -2,16 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 
-class TimeAgo extends StatelessWidget {
-  const TimeAgo({
-    super.key,
-    required this.dateTime,
-    this.textStyle = const TextStyle(fontSize: 13),
-  });
-
-  final DateTime dateTime;
-  final TextStyle textStyle;
-
+class const TimeAgo({
+  super.key,
+  required final DateTime dateTime,
+  final TextStyle textStyle = const TextStyle(fontSize: 13),
+}) extends StatelessWidget {
   String _timeAgo(DateTime dateTime, Locale locale) {
     final now = DateTime.now();
     final diff = now.difference(dateTime);

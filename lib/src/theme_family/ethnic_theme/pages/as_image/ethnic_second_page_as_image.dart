@@ -7,18 +7,12 @@ import 'package:iv_project_invitation_theme/src/widgets/animated_inviter.dart';
 import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicSecondPageAsImage extends StatelessWidget {
-  const EthnicSecondPageAsImage({
-    super.key,
-    required this.config,
-    required this.bride,
-    required this.groom,
-  });
-
-  final EthnicSecondPageConfig config;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-
+class const EthnicSecondPageAsImage({
+  super.key,
+  required final EthnicSecondPageConfig config,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

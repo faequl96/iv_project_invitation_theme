@@ -5,9 +5,7 @@ import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class BlueSkyGlass {
-  BlueSkyGlass._();
-
+class BlueSkyGlass._() {
   static GlassConfigs get configs => GlassConfigs(
     tabConfig: GlassTabConfig(
       indicatorColor: Colors.blue.shade50,

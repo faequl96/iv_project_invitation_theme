@@ -12,16 +12,11 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GenericThirdDifferentLocationPage extends StatelessWidget {
-  const GenericThirdDifferentLocationPage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-  });
-
-  final GenericThirdDifferentLocationPageConfig config;
-  final EventResponse contractEvent;
-
+class const GenericThirdDifferentLocationPage({
+  super.key,
+  required final GenericThirdDifferentLocationPageConfig config,
+  required final EventResponse contractEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

@@ -4,31 +4,22 @@ import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/gener
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
-class GenericCoreAsImage extends StatefulWidget {
-  const GenericCoreAsImage({
-    super.key,
-    this.initialPage = 0,
-    this.wrapper,
-    this.backgrounds,
-    this.particleSphere,
-    required this.tabConfig,
-    required this.page,
-    required this.tabsBuilder,
-  });
-
-  final int initialPage;
-  final Widget? wrapper;
-  final List<Widget>? backgrounds;
-  final ParticleSphereConfig? particleSphere;
-  final GenericTabConfig tabConfig;
-  final Widget page;
-  final List<Widget> Function(int tabActive) tabsBuilder;
-
+class const GenericCoreAsImage({
+  super.key,
+  final int initialPage = 0,
+  final Widget? wrapper,
+  final List<Widget>? backgrounds,
+  final ParticleSphereConfig? particleSphere,
+  required final GenericTabConfig tabConfig,
+  required final Widget page,
+  required final List<Widget> Function(int tabActive) tabsBuilder,
+}) extends StatefulWidget {
   @override
   State<GenericCoreAsImage> createState() => _GenericCoreAsImageState();
 }
 
-class _GenericCoreAsImageState extends State<GenericCoreAsImage>
+class _GenericCoreAsImageState()
+    extends State<GenericCoreAsImage>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
 

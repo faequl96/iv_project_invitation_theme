@@ -7,12 +7,11 @@ import 'package:iv_project_invitation_theme/src/widgets/maps.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GlassFourthPageAsImage extends StatelessWidget {
-  const GlassFourthPageAsImage({super.key, required this.config, required this.receptionEvent});
-
-  final GlassFourthPageConfig config;
-  final EventResponse receptionEvent;
-
+class const GlassFourthPageAsImage({
+  super.key,
+  required final GlassFourthPageConfig config,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

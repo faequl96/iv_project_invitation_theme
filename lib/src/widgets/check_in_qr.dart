@@ -5,9 +5,7 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class CheckInQr {
-  const CheckInQr._();
-
+class const CheckInQr._() {
   static void show(BuildContext context) {
     FloatingOverlay.showBottomSheet(
       context,
@@ -30,9 +28,7 @@ class CheckInQr {
   }
 }
 
-class _CheckInQrContent extends StatelessWidget {
-  const _CheckInQrContent();
-
+class const _CheckInQrContent() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeCubit = context.read<LocaleCubit>();

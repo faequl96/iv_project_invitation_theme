@@ -9,18 +9,12 @@ import 'package:iv_project_invitation_theme/src/widgets/countdown_timers_grid.da
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GeminiStarFourthPage extends StatelessWidget {
-  const GeminiStarFourthPage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-    required this.receptionEvent,
-  });
-
-  final GeminiStarFourthPageConfig config;
-  final EventResponse contractEvent;
-  final EventResponse receptionEvent;
-
+class const GeminiStarFourthPage({
+  super.key,
+  required final GeminiStarFourthPageConfig config,
+  required final EventResponse contractEvent,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

@@ -1,6 +1,6 @@
 import 'package:just_audio/just_audio.dart';
 
-class Audio {
+class Audio() {
   static final player = AudioPlayer();
 
   static void setupAudioPlayer(String audioUrl) async {

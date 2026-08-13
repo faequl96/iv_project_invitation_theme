@@ -2,22 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme_launcher_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class InvitationThemeAsImageLauncher extends StatelessWidget {
-  const InvitationThemeAsImageLauncher({
-    super.key,
-    this.initialPage = 0,
-    this.useWrapper = true,
-    required this.invitationThemeId,
-    required this.invitationData,
-    required this.brandProfile,
-  });
-
-  final int initialPage;
-  final bool useWrapper;
-  final int invitationThemeId;
-  final InvitationDataResponse invitationData;
-  final BrandProfileResponse brandProfile;
-
+class const InvitationThemeAsImageLauncher({
+  super.key,
+  final int initialPage = 0,
+  final bool useWrapper = true,
+  required final int invitationThemeId,
+  required final InvitationDataResponse invitationData,
+  required final BrandProfileResponse brandProfile,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MediaQuery(

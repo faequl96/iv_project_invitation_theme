@@ -18,31 +18,21 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/ethnic_third_page.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicTheme extends StatefulWidget {
-  const EthnicTheme({
+class const EthnicTheme({
     super.key,
-    required this.configs,
-    this.heightAdjustment = 0,
-    required this.viewType,
-    required this.invitationId,
-    required this.invitationData,
-    this.imagesRaw,
-    required this.brandProfile,
-  });
-
-  final EthnicConfigs configs;
-  final double heightAdjustment;
-  final ViewType viewType;
-  final String invitationId;
-  final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
-  final BrandProfileResponse brandProfile;
-
+    required final EthnicConfigs configs,
+    final double heightAdjustment = 0,
+    required final ViewType viewType,
+    required final String invitationId,
+    required final InvitationDataResponse invitationData,
+    final ImagesRaw? imagesRaw,
+    required final BrandProfileResponse brandProfile,
+  }) extends StatefulWidget {
   @override
   State<EthnicTheme> createState() => _EthnicThemeState();
 }
 
-class _EthnicThemeState extends State<EthnicTheme> with WidgetsBindingObserver {
+class _EthnicThemeState() extends State<EthnicTheme> with WidgetsBindingObserver {
   late final InvitationThemeCoreCubit _coreCubit;
 
   bool _isGalleriesNotEmpty = false;
@@ -253,21 +243,13 @@ class _EthnicThemeState extends State<EthnicTheme> with WidgetsBindingObserver {
   );
 }
 
-class _Tab extends StatelessWidget {
-  const _Tab({
-    required this.config,
-    required this.title,
-    required this.icon,
-    required this.tabIndex,
-    required this.tabActive,
-  });
-
-  final EthnicTabConfig config;
-  final String title;
-  final IconData icon;
-  final int tabIndex;
-  final ValueNotifier<int> tabActive;
-
+class const _Tab({
+    required final EthnicTabConfig config,
+    required final String title,
+    required final IconData icon,
+    required final int tabIndex,
+    required final ValueNotifier<int> tabActive,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

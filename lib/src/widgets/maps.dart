@@ -4,29 +4,20 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:latlong2/latlong.dart';
 
-class Maps extends StatefulWidget {
-  const Maps({
-    super.key,
-    this.useBorder = true,
-    required this.borderColor,
-    required this.height,
-    required this.width,
-    this.delayBeforeStart = .zero,
-    required this.url,
-  });
-
-  final bool useBorder;
-  final Color borderColor;
-  final double height;
-  final double width;
-  final Duration delayBeforeStart;
-  final String url;
-
+class const Maps({
+  super.key,
+  final bool useBorder = true,
+  required final Color borderColor,
+  required final double height,
+  required final double width,
+  final Duration delayBeforeStart = .zero,
+  required final String url,
+}) extends StatefulWidget {
   @override
   State<Maps> createState() => _MapsState();
 }
 
-class _MapsState extends State<Maps> {
+class _MapsState() extends State<Maps> {
   LatLng? _getLatLngFromGoogleMaps(String url) {
     final uri = Uri.parse(url);
     final path = uri.path;
@@ -147,27 +138,19 @@ class _MapsState extends State<Maps> {
   }
 }
 
-class MapsWidget extends StatefulWidget {
-  const MapsWidget({
-    super.key,
-    required this.latitude,
-    required this.longitude,
-    required this.height,
-    required this.width,
-    required this.delayBeforeStart,
-  });
-
-  final double latitude;
-  final double longitude;
-  final double height;
-  final double width;
-  final Duration delayBeforeStart;
-
+class const MapsWidget({
+  super.key,
+  required final double latitude,
+  required final double longitude,
+  required final double height,
+  required final double width,
+  required final Duration delayBeforeStart,
+}) extends StatefulWidget {
   @override
   State<MapsWidget> createState() => _MapsWidgetState();
 }
 
-class _MapsWidgetState extends State<MapsWidget> {
+class _MapsWidgetState() extends State<MapsWidget> {
   bool _initComplete = false;
 
   @override

@@ -4,27 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
-class AutoSizeTransition extends StatefulWidget {
-  const AutoSizeTransition({
-    super.key,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    this.delayBeforeStart = .zero,
-    this.slideFrom = .left,
-    this.isNoNeedTrigger = false,
-    required this.child,
-  });
-
-  final Duration animationSpeed;
-  final Duration delayBeforeStart;
-  final SlideFrom slideFrom;
-  final bool isNoNeedTrigger;
-  final Widget child;
-
+class const AutoSizeTransition({
+  super.key,
+  final Duration animationSpeed = const Duration(milliseconds: 500),
+  final Duration delayBeforeStart = .zero,
+  final SlideFrom slideFrom = .left,
+  final bool isNoNeedTrigger = false,
+  required final Widget child,
+}) extends StatefulWidget {
   @override
   State<AutoSizeTransition> createState() => _AutoSizeTransitionState();
 }
 
-class _AutoSizeTransitionState extends State<AutoSizeTransition> with TickerProviderStateMixin {
+class _AutoSizeTransitionState() extends State<AutoSizeTransition> with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 
   late final AnimationController _controller;

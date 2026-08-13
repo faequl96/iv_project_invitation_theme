@@ -4,26 +4,16 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/random_slide_transition.dart';
 
-class BubbleBackground extends StatelessWidget {
-  const BubbleBackground({
-    super.key,
-    required this.backgroundColor,
-    required this.bubbleColor1,
-    required this.bubbleColor2,
-    required this.bubbleColor3,
-    required this.bubbleColor4,
-    required this.bubbleColor5,
-    required this.noAnimate,
-  });
-
-  final Color backgroundColor;
-  final Color bubbleColor1;
-  final Color bubbleColor2;
-  final Color bubbleColor3;
-  final Color bubbleColor4;
-  final Color bubbleColor5;
-  final bool noAnimate;
-
+class const BubbleBackground({
+  super.key,
+  required final Color backgroundColor,
+  required final Color bubbleColor1,
+  required final Color bubbleColor2,
+  required final Color bubbleColor3,
+  required final Color bubbleColor4,
+  required final Color bubbleColor5,
+  required final bool noAnimate,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
@@ -120,11 +110,11 @@ class BubbleBackground extends StatelessWidget {
 }
 
 class Bubble extends StatelessWidget {
-  const Bubble.fill({super.key, required this.size, required this.color})
+  const new fill({super.key, required this.size, required this.color})
     : isBorder = false,
       borderWidth = 0;
 
-  const Bubble.border({super.key, required this.size, required this.color, this.borderWidth = 2})
+  const new border({super.key, required this.size, required this.color, this.borderWidth = 2})
     : isBorder = true;
 
   final bool isBorder;
@@ -148,13 +138,11 @@ class Bubble extends StatelessWidget {
   }
 }
 
-class _NoAnimateWrapper extends StatelessWidget {
-  const _NoAnimateWrapper({required this.noAnimate, this.maxSlideOffset = .5, required this.child});
-
-  final bool noAnimate;
-  final double maxSlideOffset;
-  final Widget child;
-
+class const _NoAnimateWrapper({
+  required final bool noAnimate,
+  final double maxSlideOffset = .5,
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (noAnimate) return child;

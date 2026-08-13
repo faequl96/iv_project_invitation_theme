@@ -11,24 +11,15 @@ import 'package:iv_project_invitation_theme/src/widgets/animated_photo_sequence.
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicSecondPage extends StatelessWidget {
-  const EthnicSecondPage({
+class const EthnicSecondPage({
     super.key,
-    required this.config,
-    required this.viewType,
-    this.brideImage,
-    this.groomImage,
-    required this.bride,
-    required this.groom,
-  });
-
-  final EthnicSecondPageConfig config;
-  final ViewType viewType;
-  final File? brideImage;
-  final File? groomImage;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-
+    required final EthnicSecondPageConfig config,
+    required final ViewType viewType,
+    final File? brideImage,
+    final File? groomImage,
+    required final BridegroomResponse bride,
+    required final BridegroomResponse groom,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

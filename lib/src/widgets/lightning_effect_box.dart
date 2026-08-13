@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
 
-class LightningEffectBox extends StatefulWidget {
-  const LightningEffectBox({
-    super.key,
-    required this.width,
-    required this.height,
-    this.borderRadius = 6,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    this.animationInterval = const Duration(milliseconds: 2000),
-    this.delayBeforeShowed = .zero,
-    this.ligthningLength = .2,
-    this.ligthningWidth = .5,
-    this.ligthningColor = Colors.white,
-    this.isFlash = false,
-    this.staticValue,
-  });
-
-  final double width;
-  final double height;
-  final double borderRadius;
-  final Duration animationSpeed;
-  final Duration animationInterval;
-  final Duration delayBeforeShowed;
-  final double ligthningLength;
-  final double ligthningWidth;
-  final Color ligthningColor;
-  final bool isFlash;
-  final double? staticValue;
-
+class const LightningEffectBox({
+  super.key,
+  required final double width,
+  required final double height,
+  final double borderRadius = 6,
+  final Duration animationSpeed = const Duration(milliseconds: 500),
+  final Duration animationInterval = const Duration(milliseconds: 2000),
+  final Duration delayBeforeShowed = .zero,
+  final double ligthningLength = .2,
+  final double ligthningWidth = .5,
+  final Color ligthningColor = Colors.white,
+  final bool isFlash = false,
+  final double? staticValue,
+}) extends StatefulWidget {
   @override
   State<LightningEffectBox> createState() => _LightningEffectBoxState();
 }
 
-class _LightningEffectBoxState extends State<LightningEffectBox>
+class _LightningEffectBoxState()
+    extends State<LightningEffectBox>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
@@ -115,20 +102,14 @@ class _LightningEffectBoxState extends State<LightningEffectBox>
   }
 }
 
-class _LightningPainter extends CustomPainter {
-  _LightningPainter({
-    required this.animation,
-    required this.borderRadius,
-    required this.ligthningLength,
-    required this.ligthningWidth,
-    required this.ligthningColor,
-  }) : super(repaint: animation);
-
-  final Animation<double> animation;
-  final double borderRadius;
-  final double ligthningLength;
-  final double ligthningWidth;
-  final Color ligthningColor;
+class _LightningPainter({
+  required final Animation<double> animation,
+  required final double borderRadius,
+  required final double ligthningLength,
+  required final double ligthningWidth,
+  required final Color ligthningColor,
+}) extends CustomPainter {
+  this : super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -166,20 +147,14 @@ class _LightningPainter extends CustomPainter {
   bool shouldRepaint(covariant _LightningPainter oldDelegate) => true;
 }
 
-class _LightningFlashPainter extends CustomPainter {
-  _LightningFlashPainter({
-    required this.animation,
-    required this.borderRadius,
-    required this.ligthningLength,
-    required this.ligthningWidth,
-    required this.ligthningColor,
-  }) : super(repaint: animation);
-
-  final Animation<double> animation;
-  final double borderRadius;
-  final double ligthningLength;
-  final double ligthningWidth;
-  final Color ligthningColor;
+class _LightningFlashPainter({
+  required final Animation<double> animation,
+  required final double borderRadius,
+  required final double ligthningLength,
+  required final double ligthningWidth,
+  required final Color ligthningColor,
+}) extends CustomPainter {
+  this : super(repaint: animation);
 
   @override
   void paint(Canvas canvas, Size size) {

@@ -10,25 +10,18 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:just_audio/just_audio.dart';
 
-class InitializerWrapper extends StatefulWidget {
-  const InitializerWrapper({
+class const InitializerWrapper({
     super.key,
-    required this.viewType,
-    required this.bride,
-    required this.groom,
-    required this.time,
-  });
-
-  final ViewType viewType;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final EventResponse time;
-
+    required final ViewType viewType,
+    required final BridegroomResponse bride,
+    required final BridegroomResponse groom,
+    required final EventResponse time,
+  }) extends StatefulWidget {
   @override
   State<InitializerWrapper> createState() => _InitializerWrapperState();
 }
 
-class _InitializerWrapperState extends State<InitializerWrapper> {
+class _InitializerWrapperState() extends State<InitializerWrapper> {
   bool _onOpenedStarted = false;
   bool _isOpenedProcessCompleted = false;
 

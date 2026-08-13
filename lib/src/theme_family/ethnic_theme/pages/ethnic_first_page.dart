@@ -6,12 +6,7 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class EthnicFirstPage extends StatelessWidget {
-  const EthnicFirstPage({super.key, required this.config, required this.general});
-
-  final EthnicFirstPageConfig config;
-  final GeneralResponse general;
-
+class const EthnicFirstPage({super.key, required final EthnicFirstPageConfig config, required final GeneralResponse general}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

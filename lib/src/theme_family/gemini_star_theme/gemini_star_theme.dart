@@ -19,31 +19,21 @@ import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/p
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/pages/gemini_star_third_page.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GeminiStarTheme extends StatefulWidget {
-  const GeminiStarTheme({
+class const GeminiStarTheme({
     super.key,
-    required this.configs,
-    this.heightAdjustment = 0,
-    required this.viewType,
-    required this.invitationId,
-    required this.invitationData,
-    this.imagesRaw,
-    required this.brandProfile,
-  });
-
-  final GeminiStarConfigs configs;
-  final double heightAdjustment;
-  final ViewType viewType;
-  final String invitationId;
-  final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
-  final BrandProfileResponse brandProfile;
-
+    required final GeminiStarConfigs configs,
+    final double heightAdjustment = 0,
+    required final ViewType viewType,
+    required final String invitationId,
+    required final InvitationDataResponse invitationData,
+    final ImagesRaw? imagesRaw,
+    required final BrandProfileResponse brandProfile,
+  }) extends StatefulWidget {
   @override
   State<GeminiStarTheme> createState() => _GeminiStarThemeState();
 }
 
-class _GeminiStarThemeState extends State<GeminiStarTheme> with WidgetsBindingObserver {
+class _GeminiStarThemeState() extends State<GeminiStarTheme> with WidgetsBindingObserver {
   late final InvitationThemeCoreCubit _coreCubit;
 
   bool _isGalleriesNotEmpty = false;
@@ -149,7 +139,6 @@ class _GeminiStarThemeState extends State<GeminiStarTheme> with WidgetsBindingOb
               ),
             ]
           : null,
-      particleSphere: null,
       pages: [
         GeminiStarCoverPage(
           config: widget.configs.coverPageConfig,

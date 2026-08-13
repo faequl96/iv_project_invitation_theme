@@ -7,24 +7,15 @@ import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GenericCoverPageAsImage extends StatelessWidget {
-  const GenericCoverPageAsImage({
-    super.key,
-    required this.config,
-    required this.general,
-    required this.bride,
-    required this.groom,
-    required this.time,
-    required this.useWrapper,
-  });
-
-  final GenericCoverPageConfig config;
-  final GeneralResponse general;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final EventResponse time;
-  final bool useWrapper;
-
+class const GenericCoverPageAsImage({
+  super.key,
+  required final GenericCoverPageConfig config,
+  required final GeneralResponse general,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+  required final EventResponse time,
+  required final bool useWrapper,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

@@ -4,9 +4,7 @@ import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/g
 import 'package:iv_project_invitation_theme/src/widgets/gemini_star_frame.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class BlackAndWhiteGeminiStar {
-  BlackAndWhiteGeminiStar._();
-
+class BlackAndWhiteGeminiStar._() {
   static GeminiStarConfigs get configs => GeminiStarConfigs(
     globalBackgroundsBuilder: () => [SizedBox(height: Screen.height, width: Screen.width)],
     coverPageConfig: GeminiStarCoverPageConfig(

@@ -9,18 +9,12 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_invitation_theme/src/widgets/generic_scaffold_wrapper.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GenericSecondPageAsImage extends StatelessWidget {
-  const GenericSecondPageAsImage({
-    super.key,
-    required this.config,
-    required this.bride,
-    required this.groom,
-  });
-
-  final GenericSecondPageConfig config;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-
+class const GenericSecondPageAsImage({
+  super.key,
+  required final GenericSecondPageConfig config,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

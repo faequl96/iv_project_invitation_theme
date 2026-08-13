@@ -1,33 +1,41 @@
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:vector_math/vector_math_64.dart' as v_math;
 
-enum GroundType { fore, back, both }
+enum GroundType() {
+  fore,
+  back,
+  both
+}
 
-enum ParticleType { circle, image }
+enum ParticleType() {
+  circle,
+  image
+}
 
 class ParticleSphereConfig {
-  ParticleSphereConfig.circle({
+  new circle({
     this.size = 200,
     this.particleCount = 30,
     this.particleScaleSize = 6,
     required this.circleParticleVariations,
     this.groundType = .both,
-  }) : type = ParticleType.circle,
+  }) : type = .circle,
        imageParticleVariations = const [];
 
-  ParticleSphereConfig.image({
+  new image({
     this.size = 200,
     this.particleCount = 30,
     this.particleScaleSize = 6,
     required this.imageParticleVariations,
     this.groundType = .both,
-  }) : type = ParticleType.image,
+  }) : type = .image,
        circleParticleVariations = const [];
 
   final ParticleType type;
@@ -39,46 +47,33 @@ class ParticleSphereConfig {
   final GroundType groundType;
 }
 
-class _CircleParticle {
-  _CircleParticle({
-    required this.basePosition,
-    this.color = Colors.white,
-    this.isFlickering = false,
-  }) : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5;
+class _CircleParticle({
+  required final v_math.Vector3 basePosition,
+  final Color color = Colors.white,
+  final bool isFlickering = false,
+}) {
+  this : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5;
 
-  final v_math.Vector3 basePosition;
   final double velocityMultiplier;
-  final Color color;
-  final bool isFlickering;
 }
 
-class CircleParticle {
-  const CircleParticle({required this.color});
+class const CircleParticle({required final Color color}) {}
 
-  final Color color;
-}
-
-class CircleParticleSphere extends StatefulWidget {
-  const CircleParticleSphere({
-    super.key,
-    required this.config,
-    this.initialPage = 0,
-    this.viewAsSinglePage = false,
-    this.useWrapper = true,
-    this.child = const SizedBox.shrink(),
-  });
-
-  final ParticleSphereConfig config;
-  final int initialPage;
-  final bool viewAsSinglePage;
-  final bool useWrapper;
-  final Widget child;
-
+class const CircleParticleSphere({
+  super.key,
+  required final ParticleSphereConfig config,
+  final int initialPage = 0,
+  final bool viewAsSinglePage = false,
+  final bool useWrapper = true,
+  final Widget child = const SizedBox.shrink(),
+}) extends StatefulWidget {
   @override
   State<CircleParticleSphere> createState() => _CircleParticleSphereState();
 }
 
-class _CircleParticleSphereState extends State<CircleParticleSphere> with TickerProviderStateMixin {
+class _CircleParticleSphereState()
+    extends State<CircleParticleSphere>
+    with TickerProviderStateMixin {
   StreamSubscription? _sub;
 
   AnimationController? _controller;
@@ -244,21 +239,16 @@ class _CircleParticleSphereState extends State<CircleParticleSphere> with Ticker
   }
 }
 
-class CircleParticleSphereAsImage extends StatefulWidget {
-  const CircleParticleSphereAsImage({
-    super.key,
-    required this.config,
-    this.child = const SizedBox.shrink(),
-  });
-
-  final ParticleSphereConfig config;
-  final Widget child;
-
+class const CircleParticleSphereAsImage({
+  super.key,
+  required final ParticleSphereConfig config,
+  final Widget child = const SizedBox.shrink(),
+}) extends StatefulWidget {
   @override
   State<CircleParticleSphereAsImage> createState() => _CircleParticleSphereAsImageState();
 }
 
-class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImage> {
+class _CircleParticleSphereAsImageState() extends State<CircleParticleSphereAsImage> {
   final List<_CircleParticle> _particles = [];
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
 
@@ -353,22 +343,16 @@ class _CircleParticleSphereAsImageState extends State<CircleParticleSphereAsImag
   }
 }
 
-class _CircleParticlePainter extends CustomPainter {
-  _CircleParticlePainter({
-    required this.particles,
-    required this.rotation,
-    required this.explosionForce,
-    required this.scaleSize,
-    required this.drawForeground,
-    required this.shouldRepaintValue,
-  }) : _paint = Paint()..filterQuality = ui.FilterQuality.none;
+class _CircleParticlePainter({
+  required final List<_CircleParticle> particles,
+  required final v_math.Matrix4 rotation,
+  required final double explosionForce,
+  required final double scaleSize,
+  required final bool drawForeground,
+  required final bool shouldRepaintValue,
+}) extends CustomPainter {
+  this : _paint = Paint()..filterQuality = ui.FilterQuality.none;
 
-  final List<_CircleParticle> particles;
-  final v_math.Matrix4 rotation;
-  final double explosionForce;
-  final double scaleSize;
-  final bool drawForeground;
-  final bool shouldRepaintValue;
   final Paint _paint;
 
   static final List<RSTransform> _transforms = [];
@@ -448,46 +432,32 @@ class _CircleParticlePainter extends CustomPainter {
   bool shouldRepaint(covariant _CircleParticlePainter oldDelegate) => shouldRepaintValue;
 }
 
-class _ImageParticle {
-  _ImageParticle({required this.basePosition, this.atlasIndex = 0})
+class _ImageParticle({required final v_math.Vector3 basePosition, final int atlasIndex = 0}) {
+  this
     : velocityMultiplier = math.Random().nextDouble() * 2.5 + .5,
       rotationSpeed = (math.Random().nextDouble() - 0.5) * 0.05,
       rotationAngle = math.Random().nextDouble() * math.pi * 2;
 
-  final v_math.Vector3 basePosition;
   final double velocityMultiplier;
-  final int atlasIndex;
   final double rotationSpeed;
   double rotationAngle;
 }
 
-class ImageParticle {
-  const ImageParticle({required this.imagePath});
+class const ImageParticle({required final String imagePath}) {}
 
-  final String imagePath;
-}
-
-class ImageParticleSphere extends StatefulWidget {
-  const ImageParticleSphere({
-    super.key,
-    required this.config,
-    this.initialPage = 0,
-    this.viewAsSinglePage = false,
-    this.useWrapper = true,
-    this.child = const SizedBox.shrink(),
-  });
-
-  final ParticleSphereConfig config;
-  final int initialPage;
-  final bool viewAsSinglePage;
-  final bool useWrapper;
-  final Widget child;
-
+class const ImageParticleSphere({
+  super.key,
+  required final ParticleSphereConfig config,
+  final int initialPage = 0,
+  final bool viewAsSinglePage = false,
+  final bool useWrapper = true,
+  final Widget child = const SizedBox.shrink(),
+}) extends StatefulWidget {
   @override
   State<ImageParticleSphere> createState() => _ImageParticleSphereState();
 }
 
-class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerProviderStateMixin {
+class _ImageParticleSphereState() extends State<ImageParticleSphere> with TickerProviderStateMixin {
   StreamSubscription? _sub;
 
   AnimationController? _controller;
@@ -676,21 +646,16 @@ class _ImageParticleSphereState extends State<ImageParticleSphere> with TickerPr
   }
 }
 
-class ImageParticleSphereAsImage extends StatefulWidget {
-  const ImageParticleSphereAsImage({
-    super.key,
-    required this.config,
-    this.child = const SizedBox.shrink(),
-  });
-
-  final ParticleSphereConfig config;
-  final Widget child;
-
+class const ImageParticleSphereAsImage({
+  super.key,
+  required final ParticleSphereConfig config,
+  final Widget child = const SizedBox.shrink(),
+}) extends StatefulWidget {
   @override
   State<ImageParticleSphereAsImage> createState() => _ImageParticleSphereAsImageState();
 }
 
-class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage> {
+class _ImageParticleSphereAsImageState() extends State<ImageParticleSphereAsImage> {
   final List<_ImageParticle> _particles = [];
   final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
 
@@ -807,26 +772,18 @@ class _ImageParticleSphereAsImageState extends State<ImageParticleSphereAsImage>
   }
 }
 
-class _ImageParticlePainter extends CustomPainter {
-  _ImageParticlePainter({
-    required this.particles,
-    required this.rotation,
-    required this.explosionForce,
-    required this.scaleSize,
-    required this.drawForeground,
-    required this.shouldRepaintValue,
-    required this.particleImage,
-    required this.imageCount,
-  }) : _paint = Paint()..filterQuality = ui.FilterQuality.low;
+class _ImageParticlePainter({
+  required final List<_ImageParticle> particles,
+  required final v_math.Matrix4 rotation,
+  required final double explosionForce,
+  required final double scaleSize,
+  required final bool drawForeground,
+  required final bool shouldRepaintValue,
+  required final ui.Image particleImage,
+  required final int imageCount,
+}) extends CustomPainter {
+  this : _paint = Paint()..filterQuality = ui.FilterQuality.low;
 
-  final List<_ImageParticle> particles;
-  final v_math.Matrix4 rotation;
-  final double explosionForce;
-  final double scaleSize;
-  final bool drawForeground;
-  final bool shouldRepaintValue;
-  final ui.Image particleImage;
-  final int imageCount;
   final Paint _paint;
 
   static final List<RSTransform> _transforms = [];

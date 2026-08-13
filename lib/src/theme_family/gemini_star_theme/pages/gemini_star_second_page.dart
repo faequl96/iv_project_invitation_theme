@@ -10,25 +10,18 @@ import 'package:iv_project_invitation_theme/src/widgets/auto_size_transition.dar
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GeminiStarSecondPage extends StatefulWidget {
-  const GeminiStarSecondPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.brideImage,
-    required this.bride,
-  });
-
-  final GeminiStarSecondPageConfig config;
-  final ViewType viewType;
-  final File? brideImage;
-  final BridegroomResponse bride;
-
+class const GeminiStarSecondPage({
+  super.key,
+  required final GeminiStarSecondPageConfig config,
+  required final ViewType viewType,
+  final File? brideImage,
+  required final BridegroomResponse bride,
+}) extends StatefulWidget {
   @override
   State<GeminiStarSecondPage> createState() => _GeminiStarSecondPageState();
 }
 
-class _GeminiStarSecondPageState extends State<GeminiStarSecondPage> {
+class _GeminiStarSecondPageState() extends State<GeminiStarSecondPage> {
   Widget? _cachedImage;
 
   @override

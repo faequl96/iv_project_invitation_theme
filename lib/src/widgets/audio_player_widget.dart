@@ -4,14 +4,14 @@ import 'package:just_audio/just_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class AudioPlayerWidget extends StatefulWidget {
-  const AudioPlayerWidget({super.key});
-
+class const AudioPlayerWidget({super.key}) extends StatefulWidget {
   @override
   State<AudioPlayerWidget> createState() => _AudioPlayerWidgetState();
 }
 
-class _AudioPlayerWidgetState extends State<AudioPlayerWidget> with SingleTickerProviderStateMixin {
+class _AudioPlayerWidgetState()
+    extends State<AudioPlayerWidget>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
   @override

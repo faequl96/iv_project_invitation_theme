@@ -12,31 +12,21 @@ import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GlassCoverPage extends StatefulWidget {
-  const GlassCoverPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.coverImage,
-    required this.general,
-    required this.bride,
-    required this.groom,
-    required this.time,
-  });
-
-  final GlassCoverPageConfig config;
-  final ViewType viewType;
-  final File? coverImage;
-  final GeneralResponse general;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final EventResponse time;
-
+class const GlassCoverPage({
+  super.key,
+  required final GlassCoverPageConfig config,
+  required final ViewType viewType,
+  final File? coverImage,
+  required final GeneralResponse general,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+  required final EventResponse time,
+}) extends StatefulWidget {
   @override
   State<GlassCoverPage> createState() => _GlassCoverPageState();
 }
 
-class _GlassCoverPageState extends State<GlassCoverPage> {
+class _GlassCoverPageState() extends State<GlassCoverPage> {
   Widget? _cachedImage;
 
   @override
