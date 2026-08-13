@@ -5,12 +5,11 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class EthnicSixthPageAsImage extends StatelessWidget {
-  const EthnicSixthPageAsImage({super.key, required this.config, this.bankAccounts = const []});
-
-  final EthnicSixthPageConfig config;
-  final List<BankAccountResponse> bankAccounts;
-
+class const EthnicSixthPageAsImage({
+  super.key,
+  required final EthnicSixthPageConfig config,
+  final List<BankAccountResponse> bankAccounts = const [],
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -153,23 +152,14 @@ class EthnicSixthPageAsImage extends StatelessWidget {
   );
 }
 
-class _BankAccount extends StatelessWidget {
-  const _BankAccount({
-    required this.color,
-    required this.borderColor,
-    required this.borderWidth,
-    required this.textColor,
-    required this.copyBaseColor,
-    required this.bankAccount,
-  });
-
-  final Color color;
-  final Color borderColor;
-  final double borderWidth;
-  final Color textColor;
-  final Color copyBaseColor;
-  final BankAccountResponse bankAccount;
-
+class const _BankAccount({
+  required final Color color,
+  required final Color borderColor,
+  required final double borderWidth,
+  required final Color textColor,
+  required final Color copyBaseColor,
+  required final BankAccountResponse bankAccount,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -291,17 +281,15 @@ class _BankAccount extends StatelessWidget {
   );
 }
 
-class _CopyBankAccountNumberButton extends StatefulWidget {
-  const _CopyBankAccountNumberButton({required this.baseColor, required this.bankAccountNumber});
-
-  final Color baseColor;
-  final String bankAccountNumber;
-
+class const _CopyBankAccountNumberButton({
+  required final Color baseColor,
+  required final String bankAccountNumber,
+}) extends StatefulWidget {
   @override
   State<_CopyBankAccountNumberButton> createState() => _CopyBankAccountNumberButtonState();
 }
 
-class _CopyBankAccountNumberButtonState extends State<_CopyBankAccountNumberButton> {
+class _CopyBankAccountNumberButtonState() extends State<_CopyBankAccountNumberButton> {
   final bool _isCopied = false;
 
   @override

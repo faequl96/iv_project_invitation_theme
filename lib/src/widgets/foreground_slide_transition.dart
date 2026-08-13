@@ -4,27 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
-class ForegroundSlideTransition extends StatefulWidget {
-  const ForegroundSlideTransition({
-    super.key,
-    required this.animationSpeed,
-    required this.delayedBeforeStart,
-    required this.slideFrom,
-    this.isNoNeedTrigger = false,
-    required this.child,
-  });
-
-  final Duration animationSpeed;
-  final Duration delayedBeforeStart;
-  final GroundSlideFrom slideFrom;
-  final bool isNoNeedTrigger;
-  final Widget child;
-
+class const ForegroundSlideTransition({
+  super.key,
+  required final Duration animationSpeed,
+  required final Duration delayedBeforeStart,
+  required final GroundSlideFrom slideFrom,
+  final bool isNoNeedTrigger = false,
+  required final Widget child,
+}) extends StatefulWidget {
   @override
   State<ForegroundSlideTransition> createState() => _ForegroundSlideTransitionState();
 }
 
-class _ForegroundSlideTransitionState extends State<ForegroundSlideTransition>
+class _ForegroundSlideTransitionState()
+    extends State<ForegroundSlideTransition>
     with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 

@@ -7,22 +7,14 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GlassEighthPage extends StatelessWidget {
-  const GlassEighthPage({
-    super.key,
-    required this.config,
-    required this.general,
-    required this.brideName,
-    required this.groomName,
-    required this.brandProfile,
-  });
-
-  final GlassEighthPageConfig config;
-  final GeneralResponse general;
-  final String brideName;
-  final String groomName;
-  final BrandProfileResponse brandProfile;
-
+class const GlassEighthPage({
+  super.key,
+  required final GlassEighthPageConfig config,
+  required final GeneralResponse general,
+  required final String brideName,
+  required final String groomName,
+  required final BrandProfileResponse brandProfile,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -305,9 +297,7 @@ class GlassEighthPage extends StatelessWidget {
   );
 
   Widget _buildClosing() => Text(
-    general.closing.isNotEmpty
-        ? general.closing
-        : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
+    general.closing.isNotEmpty ? general.closing : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
     style: AppFonts.inter(color: config.closingTextColor, fontSize: FontSize.md, fontWeight: .w600),
     textAlign: .center,
   );

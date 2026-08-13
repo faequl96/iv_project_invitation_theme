@@ -12,31 +12,21 @@ import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GeminiStarCoverPage extends StatefulWidget {
-  const GeminiStarCoverPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.coverImage,
-    required this.general,
-    required this.bride,
-    required this.groom,
-    required this.time,
-  });
-
-  final GeminiStarCoverPageConfig config;
-  final ViewType viewType;
-  final File? coverImage;
-  final GeneralResponse general;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final EventResponse time;
-
+class const GeminiStarCoverPage({
+  super.key,
+  required final GeminiStarCoverPageConfig config,
+  required final ViewType viewType,
+  final File? coverImage,
+  required final GeneralResponse general,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+  required final EventResponse time,
+}) extends StatefulWidget {
   @override
   State<GeminiStarCoverPage> createState() => _GeminiStarCoverPageState();
 }
 
-class _GeminiStarCoverPageState extends State<GeminiStarCoverPage> {
+class _GeminiStarCoverPageState() extends State<GeminiStarCoverPage> {
   Widget? _cachedImage;
 
   @override

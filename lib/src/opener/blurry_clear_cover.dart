@@ -3,11 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/core/cubit/invitation_theme_core_cubit.dart';
 
-class BlurryClearCover extends StatelessWidget {
-  const BlurryClearCover({super.key, required this.isLeft});
-
-  final bool isLeft;
-
+class const BlurryClearCover({super.key, required final bool isLeft}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocSelector<InvitationThemeCoreCubit, InvitationThemeCoreState, Size>(
@@ -55,11 +51,7 @@ class BlurryClearCover extends StatelessWidget {
   }
 }
 
-class _RecipientBox extends StatelessWidget {
-  const _RecipientBox({required this.isLeft});
-
-  final bool isLeft;
-
+class const _RecipientBox({required final bool isLeft}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(

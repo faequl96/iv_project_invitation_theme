@@ -5,9 +5,7 @@ import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GreenMatchaGlass {
-  GreenMatchaGlass._();
-
+class GreenMatchaGlass._() {
   static GlassConfigs get configs => GlassConfigs(
     tabConfig: GlassTabConfig(
       indicatorColor: Colors.green.shade50,

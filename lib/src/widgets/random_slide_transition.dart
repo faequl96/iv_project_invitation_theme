@@ -2,17 +2,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class RandomSlideTransition extends StatefulWidget {
-  const RandomSlideTransition({super.key, this.maxSlideOffset = .5, required this.child});
-
-  final double maxSlideOffset;
-  final Widget child;
-
+class const RandomSlideTransition({
+  super.key,
+  final double maxSlideOffset = .5,
+  required final Widget child,
+}) extends StatefulWidget {
   @override
   State<RandomSlideTransition> createState() => _RandomSlideTransitionState();
 }
 
-class _RandomSlideTransitionState extends State<RandomSlideTransition>
+class _RandomSlideTransitionState()
+    extends State<RandomSlideTransition>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   Offset _startOffset = .zero;

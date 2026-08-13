@@ -5,9 +5,7 @@ import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/gener
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class FloralCanvas {
-  const FloralCanvas._();
-
+class const FloralCanvas._() {
   static GenericConfigs get configs => GenericConfigs(
     tabConfig: GenericTabConfig(
       useGlassEffect: false,
@@ -406,9 +404,7 @@ class FloralCanvas {
   );
 }
 
-class _GlobalBackground extends StatelessWidget {
-  const _GlobalBackground();
-
+class const _GlobalBackground() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(

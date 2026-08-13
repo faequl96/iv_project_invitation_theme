@@ -6,9 +6,7 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_invitation_theme/src/widgets/background_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/foreground_slide_transition.dart';
 
-class JavaneseRoseGold {
-  const JavaneseRoseGold._();
-
+class const JavaneseRoseGold._() {
   static EthnicConfigs get configs => EthnicConfigs(
     tabConfig: EthnicTabConfig(
       indicatorColor: ThemeColors.gold,
@@ -357,9 +355,7 @@ class JavaneseRoseGold {
   static ThemeData? get themeData => null;
 }
 
-class _CoverBackground extends StatelessWidget {
-  const _CoverBackground();
-
+class const _CoverBackground() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -436,11 +432,7 @@ class _CoverBackground extends StatelessWidget {
   }
 }
 
-class _PageBackground extends StatelessWidget {
-  const _PageBackground({required this.noAnimate});
-
-  final bool noAnimate;
-
+class const _PageBackground({required final bool noAnimate}) extends StatelessWidget {
   final Duration animationSpeed = const Duration(milliseconds: 1200);
   final Duration delayedBeforeStart = const Duration(milliseconds: 200);
 
@@ -610,9 +602,7 @@ class _PageBackground extends StatelessWidget {
   }
 }
 
-class _PageForeground extends StatelessWidget {
-  const _PageForeground();
-
+class const _PageForeground() extends StatelessWidget {
   final Duration animationSpeed = const Duration(milliseconds: 1200);
   final Duration delayedBeforeStart = const Duration(milliseconds: 200);
 

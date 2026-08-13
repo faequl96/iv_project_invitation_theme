@@ -5,12 +5,11 @@ import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_c
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GlassFirstPageAsImage extends StatelessWidget {
-  const GlassFirstPageAsImage({super.key, required this.config, required this.general});
-
-  final GlassFirstPageConfig config;
-  final GeneralResponse general;
-
+class const GlassFirstPageAsImage({
+  super.key,
+  required final GlassFirstPageConfig config,
+  required final GeneralResponse general,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -187,9 +186,7 @@ class GlassFirstPageAsImage extends StatelessWidget {
   );
 
   Widget _buildOpeningQuote() => Text(
-    general.openingQuote.isNotEmpty
-        ? general.openingQuote
-        : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
+    general.openingQuote.isNotEmpty ? general.openingQuote : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
     style: AppFonts.inter(
       color: config.generalTextColor,
       fontSize: FontSize.md,
@@ -214,9 +211,7 @@ class GlassFirstPageAsImage extends StatelessWidget {
   );
 
   Widget _buildGreeting() => Text(
-    general.greeting.isNotEmpty
-        ? general.greeting
-        : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
+    general.greeting.isNotEmpty ? general.greeting : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
     style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.md, fontWeight: .w400),
     textAlign: .center,
   );

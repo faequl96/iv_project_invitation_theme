@@ -4,12 +4,7 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class Padlock extends StatelessWidget {
-  const Padlock({super.key, required this.onOpened, required this.noAnimate});
-
-  final Function() onOpened;
-  final bool noAnimate;
-
+class const Padlock({super.key, required final Function() onOpened, required final bool noAnimate}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

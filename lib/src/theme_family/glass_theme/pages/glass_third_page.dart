@@ -8,18 +8,12 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GlassThirdPage extends StatelessWidget {
-  const GlassThirdPage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-    required this.receptionEvent,
-  });
-
-  final GlassThirdPageConfig config;
-  final EventResponse contractEvent;
-  final EventResponse receptionEvent;
-
+class const GlassThirdPage({
+  super.key,
+  required final GlassThirdPageConfig config,
+  required final EventResponse contractEvent,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

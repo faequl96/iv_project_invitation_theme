@@ -12,20 +12,13 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 
-class GeminiStarSixthPage extends StatelessWidget {
-  const GeminiStarSixthPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.galleries,
-    this.gallery,
-  });
-
-  final GeminiStarSixthPageConfig config;
-  final ViewType viewType;
-  final List<File?>? galleries;
-  final GalleryResponse? gallery;
-
+class const GeminiStarSixthPage({
+  super.key,
+  required final GeminiStarSixthPageConfig config,
+  required final ViewType viewType,
+  final List<File?>? galleries,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -192,13 +185,11 @@ class GeminiStarSixthPage extends StatelessWidget {
   );
 }
 
-class _Gallery extends StatelessWidget {
-  const _Gallery({required this.viewType, this.galleries, this.gallery});
-
-  final ViewType viewType;
-  final List<File?>? galleries;
-  final GalleryResponse? gallery;
-
+class const _Gallery({
+  required final ViewType viewType,
+  final List<File?>? galleries,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -413,14 +404,12 @@ class _Gallery extends StatelessWidget {
   }
 }
 
-class _ImageViewer extends StatelessWidget {
-  const _ImageViewer({required this.id, required this.viewType, this.image, this.imageUrl});
-
-  final int id;
-  final ViewType viewType;
-  final File? image;
-  final String? imageUrl;
-
+class const _ImageViewer({
+  required final int id,
+  required final ViewType viewType,
+  final File? image,
+  final String? imageUrl,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return _content(context, 'image_$id');

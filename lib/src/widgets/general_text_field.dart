@@ -5,43 +5,27 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GeneralTextField extends StatefulWidget {
-  const GeneralTextField({
-    super.key,
-    required this.fieldTextColor,
-    required this.fieldLabelColor,
-    required this.fieldFillColor,
-    required this.fieldBorderColor,
-    required this.textEditingController,
-    this.labelTextBuilder,
-    this.inputFormatters,
-    this.maxLines,
-    this.maxLength,
-    this.enabled = true,
-    this.isMandatory = true,
-    this.onChanged,
-    this.validator,
-  });
-
-  final Color fieldTextColor;
-  final Color fieldLabelColor;
-  final Color fieldFillColor;
-  final Color fieldBorderColor;
-  final TextEditingController textEditingController;
-  final String Function()? labelTextBuilder;
-  final List<TextInputFormatter>? inputFormatters;
-  final int? maxLines;
-  final int? maxLength;
-  final bool enabled;
-  final bool isMandatory;
-  final void Function(String value)? onChanged;
-  final TextFieldValidator Function(String)? validator;
-
+class const GeneralTextField({
+  super.key,
+  required final Color fieldTextColor,
+  required final Color fieldLabelColor,
+  required final Color fieldFillColor,
+  required final Color fieldBorderColor,
+  required final TextEditingController textEditingController,
+  final String Function()? labelTextBuilder,
+  final List<TextInputFormatter>? inputFormatters,
+  final int? maxLines,
+  final int? maxLength,
+  final bool enabled = true,
+  final bool isMandatory = true,
+  final void Function(String value)? onChanged,
+  final TextFieldValidator Function(String)? validator,
+}) extends StatefulWidget {
   @override
   State<GeneralTextField> createState() => _GeneralTextFieldState();
 }
 
-class _GeneralTextFieldState extends State<GeneralTextField> {
+class _GeneralTextFieldState() extends State<GeneralTextField> {
   @override
   Widget build(BuildContext context) {
     final lang = context.read<LocaleCubit>().state.languageCode;

@@ -4,27 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
-class BackgroundSlideTransition extends StatefulWidget {
-  const BackgroundSlideTransition({
-    super.key,
-    required this.animationSpeed,
-    required this.delayedBeforeStart,
-    required this.slideFrom,
-    this.isNoNeedTrigger = false,
-    required this.child,
-  });
-
-  final Duration animationSpeed;
-  final Duration delayedBeforeStart;
-  final GroundSlideFrom slideFrom;
-  final bool isNoNeedTrigger;
-  final Widget child;
-
+class const BackgroundSlideTransition({
+  super.key,
+  required final Duration animationSpeed,
+  required final Duration delayedBeforeStart,
+  required final GroundSlideFrom slideFrom,
+  final bool isNoNeedTrigger = false,
+  required final Widget child,
+}) extends StatefulWidget {
   @override
   State<BackgroundSlideTransition> createState() => _BackgroundSlideTransitionState();
 }
 
-class _BackgroundSlideTransitionState extends State<BackgroundSlideTransition>
+class _BackgroundSlideTransitionState()
+    extends State<BackgroundSlideTransition>
     with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 

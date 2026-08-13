@@ -6,18 +6,12 @@ import 'package:iv_project_invitation_theme/src/widgets/countdown_timers.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GlassThirdPageAsImage extends StatelessWidget {
-  const GlassThirdPageAsImage({
-    super.key,
-    required this.config,
-    required this.contractEvent,
-    required this.receptionEvent,
-  });
-
-  final GlassThirdPageConfig config;
-  final EventResponse contractEvent;
-  final EventResponse receptionEvent;
-
+class const GlassThirdPageAsImage({
+  super.key,
+  required final GlassThirdPageConfig config,
+  required final EventResponse contractEvent,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

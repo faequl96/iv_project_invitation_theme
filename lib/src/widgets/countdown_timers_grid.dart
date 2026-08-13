@@ -5,39 +5,25 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 
-class CountdownTimersGrid extends StatefulWidget {
-  const CountdownTimersGrid({
-    super.key,
-    required this.paddingHorizontal,
-    required this.oddColor,
-    required this.evenColor,
-    required this.oddBorderColor,
-    required this.evenBorderColor,
-    required this.numberColor,
-    required this.unitColor,
-    this.borderWidth = 1,
-    required this.time,
-    this.animationDelayBeforeStart = .zero,
-    required this.noAnimate,
-  });
-
-  final double paddingHorizontal;
-  final Color oddColor;
-  final Color evenColor;
-  final Color oddBorderColor;
-  final Color evenBorderColor;
-  final Color numberColor;
-  final Color unitColor;
-  final double borderWidth;
-  final DateTime time;
-  final Duration animationDelayBeforeStart;
-  final bool noAnimate;
-
+class const CountdownTimersGrid({
+  super.key,
+  required final double paddingHorizontal,
+  required final Color oddColor,
+  required final Color evenColor,
+  required final Color oddBorderColor,
+  required final Color evenBorderColor,
+  required final Color numberColor,
+  required final Color unitColor,
+  final double borderWidth = 1,
+  required final DateTime time,
+  final Duration animationDelayBeforeStart = .zero,
+  required final bool noAnimate,
+}) extends StatefulWidget {
   @override
   State<CountdownTimersGrid> createState() => _CountdownTimersGridState();
 }
 
-class _CountdownTimersGridState extends State<CountdownTimersGrid> {
+class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
   Timer? _timer;
   late Duration _remaining;
 
@@ -179,25 +165,15 @@ class _CountdownTimersGridState extends State<CountdownTimersGrid> {
   );
 }
 
-class _CountdownTimer extends StatelessWidget {
-  const _CountdownTimer({
-    required this.color,
-    required this.borderColor,
-    required this.numberColor,
-    required this.unitColor,
-    required this.borderWidth,
-    required this.number,
-    required this.unit,
-  });
-
-  final Color color;
-  final Color borderColor;
-  final Color numberColor;
-  final Color unitColor;
-  final double borderWidth;
-  final int number;
-  final String unit;
-
+class const _CountdownTimer({
+  required final Color color,
+  required final Color borderColor,
+  required final Color numberColor,
+  required final Color unitColor,
+  required final double borderWidth,
+  required final int number,
+  required final String unit,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BorderRadiusGeometry borderRadius = switch (unit) {
@@ -240,23 +216,14 @@ class _CountdownTimer extends StatelessWidget {
   }
 }
 
-class _NoAnimateWrapper extends StatelessWidget {
-  const _NoAnimateWrapper({
-    required this.noAnimate,
-    required this.slideFromOffset,
-    required this.slideFrom,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    required this.delayBeforeStart,
-    required this.child,
-  });
-
-  final bool noAnimate;
-  final double slideFromOffset;
-  final SlideFrom slideFrom;
-  final Duration animationSpeed;
-  final Duration delayBeforeStart;
-  final Widget child;
-
+class const _NoAnimateWrapper({
+  required final bool noAnimate,
+  required final double slideFromOffset,
+  required final SlideFrom slideFrom,
+  final Duration animationSpeed = const Duration(milliseconds: 500),
+  required final Duration delayBeforeStart,
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (noAnimate) return child;

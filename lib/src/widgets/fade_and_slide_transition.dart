@@ -4,33 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
-class FadeAndSlideTransition extends StatefulWidget {
-  const FadeAndSlideTransition({
-    super.key,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    this.delayBeforeStart = .zero,
-    this.fadeBegin = 0,
-    this.fadeEnd = 1,
-    this.slideFrom = .bottom,
-    this.slideFromOffset = .5,
-    this.isNoNeedTrigger = false,
-    required this.child,
-  });
-
-  final Duration animationSpeed;
-  final Duration delayBeforeStart;
-  final double fadeBegin;
-  final double fadeEnd;
-  final SlideFrom slideFrom;
-  final double slideFromOffset;
-  final bool isNoNeedTrigger;
-  final Widget child;
-
+class const FadeAndSlideTransition({
+  super.key,
+  final Duration animationSpeed = const Duration(milliseconds: 500),
+  final Duration delayBeforeStart = .zero,
+  final double fadeBegin = 0,
+  final double fadeEnd = 1,
+  final SlideFrom slideFrom = .bottom,
+  final double slideFromOffset = .5,
+  final bool isNoNeedTrigger = false,
+  required final Widget child,
+}) extends StatefulWidget {
   @override
   State<FadeAndSlideTransition> createState() => _FadeAndSlideTransitionState();
 }
 
-class _FadeAndSlideTransitionState extends State<FadeAndSlideTransition>
+class _FadeAndSlideTransitionState()
+    extends State<FadeAndSlideTransition>
     with TickerProviderStateMixin {
   late final StreamSubscription _sub;
 

@@ -15,22 +15,14 @@ import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/pages
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/pages/as_image/generic_third_page_as_image.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GenericThemeAsImage extends StatelessWidget {
-  const GenericThemeAsImage({
+class const GenericThemeAsImage({
     super.key,
-    required this.configs,
-    this.initialPage = 0,
-    required this.useWrapper,
-    required this.invitationData,
-    required this.brandProfile,
-  });
-
-  final GenericConfigs configs;
-  final int initialPage;
-  final bool useWrapper;
-  final InvitationDataResponse invitationData;
-  final BrandProfileResponse brandProfile;
-
+    required final GenericConfigs configs,
+    final int initialPage = 0,
+    required final bool useWrapper,
+    required final InvitationDataResponse invitationData,
+    required final BrandProfileResponse brandProfile,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -162,21 +154,13 @@ class GenericThemeAsImage extends StatelessWidget {
   );
 }
 
-class _Tab extends StatelessWidget {
-  const _Tab({
-    required this.config,
-    required this.title,
-    required this.icon,
-    required this.tabIndex,
-    required this.tabActive,
-  });
-
-  final GenericTabConfig config;
-  final String title;
-  final IconData icon;
-  final int tabIndex;
-  final int tabActive;
-
+class const _Tab({
+    required final GenericTabConfig config,
+    required final String title,
+    required final IconData icon,
+    required final int tabIndex,
+    required final int tabActive,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

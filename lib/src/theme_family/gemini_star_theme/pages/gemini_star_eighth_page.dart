@@ -14,18 +14,12 @@ import 'package:iv_project_web_data/iv_project_web_data.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GeminiStarEighthPage extends StatelessWidget {
-  const GeminiStarEighthPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    required this.invitationId,
-  });
-
-  final GeminiStarEighthPageConfig config;
-  final ViewType viewType;
-  final String invitationId;
-
+class const GeminiStarEighthPage({
+  super.key,
+  required final GeminiStarEighthPageConfig config,
+  required final ViewType viewType,
+  required final String invitationId,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -299,53 +293,34 @@ class GeminiStarEighthPage extends StatelessWidget {
   );
 }
 
-class RSVPForm extends StatefulWidget {
-  const RSVPForm({
-    super.key,
-    required this.fieldTextColor,
-    required this.fieldLabelColor,
-    required this.fieldFillColor,
-    required this.fieldBorderColor,
-    required this.fieldSplashColor,
-    required this.overlayColor,
-    required this.overlayBorderColor,
-    required this.dropdownItemSelectedColor,
-    required this.dropdownItemTextColor,
-    required this.dropdownItemSelectedTextColor,
-    // required this.dropdownItemHoveredColor,
-    // required this.dropdownItemSplashColor,
-    required this.submitButtonColor,
-    required this.submitButtonLabelColor,
-    required this.submitButtonBorderWidth,
-    required this.submitButtonBorderColor,
-    required this.viewType,
-    required this.invitationId,
-  });
-
-  final Color fieldTextColor;
-  final Color fieldLabelColor;
-  final Color fieldFillColor;
-  final Color fieldBorderColor;
-  final Color fieldSplashColor;
-  final Color overlayColor;
-  final Color overlayBorderColor;
-  final Color dropdownItemSelectedColor;
-  final Color dropdownItemTextColor;
-  final Color dropdownItemSelectedTextColor;
+class const RSVPForm({
+  super.key,
+  required final Color fieldTextColor,
+  required final Color fieldLabelColor,
+  required final Color fieldFillColor,
+  required final Color fieldBorderColor,
+  required final Color fieldSplashColor,
+  required final Color overlayColor,
+  required final Color overlayBorderColor,
+  required final Color dropdownItemSelectedColor,
+  required final Color dropdownItemTextColor,
+  required final Color dropdownItemSelectedTextColor,
+  // required this.dropdownItemHoveredColor,
+  // required this.dropdownItemSplashColor,
+  required final Color submitButtonColor,
+  required final Color submitButtonLabelColor,
+  required final double submitButtonBorderWidth,
+  required final Color submitButtonBorderColor,
+  required final ViewType viewType,
+  required final String invitationId,
+}) extends StatefulWidget {
   // final Color dropdownItemHoveredColor;
   // final Color dropdownItemSplashColor;
-  final Color submitButtonColor;
-  final Color submitButtonLabelColor;
-  final double submitButtonBorderWidth;
-  final Color submitButtonBorderColor;
-  final ViewType viewType;
-  final String invitationId;
-
   @override
   State<RSVPForm> createState() => _RSVPFormState();
 }
 
-class _RSVPFormState extends State<RSVPForm> {
+class _RSVPFormState() extends State<RSVPForm> {
   final _nameController = TextEditingController();
   final _greetingController = TextEditingController();
 
@@ -711,32 +686,21 @@ class _RSVPFormState extends State<RSVPForm> {
         );
 }
 
-class _RSVPsWidget extends StatefulWidget {
-  const _RSVPsWidget({
-    required this.rsvpNameTextColor,
-    required this.rsvpTimeAgoTextColor,
-    required this.rsvpNameInstanceTextColor,
-    required this.rsvpAttendanceTextColorLighten,
-    required this.rsvpMessageTextColor,
-    required this.invitationId,
-    required this.viewType,
-    required this.isShowMore,
-  });
-
-  final Color rsvpNameTextColor;
-  final Color rsvpTimeAgoTextColor;
-  final Color rsvpNameInstanceTextColor;
-  final int rsvpAttendanceTextColorLighten;
-  final Color rsvpMessageTextColor;
-  final String invitationId;
-  final ViewType viewType;
-  final bool isShowMore;
-
+class const _RSVPsWidget({
+  required final Color rsvpNameTextColor,
+  required final Color rsvpTimeAgoTextColor,
+  required final Color rsvpNameInstanceTextColor,
+  required final int rsvpAttendanceTextColorLighten,
+  required final Color rsvpMessageTextColor,
+  required final String invitationId,
+  required final ViewType viewType,
+  required final bool isShowMore,
+}) extends StatefulWidget {
   @override
   State<_RSVPsWidget> createState() => _RSVPsWidgetState();
 }
 
-class _RSVPsWidgetState extends State<_RSVPsWidget> {
+class _RSVPsWidgetState() extends State<_RSVPsWidget> {
   late final RSVPCubit _rsvpCubit;
 
   final List<RSVPResponse> _rsvps = [
@@ -753,8 +717,7 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
         possiblePresence: 'Mungkin Tidak Hadir',
         // attendance: false,
       ),
-      message:
-          'Happy wedding Milea dan Dilan.. Samawa yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
+      message: 'Happy wedding Milea dan Dilan.. Samawa yaa. So happy for u guys!!! Maafkan belum bisa hadir.',
       createdAt: .now().subtract(const Duration(minutes: 324)),
     ),
     RSVPResponse(
@@ -929,25 +892,15 @@ class _RSVPsWidgetState extends State<_RSVPsWidget> {
   }
 }
 
-class _RSVPItem extends StatelessWidget {
-  const _RSVPItem({
-    required this.nameTextColor,
-    required this.timeAgoTextColor,
-    required this.nameInstanceTextColor,
-    required this.attendanceTextColorLighten,
-    required this.messageTextColor,
-    required this.invitationId,
-    required this.rsvp,
-  });
-
-  final Color nameTextColor;
-  final Color timeAgoTextColor;
-  final Color nameInstanceTextColor;
-  final int attendanceTextColorLighten;
-  final Color messageTextColor;
-  final String invitationId;
-  final RSVPResponse rsvp;
-
+class const _RSVPItem({
+  required final Color nameTextColor,
+  required final Color timeAgoTextColor,
+  required final Color nameInstanceTextColor,
+  required final int attendanceTextColorLighten,
+  required final Color messageTextColor,
+  required final String invitationId,
+  required final RSVPResponse rsvp,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final invitedGuest = rsvp.invitedGuest;
@@ -1049,9 +1002,7 @@ class _RSVPItem extends StatelessWidget {
   }
 }
 
-class _RSVPItemSkeleton extends StatelessWidget {
-  const _RSVPItemSkeleton();
-
+class const _RSVPItemSkeleton() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(

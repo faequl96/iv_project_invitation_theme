@@ -1,6 +1,4 @@
-class AppUtils {
-  const AppUtils._();
-
+class const AppUtils._() {
   static String toCapitalize(String value) {
     if (value.trim().isEmpty) return '';
 

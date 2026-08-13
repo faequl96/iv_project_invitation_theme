@@ -1,614 +1,311 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 
-class GlassConfigs {
-  const GlassConfigs({
-    required this.tabConfig,
-    this.globalBackgroundsBuilder,
-    this.particleSphere,
-    required this.coverPageConfig,
-    required this.firstPageConfig,
-    required this.secondPageConfig,
-    required this.thirdPageConfig,
-    required this.thirdDifferentLocationPageConfig,
-    required this.fourthPageConfig,
-    required this.fourthDifferentLocationPageConfig,
-    required this.fifthPageConfig,
-    required this.sixthPageConfig,
-    required this.seventhPageConfig,
-    required this.eighthPageConfig,
-  });
+class const GlassConfigs({
+  required final GlassTabConfig tabConfig,
+  final List<Widget> Function()? globalBackgroundsBuilder,
+  final ParticleSphereConfig? particleSphere,
+  required final GlassCoverPageConfig coverPageConfig,
+  required final GlassFirstPageConfig firstPageConfig,
+  required final GlassSecondPageConfig secondPageConfig,
+  required final GlassThirdPageConfig thirdPageConfig,
+  required final GlassThirdDifferentLocationPageConfig thirdDifferentLocationPageConfig,
+  required final GlassFourthPageConfig fourthPageConfig,
+  required final GlassFourthDifferentLocationPageConfig fourthDifferentLocationPageConfig,
+  required final GlassFifthPageConfig fifthPageConfig,
+  required final GlassSixthPageConfig sixthPageConfig,
+  required final GlassSeventhPageConfig seventhPageConfig,
+  required final GlassEighthPageConfig eighthPageConfig,
+});
 
-  final GlassTabConfig tabConfig;
-  final List<Widget> Function()? globalBackgroundsBuilder;
-  final ParticleSphereConfig? particleSphere;
-  final GlassCoverPageConfig coverPageConfig;
-  final GlassFirstPageConfig firstPageConfig;
-  final GlassSecondPageConfig secondPageConfig;
-  final GlassThirdPageConfig thirdPageConfig;
-  final GlassThirdDifferentLocationPageConfig thirdDifferentLocationPageConfig;
-  final GlassFourthPageConfig fourthPageConfig;
-  final GlassFourthDifferentLocationPageConfig fourthDifferentLocationPageConfig;
-  final GlassFifthPageConfig fifthPageConfig;
-  final GlassSixthPageConfig sixthPageConfig;
-  final GlassSeventhPageConfig seventhPageConfig;
-  final GlassEighthPageConfig eighthPageConfig;
-}
+class const GlassTabConfig({
+  required final Color indicatorColor,
+  required final Color backgroundColor,
+  required final Color titleActiveColor,
+  required final Color titleInactiveColor,
+  required final Color iconActiveColor,
+  required final Color iconInactiveColor,
+});
 
-class GlassTabConfig {
-  const GlassTabConfig({
-    required this.indicatorColor,
-    required this.backgroundColor,
-    required this.titleActiveColor,
-    required this.titleInactiveColor,
-    required this.iconActiveColor,
-    required this.iconInactiveColor,
-  });
+class const GlassCoverPageConfig({
+  required final Color gradientBaseColor,
+  required final Color brideNameColor,
+  required final Color groomNameColor,
+  required final double countdownBorderWidth,
+  required final Color countdownOddColor,
+  required final Color countdownEvenColor,
+  required final Color countdownOddBorderColor,
+  required final Color countdownEvenBorderColor,
+  required final Color countdownNumberColor,
+  required final Color countdownUnitColor,
+  required final Color firstArrowColor,
+  required final Color secondArrowColor,
+});
 
-  final Color indicatorColor;
-  final Color backgroundColor;
-  final Color titleActiveColor;
-  final Color titleInactiveColor;
-  final Color iconActiveColor;
-  final Color iconInactiveColor;
-}
+class const GlassFirstPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color openingTextColor,
+  required final Color generalTextColor,
+  required final Color firstSubScaffoldColor,
+  required final Color firstSubScaffoldBorderColor,
+  required final double firstSubScaffoldBorderWidth,
+  required final Color secondSubScaffoldColor,
+  required final Color secondSubScaffoldBorderColor,
+  required final double secondSubScaffoldBorderWidth,
+});
 
-class GlassCoverPageConfig {
-  const GlassCoverPageConfig({
-    required this.gradientBaseColor,
-    required this.brideNameColor,
-    required this.groomNameColor,
-    required this.countdownBorderWidth,
-    required this.countdownOddColor,
-    required this.countdownEvenColor,
-    required this.countdownOddBorderColor,
-    required this.countdownEvenBorderColor,
-    required this.countdownNumberColor,
-    required this.countdownUnitColor,
-    required this.firstArrowColor,
-    required this.secondArrowColor,
-  });
+class const GlassSecondPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color generalTextColor,
+  required final double brideDividingBorderWidth,
+  required final double brideImageBorderWidth,
+  required final double brideDividingLineWidth,
+  required final Color brideDividingBorderColor,
+  required final Color brideImageFrameColor,
+  required final Color brideImageFrameBorderColor,
+  required final Color brideDividingLineColor,
+  required final Color? brideNameTextColor,
+  required final Color? brideFatherNameTextColor,
+  required final Color? brideMotherNameTextColor,
+  required final double groomDividingBorderWidth,
+  required final double groomImageBorderWidth,
+  required final double groomDividingLineWidth,
+  required final Color groomDividingBorderColor,
+  required final Color groomImageFrameColor,
+  required final Color groomImageFrameBorderColor,
+  required final Color groomDividingLineColor,
+  required final Color? groomNameTextColor,
+  required final Color? groomFatherNameTextColor,
+  required final Color? groomMotherNameTextColor,
+});
 
-  final Color gradientBaseColor;
-  final Color brideNameColor;
-  final Color groomNameColor;
-  final double countdownBorderWidth;
-  final Color countdownOddColor;
-  final Color countdownEvenColor;
-  final Color countdownOddBorderColor;
-  final Color countdownEvenBorderColor;
-  final Color countdownNumberColor;
-  final Color countdownUnitColor;
-  final Color firstArrowColor;
-  final Color secondArrowColor;
-}
+class const GlassThirdPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color contractTitleColor,
+  required final Color contractBaseTextColor,
+  required final Color receptionTitleColor,
+  required final Color receptionBaseTextColor,
+  required final double dividingLineWidth,
+  required final Color dividingLineColor,
+  required final double contractCountdownBorderWidth,
+  required final Color contractCountdownOddColor,
+  required final Color contractCountdownEvenColor,
+  required final Color contractCountdownOddBorderColor,
+  required final Color contractCountdownEvenBorderColor,
+  required final Color contractCountdownNumberColor,
+  required final Color contractCountdownUnitColor,
+  required final double receptionCountdownBorderWidth,
+  required final Color receptionCountdownOddColor,
+  required final Color receptionCountdownEvenColor,
+  required final Color receptionCountdownOddBorderColor,
+  required final Color receptionCountdownEvenBorderColor,
+  required final Color receptionCountdownNumberColor,
+  required final Color receptionCountdownUnitColor,
+});
 
-class GlassFirstPageConfig {
-  const GlassFirstPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.openingTextColor,
-    required this.generalTextColor,
-    required this.firstSubScaffoldColor,
-    required this.firstSubScaffoldBorderColor,
-    required this.firstSubScaffoldBorderWidth,
-    required this.secondSubScaffoldColor,
-    required this.secondSubScaffoldBorderColor,
-    required this.secondSubScaffoldBorderWidth,
-  });
+class const GlassThirdDifferentLocationPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color dateTimeIconColor,
+  required final Color dateTimeBaseTextColor,
+  required final double countdownBorderWidth,
+  required final Color countdownOddColor,
+  required final Color countdownEvenColor,
+  required final Color countdownOddBorderColor,
+  required final Color countdownEvenBorderColor,
+  required final Color countdownNumberColor,
+  required final Color countdownUnitColor,
+  required final double dividingLineWidth,
+  required final Color dividingLineColor,
+  required final Color placeIconColor,
+  required final Color placeBaseTextColor,
+  required final Color addressTextColor,
+  required final Color mapsBorderColor,
+  required final Color getDirectionsButtonColor,
+  required final Color getDirectionsButtonLabelColor,
+  required final double getDirectionsButtonBorderWidth,
+  required final Color getDirectionsButtonBorderColor,
+});
 
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color openingTextColor;
-  final Color generalTextColor;
-  final Color firstSubScaffoldColor;
-  final Color firstSubScaffoldBorderColor;
-  final double firstSubScaffoldBorderWidth;
-  final Color secondSubScaffoldColor;
-  final Color secondSubScaffoldBorderColor;
-  final double secondSubScaffoldBorderWidth;
-}
+class const GlassFourthPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color placeIconColor,
+  required final Color placeTextColor,
+  required final Color addressTextColor,
+  required final double dividingLineWidth,
+  required final Color dividingLineColor,
+  required final Color mapsBorderColor,
+  required final Color getDirectionsButtonColor,
+  required final Color getDirectionsButtonLabelColor,
+  required final double getDirectionsButtonBorderWidth,
+  required final Color getDirectionsButtonBorderColor,
+});
 
-class GlassSecondPageConfig {
-  const GlassSecondPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.generalTextColor,
-    required this.brideDividingBorderWidth,
-    required this.brideImageBorderWidth,
-    required this.brideDividingLineWidth,
-    required this.brideDividingBorderColor,
-    required this.brideImageFrameColor,
-    required this.brideImageFrameBorderColor,
-    required this.brideDividingLineColor,
-    required this.brideNameTextColor,
-    required this.brideFatherNameTextColor,
-    required this.brideMotherNameTextColor,
-    required this.groomDividingBorderWidth,
-    required this.groomImageBorderWidth,
-    required this.groomDividingLineWidth,
-    required this.groomDividingBorderColor,
-    required this.groomImageFrameColor,
-    required this.groomImageFrameBorderColor,
-    required this.groomDividingLineColor,
-    required this.groomNameTextColor,
-    required this.groomFatherNameTextColor,
-    required this.groomMotherNameTextColor,
-  });
+class const GlassFourthDifferentLocationPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color dateTimeIconColor,
+  required final Color dateTimeBaseTextColor,
+  required final double countdownBorderWidth,
+  required final Color countdownOddColor,
+  required final Color countdownEvenColor,
+  required final Color countdownOddBorderColor,
+  required final Color countdownEvenBorderColor,
+  required final Color countdownNumberColor,
+  required final Color countdownUnitColor,
+  required final double dividingLineWidth,
+  required final Color dividingLineColor,
+  required final Color placeIconColor,
+  required final Color placeBaseTextColor,
+  required final Color addressTextColor,
+  required final Color mapsBorderColor,
+  required final Color getDirectionsButtonColor,
+  required final Color getDirectionsButtonLabelColor,
+  required final double getDirectionsButtonBorderWidth,
+  required final Color getDirectionsButtonBorderColor,
+});
 
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color generalTextColor;
-  final double brideDividingBorderWidth;
-  final double brideImageBorderWidth;
-  final double brideDividingLineWidth;
-  final Color brideDividingBorderColor;
-  final Color brideImageFrameColor;
-  final Color brideImageFrameBorderColor;
-  final Color brideDividingLineColor;
-  final Color? brideNameTextColor;
-  final Color? brideFatherNameTextColor;
-  final Color? brideMotherNameTextColor;
-  final double groomDividingBorderWidth;
-  final double groomImageBorderWidth;
-  final double groomDividingLineWidth;
-  final Color groomDividingBorderColor;
-  final Color groomImageFrameColor;
-  final Color groomImageFrameBorderColor;
-  final Color groomDividingLineColor;
-  final Color? groomNameTextColor;
-  final Color? groomFatherNameTextColor;
-  final Color? groomMotherNameTextColor;
-}
+class const GlassFifthPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final double dividingLineWidth,
+  required final Color dividingVerticalLineColor,
+  required final Color dividingHorizontalLineColor,
+  required final Color seeMoreButtonColor,
+  required final Color seeMoreButtonLabelColor,
+  required final double seeMoreButtonBorderWidth,
+  required final Color seeMoreButtonBorderColor,
+  required final Color? bottomSheetHandleColor,
+  required final Color bottomSheetContentScaffoldColor,
+  required final Color bottomSheetBackgroundColor,
+  required final Color bottomSheetCloseIconColor,
+  final Color? bottomSheetOnHoverCloseIconColor,
+});
 
-class GlassThirdPageConfig {
-  const GlassThirdPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.contractTitleColor,
-    required this.contractBaseTextColor,
-    required this.receptionTitleColor,
-    required this.receptionBaseTextColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.contractCountdownBorderWidth,
-    required this.contractCountdownOddColor,
-    required this.contractCountdownEvenColor,
-    required this.contractCountdownOddBorderColor,
-    required this.contractCountdownEvenBorderColor,
-    required this.contractCountdownNumberColor,
-    required this.contractCountdownUnitColor,
-    required this.receptionCountdownBorderWidth,
-    required this.receptionCountdownOddColor,
-    required this.receptionCountdownEvenColor,
-    required this.receptionCountdownOddBorderColor,
-    required this.receptionCountdownEvenBorderColor,
-    required this.receptionCountdownNumberColor,
-    required this.receptionCountdownUnitColor,
-  });
+class const GlassSixthPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color introductionTextColor,
+  required final Color introductionColor,
+  required final Color introductionBorderColor,
+  required final double introductionBorderWidth,
+  required final Color bankColor,
+  required final Color bankBorderColor,
+  required final double bankBorderWidth,
+  required final Color bankTextColor,
+  required final Color bankCopyBaseColor,
+});
 
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color contractTitleColor;
-  final Color contractBaseTextColor;
-  final Color receptionTitleColor;
-  final Color receptionBaseTextColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final double contractCountdownBorderWidth;
-  final Color contractCountdownOddColor;
-  final Color contractCountdownEvenColor;
-  final Color contractCountdownOddBorderColor;
-  final Color contractCountdownEvenBorderColor;
-  final Color contractCountdownNumberColor;
-  final Color contractCountdownUnitColor;
-  final double receptionCountdownBorderWidth;
-  final Color receptionCountdownOddColor;
-  final Color receptionCountdownEvenColor;
-  final Color receptionCountdownOddBorderColor;
-  final Color receptionCountdownEvenBorderColor;
-  final Color receptionCountdownNumberColor;
-  final Color receptionCountdownUnitColor;
-}
-
-class GlassThirdDifferentLocationPageConfig {
-  const GlassThirdDifferentLocationPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.dateTimeIconColor,
-    required this.dateTimeBaseTextColor,
-    required this.countdownBorderWidth,
-    required this.countdownOddColor,
-    required this.countdownEvenColor,
-    required this.countdownOddBorderColor,
-    required this.countdownEvenBorderColor,
-    required this.countdownNumberColor,
-    required this.countdownUnitColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.placeIconColor,
-    required this.placeBaseTextColor,
-    required this.addressTextColor,
-    required this.mapsBorderColor,
-    required this.getDirectionsButtonColor,
-    required this.getDirectionsButtonLabelColor,
-    required this.getDirectionsButtonBorderWidth,
-    required this.getDirectionsButtonBorderColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color dateTimeIconColor;
-  final Color dateTimeBaseTextColor;
-  final double countdownBorderWidth;
-  final Color countdownOddColor;
-  final Color countdownEvenColor;
-  final Color countdownOddBorderColor;
-  final Color countdownEvenBorderColor;
-  final Color countdownNumberColor;
-  final Color countdownUnitColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final Color placeIconColor;
-  final Color placeBaseTextColor;
-  final Color addressTextColor;
-  final Color mapsBorderColor;
-  final Color getDirectionsButtonColor;
-  final Color getDirectionsButtonLabelColor;
-  final double getDirectionsButtonBorderWidth;
-  final Color getDirectionsButtonBorderColor;
-}
-
-class GlassFourthPageConfig {
-  const GlassFourthPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.placeIconColor,
-    required this.placeTextColor,
-    required this.addressTextColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.mapsBorderColor,
-    required this.getDirectionsButtonColor,
-    required this.getDirectionsButtonLabelColor,
-    required this.getDirectionsButtonBorderWidth,
-    required this.getDirectionsButtonBorderColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color placeIconColor;
-  final Color placeTextColor;
-  final Color addressTextColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final Color mapsBorderColor;
-  final Color getDirectionsButtonColor;
-  final Color getDirectionsButtonLabelColor;
-  final double getDirectionsButtonBorderWidth;
-  final Color getDirectionsButtonBorderColor;
-}
-
-class GlassFourthDifferentLocationPageConfig {
-  const GlassFourthDifferentLocationPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.dateTimeIconColor,
-    required this.dateTimeBaseTextColor,
-    required this.countdownBorderWidth,
-    required this.countdownOddColor,
-    required this.countdownEvenColor,
-    required this.countdownOddBorderColor,
-    required this.countdownEvenBorderColor,
-    required this.countdownNumberColor,
-    required this.countdownUnitColor,
-    required this.dividingLineWidth,
-    required this.dividingLineColor,
-    required this.placeIconColor,
-    required this.placeBaseTextColor,
-    required this.addressTextColor,
-    required this.mapsBorderColor,
-    required this.getDirectionsButtonColor,
-    required this.getDirectionsButtonLabelColor,
-    required this.getDirectionsButtonBorderWidth,
-    required this.getDirectionsButtonBorderColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color dateTimeIconColor;
-  final Color dateTimeBaseTextColor;
-  final double countdownBorderWidth;
-  final Color countdownOddColor;
-  final Color countdownEvenColor;
-  final Color countdownOddBorderColor;
-  final Color countdownEvenBorderColor;
-  final Color countdownNumberColor;
-  final Color countdownUnitColor;
-  final double dividingLineWidth;
-  final Color dividingLineColor;
-  final Color placeIconColor;
-  final Color placeBaseTextColor;
-  final Color addressTextColor;
-  final Color mapsBorderColor;
-  final Color getDirectionsButtonColor;
-  final Color getDirectionsButtonLabelColor;
-  final double getDirectionsButtonBorderWidth;
-  final Color getDirectionsButtonBorderColor;
-}
-
-class GlassFifthPageConfig {
-  const GlassFifthPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
-    required this.bottomSheetBackgroundColor,
-    required this.bottomSheetCloseIconColor,
-    this.bottomSheetOnHoverCloseIconColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
-  final Color bottomSheetBackgroundColor;
-  final Color bottomSheetCloseIconColor;
-  final Color? bottomSheetOnHoverCloseIconColor;
-}
-
-class GlassSixthPageConfig {
-  const GlassSixthPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.introductionTextColor,
-    required this.introductionColor,
-    required this.introductionBorderColor,
-    required this.introductionBorderWidth,
-    required this.bankColor,
-    required this.bankBorderColor,
-    required this.bankBorderWidth,
-    required this.bankTextColor,
-    required this.bankCopyBaseColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color introductionTextColor;
-  final Color introductionColor;
-  final Color introductionBorderColor;
-  final double introductionBorderWidth;
-  final Color bankColor;
-  final Color bankBorderColor;
-  final double bankBorderWidth;
-  final Color bankTextColor;
-  final Color bankCopyBaseColor;
-}
-
-class GlassSeventhPageConfig {
-  const GlassSeventhPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.fieldTextColor,
-    required this.fieldLabelColor,
-    required this.fieldFillColor,
-    required this.fieldBorderColor,
-    required this.fieldSplashColor,
-    required this.overlayColor,
-    required this.overlayBorderColor,
-    required this.dropdownItemSelectedColor,
-    required this.dropdownItemTextColor,
-    required this.dropdownItemSelectedTextColor,
-    // required this.dropdownItemHoveredColor,
-    // required this.dropdownItemSplashColor,
-    required this.submitButtonColor,
-    required this.submitButtonLabelColor,
-    required this.submitButtonBorderWidth,
-    required this.submitButtonBorderColor,
-    required this.rsvpBackgroundColor,
-    required this.rsvpBorderColor,
-    this.rsvpBorderWidth = .5,
-    required this.rsvpNameTextColor,
-    required this.rsvpTimeAgoTextColor,
-    required this.rsvpNameInstanceTextColor,
-    required this.rsvpAttendanceTextColorLighten,
-    required this.rsvpMessageTextColor,
-    required this.seeMoreButtonColor,
-    required this.seeMoreButtonLabelColor,
-    required this.seeMoreButtonBorderWidth,
-    required this.seeMoreButtonBorderColor,
-    required this.bottomSheetHandleColor,
-    required this.bottomSheetContentScaffoldColor,
-    required this.bottomSheetBackgroundColor,
-    required this.bottomSheetCloseIconColor,
-    this.bottomSheetOnHoverCloseIconColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color fieldTextColor;
-  final Color fieldLabelColor;
-  final Color fieldFillColor;
-  final Color fieldBorderColor;
-  final Color fieldSplashColor;
-  final Color overlayColor;
-  final Color overlayBorderColor;
-  final Color dropdownItemSelectedColor;
-  final Color dropdownItemTextColor;
-  final Color dropdownItemSelectedTextColor;
+class const GlassSeventhPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color fieldTextColor,
+  required final Color fieldLabelColor,
+  required final Color fieldFillColor,
+  required final Color fieldBorderColor,
+  required final Color fieldSplashColor,
+  required final Color overlayColor,
+  required final Color overlayBorderColor,
+  required final Color dropdownItemSelectedColor,
+  required final Color dropdownItemTextColor,
+  required final Color dropdownItemSelectedTextColor,
+  // required this.dropdownItemHoveredColor,
+  // required this.dropdownItemSplashColor,
+  required final Color submitButtonColor,
+  required final Color submitButtonLabelColor,
+  required final double submitButtonBorderWidth,
+  required final Color submitButtonBorderColor,
+  required final Color rsvpBackgroundColor,
+  required final Color rsvpBorderColor,
+  final double rsvpBorderWidth = .5,
+  required final Color rsvpNameTextColor,
+  required final Color rsvpTimeAgoTextColor,
+  required final Color rsvpNameInstanceTextColor,
+  required final int rsvpAttendanceTextColorLighten,
+  required final Color rsvpMessageTextColor,
+  required final Color seeMoreButtonColor,
+  required final Color seeMoreButtonLabelColor,
+  required final double seeMoreButtonBorderWidth,
+  required final Color seeMoreButtonBorderColor,
+  required final Color? bottomSheetHandleColor,
+  required final Color bottomSheetContentScaffoldColor,
+  required final Color bottomSheetBackgroundColor,
+  required final Color bottomSheetCloseIconColor,
+  final Color? bottomSheetOnHoverCloseIconColor,
+}) {
   // final Color dropdownItemHoveredColor;
   // final Color dropdownItemSplashColor;
-  final Color submitButtonColor;
-  final Color submitButtonLabelColor;
-  final double submitButtonBorderWidth;
-  final Color submitButtonBorderColor;
-  final Color rsvpBackgroundColor;
-  final Color rsvpBorderColor;
-  final double rsvpBorderWidth;
-  final Color rsvpNameTextColor;
-  final Color rsvpTimeAgoTextColor;
-  final Color rsvpNameInstanceTextColor;
-  final int rsvpAttendanceTextColorLighten;
-  final Color rsvpMessageTextColor;
-  final Color seeMoreButtonColor;
-  final Color seeMoreButtonLabelColor;
-  final double seeMoreButtonBorderWidth;
-  final Color seeMoreButtonBorderColor;
-  final Color? bottomSheetHandleColor;
-  final Color bottomSheetContentScaffoldColor;
-  final Color bottomSheetBackgroundColor;
-  final Color bottomSheetCloseIconColor;
-  final Color? bottomSheetOnHoverCloseIconColor;
 }
 
-class GlassEighthPageConfig {
-  const GlassEighthPageConfig({
-    required this.firstGradientScaffoldColor,
-    required this.secondGradientScaffoldColor,
-    this.stopsGradientScaffoldColor,
-    required this.scaffoldBorder,
-    this.glassEffectOpacity = .4,
-    this.firstGradientBackgroundColor,
-    this.secondGradientBackgroundColor,
-    required this.titlePageColor,
-    required this.closingTextColor,
-    required this.brideGroomNameColor,
-    required this.brandBackgroundColor,
-    required this.brandTextColor,
-  });
-
-  final Color firstGradientScaffoldColor;
-  final Color secondGradientScaffoldColor;
-  final List<double>? stopsGradientScaffoldColor;
-  final BoxBorder scaffoldBorder;
-  final double glassEffectOpacity;
-  final Color? firstGradientBackgroundColor;
-  final Color? secondGradientBackgroundColor;
-  final Color titlePageColor;
-  final Color closingTextColor;
-  final Color brideGroomNameColor;
-  final Color brandBackgroundColor;
-  final Color brandTextColor;
-}
+class const GlassEighthPageConfig({
+  required final Color firstGradientScaffoldColor,
+  required final Color secondGradientScaffoldColor,
+  final List<double>? stopsGradientScaffoldColor,
+  required final BoxBorder scaffoldBorder,
+  final double glassEffectOpacity = .4,
+  final Color? firstGradientBackgroundColor,
+  final Color? secondGradientBackgroundColor,
+  required final Color titlePageColor,
+  required final Color closingTextColor,
+  required final Color brideGroomNameColor,
+  required final Color brandBackgroundColor,
+  required final Color brandTextColor,
+});

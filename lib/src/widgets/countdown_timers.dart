@@ -6,41 +6,26 @@ import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 
-class CountdownTimers extends StatefulWidget {
-  const CountdownTimers({
-    super.key,
-    required this.oddColor,
-    required this.evenColor,
-    required this.oddBorderColor,
-    required this.evenBorderColor,
-    required this.numberColor,
-    required this.unitColor,
-    this.borderWidth = 1,
-    required this.time,
-    required this.useLightningEffect,
-    this.animationDelayBeforeStart = .zero,
-    this.lightningEffectDelayBeforeShowed = const Duration(milliseconds: 1200),
-    required this.noAnimate,
-  });
-
-  final Color oddColor;
-  final Color evenColor;
-  final Color oddBorderColor;
-  final Color evenBorderColor;
-  final Color numberColor;
-  final Color unitColor;
-  final double borderWidth;
-  final DateTime time;
-  final bool useLightningEffect;
-  final Duration animationDelayBeforeStart;
-  final Duration lightningEffectDelayBeforeShowed;
-  final bool noAnimate;
-
+class const CountdownTimers({
+  super.key,
+  required final Color oddColor,
+  required final Color evenColor,
+  required final Color oddBorderColor,
+  required final Color evenBorderColor,
+  required final Color numberColor,
+  required final Color unitColor,
+  final double borderWidth = 1,
+  required final DateTime time,
+  required final bool useLightningEffect,
+  final Duration animationDelayBeforeStart = .zero,
+  final Duration lightningEffectDelayBeforeShowed = const Duration(milliseconds: 1200),
+  required final bool noAnimate,
+}) extends StatefulWidget {
   @override
   State<CountdownTimers> createState() => _CountdownTimersState();
 }
 
-class _CountdownTimersState extends State<CountdownTimers> {
+class _CountdownTimersState() extends State<CountdownTimers> {
   Timer? _timer;
   late Duration _remaining;
 
@@ -183,31 +168,18 @@ class _CountdownTimersState extends State<CountdownTimers> {
   );
 }
 
-class _CountdownTimer extends StatelessWidget {
-  const _CountdownTimer({
-    required this.color,
-    required this.borderColor,
-    required this.numberColor,
-    required this.unitColor,
-    required this.borderWidth,
-    required this.useLightningEffect,
-    required this.number,
-    required this.unit,
-    required this.lightningEffectDelayBeforeShowed,
-    this.staticLightningEffectValue,
-  });
-
-  final Color color;
-  final Color borderColor;
-  final Color numberColor;
-  final Color unitColor;
-  final double borderWidth;
-  final bool useLightningEffect;
-  final int number;
-  final String unit;
-  final Duration lightningEffectDelayBeforeShowed;
-  final double? staticLightningEffectValue;
-
+class const _CountdownTimer({
+  required final Color color,
+  required final Color borderColor,
+  required final Color numberColor,
+  required final Color unitColor,
+  required final double borderWidth,
+  required final bool useLightningEffect,
+  required final int number,
+  required final String unit,
+  required final Duration lightningEffectDelayBeforeShowed,
+  final double? staticLightningEffectValue,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -256,23 +228,14 @@ class _CountdownTimer extends StatelessWidget {
   }
 }
 
-class _NoAnimateWrapper extends StatelessWidget {
-  const _NoAnimateWrapper({
-    required this.noAnimate,
-    required this.slideFromOffset,
-    required this.slideFrom,
-    this.animationSpeed = const Duration(milliseconds: 500),
-    required this.delayBeforeStart,
-    required this.child,
-  });
-
-  final bool noAnimate;
-  final double slideFromOffset;
-  final SlideFrom slideFrom;
-  final Duration animationSpeed;
-  final Duration delayBeforeStart;
-  final Widget child;
-
+class const _NoAnimateWrapper({
+  required final bool noAnimate,
+  required final double slideFromOffset,
+  required final SlideFrom slideFrom,
+  final Duration animationSpeed = const Duration(milliseconds: 500),
+  required final Duration delayBeforeStart,
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (noAnimate) return child;

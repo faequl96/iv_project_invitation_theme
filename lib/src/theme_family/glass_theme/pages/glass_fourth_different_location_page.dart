@@ -11,16 +11,11 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class GlassFourthDifferentLocationPage extends StatelessWidget {
-  const GlassFourthDifferentLocationPage({
-    super.key,
-    required this.config,
-    required this.receptionEvent,
-  });
-
-  final GlassFourthDifferentLocationPageConfig config;
-  final EventResponse receptionEvent;
-
+class const GlassFourthDifferentLocationPage({
+  super.key,
+  required final GlassFourthDifferentLocationPageConfig config,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

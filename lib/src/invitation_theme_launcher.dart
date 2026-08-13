@@ -8,31 +8,21 @@ import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/gener
 import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_theme_launcher.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class InvitationThemeLauncher extends StatefulWidget {
-  const InvitationThemeLauncher({
-    super.key,
-    this.heightAdjustment = 0,
-    required this.viewType,
-    required this.invitationThemeId,
-    required this.invitationId,
-    required this.invitationData,
-    this.imagesRaw,
-    required this.brandProfile,
-  });
-
-  final double heightAdjustment;
-  final ViewType viewType;
-  final int invitationThemeId;
-  final String invitationId;
-  final InvitationDataResponse invitationData;
-  final ImagesRaw? imagesRaw;
-  final BrandProfileResponse brandProfile;
-
+class const InvitationThemeLauncher({
+  super.key,
+  final double heightAdjustment = 0,
+  required final ViewType viewType,
+  required final int invitationThemeId,
+  required final String invitationId,
+  required final InvitationDataResponse invitationData,
+  final ImagesRaw? imagesRaw,
+  required final BrandProfileResponse brandProfile,
+}) extends StatefulWidget {
   @override
   State<InvitationThemeLauncher> createState() => _InvitationThemeLauncherState();
 }
 
-class _InvitationThemeLauncherState extends State<InvitationThemeLauncher> {
+class _InvitationThemeLauncherState() extends State<InvitationThemeLauncher> {
   @override
   void initState() {
     super.initState();

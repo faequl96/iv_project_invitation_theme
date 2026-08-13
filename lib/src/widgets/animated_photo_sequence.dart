@@ -7,7 +7,7 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedPhotoSequence extends StatefulWidget {
-  const AnimatedPhotoSequence.left({
+  const new left({
     super.key,
     required this.viewType,
     required this.frameColor,
@@ -18,7 +18,7 @@ class AnimatedPhotoSequence extends StatefulWidget {
     required this.noAnimate,
   }) : isLeft = true;
 
-  const AnimatedPhotoSequence.right({
+  const new right({
     super.key,
     required this.viewType,
     required this.frameColor,
@@ -42,7 +42,8 @@ class AnimatedPhotoSequence extends StatefulWidget {
   State<AnimatedPhotoSequence> createState() => _AnimatedPhotoSequenceState();
 }
 
-class _AnimatedPhotoSequenceState extends State<AnimatedPhotoSequence>
+class _AnimatedPhotoSequenceState()
+    extends State<AnimatedPhotoSequence>
     with SingleTickerProviderStateMixin {
   StreamSubscription? _sub;
 

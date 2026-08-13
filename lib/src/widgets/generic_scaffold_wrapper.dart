@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 
-class GenericScaffoldWrapper extends StatelessWidget {
-  const GenericScaffoldWrapper({
-    super.key,
-    required this.useBackdropBlur,
-    this.borderRadius = const .all(.circular(20)),
-    required this.child,
-  });
-
-  final bool useBackdropBlur;
-  final BorderRadiusGeometry borderRadius;
-  final Widget child;
-
+class const GenericScaffoldWrapper({
+  super.key,
+  required final bool useBackdropBlur,
+  final BorderRadiusGeometry borderRadius = const .all(.circular(20)),
+  required final Widget child,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!useBackdropBlur) return child;

@@ -5,9 +5,7 @@ import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class RedVelvetGlass {
-  RedVelvetGlass._();
-
+class RedVelvetGlass._() {
   static GlassConfigs get configs => GlassConfigs(
     tabConfig: GlassTabConfig(
       indicatorColor: Colors.red.shade50,

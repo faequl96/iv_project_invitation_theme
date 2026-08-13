@@ -12,31 +12,21 @@ import 'package:iv_project_invitation_theme/src/widgets/double_arrow_slider.dart
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class GenericCoverPage extends StatefulWidget {
-  const GenericCoverPage({
-    super.key,
-    required this.config,
-    required this.viewType,
-    this.coverImage,
-    required this.general,
-    required this.bride,
-    required this.groom,
-    required this.time,
-  });
-
-  final GenericCoverPageConfig config;
-  final ViewType viewType;
-  final File? coverImage;
-  final GeneralResponse general;
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final EventResponse time;
-
+class const GenericCoverPage({
+  super.key,
+  required final GenericCoverPageConfig config,
+  required final ViewType viewType,
+  final File? coverImage,
+  required final GeneralResponse general,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+  required final EventResponse time,
+}) extends StatefulWidget {
   @override
   State<GenericCoverPage> createState() => _GenericCoverPageState();
 }
 
-class _GenericCoverPageState extends State<GenericCoverPage> {
+class _GenericCoverPageState() extends State<GenericCoverPage> {
   Widget? _cachedImage;
 
   @override

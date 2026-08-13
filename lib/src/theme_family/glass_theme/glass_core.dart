@@ -6,29 +6,20 @@ import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_c
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 
-class GlassCore extends StatefulWidget {
-  const GlassCore({
+class const GlassCore({
     super.key,
-    required this.wrapper,
-    this.backgrounds,
-    this.particleSphere,
-    required this.tabConfig,
-    required this.pages,
-    required this.tabsBuilder,
-  });
-
-  final Widget wrapper;
-  final List<Widget>? backgrounds;
-  final ParticleSphereConfig? particleSphere;
-  final GlassTabConfig tabConfig;
-  final List<Widget> pages;
-  final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder;
-
+    required final Widget wrapper,
+    final List<Widget>? backgrounds,
+    final ParticleSphereConfig? particleSphere,
+    required final GlassTabConfig tabConfig,
+    required final List<Widget> pages,
+    required final List<Widget> Function(ValueNotifier<int> tabActive) tabsBuilder,
+  }) extends StatefulWidget {
   @override
   State<GlassCore> createState() => _GlassCoreState();
 }
 
-class _GlassCoreState extends State<GlassCore> with SingleTickerProviderStateMixin {
+class _GlassCoreState() extends State<GlassCore> with SingleTickerProviderStateMixin {
   TabController? _tabController;
   PageController? _pageController;
 

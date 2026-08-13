@@ -6,12 +6,11 @@ import 'package:iv_project_invitation_theme/src/widgets/glass_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GlassFifthPageAsImage extends StatelessWidget {
-  const GlassFifthPageAsImage({super.key, required this.config, this.gallery});
-
-  final GlassFifthPageConfig config;
-  final GalleryResponse? gallery;
-
+class const GlassFifthPageAsImage({
+  super.key,
+  required final GlassFifthPageConfig config,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -171,19 +170,12 @@ class GlassFifthPageAsImage extends StatelessWidget {
   );
 }
 
-class _Gallery extends StatelessWidget {
-  const _Gallery({
-    required this.dividingLineWidth,
-    required this.dividingVerticalLineColor,
-    required this.dividingHorizontalLineColor,
-    this.gallery,
-  });
-
-  final double dividingLineWidth;
-  final Color dividingVerticalLineColor;
-  final Color dividingHorizontalLineColor;
-  final GalleryResponse? gallery;
-
+class const _Gallery({
+  required final double dividingLineWidth,
+  required final Color dividingVerticalLineColor,
+  required final Color dividingHorizontalLineColor,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -315,11 +307,7 @@ class _Gallery extends StatelessWidget {
   }
 }
 
-class _ImageViewer extends StatelessWidget {
-  const _ImageViewer({this.imageUrl});
-
-  final String? imageUrl;
-
+class const _ImageViewer({final String? imageUrl}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(borderRadius: .circular(8), child: _content());

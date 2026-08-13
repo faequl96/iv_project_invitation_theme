@@ -6,11 +6,9 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 
 class AnimatedInviter extends StatefulWidget {
-  const AnimatedInviter.left({super.key, required this.children, required this.noAnimate})
-    : isLeft = true;
+  const new left({super.key, required this.children, required this.noAnimate}) : isLeft = true;
 
-  const AnimatedInviter.right({super.key, required this.children, required this.noAnimate})
-    : isLeft = false;
+  const new right({super.key, required this.children, required this.noAnimate}) : isLeft = false;
 
   final bool isLeft;
   final List<Widget> children;
@@ -20,7 +18,7 @@ class AnimatedInviter extends StatefulWidget {
   State<AnimatedInviter> createState() => _AnimatedInviterState();
 }
 
-class _AnimatedInviterState extends State<AnimatedInviter> with SingleTickerProviderStateMixin {
+class _AnimatedInviterState() extends State<AnimatedInviter> with SingleTickerProviderStateMixin {
   StreamSubscription? _sub;
 
   late final AnimationController _controller;

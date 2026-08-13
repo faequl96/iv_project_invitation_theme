@@ -10,16 +10,11 @@ import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class EthnicThirdDifferentLocationPage extends StatelessWidget {
-  const EthnicThirdDifferentLocationPage({
+class const EthnicThirdDifferentLocationPage({
     super.key,
-    required this.config,
-    required this.contractEvent,
-  });
-
-  final EthnicThirdDifferentLocationPageConfig config;
-  final EventResponse contractEvent;
-
+    required final EthnicThirdDifferentLocationPageConfig config,
+    required final EventResponse contractEvent,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

@@ -3,24 +3,15 @@ import 'package:iv_project_core/iv_project_core.dart';
 import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GeneralDialogButton extends StatelessWidget {
-  const GeneralDialogButton({
-    super.key,
-    required this.title,
-    required this.color,
-    this.isDisabled = false,
-    this.isBusy = false,
-    this.isLoading = false,
-    required this.onTap,
-  });
-
-  final String title;
-  final Color color;
-  final bool isDisabled;
-  final bool isBusy;
-  final bool isLoading;
-  final void Function() onTap;
-
+class const GeneralDialogButton({
+  super.key,
+  required final String title,
+  required final Color color,
+  final bool isDisabled = false,
+  final bool isBusy = false,
+  final bool isLoading = false,
+  required final void Function() onTap,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(

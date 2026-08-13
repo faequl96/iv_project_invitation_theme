@@ -6,18 +6,12 @@ import 'package:iv_project_invitation_theme/src/opener/padlock.dart';
 import 'package:iv_project_invitation_theme/src/widgets/lightning_effect_box.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class InitializerWrapperAsImage extends StatelessWidget {
-  const InitializerWrapperAsImage({
+class const InitializerWrapperAsImage({
     super.key,
-    required this.bride,
-    required this.groom,
-    required this.time,
-  });
-
-  final BridegroomResponse bride;
-  final BridegroomResponse groom;
-  final EventResponse time;
-
+    required final BridegroomResponse bride,
+    required final BridegroomResponse groom,
+    required final EventResponse time,
+  }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;

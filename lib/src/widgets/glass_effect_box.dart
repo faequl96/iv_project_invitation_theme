@@ -2,37 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class GlassEffectBox extends StatefulWidget {
-  const GlassEffectBox({
-    super.key,
-    required this.width,
-    required this.height,
-    this.borderRadius = 6,
-    this.animationSpeed = const Duration(milliseconds: 400),
-    this.animationInterval = const Duration(milliseconds: 1500),
-    this.delayBeforeStart = const Duration(seconds: 1),
-    this.sliderWidth = 60,
-    this.sliderTilt = .2,
-    required this.color,
-    this.staticValue,
-  });
-
-  final double width;
-  final double height;
-  final double borderRadius;
-  final Duration animationSpeed;
-  final Duration animationInterval;
-  final Duration delayBeforeStart;
-  final double sliderWidth;
-  final double sliderTilt;
-  final Color color;
-  final double? staticValue;
-
+class const GlassEffectBox({
+  super.key,
+  required final double width,
+  required final double height,
+  final double borderRadius = 6,
+  final Duration animationSpeed = const Duration(milliseconds: 400),
+  final Duration animationInterval = const Duration(milliseconds: 1500),
+  final Duration delayBeforeStart = const Duration(seconds: 1),
+  final double sliderWidth = 60,
+  final double sliderTilt = .2,
+  required final Color color,
+  final double? staticValue,
+}) extends StatefulWidget {
   @override
   State<GlassEffectBox> createState() => _GlassEffectBoxState();
 }
 
-class _GlassEffectBoxState extends State<GlassEffectBox> with SingleTickerProviderStateMixin {
+class _GlassEffectBoxState() extends State<GlassEffectBox> with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   late final Animation<double> _animation;
 

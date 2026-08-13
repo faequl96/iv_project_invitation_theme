@@ -8,12 +8,11 @@ import 'package:iv_project_invitation_theme/src/widgets/generic_scaffold_wrapper
 import 'package:iv_project_model/iv_project_model.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
-class GenericFourthPageAsImage extends StatelessWidget {
-  const GenericFourthPageAsImage({super.key, required this.config, required this.receptionEvent});
-
-  final GenericFourthPageConfig config;
-  final EventResponse receptionEvent;
-
+class const GenericFourthPageAsImage({
+  super.key,
+  required final GenericFourthPageConfig config,
+  required final EventResponse receptionEvent,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
