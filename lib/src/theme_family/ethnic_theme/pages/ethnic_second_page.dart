@@ -12,14 +12,14 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const EthnicSecondPage({
-    super.key,
-    required final EthnicSecondPageConfig config,
-    required final ViewType viewType,
-    final File? brideImage,
-    final File? groomImage,
-    required final BridegroomResponse bride,
-    required final BridegroomResponse groom,
-  }) extends StatelessWidget {
+  super.key,
+  required final EthnicSecondPageConfig config,
+  required final ViewType viewType,
+  final File? brideImage,
+  final File? groomImage,
+  required final BridegroomResponse bride,
+  required final BridegroomResponse groom,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -125,14 +125,16 @@ class const EthnicSecondPage({
                             backTitle: bride.backTitle,
                             nameColor: config.brideNameTextColor,
                             generalColor: config.generalTextColor,
+                            generalFrameColor: config.brideTextFrameColor,
+                            generalFrameBorderColor: config.brideTextFrameBorderColor,
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 6),
                           SizedBox(
                             height: config.brideDividingLineWidth,
                             width: W.x16l,
                             child: ColoredBox(color: config.brideDividingLineColor),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 4),
                           Text(
                             langCode == 'en' ? 'Daughter of' : 'Putri dari',
                             style: AppFonts.inter(
@@ -149,6 +151,8 @@ class const EthnicSecondPage({
                             backTitle: bride.fatherBackTitle,
                             nameColor: config.brideFatherNameTextColor,
                             generalColor: config.generalTextColor,
+                            generalFrameColor: config.brideTextFrameColor,
+                            generalFrameBorderColor: config.brideTextFrameBorderColor,
                             langCode: langCode,
                           ),
                           const SizedBox(height: 2),
@@ -168,6 +172,8 @@ class const EthnicSecondPage({
                             backTitle: bride.motherBackTitle,
                             nameColor: config.brideMotherNameTextColor,
                             generalColor: config.generalTextColor,
+                            generalFrameColor: config.brideTextFrameColor,
+                            generalFrameBorderColor: config.brideTextFrameBorderColor,
                             langCode: langCode,
                           ),
                         ],
@@ -181,14 +187,16 @@ class const EthnicSecondPage({
                             backTitle: groom.backTitle,
                             nameColor: config.groomNameTextColor,
                             generalColor: config.generalTextColor,
+                            generalFrameColor: config.groomTextFrameColor,
+                            generalFrameBorderColor: config.groomTextFrameBorderColor,
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: 6),
                           SizedBox(
                             height: config.groomDividingLineWidth,
                             width: W.x16l,
                             child: ColoredBox(color: config.groomDividingLineColor),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 4),
                           Text(
                             langCode == 'en' ? 'Son of' : 'Putra dari',
                             style: AppFonts.inter(
@@ -205,6 +213,8 @@ class const EthnicSecondPage({
                             backTitle: groom.fatherBackTitle,
                             nameColor: config.groomFatherNameTextColor,
                             generalColor: config.generalTextColor,
+                            generalFrameColor: config.groomTextFrameColor,
+                            generalFrameBorderColor: config.groomTextFrameBorderColor,
                             langCode: langCode,
                           ),
                           const SizedBox(height: 2),
@@ -224,6 +234,8 @@ class const EthnicSecondPage({
                             backTitle: groom.motherBackTitle,
                             nameColor: config.groomMotherNameTextColor,
                             generalColor: config.generalTextColor,
+                            generalFrameColor: config.groomTextFrameColor,
+                            generalFrameBorderColor: config.groomTextFrameBorderColor,
                             langCode: langCode,
                           ),
                         ],
@@ -277,27 +289,39 @@ class const EthnicSecondPage({
     String? backTitle,
     Color? nameColor,
     required Color generalColor,
+    required Color generalFrameColor,
+    required Color generalFrameBorderColor,
   }) {
-    return Text.rich(
-      TextSpan(
-        children: [
-          if ((frontTitle ?? '').isNotEmpty)
-            TextSpan(
-              text: '$frontTitle ',
-              style: AppFonts.inter(fontWeight: .w500),
-            ),
-          TextSpan(
-            text: fullName,
-            style: AppFonts.inter(fontWeight: .w700, color: nameColor),
-          ),
-          if ((backTitle ?? '').isNotEmpty)
-            TextSpan(
-              text: ', $backTitle',
-              style: AppFonts.inter(fontWeight: .w500),
-            ),
-        ],
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: generalFrameColor,
+        borderRadius: .circular(4),
+        border: .all(width: .5, color: generalFrameBorderColor),
       ),
-      style: AppFonts.inter(fontSize: FontSize.x2l, color: generalColor, height: 1.2),
+      child: Padding(
+        padding: const .symmetric(horizontal: 6, vertical: 3),
+        child: Text.rich(
+          TextSpan(
+            children: [
+              if ((frontTitle ?? '').isNotEmpty)
+                TextSpan(
+                  text: '$frontTitle ',
+                  style: AppFonts.inter(fontWeight: .w500),
+                ),
+              TextSpan(
+                text: fullName,
+                style: AppFonts.inter(fontWeight: .w700, color: nameColor),
+              ),
+              if ((backTitle ?? '').isNotEmpty)
+                TextSpan(
+                  text: ', $backTitle',
+                  style: AppFonts.inter(fontWeight: .w500),
+                ),
+            ],
+          ),
+          style: AppFonts.inter(fontSize: FontSize.x2l, color: generalColor, height: 1.2),
+        ),
+      ),
     );
   }
 
@@ -308,36 +332,48 @@ class const EthnicSecondPage({
     String? backTitle,
     Color? nameColor,
     required Color generalColor,
+    required Color generalFrameColor,
+    required Color generalFrameBorderColor,
     required String langCode,
   }) {
     final prefix = isFather
         ? (langCode == 'en' ? 'Mr. ' : 'Bp. ')
         : (langCode == 'en' ? 'Mrs. ' : 'Ibu ');
-    return Text.rich(
-      TextSpan(
-        children: [
-          TextSpan(text: prefix),
-          if ((frontTitle ?? '').isNotEmpty)
-            TextSpan(
-              text: '$frontTitle ',
-              style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-            ),
-          TextSpan(
-            text: name,
-            style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: nameColor),
-          ),
-          if ((backTitle ?? '').isNotEmpty)
-            TextSpan(
-              text: ', $backTitle',
-              style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
-            ),
-        ],
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: generalFrameColor,
+        borderRadius: .circular(4),
+        border: .all(width: .5, color: generalFrameBorderColor),
       ),
-      style: AppFonts.inter(
-        fontSize: FontSize.xs + .2,
-        fontStyle: .italic,
-        color: generalColor,
-        height: 1.2,
+      child: Padding(
+        padding: const .symmetric(horizontal: 6, vertical: 3),
+        child: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(text: prefix),
+              if ((frontTitle ?? '').isNotEmpty)
+                TextSpan(
+                  text: '$frontTitle ',
+                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
+                ),
+              TextSpan(
+                text: name,
+                style: AppFonts.inter(fontWeight: .w700, fontStyle: .italic, color: nameColor),
+              ),
+              if ((backTitle ?? '').isNotEmpty)
+                TextSpan(
+                  text: ', $backTitle',
+                  style: AppFonts.inter(fontWeight: .w500, fontStyle: .italic),
+                ),
+            ],
+          ),
+          style: AppFonts.inter(
+            fontSize: FontSize.xs + .2,
+            fontStyle: .italic,
+            color: generalColor,
+            height: 1.2,
+          ),
+        ),
       ),
     );
   }

@@ -98,6 +98,8 @@ class const GenericSecondPageConfig({
   required final Color? brideNameTextColor,
   required final Color? brideFatherNameTextColor,
   required final Color? brideMotherNameTextColor,
+  required final Color brideTextFrameColor,
+  required final Color brideTextFrameBorderColor,
   required final double groomDividingBorderWidth,
   required final double groomImageBorderWidth,
   required final double groomDividingLineWidth,
@@ -108,6 +110,8 @@ class const GenericSecondPageConfig({
   required final Color? groomNameTextColor,
   required final Color? groomFatherNameTextColor,
   required final Color? groomMotherNameTextColor,
+  required final Color groomTextFrameColor,
+  required final Color groomTextFrameBorderColor,
 });
 
 class const GenericThirdPageConfig({
