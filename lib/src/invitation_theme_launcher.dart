@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/editorial_theme/editorial_theme_launcher.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic_theme_launcher.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_theme_launcher.dart';
 // import 'package:iv_project_invitation_theme/src/theme_types/page_view_immersive/page_view_immersive_theme_launcher.dart';
@@ -67,6 +68,15 @@ class _InvitationThemeLauncherState() extends State<InvitationThemeLauncher> {
       brandProfile: widget.brandProfile,
     ),
     7 => GeminiStarThemeLauncher(
+      heightAdjustment: widget.heightAdjustment,
+      viewType: widget.viewType,
+      invitationThemeId: widget.invitationThemeId,
+      invitationId: widget.invitationId,
+      invitationData: widget.invitationData,
+      imagesRaw: widget.imagesRaw,
+      brandProfile: widget.brandProfile,
+    ),
+    8 => EditorialThemeLauncher(
       heightAdjustment: widget.heightAdjustment,
       viewType: widget.viewType,
       invitationThemeId: widget.invitationThemeId,

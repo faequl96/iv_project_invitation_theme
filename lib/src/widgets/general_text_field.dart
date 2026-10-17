@@ -11,6 +11,7 @@ class const GeneralTextField({
   required final Color fieldLabelColor,
   required final Color fieldFillColor,
   required final Color fieldBorderColor,
+  final BorderRadius fieldBorderRadius = const .all(.circular(8)),
   required final TextEditingController textEditingController,
   final String Function()? labelTextBuilder,
   final List<TextInputFormatter>? inputFormatters,
@@ -44,15 +45,15 @@ class _GeneralTextFieldState() extends State<GeneralTextField> {
         fillColor: widget.fieldFillColor,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-          borderRadius: const .all(.circular(8)),
+          borderRadius: widget.fieldBorderRadius,
         ),
         disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-          borderRadius: const .all(.circular(8)),
+          borderRadius: widget.fieldBorderRadius,
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: widget.fieldBorderColor, width: 1),
-          borderRadius: const .all(.circular(8)),
+          borderRadius: widget.fieldBorderRadius,
         ),
         suffixIcons: (controller) {
           if (!widget.enabled) return [];

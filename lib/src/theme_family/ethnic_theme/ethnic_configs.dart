@@ -271,8 +271,6 @@ class const EthnicSeventhPageConfig({
   required final Color dropdownItemSelectedColor,
   required final Color dropdownItemTextColor,
   required final Color dropdownItemSelectedTextColor,
-  // required this.dropdownItemHoveredColor,
-  // required this.dropdownItemSplashColor,
   required final Color submitButtonColor,
   required final Color submitButtonLabelColor,
   required final double submitButtonBorderWidth,
@@ -294,10 +292,7 @@ class const EthnicSeventhPageConfig({
   required final Color bottomSheetBackgroundColor,
   required final Color bottomSheetCloseIconColor,
   final Color? bottomSheetOnHoverCloseIconColor,
-}) {
-  // final Color dropdownItemHoveredColor;
-  // final Color dropdownItemSplashColor;
-}
+});
 
 class const EthnicEighthPageConfig({
   final Widget? foreground,

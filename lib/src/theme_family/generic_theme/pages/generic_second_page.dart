@@ -325,7 +325,7 @@ class const GenericSecondPage({
       decoration: BoxDecoration(
         color: generalFrameColor,
         borderRadius: .circular(4),
-        border: .all(width: .5, color: generalFrameBorderColor),
+        border: .all(width: 1.5, color: generalFrameBorderColor),
       ),
       child: Padding(
         padding: const .symmetric(horizontal: 6, vertical: 3),
@@ -372,7 +372,7 @@ class const GenericSecondPage({
       decoration: BoxDecoration(
         color: generalFrameColor,
         borderRadius: .circular(4),
-        border: .all(width: .5, color: generalFrameBorderColor),
+        border: .all(width: 1.5, color: generalFrameBorderColor),
       ),
       child: Padding(
         padding: const .symmetric(horizontal: 6, vertical: 3),
