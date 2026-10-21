@@ -123,6 +123,22 @@ class _GeminiStarCoverPageState() extends State<GeminiStarCoverPage> {
                   // useLightningEffect: false,
                   time: widget.time.startTime,
                   noAnimate: false,
+                  topLeftBorderRadius: const .only(
+                    bottomRight: .circular(12),
+                    topLeft: .circular(10),
+                  ),
+                  topRightBorderRadius: const .only(
+                    bottomLeft: .circular(12),
+                    topRight: .circular(10),
+                  ),
+                  bottomLeftBorderRadius: const .only(
+                    topRight: .circular(12),
+                    bottomLeft: .circular(10),
+                  ),
+                  bottomRightBorderRadius: const .only(
+                    topLeft: .circular(12),
+                    bottomRight: .circular(10),
+                  ),
                 ),
                 SizedBox(height: H.x8s),
                 FadeAndSlideTransition(

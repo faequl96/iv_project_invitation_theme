@@ -101,7 +101,7 @@ class const GeminiStarNinthPage({
                   mainAxisAlignment: .center,
                   children: [
                     Text(
-                      'Made By :',
+                      'Made By',
                       style: AppFonts.inter(fontWeight: .w400, color: config.brandTextColor),
                     ),
                     const SizedBox(height: 8),

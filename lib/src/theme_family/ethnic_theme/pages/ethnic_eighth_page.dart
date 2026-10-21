@@ -7,13 +7,13 @@ import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transitio
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const EthnicEighthPage({
-    super.key,
-    required final EthnicEighthPageConfig config,
-    required final GeneralResponse general,
-    required final String brideName,
-    required final String groomName,
-    required final BrandProfileResponse brandProfile,
-  }) extends StatelessWidget {
+  super.key,
+  required final EthnicEighthPageConfig config,
+  required final GeneralResponse general,
+  required final String brideName,
+  required final String groomName,
+  required final BrandProfileResponse brandProfile,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -152,7 +152,7 @@ class const EthnicEighthPage({
                     mainAxisAlignment: .center,
                     children: [
                       Text(
-                        'Made By :',
+                        'Made By',
                         style: AppFonts.inter(fontWeight: .w400, color: config.brandTextColor),
                       ),
                       const SizedBox(height: 8),
@@ -271,9 +271,7 @@ class const EthnicEighthPage({
   );
 
   Widget _buildClosing() => Text(
-    general.closing.isNotEmpty
-        ? general.closing
-        : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
+    general.closing.isNotEmpty ? general.closing : 'Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu untuk pernikahan kami. Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.',
     style: AppFonts.inter(color: config.closingTextColor, fontSize: FontSize.md, fontWeight: .w600),
     textAlign: .center,
   );

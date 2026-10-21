@@ -98,8 +98,8 @@ class _AnimatedInviterState() extends State<AnimatedInviter> with SingleTickerPr
                       width: .infinity,
                       child: Padding(
                         padding: .only(
-                          left: widget.isLeft ? W.x5s : W.x8s,
-                          right: widget.isLeft ? W.x8s : W.x5s,
+                          left: widget.isLeft ? W.x7s : W.x8s,
+                          right: widget.isLeft ? W.x8s : W.x7s,
                         ),
                         child: Column(
                           mainAxisAlignment: .center,

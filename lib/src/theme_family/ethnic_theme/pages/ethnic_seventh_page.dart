@@ -97,7 +97,7 @@ class const EthnicSeventhPage({
                   child: Column(
                     children: [
                       SizedBox(height: W.x5s),
-                      RSVPForm(
+                      _RSVPForm(
                         fieldTextColor: config.fieldTextColor,
                         fieldLabelColor: config.fieldLabelColor,
                         fieldFillColor: config.fieldFillColor,
@@ -264,8 +264,7 @@ class const EthnicSeventhPage({
   );
 }
 
-class const RSVPForm({
-  super.key,
+class const _RSVPForm({
   required final Color fieldTextColor,
   required final Color fieldLabelColor,
   required final Color fieldFillColor,
@@ -276,8 +275,6 @@ class const RSVPForm({
   required final Color dropdownItemSelectedColor,
   required final Color dropdownItemTextColor,
   required final Color dropdownItemSelectedTextColor,
-  // required this.dropdownItemHoveredColor,
-  // required this.dropdownItemSplashColor,
   required final Color submitButtonColor,
   required final Color submitButtonLabelColor,
   required final double submitButtonBorderWidth,
@@ -286,10 +283,10 @@ class const RSVPForm({
   required final String invitationId,
 }) extends StatefulWidget {
   @override
-  State<RSVPForm> createState() => _RSVPFormState();
+  State<_RSVPForm> createState() => _RSVPFormState();
 }
 
-class _RSVPFormState() extends State<RSVPForm> {
+class _RSVPFormState() extends State<_RSVPForm> {
   final _nameController = TextEditingController();
   final _greetingController = TextEditingController();
 

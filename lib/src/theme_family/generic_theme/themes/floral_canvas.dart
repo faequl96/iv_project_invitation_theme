@@ -98,6 +98,8 @@ class const FloralCanvas._() {
       brideNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
       brideFatherNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
       brideMotherNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
+      brideTextFrameColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+      brideTextFrameBorderColor: Colors.white,
       groomDividingBorderWidth: 2,
       groomImageBorderWidth: 2,
       groomDividingLineWidth: 1,
@@ -108,6 +110,8 @@ class const FloralCanvas._() {
       groomNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
       groomFatherNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
       groomMotherNameTextColor: ColorUtil.darken(Colors.blue.shade500, 40),
+      groomTextFrameColor: ColorUtil.darken(Colors.blue.shade200, 8).withValues(alpha: .2),
+      groomTextFrameBorderColor: Colors.white,
     ),
     thirdPageConfig: GenericThirdPageConfig(
       useBackdropBlurOnScaffold: false,

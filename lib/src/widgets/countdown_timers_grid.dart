@@ -18,6 +18,10 @@ class const CountdownTimersGrid({
   required final DateTime time,
   final Duration animationDelayBeforeStart = .zero,
   required final bool noAnimate,
+  required final BorderRadiusGeometry topLeftBorderRadius,
+  required final BorderRadiusGeometry topRightBorderRadius,
+  required final BorderRadiusGeometry bottomLeftBorderRadius,
+  required final BorderRadiusGeometry bottomRightBorderRadius,
 }) extends StatefulWidget {
   @override
   State<CountdownTimersGrid> createState() => _CountdownTimersGridState();
@@ -95,7 +99,7 @@ class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
                 slideFrom: .bottom,
                 delayBeforeStart:
                     (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-                child: _countdownTimer(_days, 'Hari'),
+                child: _countdownTimer(_days, 'Hari', borderRadius: widget.topLeftBorderRadius),
               ),
             ),
             SizedBox(width: W.x15s),
@@ -107,7 +111,7 @@ class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
                 animationSpeed: const Duration(milliseconds: 700),
                 delayBeforeStart:
                     (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-                child: _countdownTimer(_hours, 'Jam'),
+                child: _countdownTimer(_hours, 'Jam', borderRadius: widget.topRightBorderRadius),
               ),
             ),
             SizedBox(width: widget.paddingHorizontal),
@@ -126,7 +130,11 @@ class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
                 animationSpeed: const Duration(milliseconds: 700),
                 delayBeforeStart:
                     (const Duration(milliseconds: 200) + widget.animationDelayBeforeStart),
-                child: _countdownTimer(_minutes, 'Menit'),
+                child: _countdownTimer(
+                  _minutes,
+                  'Menit',
+                  borderRadius: widget.bottomLeftBorderRadius,
+                ),
               ),
             ),
             SizedBox(width: W.x15s),
@@ -138,7 +146,11 @@ class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
                   slideFrom: .bottom,
                   delayBeforeStart:
                       (const Duration(milliseconds: 400) + widget.animationDelayBeforeStart),
-                  child: _countdownTimer(_seconds, 'Detik'),
+                  child: _countdownTimer(
+                    _seconds,
+                    'Detik',
+                    borderRadius: widget.bottomRightBorderRadius,
+                  ),
                 ),
               ),
             ),
@@ -149,7 +161,11 @@ class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
     );
   }
 
-  Widget _countdownTimer(ValueNotifier<int> valueListenable, String unit) => ValueListenableBuilder(
+  Widget _countdownTimer(
+    ValueNotifier<int> valueListenable,
+    String unit, {
+    required BorderRadiusGeometry borderRadius,
+  }) => ValueListenableBuilder(
     valueListenable: valueListenable,
     builder: (_, value, _) {
       return _CountdownTimer(
@@ -160,6 +176,7 @@ class _CountdownTimersGridState() extends State<CountdownTimersGrid> {
         borderWidth: widget.borderWidth,
         number: value,
         unit: unit,
+        borderRadius: borderRadius,
       );
     },
   );
@@ -173,17 +190,10 @@ class const _CountdownTimer({
   required final double borderWidth,
   required final int number,
   required final String unit,
+  required final BorderRadiusGeometry borderRadius,
 }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final BorderRadiusGeometry borderRadius = switch (unit) {
-      'Hari' => const .only(bottomRight: .circular(12), topLeft: .circular(10)),
-      'Jam' => const .only(bottomLeft: .circular(12), topRight: .circular(10)),
-      'Menit' => const .only(topRight: .circular(12), bottomLeft: .circular(10)),
-      'Detik' => const .only(topLeft: .circular(12), bottomRight: .circular(10)),
-      String() => const .only(),
-    };
-
     return SizedBox(
       width: .infinity,
       height: W.x3l,

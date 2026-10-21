@@ -57,7 +57,7 @@ class _CircleParticle({
   final double velocityMultiplier;
 }
 
-class const CircleParticle({required final Color color}) {}
+class const CircleParticle({required final Color color});
 
 class const CircleParticleSphere({
   super.key,
@@ -443,7 +443,7 @@ class _ImageParticle({required final v_math.Vector3 basePosition, final int atla
   double rotationAngle;
 }
 
-class const ImageParticle({required final String imagePath}) {}
+class const ImageParticle({required final String imagePath});
 
 class const ImageParticleSphere({
   super.key,

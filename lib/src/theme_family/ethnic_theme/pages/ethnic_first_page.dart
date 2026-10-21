@@ -6,7 +6,11 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_invitation_theme/src/widgets/fade_and_slide_transition.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class const EthnicFirstPage({super.key, required final EthnicFirstPageConfig config, required final GeneralResponse general}) extends StatelessWidget {
+class const EthnicFirstPage({
+  super.key,
+  required final EthnicFirstPageConfig config,
+  required final GeneralResponse general,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -58,7 +62,7 @@ class const EthnicFirstPage({super.key, required final EthnicFirstPageConfig con
               padding: contentPadding,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: config.scaffoldBorderRadius,
+                  borderRadius: .circular(20),
                   gradient: LinearGradient(
                     begin: .topCenter,
                     end: .bottomCenter,
@@ -77,7 +81,7 @@ class const EthnicFirstPage({super.key, required final EthnicFirstPageConfig con
               padding: contentPadding,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: config.scaffoldBorderRadius,
+                  borderRadius: .circular(20),
                   border: config.scaffoldBorder,
                 ),
                 child: ClipRect(
@@ -206,9 +210,7 @@ class const EthnicFirstPage({super.key, required final EthnicFirstPageConfig con
   );
 
   Widget _buildOpeningQuote() => Text(
-    general.openingQuote.isNotEmpty
-        ? general.openingQuote
-        : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
+    general.openingQuote.isNotEmpty ? general.openingQuote : '"Dan di antara tanda-tanda (kebesaran)-Nya adalah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya".',
     style: AppFonts.inter(
       color: config.generalTextColor,
       fontSize: FontSize.md,
@@ -233,9 +235,7 @@ class const EthnicFirstPage({super.key, required final EthnicFirstPageConfig con
   );
 
   Widget _buildGreeting() => Text(
-    general.greeting.isNotEmpty
-        ? general.greeting
-        : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
+    general.greeting.isNotEmpty ? general.greeting : 'Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta\'ala. Kami mengundang Bapak/Ibu/Saudara/I, untuk menghadiri resepsi pernikahan kami.',
     style: AppFonts.inter(color: config.generalTextColor, fontSize: FontSize.md, fontWeight: .w400),
     textAlign: .center,
   );

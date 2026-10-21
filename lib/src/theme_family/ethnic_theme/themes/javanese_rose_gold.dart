@@ -88,6 +88,8 @@ class const JavaneseRoseGold._() {
       brideNameTextColor: ThemeColors.roseGold,
       brideFatherNameTextColor: ThemeColors.gold,
       brideMotherNameTextColor: ThemeColors.roseGold,
+      brideTextFrameColor: Colors.grey.shade500.withValues(alpha: .4),
+      brideTextFrameBorderColor: Colors.grey.shade500.withValues(alpha: .4),
       groomDividingBorderWidth: .5,
       groomImageBorderWidth: .5,
       groomDividingLineWidth: .5,
@@ -98,6 +100,8 @@ class const JavaneseRoseGold._() {
       groomNameTextColor: ThemeColors.gold,
       groomFatherNameTextColor: ThemeColors.gold,
       groomMotherNameTextColor: ThemeColors.roseGold,
+      groomTextFrameColor: Colors.grey.shade500.withValues(alpha: .4),
+      groomTextFrameBorderColor: Colors.grey.shade500.withValues(alpha: .4),
     ),
     thirdPageConfig: EthnicThirdPageConfig(
       foreground: const _PageForeground(),

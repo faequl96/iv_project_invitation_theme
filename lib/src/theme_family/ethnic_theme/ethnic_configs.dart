@@ -47,7 +47,6 @@ class const EthnicFirstPageConfig({
   required final Color firstGradientScaffoldColor,
   required final Color secondGradientScaffoldColor,
   required final BoxBorder scaffoldBorder,
-  final BorderRadiusGeometry scaffoldBorderRadius = const .all(.circular(20)),
   final Color? firstGradientBackgroundColor,
   final Color? secondGradientBackgroundColor,
   required final Color titlePageColor,
@@ -81,6 +80,8 @@ class const EthnicSecondPageConfig({
   required final Color? brideNameTextColor,
   required final Color? brideFatherNameTextColor,
   required final Color? brideMotherNameTextColor,
+  required final Color brideTextFrameColor,
+  required final Color brideTextFrameBorderColor,
   required final double groomDividingBorderWidth,
   required final double groomImageBorderWidth,
   required final double groomDividingLineWidth,
@@ -91,6 +92,8 @@ class const EthnicSecondPageConfig({
   required final Color? groomNameTextColor,
   required final Color? groomFatherNameTextColor,
   required final Color? groomMotherNameTextColor,
+  required final Color groomTextFrameColor,
+  required final Color groomTextFrameBorderColor,
 });
 
 class const EthnicThirdPageConfig({
@@ -267,8 +270,6 @@ class const EthnicSeventhPageConfig({
   required final Color dropdownItemSelectedColor,
   required final Color dropdownItemTextColor,
   required final Color dropdownItemSelectedTextColor,
-  // required this.dropdownItemHoveredColor,
-  // required this.dropdownItemSplashColor,
   required final Color submitButtonColor,
   required final Color submitButtonLabelColor,
   required final double submitButtonBorderWidth,
@@ -290,10 +291,7 @@ class const EthnicSeventhPageConfig({
   required final Color bottomSheetBackgroundColor,
   required final Color bottomSheetCloseIconColor,
   final Color? bottomSheetOnHoverCloseIconColor,
-}) {
-  // final Color dropdownItemHoveredColor;
-  // final Color dropdownItemSplashColor;
-}
+});
 
 class const EthnicEighthPageConfig({
   final Widget? foreground,
