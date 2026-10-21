@@ -11,12 +11,12 @@ import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class const EthnicFifthPage({
-    super.key,
-    required final EthnicFifthPageConfig config,
-    required final ViewType viewType,
-    final List<File?>? galleries,
-    final GalleryResponse? gallery,
-  }) extends StatelessWidget {
+  super.key,
+  required final EthnicFifthPageConfig config,
+  required final ViewType viewType,
+  final List<File?>? galleries,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langCode = context.read<LocaleCubit>().state.languageCode;
@@ -216,14 +216,14 @@ class const EthnicFifthPage({
 }
 
 class const _Gallery({
-    required final double dividingLineWidth,
-    required final Color dividingVerticalLineColor,
-    required final Color dividingHorizontalLineColor,
-    final bool isShowMore = false,
-    required final ViewType viewType,
-    final List<File?>? galleries,
-    final GalleryResponse? gallery,
-  }) extends StatelessWidget {
+  required final double dividingLineWidth,
+  required final Color dividingVerticalLineColor,
+  required final Color dividingHorizontalLineColor,
+  final bool isShowMore = false,
+  required final ViewType viewType,
+  final List<File?>? galleries,
+  final GalleryResponse? gallery,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -251,12 +251,12 @@ class const _Gallery({
               ),
             ),
             SizedBox(width: W.x7s),
-            SizedBox(
-              height: W.x11l + 4,
-              width: dividingLineWidth,
-              child: ColoredBox(color: dividingVerticalLineColor),
-            ),
-            SizedBox(width: W.x7s),
+            // SizedBox(
+            //   height: W.x11l + 4,
+            //   width: dividingLineWidth,
+            //   child: ColoredBox(color: dividingVerticalLineColor),
+            // ),
+            // SizedBox(width: W.x7s),
             Expanded(
               flex: 3,
               child: FadeAndSlideTransition(
@@ -279,19 +279,19 @@ class const _Gallery({
           ],
         ),
         SizedBox(height: W.x7s),
-        Row(
-          children: [
-            SizedBox(width: W.x4s),
-            Expanded(
-              child: SizedBox(
-                height: dividingLineWidth,
-                child: ColoredBox(color: dividingHorizontalLineColor),
-              ),
-            ),
-            SizedBox(width: W.x4s),
-          ],
-        ),
-        SizedBox(height: W.x7s),
+        // Row(
+        //   children: [
+        //     SizedBox(width: W.x4s),
+        //     Expanded(
+        //       child: SizedBox(
+        //         height: dividingLineWidth,
+        //         child: ColoredBox(color: dividingHorizontalLineColor),
+        //       ),
+        //     ),
+        //     SizedBox(width: W.x4s),
+        //   ],
+        // ),
+        // SizedBox(height: W.x7s),
         Row(
           children: [
             SizedBox(width: W.x4s),
@@ -314,12 +314,12 @@ class const _Gallery({
               ),
             ),
             SizedBox(width: W.x7s),
-            SizedBox(
-              height: W.x11l + 4,
-              width: dividingLineWidth,
-              child: ColoredBox(color: dividingVerticalLineColor),
-            ),
-            SizedBox(width: W.x7s),
+            // SizedBox(
+            //   height: W.x11l + 4,
+            //   width: dividingLineWidth,
+            //   child: ColoredBox(color: dividingVerticalLineColor),
+            // ),
+            // SizedBox(width: W.x7s),
             Expanded(
               flex: 5,
               child: FadeAndSlideTransition(
@@ -342,19 +342,19 @@ class const _Gallery({
           ],
         ),
         SizedBox(height: W.x7s),
-        Row(
-          children: [
-            SizedBox(width: W.x4s),
-            Expanded(
-              child: SizedBox(
-                height: dividingLineWidth,
-                child: ColoredBox(color: dividingHorizontalLineColor),
-              ),
-            ),
-            SizedBox(width: W.x4s),
-          ],
-        ),
-        SizedBox(height: W.x7s),
+        // Row(
+        //   children: [
+        //     SizedBox(width: W.x4s),
+        //     Expanded(
+        //       child: SizedBox(
+        //         height: dividingLineWidth,
+        //         child: ColoredBox(color: dividingHorizontalLineColor),
+        //       ),
+        //     ),
+        //     SizedBox(width: W.x4s),
+        //   ],
+        // ),
+        // SizedBox(height: W.x7s),
         Row(
           children: [
             SizedBox(width: W.x4s),
@@ -376,12 +376,12 @@ class const _Gallery({
               ),
             ),
             SizedBox(width: W.x7s),
-            SizedBox(
-              height: W.x10l - 4,
-              width: dividingLineWidth,
-              child: ColoredBox(color: dividingVerticalLineColor),
-            ),
-            SizedBox(width: W.x7s),
+            // SizedBox(
+            //   height: W.x10l - 4,
+            //   width: dividingLineWidth,
+            //   child: ColoredBox(color: dividingVerticalLineColor),
+            // ),
+            // SizedBox(width: W.x7s),
             Expanded(
               child: FadeAndSlideTransition(
                 slideFrom: .bottom,
@@ -400,12 +400,12 @@ class const _Gallery({
               ),
             ),
             SizedBox(width: W.x7s),
-            SizedBox(
-              height: W.x10l - 4,
-              width: dividingLineWidth,
-              child: ColoredBox(color: dividingVerticalLineColor),
-            ),
-            SizedBox(width: W.x7s),
+            // SizedBox(
+            //   height: W.x10l - 4,
+            //   width: dividingLineWidth,
+            //   child: ColoredBox(color: dividingVerticalLineColor),
+            // ),
+            // SizedBox(width: W.x7s),
             Expanded(
               child: FadeAndSlideTransition(
                 slideFrom: .bottom,
@@ -560,10 +560,15 @@ class const _Gallery({
   }
 }
 
-class const _ImageViewer({required final int id, required final ViewType viewType, final File? image, final String? imageUrl}) extends StatelessWidget {
+class const _ImageViewer({
+  required final int id,
+  required final ViewType viewType,
+  final File? image,
+  final String? imageUrl,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(borderRadius: .circular(8), child: _content(context, 'image_$id'));
+    return ClipRRect(borderRadius: .circular(2), child: _content(context, 'image_$id'));
   }
 
   Widget _content(BuildContext context, String tag) {

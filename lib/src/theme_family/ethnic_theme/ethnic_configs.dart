@@ -47,7 +47,6 @@ class const EthnicFirstPageConfig({
   required final Color firstGradientScaffoldColor,
   required final Color secondGradientScaffoldColor,
   required final BoxBorder scaffoldBorder,
-  final BorderRadiusGeometry scaffoldBorderRadius = const .all(.circular(20)),
   final Color? firstGradientBackgroundColor,
   final Color? secondGradientBackgroundColor,
   required final Color titlePageColor,
