@@ -63,7 +63,7 @@ class const EditorialEighthPage({
             ),
             const SizedBox(height: 12),
             FadeAndSlideTransition(
-              slideFrom: .top,
+              slideFrom: .bottom,
               slideFromOffset: .4,
               child: _RSVPForm(
                 fieldTextColor: config.fieldTextColor,
@@ -84,10 +84,11 @@ class const EditorialEighthPage({
                 invitationId: invitationId,
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: H.sm),
             Expanded(
               child: FadeAndSlideTransition(
                 slideFrom: .bottom,
+                delayBeforeStart: const Duration(milliseconds: 300),
                 slideFromOffset: .2,
                 child: _buildRsvpList(context, langCode),
               ),
@@ -305,41 +306,15 @@ class _RSVPFormState() extends State<_RSVPForm> {
 
     return Column(
       children: [
-        FadeAndSlideTransition(
-          slideFromOffset: .8,
-          slideFrom: .bottom,
-          // delayBeforeStart: const Duration(milliseconds: 300),
-          child: _nameField(langCode),
-        ),
+        _nameField(langCode),
         SizedBox(height: H.x8s),
-        FadeAndSlideTransition(
-          slideFromOffset: .8,
-          slideFrom: .bottom,
-          // delayBeforeStart: const Duration(milliseconds: 300),
-          child: _avatarField(),
-        ),
+        _avatarField(),
         SizedBox(height: H.x8s),
-        FadeAndSlideTransition(
-          slideFromOffset: .8,
-          slideFrom: .bottom,
-          // delayBeforeStart: const Duration(milliseconds: 300),
-          child: _possiblePresenceField(langCode),
-        ),
+        _possiblePresenceField(langCode),
         SizedBox(height: H.x8s),
-        FadeAndSlideTransition(
-          slideFromOffset: .8,
-          slideFrom: .bottom,
-          // delayBeforeStart: const Duration(milliseconds: 300),
-          child: _greetingsField(langCode),
-        ),
+        _greetingsField(langCode),
         SizedBox(height: H.x8s),
-        FadeAndSlideTransition(
-          slideFromOffset: .8,
-          slideFrom: .bottom,
-          // animationSpeed: const Duration(milliseconds: 300),
-          // delayBeforeStart: const Duration(milliseconds: 300),
-          child: _submitButton(),
-        ),
+        _submitButton(),
       ],
     );
   }

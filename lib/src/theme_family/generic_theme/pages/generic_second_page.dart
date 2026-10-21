@@ -137,13 +137,7 @@ class const GenericSecondPage({
                             generalFrameColor: config.brideTextFrameColor,
                             generalFrameBorderColor: config.brideTextFrameBorderColor,
                           ),
-                          const SizedBox(height: 8),
-                          SizedBox(
-                            height: config.brideDividingLineWidth,
-                            width: W.x16l,
-                            child: ColoredBox(color: config.brideDividingLineColor),
-                          ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 4),
                           Text(
                             langCode == 'en' ? 'Daughter of' : 'Putri dari',
                             style: AppFonts.inter(
@@ -199,13 +193,7 @@ class const GenericSecondPage({
                             generalFrameColor: config.groomTextFrameColor,
                             generalFrameBorderColor: config.groomTextFrameBorderColor,
                           ),
-                          const SizedBox(height: 8),
-                          SizedBox(
-                            height: config.groomDividingLineWidth,
-                            width: W.x16l,
-                            child: ColoredBox(color: config.groomDividingLineColor),
-                          ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 4),
                           Text(
                             langCode == 'en' ? 'Son of' : 'Putra dari',
                             style: AppFonts.inter(
@@ -328,7 +316,7 @@ class const GenericSecondPage({
         border: .all(width: 1.5, color: generalFrameBorderColor),
       ),
       child: Padding(
-        padding: const .symmetric(horizontal: 6, vertical: 3),
+        padding: const .symmetric(horizontal: 6, vertical: 5),
         child: Text.rich(
           TextSpan(
             children: [
@@ -348,7 +336,7 @@ class const GenericSecondPage({
                 ),
             ],
           ),
-          style: AppFonts.inter(fontSize: FontSize.x2l, color: generalColor, height: 1.2),
+          style: AppFonts.inter(fontSize: FontSize.x2l, color: generalColor, height: 1.1),
         ),
       ),
     );

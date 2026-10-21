@@ -24,7 +24,7 @@ class const EditorialNinthPage({
         height: size.height,
         width: size.width,
         color: config.backgroundColor,
-        padding: const .symmetric(horizontal: 24, vertical: 36),
+        padding: const .symmetric(horizontal: 20, vertical: 32),
         child: Column(
           mainAxisAlignment: .center,
           crossAxisAlignment: .start,
@@ -34,36 +34,35 @@ class const EditorialNinthPage({
               slideFromOffset: .3,
               child: Row(
                 children: [
-                  Container(
-                    width: 24,
-                    height: 2,
-                    color: config.closingTitleColor,
+                  Expanded(
+                    child: Container(width: .infinity, height: 2, color: config.closingBodyColor),
                   ),
                   const SizedBox(width: 8),
                   Text(
                     langCode == 'en' ? 'CLOSING NOTE' : 'PENUTUP',
                     style: TextStyle(
                       color: config.watermarkColor,
-                      fontSize: 11,
-                      fontWeight: .bold,
+                      fontSize: FontSize.lg,
+                      fontWeight: .w600,
                       letterSpacing: 2,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const Spacer(),
             FadeAndSlideTransition(
               slideFrom: .top,
               slideFromOffset: .4,
-              child: Text(
-                langCode == 'en' ? 'Thank You for Being Part of Our Journey' : 'Terima Kasih Atas Kehadiran & Doa Restu Anda',
-                style: TextStyle(
-                  color: config.closingTitleColor,
-                  fontSize: 26,
-                  fontWeight: .w800,
-                  fontFamily: 'serif',
-                  height: 1.2,
+              child: Center(
+                child: Text(
+                  langCode == 'en' ? 'Thank You' : 'Terima Kasih',
+                  style: TextStyle(
+                    color: config.closingTitleColor,
+                    fontSize: 26,
+                    fontWeight: .w800,
+                    height: 1.2,
+                  ),
                 ),
               ),
             ),
@@ -91,11 +90,7 @@ class const EditorialNinthPage({
                   children: [
                     Text(
                       general.closing,
-                      style: TextStyle(
-                        color: config.closingBodyColor,
-                        fontSize: 13,
-                        height: 1.6,
-                      ),
+                      style: TextStyle(color: config.closingBodyColor, fontSize: 13, height: 1.6),
                     ),
                     const SizedBox(height: 20),
                     Text(
@@ -103,7 +98,7 @@ class const EditorialNinthPage({
                       style: TextStyle(
                         color: config.closingBodyColor,
                         fontSize: 12,
-                        fontStyle: FontStyle.italic,
+                        fontStyle: .italic,
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -113,7 +108,6 @@ class const EditorialNinthPage({
                         color: config.coupleNameColor,
                         fontSize: 20,
                         fontWeight: .w800,
-                        fontFamily: 'serif',
                       ),
                     ),
                   ],
@@ -121,19 +115,84 @@ class const EditorialNinthPage({
               ),
             ),
             const Spacer(),
-            Center(
-              child: FadeAndSlideTransition(
-                slideFrom: .bottom,
-                slideFromOffset: .4,
-                child: Text(
-                  'Created with in-vite • ${brandProfile.name}',
-                  style: TextStyle(
-                    color: config.watermarkColor,
-                    fontSize: 11,
-                    letterSpacing: 1,
-                  ),
+            Column(
+              mainAxisAlignment: .center,
+              children: [
+                Text(
+                  'Made By',
+                  style: AppFonts.inter(fontWeight: .w400, color: config.watermarkColor),
                 ),
-              ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: .center,
+                  children: [
+                    if (brandProfile.logoUrl != null)
+                      Image.network(brandProfile.logoUrl!, height: 44),
+                    if (brandProfile.logoUrl != null) const SizedBox(width: 10),
+                    Text(
+                      brandProfile.name,
+                      style: AppFonts.inter(
+                        fontWeight: .w700,
+                        fontSize: 15,
+                        color: config.watermarkColor,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: H.x10s),
+                Row(
+                  mainAxisAlignment: .center,
+                  children: [
+                    Text(
+                      'Email : ',
+                      style: AppFonts.inter(fontWeight: .w400, color: config.watermarkColor),
+                    ),
+                    Text(
+                      brandProfile.email,
+                      style: AppFonts.inter(fontWeight: .w700, color: config.watermarkColor),
+                    ),
+                  ],
+                ),
+                if (brandProfile.phone != null)
+                  Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      Text(
+                        'WhatsApp : ',
+                        style: AppFonts.inter(fontWeight: .w400, color: config.watermarkColor),
+                      ),
+                      Text(
+                        brandProfile.phone!,
+                        style: AppFonts.inter(fontWeight: .w700, color: config.watermarkColor),
+                      ),
+                    ],
+                  ),
+                if (brandProfile.instagram != null)
+                  Row(
+                    mainAxisAlignment: .center,
+                    children: [
+                      Text(
+                        'Instagram : ',
+                        style: AppFonts.inter(fontWeight: .w400, color: config.watermarkColor),
+                      ),
+                      Text.rich(
+                        TextSpan(children: [TextSpan(text: brandProfile.instagram!)]),
+                        style: AppFonts.inter(fontWeight: .w700, color: config.watermarkColor),
+                      ),
+                    ],
+                  ),
+                SizedBox(height: H.x10s),
+                if (brandProfile.address != null)
+                  Text(
+                    brandProfile.address!,
+                    style: AppFonts.inter(
+                      fontWeight: .w400,
+                      color: config.watermarkColor,
+                      fontSize: 13,
+                    ),
+                    textAlign: .center,
+                  ),
+              ],
             ),
           ],
         ),

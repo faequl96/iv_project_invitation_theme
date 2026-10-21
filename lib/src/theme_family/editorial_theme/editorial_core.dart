@@ -42,7 +42,7 @@ class _EditorialCoreState() extends State<EditorialCore> {
     final offsetPage = (offset - offset.floor()).abs();
     if (offsetPage < .01) {
       if (_coreCubit.state.animationTrigger == 0) {
-        await Future<void>.delayed(const Duration(milliseconds: 50));
+        await Future.pause(const Duration(milliseconds: 50));
         _coreCubit.state.copyWith(animationTrigger: 1, pageActive: _indexActive.value).emitState();
       }
     } else {
@@ -79,65 +79,6 @@ class _EditorialCoreState() extends State<EditorialCore> {
 
                 _buildPage,
 
-                // Top Floating Editorial Navigation Bar
-                // Positioned(
-                //   top: 12,
-                //   right: 16,
-                //   child: QuickMenuButton(
-                //     buttonStyle: const .lite(elevation: 0),
-                //     overlayDecoration: .staticWidth(
-                //       width: Screen.width,
-                //       color: Colors.transparent,
-                //       alignment: .right,
-                //       offsetX: 16,
-                //     ),
-                //     buttonLeading: Container(
-                //       padding: const .symmetric(horizontal: 10, vertical: 6),
-                //       decoration: BoxDecoration(
-                //         color: Colors.black.withValues(alpha: .8),
-                //         borderRadius: .circular(20),
-                //         border: .all(color: Colors.white.withValues(alpha: .2)),
-                //       ),
-                //       child: Row(
-                //         mainAxisSize: .min,
-                //         children: [
-                //           const Icon(Icons.menu_book_outlined, color: Colors.white, size: 14),
-                //           const SizedBox(width: 6),
-                //           ValueListenableBuilder<int>(
-                //             valueListenable: _indexActive,
-                //             builder: (_, current, _) => Text(
-                //               '${current + 1}/${widget.pages.length}',
-                //               style: const TextStyle(
-                //                 color: Colors.white,
-                //                 fontSize: 11,
-                //                 fontWeight: .bold,
-                //                 letterSpacing: 1,
-                //               ),
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ),
-                //     items: (ctx) => widget.navs
-                //         .asMap()
-                //         .entries
-                //         .map(
-                //           (e) => QuickPopupItem(
-                //             child: e.value,
-                //             onTap: () {
-                //               _pageController?.animateToPage(
-                //                 e.key,
-                //                 duration: const Duration(milliseconds: 650),
-                //                 curve: Curves.easeInOutCubic,
-                //               );
-                //             },
-                //           ),
-                //         )
-                //         .toList(),
-                //   ),
-                // ),
-
-                // Story indicator line on left/right edge
                 Positioned(
                   left: 10,
                   top: 0,

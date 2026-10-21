@@ -32,23 +32,23 @@ class _EditorialSecondPageState() extends State<EditorialSecondPage> {
     if (widget.viewType == .preview && widget.brideImage != null) {
       _cachedImage = Image.file(
         widget.brideImage!,
-        height: double.infinity,
-        width: double.infinity,
+        height: .infinity,
+        width: .infinity,
         fit: .cover,
       );
     } else if (widget.viewType == .example) {
       _cachedImage = Image.asset(
         widget.bride.imageUrl,
-        height: double.infinity,
-        width: double.infinity,
+        height: .infinity,
+        width: .infinity,
         fit: .cover,
         package: 'iv_project_invitation_theme',
       );
     } else {
       _cachedImage = Image.network(
         widget.bride.imageUrl,
-        height: double.infinity,
-        width: double.infinity,
+        height: .infinity,
+        width: .infinity,
         fit: .cover,
       );
     }
@@ -101,7 +101,7 @@ class _EditorialSecondPageState() extends State<EditorialSecondPage> {
                 slideFrom: .bottom,
                 slideFromOffset: .2,
                 child: Container(
-                  width: double.infinity,
+                  width: .infinity,
                   decoration: BoxDecoration(
                     borderRadius: .circular(4),
                     border: .all(color: widget.config.borderColor),
@@ -130,7 +130,7 @@ class _EditorialSecondPageState() extends State<EditorialSecondPage> {
               slideFrom: .bottom,
               slideFromOffset: .3,
               child: Container(
-                width: double.infinity,
+                width: .infinity,
                 padding: const .all(16),
                 decoration: BoxDecoration(
                   color: widget.config.cardBackgroundColor,

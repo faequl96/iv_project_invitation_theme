@@ -31,7 +31,7 @@ class const EditorialFirstPage({
               slideFromOffset: .3,
               child: Row(
                 children: [
-                  Expanded(child: Container(width: 24, height: 2, color: config.categoryTagColor)),
+                  Expanded(child: Container(height: 2, color: config.categoryTagColor)),
                   SizedBox(width: W.x10s),
                   _buildTitle(langCode),
                   SizedBox(width: W.x10s),

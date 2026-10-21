@@ -250,7 +250,7 @@ class const _BankAccount({
         padding: const .all(6),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: .4),
+            color: Colors.white.withValues(alpha: .2),
             borderRadius: .circular(6),
           ),
           child: Image.asset(
