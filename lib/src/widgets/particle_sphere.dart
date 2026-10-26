@@ -11,12 +11,12 @@ import 'package:vector_math/vector_math_64.dart' as v_math;
 enum GroundType() {
   fore,
   back,
-  both
+  both,
 }
 
 enum ParticleType() {
   circle,
-  image
+  image,
 }
 
 class ParticleSphereConfig {
@@ -78,7 +78,7 @@ class _CircleParticleSphereState()
 
   AnimationController? _controller;
   final List<_CircleParticle> _particles = [];
-  final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
+  final v_math.Matrix4 _rotation = .identity();
 
   late final AnimationController _secondController;
   late final Animation<double> _explosionAnimation;
@@ -160,14 +160,14 @@ class _CircleParticleSphereState()
   void _generateParticles() {
     final rand = math.Random();
     const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
+    final radius = widget.config.size / 3;
 
     for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
+      final y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      final radiusAtY = math.sqrt(1 - y * y);
+      final theta = 2 * math.pi * goldenRatio * i;
 
-      v_math.Vector3 pos =
+      final pos =
           v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
 
       final variation = widget
@@ -175,11 +175,7 @@ class _CircleParticleSphereState()
           .circleParticleVariations[rand.nextInt(widget.config.circleParticleVariations.length)];
 
       _particles.add(
-        _CircleParticle(
-          basePosition: pos,
-          color: variation.color,
-          isFlickering: rand.nextDouble() < .4,
-        ),
+        .new(basePosition: pos, color: variation.color, isFlickering: rand.nextDouble() < .4),
       );
     }
   }
@@ -217,7 +213,7 @@ class _CircleParticleSphereState()
   Widget _buildPainter({required bool isForeground}) {
     return RepaintBoundary(
       child: AnimatedBuilder(
-        animation: Listenable.merge([_controller, _secondController]),
+        animation: .merge([_controller, _secondController]),
         builder: (context, _) {
           return Opacity(
             opacity: _fadeAnimation.value,
@@ -239,110 +235,6 @@ class _CircleParticleSphereState()
   }
 }
 
-class const CircleParticleSphereAsImage({
-  super.key,
-  required final ParticleSphereConfig config,
-  final Widget child = const SizedBox.shrink(),
-}) extends StatefulWidget {
-  @override
-  State<CircleParticleSphereAsImage> createState() => _CircleParticleSphereAsImageState();
-}
-
-class _CircleParticleSphereAsImageState() extends State<CircleParticleSphereAsImage> {
-  final List<_CircleParticle> _particles = [];
-  final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
-
-  double _rotateX = .003;
-  double _rotateY = .003;
-  double _targetRotateX = .003;
-  double _targetRotateY = .003;
-
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _init();
-  }
-
-  void _init() async {
-    if (AppParticles.circle == null) await AppParticles.initCreateCircle();
-
-    _generateParticles();
-    _updateRotation();
-
-    if (mounted) setState(() => _isLoading = false);
-  }
-
-  void _generateParticles() {
-    final rand = math.Random();
-    const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
-
-    for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
-
-      v_math.Vector3 pos =
-          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
-
-      final variation = widget
-          .config
-          .circleParticleVariations[rand.nextInt(widget.config.circleParticleVariations.length)];
-
-      _particles.add(
-        _CircleParticle(basePosition: pos, color: variation.color, isFlickering: false),
-      );
-    }
-  }
-
-  void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
-
-    _rotation.rotateY(_rotateY);
-    _rotation.rotateX(_rotateX);
-
-    final rand = math.Random();
-    if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - .5) * .015;
-      _targetRotateY = (rand.nextDouble() - .5) * .015;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_isLoading || AppParticles.circle == null) return const SizedBox.shrink();
-
-    return Stack(
-      alignment: .center,
-      children: [
-        if (widget.config.groundType == .both || widget.config.groundType == .back)
-          _buildPainter(isForeground: false),
-        widget.child,
-        if (widget.config.groundType == .both || widget.config.groundType == .fore)
-          IgnorePointer(child: _buildPainter(isForeground: true)),
-      ],
-    );
-  }
-
-  Widget _buildPainter({required bool isForeground}) {
-    return CustomPaint(
-      size: Size(widget.config.size, widget.config.size),
-      painter: _CircleParticlePainter(
-        particles: _particles,
-        rotation: _rotation,
-        explosionForce: 2,
-        scaleSize: widget.config.particleScaleSize,
-        drawForeground: isForeground,
-        shouldRepaintValue: false,
-      ),
-    );
-  }
-}
-
 class _CircleParticlePainter({
   required final List<_CircleParticle> particles,
   required final v_math.Matrix4 rotation,
@@ -351,7 +243,7 @@ class _CircleParticlePainter({
   required final bool drawForeground,
   required final bool shouldRepaintValue,
 }) extends CustomPainter {
-  this : _paint = Paint()..filterQuality = ui.FilterQuality.none;
+  this : _paint = Paint()..filterQuality = .none;
 
   final Paint _paint;
 
@@ -361,7 +253,7 @@ class _CircleParticlePainter({
 
   final math.Random _random = math.Random();
 
-  final v_math.Vector3 _calcPos = v_math.Vector3.zero();
+  final v_math.Vector3 _calcPos = .zero();
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -382,9 +274,9 @@ class _CircleParticlePainter({
       rotation.transform3(_calcPos);
 
       if (explosionForce > .01) {
-        final double len = _calcPos.length;
+        final len = _calcPos.length;
         if (len > 0) {
-          final double factor = (explosionForce * 50 * p.velocityMultiplier) / len;
+          final factor = (explosionForce * 50 * p.velocityMultiplier) / len;
           _calcPos.x += _calcPos.x * factor;
           _calcPos.y += _calcPos.y * factor;
           _calcPos.z += _calcPos.z * factor;
@@ -393,7 +285,7 @@ class _CircleParticlePainter({
 
       if (drawForeground ? _calcPos.z >= 0 : _calcPos.z < 0) continue;
 
-      final double scale = viewDistance / (viewDistance + _calcPos.z);
+      final scale = viewDistance / (viewDistance + _calcPos.z);
 
       double flicker = 1;
       if (p.isFlickering) {
@@ -402,7 +294,7 @@ class _CircleParticlePainter({
 
       _rects.add(rectCircle);
       _transforms.add(
-        RSTransform.fromComponents(
+        .fromComponents(
           rotation: 0,
           scale: (scaleSize * scale) / 25,
           anchorX: 25,
@@ -416,15 +308,7 @@ class _CircleParticlePainter({
     }
 
     if (_transforms.isNotEmpty) {
-      canvas.drawAtlas(
-        AppParticles.circle!,
-        _transforms,
-        _rects,
-        _colors,
-        ui.BlendMode.modulate,
-        null,
-        _paint,
-      );
+      canvas.drawAtlas(AppParticles.circle!, _transforms, _rects, _colors, .modulate, null, _paint);
     }
   }
 
@@ -462,7 +346,7 @@ class _ImageParticleSphereState() extends State<ImageParticleSphere> with Ticker
 
   AnimationController? _controller;
   final List<_ImageParticle> _particles = [];
-  final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
+  final v_math.Matrix4 _rotation = .identity();
 
   late final AnimationController _secondController;
   late final Animation<double> _explosionAnimation;
@@ -568,24 +452,24 @@ class _ImageParticleSphereState() extends State<ImageParticleSphere> with Ticker
     final config = createLocalImageConfiguration(context);
     final asset = AssetImage(path, package: 'iv_project_invitation_theme');
     final stream = asset.resolve(config);
-    stream.addListener(ImageStreamListener((info, _) => completer.complete(info.image)));
+    stream.addListener(.new((info, _) => completer.complete(info.image)));
     return completer.future;
   }
 
   void _generateParticles(int imageCount) {
     final rand = math.Random();
     const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
+    final radius = widget.config.size / 3;
 
     for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
+      final y = 1 - (i / (widget.config.particleCount - 1)) * 2;
+      final radiusAtY = math.sqrt(1 - y * y);
+      final theta = 2 * math.pi * goldenRatio * i;
 
-      v_math.Vector3 pos =
+      final pos =
           v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
 
-      _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
+      _particles.add(.new(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
     }
   }
 
@@ -622,7 +506,7 @@ class _ImageParticleSphereState() extends State<ImageParticleSphere> with Ticker
   Widget _buildPainter({required bool isForeground}) {
     return RepaintBoundary(
       child: AnimatedBuilder(
-        animation: Listenable.merge([_controller, _secondController]),
+        animation: .merge([_controller, _secondController]),
         builder: (context, _) {
           return Opacity(
             opacity: _fadeAnimation.value,
@@ -646,132 +530,6 @@ class _ImageParticleSphereState() extends State<ImageParticleSphere> with Ticker
   }
 }
 
-class const ImageParticleSphereAsImage({
-  super.key,
-  required final ParticleSphereConfig config,
-  final Widget child = const SizedBox.shrink(),
-}) extends StatefulWidget {
-  @override
-  State<ImageParticleSphereAsImage> createState() => _ImageParticleSphereAsImageState();
-}
-
-class _ImageParticleSphereAsImageState() extends State<ImageParticleSphereAsImage> {
-  final List<_ImageParticle> _particles = [];
-  final v_math.Matrix4 _rotation = v_math.Matrix4.identity();
-
-  double _rotateX = .003;
-  double _rotateY = .003;
-  double _targetRotateX = .003;
-  double _targetRotateY = .003;
-
-  bool _isLoading = true;
-  bool _hasInitialized = false;
-
-  late final String particleImagesId;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    if (!_hasInitialized) {
-      _init();
-      _hasInitialized = true;
-    }
-  }
-
-  void _init() async {
-    final particleFileNames = <String>[];
-    final loadedImages = <ui.Image>[];
-    for (final variation in widget.config.imageParticleVariations) {
-      particleFileNames.add(variation.imagePath.split('/').last);
-      final img = await _loadUiImage(variation.imagePath);
-      loadedImages.add(img);
-    }
-
-    particleImagesId = particleFileNames.join('_');
-    if (AppParticles.images[particleImagesId] == null) {
-      await AppParticles.initCreateImages(loadedImages, particleImagesId);
-    }
-
-    _generateParticles(loadedImages.length);
-    _updateRotation();
-
-    if (mounted) setState(() => _isLoading = false);
-  }
-
-  Future<ui.Image> _loadUiImage(String path) async {
-    final completer = Completer<ui.Image>();
-    final config = createLocalImageConfiguration(context);
-    final asset = AssetImage(path, package: 'iv_project_invitation_theme');
-    final stream = asset.resolve(config);
-    stream.addListener(ImageStreamListener((info, _) => completer.complete(info.image)));
-    return completer.future;
-  }
-
-  void _generateParticles(int imageCount) {
-    final rand = math.Random();
-    const goldenRatio = 1.61803398875;
-    double radius = widget.config.size / 3;
-
-    for (int i = 0; i < widget.config.particleCount; i++) {
-      double y = 1 - (i / (widget.config.particleCount - 1)) * 2;
-      double radiusAtY = math.sqrt(1 - y * y);
-      double theta = 2 * math.pi * goldenRatio * i;
-
-      v_math.Vector3 pos =
-          v_math.Vector3(math.cos(theta) * radiusAtY, y, math.sin(theta) * radiusAtY) * radius;
-
-      _particles.add(_ImageParticle(basePosition: pos, atlasIndex: rand.nextInt(imageCount)));
-    }
-  }
-
-  void _updateRotation() {
-    _rotateX = _rotateX + (_targetRotateX - _rotateX) * .01;
-    _rotateY = _rotateY + (_targetRotateY - _rotateY) * .01;
-
-    _rotation.rotateY(_rotateY);
-    _rotation.rotateX(_rotateX);
-
-    final rand = math.Random();
-    if (rand.nextInt(100) == 1) {
-      _targetRotateX = (rand.nextDouble() - .5) * .015;
-      _targetRotateY = (rand.nextDouble() - .5) * .015;
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_isLoading || AppParticles.images[particleImagesId] == null) return const SizedBox.shrink();
-
-    return Stack(
-      alignment: .center,
-      children: [
-        if (widget.config.groundType == .both || widget.config.groundType == .back)
-          _buildPainter(isForeground: false),
-        widget.child,
-        if (widget.config.groundType == .both || widget.config.groundType == .fore)
-          IgnorePointer(child: _buildPainter(isForeground: true)),
-      ],
-    );
-  }
-
-  Widget _buildPainter({required bool isForeground}) {
-    return CustomPaint(
-      size: Size(widget.config.size, widget.config.size),
-      painter: _ImageParticlePainter(
-        particles: _particles,
-        rotation: _rotation,
-        explosionForce: 2,
-        scaleSize: widget.config.particleScaleSize,
-        drawForeground: isForeground,
-        shouldRepaintValue: false,
-        particleImage: AppParticles.images[particleImagesId]!,
-        imageCount: widget.config.imageParticleVariations.length,
-      ),
-    );
-  }
-}
-
 class _ImageParticlePainter({
   required final List<_ImageParticle> particles,
   required final v_math.Matrix4 rotation,
@@ -782,7 +540,7 @@ class _ImageParticlePainter({
   required final ui.Image particleImage,
   required final int imageCount,
 }) extends CustomPainter {
-  this : _paint = Paint()..filterQuality = ui.FilterQuality.low;
+  this : _paint = Paint()..filterQuality = .low;
 
   final Paint _paint;
 
@@ -790,7 +548,7 @@ class _ImageParticlePainter({
   static final List<Rect> _rects = [];
   static final List<Color> _colors = [];
 
-  final v_math.Vector3 _calcPos = v_math.Vector3.zero();
+  final v_math.Vector3 _calcPos = .zero();
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -803,8 +561,8 @@ class _ImageParticlePainter({
     final center = Offset(size.width / 2, size.height / 2);
     const double viewDistance = 600;
 
-    final double sourceSize = particleImage.width / imageCount;
-    final double halfSourceSize = sourceSize / 2;
+    final sourceSize = particleImage.width / imageCount;
+    final halfSourceSize = sourceSize / 2;
 
     for (int i = 0; i < particles.length; i++) {
       final p = particles[i];
@@ -813,9 +571,9 @@ class _ImageParticlePainter({
       rotation.transform3(_calcPos);
 
       if (explosionForce > .01) {
-        final double len = _calcPos.length;
+        final len = _calcPos.length;
         if (len > 0) {
-          final double factor = (explosionForce * 50 * p.velocityMultiplier) / len;
+          final factor = (explosionForce * 50 * p.velocityMultiplier) / len;
           _calcPos.x += _calcPos.x * factor;
           _calcPos.y += _calcPos.y * factor;
           _calcPos.z += _calcPos.z * factor;
@@ -824,16 +582,16 @@ class _ImageParticlePainter({
 
       if (drawForeground ? _calcPos.z >= 0 : _calcPos.z < 0) continue;
 
-      final double scale = viewDistance / (viewDistance + _calcPos.z);
-      final double x = _calcPos.x * scale + center.dx;
-      final double y = _calcPos.y * scale + center.dy;
+      final scale = viewDistance / (viewDistance + _calcPos.z);
+      final x = _calcPos.x * scale + center.dx;
+      final y = _calcPos.y * scale + center.dy;
 
       _rects.add(Rect.fromLTWH(p.atlasIndex * sourceSize, 0, sourceSize, sourceSize));
 
-      final double sizeMultiplier = 1.75;
+      final sizeMultiplier = 1.75;
 
       _transforms.add(
-        RSTransform.fromComponents(
+        .fromComponents(
           rotation: p.rotationAngle,
           scale: ((scaleSize * scale) / halfSourceSize) * sizeMultiplier,
           anchorX: halfSourceSize,
@@ -847,15 +605,7 @@ class _ImageParticlePainter({
     }
 
     if (_transforms.isNotEmpty) {
-      canvas.drawAtlas(
-        particleImage,
-        _transforms,
-        _rects,
-        _colors,
-        ui.BlendMode.modulate,
-        null,
-        _paint,
-      );
+      canvas.drawAtlas(particleImage, _transforms, _rects, _colors, .modulate, null, _paint);
     }
   }
 

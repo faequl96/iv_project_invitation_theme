@@ -19,15 +19,15 @@ import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/pages/g
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const GlassTheme({
-    super.key,
-    required final GlassConfigs configs,
-    final double heightAdjustment = 0,
-    required final ViewType viewType,
-    required final String invitationId,
-    required final InvitationDataResponse invitationData,
-    final ImagesRaw? imagesRaw,
-    required final BrandProfileResponse brandProfile,
-  }) extends StatefulWidget {
+  super.key,
+  required final GlassConfigs configs,
+  final double heightAdjustment = 0,
+  required final ViewType viewType,
+  required final String invitationId,
+  required final InvitationDataResponse invitationData,
+  final ImagesRaw? imagesRaw,
+  required final BrandProfileResponse brandProfile,
+}) extends StatefulWidget {
   @override
   State<GlassTheme> createState() => _GlassThemeState();
 }
@@ -164,7 +164,7 @@ class _GlassThemeState() extends State<GlassTheme> with WidgetsBindingObserver {
             tabActive: tabActive,
           ),
           _buildTab(
-            title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+            title: langCode == 'en' ? 'Bridegroom' : 'Mempelai',
             icon: Icons.people,
             tabIndex: index++,
             tabActive: tabActive,
@@ -245,12 +245,12 @@ class _GlassThemeState() extends State<GlassTheme> with WidgetsBindingObserver {
 }
 
 class const _Tab({
-    required final GlassTabConfig config,
-    required final String title,
-    required final IconData icon,
-    required final int tabIndex,
-    required final ValueNotifier<int> tabActive,
-  }) extends StatelessWidget {
+  required final GlassTabConfig config,
+  required final String title,
+  required final IconData icon,
+  required final int tabIndex,
+  required final ValueNotifier<int> tabActive,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

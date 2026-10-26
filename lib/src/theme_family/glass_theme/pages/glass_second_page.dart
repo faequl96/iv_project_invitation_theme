@@ -128,6 +128,7 @@ class const GlassSecondPage({
                       AnimatedInviter.left(
                         noAnimate: false,
                         children: [
+                          const SizedBox(height: 4),
                           _buildBrideGroomText(
                             frontTitle: bride.frontTitle,
                             fullName: bride.fullName,
@@ -137,7 +138,8 @@ class const GlassSecondPage({
                             generalFrameColor: config.brideTextFrameColor,
                             generalFrameBorderColor: config.brideTextFrameBorderColor,
                           ),
-                          const SizedBox(height: 4),
+                          // const SizedBox(height: 4),
+                          const Spacer(),
                           Text(
                             langCode == 'en' ? 'Daughter of' : 'Putri dari',
                             style: AppFonts.inter(
@@ -179,11 +181,13 @@ class const GlassSecondPage({
                             generalFrameBorderColor: config.brideTextFrameBorderColor,
                             langCode: langCode,
                           ),
+                          const SizedBox(height: 4),
                         ],
                       ),
                       AnimatedInviter.right(
                         noAnimate: false,
                         children: [
+                          const SizedBox(height: 4),
                           _buildBrideGroomText(
                             frontTitle: groom.frontTitle,
                             fullName: groom.fullName,
@@ -193,7 +197,8 @@ class const GlassSecondPage({
                             generalFrameColor: config.groomTextFrameColor,
                             generalFrameBorderColor: config.groomTextFrameBorderColor,
                           ),
-                          const SizedBox(height: 4),
+                          // const SizedBox(height: 4),
+                          const Spacer(),
                           Text(
                             langCode == 'en' ? 'Son of' : 'Putra dari',
                             style: AppFonts.inter(
@@ -235,6 +240,7 @@ class const GlassSecondPage({
                             generalFrameBorderColor: config.groomTextFrameBorderColor,
                             langCode: langCode,
                           ),
+                          const SizedBox(height: 4),
                         ],
                       ),
                       AnimatedBorderInviter.top(
@@ -286,7 +292,7 @@ class const GlassSecondPage({
         Icon(Icons.people, size: W.xs, color: config.titlePageColor),
         const SizedBox(width: 10),
         Text(
-          langCode == 'en' ? 'We Invited You' : 'Kami Yang Mengundang',
+          langCode == 'en' ? 'Bridegroom' : 'Mempelai',
           style: AppFonts.inter(
             color: config.titlePageColor,
             fontSize: FontSize.x3l,

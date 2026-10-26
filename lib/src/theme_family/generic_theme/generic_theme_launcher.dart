@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/black_and_white_glass.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/floral_canvas.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
@@ -18,8 +19,8 @@ class const GenericThemeLauncher({
   Widget build(BuildContext context) {
     final content = GenericTheme(
       configs: switch (invitationThemeId) {
-        6 => FloralCanvas.configs,
-        int() => FloralCanvas.configs,
+        6 => BlackAndWhiteGlass.configs,
+        int() => BlackAndWhiteGlass.configs,
       },
       heightAdjustment: heightAdjustment,
       viewType: viewType,

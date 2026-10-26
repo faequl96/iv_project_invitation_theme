@@ -90,7 +90,6 @@ class const GenericSecondPageConfig({
   required final Color generalTextColor,
   required final double brideDividingBorderWidth,
   required final double brideImageBorderWidth,
-  required final double brideDividingLineWidth,
   required final Color brideDividingBorderColor,
   required final Color brideImageFrameColor,
   required final Color brideImageFrameBorderColor,
@@ -102,7 +101,6 @@ class const GenericSecondPageConfig({
   required final Color brideTextFrameBorderColor,
   required final double groomDividingBorderWidth,
   required final double groomImageBorderWidth,
-  required final double groomDividingLineWidth,
   required final Color groomDividingBorderColor,
   required final Color groomImageFrameColor,
   required final Color groomImageFrameBorderColor,
@@ -258,9 +256,6 @@ class const GenericFifthPageConfig({
   final Color? firstGradientBackgroundColor,
   final Color? secondGradientBackgroundColor,
   required final Color titlePageColor,
-  required final double dividingLineWidth,
-  required final Color dividingVerticalLineColor,
-  required final Color dividingHorizontalLineColor,
   required final Color seeMoreButtonColor,
   required final Color seeMoreButtonLabelColor,
   required final double seeMoreButtonBorderWidth,
@@ -342,10 +337,7 @@ class const GenericSeventhPageConfig({
   required final Color bottomSheetBackgroundColor,
   required final Color bottomSheetCloseIconColor,
   final Color? bottomSheetOnHoverCloseIconColor,
-}) {
-  // final Color dropdownItemHoveredColor;
-  // final Color dropdownItemSplashColor;
-}
+});
 
 class const GenericEighthPageConfig({
   final Widget? foreground,
