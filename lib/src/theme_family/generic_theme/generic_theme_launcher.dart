@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/black_and_white_glass.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/blue_sky_glass.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/floral_canvas.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/green_matcha_glass.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/themes/red_velvet_glass.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const GenericThemeLauncher({
@@ -19,7 +22,11 @@ class const GenericThemeLauncher({
   Widget build(BuildContext context) {
     final content = GenericTheme(
       configs: switch (invitationThemeId) {
-        6 => BlackAndWhiteGlass.configs,
+        1 => BlackAndWhiteGlass.configs,
+        2 => RedVelvetGlass.configs,
+        3 => GreenMatchaGlass.configs,
+        4 => BlueSkyGlass.configs,
+        5 => FloralCanvas.configs,
         int() => BlackAndWhiteGlass.configs,
       },
       heightAdjustment: heightAdjustment,
@@ -31,9 +38,15 @@ class const GenericThemeLauncher({
     );
 
     final themeData = switch (invitationThemeId) {
-      6 => FloralCanvas.themeData,
-      int() => FloralCanvas.themeData,
+      1 => BlackAndWhiteGlass.themeData,
+      2 => RedVelvetGlass.themeData,
+      3 => GreenMatchaGlass.themeData,
+      4 => BlueSkyGlass.themeData,
+      5 => FloralCanvas.themeData,
+      int() => BlackAndWhiteGlass.themeData,
     };
+
+    if (themeData == null) return content;
 
     return Theme(data: themeData, child: content);
   }

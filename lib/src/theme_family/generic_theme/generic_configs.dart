@@ -31,7 +31,6 @@ class const GenericTabConfig({
 });
 
 class const GenericCoverPageConfig({
-  final Widget? coverBackground,
   required final Color gradientBaseColor,
   required final Color brideNameColor,
   required final Color groomNameColor,
@@ -88,28 +87,20 @@ class const GenericSecondPageConfig({
   final Color? secondGradientBackgroundColor,
   required final Color titlePageColor,
   required final Color generalTextColor,
+  required final Color generalFrameColor,
+  required final Color generalFrameBorderColor,
+  required final double generalBorderWidth,
   required final double brideDividingBorderWidth,
-  required final double brideImageBorderWidth,
   required final Color brideDividingBorderColor,
-  required final Color brideImageFrameColor,
-  required final Color brideImageFrameBorderColor,
-  required final Color brideDividingLineColor,
   required final Color? brideNameTextColor,
   required final Color? brideFatherNameTextColor,
   required final Color? brideMotherNameTextColor,
-  required final Color brideTextFrameColor,
-  required final Color brideTextFrameBorderColor,
   required final double groomDividingBorderWidth,
-  required final double groomImageBorderWidth,
   required final Color groomDividingBorderColor,
-  required final Color groomImageFrameColor,
-  required final Color groomImageFrameBorderColor,
   required final Color groomDividingLineColor,
   required final Color? groomNameTextColor,
   required final Color? groomFatherNameTextColor,
   required final Color? groomMotherNameTextColor,
-  required final Color groomTextFrameColor,
-  required final Color groomTextFrameBorderColor,
 });
 
 class const GenericThirdPageConfig({

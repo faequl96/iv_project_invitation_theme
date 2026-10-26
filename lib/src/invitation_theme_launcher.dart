@@ -7,7 +7,6 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/ethnic
 import 'package:iv_project_invitation_theme/src/theme_family/gemini_star_theme/gemini_star_theme_launcher.dart';
 // import 'package:iv_project_invitation_theme/src/theme_types/page_view_immersive/page_view_immersive_theme_launcher.dart';
 import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_theme_launcher.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_theme_launcher.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const InvitationThemeLauncher({
@@ -41,7 +40,7 @@ class _InvitationThemeLauncherState() extends State<InvitationThemeLauncher> {
   }
 
   Widget _buildContent() => switch (widget.invitationThemeId) {
-    1 || 2 || 3 || 4 => GlassThemeLauncher(
+    1 || 2 || 3 || 4 || 5 => GenericThemeLauncher(
       heightAdjustment: widget.heightAdjustment,
       viewType: widget.viewType,
       invitationThemeId: widget.invitationThemeId,
@@ -50,16 +49,7 @@ class _InvitationThemeLauncherState() extends State<InvitationThemeLauncher> {
       imagesRaw: widget.imagesRaw,
       brandProfile: widget.brandProfile,
     ),
-    5 => EthnicThemeLauncher(
-      heightAdjustment: widget.heightAdjustment,
-      viewType: widget.viewType,
-      invitationThemeId: widget.invitationThemeId,
-      invitationId: widget.invitationId,
-      invitationData: widget.invitationData,
-      imagesRaw: widget.imagesRaw,
-      brandProfile: widget.brandProfile,
-    ),
-    6 => GenericThemeLauncher(
+    6 => EthnicThemeLauncher(
       heightAdjustment: widget.heightAdjustment,
       viewType: widget.viewType,
       invitationThemeId: widget.invitationThemeId,

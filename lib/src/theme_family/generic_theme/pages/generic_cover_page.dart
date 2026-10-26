@@ -70,10 +70,7 @@ class _GenericCoverPageState() extends State<GenericCoverPage> {
       selector: (state) => state.size,
       builder: (_, _) => Stack(
         children: [
-          if (widget.config.coverBackground != null)
-            widget.config.coverBackground!
-          else
-            ?_cachedImage,
+          ?_cachedImage,
 
           Positioned(
             bottom: 0,
