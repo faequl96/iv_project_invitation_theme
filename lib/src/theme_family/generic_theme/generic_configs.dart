@@ -31,7 +31,6 @@ class const GenericTabConfig({
 });
 
 class const GenericCoverPageConfig({
-  final Widget? coverBackground,
   required final Color gradientBaseColor,
   required final Color brideNameColor,
   required final Color groomNameColor,
@@ -88,30 +87,20 @@ class const GenericSecondPageConfig({
   final Color? secondGradientBackgroundColor,
   required final Color titlePageColor,
   required final Color generalTextColor,
+  required final Color generalFrameColor,
+  required final Color generalFrameBorderColor,
+  required final double generalBorderWidth,
   required final double brideDividingBorderWidth,
-  required final double brideImageBorderWidth,
-  required final double brideDividingLineWidth,
   required final Color brideDividingBorderColor,
-  required final Color brideImageFrameColor,
-  required final Color brideImageFrameBorderColor,
-  required final Color brideDividingLineColor,
   required final Color? brideNameTextColor,
   required final Color? brideFatherNameTextColor,
   required final Color? brideMotherNameTextColor,
-  required final Color brideTextFrameColor,
-  required final Color brideTextFrameBorderColor,
   required final double groomDividingBorderWidth,
-  required final double groomImageBorderWidth,
-  required final double groomDividingLineWidth,
   required final Color groomDividingBorderColor,
-  required final Color groomImageFrameColor,
-  required final Color groomImageFrameBorderColor,
   required final Color groomDividingLineColor,
   required final Color? groomNameTextColor,
   required final Color? groomFatherNameTextColor,
   required final Color? groomMotherNameTextColor,
-  required final Color groomTextFrameColor,
-  required final Color groomTextFrameBorderColor,
 });
 
 class const GenericThirdPageConfig({
@@ -258,9 +247,6 @@ class const GenericFifthPageConfig({
   final Color? firstGradientBackgroundColor,
   final Color? secondGradientBackgroundColor,
   required final Color titlePageColor,
-  required final double dividingLineWidth,
-  required final Color dividingVerticalLineColor,
-  required final Color dividingHorizontalLineColor,
   required final Color seeMoreButtonColor,
   required final Color seeMoreButtonLabelColor,
   required final double seeMoreButtonBorderWidth,
@@ -342,10 +328,7 @@ class const GenericSeventhPageConfig({
   required final Color bottomSheetBackgroundColor,
   required final Color bottomSheetCloseIconColor,
   final Color? bottomSheetOnHoverCloseIconColor,
-}) {
-  // final Color dropdownItemHoveredColor;
-  // final Color dropdownItemSplashColor;
-}
+});
 
 class const GenericEighthPageConfig({
   final Widget? foreground,

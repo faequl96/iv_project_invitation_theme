@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gradient_borders/box_borders/gradient_box_border.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_configs.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class GreenMatchaGlass._() {
-  static GlassConfigs get configs => GlassConfigs(
-    tabConfig: GlassTabConfig(
+  static GenericConfigs get configs => GenericConfigs(
+    tabConfig: GenericTabConfig(
+      useGlassEffect: true,
       indicatorColor: Colors.green.shade50,
       backgroundColor: ColorUtil.darken(Colors.green.shade900, 50),
       titleActiveColor: Colors.white,
@@ -33,7 +34,7 @@ class GreenMatchaGlass._() {
         CircleParticle(color: ColorUtil.darken(Colors.green.shade700, 40)),
       ],
     ),
-    coverPageConfig: GlassCoverPageConfig(
+    coverPageConfig: GenericCoverPageConfig(
       gradientBaseColor: ColorUtil.darken(Colors.green.shade700, 60),
       brideNameColor: Colors.green.shade200,
       groomNameColor: Colors.green.shade200,
@@ -44,10 +45,12 @@ class GreenMatchaGlass._() {
       countdownEvenBorderColor: Colors.green.shade200,
       countdownNumberColor: Colors.green.shade50,
       countdownUnitColor: Colors.green.shade50,
+      useLightningEffectOnCountdown: true,
       firstArrowColor: Colors.green.shade100.withValues(alpha: .7),
       secondArrowColor: Colors.green.shade300.withValues(alpha: .5),
     ),
-    firstPageConfig: GlassFirstPageConfig(
+    firstPageConfig: GenericFirstPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
@@ -70,6 +73,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       openingTextColor: Colors.white,
@@ -81,7 +85,8 @@ class GreenMatchaGlass._() {
       secondSubScaffoldBorderColor: Colors.white.withValues(alpha: .7),
       secondSubScaffoldBorderWidth: 1,
     ),
-    secondPageConfig: GlassSecondPageConfig(
+    secondPageConfig: GenericSecondPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
       secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
       scaffoldBorder: GradientBoxBorder(
@@ -99,35 +104,27 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .6,
       titlePageColor: ColorUtil.darken(Colors.green.shade900, 20),
       generalTextColor: ColorUtil.darken(Colors.green.shade500, 5),
+      generalFrameColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .3),
+      generalFrameBorderColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .8),
+      generalBorderWidth: 1,
       brideDividingBorderWidth: 1,
-      brideImageBorderWidth: 1,
-      brideDividingLineWidth: 1,
       brideDividingBorderColor: Colors.green.shade400,
-      brideImageFrameColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .3),
-      brideImageFrameBorderColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .8),
-      brideDividingLineColor: Colors.green.shade400,
       brideNameTextColor: ColorUtil.darken(Colors.green.shade700),
       brideFatherNameTextColor: ColorUtil.darken(Colors.green.shade700),
       brideMotherNameTextColor: ColorUtil.darken(Colors.green.shade700),
-      brideTextFrameColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .3),
-      brideTextFrameBorderColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .8),
       groomDividingBorderWidth: 1,
-      groomImageBorderWidth: 1,
-      groomDividingLineWidth: 1,
       groomDividingBorderColor: Colors.green.shade400,
-      groomImageFrameColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .3),
-      groomImageFrameBorderColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .8),
       groomDividingLineColor: Colors.green.shade400,
       groomNameTextColor: ColorUtil.darken(Colors.green.shade700),
       groomFatherNameTextColor: ColorUtil.darken(Colors.green.shade700),
       groomMotherNameTextColor: ColorUtil.darken(Colors.green.shade700),
-      groomTextFrameColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .3),
-      groomTextFrameBorderColor: ColorUtil.darken(Colors.green.shade200, 5).withValues(alpha: .8),
     ),
-    thirdPageConfig: GlassThirdPageConfig(
+    thirdPageConfig: GenericThirdPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
         60,
@@ -151,6 +148,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: ColorUtil.darken(Colors.green.shade900, 20),
       contractTitleColor: ColorUtil.darken(Colors.green.shade700),
@@ -173,8 +171,10 @@ class GreenMatchaGlass._() {
       receptionCountdownEvenBorderColor: Colors.green.shade500,
       receptionCountdownNumberColor: ColorUtil.darken(Colors.green.shade700),
       receptionCountdownUnitColor: ColorUtil.darken(Colors.green.shade700),
+      useLightningEffectOnCountdown: true,
     ),
-    thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
+    thirdDifferentLocationPageConfig: GenericThirdDifferentLocationPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
         60,
@@ -198,6 +198,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: ColorUtil.darken(Colors.green.shade900, 20),
       dateTimeIconColor: ColorUtil.darken(Colors.green.shade700),
@@ -209,6 +210,7 @@ class GreenMatchaGlass._() {
       countdownEvenBorderColor: Colors.green.shade500,
       countdownNumberColor: ColorUtil.darken(Colors.green.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.green.shade700),
+      useLightningEffectOnCountdown: true,
       dividingLineWidth: 1,
       dividingLineColor: ColorUtil.darken(Colors.green.shade500),
       placeIconColor: ColorUtil.darken(Colors.green.shade700),
@@ -220,7 +222,8 @@ class GreenMatchaGlass._() {
       getDirectionsButtonBorderWidth: 1.5,
       getDirectionsButtonBorderColor: Colors.white,
     ),
-    fourthPageConfig: GlassFourthPageConfig(
+    fourthPageConfig: GenericFourthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
@@ -243,6 +246,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       placeIconColor: Colors.white,
@@ -256,7 +260,8 @@ class GreenMatchaGlass._() {
       getDirectionsButtonBorderWidth: 1.5,
       getDirectionsButtonBorderColor: Colors.white,
     ),
-    fourthDifferentLocationPageConfig: GlassFourthDifferentLocationPageConfig(
+    fourthDifferentLocationPageConfig: GenericFourthDifferentLocationPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
@@ -279,6 +284,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       dateTimeIconColor: Colors.white,
@@ -290,6 +296,7 @@ class GreenMatchaGlass._() {
       countdownEvenBorderColor: Colors.white,
       countdownNumberColor: ColorUtil.darken(Colors.green.shade700),
       countdownUnitColor: ColorUtil.darken(Colors.green.shade700),
+      useLightningEffectOnCountdown: true,
       dividingLineWidth: 1,
       dividingLineColor: Colors.white,
       placeIconColor: Colors.white,
@@ -301,7 +308,8 @@ class GreenMatchaGlass._() {
       getDirectionsButtonBorderWidth: 1.5,
       getDirectionsButtonBorderColor: Colors.white,
     ),
-    fifthPageConfig: GlassFifthPageConfig(
+    fifthPageConfig: GenericFifthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .2),
       secondGradientScaffoldColor: Colors.white.withValues(alpha: .4),
       scaffoldBorder: GradientBoxBorder(
@@ -319,11 +327,9 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .6,
       titlePageColor: ColorUtil.darken(Colors.green.shade900, 20),
-      dividingLineWidth: 1,
-      dividingVerticalLineColor: ColorUtil.darken(Colors.green.shade200),
-      dividingHorizontalLineColor: ColorUtil.darken(Colors.green.shade200),
       seeMoreButtonColor: ColorUtil.darken(Colors.green.shade500).withValues(alpha: .8),
       seeMoreButtonLabelColor: Colors.white,
       seeMoreButtonBorderWidth: 1.5,
@@ -334,7 +340,8 @@ class GreenMatchaGlass._() {
       bottomSheetCloseIconColor: Colors.white,
       bottomSheetOnHoverCloseIconColor: Colors.green.shade400,
     ),
-    sixthPageConfig: GlassSixthPageConfig(
+    sixthPageConfig: GenericSixthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
         60,
@@ -358,6 +365,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: ColorUtil.darken(Colors.green.shade900, 20),
       introductionTextColor: ColorUtil.darken(Colors.green.shade700),
@@ -370,7 +378,8 @@ class GreenMatchaGlass._() {
       bankTextColor: ColorUtil.darken(Colors.green.shade700),
       bankCopyBaseColor: ColorUtil.darken(Colors.green.shade500),
     ),
-    seventhPageConfig: GlassSeventhPageConfig(
+    seventhPageConfig: GenericSeventhPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: ColorUtil.darken(Colors.green.shade700, 60),
       secondGradientBackgroundColor: ColorUtil.darken(
         Colors.green.shade700,
@@ -394,6 +403,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .5,
       titlePageColor: Colors.white,
       fieldTextColor: Colors.white,
@@ -429,7 +439,8 @@ class GreenMatchaGlass._() {
       bottomSheetCloseIconColor: Colors.white,
       bottomSheetOnHoverCloseIconColor: Colors.green.shade300,
     ),
-    eighthPageConfig: GlassEighthPageConfig(
+    eighthPageConfig: GenericEighthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.white.withValues(alpha: .3),
       secondGradientScaffoldColor: Colors.white.withValues(alpha: .3),
       scaffoldBorder: GradientBoxBorder(
@@ -447,6 +458,7 @@ class GreenMatchaGlass._() {
           transform: const GradientRotation(-0.2),
         ),
       ),
+      useGlassEffectOnScaffold: true,
       glassEffectOpacity: .6,
       titlePageColor: ColorUtil.darken(Colors.green.shade900, 20),
       closingTextColor: ColorUtil.darken(Colors.green.shade700),

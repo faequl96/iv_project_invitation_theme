@@ -9,9 +9,6 @@ import 'package:iv_project_widget_core/iv_project_widget_core.dart';
 
 class const VerticalGallery({
   super.key,
-  required final double dividingLineWidth,
-  required final Color dividingVerticalLineColor,
-  required final Color dividingHorizontalLineColor,
   final bool isShowMore = false,
   required final ViewType viewType,
   final List<File?>? galleries,

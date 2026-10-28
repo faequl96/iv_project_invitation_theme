@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/iv_project_invitation_theme.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_theme.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/themes/black_and_white_glass.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/themes/blue_sky_glass.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/themes/green_matcha_glass.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/themes/red_velvet_glass.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/elysian_theme/elysian_theme.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/elysian_theme/themes/elysian_champagne_preset.dart';
 import 'package:iv_project_model/iv_project_model.dart';
 
-class const GlassThemeLauncher({
+class const ElysianThemeLauncher({
   super.key,
   final double heightAdjustment = 0,
   required final ViewType viewType,
@@ -19,13 +16,10 @@ class const GlassThemeLauncher({
 }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final content = GlassTheme(
+    return ElysianTheme(
       configs: switch (invitationThemeId) {
-        1 => BlackAndWhiteGlass.configs,
-        2 => RedVelvetGlass.configs,
-        3 => GreenMatchaGlass.configs,
-        4 => BlueSkyGlass.configs,
-        int() => BlackAndWhiteGlass.configs,
+        9 => ElysianChampagnePreset.configs,
+        int() => ElysianChampagnePreset.configs,
       },
       heightAdjustment: heightAdjustment,
       viewType: viewType,
@@ -34,7 +28,5 @@ class const GlassThemeLauncher({
       imagesRaw: imagesRaw,
       brandProfile: brandProfile,
     );
-
-    return content;
   }
 }

@@ -19,15 +19,15 @@ import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/pages
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const GenericTheme({
-    super.key,
-    required final GenericConfigs configs,
-    final double heightAdjustment = 0,
-    required final ViewType viewType,
-    required final String invitationId,
-    required final InvitationDataResponse invitationData,
-    final ImagesRaw? imagesRaw,
-    required final BrandProfileResponse brandProfile,
-  }) extends StatefulWidget {
+  super.key,
+  required final GenericConfigs configs,
+  final double heightAdjustment = 0,
+  required final ViewType viewType,
+  required final String invitationId,
+  required final InvitationDataResponse invitationData,
+  final ImagesRaw? imagesRaw,
+  required final BrandProfileResponse brandProfile,
+}) extends StatefulWidget {
   @override
   State<GenericTheme> createState() => _GenericThemeState();
 }
@@ -164,7 +164,7 @@ class _GenericThemeState() extends State<GenericTheme> with WidgetsBindingObserv
             tabActive: tabActive,
           ),
           _buildTab(
-            title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+            title: langCode == 'en' ? 'Bridegroom' : 'Mempelai',
             icon: Icons.people,
             tabIndex: index++,
             tabActive: tabActive,
@@ -245,12 +245,12 @@ class _GenericThemeState() extends State<GenericTheme> with WidgetsBindingObserv
 }
 
 class const _Tab({
-    required final GenericTabConfig config,
-    required final String title,
-    required final IconData icon,
-    required final int tabIndex,
-    required final ValueNotifier<int> tabActive,
-  }) extends StatelessWidget {
+  required final GenericTabConfig config,
+  required final String title,
+  required final IconData icon,
+  required final int tabIndex,
+  required final ValueNotifier<int> tabActive,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(

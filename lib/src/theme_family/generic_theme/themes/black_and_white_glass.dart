@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:iv_project_invitation_theme/src/theme_family/glass_theme/glass_configs.dart';
+import 'package:iv_project_invitation_theme/src/theme_family/generic_theme/generic_configs.dart';
 import 'package:iv_project_invitation_theme/src/widgets/bubble_background.dart';
 import 'package:iv_project_invitation_theme/src/widgets/particle_sphere.dart';
 import 'package:quick_dev_sdk/quick_dev_sdk.dart';
 
 class BlackAndWhiteGlass._() {
-  static GlassConfigs get configs => GlassConfigs(
-    tabConfig: GlassTabConfig(
+  static GenericConfigs get configs => GenericConfigs(
+    tabConfig: GenericTabConfig(
+      useGlassEffect: true,
       indicatorColor: Colors.grey.shade50,
       backgroundColor: Colors.black.withValues(alpha: .5),
       titleActiveColor: Colors.white,
@@ -32,7 +33,7 @@ class BlackAndWhiteGlass._() {
         CircleParticle(color: ColorUtil.darken(Colors.grey.shade700, 40)),
       ],
     ),
-    coverPageConfig: GlassCoverPageConfig(
+    coverPageConfig: GenericCoverPageConfig(
       gradientBaseColor: Colors.grey.shade900,
       brideNameColor: Colors.grey.shade300,
       groomNameColor: Colors.grey.shade300,
@@ -43,15 +44,18 @@ class BlackAndWhiteGlass._() {
       countdownEvenBorderColor: Colors.grey.shade600,
       countdownNumberColor: Colors.grey.shade200,
       countdownUnitColor: Colors.grey.shade200,
+      useLightningEffectOnCountdown: true,
       firstArrowColor: Colors.grey.shade100.withValues(alpha: .7),
       secondArrowColor: Colors.grey.shade300.withValues(alpha: .5),
     ),
-    firstPageConfig: GlassFirstPageConfig(
+    firstPageConfig: GenericFirstPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.grey.shade900,
       secondGradientBackgroundColor: Colors.transparent,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade200,
       openingTextColor: Colors.grey.shade100,
       generalTextColor: Colors.grey.shade100,
@@ -62,43 +66,37 @@ class BlackAndWhiteGlass._() {
       secondSubScaffoldBorderColor: Colors.grey.shade500,
       secondSubScaffoldBorderWidth: .5,
     ),
-    secondPageConfig: GlassSecondPageConfig(
+    secondPageConfig: GenericSecondPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade900,
       generalTextColor: Colors.grey.shade200,
+      generalFrameColor: Colors.grey.shade200.withValues(alpha: .1),
+      generalFrameBorderColor: Colors.grey.shade200.withValues(alpha: .4),
+      generalBorderWidth: 2,
       brideDividingBorderWidth: .5,
-      brideImageBorderWidth: .5,
-      brideDividingLineWidth: .5,
       brideDividingBorderColor: Colors.grey.shade200,
-      brideImageFrameColor: Colors.grey.shade200.withValues(alpha: .1),
-      brideImageFrameBorderColor: Colors.grey.shade200.withValues(alpha: .4),
-      brideDividingLineColor: Colors.grey.shade200,
       brideNameTextColor: null,
       brideFatherNameTextColor: null,
       brideMotherNameTextColor: null,
-      brideTextFrameColor: Colors.grey.shade200.withValues(alpha: .1),
-      brideTextFrameBorderColor: Colors.grey.shade200.withValues(alpha: .4),
       groomDividingBorderWidth: .5,
-      groomImageBorderWidth: .5,
-      groomDividingLineWidth: .5,
       groomDividingBorderColor: Colors.grey.shade200,
-      groomImageFrameColor: Colors.grey.shade200.withValues(alpha: .1),
-      groomImageFrameBorderColor: Colors.grey.shade200.withValues(alpha: .4),
       groomDividingLineColor: Colors.grey.shade200,
       groomNameTextColor: null,
       groomFatherNameTextColor: null,
       groomMotherNameTextColor: null,
-      groomTextFrameColor: Colors.grey.shade200.withValues(alpha: .1),
-      groomTextFrameBorderColor: Colors.grey.shade100.withValues(alpha: .4),
     ),
-    thirdPageConfig: GlassThirdPageConfig(
+    thirdPageConfig: GenericThirdPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.transparent,
       secondGradientBackgroundColor: Colors.grey.shade900,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade900,
       contractTitleColor: Colors.grey.shade100,
       contractBaseTextColor: Colors.grey.shade100,
@@ -120,13 +118,16 @@ class BlackAndWhiteGlass._() {
       receptionCountdownEvenBorderColor: Colors.grey.shade600,
       receptionCountdownNumberColor: Colors.grey.shade200,
       receptionCountdownUnitColor: Colors.grey.shade200,
+      useLightningEffectOnCountdown: true,
     ),
-    thirdDifferentLocationPageConfig: GlassThirdDifferentLocationPageConfig(
+    thirdDifferentLocationPageConfig: GenericThirdDifferentLocationPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.transparent,
       secondGradientBackgroundColor: Colors.grey.shade900,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade900,
       dateTimeIconColor: Colors.grey.shade100,
       dateTimeBaseTextColor: Colors.grey.shade100,
@@ -137,6 +138,7 @@ class BlackAndWhiteGlass._() {
       countdownEvenBorderColor: Colors.grey.shade500,
       countdownNumberColor: Colors.grey.shade200,
       countdownUnitColor: Colors.grey.shade200,
+      useLightningEffectOnCountdown: false,
       dividingLineWidth: .5,
       dividingLineColor: Colors.grey.shade100,
       placeIconColor: Colors.grey.shade100,
@@ -148,12 +150,14 @@ class BlackAndWhiteGlass._() {
       getDirectionsButtonBorderWidth: .5,
       getDirectionsButtonBorderColor: Colors.grey.shade500,
     ),
-    fourthPageConfig: GlassFourthPageConfig(
+    fourthPageConfig: GenericFourthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.grey.shade900,
       secondGradientBackgroundColor: Colors.transparent,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade200,
       placeIconColor: Colors.grey.shade50,
       placeTextColor: Colors.grey.shade50,
@@ -166,12 +170,14 @@ class BlackAndWhiteGlass._() {
       getDirectionsButtonBorderWidth: .5,
       getDirectionsButtonBorderColor: Colors.grey.shade500,
     ),
-    fourthDifferentLocationPageConfig: GlassFourthDifferentLocationPageConfig(
+    fourthDifferentLocationPageConfig: GenericFourthDifferentLocationPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.grey.shade900,
       secondGradientBackgroundColor: Colors.transparent,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade200,
       dateTimeIconColor: Colors.grey.shade50,
       dateTimeBaseTextColor: Colors.grey.shade50,
@@ -182,6 +188,7 @@ class BlackAndWhiteGlass._() {
       countdownEvenBorderColor: Colors.grey.shade600,
       countdownNumberColor: Colors.grey.shade200,
       countdownUnitColor: Colors.grey.shade200,
+      useLightningEffectOnCountdown: false,
       dividingLineWidth: .5,
       dividingLineColor: Colors.grey.shade50,
       placeIconColor: Colors.grey.shade50,
@@ -193,14 +200,13 @@ class BlackAndWhiteGlass._() {
       getDirectionsButtonBorderWidth: .5,
       getDirectionsButtonBorderColor: Colors.grey.shade500,
     ),
-    fifthPageConfig: GlassFifthPageConfig(
+    fifthPageConfig: GenericFifthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade900,
-      dividingLineWidth: .5,
-      dividingVerticalLineColor: Colors.grey.shade500,
-      dividingHorizontalLineColor: Colors.grey.shade500,
       seeMoreButtonColor: Colors.black.withValues(alpha: .5),
       seeMoreButtonLabelColor: Colors.grey.shade50,
       seeMoreButtonBorderWidth: .5,
@@ -210,12 +216,14 @@ class BlackAndWhiteGlass._() {
       bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
       bottomSheetCloseIconColor: Colors.grey.shade400,
     ),
-    sixthPageConfig: GlassSixthPageConfig(
+    sixthPageConfig: GenericSixthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.transparent,
       secondGradientBackgroundColor: Colors.grey.shade900,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade900,
       introductionTextColor: Colors.grey.shade100,
       introductionColor: Colors.white.withValues(alpha: .05),
@@ -227,12 +235,14 @@ class BlackAndWhiteGlass._() {
       bankTextColor: Colors.grey.shade100,
       bankCopyBaseColor: Colors.grey.shade400,
     ),
-    seventhPageConfig: GlassSeventhPageConfig(
+    seventhPageConfig: GenericSeventhPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientBackgroundColor: Colors.grey.shade900,
       secondGradientBackgroundColor: Colors.transparent,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade200,
       fieldTextColor: Colors.grey.shade100,
       fieldLabelColor: Colors.grey.shade300,
@@ -266,10 +276,12 @@ class BlackAndWhiteGlass._() {
       bottomSheetBackgroundColor: Colors.black.withValues(alpha: .85),
       bottomSheetCloseIconColor: Colors.grey.shade400,
     ),
-    eighthPageConfig: GlassEighthPageConfig(
+    eighthPageConfig: GenericEighthPageConfig(
+      useBackdropBlurOnScaffold: true,
       firstGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       secondGradientScaffoldColor: Colors.black.withValues(alpha: .6),
       scaffoldBorder: .all(width: .5, color: Colors.grey.shade500),
+      useGlassEffectOnScaffold: true,
       titlePageColor: Colors.grey.shade900,
       closingTextColor: Colors.grey.shade100,
       brideGroomNameColor: Colors.grey.shade100,

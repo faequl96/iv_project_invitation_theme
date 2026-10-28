@@ -104,14 +104,7 @@ class const GenericFifthPage({
                     mainAxisAlignment: .center,
                     children: [
                       const Spacer(),
-                      VerticalGallery(
-                        dividingLineWidth: config.dividingLineWidth,
-                        dividingVerticalLineColor: config.dividingVerticalLineColor,
-                        dividingHorizontalLineColor: config.dividingHorizontalLineColor,
-                        viewType: viewType,
-                        galleries: galleries,
-                        gallery: gallery,
-                      ),
+                      VerticalGallery(viewType: viewType, galleries: galleries, gallery: gallery),
                       FadeAndSlideTransition(
                         slideFromOffset: .8,
                         slideFrom: .bottom,
@@ -205,9 +198,6 @@ class const GenericFifthPage({
                 ),
                 child: SingleChildScrollView(
                   child: VerticalGallery(
-                    dividingLineWidth: config.dividingLineWidth,
-                    dividingVerticalLineColor: config.dividingVerticalLineColor,
-                    dividingHorizontalLineColor: config.dividingHorizontalLineColor,
                     isShowMore: true,
                     viewType: viewType,
                     galleries: galleries,

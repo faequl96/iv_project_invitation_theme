@@ -19,15 +19,15 @@ import 'package:iv_project_invitation_theme/src/theme_family/ethnic_theme/pages/
 import 'package:iv_project_model/iv_project_model.dart';
 
 class const EthnicTheme({
-    super.key,
-    required final EthnicConfigs configs,
-    final double heightAdjustment = 0,
-    required final ViewType viewType,
-    required final String invitationId,
-    required final InvitationDataResponse invitationData,
-    final ImagesRaw? imagesRaw,
-    required final BrandProfileResponse brandProfile,
-  }) extends StatefulWidget {
+  super.key,
+  required final EthnicConfigs configs,
+  final double heightAdjustment = 0,
+  required final ViewType viewType,
+  required final String invitationId,
+  required final InvitationDataResponse invitationData,
+  final ImagesRaw? imagesRaw,
+  required final BrandProfileResponse brandProfile,
+}) extends StatefulWidget {
   @override
   State<EthnicTheme> createState() => _EthnicThemeState();
 }
@@ -163,7 +163,7 @@ class _EthnicThemeState() extends State<EthnicTheme> with WidgetsBindingObserver
             tabActive: tabActive,
           ),
           _buildTab(
-            title: langCode == 'en' ? 'Inviter' : 'Pengundang',
+            title: langCode == 'en' ? 'Bridegroom' : 'Mempelai',
             icon: Icons.people,
             tabIndex: index++,
             tabActive: tabActive,
@@ -244,12 +244,12 @@ class _EthnicThemeState() extends State<EthnicTheme> with WidgetsBindingObserver
 }
 
 class const _Tab({
-    required final EthnicTabConfig config,
-    required final String title,
-    required final IconData icon,
-    required final int tabIndex,
-    required final ValueNotifier<int> tabActive,
-  }) extends StatelessWidget {
+  required final EthnicTabConfig config,
+  required final String title,
+  required final IconData icon,
+  required final int tabIndex,
+  required final ValueNotifier<int> tabActive,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
