@@ -1347,56 +1347,59 @@ class _Cylindrical3DGallery1State() extends State<Cylindrical3DGallery1> {
           SizedBox(
             width: 640,
             height: 480,
-            child: ValueListenableBuilder<double>(
-              valueListenable: _continuousAngle,
-              builder: (_, baseAngle, _) {
-                final int count = _moments.length;
+            child: ColoredBox(
+              color: Colors.amber,
+              child: ValueListenableBuilder<double>(
+                valueListenable: _continuousAngle,
+                builder: (_, baseAngle, _) {
+                  final int count = _moments.length;
 
-                final itemAngles = List.generate(
-                  count,
-                  (i) => baseAngle + (i * _angleStep),
-                  growable: false,
-                );
+                  final itemAngles = List.generate(
+                    count,
+                    (i) => baseAngle + (i * _angleStep),
+                    growable: false,
+                  );
 
-                final itemCosines = itemAngles.map(math.cos).toList(growable: false);
+                  final itemCosines = itemAngles.map(math.cos).toList(growable: false);
 
-                final indices = List.generate(count, (i) => i, growable: false)
-                  ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
+                  final indices = List.generate(count, (i) => i, growable: false)
+                    ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
 
-                return Stack(
-                  alignment: .center,
-                  children: indices
-                      .map((index) {
-                        final itemAngle = itemAngles[index];
-                        final cosAngle = itemCosines[index];
+                  return Stack(
+                    alignment: .center,
+                    children: indices
+                        .map((index) {
+                          final itemAngle = itemAngles[index];
+                          final cosAngle = itemCosines[index];
 
-                        final x = math.sin(itemAngle) * _cylinderRadius;
-                        final z = _cylinderRadius - (cosAngle * _cylinderRadius);
+                          final x = math.sin(itemAngle) * _cylinderRadius;
+                          final z = _cylinderRadius - (cosAngle * _cylinderRadius);
 
-                        final normalizedDepth = (cosAngle + 1) / 2;
-                        final cardOpacity = .65 + (normalizedDepth * .35);
-                        final cardRotationY = -itemAngle;
+                          final normalizedDepth = (cosAngle + 1) / 2;
+                          final cardOpacity = .65 + (normalizedDepth * .35);
+                          final cardRotationY = -itemAngle;
 
-                        return Opacity(
-                          key: ValueKey('moment_card_$index'),
-                          opacity: cardOpacity.clamp(.0, 1.0),
-                          child: Transform(
-                            alignment: .center,
-                            transform: .identity()
-                              ..setEntry(3, 2, .0015)
-                              ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
-                              ..rotateY(cardRotationY),
-                            child: _Thick3DCard(
-                              item: _moments[index],
-                              cosAngle: cosAngle,
-                              isGallery1: true,
+                          return Opacity(
+                            key: ValueKey('moment_card_$index'),
+                            opacity: cardOpacity.clamp(.0, 1.0),
+                            child: Transform(
+                              alignment: .center,
+                              transform: .identity()
+                                ..setEntry(3, 2, .0015)
+                                ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
+                                ..rotateY(cardRotationY),
+                              child: _Thick3DCard(
+                                item: _moments[index],
+                                cosAngle: cosAngle,
+                                isGallery1: true,
+                              ),
                             ),
-                          ),
-                        );
-                      })
-                      .toList(growable: false),
-                );
-              },
+                          );
+                        })
+                        .toList(growable: false),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -1476,51 +1479,59 @@ class _Cylindrical3DGallery2State() extends State<Cylindrical3DGallery2> {
           SizedBox(
             width: 640,
             height: 480,
-            child: ValueListenableBuilder<double>(
-              valueListenable: _continuousAngle,
-              builder: (_, baseAngle, _) {
-                final int count = _moments.length;
+            child: ColoredBox(
+              color: Colors.amber,
+              child: ValueListenableBuilder<double>(
+                valueListenable: _continuousAngle,
+                builder: (_, baseAngle, _) {
+                  final int count = _moments.length;
 
-                final angles = List.generate(
-                  count,
-                  (i) => baseAngle + (i * _angleStep),
-                  growable: false,
-                );
-                final zValues = List.generate(count, (i) => math.cos(angles[i]), growable: false);
+                  final angles = List.generate(
+                    count,
+                    (i) => baseAngle + (i * _angleStep),
+                    growable: false,
+                  );
+                  final zValues = List.generate(count, (i) => math.cos(angles[i]), growable: false);
 
-                final indices = List.generate(count, (i) => i, growable: false);
-                indices.sort((a, b) => zValues[a].compareTo(zValues[b]));
+                  final indices = List.generate(count, (i) => i, growable: false);
+                  indices.sort((a, b) => zValues[a].compareTo(zValues[b]));
 
-                return Stack(
-                  alignment: .center,
-                  children: indices
-                      .map((index) {
-                        final itemAngle = angles[index];
-                        final z = zValues[index] * _cylinderRadius;
-                        final x = math.sin(itemAngle) * _cylinderRadius;
+                  return Stack(
+                    alignment: .center,
+                    children: indices
+                        .map((index) {
+                          final itemAngle = angles[index];
+                          final z = zValues[index] * _cylinderRadius;
+                          final x = math.sin(itemAngle) * _cylinderRadius;
 
-                        final cardScale = .6 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .2;
-                        final cardOpacity =
-                            .45 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .55;
-                        final cardRotationY = -itemAngle + (math.pi / 2);
-                        final item = _moments[index];
+                          final cardScale =
+                              .6 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .2;
+                          final cardOpacity =
+                              .45 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .55;
+                          final cardRotationY = -itemAngle + (math.pi / 2);
+                          final item = _moments[index];
 
-                        return Opacity(
-                          key: ValueKey('moment_card_$index'),
-                          opacity: cardOpacity.clamp(.0, 1.0),
-                          child: Transform(
-                            alignment: .center,
-                            transform: .identity()
-                              ..translateByDouble(x, -widget.tilt.dy * 15, .0, 1.0)
-                              ..scaleByDouble(cardScale, cardScale, cardScale, 1.0)
-                              ..rotateY(cardRotationY),
-                            child: _Thick3DCard(item: item, cosAngle: itemAngle, isGallery1: false),
-                          ),
-                        );
-                      })
-                      .toList(growable: false),
-                );
-              },
+                          return Opacity(
+                            key: ValueKey('moment_card_$index'),
+                            opacity: cardOpacity.clamp(.0, 1.0),
+                            child: Transform(
+                              alignment: .center,
+                              transform: .identity()
+                                ..translateByDouble(x, -widget.tilt.dy * 15, .0, 1.0)
+                                ..scaleByDouble(cardScale, cardScale, cardScale, 1.0)
+                                ..rotateY(cardRotationY),
+                              child: _Thick3DCard(
+                                item: item,
+                                cosAngle: itemAngle,
+                                isGallery1: false,
+                              ),
+                            ),
+                          );
+                        })
+                        .toList(growable: false),
+                  );
+                },
+              ),
             ),
           ),
         ],
