@@ -1,18 +1,17 @@
 import 'dart:math' as math;
 import 'dart:ui';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 
-class Royal3DWorldScene extends StatefulWidget {
-  const Royal3DWorldScene({super.key});
-
+class const Royal3DWorldScene({super.key}) extends StatefulWidget {
   @override
   State<Royal3DWorldScene> createState() => _Royal3DWorldSceneState();
 }
 
-class _Royal3DWorldSceneState extends State<Royal3DWorldScene> with TickerProviderStateMixin {
+class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProviderStateMixin {
   // Posisi kemiringan kursor/sentuhan (-1.0 s/d 1.0)
   Offset _targetTilt = Offset.zero;
   Offset _smoothTilt = Offset.zero;
@@ -547,10 +546,7 @@ class _Royal3DWorldSceneState extends State<Royal3DWorldScene> with TickerProvid
 // ============================================================================
 // SEKSI 1: PROFIL MEMPELAI DENGAN KARTU HOLOGRAM 3D MULTI-LAYER
 // ============================================================================
-class _BrideGroom3DShowcase extends StatelessWidget {
-  const _BrideGroom3DShowcase({required this.tilt});
-  final Offset tilt;
-
+class const _BrideGroom3DShowcase({required final Offset tilt}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -694,10 +690,7 @@ class _BrideGroom3DShowcase extends StatelessWidget {
 // ============================================================================
 // SEKSI 2: AKAD & RESEPSI DENGAN 3D FLOATING SUNDIAL / COUNTDOWN
 // ============================================================================
-class _SacredEvent3DShowcase extends StatelessWidget {
-  const _SacredEvent3DShowcase({required this.tilt});
-  final Offset tilt;
-
+class const _SacredEvent3DShowcase({required final Offset tilt}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -844,15 +837,13 @@ class _SacredEvent3DShowcase extends StatelessWidget {
 // ============================================================================
 // SEKSI 4: KARTU AMPLOP HOLOGRAM 3D YANG BISA DIBALIK 180 DERAJAT
 // ============================================================================
-class _HolographicGiftAndRsvpShowcase extends StatefulWidget {
-  const _HolographicGiftAndRsvpShowcase({required this.tilt});
-  final Offset tilt;
-
+class const _HolographicGiftAndRsvpShowcase({required final Offset tilt}) extends StatefulWidget {
   @override
   State<_HolographicGiftAndRsvpShowcase> createState() => _HolographicGiftAndRsvpShowcaseState();
 }
 
-class _HolographicGiftAndRsvpShowcaseState extends State<_HolographicGiftAndRsvpShowcase>
+class _HolographicGiftAndRsvpShowcaseState()
+    extends State<_HolographicGiftAndRsvpShowcase>
     with SingleTickerProviderStateMixin {
   late final AnimationController _flipController;
   bool _isFront = true;
@@ -1048,16 +1039,11 @@ class _HolographicGiftAndRsvpShowcaseState extends State<_HolographicGiftAndRsvp
 // ============================================================================
 
 /// 1. Painter untuk Sinar Cahaya Ilahi (Volumetric God Rays)
-class VolumetricGodRaysPainter extends CustomPainter {
-  VolumetricGodRaysPainter({
-    required this.tilt,
-    required this.ambientPhase,
-    required this.gateOpenProgress,
-  });
-  final Offset tilt;
-  final double ambientPhase;
-  final double gateOpenProgress;
-
+class VolumetricGodRaysPainter({
+  required final Offset tilt,
+  required final double ambientPhase,
+  required final double gateOpenProgress,
+}) extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     // Background langit malam zamrud
@@ -1109,11 +1095,8 @@ class VolumetricGodRaysPainter extends CustomPainter {
 }
 
 /// 2. Painter untuk Daun Pintu Gerbang Keraton 3D (Kiri & Kanan)
-class OrnateRoyalDoorPainter extends CustomPainter {
-  OrnateRoyalDoorPainter({required this.isLeftDoor, required this.tilt});
-  final bool isLeftDoor;
-  final Offset tilt;
-
+class OrnateRoyalDoorPainter({required final bool isLeftDoor, required final Offset tilt})
+    extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
@@ -1170,11 +1153,8 @@ class OrnateRoyalDoorPainter extends CustomPainter {
 }
 
 /// 3. Painter untuk Pilar Lengkung Emas & Lentera Gantung di Sepanjang Lorong Z
-class GoldenPalaceArchPainter extends CustomPainter {
-  GoldenPalaceArchPainter({required this.archIndex, required this.swingPhase});
-  final int archIndex;
-  final double swingPhase;
-
+class GoldenPalaceArchPainter({required final int archIndex, required final double swingPhase})
+    extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
@@ -1233,13 +1213,11 @@ class GoldenPalaceArchPainter extends CustomPainter {
       oldDelegate.swingPhase != swingPhase;
 }
 
-class Floating3DPetalsPainter extends CustomPainter {
-  Floating3DPetalsPainter({required this.ambientPhase, required this.cameraZ, required this.tilt});
-
-  final double ambientPhase;
-  final double cameraZ;
-  final Offset tilt;
-
+class Floating3DPetalsPainter({
+  required final double ambientPhase,
+  required final double cameraZ,
+  required final Offset tilt,
+}) extends CustomPainter {
   static final Paint _petalPaint = Paint()..style = .fill;
   static final Path _petalPath = Path()
     ..moveTo(0, -8)
@@ -1298,17 +1276,16 @@ class Floating3DPetalsPainter extends CustomPainter {
   bool shouldRepaint(covariant Floating3DPetalsPainter oldDelegate) => true;
 }
 
-class Cylindrical3DGallery1 extends StatefulWidget {
-  const Cylindrical3DGallery1({super.key, required this.ambientPhase, required this.tilt});
-
-  final double ambientPhase;
-  final Offset tilt;
-
+class const Cylindrical3DGallery1({
+  super.key,
+  required final double ambientPhase,
+  required final Offset tilt,
+}) extends StatefulWidget {
   @override
   State<Cylindrical3DGallery1> createState() => _Cylindrical3DGallery1State();
 }
 
-class _Cylindrical3DGallery1State extends State<Cylindrical3DGallery1> {
+class _Cylindrical3DGallery1State() extends State<Cylindrical3DGallery1> {
   late final ValueNotifier<double> _continuousAngle;
   double _lastAmbientPhase = .0;
 
@@ -1368,8 +1345,8 @@ class _Cylindrical3DGallery1State extends State<Cylindrical3DGallery1> {
           ),
           const SizedBox(height: 24),
           SizedBox(
-            width: 450,
-            height: 310,
+            width: 640,
+            height: 480,
             child: ValueListenableBuilder<double>(
               valueListenable: _continuousAngle,
               builder: (_, baseAngle, _) {
@@ -1428,16 +1405,16 @@ class _Cylindrical3DGallery1State extends State<Cylindrical3DGallery1> {
   }
 }
 
-class Cylindrical3DGallery2 extends StatefulWidget {
-  const Cylindrical3DGallery2({super.key, required this.ambientPhase, required this.tilt});
-  final double ambientPhase;
-  final Offset tilt;
-
+class const Cylindrical3DGallery2({
+  super.key,
+  required final double ambientPhase,
+  required final Offset tilt,
+}) extends StatefulWidget {
   @override
   State<Cylindrical3DGallery2> createState() => _Cylindrical3DGallery2State();
 }
 
-class _Cylindrical3DGallery2State extends State<Cylindrical3DGallery2> {
+class _Cylindrical3DGallery2State() extends State<Cylindrical3DGallery2> {
   late final ValueNotifier<double> _continuousAngle;
   double _lastAmbientPhase = .0;
 
@@ -1497,8 +1474,8 @@ class _Cylindrical3DGallery2State extends State<Cylindrical3DGallery2> {
           ),
           const SizedBox(height: 24),
           SizedBox(
-            width: 450,
-            height: 310,
+            width: 640,
+            height: 480,
             child: ValueListenableBuilder<double>(
               valueListenable: _continuousAngle,
               builder: (_, baseAngle, _) {
@@ -1552,13 +1529,11 @@ class _Cylindrical3DGallery2State extends State<Cylindrical3DGallery2> {
   }
 }
 
-class _Thick3DCard extends StatelessWidget {
-  const _Thick3DCard({required this.item, required this.cosAngle, required this.isGallery1});
-
-  final Map<String, String> item;
-  final double cosAngle;
-  final bool isGallery1;
-
+class const _Thick3DCard({
+  required final Map<String, String> item,
+  required final double cosAngle,
+  required final bool isGallery1,
+}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double thickness = 8.0;
@@ -1621,11 +1596,7 @@ class _Thick3DCard extends StatelessWidget {
   }
 }
 
-class _CardEdge extends StatelessWidget {
-  const _CardEdge({required this.color});
-
-  final Color color;
-
+class const _CardEdge({required final Color color}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -1642,11 +1613,7 @@ class _CardEdge extends StatelessWidget {
   }
 }
 
-class _CardFront extends StatelessWidget {
-  const _CardFront({required this.item});
-
-  final Map<String, String> item;
-
+class const _CardFront({required final Map<String, String> item}) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -1703,9 +1670,7 @@ class _CardFront extends StatelessWidget {
   }
 }
 
-class _CardBack extends StatelessWidget {
-  const _CardBack();
-
+class const _CardBack() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.flip(
