@@ -158,6 +158,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             onPanEnd: (_) => _targetTilt = Offset.zero,
             child: Stack(
               alignment: Alignment.center,
+              clipBehavior: .none,
               children: [
                 // =========================================================
                 // 1. DEEP SKY & VOLUMETRIC GOD RAYS (SINAR CAHAYA DINAMIS)
@@ -1331,78 +1332,64 @@ class _Cylindrical3DGallery1State() extends State<Cylindrical3DGallery1> {
     return GestureDetector(
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
-      child: Column(
-        mainAxisSize: .min,
-        children: [
-          const Text(
-            'GALERI CYLINDER 3D (GESER KIRI / KANAN)',
-            style: TextStyle(
-              fontSize: 12,
-              letterSpacing: 3.5,
-              color: Color(0xFFE5C158),
-              fontWeight: .bold,
-            ),
+      child: SizedBox(
+        width: 640,
+        height: 480,
+        child: ColoredBox(
+          color: Colors.black,
+          child: ValueListenableBuilder<double>(
+            valueListenable: _continuousAngle,
+            builder: (_, baseAngle, _) {
+              final int count = _moments.length;
+
+              final itemAngles = List.generate(
+                count,
+                (i) => baseAngle + (i * _angleStep),
+                growable: false,
+              );
+
+              final itemCosines = itemAngles.map(math.cos).toList(growable: false);
+
+              final indices = List.generate(count, (i) => i, growable: false)
+                ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
+
+              return Stack(
+                alignment: .center,
+                clipBehavior: .none,
+                children: indices
+                    .map((index) {
+                      final itemAngle = itemAngles[index];
+                      final cosAngle = itemCosines[index];
+
+                      final x = math.sin(itemAngle) * _cylinderRadius;
+                      final z = _cylinderRadius - (cosAngle * _cylinderRadius);
+
+                      final normalizedDepth = (cosAngle + 1) / 2;
+                      final cardOpacity = .65 + (normalizedDepth * .35);
+                      final cardRotationY = -itemAngle;
+
+                      return Opacity(
+                        key: ValueKey('moment_card_$index'),
+                        opacity: cardOpacity.clamp(.0, 1.0),
+                        child: Transform(
+                          alignment: .center,
+                          transform: .identity()
+                            ..setEntry(3, 2, .0015)
+                            ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
+                            ..rotateY(cardRotationY),
+                          child: _Thick3DCard(
+                            item: _moments[index],
+                            cosAngle: cosAngle,
+                            isGallery1: true,
+                          ),
+                        ),
+                      );
+                    })
+                    .toList(growable: false),
+              );
+            },
           ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: 640,
-            height: 480,
-            child: ColoredBox(
-              color: Colors.amber,
-              child: ValueListenableBuilder<double>(
-                valueListenable: _continuousAngle,
-                builder: (_, baseAngle, _) {
-                  final int count = _moments.length;
-
-                  final itemAngles = List.generate(
-                    count,
-                    (i) => baseAngle + (i * _angleStep),
-                    growable: false,
-                  );
-
-                  final itemCosines = itemAngles.map(math.cos).toList(growable: false);
-
-                  final indices = List.generate(count, (i) => i, growable: false)
-                    ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
-
-                  return Stack(
-                    alignment: .center,
-                    children: indices
-                        .map((index) {
-                          final itemAngle = itemAngles[index];
-                          final cosAngle = itemCosines[index];
-
-                          final x = math.sin(itemAngle) * _cylinderRadius;
-                          final z = _cylinderRadius - (cosAngle * _cylinderRadius);
-
-                          final normalizedDepth = (cosAngle + 1) / 2;
-                          final cardOpacity = .65 + (normalizedDepth * .35);
-                          final cardRotationY = -itemAngle;
-
-                          return Opacity(
-                            key: ValueKey('moment_card_$index'),
-                            opacity: cardOpacity.clamp(.0, 1.0),
-                            child: Transform(
-                              alignment: .center,
-                              transform: .identity()
-                                ..setEntry(3, 2, .0015)
-                                ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
-                                ..rotateY(cardRotationY),
-                              child: _Thick3DCard(
-                                item: _moments[index],
-                                cosAngle: cosAngle,
-                                isGallery1: true,
-                              ),
-                            ),
-                          );
-                        })
-                        .toList(growable: false),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
@@ -1463,78 +1450,59 @@ class _Cylindrical3DGallery2State() extends State<Cylindrical3DGallery2> {
     return GestureDetector(
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
-      child: Column(
-        mainAxisSize: .min,
-        children: [
-          const Text(
-            'GALERI CYLINDER 3D (GESER KIRI / KANAN)',
-            style: TextStyle(
-              fontSize: 12,
-              letterSpacing: 3.5,
-              color: Color(0xFFE5C158),
-              fontWeight: .bold,
-            ),
+      child: SizedBox(
+        width: 640,
+        height: 480,
+        child: ColoredBox(
+          color: Colors.black,
+          child: ValueListenableBuilder<double>(
+            valueListenable: _continuousAngle,
+            builder: (_, baseAngle, _) {
+              final int count = _moments.length;
+
+              final angles = List.generate(
+                count,
+                (i) => baseAngle + (i * _angleStep),
+                growable: false,
+              );
+              final zValues = List.generate(count, (i) => math.cos(angles[i]), growable: false);
+
+              final indices = List.generate(count, (i) => i, growable: false);
+              indices.sort((a, b) => zValues[a].compareTo(zValues[b]));
+
+              return Stack(
+                alignment: .center,
+                clipBehavior: .none,
+                children: indices
+                    .map((index) {
+                      final itemAngle = angles[index];
+                      final z = zValues[index] * _cylinderRadius;
+                      final x = math.sin(itemAngle) * _cylinderRadius;
+
+                      final cardScale = .6 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .2;
+                      final cardOpacity =
+                          .45 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .55;
+                      final cardRotationY = -itemAngle + (math.pi / 2);
+                      final item = _moments[index];
+
+                      return Opacity(
+                        key: ValueKey('moment_card_$index'),
+                        opacity: cardOpacity.clamp(.0, 1.0),
+                        child: Transform(
+                          alignment: .center,
+                          transform: .identity()
+                            ..translateByDouble(x, -widget.tilt.dy * 15, .0, 1.0)
+                            ..scaleByDouble(cardScale, cardScale, cardScale, 1.0)
+                            ..rotateY(cardRotationY),
+                          child: _Thick3DCard(item: item, cosAngle: itemAngle, isGallery1: false),
+                        ),
+                      );
+                    })
+                    .toList(growable: false),
+              );
+            },
           ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: 640,
-            height: 480,
-            child: ColoredBox(
-              color: Colors.amber,
-              child: ValueListenableBuilder<double>(
-                valueListenable: _continuousAngle,
-                builder: (_, baseAngle, _) {
-                  final int count = _moments.length;
-
-                  final angles = List.generate(
-                    count,
-                    (i) => baseAngle + (i * _angleStep),
-                    growable: false,
-                  );
-                  final zValues = List.generate(count, (i) => math.cos(angles[i]), growable: false);
-
-                  final indices = List.generate(count, (i) => i, growable: false);
-                  indices.sort((a, b) => zValues[a].compareTo(zValues[b]));
-
-                  return Stack(
-                    alignment: .center,
-                    children: indices
-                        .map((index) {
-                          final itemAngle = angles[index];
-                          final z = zValues[index] * _cylinderRadius;
-                          final x = math.sin(itemAngle) * _cylinderRadius;
-
-                          final cardScale =
-                              .6 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .2;
-                          final cardOpacity =
-                              .45 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .55;
-                          final cardRotationY = -itemAngle + (math.pi / 2);
-                          final item = _moments[index];
-
-                          return Opacity(
-                            key: ValueKey('moment_card_$index'),
-                            opacity: cardOpacity.clamp(.0, 1.0),
-                            child: Transform(
-                              alignment: .center,
-                              transform: .identity()
-                                ..translateByDouble(x, -widget.tilt.dy * 15, .0, 1.0)
-                                ..scaleByDouble(cardScale, cardScale, cardScale, 1.0)
-                                ..rotateY(cardRotationY),
-                              child: _Thick3DCard(
-                                item: item,
-                                cosAngle: itemAngle,
-                                isGallery1: false,
-                              ),
-                            ),
-                          );
-                        })
-                        .toList(growable: false),
-                  );
-                },
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
