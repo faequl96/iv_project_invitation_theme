@@ -310,7 +310,9 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       case 2:
         return _SacredEvent3DShowcase(tilt: _smoothTilt);
       case 3:
-        return Cylindrical3DGallery1(ambientPhase: ambientPhase, tilt: _smoothTilt);
+        final id = int.tryParse(Uri.base.queryParameters['id'] ?? '') ?? 1;
+        if (id == 1) return Cylindrical3DGallery1(ambientPhase: ambientPhase, tilt: _smoothTilt);
+        return Cylindrical3DGallery2(ambientPhase: ambientPhase, tilt: _smoothTilt);
       case 4:
         return _HolographicGiftAndRsvpShowcase(tilt: _smoothTilt);
       default:
@@ -1295,8 +1297,8 @@ class _Cylindrical3DGallery1State() extends State<Cylindrical3DGallery1> {
     {'title': 'Lamaran Resmi', 'year': '2025', 'caption': 'Surakarta'},
     {'title': 'Prewedding Session', 'year': '2026', 'caption': 'Taman Sari'},
     {'title': 'Menuju Pelaminan', 'year': '2026', 'caption': 'Jakarta'},
-    {'title': 'Janji Suci Abadi', 'year': '2026', 'caption': 'Nusantara'},
-    {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
+    // {'title': 'Janji Suci Abadi', 'year': '2026', 'caption': 'Nusantara'},
+    // {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
   ];
 
   static const double _cylinderRadius = 220.0;
@@ -1333,62 +1335,59 @@ class _Cylindrical3DGallery1State() extends State<Cylindrical3DGallery1> {
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
       child: SizedBox(
-        width: 640,
-        height: 480,
-        child: ColoredBox(
-          color: Colors.black,
-          child: ValueListenableBuilder<double>(
-            valueListenable: _continuousAngle,
-            builder: (_, baseAngle, _) {
-              final int count = _moments.length;
+        width: 900,
+        height: 600,
+        child: ValueListenableBuilder<double>(
+          valueListenable: _continuousAngle,
+          builder: (_, baseAngle, _) {
+            final int count = _moments.length;
 
-              final itemAngles = List.generate(
-                count,
-                (i) => baseAngle + (i * _angleStep),
-                growable: false,
-              );
+            final itemAngles = List.generate(
+              count,
+              (i) => baseAngle + (i * _angleStep),
+              growable: false,
+            );
 
-              final itemCosines = itemAngles.map(math.cos).toList(growable: false);
+            final itemCosines = itemAngles.map(math.cos).toList(growable: false);
 
-              final indices = List.generate(count, (i) => i, growable: false)
-                ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
+            final indices = List.generate(count, (i) => i, growable: false)
+              ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
 
-              return Stack(
-                alignment: .center,
-                clipBehavior: .none,
-                children: indices
-                    .map((index) {
-                      final itemAngle = itemAngles[index];
-                      final cosAngle = itemCosines[index];
+            return Stack(
+              alignment: .center,
+              clipBehavior: .none,
+              children: indices
+                  .map((index) {
+                    final itemAngle = itemAngles[index];
+                    final cosAngle = itemCosines[index];
 
-                      final x = math.sin(itemAngle) * _cylinderRadius;
-                      final z = _cylinderRadius - (cosAngle * _cylinderRadius);
+                    final x = math.sin(itemAngle) * _cylinderRadius;
+                    final z = _cylinderRadius - (cosAngle * _cylinderRadius);
 
-                      final normalizedDepth = (cosAngle + 1) / 2;
-                      final cardOpacity = .65 + (normalizedDepth * .35);
-                      final cardRotationY = -itemAngle;
+                    final normalizedDepth = (cosAngle + 1) / 2;
+                    final cardOpacity = .65 + (normalizedDepth * .35);
+                    final cardRotationY = -itemAngle;
 
-                      return Opacity(
-                        key: ValueKey('moment_card_$index'),
-                        opacity: cardOpacity.clamp(.0, 1.0),
-                        child: Transform(
-                          alignment: .center,
-                          transform: .identity()
-                            ..setEntry(3, 2, .0015)
-                            ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
-                            ..rotateY(cardRotationY),
-                          child: _Thick3DCard(
-                            item: _moments[index],
-                            cosAngle: cosAngle,
-                            isGallery1: true,
-                          ),
+                    return Opacity(
+                      key: ValueKey('moment_card_$index'),
+                      opacity: cardOpacity.clamp(.0, 1.0),
+                      child: Transform(
+                        alignment: .center,
+                        transform: .identity()
+                          ..setEntry(3, 2, .0015)
+                          ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
+                          ..rotateY(cardRotationY),
+                        child: _Thick3DCard(
+                          item: _moments[index],
+                          cosAngle: cosAngle,
+                          isGallery1: true,
                         ),
-                      );
-                    })
-                    .toList(growable: false),
-              );
-            },
-          ),
+                      ),
+                    );
+                  })
+                  .toList(growable: false),
+            );
+          },
         ),
       ),
     );
@@ -1451,57 +1450,53 @@ class _Cylindrical3DGallery2State() extends State<Cylindrical3DGallery2> {
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
       child: SizedBox(
-        width: 640,
-        height: 480,
-        child: ColoredBox(
-          color: Colors.black,
-          child: ValueListenableBuilder<double>(
-            valueListenable: _continuousAngle,
-            builder: (_, baseAngle, _) {
-              final int count = _moments.length;
+        width: 900,
+        height: 600,
+        child: ValueListenableBuilder<double>(
+          valueListenable: _continuousAngle,
+          builder: (_, baseAngle, _) {
+            final int count = _moments.length;
 
-              final angles = List.generate(
-                count,
-                (i) => baseAngle + (i * _angleStep),
-                growable: false,
-              );
-              final zValues = List.generate(count, (i) => math.cos(angles[i]), growable: false);
+            final angles = List.generate(
+              count,
+              (i) => baseAngle + (i * _angleStep),
+              growable: false,
+            );
+            final zValues = List.generate(count, (i) => math.cos(angles[i]), growable: false);
 
-              final indices = List.generate(count, (i) => i, growable: false);
-              indices.sort((a, b) => zValues[a].compareTo(zValues[b]));
+            final indices = List.generate(count, (i) => i, growable: false);
+            indices.sort((a, b) => zValues[a].compareTo(zValues[b]));
 
-              return Stack(
-                alignment: .center,
-                clipBehavior: .none,
-                children: indices
-                    .map((index) {
-                      final itemAngle = angles[index];
-                      final z = zValues[index] * _cylinderRadius;
-                      final x = math.sin(itemAngle) * _cylinderRadius;
+            return Stack(
+              alignment: .center,
+              clipBehavior: .none,
+              children: indices
+                  .map((index) {
+                    final itemAngle = angles[index];
+                    final z = zValues[index] * _cylinderRadius;
+                    final x = math.sin(itemAngle) * _cylinderRadius;
 
-                      final cardScale = .6 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .2;
-                      final cardOpacity =
-                          .45 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .55;
-                      final cardRotationY = -itemAngle + (math.pi / 2);
-                      final item = _moments[index];
+                    final cardScale = .6 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .2;
+                    final cardOpacity = .45 + ((z + _cylinderRadius) / (2 * _cylinderRadius)) * .55;
+                    final cardRotationY = -itemAngle + (math.pi / 2);
+                    final item = _moments[index];
 
-                      return Opacity(
-                        key: ValueKey('moment_card_$index'),
-                        opacity: cardOpacity.clamp(.0, 1.0),
-                        child: Transform(
-                          alignment: .center,
-                          transform: .identity()
-                            ..translateByDouble(x, -widget.tilt.dy * 15, .0, 1.0)
-                            ..scaleByDouble(cardScale, cardScale, cardScale, 1.0)
-                            ..rotateY(cardRotationY),
-                          child: _Thick3DCard(item: item, cosAngle: itemAngle, isGallery1: false),
-                        ),
-                      );
-                    })
-                    .toList(growable: false),
-              );
-            },
-          ),
+                    return Opacity(
+                      key: ValueKey('moment_card_$index'),
+                      opacity: cardOpacity.clamp(.0, 1.0),
+                      child: Transform(
+                        alignment: .center,
+                        transform: .identity()
+                          ..translateByDouble(x, -widget.tilt.dy * 15, .0, 1.0)
+                          ..scaleByDouble(cardScale, cardScale, cardScale, 1.0)
+                          ..rotateY(cardRotationY),
+                        child: _Thick3DCard(item: item, cosAngle: itemAngle, isGallery1: false),
+                      ),
+                    );
+                  })
+                  .toList(growable: false),
+            );
+          },
         ),
       ),
     );
@@ -1515,78 +1510,50 @@ class const _Thick3DCard({
 }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const double thickness = 8.0;
-    const int edgeLayers = 4;
-    const Color defaultEdgeColor = Color(0xFFC59F3E);
+    final isFacingFront = isGallery1 ? cosAngle >= .38 : math.sin(cosAngle) >= .0;
 
-    final facingFactor = math.sin(cosAngle);
-    bool isFacingFront = isGallery1 ? cosAngle >= .38 : facingFactor >= .0;
-    final faceOpacity = isGallery1
-        ? (cosAngle.abs() / .04).clamp(.0, 1.0)
-        : (facingFactor.abs() / .005).clamp(.0, 1.0);
-
-    final frontWidget = Transform(
-      alignment: .center,
-      transform: .identity()..translateByDouble(.0, .0, -thickness / 2, 1.0),
-      child: Opacity(
-        opacity: faceOpacity,
-        child: _CardFront(item: item),
-      ),
-    );
-
-    final backWidget = Transform(
-      alignment: .center,
-      transform: .identity()
-        ..translateByDouble(.0, .0, thickness / 2, 1.0)
-        ..rotateY(math.pi),
-      child: Opacity(opacity: faceOpacity, child: const _CardBack()),
-    );
-
-    final topEdgeColor = (isFacingFront && faceOpacity == 1.0) ? defaultEdgeColor : Colors.black;
-
-    final edgeWidgets = List.generate(edgeLayers, (i) {
-      final zOffset = -thickness / 2 + ((i + 1) * (thickness / (edgeLayers + 1)));
-      final color = i == edgeLayers - 1 ? topEdgeColor : defaultEdgeColor;
-
-      return Transform(
-        alignment: .center,
-        transform: .identity()..translateByDouble(.0, .0, zOffset, 1.0),
-        child: _CardEdge(color: color),
-      );
-    }, growable: false);
+    final cardEdge = const _CardEdge();
 
     return Stack(
       alignment: .center,
       children: [
-        ...edgeWidgets,
-        if (isFacingFront)
-          frontWidget
-        else ...[
-          Transform(
-            alignment: .center,
-            transform: .identity()
-              ..translateByDouble(.0, .0, (thickness / 2) - (thickness / 4), 1.0),
-            child: const _CardEdge(color: Color(0xFFC59F3E)),
-          ),
-          backWidget,
-        ],
+        _stackPositionWrapper(isFacingFront ? 3 : -3, child: cardEdge),
+        _stackPositionWrapper(isFacingFront ? 1 : -1, child: cardEdge),
+        _stackPositionWrapper(isFacingFront ? -1 : 1, child: cardEdge),
+        _stackPositionWrapper(
+          isFacingFront ? -3 : 3,
+          child: isFacingFront ? _CardFront(item: item) : const _CardBack(),
+        ),
       ],
     );
   }
+
+  Widget _spaciousWrapper({required Widget child}) => SizedBox(
+    height: 600,
+    width: 400,
+    child: ColoredBox(
+      color: Colors.black.withValues(alpha: .005),
+      child: Center(child: child),
+    ),
+  );
+
+  Widget _stackPositionWrapper(double position, {required Widget child}) => _spaciousWrapper(
+    child: Transform(
+      alignment: .center,
+      transform: .identity()..translateByDouble(.0, .0, position, 1.0),
+      child: child,
+    ),
+  );
 }
 
-class const _CardEdge({required final Color color}) extends StatelessWidget {
+class const _CardEdge() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 200,
       height: 300,
       child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: .circular(24),
-          color: color,
-          border: .all(color: const Color(0xFFC59F3E), width: 2),
-        ),
+        decoration: BoxDecoration(borderRadius: .circular(24), color: const Color(0xFFE5C158)),
       ),
     );
   }
@@ -1665,7 +1632,7 @@ class const _CardBack() extends StatelessWidget {
               end: .bottomRight,
               colors: [Color(0xFF0E241D), Color(0xFF050C0A)],
             ),
-            border: .all(color: const Color(0xFFE5C158), width: 3),
+            border: .all(color: const Color(0xFFE5C158), width: 2),
           ),
           child: Center(
             child: SizedBox(
