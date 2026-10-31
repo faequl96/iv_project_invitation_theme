@@ -5,6 +5,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:iv_project_invitation_theme/src/widgets/three_dimensions/cylindrical_3d_carousel.dart';
+import 'package:iv_project_invitation_theme/src/widgets/three_dimensions/thick_3d_card.dart';
 
 class const Royal3DWorldScene({super.key}) extends StatefulWidget {
   @override
@@ -12,6 +14,15 @@ class const Royal3DWorldScene({super.key}) extends StatefulWidget {
 }
 
 class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProviderStateMixin {
+  static const List<Map<String, String>> _moments = [
+    {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
+    {'title': 'Lamaran Resmi', 'year': '2025', 'caption': 'Surakarta'},
+    {'title': 'Prewedding Session', 'year': '2026', 'caption': 'Taman Sari'},
+    {'title': 'Menuju Pelaminan', 'year': '2026', 'caption': 'Jakarta'},
+    // {'title': 'Janji Suci Abadi', 'year': '2026', 'caption': 'Nusantara'},
+    // {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
+  ];
+
   // Posisi kemiringan kursor/sentuhan (-1.0 s/d 1.0)
   Offset _targetTilt = Offset.zero;
   Offset _smoothTilt = Offset.zero;
@@ -27,7 +38,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   late final AnimationController _ambientController;
   late final Ticker _physicsTicker;
 
-  double _continuousAmbientPhase = 0.0;
+  final _ambientPhaseNotifier = ValueNotifier(.0);
 
   bool _isGateOpen = false;
   int _activeStationIndex = 0;
@@ -63,7 +74,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
     // Physics & Render Loop
     _physicsTicker = createTicker((_) {
-      _continuousAmbientPhase += 0.01;
+      _ambientPhaseNotifier.value += 0.01;
       // 1. Lerp pergerakan tilt
       final nextTiltX = lerpDouble(_smoothTilt.dx, _targetTilt.dx, 0.07) ?? 0.0;
       final nextTiltY = lerpDouble(_smoothTilt.dy, _targetTilt.dy, 0.07) ?? 0.0;
@@ -164,41 +175,51 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                 // 1. DEEP SKY & VOLUMETRIC GOD RAYS (SINAR CAHAYA DINAMIS)
                 // =========================================================
                 Positioned.fill(
-                  child: CustomPaint(
-                    painter: VolumetricGodRaysPainter(
-                      tilt: _smoothTilt,
-                      ambientPhase: _continuousAmbientPhase,
-                      gateOpenProgress: _gateController.value,
-                    ),
+                  child: ValueListenableBuilder(
+                    valueListenable: _ambientPhaseNotifier,
+                    builder: (context, value, child) {
+                      return CustomPaint(
+                        painter: VolumetricGodRaysPainter(
+                          tilt: _smoothTilt,
+                          ambientPhase: value,
+                          gateOpenProgress: _gateController.value,
+                        ),
+                      );
+                    },
                   ),
                 ),
 
                 // =========================================================
                 // 2. LORONG ARSITEKTUR 3D (GERBANG ARCH & LENTERA Z-SPACE)
                 // =========================================================
-                ..._build3DTunnelArches(size, _continuousAmbientPhase),
+                ..._build3DTunnelArches(size, _ambientPhaseNotifier.value),
 
                 // =========================================================
                 // 3. SEKSI KONTEN UNDANGAN DALAM RUANG 3D (Z-STATIONS)
                 // =========================================================
-                ..._build3DContentStations(size, _continuousAmbientPhase),
+                ..._build3DContentStations(size, _ambientPhaseNotifier.value),
 
                 // =========================================================
                 // 4. PINTU GERBANG KERATON 3D (SWINGING DOUBLE DOORS)
                 // =========================================================
-                if (_currentCameraZ < 950) _build3DSwingingGates(size, _continuousAmbientPhase),
+                if (_currentCameraZ < 950) _build3DSwingingGates(size, _ambientPhaseNotifier.value),
 
                 // =========================================================
                 // 5. PARTIKEL KELOPAK BUNGA EMAS 3D (FOREGROUND BOKEH)
                 // =========================================================
                 Positioned.fill(
                   child: IgnorePointer(
-                    child: CustomPaint(
-                      painter: Floating3DPetalsPainter(
-                        ambientPhase: _continuousAmbientPhase, // Masukkan ke sini
-                        cameraZ: _currentCameraZ,
-                        tilt: _smoothTilt,
-                      ),
+                    child: ValueListenableBuilder(
+                      valueListenable: _ambientPhaseNotifier,
+                      builder: (context, value, child) {
+                        return CustomPaint(
+                          painter: Floating3DPetalsPainter(
+                            ambientPhase: value, // Masukkan ke sini
+                            cameraZ: _currentCameraZ,
+                            tilt: _smoothTilt,
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -311,7 +332,20 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         return _SacredEvent3DShowcase(tilt: _smoothTilt);
       case 3:
         final id = int.tryParse(Uri.base.queryParameters['id'] ?? '') ?? 1;
-        if (id == 1) return Cylindrical3DGallery1(ambientPhase: ambientPhase, tilt: _smoothTilt);
+        if (id == 1) {
+          return Cylindrical3DCarousel(
+            ambientPhaseNotifier: _ambientPhaseNotifier,
+            tilt: _smoothTilt,
+            itemCount: _moments.length,
+            itemBuilder: (context, index, isFacingFront) => Thick3DCard(
+              isFacingFront: isFacingFront,
+              frontCard: _CardFront(item: _moments[index]),
+              backCard: const _CardBack(),
+              thickCardStack: const _CardEdge(),
+            ),
+          );
+        }
+
         return Cylindrical3DGallery2(ambientPhase: ambientPhase, tilt: _smoothTilt);
       case 4:
         return _HolographicGiftAndRsvpShowcase(tilt: _smoothTilt);
