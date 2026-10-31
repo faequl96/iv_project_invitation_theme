@@ -25,23 +25,22 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
   // Posisi kemiringan kursor/sentuhan (-1.0 s/d 1.0)
   Offset _targetTilt = Offset.zero;
-  Offset _smoothTilt = Offset.zero;
 
   // Posisi Kamera pada Sumbu Z (0 = di depan Gerbang, 1000..5000 = lorong isi undangan)
   double _targetCameraZ = 0.0;
-  double _currentCameraZ = 0.0;
   static const double _maxCameraZ = 4800.0;
   static const double _focalLength = 650.0;
 
   // Status Gerbang 3D
   late final AnimationController _gateController;
-  late final AnimationController _ambientController;
   late final Ticker _physicsTicker;
 
   final _ambientPhaseNotifier = ValueNotifier(.0);
+  final _smoothTiltNotifier = ValueNotifier(Offset.zero);
+  final _cameraZNotifier = ValueNotifier(.0);
+  final _activeStationNotifier = ValueNotifier(0);
 
   bool _isGateOpen = false;
-  int _activeStationIndex = 0;
 
   // Titik perhentian Z-Axis untuk setiap seksi undangan
   final List<double> _stationZPositions = [
@@ -69,35 +68,37 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       duration: const Duration(milliseconds: 1800),
     );
 
-    _ambientController = AnimationController(vsync: this, duration: const Duration(seconds: 12))
-      ..repeat();
-
     // Physics & Render Loop
     _physicsTicker = createTicker((_) {
+      // 1. Update ambient (otomatis men-trigger widget yang mendengarkan)
       _ambientPhaseNotifier.value += 0.01;
-      // 1. Lerp pergerakan tilt
-      final nextTiltX = lerpDouble(_smoothTilt.dx, _targetTilt.dx, 0.07) ?? 0.0;
-      final nextTiltY = lerpDouble(_smoothTilt.dy, _targetTilt.dy, 0.07) ?? 0.0;
-      _smoothTilt = Offset(nextTiltX, nextTiltY);
 
-      // 2. Lerp pergerakan kamera Z
-      final nextCamZ = lerpDouble(_currentCameraZ, _targetCameraZ, 0.06) ?? 0.0;
-      _currentCameraZ = nextCamZ;
+      // 2. Lerp pergerakan tilt
+      final nextTiltX = lerpDouble(_smoothTiltNotifier.value.dx, _targetTilt.dx, 0.07) ?? 0.0;
+      final nextTiltY = lerpDouble(_smoothTiltNotifier.value.dy, _targetTilt.dy, 0.07) ?? 0.0;
+      _smoothTiltNotifier.value = Offset(nextTiltX, nextTiltY);
 
-      // 3. Update stasiun navigasi terdekat
+      // 3. Lerp pergerakan kamera Z
+      final nextCamZ = lerpDouble(_cameraZNotifier.value, _targetCameraZ, 0.06) ?? 0.0;
+      _cameraZNotifier.value = nextCamZ;
+
+      // 4. Update stasiun navigasi terdekat
       int closestIndex = 0;
       double minDiff = double.infinity;
       for (int i = 0; i < _stationZPositions.length; i++) {
-        final diff = (_currentCameraZ - _stationZPositions[i]).abs();
+        final diff = (nextCamZ - _stationZPositions[i]).abs();
         if (diff < minDiff) {
           minDiff = diff;
           closestIndex = i;
         }
       }
-      _activeStationIndex = closestIndex;
 
-      // WAJIB: Selalu trigger setState agar ambient animation & partikel tetap hidup
-      setState(() {});
+      // Hanya update jika index benar-benar berubah untuk menghemat rebuild
+      if (_activeStationNotifier.value != closestIndex) {
+        _activeStationNotifier.value = closestIndex;
+      }
+
+      // TIDAK ADA LAGI setState(() {});
     })..start();
   }
 
@@ -105,7 +106,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   void dispose() {
     _physicsTicker.dispose();
     _gateController.dispose();
-    _ambientController.dispose();
+
     super.dispose();
   }
 
@@ -167,68 +168,82 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               _onScrollDelta(-details.delta.dy * 1.6);
             },
             onPanEnd: (_) => _targetTilt = Offset.zero,
-            child: Stack(
-              alignment: Alignment.center,
-              clipBehavior: .none,
-              children: [
-                // =========================================================
-                // 1. DEEP SKY & VOLUMETRIC GOD RAYS (SINAR CAHAYA DINAMIS)
-                // =========================================================
-                Positioned.fill(
-                  child: ValueListenableBuilder(
-                    valueListenable: _ambientPhaseNotifier,
-                    builder: (context, value, child) {
-                      return CustomPaint(
-                        painter: VolumetricGodRaysPainter(
-                          tilt: _smoothTilt,
-                          ambientPhase: value,
-                          gateOpenProgress: _gateController.value,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-
-                // =========================================================
-                // 2. LORONG ARSITEKTUR 3D (GERBANG ARCH & LENTERA Z-SPACE)
-                // =========================================================
-                ..._build3DTunnelArches(size, _ambientPhaseNotifier.value),
-
-                // =========================================================
-                // 3. SEKSI KONTEN UNDANGAN DALAM RUANG 3D (Z-STATIONS)
-                // =========================================================
-                ..._build3DContentStations(size, _ambientPhaseNotifier.value),
-
-                // =========================================================
-                // 4. PINTU GERBANG KERATON 3D (SWINGING DOUBLE DOORS)
-                // =========================================================
-                if (_currentCameraZ < 950) _build3DSwingingGates(size, _ambientPhaseNotifier.value),
-
-                // =========================================================
-                // 5. PARTIKEL KELOPAK BUNGA EMAS 3D (FOREGROUND BOKEH)
-                // =========================================================
-                Positioned.fill(
-                  child: IgnorePointer(
-                    child: ValueListenableBuilder(
-                      valueListenable: _ambientPhaseNotifier,
-                      builder: (context, value, child) {
-                        return CustomPaint(
-                          painter: Floating3DPetalsPainter(
-                            ambientPhase: value, // Masukkan ke sini
-                            cameraZ: _currentCameraZ,
-                            tilt: _smoothTilt,
-                          ),
-                        );
-                      },
+            child: ListenableBuilder(
+              listenable: Listenable.merge([_cameraZNotifier, _smoothTiltNotifier]),
+              builder: (context, child) {
+                return Stack(
+                  alignment: Alignment.center,
+                  clipBehavior: .none,
+                  children: [
+                    // =========================================================
+                    // 1. DEEP SKY & VOLUMETRIC GOD RAYS (SINAR CAHAYA DINAMIS)
+                    // =========================================================
+                    Positioned.fill(
+                      child: ValueListenableBuilder(
+                        valueListenable: _ambientPhaseNotifier,
+                        builder: (context, value, child) {
+                          return CustomPaint(
+                            painter: VolumetricGodRaysPainter(
+                              tilt: _smoothTiltNotifier.value,
+                              ambientPhase: value,
+                              gateOpenProgress: _gateController.value,
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                ),
 
-                // =========================================================
-                // 6. HUD NAVIGATION BAR & PETUNJUK INTERAKSI
-                // =========================================================
-                _buildBottom3DNavigationHud(),
-              ],
+                    // =========================================================
+                    // 2. LORONG ARSITEKTUR 3D (GERBANG ARCH & LENTERA Z-SPACE)
+                    // =========================================================
+                    ..._build3DTunnelArches(
+                      size,
+                      _cameraZNotifier.value,
+                      _smoothTiltNotifier.value,
+                    ),
+
+                    // =========================================================
+                    // 3. SEKSI KONTEN UNDANGAN DALAM RUANG 3D (Z-STATIONS)
+                    // =========================================================
+                    ..._build3DContentStations(_cameraZNotifier.value, _smoothTiltNotifier.value),
+
+                    // =========================================================
+                    // 4. PINTU GERBANG KERATON 3D (SWINGING DOUBLE DOORS)
+                    // =========================================================
+                    if (_cameraZNotifier.value < 950)
+                      _build3DSwingingGates(
+                        size,
+                        _cameraZNotifier.value,
+                        _smoothTiltNotifier.value,
+                      ),
+
+                    // =========================================================
+                    // 5. PARTIKEL KELOPAK BUNGA EMAS 3D (FOREGROUND BOKEH)
+                    // =========================================================
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        child: ValueListenableBuilder(
+                          valueListenable: _ambientPhaseNotifier,
+                          builder: (context, value, child) {
+                            return CustomPaint(
+                              painter: Floating3DPetalsPainter(
+                                ambientPhase: _ambientPhaseNotifier.value, // Masukkan ke sini
+                                cameraZ: _cameraZNotifier.value,
+                                tilt: _smoothTiltNotifier.value,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+
+                    // =========================================================
+                    // 6. HUD NAVIGATION BAR & PETUNJUK INTERAKSI
+                    // =========================================================
+                    _buildBottom3DNavigationHud(_cameraZNotifier.value),
+                  ],
+                );
+              },
             ),
           ),
         ),
@@ -237,19 +252,19 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   }
 
   /// Merender deretan pilar lengkung emas & lentera di sepanjang sumbu Z
-  List<Widget> _build3DTunnelArches(Size size, double ambientPhase) {
+  List<Widget> _build3DTunnelArches(Size size, double currentCameraZ, Offset smoothTilt) {
     final List<Widget> arches = [];
     // Tempatkan gerbang ornamen setiap 600 unit Z dari belakang ke depan
     for (double z = 4800; z >= 400; z -= 600) {
-      final relativeZ = z - _currentCameraZ;
+      final relativeZ = z - currentCameraZ;
       // Hanya render objek yang berada di depan kamera dan belum terlalu jauh
       if (relativeZ > -250 && relativeZ < 3200) {
         final scale = _focalLength / (_focalLength + relativeZ);
         final opacity =
             (1.0 - (relativeZ / 3000)).clamp(0.0, 1.0) * ((relativeZ + 200) / 350).clamp(0.0, 1.0);
 
-        final parallaxX = -_smoothTilt.dx * (relativeZ * 0.16);
-        final parallaxY = -_smoothTilt.dy * (relativeZ * 0.12);
+        final parallaxX = -smoothTilt.dx * (relativeZ * 0.16);
+        final parallaxY = -smoothTilt.dy * (relativeZ * 0.12);
 
         arches.add(
           IgnorePointer(
@@ -261,11 +276,16 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                   ..setEntry(3, 2, 0.001)
                   ..translate(parallaxX, parallaxY)
                   ..scale(scale)
-                  ..rotateY(_smoothTilt.dx * 0.15)
-                  ..rotateX(-_smoothTilt.dy * 0.12),
-                child: CustomPaint(
-                  size: Size(size.width * 0.95, size.height * 0.92),
-                  painter: GoldenPalaceArchPainter(archIndex: (z ~/ 600), swingPhase: ambientPhase),
+                  ..rotateY(smoothTilt.dx * 0.15)
+                  ..rotateX(-smoothTilt.dy * 0.12),
+                child: ValueListenableBuilder(
+                  valueListenable: _ambientPhaseNotifier,
+                  builder: (context, value, child) {
+                    return CustomPaint(
+                      size: Size(size.width * 0.95, size.height * 0.92),
+                      painter: GoldenPalaceArchPainter(archIndex: (z ~/ 600), swingPhase: value),
+                    );
+                  },
                 ),
               ),
             ),
@@ -277,13 +297,13 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   }
 
   /// Merender setiap kartu seksi undangan pada koordinat Z masing-masing
-  List<Widget> _build3DContentStations(Size size, double ambientPhase) {
+  List<Widget> _build3DContentStations(double currentCameraZ, Offset smoothTilt) {
     final List<Widget> stations = [];
 
     // Iterasi dari Z terjauh ke terdekat (Painter's Algorithm agar urutan tumpukan benar)
     for (int i = _stationZPositions.length - 1; i >= 1; i--) {
       final stationZ = _stationZPositions[i];
-      final relativeZ = stationZ - _currentCameraZ;
+      final relativeZ = stationZ - currentCameraZ;
 
       if (relativeZ > -420 && relativeZ < 2400) {
         final scale = _focalLength / (_focalLength + relativeZ);
@@ -292,8 +312,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         final passThroughFade = ((relativeZ + 350) / 350).clamp(0.0, 1.0);
         final opacity = (distanceFade * passThroughFade).clamp(0.0, 1.0);
 
-        final offsetX = -_smoothTilt.dx * (relativeZ * 0.22);
-        final offsetY = -_smoothTilt.dy * (relativeZ * 0.18);
+        final offsetX = -smoothTilt.dx * (relativeZ * 0.22);
+        final offsetY = -smoothTilt.dy * (relativeZ * 0.18);
 
         // Hanya aktifkan klik jika kartu berada dekat dengan fokus kamera
         final isInteractive = relativeZ.abs() < 350;
@@ -303,18 +323,15 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             key: ValueKey('station_3d_$i'),
             child: IgnorePointer(
               ignoring: !isInteractive,
-              child: Opacity(
-                opacity: opacity,
-                child: Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.0014)
-                    ..translate(offsetX, offsetY)
-                    ..scale(scale, scale, 1.0)
-                    ..rotateY(_smoothTilt.dx * 0.20)
-                    ..rotateX(-_smoothTilt.dy * 0.18),
-                  child: _buildStationWidgetByIndex(i, ambientPhase),
-                ),
+              child: Transform(
+                alignment: Alignment.center,
+                transform: Matrix4.identity()
+                  ..setEntry(3, 2, 0.0014)
+                  ..translate(offsetX, offsetY)
+                  ..scale(scale, scale, 1.0)
+                  ..rotateY(smoothTilt.dx * 0.20)
+                  ..rotateX(-smoothTilt.dy * 0.18),
+                child: Opacity(opacity: opacity, child: _buildStationWidgetByIndex(i, smoothTilt)),
               ),
             ),
           ),
@@ -324,18 +341,18 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     return stations;
   }
 
-  Widget _buildStationWidgetByIndex(int index, double ambientPhase) {
+  Widget _buildStationWidgetByIndex(int index, Offset smoothTilt) {
     switch (index) {
       case 1:
-        return _BrideGroom3DShowcase(tilt: _smoothTilt);
+        return _BrideGroom3DShowcase(tilt: smoothTilt);
       case 2:
-        return _SacredEvent3DShowcase(tilt: _smoothTilt);
+        return _SacredEvent3DShowcase(tilt: smoothTilt);
       case 3:
         final id = int.tryParse(Uri.base.queryParameters['id'] ?? '') ?? 1;
         if (id == 1) {
           return Cylindrical3DCarousel(
             ambientPhaseNotifier: _ambientPhaseNotifier,
-            tilt: _smoothTilt,
+            tilt: smoothTilt,
             itemCount: _moments.length,
             itemBuilder: (context, index, isFacingFront) => Thick3DCard(
               isFacingFront: isFacingFront,
@@ -346,16 +363,16 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           );
         }
 
-        return Cylindrical3DGallery2(ambientPhase: ambientPhase, tilt: _smoothTilt);
+        return Cylindrical3DGallery2(ambientPhase: _ambientPhaseNotifier.value, tilt: smoothTilt);
       case 4:
-        return _HolographicGiftAndRsvpShowcase(tilt: _smoothTilt);
+        return _HolographicGiftAndRsvpShowcase(tilt: smoothTilt);
       default:
         return const SizedBox.shrink();
     }
   }
 
   /// Pintu Gerbang Keraton 3D yang Membuka ke Kiri & Kanan
-  Widget _build3DSwingingGates(Size size, double ambientPhase) {
+  Widget _build3DSwingingGates(Size size, double currentCameraZ, Offset smoothTilt) {
     return AnimatedBuilder(
       animation: _gateController,
       builder: (context, _) {
@@ -363,8 +380,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
         // Sudut ayunan pintu gerbang (hingga 110 derajat)
         final doorSwingAngle = curve * (math.pi * 0.62);
-        final cameraPushScale = 1.0 + (_currentCameraZ / 450.0).clamp(0.0, 3.0);
-        final gateOpacity = (1.0 - (_currentCameraZ / 800.0)).clamp(0.0, 1.0);
+        final cameraPushScale = 1.0 + (currentCameraZ / 450.0).clamp(0.0, 3.0);
+        final gateOpacity = (1.0 - (currentCameraZ / 800.0)).clamp(0.0, 1.0);
 
         final gateWidth = math.min(size.width * 0.44, 240.0);
         final gateHeight = math.min(size.height * 0.78, 560.0);
@@ -376,8 +393,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             transform: Matrix4.identity()
               ..setEntry(3, 2, 0.0012)
               ..scale(cameraPushScale)
-              ..rotateY(_smoothTilt.dx * 0.22)
-              ..rotateX(-_smoothTilt.dy * 0.22),
+              ..rotateY(smoothTilt.dx * 0.22)
+              ..rotateX(-smoothTilt.dy * 0.22),
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -393,7 +410,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                         ..rotateY(-doorSwingAngle),
                       child: CustomPaint(
                         size: Size(gateWidth, gateHeight),
-                        painter: OrnateRoyalDoorPainter(isLeftDoor: true, tilt: _smoothTilt),
+                        painter: OrnateRoyalDoorPainter(isLeftDoor: true, tilt: smoothTilt),
                       ),
                     ),
                     // Pintu Kanan (Engsel di Kanan)
@@ -404,7 +421,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                         ..rotateY(doorSwingAngle),
                       child: CustomPaint(
                         size: Size(gateWidth, gateHeight),
-                        painter: OrnateRoyalDoorPainter(isLeftDoor: false, tilt: _smoothTilt),
+                        painter: OrnateRoyalDoorPainter(isLeftDoor: false, tilt: smoothTilt),
                       ),
                     ),
                   ],
@@ -417,9 +434,9 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                     child: Transform(
                       alignment: Alignment.center,
                       transform: Matrix4.identity()
-                        ..translate(_smoothTilt.dx * 32, _smoothTilt.dy * 32)
+                        ..translate(smoothTilt.dx * 32, smoothTilt.dy * 32)
                         ..scale(1.0 + curve * 0.3),
-                      child: _buildCenterRoyalSealMedallion(),
+                      child: _buildCenterRoyalSealMedallion(smoothTilt),
                     ),
                   ),
               ],
@@ -430,7 +447,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     );
   }
 
-  Widget _buildCenterRoyalSealMedallion() {
+  Widget _buildCenterRoyalSealMedallion(Offset smoothTilt) {
     return Container(
       width: 310,
       padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 34),
@@ -443,7 +460,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             color: Colors.black.withValues(alpha: 0.8),
             blurRadius: 45,
             spreadRadius: 8,
-            offset: Offset(-_smoothTilt.dx * 30, -_smoothTilt.dy * 30 + 18),
+            offset: Offset(-smoothTilt.dx * 30, -smoothTilt.dy * 30 + 18),
           ),
           BoxShadow(color: const Color(0xFFD4AF37).withValues(alpha: 0.28), blurRadius: 40),
         ],
@@ -465,8 +482,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           const SizedBox(height: 18),
           ShaderMask(
             shaderCallback: (bounds) => LinearGradient(
-              begin: Alignment(-1.0 + _smoothTilt.dx * 1.5, -1.0),
-              end: Alignment(1.0 + _smoothTilt.dx * 1.5, 1.0),
+              begin: Alignment(-1.0 + smoothTilt.dx * 1.5, -1.0),
+              end: Alignment(1.0 + smoothTilt.dx * 1.5, 1.0),
               colors: const [
                 Color(0xFFB38728),
                 Color(0xFFFBF5B7),
@@ -516,7 +533,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     );
   }
 
-  Widget _buildBottom3DNavigationHud() {
+  Widget _buildBottom3DNavigationHud(double currentCameraZ) {
     return Positioned(
       bottom: 24,
       child: Column(
@@ -526,7 +543,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: Text(
-                'Scroll / Geser Layar untuk Menjelajahi Lorong 3D (Z: ${_currentCameraZ.toInt()}m)',
+                'Scroll / Geser Layar untuk Menjelajahi Lorong 3D (Z: ${currentCameraZ.toInt()}m)',
                 style: TextStyle(
                   fontSize: 11,
                   letterSpacing: 1.2,
@@ -534,44 +551,38 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                 ),
               ),
             ),
-          ClipRRect(
-            borderRadius: BorderRadius.circular(40),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                decoration: BoxDecoration(
-                  color: const Color(0xFF0A1814).withValues(alpha: 0.75),
-                  borderRadius: BorderRadius.circular(40),
-                  border: Border.all(color: const Color(0xFFD4AF37).withValues(alpha: 0.45)),
-                ),
-                child: Wrap(
-                  spacing: 6,
-                  children: List.generate(_stationLabels.length, (i) {
-                    final isSelected = _activeStationIndex == i;
-                    return InkWell(
-                      onTap: () => _flyToStation(i),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A1814).withValues(alpha: 0.75),
+              borderRadius: BorderRadius.circular(40),
+              border: Border.all(color: const Color(0xFFD4AF37).withValues(alpha: 0.45)),
+            ),
+            child: Wrap(
+              spacing: 6,
+              children: List.generate(_stationLabels.length, (i) {
+                final isSelected = _activeStationNotifier.value == i;
+                return InkWell(
+                  onTap: () => _flyToStation(i),
+                  borderRadius: BorderRadius.circular(24),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: isSelected ? const Color(0xFFD4AF37) : Colors.transparent,
                       borderRadius: BorderRadius.circular(24),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: isSelected ? const Color(0xFFD4AF37) : Colors.transparent,
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                        child: Text(
-                          _stationLabels[i],
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            color: isSelected ? const Color(0xFF07120E) : const Color(0xFFE5C158),
-                          ),
-                        ),
+                    ),
+                    child: Text(
+                      _stationLabels[i],
+                      style: TextStyle(
+                        fontSize: 11,
+                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected ? const Color(0xFF07120E) : const Color(0xFFE5C158),
                       ),
-                    );
-                  }),
-                ),
-              ),
+                    ),
+                  ),
+                );
+              }),
             ),
           ),
         ],
@@ -1311,121 +1322,6 @@ class Floating3DPetalsPainter({
 
   @override
   bool shouldRepaint(covariant Floating3DPetalsPainter oldDelegate) => true;
-}
-
-class const Cylindrical3DGallery1({
-  super.key,
-  required final double ambientPhase,
-  required final Offset tilt,
-}) extends StatefulWidget {
-  @override
-  State<Cylindrical3DGallery1> createState() => _Cylindrical3DGallery1State();
-}
-
-class _Cylindrical3DGallery1State() extends State<Cylindrical3DGallery1> {
-  late final ValueNotifier<double> _continuousAngle;
-  double _lastAmbientPhase = .0;
-
-  static const List<Map<String, String>> _moments = [
-    {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
-    {'title': 'Lamaran Resmi', 'year': '2025', 'caption': 'Surakarta'},
-    {'title': 'Prewedding Session', 'year': '2026', 'caption': 'Taman Sari'},
-    {'title': 'Menuju Pelaminan', 'year': '2026', 'caption': 'Jakarta'},
-    // {'title': 'Janji Suci Abadi', 'year': '2026', 'caption': 'Nusantara'},
-    // {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
-  ];
-
-  static const double _cylinderRadius = 220.0;
-  late final double _angleStep = (2 * math.pi) / _moments.length;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _lastAmbientPhase = widget.ambientPhase;
-    _continuousAngle = ValueNotifier<double>(.0);
-  }
-
-  @override
-  void didUpdateWidget(covariant Cylindrical3DGallery1 oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    final delta = widget.ambientPhase - _lastAmbientPhase;
-
-    _continuousAngle.value += delta * .4;
-    _lastAmbientPhase = widget.ambientPhase;
-  }
-
-  @override
-  void dispose() {
-    _continuousAngle.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      behavior: .opaque,
-      onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
-      child: SizedBox(
-        width: 900,
-        height: 600,
-        child: ValueListenableBuilder<double>(
-          valueListenable: _continuousAngle,
-          builder: (_, baseAngle, _) {
-            final int count = _moments.length;
-
-            final itemAngles = List.generate(
-              count,
-              (i) => baseAngle + (i * _angleStep),
-              growable: false,
-            );
-
-            final itemCosines = itemAngles.map(math.cos).toList(growable: false);
-
-            final indices = List.generate(count, (i) => i, growable: false)
-              ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
-
-            return Stack(
-              alignment: .center,
-              clipBehavior: .none,
-              children: indices
-                  .map((index) {
-                    final itemAngle = itemAngles[index];
-                    final cosAngle = itemCosines[index];
-
-                    final x = math.sin(itemAngle) * _cylinderRadius;
-                    final z = _cylinderRadius - (cosAngle * _cylinderRadius);
-
-                    final normalizedDepth = (cosAngle + 1) / 2;
-                    final cardOpacity = .65 + (normalizedDepth * .35);
-                    final cardRotationY = -itemAngle;
-
-                    return Opacity(
-                      key: ValueKey('moment_card_$index'),
-                      opacity: cardOpacity.clamp(.0, 1.0),
-                      child: Transform(
-                        alignment: .center,
-                        transform: .identity()
-                          ..setEntry(3, 2, .0015)
-                          ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
-                          ..rotateY(cardRotationY),
-                        child: _Thick3DCard(
-                          item: _moments[index],
-                          cosAngle: cosAngle,
-                          isGallery1: true,
-                        ),
-                      ),
-                    );
-                  })
-                  .toList(growable: false),
-            );
-          },
-        ),
-      ),
-    );
-  }
 }
 
 class const Cylindrical3DGallery2({

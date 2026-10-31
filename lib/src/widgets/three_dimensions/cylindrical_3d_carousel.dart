@@ -14,7 +14,7 @@ class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
-  final double cylinderRadius = 220.0,
+  final double cylinderSize = 220.0,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
 }) extends StatefulWidget {
@@ -69,13 +69,15 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   Widget build(BuildContext context) {
     if (widget.itemCount == 0) return const SizedBox.shrink();
 
+    final surfaceSize = widget.cylinderSize + (200 * 2);
     return GestureDetector(
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
-      child: CustomPaint(
-        painter: ThreeDimensionSafeAreaPainter(),
-        child: Padding(
-          padding: const .all(200),
+      child: SizedBox(
+        height: surfaceSize,
+        width: surfaceSize,
+        child: CustomPaint(
+          painter: ThreeDimensionSafeAreaPainter(),
           child: ValueListenableBuilder<double>(
             valueListenable: _continuousAngle,
             builder: (_, baseAngle, _) {
@@ -100,8 +102,8 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                       final itemAngle = itemAngles[index];
                       final cosAngle = itemCosines[index];
 
-                      final x = math.sin(itemAngle) * widget.cylinderRadius;
-                      final z = widget.cylinderRadius - (cosAngle * widget.cylinderRadius);
+                      final x = math.sin(itemAngle) * widget.cylinderSize;
+                      final z = widget.cylinderSize - (cosAngle * widget.cylinderSize);
 
                       final normalizedDepth = (cosAngle + 1) / 2;
                       final cardOpacity = .65 + (normalizedDepth * .35);
@@ -114,7 +116,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                       final cosAngleFinalAdjustment = isTiltOnLeft
                           ? (isCardOnLeft ? cosAngleAdjustment2 : -cosAngleAdjustment1)
                           : (isCardOnLeft ? cosAngleAdjustment1 : -cosAngleAdjustment2);
-                      final effectiveCosAngle = cosAngle - (.26 + cosAngleFinalAdjustment);
+                      final effectiveCosAngle = cosAngle - (.38 + cosAngleFinalAdjustment);
                       final isFacingFront = effectiveCosAngle >= 0;
 
                       return Transform(
