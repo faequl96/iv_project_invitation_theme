@@ -23,40 +23,28 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
   ];
 
-  Offset _targetTilt = Offset.zero;
+  static const _stationZPositions = [.0, 1000.0, 2200.0, 3400.0, 4600.0];
+  static const _stationLabels = ['Gerbang', 'Mempelai', 'Acara', 'Galeri 3D', 'Amplop & RSVP'];
 
+  static const _maxCameraZ = 4800.0;
+  static const _focalLength = 650.0;
+  static const _vanishingFactorX = .34;
+  static const _vanishingFactorY = .22;
+
+  Offset _targetTilt = .zero;
   double _targetCameraZ = .0;
-  static const double _maxCameraZ = 4800.0;
-  static const double _focalLength = 650.0;
-
-  static const double _vanishingFactorX = .34;
-  static const double _vanishingFactorY = .22;
+  bool _isGateOpen = false;
 
   late final AnimationController _gateController;
   late final Ticker _physicsTicker;
+  late final Listenable _sceneListenable;
+  late final Listenable _bgRaysListenable;
+  late final Listenable _petalsListenable;
 
   final _ambientPhaseNotifier = ValueNotifier(.0);
   final _smoothTiltNotifier = ValueNotifier(Offset.zero);
   final _cameraZNotifier = ValueNotifier(.0);
   final _activeStationNotifier = ValueNotifier(0);
-
-  bool _isGateOpen = false;
-
-  final List<double> _stationZPositions = [
-    .0, // 0: Cover Gerbang
-    1000.0, // 1: Salam & Mempelai
-    2200.0, // 2: Akad & Resepsi
-    3400.0, // 3: 3D Ring Gallery
-    4600.0, // 4: 3D Flip Amplop & RSVP
-  ];
-
-  final List<String> _stationLabels = [
-    'Gerbang',
-    'Mempelai',
-    'Acara',
-    'Galeri 3D',
-    'Amplop & RSVP',
-  ];
 
   @override
   void initState() {
@@ -67,28 +55,49 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       duration: const Duration(milliseconds: 1800),
     );
 
+    _sceneListenable = Listenable.merge([_cameraZNotifier, _smoothTiltNotifier]);
+    _bgRaysListenable = Listenable.merge([
+      _ambientPhaseNotifier,
+      _smoothTiltNotifier,
+      _gateController,
+    ]);
+    _petalsListenable = Listenable.merge([
+      _ambientPhaseNotifier,
+      _cameraZNotifier,
+      _smoothTiltNotifier,
+    ]);
+
     _physicsTicker = createTicker((_) {
       _ambientPhaseNotifier.value += .01;
 
-      final nextTiltX = lerpDouble(_smoothTiltNotifier.value.dx, _targetTilt.dx, .07) ?? .0;
-      final nextTiltY = lerpDouble(_smoothTiltNotifier.value.dy, _targetTilt.dy, .07) ?? .0;
-      _smoothTiltNotifier.value = Offset(nextTiltX, nextTiltY);
-
-      final nextCamZ = lerpDouble(_cameraZNotifier.value, _targetCameraZ, .06) ?? .0;
-      _cameraZNotifier.value = nextCamZ;
-
-      int closestIndex = 0;
-      double minDiff = double.infinity;
-      for (int i = 0; i < _stationZPositions.length; i++) {
-        final diff = (nextCamZ - _stationZPositions[i]).abs();
-        if (diff < minDiff) {
-          minDiff = diff;
-          closestIndex = i;
-        }
+      final curTilt = _smoothTiltNotifier.value;
+      if (curTilt != _targetTilt) {
+        final dx = lerpDouble(curTilt.dx, _targetTilt.dx, .07) ?? .0;
+        final dy = lerpDouble(curTilt.dy, _targetTilt.dy, .07) ?? .0;
+        _smoothTiltNotifier.value =
+            (dx - _targetTilt.dx).abs() < .0005 && (dy - _targetTilt.dy).abs() < .0005
+            ? _targetTilt
+            : Offset(dx, dy);
       }
 
-      if (_activeStationNotifier.value != closestIndex) {
-        _activeStationNotifier.value = closestIndex;
+      final curCamZ = _cameraZNotifier.value;
+      if (curCamZ != _targetCameraZ) {
+        final nextCamZ = lerpDouble(curCamZ, _targetCameraZ, .06) ?? .0;
+        final snappedCamZ = (nextCamZ - _targetCameraZ).abs() < .05 ? _targetCameraZ : nextCamZ;
+        _cameraZNotifier.value = snappedCamZ;
+
+        int closestIndex = 0;
+        double minDiff = .infinity;
+        for (int i = 0; i < _stationZPositions.length; i++) {
+          final diff = (snappedCamZ - _stationZPositions[i]).abs();
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIndex = i;
+          }
+        }
+        if (_activeStationNotifier.value != closestIndex) {
+          _activeStationNotifier.value = closestIndex;
+        }
       }
     })..start();
   }
@@ -97,6 +106,10 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   void dispose() {
     _physicsTicker.dispose();
     _gateController.dispose();
+    _ambientPhaseNotifier.dispose();
+    _smoothTiltNotifier.dispose();
+    _cameraZNotifier.dispose();
+    _activeStationNotifier.dispose();
 
     super.dispose();
   }
@@ -131,20 +144,16 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     }
     if (_isGateOpen) {
       _targetCameraZ = (_targetCameraZ + delta * 2.2).clamp(.0, _maxCameraZ);
-      if (_targetCameraZ < 150 && delta < 0) {
-        _flyToStation(0);
-      }
+      if (_targetCameraZ < 150 && delta < 0) _flyToStation(0);
     }
   }
 
   Offset _project3DTunnelAxisOffset(Size size, double scale, Offset smoothTilt) {
-    final maxVanishingX = size.width * _vanishingFactorX;
-    final maxVanishingY = size.height * _vanishingFactorY;
-
     final depthProgress = 1.0 - scale;
-    final dx = -smoothTilt.dx * maxVanishingX * depthProgress;
-    final dy = -smoothTilt.dy * maxVanishingY * depthProgress;
-    return Offset(dx, dy);
+    return Offset(
+      -smoothTilt.dx * size.width * _vanishingFactorX * depthProgress,
+      -smoothTilt.dy * size.height * _vanishingFactorY * depthProgress,
+    );
   }
 
   @override
@@ -154,9 +163,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     return Scaffold(
       body: Listener(
         onPointerSignal: (event) {
-          if (event is PointerScrollEvent) {
-            _onScrollDelta(event.scrollDelta.dy);
-          }
+          if (event is PointerScrollEvent) _onScrollDelta(event.scrollDelta.dy);
         },
         child: MouseRegion(
           onHover: (e) => _updatePointerTilt(e.localPosition, size),
@@ -167,90 +174,83 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               _onScrollDelta(-details.delta.dy * 1.6);
             },
             onPanEnd: (_) => _targetTilt = Offset.zero,
-            child: ListenableBuilder(
-              listenable: Listenable.merge([_cameraZNotifier, _smoothTiltNotifier]),
-              builder: (context, child) {
-                return Stack(
-                  alignment: Alignment.center,
-                  clipBehavior: .none,
-                  children: [
-                    // =========================================================
-                    // 1. DEEP SKY & VOLUMETRIC GOD RAYS (SINAR CAHAYA DINAMIS)
-                    // =========================================================
-                    Positioned.fill(
-                      child: ValueListenableBuilder(
-                        valueListenable: _ambientPhaseNotifier,
-                        builder: (context, value, child) {
-                          return CustomPaint(
-                            painter: VolumetricGodRaysPainter(
-                              tilt: _smoothTiltNotifier.value,
-                              ambientPhase: value,
-                              gateOpenProgress: _gateController.value,
-                              vanishingFactorX: _vanishingFactorX,
-                              vanishingFactorY: _vanishingFactorY,
-                            ),
-                          );
-                        },
+            child: Stack(
+              alignment: .center,
+              clipBehavior: .none,
+              children: [
+                // 1. DEEP SKY & VOLUMETRIC GOD RAYS (Repaint via Listenable, 0 Widget rebuild)
+                Positioned.fill(
+                  child: RepaintBoundary(
+                    child: CustomPaint(
+                      painter: VolumetricGodRaysPainter(
+                        repaint: _bgRaysListenable,
+                        tiltNotifier: _smoothTiltNotifier,
+                        ambientPhaseNotifier: _ambientPhaseNotifier,
+                        gateController: _gateController,
+                        vanishingFactorX: _vanishingFactorX,
+                        vanishingFactorY: _vanishingFactorY,
                       ),
                     ),
+                  ),
+                ),
 
-                    // =========================================================
-                    // 2. LORONG ARSITEKTUR 3D (GERBANG ARCH & LENTERA Z-SPACE)
-                    // =========================================================
-                    ..._build3DTunnelArches(
-                      size,
-                      _cameraZNotifier.value,
-                      _smoothTiltNotifier.value,
-                    ),
-
-                    // =========================================================
-                    // 3. SEKSI KONTEN UNDANGAN DALAM RUANG 3D (Z-STATIONS)
-                    // =========================================================
-                    ..._build3DContentStations(
-                      size,
-                      _cameraZNotifier.value,
-                      _smoothTiltNotifier.value,
-                    ),
-
-                    // =========================================================
-                    // 4. PINTU GERBANG KERATON 3D (SWINGING DOUBLE DOORS)
-                    // =========================================================
-                    if (_cameraZNotifier.value < 950)
-                      _build3DSwingingGates(
-                        size,
-                        _cameraZNotifier.value,
-                        _smoothTiltNotifier.value,
-                      ),
-
-                    // =========================================================
-                    // 5. PARTIKEL KELOPAK BUNGA EMAS 3D (FOREGROUND BOKEH)
-                    // =========================================================
-                    Positioned.fill(
-                      child: IgnorePointer(
-                        child: ValueListenableBuilder(
-                          valueListenable: _ambientPhaseNotifier,
-                          builder: (context, value, child) {
-                            return CustomPaint(
-                              painter: Floating3DPetalsPainter(
-                                ambientPhase: _ambientPhaseNotifier.value,
-                                cameraZ: _cameraZNotifier.value,
-                                tilt: _smoothTiltNotifier.value,
-                                vanishingFactorX: _vanishingFactorX,
-                                vanishingFactorY: _vanishingFactorY,
-                              ),
-                            );
-                          },
+                // 1.5. JALAN KARPET KERATON 3D (Repaint via Listenable, 0 Widget rebuild)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: RepaintBoundary(
+                      child: CustomPaint(
+                        painter: RoyalPerspectiveWalkwayPainter(
+                          repaint: _sceneListenable,
+                          cameraZNotifier: _cameraZNotifier,
+                          tiltNotifier: _smoothTiltNotifier,
+                          focalLength: _focalLength,
+                          vanishingFactorX: _vanishingFactorX,
+                          vanishingFactorY: _vanishingFactorY,
                         ),
                       ),
                     ),
+                  ),
+                ),
 
-                    // =========================================================
-                    // 6. HUD NAVIGATION BAR & PETUNJUK INTERAKSI
-                    // =========================================================
-                    _buildBottom3DNavigationHud(_cameraZNotifier.value),
-                  ],
-                );
-              },
+                // 2, 3, 4. DYNAMIC 3D TUNNEL ARCHES, STATIONS, & SWINGING GATES
+                ListenableBuilder(
+                  listenable: _sceneListenable,
+                  builder: (context, _) {
+                    final camZ = _cameraZNotifier.value;
+                    final tilt = _smoothTiltNotifier.value;
+                    return Stack(
+                      alignment: .center,
+                      clipBehavior: .none,
+                      children: [
+                        ..._build3DTunnelArches(size, camZ, tilt),
+                        ..._build3DContentStations(size, camZ, tilt),
+                        if (camZ < 950) _build3DSwingingGates(size, camZ, tilt),
+                      ],
+                    );
+                  },
+                ),
+
+                // 5. PARTIKEL KELOPAK BUNGA EMAS 3D (Repaint via Listenable, 0 Widget rebuild)
+                Positioned.fill(
+                  child: IgnorePointer(
+                    child: RepaintBoundary(
+                      child: CustomPaint(
+                        painter: Floating3DPetalsPainter(
+                          repaint: _petalsListenable,
+                          ambientPhaseNotifier: _ambientPhaseNotifier,
+                          cameraZNotifier: _cameraZNotifier,
+                          tiltNotifier: _smoothTiltNotifier,
+                          vanishingFactorX: _vanishingFactorX,
+                          vanishingFactorY: _vanishingFactorY,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+
+                // 6. HUD NAVIGATION BAR
+                _buildBottom3DNavigationHud(),
+              ],
             ),
           ),
         ),
@@ -259,217 +259,195 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   }
 
   List<Widget> _build3DTunnelArches(Size size, double currentCameraZ, Offset smoothTilt) {
-    final List<Widget> arches = [];
+    final arches = <Widget>[];
     final isMobile = size.width < 600;
-
     final archVirtualWidth = isMobile ? (size.width * 1.25).clamp(480.0, 580.0) : size.width;
     final archWidthBoost = isMobile ? 1.15 : 1.0;
 
     for (double z = 4800; z >= 400; z -= 600) {
       final relativeZ = z - currentCameraZ;
-      if (relativeZ > -420 && relativeZ < 3600) {
-        final scale = _focalLength / (_focalLength + relativeZ);
-        final proximity = scale.clamp(.0, 1.0);
+      if (relativeZ <= -420 || relativeZ >= 3600) continue;
 
-        final opacity =
-            (1.0 - (relativeZ / 3400)).clamp(.0, 1.0) * ((relativeZ + 350) / 400).clamp(.0, 1.0);
+      final opacity =
+          (1.0 - (relativeZ / 3400)).clamp(.0, 1.0) * ((relativeZ + 350) / 400).clamp(.0, 1.0);
+      if (opacity <= .005) continue;
 
-        final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
+      final scale = _focalLength / (_focalLength + relativeZ);
+      final proximity = scale.clamp(.0, 1.0);
+      final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
 
-        final archMatrix = _createTunnelAlignedPerspectiveMatrix(
-          tx: tunnelOffset.dx,
-          ty: tunnelOffset.dy,
-          scale: scale,
-          scaleXMultiplier: archWidthBoost,
-          perspective: .0008 * proximity,
-          tiltX: smoothTilt.dx * proximity,
-          tiltY: smoothTilt.dy * proximity,
-          maxYaw: .10,
-          maxPitch: .05,
-        );
-
-        arches.add(
-          IgnorePointer(
-            child: Opacity(
-              opacity: opacity,
-              child: Transform(
-                alignment: .center,
-                transform: archMatrix,
-                child: OverflowBox(
-                  maxWidth: archVirtualWidth,
-                  minWidth: archVirtualWidth,
-                  maxHeight: size.height,
-                  minHeight: size.height,
-                  child: ValueListenableBuilder(
-                    valueListenable: _ambientPhaseNotifier,
-                    builder: (context, value, child) {
-                      return CustomPaint(
-                        size: Size(archVirtualWidth, size.height),
-                        painter: GoldenPalaceArchPainter(
-                          archIndex: (z ~/ 600),
-                          swingPhase: value,
-                          isMobile: isMobile,
-                        ),
-                      );
-                    },
-                  ),
+      arches.add(
+        IgnorePointer(
+          key: ValueKey('arch_${z.toInt()}'),
+          child: Transform(
+            alignment: .center,
+            transform: _createTunnelAlignedPerspectiveMatrix(
+              tx: tunnelOffset.dx,
+              ty: tunnelOffset.dy,
+              scale: scale,
+              scaleXMultiplier: archWidthBoost,
+              perspective: .0008 * proximity,
+              tiltX: smoothTilt.dx * proximity,
+              tiltY: smoothTilt.dy * proximity,
+              maxYaw: .10,
+              maxPitch: .05,
+            ),
+            child: OverflowBox(
+              maxWidth: archVirtualWidth,
+              minWidth: archVirtualWidth,
+              maxHeight: size.height,
+              minHeight: size.height,
+              child: CustomPaint(
+                size: Size(archVirtualWidth, size.height),
+                painter: GoldenPalaceArchPainter(
+                  repaint: _ambientPhaseNotifier,
+                  archIndex: z ~/ 600,
+                  swingPhaseNotifier: _ambientPhaseNotifier,
+                  opacity: opacity,
+                  isMobile: isMobile,
                 ),
               ),
             ),
           ),
-        );
-      }
+        ),
+      );
     }
     return arches;
   }
 
   List<Widget> _build3DContentStations(Size size, double currentCameraZ, Offset smoothTilt) {
-    final List<Widget> stations = [];
+    final stations = <Widget>[];
     for (int i = _stationZPositions.length - 1; i >= 1; i--) {
-      final stationZ = _stationZPositions[i];
-      final relativeZ = stationZ - currentCameraZ;
+      final relativeZ = _stationZPositions[i] - currentCameraZ;
+      if (relativeZ <= -420 || relativeZ >= 2600) continue;
 
-      if (relativeZ > -420 && relativeZ < 2600) {
-        final scale = _focalLength / (_focalLength + relativeZ);
-        final proximity = scale.clamp(.0, 1.0);
-        final angularWeight = proximity * proximity;
+      final distanceFade = (1.0 - (relativeZ.abs() / 1600)).clamp(.0, 1.0);
+      final passThroughFade = ((relativeZ + 360) / 360).clamp(.0, 1.0);
+      final opacity = (distanceFade * passThroughFade).clamp(.0, 1.0);
+      if (opacity <= .005) continue;
 
-        final distanceFade = (1.0 - (relativeZ.abs() / 1600)).clamp(.0, 1.0);
-        final passThroughFade = ((relativeZ + 360) / 360).clamp(.0, 1.0);
-        final opacity = (distanceFade * passThroughFade).clamp(.0, 1.0);
+      final scale = _focalLength / (_focalLength + relativeZ);
+      final proximity = scale.clamp(.0, 1.0);
+      final angularWeight = proximity * proximity;
+      final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
+      final attenuatedTilt = smoothTilt * angularWeight;
 
-        final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
-
-        final isInteractive = relativeZ.abs() < 350;
-
-        final stationMatrix = _createTunnelAlignedPerspectiveMatrix(
-          tx: tunnelOffset.dx,
-          ty: tunnelOffset.dy,
-          scale: scale,
-          perspective: .0012 * proximity,
-          tiltX: smoothTilt.dx * angularWeight,
-          tiltY: smoothTilt.dy * angularWeight,
-          maxYaw: .18,
-          maxPitch: .09,
-        );
-
-        final attenuatedTilt = smoothTilt * angularWeight;
-
-        stations.add(
-          KeyedSubtree(
-            key: ValueKey('station_3d_$i'),
-            child: IgnorePointer(
-              ignoring: !isInteractive,
-              child: Transform(
-                alignment: Alignment.center,
-                transform: stationMatrix,
-                child: Opacity(
-                  opacity: opacity,
-                  child: _buildStationWidgetByIndex(i, attenuatedTilt, proximity),
-                ),
+      stations.add(
+        KeyedSubtree(
+          key: ValueKey('station_3d_$i'),
+          child: IgnorePointer(
+            ignoring: relativeZ.abs() >= 350,
+            child: Transform(
+              alignment: .center,
+              transform: _createTunnelAlignedPerspectiveMatrix(
+                tx: tunnelOffset.dx,
+                ty: tunnelOffset.dy,
+                scale: scale,
+                perspective: .0012 * proximity,
+                tiltX: attenuatedTilt.dx,
+                tiltY: attenuatedTilt.dy,
+                maxYaw: .18,
+                maxPitch: .09,
+              ),
+              child: Opacity(
+                opacity: opacity,
+                child: _buildStationWidgetByIndex(i, attenuatedTilt, proximity),
               ),
             ),
           ),
-        );
-      }
+        ),
+      );
     }
     return stations;
   }
 
   Widget _buildStationWidgetByIndex(int index, Offset attenuatedTilt, double proximity) {
-    switch (index) {
-      case 1:
-        return _BrideGroom3DShowcase(tilt: attenuatedTilt, proximity: proximity);
-      case 2:
-        return _SacredEvent3DShowcase(tilt: attenuatedTilt);
-      case 3:
-        // return const SizedBox.shrink();
-        return Cylindrical3DCarousel(
-          ambientPhaseNotifier: _ambientPhaseNotifier,
-          tilt: attenuatedTilt,
-          itemCount: _moments.length,
-          itemBuilder: (context, index, isFacingFront) => Thick3DCard(
-            isFacingFront: isFacingFront,
-            frontCard: _CardFront(item: _moments[index]),
-            backCard: const _CardBack(),
-            thickCardStack: const _CardEdge(),
-          ),
-        );
-      case 4:
-        return _HolographicGiftAndRsvpShowcase(tilt: attenuatedTilt, proximity: proximity);
-      default:
-        return const SizedBox.shrink();
-    }
+    return switch (index) {
+      1 => _BrideGroom3DShowcase(tilt: attenuatedTilt, proximity: proximity),
+      2 => _SacredEvent3DShowcase(tilt: attenuatedTilt),
+      3 => Cylindrical3DCarousel(
+        ambientPhaseNotifier: _ambientPhaseNotifier,
+        tilt: attenuatedTilt,
+        itemCount: _moments.length,
+        itemBuilder: (context, index, isFacingFront) => Thick3DCard(
+          isFacingFront: isFacingFront,
+          frontCard: _CardFront(item: _moments[index]),
+          backCard: const _CardBack(),
+          thickCardStack: const _CardEdge(),
+        ),
+      ),
+      4 => _HolographicGiftAndRsvpShowcase(tilt: attenuatedTilt, proximity: proximity),
+      _ => const SizedBox.shrink(),
+    };
   }
 
   Widget _build3DSwingingGates(Size size, double currentCameraZ, Offset smoothTilt) {
     return AnimatedBuilder(
       animation: _gateController,
       builder: (context, _) {
-        final curve = CurvedAnimation(parent: _gateController, curve: Curves.easeInOutCubic).value;
-
+        final curve = Curves.easeInOutCubic.transform(_gateController.value);
         final doorSwingAngle = curve * (math.pi * .62);
         final effectiveDenom = (_focalLength - currentCameraZ * .55).clamp(160.0, _focalLength);
         final cameraPushScale = _focalLength / effectiveDenom;
         final gateOpacity = (1.0 - (currentCameraZ / 800.0)).clamp(.0, 1.0);
-
         final tunnelOffset = _project3DTunnelAxisOffset(size, cameraPushScale, smoothTilt);
 
-        final gateWidth = math.min(size.width * .44, 240.0);
-        final gateHeight = math.min(size.height * .78, 560.0);
-
-        final gateMatrix = _createTunnelAlignedPerspectiveMatrix(
-          tx: tunnelOffset.dx * .35,
-          ty: tunnelOffset.dy * .35,
-          scale: cameraPushScale,
-          perspective: .0008,
-          tiltX: smoothTilt.dx,
-          tiltY: smoothTilt.dy,
-          maxYaw: .09,
-          maxPitch: .045,
+        final gateSize = Size(
+          math.min(size.width * .44, 240.0),
+          math.min(size.height * .78, 560.0),
         );
 
         return Opacity(
           opacity: gateOpacity,
           child: Transform(
-            alignment: Alignment.center,
-            transform: gateMatrix,
+            alignment: .center,
+            transform: _createTunnelAlignedPerspectiveMatrix(
+              tx: tunnelOffset.dx * .35,
+              ty: tunnelOffset.dy * .35,
+              scale: cameraPushScale,
+              perspective: .0008,
+              tiltX: smoothTilt.dx,
+              tiltY: smoothTilt.dy,
+              maxYaw: .09,
+              maxPitch: .045,
+            ),
             child: Stack(
-              alignment: Alignment.center,
+              alignment: .center,
               children: [
                 Row(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: .min,
                   children: [
-                    // Pintu Kiri (Engsel di Kiri)
                     Transform(
-                      alignment: Alignment.centerLeft,
+                      alignment: .centerLeft,
                       transform: Matrix4.identity()
                         ..setEntry(3, 2, .0012)
                         ..rotateY(-doorSwingAngle),
-                      child: CustomPaint(
-                        size: Size(gateWidth, gateHeight),
-                        painter: OrnateRoyalDoorPainter(isLeftDoor: true, tilt: smoothTilt),
+                      child: RepaintBoundary(
+                        child: CustomPaint(
+                          size: gateSize,
+                          painter: const OrnateRoyalDoorPainter(isLeftDoor: true),
+                        ),
                       ),
                     ),
-                    // Pintu Kanan (Engsel di Kanan)
                     Transform(
-                      alignment: Alignment.centerRight,
+                      alignment: .centerRight,
                       transform: Matrix4.identity()
                         ..setEntry(3, 2, .0012)
                         ..rotateY(doorSwingAngle),
-                      child: CustomPaint(
-                        size: Size(gateWidth, gateHeight),
-                        painter: OrnateRoyalDoorPainter(isLeftDoor: false, tilt: smoothTilt),
+                      child: RepaintBoundary(
+                        child: CustomPaint(
+                          size: gateSize,
+                          painter: const OrnateRoyalDoorPainter(isLeftDoor: false),
+                        ),
                       ),
                     ),
                   ],
                 ),
-                // Medali Segel Tengah
                 if (curve < .85)
                   Opacity(
                     opacity: (1.0 - curve * 1.4).clamp(.0, 1.0),
                     child: Transform(
-                      alignment: Alignment.center,
+                      alignment: .center,
                       transform: Matrix4.identity()
                         ..translateByDouble(-smoothTilt.dx * 14.0, -smoothTilt.dy * 10.0, .0, 1.0)
                         ..scaleByDouble(1.0 + curve * .3, 1.0 + curve * .3, 1.0, 1.0),
@@ -487,11 +465,11 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   Widget _buildCenterRoyalSealMedallion(Offset smoothTilt) {
     return Container(
       width: 310,
-      padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 34),
+      padding: const .symmetric(horizontal: 26, vertical: 34),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(180),
+        borderRadius: .circular(180),
         gradient: const RadialGradient(colors: [Color(0xFF162E26), Color(0xFF091410)], radius: .9),
-        border: Border.all(color: const Color(0xFFE5C158), width: 2.0),
+        border: .all(color: const Color(0xFFE5C158), width: 2.0),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: .8),
@@ -503,7 +481,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         ],
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           const Icon(Icons.auto_awesome, color: Color(0xFFE5C158), size: 24),
           const SizedBox(height: 10),
@@ -513,7 +491,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               fontSize: 10,
               letterSpacing: 4.5,
               color: Color(0xFFE5C158),
-              fontWeight: FontWeight.w600,
+              fontWeight: .w600,
             ),
           ),
           const SizedBox(height: 18),
@@ -530,13 +508,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             ).createShader(bounds),
             child: const Text(
               'Rama\n&\nShinta',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 38,
-                height: 1.12,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+              textAlign: .center,
+              style: TextStyle(fontSize: 38, height: 1.12, fontWeight: .bold, color: Colors.white),
             ),
           ),
           const SizedBox(height: 16),
@@ -554,15 +527,15 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             icon: const Icon(Icons.meeting_room_outlined, size: 18),
             label: const Text(
               'BUKA GERBANG 3D',
-              style: TextStyle(letterSpacing: 2.0, fontSize: 11, fontWeight: FontWeight.bold),
+              style: TextStyle(letterSpacing: 2.0, fontSize: 11, fontWeight: .bold),
             ),
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFFE5C158),
               foregroundColor: const Color(0xFF07120E),
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+              padding: const .symmetric(horizontal: 24, vertical: 14),
               elevation: 14,
               shadowColor: const Color(0xFFE5C158),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+              shape: RoundedRectangleBorder(borderRadius: .circular(30)),
             ),
           ),
         ],
@@ -570,56 +543,62 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     );
   }
 
-  Widget _buildBottom3DNavigationHud(double currentCameraZ) {
+  Widget _buildBottom3DNavigationHud() {
     return Positioned(
       bottom: 24,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           if (_isGateOpen)
             Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Text(
-                'Scroll / Geser Layar untuk Menjelajahi Lorong 3D (Z: ${currentCameraZ.toInt()}m)',
-                style: TextStyle(
-                  fontSize: 11,
-                  letterSpacing: 1.2,
-                  color: const Color(0xFFE5C158).withValues(alpha: .75),
+              padding: const .only(bottom: 10),
+              child: ValueListenableBuilder<double>(
+                valueListenable: _cameraZNotifier,
+                builder: (_, camZ, _) => Text(
+                  'Scroll / Geser Layar untuk Menjelajahi Lorong 3D (Z: ${camZ.toInt()}m)',
+                  style: TextStyle(
+                    fontSize: 11,
+                    letterSpacing: 1.2,
+                    color: const Color(0xFFE5C158).withValues(alpha: .75),
+                  ),
                 ),
               ),
             ),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            padding: const .symmetric(horizontal: 10, vertical: 8),
             decoration: BoxDecoration(
               color: const Color(0xFF0A1814).withValues(alpha: .75),
-              borderRadius: BorderRadius.circular(40),
-              border: Border.all(color: const Color(0xFFD4AF37).withValues(alpha: .45)),
+              borderRadius: .circular(40),
+              border: .all(color: const Color(0xFFD4AF37).withValues(alpha: .45)),
             ),
-            child: Wrap(
-              spacing: 6,
-              children: List.generate(_stationLabels.length, (i) {
-                final isSelected = _activeStationNotifier.value == i;
-                return InkWell(
-                  onTap: () => _flyToStation(i),
-                  borderRadius: BorderRadius.circular(24),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: isSelected ? const Color(0xFFD4AF37) : Colors.transparent,
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                    child: Text(
-                      _stationLabels[i],
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                        color: isSelected ? const Color(0xFF07120E) : const Color(0xFFE5C158),
+            child: ValueListenableBuilder<int>(
+              valueListenable: _activeStationNotifier,
+              builder: (_, activeIndex, _) => Wrap(
+                spacing: 6,
+                children: List.generate(_stationLabels.length, (i) {
+                  final isSelected = activeIndex == i;
+                  return InkWell(
+                    onTap: () => _flyToStation(i),
+                    borderRadius: .circular(24),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      padding: const .symmetric(horizontal: 14, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: isSelected ? const Color(0xFFD4AF37) : Colors.transparent,
+                        borderRadius: .circular(24),
+                      ),
+                      child: Text(
+                        _stationLabels[i],
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: isSelected ? .bold : .normal,
+                          color: isSelected ? const Color(0xFF07120E) : const Color(0xFFE5C158),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                }),
+              ),
             ),
           ),
         ],
@@ -643,12 +622,10 @@ Matrix4 _createTunnelAlignedPerspectiveMatrix({
   final yaw = (-tiltX * maxYaw) + extraRotateY;
   final pitch = tiltY * maxPitch;
 
-  final perspectiveMatrix = Matrix4.identity()..setEntry(3, 2, perspective);
-
-  return Matrix4.identity()
+  return .identity()
     ..translateByDouble(tx, ty, .0, 1.0)
     ..scaleByDouble(scale * scaleXMultiplier, scale, scale, 1.0)
-    ..multiply(perspectiveMatrix)
+    ..multiply(.identity()..setEntry(3, 2, perspective))
     ..rotateY(yaw)
     ..rotateX(pitch * math.cos(yaw));
 }
@@ -663,9 +640,9 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
     return Container(
       width: 680,
       constraints: const BoxConstraints(maxWidth: 680),
-      padding: const EdgeInsets.all(28),
+      padding: const .all(28),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           const Text(
             'PASANGAN MEMPELAI',
@@ -673,20 +650,20 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
               letterSpacing: 4,
               fontSize: 12,
               color: Color(0xFFE5C158),
-              fontWeight: FontWeight.bold,
+              fontWeight: .bold,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             'Maha Suci Tuhan yang telah menciptakan makhluk-Nya berpasang-pasangan.',
-            textAlign: TextAlign.center,
+            textAlign: .center,
             style: TextStyle(fontSize: 13, color: Colors.white.withValues(alpha: .75)),
           ),
           const SizedBox(height: 26),
           Wrap(
             spacing: 24,
             runSpacing: 20,
-            alignment: WrapAlignment.center,
+            alignment: .center,
             children: [
               _buildPerson3DCard(
                 name: 'R.M. Rama Wijaya, S.Kom.',
@@ -716,24 +693,22 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
     required IconData icon,
     required int depthDirection,
   }) {
-    final parallaxOffset = Offset(-tilt.dx * 8.0 * depthDirection, -tilt.dy * 6.0 * depthDirection);
-
     return Transform.translate(
-      offset: parallaxOffset,
+      offset: Offset(-tilt.dx * 8.0 * depthDirection, -tilt.dy * 6.0 * depthDirection),
       child: Container(
         width: 280,
-        padding: const EdgeInsets.all(24),
+        padding: const .all(24),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: .circular(28),
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: .topLeft,
+            end: .bottomRight,
             colors: [
               const Color(0xFF17332A).withValues(alpha: .9),
               const Color(0xFF0A1612).withValues(alpha: .92),
             ],
           ),
-          border: Border.all(color: const Color(0xFFD4AF37).withValues(alpha: .6)),
+          border: .all(color: const Color(0xFFD4AF37).withValues(alpha: .6)),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: .65),
@@ -750,7 +725,7 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
                 width: 82,
                 height: 82,
                 decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+                  shape: .circle,
                   gradient: const RadialGradient(colors: [Color(0xFFE5C158), Color(0xFF7D5A18)]),
                   boxShadow: [
                     BoxShadow(
@@ -770,17 +745,13 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
             const SizedBox(height: 8),
             Text(
               name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 19,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFFFF3D1),
-              ),
+              textAlign: .center,
+              style: const TextStyle(fontSize: 19, fontWeight: .bold, color: Color(0xFFFFF3D1)),
             ),
             const SizedBox(height: 10),
             Text(
               parents,
-              textAlign: TextAlign.center,
+              textAlign: .center,
               style: TextStyle(
                 fontSize: 12,
                 height: 1.5,
@@ -802,11 +773,11 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
   Widget build(BuildContext context) {
     return Container(
       width: 660,
-      padding: const EdgeInsets.all(28),
+      padding: const .all(28),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(32),
+        borderRadius: .circular(32),
         color: const Color(0xFF0D1E19).withValues(alpha: .88),
-        border: Border.all(color: const Color(0xFFE5C158).withValues(alpha: .55)),
+        border: .all(color: const Color(0xFFE5C158).withValues(alpha: .55)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: .7),
@@ -816,7 +787,7 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
         ],
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: .min,
         children: [
           const Icon(Icons.location_city_rounded, color: Color(0xFFE5C158), size: 34),
           const SizedBox(height: 10),
@@ -826,14 +797,14 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
               letterSpacing: 4,
               fontSize: 13,
               color: Color(0xFFE5C158),
-              fontWeight: FontWeight.bold,
+              fontWeight: .bold,
             ),
           ),
           const SizedBox(height: 24),
           Wrap(
             spacing: 20,
             runSpacing: 16,
-            alignment: WrapAlignment.center,
+            alignment: .center,
             children: [
               _buildEventPillar(
                 title: 'Akad Nikah',
@@ -865,35 +836,27 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
   Widget _buildEventPillar({required String title, required String time, required String place}) {
     return Container(
       width: 270,
-      padding: const EdgeInsets.all(20),
+      padding: const .all(20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: .circular(20),
         color: const Color(0xFF142D25),
-        border: Border.all(color: const Color(0xFFD4AF37).withValues(alpha: .4)),
+        border: .all(color: const Color(0xFFD4AF37).withValues(alpha: .4)),
       ),
       child: Column(
         children: [
           Text(
             title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFFFE599),
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: .bold, color: Color(0xFFFFE599)),
           ),
           const SizedBox(height: 8),
           Text(
             time,
-            style: const TextStyle(
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFFE5C158),
-            ),
+            style: const TextStyle(fontSize: 13, fontWeight: .w600, color: Color(0xFFE5C158)),
           ),
           const SizedBox(height: 10),
           Text(
             place,
-            textAlign: TextAlign.center,
+            textAlign: .center,
             style: TextStyle(fontSize: 12, height: 1.5, color: Colors.white.withValues(alpha: .8)),
           ),
         ],
@@ -904,13 +867,13 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
   Widget _buildCountdownCube(String value, String label) {
     return Container(
       width: 74,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const .symmetric(vertical: 10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(14),
+        borderRadius: .circular(14),
         gradient: const LinearGradient(
           colors: [Color(0xFFE5C158), Color(0xFF9C7316)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+          begin: .topLeft,
+          end: .bottomRight,
         ),
         boxShadow: [
           BoxShadow(color: const Color(0xFFE5C158).withValues(alpha: .35), blurRadius: 16),
@@ -920,17 +883,13 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
         children: [
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF07120E),
-            ),
+            style: const TextStyle(fontSize: 20, fontWeight: .bold, color: Color(0xFF07120E)),
           ),
           Text(
             label,
             style: const TextStyle(
               fontSize: 9,
-              fontWeight: FontWeight.bold,
+              fontWeight: .bold,
               letterSpacing: 1.5,
               color: Color(0xFF07120E),
             ),
@@ -972,18 +931,14 @@ class _HolographicGiftAndRsvpShowcaseState()
   }
 
   void _toggleCardFlip() {
-    if (_isFront) {
-      _flipController.forward();
-    } else {
-      _flipController.reverse();
-    }
+    _isFront ? _flipController.forward() : _flipController.reverse();
     _isFront = !_isFront;
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      mainAxisSize: .min,
       children: [
         const Text(
           'TANDA KASIH DIGITAL (KLIK KARTU UNTUK MEMBALIK 3D)',
@@ -991,7 +946,7 @@ class _HolographicGiftAndRsvpShowcaseState()
             fontSize: 11,
             letterSpacing: 3.0,
             color: Color(0xFFE5C158),
-            fontWeight: FontWeight.bold,
+            fontWeight: .bold,
           ),
         ),
         const SizedBox(height: 18),
@@ -1000,25 +955,20 @@ class _HolographicGiftAndRsvpShowcaseState()
           child: AnimatedBuilder(
             animation: _flipController,
             builder: (context, _) {
-              final angle =
-                  CurvedAnimation(parent: _flipController, curve: Curves.easeInOutBack).value *
-                  math.pi;
-
-              final isShowingBack = angle > (math.pi / 2);
-
-              final flipMatrix = Matrix4.identity()
-                ..setEntry(3, 2, .0008 * widget.proximity)
-                ..rotateY(angle);
+              final angle = Curves.easeInOutBack.transform(_flipController.value) * math.pi;
+              final isShowingBack = angle > (math.pi * .5);
 
               return Transform(
-                alignment: Alignment.center,
-                transform: flipMatrix,
+                alignment: .center,
+                transform: .identity()
+                  ..setEntry(3, 2, .0008 * widget.proximity)
+                  ..rotateY(angle),
                 child: Container(
                   width: 380,
                   height: 225,
-                  padding: const EdgeInsets.all(24),
+                  padding: const .all(24),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(24),
+                    borderRadius: .circular(24),
                     gradient: LinearGradient(
                       begin: Alignment(-1.0 + widget.tilt.dx, -1.0 + widget.tilt.dy * .5),
                       end: Alignment(1.0 - widget.tilt.dx, 1.0 - widget.tilt.dy * .5),
@@ -1039,7 +989,7 @@ class _HolographicGiftAndRsvpShowcaseState()
                   ),
                   child: isShowingBack
                       ? Transform(
-                          alignment: Alignment.center,
+                          alignment: .center,
                           transform: Matrix4.identity()..rotateY(math.pi),
                           child: _buildBackCardContent(),
                         )
@@ -1055,18 +1005,18 @@ class _HolographicGiftAndRsvpShowcaseState()
 
   Widget _buildFrontCardContent() {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: .start,
+      mainAxisAlignment: .spaceBetween,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             const Text(
               'ROYAL WEDDING GIFT CARD',
               style: TextStyle(
                 fontSize: 11,
                 letterSpacing: 2.5,
-                fontWeight: FontWeight.bold,
+                fontWeight: .bold,
                 color: Color(0xFF091410),
               ),
             ),
@@ -1082,24 +1032,20 @@ class _HolographicGiftAndRsvpShowcaseState()
           style: TextStyle(
             fontSize: 22,
             letterSpacing: 3.0,
-            fontWeight: FontWeight.bold,
+            fontWeight: .bold,
             color: Color(0xFF091410),
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: .spaceBetween,
           children: [
             const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: .start,
               children: [
                 Text('ATAS NAMA MEMPELAI', style: TextStyle(fontSize: 9, color: Color(0xFF221A07))),
                 Text(
                   'RAMA WIJAYA & SHINTA',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF091410),
-                  ),
+                  style: TextStyle(fontSize: 13, fontWeight: .bold, color: Color(0xFF091410)),
                 ),
               ],
             ),
@@ -1111,12 +1057,12 @@ class _HolographicGiftAndRsvpShowcaseState()
               icon: Icon(_copied ? Icons.check_circle : Icons.copy_rounded, size: 14),
               label: Text(
                 _copied ? 'TERSALIN' : 'SALIN NO. REK',
-                style: const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 10, fontWeight: .bold),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF091410),
                 foregroundColor: const Color(0xFFF6E27A),
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                padding: const .symmetric(horizontal: 14, vertical: 8),
               ),
             ),
           ],
@@ -1127,13 +1073,13 @@ class _HolographicGiftAndRsvpShowcaseState()
 
   Widget _buildBackCardContent() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: .center,
       children: [
         const Icon(Icons.qr_code_2_rounded, size: 78, color: Color(0xFF091410)),
         const SizedBox(height: 8),
         const Text(
           'SCAN QRIS PAWIWAHAN RAMA & SHINTA',
-          style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF091410)),
+          style: TextStyle(fontSize: 12, fontWeight: .bold, color: Color(0xFF091410)),
         ),
         const SizedBox(height: 4),
         Text(
@@ -1146,190 +1092,376 @@ class _HolographicGiftAndRsvpShowcaseState()
 }
 
 // ============================================================================
-// CUSTOM PAINTERS: GOD RAYS, GERBANG UKIR 3D, LORONG ARCH, DAN KELOPAK 3D
+// CUSTOM PAINTERS: ZERO-ALLOCATION LOOP & DIRECT REPAINT LISTENABLES
 // ============================================================================
 
 class VolumetricGodRaysPainter({
-  required final Offset tilt,
-  required final double ambientPhase,
-  required final double gateOpenProgress,
+  required super.repaint,
+  required final ValueNotifier<Offset> tiltNotifier,
+  required final ValueNotifier<double> ambientPhaseNotifier,
+  required final Animation<double> gateController,
   required final double vanishingFactorX,
   required final double vanishingFactorY,
 }) extends CustomPainter {
+  static final Paint _bgPaint = Paint();
+  static final Paint _rayPaint = Paint()..blendMode = .plus;
+  static final Path _rayPath = Path();
+
   @override
   void paint(Canvas canvas, Size size) {
+    final tilt = tiltNotifier.value;
+    final ambientPhase = ambientPhaseNotifier.value;
+    final gateOpenProgress = gateController.value;
+
     final vpAlignX = -tilt.dx * vanishingFactorX * 2.0;
-    final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .18;
+    final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .38;
 
     final bgRect = Offset.zero & size;
-    final bgPaint = Paint()
-      ..shader = RadialGradient(
-        center: Alignment(vpAlignX, vpAlignY),
-        radius: 1.2,
-        colors: const [Color(0xFF1B3B30), Color(0xFF0B1915), Color(0xFF040907)],
-      ).createShader(bgRect);
-    canvas.drawRect(bgRect, bgPaint);
+    _bgPaint.shader = RadialGradient(
+      center: Alignment(vpAlignX, vpAlignY),
+      radius: 1.1,
+      colors: const [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
+      stops: const [.0, .55, 1.0],
+    ).createShader(bgRect);
+    canvas.drawRect(bgRect, _bgPaint);
 
     final sourceX = size.width * .5 - (tilt.dx * size.width * vanishingFactorX);
-    final sourceY = size.height * .36 - (tilt.dy * size.height * vanishingFactorY);
+    final sourceY = size.height * .22 - (tilt.dy * size.height * vanishingFactorY);
 
     const rayCount = 9;
-    final baseIntensity = .08 + (gateOpenProgress * .12);
+    final baseIntensity = .07 + (gateOpenProgress * .11);
+    _rayPaint.shader = LinearGradient(
+      begin: .topCenter,
+      end: .bottomCenter,
+      colors: [
+        const Color(0xFFFFE599).withValues(alpha: baseIntensity),
+        const Color(0xFFD4AF37).withValues(alpha: baseIntensity * .25),
+        Colors.transparent,
+      ],
+    ).createShader(bgRect);
+
+    final rayLen = size.height * 1.5;
+    final endY = size.height * 1.2;
 
     for (int i = 0; i < rayCount; i++) {
       final spread = (i - rayCount / 2) * .16;
       final sway = math.sin(ambientPhase + i) * .04 - (tilt.dx * .08);
       final angle = spread + sway;
 
-      final path = Path()
+      _rayPath
+        ..reset()
         ..moveTo(sourceX, sourceY)
-        ..lineTo(sourceX + math.sin(angle - .06) * size.height * 1.4, size.height * 1.2)
-        ..lineTo(sourceX + math.sin(angle + .06) * size.height * 1.4, size.height * 1.2)
+        ..lineTo(sourceX + math.sin(angle - .06) * rayLen, endY)
+        ..lineTo(sourceX + math.sin(angle + .06) * rayLen, endY)
         ..close();
 
-      final rayPaint = Paint()
-        ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            const Color(0xFFFFE599).withValues(alpha: baseIntensity),
-            const Color(0xFFD4AF37).withValues(alpha: baseIntensity * .3),
-            Colors.transparent,
-          ],
-        ).createShader(bgRect)
-        ..blendMode = BlendMode.plus;
-
-      canvas.drawPath(path, rayPaint);
+      canvas.drawPath(_rayPath, _rayPaint);
     }
   }
 
   @override
-  bool shouldRepaint(covariant VolumetricGodRaysPainter oldDelegate) => true;
+  bool shouldRepaint(covariant VolumetricGodRaysPainter oldDelegate) => false;
 }
 
-class OrnateRoyalDoorPainter({required final bool isLeftDoor, required final Offset tilt})
-    extends CustomPainter {
+class const OrnateRoyalDoorPainter({required final bool isLeftDoor}) extends CustomPainter {
+  static final _doorPath = Path();
+  static final _filigreePath = Path();
+  static final _fillPaint = Paint();
+  static final _goldBorder = Paint()
+    ..style = .stroke
+    ..strokeWidth = 3.0
+    ..color = const Color(0xFFE5C158);
+  static final _filigreePaint = Paint()
+    ..style = .stroke
+    ..strokeWidth = 1.2
+    ..color = const Color(0xFFD4AF37).withValues(alpha: .45);
+
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
 
-    final doorPath = Path();
+    _doorPath.reset();
     if (isLeftDoor) {
-      doorPath.moveTo(.0, h);
-      doorPath.lineTo(.0, h * .25);
-      doorPath.quadraticBezierTo(.0, .0, w, .0);
-      doorPath.lineTo(w, h);
-      doorPath.close();
+      _doorPath
+        ..moveTo(.0, h)
+        ..lineTo(.0, h * .25)
+        ..quadraticBezierTo(.0, .0, w, .0)
+        ..lineTo(w, h)
+        ..close();
     } else {
-      doorPath.moveTo(.0, h);
-      doorPath.lineTo(.0, .0);
-      doorPath.quadraticBezierTo(w, .0, w, h * .25);
-      doorPath.lineTo(w, h);
-      doorPath.close();
+      _doorPath
+        ..moveTo(.0, h)
+        ..lineTo(.0, .0)
+        ..quadraticBezierTo(w, .0, w, h * .25)
+        ..lineTo(w, h)
+        ..close();
     }
 
-    final fillPaint = Paint()
-      ..shader = const LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [Color(0xFF152C24), Color(0xFF0A1713), Color(0xFF060E0B)],
-      ).createShader(Offset.zero & size);
-    canvas.drawPath(doorPath, fillPaint);
+    _fillPaint.shader = const LinearGradient(
+      begin: .topLeft,
+      end: .bottomRight,
+      colors: [Color(0xFF152C24), Color(0xFF0A1713), Color(0xFF060E0B)],
+    ).createShader(Offset.zero & size);
 
-    final goldBorder = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 3.0
-      ..color = const Color(0xFFE5C158);
-    canvas.drawPath(doorPath, goldBorder);
+    canvas.drawPath(_doorPath, _fillPaint);
+    canvas.drawPath(_doorPath, _goldBorder);
 
-    final filigreePaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1.2
-      ..color = const Color(0xFFD4AF37).withValues(alpha: .45);
-
+    _filigreePath.reset();
     for (double y = h * .22; y < h * .88; y += 70) {
       for (double x = w * .22; x < w * .85; x += 60) {
-        canvas.drawCircle(Offset(x, y), 22, filigreePaint);
-        canvas.drawCircle(Offset(x, y), 8, filigreePaint);
+        _filigreePath
+          ..addOval(Rect.fromCircle(center: Offset(x, y), radius: 22))
+          ..addOval(Rect.fromCircle(center: Offset(x, y), radius: 8));
       }
     }
+    canvas.drawPath(_filigreePath, _filigreePaint);
   }
 
   @override
-  bool shouldRepaint(covariant OrnateRoyalDoorPainter oldDelegate) => oldDelegate.tilt != tilt;
+  bool shouldRepaint(covariant OrnateRoyalDoorPainter oldDelegate) =>
+      oldDelegate.isLeftDoor != isLeftDoor;
 }
 
 class GoldenPalaceArchPainter({
+  required super.repaint,
   required final int archIndex,
-  required final double swingPhase,
+  required final ValueNotifier<double> swingPhaseNotifier,
+  required final double opacity,
   final bool isMobile = false,
 }) extends CustomPainter {
+  static final _archPath = Path();
+  static final _archPaint = Paint()..style = .stroke;
+  static final _chainPaint = Paint()..strokeWidth = 1.5;
+  static final _glowPaint = Paint();
+  static final _corePaint = Paint();
+
   @override
   void paint(Canvas canvas, Size size) {
+    if (opacity <= .0) return;
+
     final w = size.width;
     final h = size.height;
-
     final leftPillarX = isMobile ? w * .02 : w * .06;
     final rightPillarX = isMobile ? w * .98 : w * .94;
     final shoulderY = isMobile ? h * .26 : h * .32;
 
-    final archPaint = Paint()
-      ..style = .stroke
+    _archPaint
       ..strokeWidth = isMobile ? 2.8 : 2.5
-      ..shader = const LinearGradient(
+      ..shader = LinearGradient(
         begin: .topCenter,
         end: .bottomCenter,
-        colors: [Color(0xFFFFE599), Color(0xFFD4AF37), Color(0xFF5A4210)],
+        colors: [
+          const Color(0xFFFFE599).withValues(alpha: opacity),
+          const Color(0xFFD4AF37).withValues(alpha: opacity),
+          const Color(0xFF5A4210).withValues(alpha: opacity),
+        ],
       ).createShader(Offset.zero & size);
 
-    final archPath = Path()
+    _archPath
+      ..reset()
       ..moveTo(leftPillarX, h)
       ..lineTo(leftPillarX, shoulderY)
       ..quadraticBezierTo(leftPillarX, h * .03, w * .5, h * .015)
       ..quadraticBezierTo(rightPillarX, h * .03, rightPillarX, shoulderY)
       ..lineTo(rightPillarX, h);
 
-    canvas.drawPath(archPath, archPaint);
+    canvas.drawPath(_archPath, _archPaint);
 
-    final swing = math.sin(swingPhase + archIndex) * 8.0;
+    final swing = math.sin(swingPhaseNotifier.value + archIndex) * 8.0;
     final leftLanternX = isMobile ? w * .15 : w * .18;
     final rightLanternX = isMobile ? w * .85 : w * .82;
+    final chainLen = isMobile ? 75.0 : 90.0;
 
-    _drawHangingLantern(canvas, Offset(leftLanternX + swing, h * .12), isMobile ? 75 : 90);
-    _drawHangingLantern(canvas, Offset(rightLanternX - swing, h * .12), isMobile ? 75 : 90);
+    _drawHangingLantern(canvas, Offset(leftLanternX + swing, h * .12), chainLen);
+    _drawHangingLantern(canvas, Offset(rightLanternX - swing, h * .12), chainLen);
   }
 
   void _drawHangingLantern(Canvas canvas, Offset topAnchor, double chainLength) {
-    final chainPaint = Paint()
-      ..color = const Color(0xFFD4AF37).withValues(alpha: .7)
-      ..strokeWidth = 1.5;
+    _chainPaint.color = const Color(0xFFD4AF37).withValues(alpha: .7 * opacity);
 
     final lanternCenter = Offset(topAnchor.dx, topAnchor.dy + chainLength);
-    canvas.drawLine(topAnchor, lanternCenter, chainPaint);
+    canvas.drawLine(topAnchor, lanternCenter, _chainPaint);
 
-    final glowPaint = Paint()
-      ..shader = RadialGradient(
-        colors: [
-          const Color(0xFFFFE599).withValues(alpha: .55),
-          const Color(0xFFD4AF37).withValues(alpha: .0),
-        ],
-      ).createShader(Rect.fromCircle(center: lanternCenter, radius: 42));
-    canvas.drawCircle(lanternCenter, 42, glowPaint);
+    _glowPaint.shader = RadialGradient(
+      colors: [
+        const Color(0xFFFFE599).withValues(alpha: .55 * opacity),
+        const Color(0xFFD4AF37).withValues(alpha: .0),
+      ],
+    ).createShader(Rect.fromCircle(center: lanternCenter, radius: 42));
+    canvas.drawCircle(lanternCenter, 42, _glowPaint);
 
-    final corePaint = Paint()..color = const Color(0xFFFFF4CC);
-    canvas.drawCircle(lanternCenter, 6, corePaint);
+    _corePaint.color = const Color(0xFFFFF4CC).withValues(alpha: opacity);
+    canvas.drawCircle(lanternCenter, 6, _corePaint);
   }
 
   @override
   bool shouldRepaint(covariant GoldenPalaceArchPainter oldDelegate) =>
-      oldDelegate.swingPhase != swingPhase || oldDelegate.isMobile != isMobile;
+      oldDelegate.opacity != opacity ||
+      oldDelegate.isMobile != isMobile ||
+      oldDelegate.archIndex != archIndex;
+}
+
+class RoyalPerspectiveWalkwayPainter({
+  required super.repaint,
+  required final ValueNotifier<double> cameraZNotifier,
+  required final ValueNotifier<Offset> tiltNotifier,
+  required final double focalLength,
+  required final double vanishingFactorX,
+  required final double vanishingFactorY,
+}) extends CustomPainter {
+  static final Path _glowPath = Path();
+  static final Path _mainPath = Path();
+  static final Path _trimAndTilesPath = Path();
+
+  static final Paint _glowPaint = Paint()..style = .fill;
+  static final Paint _surfacePaint = Paint()..style = .fill;
+  static final Paint _trimPaint = Paint()
+    ..style = .stroke
+    ..strokeWidth = 1.4
+    ..strokeCap = .butt;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    _glowPath.reset();
+    _mainPath.reset();
+    _trimAndTilesPath.reset();
+
+    final cameraZ = cameraZNotifier.value;
+    final tilt = tiltNotifier.value;
+
+    final w = size.width;
+    final h = size.height;
+    final centerX = w * .5;
+    final centerY = h * .5;
+    final isMobile = w < 600;
+
+    const zStart = -220.0;
+    const zEnd = 3600.0;
+
+    final maxVanishingX = w * vanishingFactorX;
+    final maxVanishingY = h * vanishingFactorY;
+
+    final scaleNear = focalLength / (focalLength + zStart);
+    final scaleFar = focalLength / (focalLength + zEnd);
+
+    final axisNearX = -tilt.dx * maxVanishingX * (1.0 - scaleNear);
+    final axisNearY = -tilt.dy * maxVanishingY * (1.0 - scaleNear);
+    final axisFarX = -tilt.dx * maxVanishingX * (1.0 - scaleFar);
+    final axisFarY = -tilt.dy * maxVanishingY * (1.0 - scaleFar);
+
+    final yNear = centerY + axisNearY + (centerY * scaleNear);
+    final yFar = centerY + axisFarY + (centerY * scaleFar);
+
+    final halfWidth = isMobile ? w * .34 : w * .23;
+    final innerTrimWidth = halfWidth * .86;
+    final glowOuterWidth = halfWidth * 1.22;
+
+    final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
+
+    _glowPath
+      ..moveTo(centerX + axisNearX - (glowOuterWidth * scaleNear), yNear)
+      ..lineTo(centerX + axisNearX + (glowOuterWidth * scaleNear), yNear)
+      ..lineTo(centerX + axisFarX + (glowOuterWidth * scaleFar), yFar)
+      ..lineTo(centerX + axisFarX - (glowOuterWidth * scaleFar), yFar)
+      ..close();
+
+    _glowPaint.shader = LinearGradient(
+      begin: .bottomCenter,
+      end: .topCenter,
+      colors: [
+        const Color(0xFFD4AF37).withValues(alpha: .14),
+        const Color(0xFFD4AF37).withValues(alpha: .04),
+        Colors.transparent,
+      ],
+      stops: const [.0, .55, 1.0],
+    ).createShader(shaderRect);
+    canvas.drawPath(_glowPath, _glowPaint);
+
+    final nearLeftX = centerX + axisNearX - (halfWidth * scaleNear);
+    final nearRightX = centerX + axisNearX + (halfWidth * scaleNear);
+    final farRightX = centerX + axisFarX + (halfWidth * scaleFar);
+    final farLeftX = centerX + axisFarX - (halfWidth * scaleFar);
+
+    _mainPath
+      ..moveTo(nearLeftX, yNear)
+      ..lineTo(nearRightX, yNear)
+      ..lineTo(farRightX, yFar)
+      ..lineTo(farLeftX, yFar)
+      ..close();
+
+    _surfacePaint.shader = LinearGradient(
+      begin: .bottomCenter,
+      end: .topCenter,
+      colors: [
+        const Color(0xFFE5C158).withValues(alpha: .72),
+        const Color(0xFFB38728).withValues(alpha: .42),
+        const Color(0xFF5A4210).withValues(alpha: .14),
+        Colors.transparent,
+      ],
+      stops: const [.0, .38, .78, 1.0],
+    ).createShader(shaderRect);
+    canvas.drawPath(_mainPath, _surfacePaint);
+
+    final nearInnerLeftX = centerX + axisNearX - (innerTrimWidth * scaleNear);
+    final nearInnerRightX = centerX + axisNearX + (innerTrimWidth * scaleNear);
+    final farInnerLeftX = centerX + axisFarX - (innerTrimWidth * scaleFar);
+    final farInnerRightX = centerX + axisFarX + (innerTrimWidth * scaleFar);
+
+    _trimAndTilesPath
+      ..moveTo(nearLeftX, yNear)
+      ..lineTo(farLeftX, yFar)
+      ..moveTo(nearRightX, yNear)
+      ..lineTo(farRightX, yFar)
+      ..moveTo(nearInnerLeftX, yNear)
+      ..lineTo(farInnerLeftX, yFar)
+      ..moveTo(nearInnerRightX, yNear)
+      ..lineTo(farInnerRightX, yFar);
+
+    const tileStep = 300.0;
+    final firstTileZ = (cameraZ / tileStep).floorToDouble() * tileStep;
+
+    for (double worldZ = firstTileZ - tileStep; worldZ < cameraZ + zEnd; worldZ += tileStep) {
+      final relZ = worldZ - cameraZ;
+      if (relZ <= zStart || relZ >= zEnd) continue;
+
+      final scale = focalLength / (focalLength + relZ);
+      final depthProgress = 1.0 - scale;
+
+      final axisX = -tilt.dx * maxVanishingX * depthProgress;
+      final axisY = -tilt.dy * maxVanishingY * depthProgress;
+
+      final ty = centerY + axisY + (centerY * scale);
+      final halfTileW = innerTrimWidth * scale;
+
+      _trimAndTilesPath
+        ..moveTo(centerX + axisX - halfTileW, ty)
+        ..lineTo(centerX + axisX + halfTileW, ty);
+    }
+
+    _trimPaint.shader = LinearGradient(
+      begin: .bottomCenter,
+      end: .topCenter,
+      colors: [
+        const Color(0xFFFFF3D1).withValues(alpha: .65),
+        const Color(0xFFE5C158).withValues(alpha: .28),
+        Colors.transparent,
+      ],
+      stops: const [.0, .6, 1.0],
+    ).createShader(shaderRect);
+
+    canvas.drawPath(_trimAndTilesPath, _trimPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant RoyalPerspectiveWalkwayPainter oldDelegate) => false;
 }
 
 class Floating3DPetalsPainter({
-  required final double ambientPhase,
-  required final double cameraZ,
-  required final Offset tilt,
+  required super.repaint,
+  required final ValueNotifier<double> ambientPhaseNotifier,
+  required final ValueNotifier<double> cameraZNotifier,
+  required final ValueNotifier<Offset> tiltNotifier,
   required final double vanishingFactorX,
   required final double vanishingFactorY,
 }) extends CustomPainter {
@@ -1345,7 +1477,6 @@ class Floating3DPetalsPainter({
 
   static void _initCache() {
     if (_baseZList.isNotEmpty) return;
-
     final random = math.Random(108);
     for (int i = 0; i < 34; i++) {
       _baseZList.add(random.nextDouble() * 1600.0);
@@ -1358,43 +1489,46 @@ class Floating3DPetalsPainter({
   void paint(Canvas canvas, Size size) {
     _initCache();
 
+    final ambientPhase = ambientPhaseNotifier.value;
+    final camZMod = (cameraZNotifier.value * .8) % 1600.0;
+    final tilt = tiltNotifier.value;
+
+    final halfW = size.width * .5;
+    final halfH = size.height * .5;
     final maxVanishingX = size.width * vanishingFactorX;
     final maxVanishingY = size.height * vanishingFactorY;
 
     for (int i = 0; i < 34; i++) {
-      final baseZ = _baseZList[i];
-      final baseX = _baseXMultList[i] * size.width;
-      final baseY = _baseYMultList[i] * size.height;
-
-      final zPos = (baseZ - (cameraZ * .8) % 1600.0 + 1600.0) % 1600.0;
+      final zPos = (_baseZList[i] - camZMod + 1600.0) % 1600.0;
       final depthScale = (650.0 / (650.0 + zPos)).clamp(.2, 1.4);
+      final oneMinusDepth = 1.0 - depthScale;
 
       final swayX = math.sin(ambientPhase * 2 + i) * 28.0;
-      final swayY = math.cos(ambientPhase * 1.0 + i) * 22.0;
+      final swayY = math.cos(ambientPhase + i) * 22.0;
 
-      final tunnelAxisX = -tilt.dx * maxVanishingX * (1.0 - depthScale);
-      final tunnelAxisY = -tilt.dy * maxVanishingY * (1.0 - depthScale);
-
-      final screenX = size.width / 2 + tunnelAxisX + (baseX + swayX) * depthScale;
-      final screenY = size.height / 2 + tunnelAxisY + (baseY + swayY) * depthScale;
+      final screenX =
+          halfW -
+          (tilt.dx * maxVanishingX * oneMinusDepth) +
+          (_baseXMultList[i] * size.width + swayX) * depthScale;
+      final screenY =
+          halfH -
+          (tilt.dy * maxVanishingY * oneMinusDepth) +
+          (_baseYMultList[i] * size.height + swayY) * depthScale;
 
       final opacity = (1.0 - (zPos / 1600.0)).clamp(.15, .85);
-
       _petalPaint.color = const Color(0xFFFFE599).withValues(alpha: opacity);
 
       canvas.save();
       canvas.translate(screenX, screenY);
       canvas.rotate(ambientPhase * (i.isEven ? 1.0 : -1.0) + i);
-      final flipSquash = (.35 + math.sin(ambientPhase * 3 + i).abs() * .65);
-      canvas.scale(depthScale, depthScale * flipSquash);
-
+      canvas.scale(depthScale, depthScale * (.35 + math.sin(ambientPhase * 3 + i).abs() * .65));
       canvas.drawPath(_petalPath, _petalPaint);
       canvas.restore();
     }
   }
 
   @override
-  bool shouldRepaint(covariant Floating3DPetalsPainter oldDelegate) => true;
+  bool shouldRepaint(covariant Floating3DPetalsPainter oldDelegate) => false;
 }
 
 class const _CardEdge() extends StatelessWidget {
