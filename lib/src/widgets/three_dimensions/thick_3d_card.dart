@@ -23,10 +23,11 @@ class const Thick3DCard({
       alignment: .center,
       clipBehavior: .none,
       children: [
-        _stackPositionWrapper(isFacingFront ? 3 : -3, child: thickCardStack),
-        _stackPositionWrapper(isFacingFront ? 1 : -1, child: thickCardStack),
-        _stackPositionWrapper(isFacingFront ? -1 : 1, child: thickCardStack),
-        _stackPositionWrapper(isFacingFront ? -3 : 3, child: isFacingFront ? frontCard : backCard),
+        _stackPositionWrapper(isFacingFront ? 4 : -4, child: thickCardStack),
+        _stackPositionWrapper(isFacingFront ? 2 : -2, child: thickCardStack),
+        _stackPositionWrapper(0, child: thickCardStack),
+        _stackPositionWrapper(isFacingFront ? -2 : 2, child: thickCardStack),
+        _stackPositionWrapper(isFacingFront ? -4 : 4, child: isFacingFront ? frontCard : backCard),
       ],
     );
   }

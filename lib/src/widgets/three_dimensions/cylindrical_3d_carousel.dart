@@ -36,6 +36,9 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   late Int32List _sortedIndices;
   late List<ValueKey<int>> _cardKeys;
 
+  late List<Widget?> _cachedCards;
+  late Uint8List _lastFacingState;
+
   @override
   void initState() {
     super.initState();
@@ -47,27 +50,15 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     widget.ambientPhaseNotifier.addListener(_onAutoRotate);
   }
 
-  void _initBuffers(int count) {
-    _angleStep = count > 0 ? (2 * math.pi) / count : .0;
-    _itemAngles = Float64List(count);
-    _itemCosines = Float64List(count);
-    _sortedIndices = Int32List(count);
-    _cardKeys = .generate(count, ValueKey.new, growable: false);
-  }
-
-  void _onAutoRotate() {
-    final currentPhase = widget.ambientPhaseNotifier.value;
-    final delta = currentPhase - _lastAmbientPhase;
-
-    _continuousAngle.value += delta * .4;
-    _lastAmbientPhase = currentPhase;
-  }
-
   @override
   void didUpdateWidget(covariant Cylindrical3DCarousel oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (oldWidget.itemCount != widget.itemCount) _initBuffers(widget.itemCount);
+    if (oldWidget.itemCount != widget.itemCount) {
+      _initBuffers(widget.itemCount);
+    } else if (oldWidget.itemBuilder != widget.itemBuilder) {
+      _invalidateCardCache();
+    }
 
     if (oldWidget.ambientPhaseNotifier != widget.ambientPhaseNotifier) {
       oldWidget.ambientPhaseNotifier.removeListener(_onAutoRotate);
@@ -82,6 +73,28 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     _continuousAngle.dispose();
 
     super.dispose();
+  }
+
+  void _initBuffers(int count) {
+    _angleStep = count > 0 ? (2 * math.pi) / count : .0;
+    _itemAngles = Float64List(count);
+    _itemCosines = Float64List(count);
+    _sortedIndices = Int32List(count);
+    _cardKeys = .generate(count, ValueKey.new, growable: false);
+    _cachedCards = List<Widget?>.filled(count, null, growable: false);
+    _lastFacingState = Uint8List(count);
+  }
+
+  void _onAutoRotate() {
+    final currentPhase = widget.ambientPhaseNotifier.value;
+    final delta = currentPhase - _lastAmbientPhase;
+
+    _continuousAngle.value += delta * .4;
+    _lastAmbientPhase = currentPhase;
+  }
+
+  void _invalidateCardCache() {
+    _lastFacingState.fillRange(0, _lastFacingState.length, 0);
   }
 
   void _syncParentTransform(BuildContext context) {
@@ -148,17 +161,6 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     final radius = widget.cylinderRadius;
     final surfaceSize = radius + 400.0;
 
-    final frontCards = List.generate(
-      count,
-      (i) => widget.itemBuilder(context, i, true),
-      growable: false,
-    );
-    final backCards = List.generate(
-      count,
-      (i) => widget.itemBuilder(context, i, false),
-      growable: false,
-    );
-
     return GestureDetector(
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
@@ -203,14 +205,18 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                   ..setFrom(_parentMatrix)
                   ..multiply(cardMatrix);
 
+                final isFacingFront = _isFacingFront;
+                final targetState = isFacingFront ? 2 : 1;
+                if (_lastFacingState[index] != targetState) {
+                  _lastFacingState[index] = targetState;
+                  _cachedCards[index] = widget.itemBuilder(context, index, isFacingFront);
+                }
+
                 return Transform(
                   key: _cardKeys[index],
                   alignment: .center,
                   transform: cardMatrix,
-                  child: Opacity(
-                    opacity: cardOpacity,
-                    child: _isFacingFront ? frontCards[index] : backCards[index],
-                  ),
+                  child: Opacity(opacity: cardOpacity, child: _cachedCards[index]!),
                 );
               }, growable: false);
 
