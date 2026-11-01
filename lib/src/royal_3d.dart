@@ -262,8 +262,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     final List<Widget> arches = [];
     final isMobile = size.width < 600;
 
-    final archCanvasWidth = isMobile ? math.max(size.width * 1.55, 620.0) : size.width;
-    final archWidthBoost = isMobile ? 1.25 : 1.0;
+    final archVirtualWidth = isMobile ? (size.width * 1.25).clamp(480.0, 580.0) : size.width;
+    final archWidthBoost = isMobile ? 1.15 : 1.0;
 
     for (double z = 4800; z >= 400; z -= 600) {
       final relativeZ = z - currentCameraZ;
@@ -295,18 +295,24 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               child: Transform(
                 alignment: .center,
                 transform: archMatrix,
-                child: ValueListenableBuilder(
-                  valueListenable: _ambientPhaseNotifier,
-                  builder: (context, value, child) {
-                    return CustomPaint(
-                      size: Size(archCanvasWidth, size.height),
-                      painter: GoldenPalaceArchPainter(
-                        archIndex: (z ~/ 600),
-                        swingPhase: value,
-                        isMobile: isMobile,
-                      ),
-                    );
-                  },
+                child: OverflowBox(
+                  maxWidth: archVirtualWidth,
+                  minWidth: archVirtualWidth,
+                  maxHeight: size.height,
+                  minHeight: size.height,
+                  child: ValueListenableBuilder(
+                    valueListenable: _ambientPhaseNotifier,
+                    builder: (context, value, child) {
+                      return CustomPaint(
+                        size: Size(archVirtualWidth, size.height),
+                        painter: GoldenPalaceArchPainter(
+                          archIndex: (z ~/ 600),
+                          swingPhase: value,
+                          isMobile: isMobile,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -1270,7 +1276,7 @@ class GoldenPalaceArchPainter({
 
     final archPaint = Paint()
       ..style = .stroke
-      ..strokeWidth = isMobile ? 3.0 : 2.5
+      ..strokeWidth = isMobile ? 2.8 : 2.5
       ..shader = const LinearGradient(
         begin: .topCenter,
         end: .bottomCenter,
@@ -1287,8 +1293,8 @@ class GoldenPalaceArchPainter({
     canvas.drawPath(archPath, archPaint);
 
     final swing = math.sin(swingPhase + archIndex) * 8.0;
-    final leftLanternX = isMobile ? w * .12 : w * .18;
-    final rightLanternX = isMobile ? w * .88 : w * .82;
+    final leftLanternX = isMobile ? w * .15 : w * .18;
+    final rightLanternX = isMobile ? w * .85 : w * .82;
 
     _drawHangingLantern(canvas, Offset(leftLanternX + swing, h * .12), isMobile ? 75 : 90);
     _drawHangingLantern(canvas, Offset(rightLanternX - swing, h * .12), isMobile ? 75 : 90);
