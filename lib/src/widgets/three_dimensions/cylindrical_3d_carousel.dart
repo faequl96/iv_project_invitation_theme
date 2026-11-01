@@ -14,6 +14,7 @@ class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
+  required final double relativeZ,
   final double cylinderSize = 220.0,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
@@ -94,6 +95,17 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
               final indices = List.generate(count, (i) => i, growable: false)
                 ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
 
+              final scale = 650.0 / (650.0 + widget.relativeZ);
+              final offsetX = -widget.tilt.dx * (widget.relativeZ * .22);
+              final offsetY = -widget.tilt.dy * (widget.relativeZ * .18);
+
+              final stationMatrix = Matrix4.identity()
+                ..setEntry(3, 2, .0014)
+                ..translateByDouble(offsetX, offsetY, .0, 1.0)
+                ..scaleByDouble(scale, scale, 1.0, 1.0)
+                ..rotateY(widget.tilt.dx * .20)
+                ..rotateX(-widget.tilt.dy * .18);
+
               return Stack(
                 alignment: .center,
                 clipBehavior: .none,
@@ -109,23 +121,26 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                       final cardOpacity = .65 + (normalizedDepth * .35);
                       final cardRotationY = -itemAngle;
 
-                      final isCardOnLeft = x < 0;
-                      final isTiltOnLeft = widget.tilt.dx < 0;
-                      final cosAngleAdjustment1 = widget.tilt.dx / 8;
-                      final cosAngleAdjustment2 = widget.tilt.dx / 5.4;
-                      final cosAngleFinalAdjustment = isTiltOnLeft
-                          ? (isCardOnLeft ? cosAngleAdjustment2 : -cosAngleAdjustment1)
-                          : (isCardOnLeft ? cosAngleAdjustment1 : -cosAngleAdjustment2);
-                      final effectiveCosAngle = cosAngle - (.38 + cosAngleFinalAdjustment);
-                      final isFacingFront = effectiveCosAngle >= 0;
+                      final cardMatrix = Matrix4.identity()
+                        ..setEntry(3, 2, .0015)
+                        ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
+                        ..rotateY(cardRotationY);
+
+                      final totalMatrix = stationMatrix.multiplied(cardMatrix);
+                      final s = totalMatrix.storage;
+
+                      final w3 = s[15];
+                      final tux = (s[0] * w3) - (s[3] * s[12]);
+                      final tuy = (s[1] * w3) - (s[3] * s[13]);
+                      final tvx = (s[4] * w3) - (s[7] * s[12]);
+                      final tvy = (s[5] * w3) - (s[7] * s[13]);
+
+                      final isFacingFront = (tux * tvy) - (tuy * tvx) >= 0;
 
                       return Transform(
                         key: ValueKey('moment_card_$index'),
                         alignment: .center,
-                        transform: .identity()
-                          ..setEntry(3, 2, .0015)
-                          ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
-                          ..rotateY(cardRotationY),
+                        transform: cardMatrix,
                         child: Opacity(
                           opacity: cardOpacity.clamp(.0, 1.0),
                           child: widget.itemBuilder(context, index, isFacingFront),
