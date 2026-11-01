@@ -275,23 +275,17 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       final relativeZ = z - currentCameraZ;
       if (relativeZ > -420 && relativeZ < 3600) {
         final scale = _focalLength / (_focalLength + relativeZ);
-        final proximity = scale.clamp(0.0, 1.35);
-        final angularWeight = (proximity * proximity).clamp(0.0, 1.5);
 
         final opacity =
             (1.0 - (relativeZ / 3400)).clamp(0.0, 1.0) * ((relativeZ + 350) / 400).clamp(0.0, 1.0);
 
-        // Semakin jauh arch (scale makin kecil), semakin besar gesernya menuju titik hilang
+        // Translasi murni menuju titik hilang (1 - scale) + skala kedalaman (scale)
+        // Menjamin seluruh arch tetap simetris, konsentris, dan tidak pernah saling memotong
         final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
 
-        final archMatrix = _createPinHolePerspectiveMatrix(
-          tx: tunnelOffset.dx,
-          ty: tunnelOffset.dy,
-          scale: scale,
-          perspective: 0.0008 * proximity,
-          rotateX: -smoothTilt.dy * 0.06 * angularWeight,
-          rotateY: smoothTilt.dx * 0.08 * angularWeight,
-        );
+        final archMatrix = Matrix4.identity()
+          ..translateByDouble(tunnelOffset.dx, tunnelOffset.dy, .0, 1.0)
+          ..scaleByDouble(scale, scale, 1.0, 1.0);
 
         arches.add(
           IgnorePointer(
@@ -326,15 +320,15 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
       if (relativeZ > -420 && relativeZ < 2600) {
         final scale = _focalLength / (_focalLength + relativeZ);
-        final proximity = scale.clamp(0.0, 1.35);
-        // Rotasi kemiringan kartu: kuat saat dekat (scale >= 1), tenang/mendatar saat jauh (scale -> 0)
-        final angularWeight = (proximity * proximity).clamp(0.0, 1.8);
+        // Batasi maksimal di 1.0 agar saat stasiun melewati kamera (relativeZ < 0)
+        // rotasi tidak membengkak berlebihan
+        final proximity = scale.clamp(0.0, 1.0);
+        final angularWeight = proximity * proximity;
 
         final distanceFade = (1.0 - (relativeZ.abs() / 1600)).clamp(0.0, 1.0);
         final passThroughFade = ((relativeZ + 360) / 360).clamp(0.0, 1.0);
         final opacity = (distanceFade * passThroughFade).clamp(0.0, 1.0);
 
-        // Posisi stasiun mengikuti sumbu lorong (1 - scale) agar tetap terkunci di tengah arch
         final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
 
         final isInteractive = relativeZ.abs() < 350;
@@ -348,7 +342,6 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           rotateY: smoothTilt.dx * 0.18 * angularWeight,
         );
 
-        // Tilt lokal untuk kartu diatenuasi dengan angularWeight agar tidak terbalik saat jauh
         final attenuatedTilt = smoothTilt * angularWeight;
 
         stations.add(
