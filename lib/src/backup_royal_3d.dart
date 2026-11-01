@@ -318,6 +318,13 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         // Hanya aktifkan klik jika kartu berada dekat dengan fokus kamera
         final isInteractive = relativeZ.abs() < 350;
 
+        final stationMatrix = Matrix4.identity()
+          ..setEntry(3, 2, .0014)
+          ..translateByDouble(offsetX, offsetY, .0, 1.0)
+          ..scaleByDouble(scale, scale, 1.0, 1.0)
+          ..rotateY(smoothTilt.dx * .20)
+          ..rotateX(-smoothTilt.dy * .18);
+
         stations.add(
           KeyedSubtree(
             key: ValueKey('station_3d_$i'),
@@ -325,12 +332,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               ignoring: !isInteractive,
               child: Transform(
                 alignment: Alignment.center,
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.0014)
-                  ..translate(offsetX, offsetY)
-                  ..scale(scale, scale, 1.0)
-                  ..rotateY(smoothTilt.dx * 0.20)
-                  ..rotateX(-smoothTilt.dy * 0.18),
+                transform: stationMatrix,
                 child: Opacity(
                   opacity: opacity,
                   child: _buildStationWidgetByIndex(i, smoothTilt, relativeZ),
