@@ -30,13 +30,12 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   static const double _maxCameraZ = 4800.0;
   static const double _focalLength = 650.0;
 
-  // Konstanta Kamera Pinhole 3D Terpadu
-  // Pergeseran paralaks objek di depan mata (saat relativeZ = 0, scale = 1.0)
-  static const double _foregroundParallaxX = 135.0;
-  static const double _foregroundParallaxY = 95.0;
-  // Pergeseran titik hilang (vanishing point) di ujung lorong tak hingga (scale -> 0.0)
-  static const double _vanishingShiftX = 42.0;
-  static const double _vanishingShiftY = 28.0;
+  // Rasio titik hilang (Vanishing Point) terhadap ukuran layar:
+  // Setengah lebar arch adalah 0.44 * width (pilar di 0.06w dan 0.94w).
+  // Nilai 0.37 (~85% dari 0.44) membuat tepian tunnel di sisi tilt hampir sejajar
+  // dengan titik tilt tanpa pernah bocor keluar melewati arch di depannya.
+  static const double _vanishingFactorX = 0.37;
+  static const double _vanishingFactorY = 0.26;
 
   // Status Gerbang 3D
   late final AnimationController _gateController;
@@ -145,13 +144,17 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     }
   }
 
-  /// Menghitung posisi layar 2D berdasarkan interpolasi proyeksi kamera 3D:
-  /// Objek dekat (scale >= 1) bergerak paling besar (Motion Parallax),
-  /// Objek jauh (scale -> 0) mengerucut tenang ke titik hilang (Vanishing Point).
-  Offset _project3DAxisOffset(double scale, Offset smoothTilt) {
-    final horizonWeight = 1.0 - scale;
-    final dx = -smoothTilt.dx * (_vanishingShiftX * horizonWeight + _foregroundParallaxX * scale);
-    final dy = -smoothTilt.dy * (_vanishingShiftY * horizonWeight + _foregroundParallaxY * scale);
+  /// Proyeksi Sumbu Lorong 3D Satu Titik Hilang (1-Point Perspective):
+  /// - Saat dekat di mata (scale = 1.0) -> depthProgress = 0.0 (tetap di tengah layar).
+  /// - Saat semakin jauh (scale -> 0.0) -> depthProgress -> 1.0 (bergeser ekstrem menuju Vanishing Point),
+  ///   sehingga tepian tiap tunnel di sisi tilt hampir sejajar sempurna.
+  Offset _project3DTunnelAxisOffset(Size size, double scale, Offset smoothTilt) {
+    final maxVanishingX = size.width * _vanishingFactorX;
+    final maxVanishingY = size.height * _vanishingFactorY;
+
+    final depthProgress = 1.0 - scale;
+    final dx = -smoothTilt.dx * maxVanishingX * depthProgress;
+    final dy = -smoothTilt.dy * maxVanishingY * depthProgress;
     return Offset(dx, dy);
   }
 
@@ -194,8 +197,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                               tilt: _smoothTiltNotifier.value,
                               ambientPhase: value,
                               gateOpenProgress: _gateController.value,
-                              vanishingShiftX: _vanishingShiftX,
-                              vanishingShiftY: _vanishingShiftY,
+                              vanishingFactorX: _vanishingFactorX,
+                              vanishingFactorY: _vanishingFactorY,
                             ),
                           );
                         },
@@ -214,7 +217,11 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                     // =========================================================
                     // 3. SEKSI KONTEN UNDANGAN DALAM RUANG 3D (Z-STATIONS)
                     // =========================================================
-                    ..._build3DContentStations(_cameraZNotifier.value, _smoothTiltNotifier.value),
+                    ..._build3DContentStations(
+                      size,
+                      _cameraZNotifier.value,
+                      _smoothTiltNotifier.value,
+                    ),
 
                     // =========================================================
                     // 4. PINTU GERBANG KERATON 3D (SWINGING DOUBLE DOORS)
@@ -239,6 +246,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                                 ambientPhase: _ambientPhaseNotifier.value,
                                 cameraZ: _cameraZNotifier.value,
                                 tilt: _smoothTiltNotifier.value,
+                                vanishingFactorX: _vanishingFactorX,
+                                vanishingFactorY: _vanishingFactorY,
                               ),
                             );
                           },
@@ -267,21 +276,21 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       if (relativeZ > -420 && relativeZ < 3600) {
         final scale = _focalLength / (_focalLength + relativeZ);
         final proximity = scale.clamp(0.0, 1.35);
-        // Peluruhan sudut kuadratik: ekstrem saat dekat, mendatar saat jauh
-        final angularWeight = (proximity * proximity).clamp(0.0, 1.6);
+        final angularWeight = (proximity * proximity).clamp(0.0, 1.5);
 
         final opacity =
             (1.0 - (relativeZ / 3400)).clamp(0.0, 1.0) * ((relativeZ + 350) / 400).clamp(0.0, 1.0);
 
-        final projectedOffset = _project3DAxisOffset(scale, smoothTilt);
+        // Semakin jauh arch (scale makin kecil), semakin besar gesernya menuju titik hilang
+        final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
 
         final archMatrix = _createPinHolePerspectiveMatrix(
-          tx: projectedOffset.dx,
-          ty: projectedOffset.dy,
+          tx: tunnelOffset.dx,
+          ty: tunnelOffset.dy,
           scale: scale,
-          perspective: 0.0011 * proximity,
-          rotateX: -smoothTilt.dy * 0.14 * angularWeight,
-          rotateY: smoothTilt.dx * 0.16 * angularWeight,
+          perspective: 0.0008 * proximity,
+          rotateX: -smoothTilt.dy * 0.06 * angularWeight,
+          rotateY: smoothTilt.dx * 0.08 * angularWeight,
         );
 
         arches.add(
@@ -309,7 +318,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     return arches;
   }
 
-  List<Widget> _build3DContentStations(double currentCameraZ, Offset smoothTilt) {
+  List<Widget> _build3DContentStations(Size size, double currentCameraZ, Offset smoothTilt) {
     final List<Widget> stations = [];
     for (int i = _stationZPositions.length - 1; i >= 1; i--) {
       final stationZ = _stationZPositions[i];
@@ -318,29 +327,28 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       if (relativeZ > -420 && relativeZ < 2600) {
         final scale = _focalLength / (_focalLength + relativeZ);
         final proximity = scale.clamp(0.0, 1.35);
-        // Saat dekat (scale >= 1.0), angularWeight maksimal (~1.0 - 1.8)
-        // Saat jauh (scale = 0.2), angularWeight meluruh kuadratik menjadi 0.04 (4%)
+        // Rotasi kemiringan kartu: kuat saat dekat (scale >= 1), tenang/mendatar saat jauh (scale -> 0)
         final angularWeight = (proximity * proximity).clamp(0.0, 1.8);
 
         final distanceFade = (1.0 - (relativeZ.abs() / 1600)).clamp(0.0, 1.0);
         final passThroughFade = ((relativeZ + 360) / 360).clamp(0.0, 1.0);
         final opacity = (distanceFade * passThroughFade).clamp(0.0, 1.0);
 
-        // Posisi stasiun terkunci presisi pada sumbu lorong 3D yang sama dengan arch
-        final projectedOffset = _project3DAxisOffset(scale, smoothTilt);
+        // Posisi stasiun mengikuti sumbu lorong (1 - scale) agar tetap terkunci di tengah arch
+        final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
 
         final isInteractive = relativeZ.abs() < 350;
 
         final stationMatrix = _createPinHolePerspectiveMatrix(
-          tx: projectedOffset.dx,
-          ty: projectedOffset.dy,
+          tx: tunnelOffset.dx,
+          ty: tunnelOffset.dy,
           scale: scale,
           perspective: 0.0013 * proximity,
           rotateX: -smoothTilt.dy * 0.16 * angularWeight,
           rotateY: smoothTilt.dx * 0.18 * angularWeight,
         );
 
-        // Tilt lokal yang dikirim ke child meluruh secara kuadratik terhadap jarak
+        // Tilt lokal untuk kartu diatenuasi dengan angularWeight agar tidak terbalik saat jauh
         final attenuatedTilt = smoothTilt * angularWeight;
 
         stations.add(
@@ -387,23 +395,22 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         final curve = CurvedAnimation(parent: _gateController, curve: Curves.easeInOutCubic).value;
 
         final doorSwingAngle = curve * (math.pi * 0.62);
-        // Proyeksi skala kamera saat menembus gerbang di Z = 0
         final effectiveDenom = (_focalLength - currentCameraZ * 0.55).clamp(160.0, _focalLength);
         final cameraPushScale = _focalLength / effectiveDenom;
         final gateOpacity = (1.0 - (currentCameraZ / 800.0)).clamp(0.0, 1.0);
 
-        final projectedOffset = _project3DAxisOffset(cameraPushScale.clamp(1.0, 1.6), smoothTilt);
+        final tunnelOffset = _project3DTunnelAxisOffset(size, cameraPushScale, smoothTilt);
 
         final gateWidth = math.min(size.width * 0.44, 240.0);
         final gateHeight = math.min(size.height * 0.78, 560.0);
 
         final gateMatrix = _createPinHolePerspectiveMatrix(
-          tx: projectedOffset.dx * 0.5,
-          ty: projectedOffset.dy * 0.5,
+          tx: tunnelOffset.dx * 0.35,
+          ty: tunnelOffset.dy * 0.35,
           scale: cameraPushScale,
           perspective: 0.0014,
-          rotateX: -smoothTilt.dy * 0.18,
-          rotateY: smoothTilt.dx * 0.20,
+          rotateX: -smoothTilt.dy * 0.16,
+          rotateY: smoothTilt.dx * 0.18,
         );
 
         return Opacity(
@@ -443,14 +450,14 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                   ],
                 ),
 
-                // Medali Segel Tengah (Mengambang di depan daun pintu: paralaks searah -smoothTilt)
+                // Medali Segel Tengah
                 if (curve < 0.85)
                   Opacity(
                     opacity: (1.0 - curve * 1.4).clamp(0.0, 1.0),
                     child: Transform(
                       alignment: Alignment.center,
                       transform: Matrix4.identity()
-                        ..translateByDouble(-smoothTilt.dx * 22.0, -smoothTilt.dy * 22.0, .0, 1.0)
+                        ..translateByDouble(smoothTilt.dx * 24.0, smoothTilt.dy * 24.0, .0, 1.0)
                         ..scaleByDouble(1.0 + curve * 0.3, 1.0 + curve * 0.3, 1.0, 1.0),
                       child: _buildCenterRoyalSealMedallion(smoothTilt),
                     ),
@@ -472,12 +479,11 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         gradient: const RadialGradient(colors: [Color(0xFF162E26), Color(0xFF091410)], radius: 0.9),
         border: Border.all(color: const Color(0xFFE5C158), width: 2.0),
         boxShadow: [
-          // Bayangan jatuh ke pintu di belakangnya (bergeser berlawanan arah paralaks medali)
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.8),
             blurRadius: 45,
             spreadRadius: 8,
-            offset: Offset(smoothTilt.dx * 28, smoothTilt.dy * 28 + 18),
+            offset: Offset(-smoothTilt.dx * 28, -smoothTilt.dy * 28 + 18),
           ),
           BoxShadow(color: const Color(0xFFD4AF37).withValues(alpha: 0.28), blurRadius: 40),
         ],
@@ -610,7 +616,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
 /// Helper Matriks Proyeksi Pinhole 3D:
 /// Mengalikan matriks perspektif dengan `..multiply(...)` setelah translasi dan skala
-/// agar translasi layar (tx, ty) tidak ikut terbagi oleh pembagi perspektif W_h = 1 + p*z.
+/// agar translasi layar (tx, ty) yang besar saat jauh tidak memicu distorsi trapesium (shear).
 Matrix4 _createPinHolePerspectiveMatrix({
   double tx = .0,
   double ty = .0,
@@ -668,14 +674,14 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
                 parents: 'Putra Pertama Bpk. H. Wijaya & Ibu Hj. Sekar',
                 role: 'THE GROOM',
                 icon: Icons.workspace_premium_outlined,
-                parallaxLayerFactor: 1.0,
+                depthDirection: -1,
               ),
               _buildPerson3DCard(
                 name: 'R.A. Shinta Maharani, S.Ds.',
                 parents: 'Putri Kedua Bpk. H. Baskoro & Ibu Hj. Dewi',
                 role: 'THE BRIDE',
                 icon: Icons.diamond_outlined,
-                parallaxLayerFactor: 1.15,
+                depthDirection: 1,
               ),
             ],
           ),
@@ -689,11 +695,11 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
     required String parents,
     required String role,
     required IconData icon,
-    required double parallaxLayerFactor,
+    required int depthDirection,
   }) {
     final cardMatrix = _createPinHolePerspectiveMatrix(
-      tx: -tilt.dx * 10.0 * parallaxLayerFactor,
-      ty: -tilt.dy * 8.0 * parallaxLayerFactor,
+      tx: tilt.dx * 12.0 * depthDirection,
+      ty: tilt.dy * 10.0,
       perspective: 0.0014 * proximity,
       rotateX: -tilt.dy * 0.14,
       rotateY: tilt.dx * 0.14,
@@ -720,15 +726,14 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.65),
               blurRadius: 30,
-              offset: Offset(tilt.dx * 18, tilt.dy * 14 + 15),
+              offset: Offset(-tilt.dx * 18, 15),
             ),
           ],
         ),
         child: Column(
           children: [
-            // Bingkai Avatar 3D Mengambang (berada lebih dekat ke mata -> bergeser searah -tilt)
             Transform.translate(
-              offset: Offset(-tilt.dx * 12, -tilt.dy * 12),
+              offset: Offset(tilt.dx * 12, tilt.dy * 12),
               child: Container(
                 width: 82,
                 height: 82,
@@ -794,7 +799,7 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.7),
             blurRadius: 40,
-            offset: Offset(tilt.dx * 22, tilt.dy * 22 + 16),
+            offset: Offset(-tilt.dx * 22, -tilt.dy * 22 + 16),
           ),
         ],
       ),
@@ -989,7 +994,6 @@ class _HolographicGiftAndRsvpShowcaseState()
 
               final isShowingBack = angle > (math.pi / 2);
 
-              // Perspektif lokal dan rotasi ekstra hanya aktif kuat saat kartu dekat (proximity ~ 1.0)
               final cardMatrix = _createPinHolePerspectiveMatrix(
                 perspective: 0.0014 * widget.proximity,
                 rotateX: -widget.tilt.dy * 0.16,
@@ -1019,7 +1023,7 @@ class _HolographicGiftAndRsvpShowcaseState()
                       BoxShadow(
                         color: const Color(0xFFD4AF37).withValues(alpha: 0.35),
                         blurRadius: 35,
-                        offset: Offset(widget.tilt.dx * 16, widget.tilt.dy * 12 + 14),
+                        offset: Offset(-widget.tilt.dx * 16, -widget.tilt.dy * 12 + 14),
                       ),
                     ],
                   ),
@@ -1136,35 +1140,38 @@ class _HolographicGiftAndRsvpShowcaseState()
 // ============================================================================
 
 /// 1. Painter untuk Sinar Cahaya Ilahi (Volumetric God Rays)
-/// Terkunci pada Vanishing Point yang sama dengan ujung lorong 3D
+/// Pusat sinar dikunci pada Vanishing Point ujung lorong (depthProgress = 1.0)
 class VolumetricGodRaysPainter({
   required final Offset tilt,
   required final double ambientPhase,
   required final double gateOpenProgress,
-  required final double vanishingShiftX,
-  required final double vanishingShiftY,
+  required final double vanishingFactorX,
+  required final double vanishingFactorY,
 }) extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final bgRect = Offset.zero & size;
     final bgPaint = Paint()
       ..shader = RadialGradient(
-        center: Alignment(-tilt.dx * 0.12, -0.25 - tilt.dy * 0.10),
+        center: Alignment(
+          -tilt.dx * vanishingFactorX * 0.5,
+          -0.25 - tilt.dy * vanishingFactorY * 0.5,
+        ),
         radius: 1.2,
         colors: const [Color(0xFF1B3B30), Color(0xFF0B1915), Color(0xFF040907)],
       ).createShader(bgRect);
     canvas.drawRect(bgRect, bgPaint);
 
-    // Pusat pancaran sinar disinkronkan dengan titik hilang (vanishing point) lorong 3D
-    final sourceX = size.width * 0.5 - (tilt.dx * vanishingShiftX);
-    final sourceY = size.height * 0.16 - (tilt.dy * vanishingShiftY);
+    // Pusat pancaran sinar berada tepat di titik hilang (ujung terjauh lorong 3D)
+    final sourceX = size.width * 0.5 - (tilt.dx * size.width * vanishingFactorX * 0.85);
+    final sourceY = size.height * 0.16 - (tilt.dy * size.height * vanishingFactorY * 0.85);
 
     const rayCount = 9;
     final baseIntensity = 0.08 + (gateOpenProgress * 0.12);
 
     for (int i = 0; i < rayCount; i++) {
       final spread = (i - rayCount / 2) * 0.16;
-      final sway = math.sin(ambientPhase + i) * 0.04 - (tilt.dx * 0.06);
+      final sway = math.sin(ambientPhase + i) * 0.04 - (tilt.dx * 0.08);
       final angle = spread + sway;
 
       final path = Path()
@@ -1304,11 +1311,13 @@ class GoldenPalaceArchPainter({required final int archIndex, required final doub
       oldDelegate.swingPhase != swingPhase;
 }
 
-/// 4. Painter Partikel Kelopak Bunga Emas 3D dengan Proyeksi Pinhole Terpadu
+/// 4. Painter Partikel Kelopak Bunga Emas 3D (Mengikuti Sumbu Lorong 1 - s)
 class Floating3DPetalsPainter({
   required final double ambientPhase,
   required final double cameraZ,
   required final Offset tilt,
+  required final double vanishingFactorX,
+  required final double vanishingFactorY,
 }) extends CustomPainter {
   static final Paint _petalPaint = Paint()..style = .fill;
   static final Path _petalPath = Path()
@@ -1335,23 +1344,26 @@ class Floating3DPetalsPainter({
   void paint(Canvas canvas, Size size) {
     _initCache();
 
+    final maxVanishingX = size.width * vanishingFactorX;
+    final maxVanishingY = size.height * vanishingFactorY;
+
     for (int i = 0; i < 34; i++) {
       final baseZ = _baseZList[i];
       final baseX = _baseXMultList[i] * size.width;
       final baseY = _baseYMultList[i] * size.height;
 
       final zPos = (baseZ - (cameraZ * 0.8) % 1600.0 + 1600.0) % 1600.0;
-      final depthScale = (650.0 / (280.0 + zPos)).clamp(0.2, 2.2);
+      final depthScale = (650.0 / (650.0 + zPos)).clamp(0.2, 1.4);
 
       final swayX = math.sin(ambientPhase * 2 + i) * 28.0;
       final swayY = math.cos(ambientPhase * 1.0 + i) * 22.0;
 
-      // Paralaks kelopak bunga mengikuti proyeksi yang sama dengan lorong 3D
-      final parallaxX = -tilt.dx * (42.0 * (1.0 - depthScale) + 135.0 * depthScale);
-      final parallaxY = -tilt.dy * (28.0 * (1.0 - depthScale) + 95.0 * depthScale);
+      // Kelopak di kejauhan mengikuti titik hilang lorong (1 - depthScale)
+      final tunnelAxisX = -tilt.dx * maxVanishingX * (1.0 - depthScale);
+      final tunnelAxisY = -tilt.dy * maxVanishingY * (1.0 - depthScale);
 
-      final screenX = size.width / 2 + (baseX + swayX) * depthScale + parallaxX;
-      final screenY = size.height / 2 + (baseY + swayY) * depthScale + parallaxY;
+      final screenX = size.width / 2 + tunnelAxisX + (baseX + swayX) * depthScale;
+      final screenY = size.height / 2 + tunnelAxisY + (baseY + swayY) * depthScale;
 
       final opacity = (1.0 - (zPos / 1600.0)).clamp(0.15, 0.85);
 
