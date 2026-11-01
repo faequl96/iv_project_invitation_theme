@@ -195,6 +195,23 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                     ),
 
                     // =========================================================
+                    // 1.5. JALAN KARPET KERATON 3D (PERSPECTIVE WALKWAY)
+                    // =========================================================
+                    Positioned.fill(
+                      child: IgnorePointer(
+                        child: CustomPaint(
+                          painter: RoyalPerspectiveWalkwayPainter(
+                            cameraZ: _cameraZNotifier.value,
+                            tilt: _smoothTiltNotifier.value,
+                            focalLength: _focalLength,
+                            vanishingFactorX: _vanishingFactorX,
+                            vanishingFactorY: _vanishingFactorY,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // =========================================================
                     // 2. LORONG ARSITEKTUR 3D (GERBANG ARCH & LENTERA Z-SPACE)
                     // =========================================================
                     ..._build3DTunnelArches(
@@ -1159,22 +1176,23 @@ class VolumetricGodRaysPainter({
   @override
   void paint(Canvas canvas, Size size) {
     final vpAlignX = -tilt.dx * vanishingFactorX * 2.0;
-    final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .18;
+    final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .38;
 
     final bgRect = Offset.zero & size;
     final bgPaint = Paint()
       ..shader = RadialGradient(
         center: Alignment(vpAlignX, vpAlignY),
-        radius: 1.2,
-        colors: const [Color(0xFF1B3B30), Color(0xFF0B1915), Color(0xFF040907)],
+        radius: 1.1,
+        colors: const [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
+        stops: const [.0, .55, 1.0],
       ).createShader(bgRect);
     canvas.drawRect(bgRect, bgPaint);
 
     final sourceX = size.width * .5 - (tilt.dx * size.width * vanishingFactorX);
-    final sourceY = size.height * .36 - (tilt.dy * size.height * vanishingFactorY);
+    final sourceY = size.height * .22 - (tilt.dy * size.height * vanishingFactorY);
 
     const rayCount = 9;
-    final baseIntensity = .08 + (gateOpenProgress * .12);
+    final baseIntensity = .07 + (gateOpenProgress * .11);
 
     for (int i = 0; i < rayCount; i++) {
       final spread = (i - rayCount / 2) * .16;
@@ -1183,21 +1201,21 @@ class VolumetricGodRaysPainter({
 
       final path = Path()
         ..moveTo(sourceX, sourceY)
-        ..lineTo(sourceX + math.sin(angle - .06) * size.height * 1.4, size.height * 1.2)
-        ..lineTo(sourceX + math.sin(angle + .06) * size.height * 1.4, size.height * 1.2)
+        ..lineTo(sourceX + math.sin(angle - .06) * size.height * 1.5, size.height * 1.2)
+        ..lineTo(sourceX + math.sin(angle + .06) * size.height * 1.5, size.height * 1.2)
         ..close();
 
       final rayPaint = Paint()
         ..shader = LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+          begin: .topCenter,
+          end: .bottomCenter,
           colors: [
             const Color(0xFFFFE599).withValues(alpha: baseIntensity),
-            const Color(0xFFD4AF37).withValues(alpha: baseIntensity * .3),
+            const Color(0xFFD4AF37).withValues(alpha: baseIntensity * .25),
             Colors.transparent,
           ],
         ).createShader(bgRect)
-        ..blendMode = BlendMode.plus;
+        ..blendMode = .plus;
 
       canvas.drawPath(path, rayPaint);
     }
@@ -1324,6 +1342,161 @@ class GoldenPalaceArchPainter({
   @override
   bool shouldRepaint(covariant GoldenPalaceArchPainter oldDelegate) =>
       oldDelegate.swingPhase != swingPhase || oldDelegate.isMobile != isMobile;
+}
+
+class RoyalPerspectiveWalkwayPainter({
+  required final double cameraZ,
+  required final Offset tilt,
+  required final double focalLength,
+  required final double vanishingFactorX,
+  required final double vanishingFactorY,
+}) extends CustomPainter {
+  static final Path _glowPath = Path();
+  static final Path _mainPath = Path();
+  static final Path _trimAndTilesPath = Path();
+
+  static final Paint _glowPaint = Paint()..style = .fill;
+  static final Paint _surfacePaint = Paint()..style = .fill;
+  static final Paint _trimPaint = Paint()
+    ..style = .stroke
+    ..strokeWidth = 1.4
+    ..strokeCap = .butt;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    _glowPath.reset();
+    _mainPath.reset();
+    _trimAndTilesPath.reset();
+
+    final w = size.width;
+    final h = size.height;
+    final centerX = w * .5;
+    final centerY = h * .5;
+    final isMobile = w < 600;
+
+    const zStart = -220.0;
+    const zEnd = 3600.0;
+
+    final maxVanishingX = w * vanishingFactorX;
+    final maxVanishingY = h * vanishingFactorY;
+
+    final scaleNear = focalLength / (focalLength + zStart);
+    final scaleFar = focalLength / (focalLength + zEnd);
+
+    final axisNearX = -tilt.dx * maxVanishingX * (1.0 - scaleNear);
+    final axisNearY = -tilt.dy * maxVanishingY * (1.0 - scaleNear);
+    final axisFarX = -tilt.dx * maxVanishingX * (1.0 - scaleFar);
+    final axisFarY = -tilt.dy * maxVanishingY * (1.0 - scaleFar);
+
+    final yNear = centerY + axisNearY + (centerY * scaleNear);
+    final yFar = centerY + axisFarY + (centerY * scaleFar);
+
+    final halfWidth = isMobile ? w * .34 : w * .23;
+    final innerTrimWidth = halfWidth * .86;
+    final glowOuterWidth = halfWidth * 1.22;
+
+    final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
+
+    _glowPath
+      ..moveTo(centerX + axisNearX - (glowOuterWidth * scaleNear), yNear)
+      ..lineTo(centerX + axisNearX + (glowOuterWidth * scaleNear), yNear)
+      ..lineTo(centerX + axisFarX + (glowOuterWidth * scaleFar), yFar)
+      ..lineTo(centerX + axisFarX - (glowOuterWidth * scaleFar), yFar)
+      ..close();
+
+    _glowPaint.shader = LinearGradient(
+      begin: .bottomCenter,
+      end: .topCenter,
+      colors: [
+        const Color(0xFFD4AF37).withValues(alpha: .14),
+        const Color(0xFFD4AF37).withValues(alpha: .04),
+        Colors.transparent,
+      ],
+      stops: const [.0, .55, 1.0],
+    ).createShader(shaderRect);
+    canvas.drawPath(_glowPath, _glowPaint);
+
+    final nearLeftX = centerX + axisNearX - (halfWidth * scaleNear);
+    final nearRightX = centerX + axisNearX + (halfWidth * scaleNear);
+    final farRightX = centerX + axisFarX + (halfWidth * scaleFar);
+    final farLeftX = centerX + axisFarX - (halfWidth * scaleFar);
+
+    _mainPath
+      ..moveTo(nearLeftX, yNear)
+      ..lineTo(nearRightX, yNear)
+      ..lineTo(farRightX, yFar)
+      ..lineTo(farLeftX, yFar)
+      ..close();
+
+    _surfacePaint.shader = LinearGradient(
+      begin: .bottomCenter,
+      end: .topCenter,
+      colors: [
+        const Color(0xFFE5C158).withValues(alpha: .72),
+        const Color(0xFFB38728).withValues(alpha: .42),
+        const Color(0xFF5A4210).withValues(alpha: .14),
+        Colors.transparent,
+      ],
+      stops: const [.0, .38, .78, 1.0],
+    ).createShader(shaderRect);
+    canvas.drawPath(_mainPath, _surfacePaint);
+
+    final nearInnerLeftX = centerX + axisNearX - (innerTrimWidth * scaleNear);
+    final nearInnerRightX = centerX + axisNearX + (innerTrimWidth * scaleNear);
+    final farInnerLeftX = centerX + axisFarX - (innerTrimWidth * scaleFar);
+    final farInnerRightX = centerX + axisFarX + (innerTrimWidth * scaleFar);
+
+    _trimAndTilesPath
+      ..moveTo(nearLeftX, yNear)
+      ..lineTo(farLeftX, yFar)
+      ..moveTo(nearRightX, yNear)
+      ..lineTo(farRightX, yFar)
+      ..moveTo(nearInnerLeftX, yNear)
+      ..lineTo(farInnerLeftX, yFar)
+      ..moveTo(nearInnerRightX, yNear)
+      ..lineTo(farInnerRightX, yFar);
+
+    const tileStep = 300.0;
+    final firstTileZ = (cameraZ / tileStep).floorToDouble() * tileStep;
+
+    for (double worldZ = firstTileZ - tileStep; worldZ < cameraZ + zEnd; worldZ += tileStep) {
+      final relZ = worldZ - cameraZ;
+      if (relZ <= zStart || relZ >= zEnd) continue;
+
+      final scale = focalLength / (focalLength + relZ);
+      final depthProgress = 1.0 - scale;
+
+      final axisX = -tilt.dx * maxVanishingX * depthProgress;
+      final axisY = -tilt.dy * maxVanishingY * depthProgress;
+
+      final ty = centerY + axisY + (centerY * scale);
+      final halfTileW = innerTrimWidth * scale;
+
+      final txLeft = centerX + axisX - halfTileW;
+      final txRight = centerX + axisX + halfTileW;
+
+      _trimAndTilesPath
+        ..moveTo(txLeft, ty)
+        ..lineTo(txRight, ty);
+    }
+
+    _trimPaint.shader = LinearGradient(
+      begin: .bottomCenter,
+      end: .topCenter,
+      colors: [
+        const Color(0xFFFFF3D1).withValues(alpha: .65),
+        const Color(0xFFE5C158).withValues(alpha: .28),
+        Colors.transparent,
+      ],
+      stops: const [.0, .6, 1.0],
+    ).createShader(shaderRect);
+
+    canvas.drawPath(_trimAndTilesPath, _trimPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant RoyalPerspectiveWalkwayPainter oldDelegate) =>
+      oldDelegate.cameraZ != cameraZ || oldDelegate.tilt != tilt;
 }
 
 class Floating3DPetalsPainter({
