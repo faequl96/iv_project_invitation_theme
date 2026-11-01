@@ -260,6 +260,11 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
   List<Widget> _build3DTunnelArches(Size size, double currentCameraZ, Offset smoothTilt) {
     final List<Widget> arches = [];
+    final isMobile = size.width < 600;
+
+    final archCanvasWidth = isMobile ? math.max(size.width * 1.55, 620.0) : size.width;
+    final archWidthBoost = isMobile ? 1.25 : 1.0;
+
     for (double z = 4800; z >= 400; z -= 600) {
       final relativeZ = z - currentCameraZ;
       if (relativeZ > -420 && relativeZ < 3600) {
@@ -275,6 +280,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           tx: tunnelOffset.dx,
           ty: tunnelOffset.dy,
           scale: scale,
+          scaleXMultiplier: archWidthBoost,
           perspective: .0008 * proximity,
           tiltX: smoothTilt.dx * proximity,
           tiltY: smoothTilt.dy * proximity,
@@ -287,14 +293,18 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             child: Opacity(
               opacity: opacity,
               child: Transform(
-                alignment: Alignment.center,
+                alignment: .center,
                 transform: archMatrix,
                 child: ValueListenableBuilder(
                   valueListenable: _ambientPhaseNotifier,
                   builder: (context, value, child) {
                     return CustomPaint(
-                      size: Size(size.width, size.height),
-                      painter: GoldenPalaceArchPainter(archIndex: (z ~/ 600), swingPhase: value),
+                      size: Size(archCanvasWidth, size.height),
+                      painter: GoldenPalaceArchPainter(
+                        archIndex: (z ~/ 600),
+                        swingPhase: value,
+                        isMobile: isMobile,
+                      ),
                     );
                   },
                 ),
@@ -616,6 +626,7 @@ Matrix4 _createTunnelAlignedPerspectiveMatrix({
   double tx = .0,
   double ty = .0,
   double scale = 1.0,
+  double scaleXMultiplier = 1.0,
   double perspective = .0011,
   double tiltX = .0,
   double tiltY = .0,
@@ -624,14 +635,13 @@ Matrix4 _createTunnelAlignedPerspectiveMatrix({
   double extraRotateY = .0,
 }) {
   final yaw = (-tiltX * maxYaw) + extraRotateY;
-
   final pitch = tiltY * maxPitch;
 
   final perspectiveMatrix = Matrix4.identity()..setEntry(3, 2, perspective);
 
   return Matrix4.identity()
     ..translateByDouble(tx, ty, .0, 1.0)
-    ..scaleByDouble(scale, scale, scale, 1.0)
+    ..scaleByDouble(scale * scaleXMultiplier, scale, scale, 1.0)
     ..multiply(perspectiveMatrix)
     ..rotateY(yaw)
     ..rotateX(pitch * math.cos(yaw));
@@ -1244,34 +1254,44 @@ class OrnateRoyalDoorPainter({required final bool isLeftDoor, required final Off
   bool shouldRepaint(covariant OrnateRoyalDoorPainter oldDelegate) => oldDelegate.tilt != tilt;
 }
 
-class GoldenPalaceArchPainter({required final int archIndex, required final double swingPhase})
-    extends CustomPainter {
+class GoldenPalaceArchPainter({
+  required final int archIndex,
+  required final double swingPhase,
+  final bool isMobile = false,
+}) extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final w = size.width;
     final h = size.height;
 
+    final leftPillarX = isMobile ? w * .02 : w * .06;
+    final rightPillarX = isMobile ? w * .98 : w * .94;
+    final shoulderY = isMobile ? h * .26 : h * .32;
+
     final archPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.5
+      ..style = .stroke
+      ..strokeWidth = isMobile ? 3.0 : 2.5
       ..shader = const LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
+        begin: .topCenter,
+        end: .bottomCenter,
         colors: [Color(0xFFFFE599), Color(0xFFD4AF37), Color(0xFF5A4210)],
       ).createShader(Offset.zero & size);
 
     final archPath = Path()
-      ..moveTo(w * .06, h)
-      ..lineTo(w * .06, h * .32)
-      ..quadraticBezierTo(w * .06, h * .04, w * .5, h * .02)
-      ..quadraticBezierTo(w * .94, h * .04, w * .94, h * .32)
-      ..lineTo(w * .94, h);
+      ..moveTo(leftPillarX, h)
+      ..lineTo(leftPillarX, shoulderY)
+      ..quadraticBezierTo(leftPillarX, h * .03, w * .5, h * .015)
+      ..quadraticBezierTo(rightPillarX, h * .03, rightPillarX, shoulderY)
+      ..lineTo(rightPillarX, h);
 
     canvas.drawPath(archPath, archPaint);
 
     final swing = math.sin(swingPhase + archIndex) * 8.0;
-    _drawHangingLantern(canvas, Offset(w * .18 + swing, h * .14), 90);
-    _drawHangingLantern(canvas, Offset(w * .82 - swing, h * .14), 90);
+    final leftLanternX = isMobile ? w * .12 : w * .18;
+    final rightLanternX = isMobile ? w * .88 : w * .82;
+
+    _drawHangingLantern(canvas, Offset(leftLanternX + swing, h * .12), isMobile ? 75 : 90);
+    _drawHangingLantern(canvas, Offset(rightLanternX - swing, h * .12), isMobile ? 75 : 90);
   }
 
   void _drawHangingLantern(Canvas canvas, Offset topAnchor, double chainLength) {
@@ -1297,7 +1317,7 @@ class GoldenPalaceArchPainter({required final int archIndex, required final doub
 
   @override
   bool shouldRepaint(covariant GoldenPalaceArchPainter oldDelegate) =>
-      oldDelegate.swingPhase != swingPhase;
+      oldDelegate.swingPhase != swingPhase || oldDelegate.isMobile != isMobile;
 }
 
 class Floating3DPetalsPainter({
