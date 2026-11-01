@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/widgets/three_dimensions/thick_3d_card.dart';
@@ -14,7 +15,7 @@ class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
-  final double cylinderSize = 220.0,
+  final double cylinderRadius = 220.0,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
 }) extends StatefulWidget {
@@ -25,8 +26,18 @@ class const Cylindrical3DCarousel({
 class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   late final ValueNotifier<double> _continuousAngle;
   double _lastAmbientPhase = .0;
+  double _angleStep = .0;
 
-  double get _angleStep => widget.itemCount > 0 ? (2 * math.pi) / widget.itemCount : 0;
+  final _parentMatrix = Matrix4.identity();
+  final _totalMatrix = Matrix4.identity();
+
+  late Float64List _itemAngles;
+  late Float64List _itemCosines;
+  late Int32List _sortedIndices;
+  late List<ValueKey<int>> _cardKeys;
+
+  late List<Widget?> _cachedCards;
+  late Uint8List _lastFacingState;
 
   @override
   void initState() {
@@ -34,21 +45,20 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
     _continuousAngle = ValueNotifier<double>(.0);
     _lastAmbientPhase = widget.ambientPhaseNotifier.value;
+    _initBuffers(widget.itemCount);
 
     widget.ambientPhaseNotifier.addListener(_onAutoRotate);
-  }
-
-  void _onAutoRotate() {
-    final currentPhase = widget.ambientPhaseNotifier.value;
-    final delta = currentPhase - _lastAmbientPhase;
-
-    _continuousAngle.value += delta * .4;
-    _lastAmbientPhase = currentPhase;
   }
 
   @override
   void didUpdateWidget(covariant Cylindrical3DCarousel oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.itemCount != widget.itemCount) {
+      _initBuffers(widget.itemCount);
+    } else if (oldWidget.itemBuilder != widget.itemBuilder) {
+      _invalidateCardCache();
+    }
 
     if (oldWidget.ambientPhaseNotifier != widget.ambientPhaseNotifier) {
       oldWidget.ambientPhaseNotifier.removeListener(_onAutoRotate);
@@ -65,11 +75,92 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     super.dispose();
   }
 
+  void _initBuffers(int count) {
+    _angleStep = count > 0 ? (2 * math.pi) / count : .0;
+    _itemAngles = Float64List(count);
+    _itemCosines = Float64List(count);
+    _sortedIndices = Int32List(count);
+    _cardKeys = .generate(count, ValueKey.new, growable: false);
+    _cachedCards = List<Widget?>.filled(count, null, growable: false);
+    _lastFacingState = Uint8List(count);
+  }
+
+  void _onAutoRotate() {
+    final currentPhase = widget.ambientPhaseNotifier.value;
+    final delta = currentPhase - _lastAmbientPhase;
+
+    _continuousAngle.value += delta * .4;
+    _lastAmbientPhase = currentPhase;
+  }
+
+  void _invalidateCardCache() {
+    _lastFacingState.fillRange(0, _lastFacingState.length, 0);
+  }
+
+  void _syncParentTransform(BuildContext context) {
+    final renderObj = context.findRenderObject();
+    if (renderObj is RenderBox && renderObj.attached && renderObj.hasSize) {
+      final size = renderObj.size;
+      final cx = size.width * .5;
+      final cy = size.height * .5;
+
+      _parentMatrix
+        ..setFrom(renderObj.getTransformTo(null))
+        ..translateByDouble(cx, cy, .0, 1.0);
+
+      final s = _parentMatrix.storage;
+      final w = s[15];
+      if (w != .0) {
+        final screenCenterX = s[12] / w;
+        final screenCenterY = s[13] / w;
+
+        s[0] -= s[3] * screenCenterX;
+        s[1] -= s[3] * screenCenterY;
+        s[4] -= s[7] * screenCenterX;
+        s[5] -= s[7] * screenCenterY;
+        s[8] -= s[11] * screenCenterX;
+        s[9] -= s[11] * screenCenterY;
+        s[12] = .0;
+        s[13] = .0;
+      }
+    } else {
+      _parentMatrix.setIdentity();
+    }
+  }
+
+  bool get _isFacingFront {
+    final s = _totalMatrix.storage;
+    final w3 = s[15];
+    final tux = (s[0] * w3) - (s[3] * s[12]);
+    final tuy = (s[1] * w3) - (s[3] * s[13]);
+    final tvx = (s[4] * w3) - (s[7] * s[12]);
+    final tvy = (s[5] * w3) - (s[7] * s[13]);
+
+    return (tux * tvy) - (tuy * tvx) >= 0;
+  }
+
+  void _sortIndicesByDepth(int count) {
+    for (int i = 1; i < count; i++) {
+      final keyIndex = _sortedIndices[i];
+      final keyCos = _itemCosines[keyIndex];
+      int j = i - 1;
+
+      while (j >= 0 && _itemCosines[_sortedIndices[j]] > keyCos) {
+        _sortedIndices[j + 1] = _sortedIndices[j];
+        j--;
+      }
+      _sortedIndices[j + 1] = keyIndex;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (widget.itemCount == 0) return const SizedBox.shrink();
+    final count = widget.itemCount;
+    if (count == 0) return const SizedBox.shrink();
 
-    final surfaceSize = widget.cylinderSize + (200 * 2);
+    final radius = widget.cylinderRadius;
+    final surfaceSize = radius + 400.0;
+
     return GestureDetector(
       behavior: .opaque,
       onHorizontalDragUpdate: (d) => _continuousAngle.value += d.delta.dx * .012,
@@ -78,62 +169,58 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
         width: surfaceSize,
         child: CustomPaint(
           painter: ThreeDimensionSafeAreaPainter(),
-          child: ValueListenableBuilder<double>(
+          child: ValueListenableBuilder(
             valueListenable: _continuousAngle,
-            builder: (_, baseAngle, _) {
-              final count = widget.itemCount;
+            builder: (innerContext, baseAngle, _) {
+              _syncParentTransform(innerContext);
 
-              final itemAngles = List.generate(
-                count,
-                (i) => baseAngle + (i * _angleStep),
-                growable: false,
-              );
+              for (int i = 0; i < count; i++) {
+                final angle = baseAngle + (i * _angleStep);
+                _itemAngles[i] = angle;
+                _itemCosines[i] = math.cos(angle);
+                _sortedIndices[i] = i;
+              }
 
-              final itemCosines = itemAngles.map(math.cos).toList(growable: false);
+              _sortIndicesByDepth(count);
 
-              final indices = List.generate(count, (i) => i, growable: false)
-                ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
+              final tiltOffsetY = -widget.tilt.dy * 15.0;
 
-              return Stack(
-                alignment: .center,
-                clipBehavior: .none,
-                children: indices
-                    .map((index) {
-                      final itemAngle = itemAngles[index];
-                      final cosAngle = itemCosines[index];
+              final children = List.generate(count, (sortPos) {
+                final index = _sortedIndices[sortPos];
+                final itemAngle = _itemAngles[index];
+                final cosAngle = _itemCosines[index];
 
-                      final x = math.sin(itemAngle) * widget.cylinderSize;
-                      final z = widget.cylinderSize - (cosAngle * widget.cylinderSize);
+                final x = math.sin(itemAngle) * radius;
+                final z = radius - (cosAngle * radius);
 
-                      final normalizedDepth = (cosAngle + 1) / 2;
-                      final cardOpacity = .65 + (normalizedDepth * .35);
-                      final cardRotationY = -itemAngle;
+                final normalizedDepth = (cosAngle + 1.0) * .5;
+                final cardOpacity = (.65 + (normalizedDepth * .35)).clamp(.0, 1.0);
 
-                      final isCardOnLeft = x < 0;
-                      final isTiltOnLeft = widget.tilt.dx < 0;
-                      final cosAngleAdjustment1 = widget.tilt.dx / 8;
-                      final cosAngleAdjustment2 = widget.tilt.dx / 5.4;
-                      final cosAngleFinalAdjustment = isTiltOnLeft
-                          ? (isCardOnLeft ? cosAngleAdjustment2 : -cosAngleAdjustment1)
-                          : (isCardOnLeft ? cosAngleAdjustment1 : -cosAngleAdjustment2);
-                      final effectiveCosAngle = cosAngle - (.38 + cosAngleFinalAdjustment);
-                      final isFacingFront = effectiveCosAngle >= 0;
+                final cardMatrix = Matrix4.identity()
+                  ..setEntry(3, 2, .0015)
+                  ..translateByDouble(x, tiltOffsetY, z, 1.0)
+                  ..rotateY(-itemAngle);
 
-                      return Transform(
-                        key: ValueKey('moment_card_$index'),
-                        alignment: .center,
-                        transform: .identity()
-                          ..setEntry(3, 2, .0015)
-                          ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
-                          ..rotateY(cardRotationY),
-                        child: Opacity(
-                          opacity: cardOpacity.clamp(.0, 1.0),
-                          child: widget.itemBuilder(context, index, isFacingFront),
-                        ),
-                      );
-                    })
-                    .toList(growable: false),
-              );
+                _totalMatrix
+                  ..setFrom(_parentMatrix)
+                  ..multiply(cardMatrix);
+
+                final isFacingFront = _isFacingFront;
+                final targetState = isFacingFront ? 2 : 1;
+                if (_lastFacingState[index] != targetState) {
+                  _lastFacingState[index] = targetState;
+                  _cachedCards[index] = widget.itemBuilder(context, index, isFacingFront);
+                }
+
+                return Transform(
+                  key: _cardKeys[index],
+                  alignment: .center,
+                  transform: cardMatrix,
+                  child: Opacity(opacity: cardOpacity, child: _cachedCards[index]!),
+                );
+              }, growable: false);
+
+              return Stack(alignment: .center, clipBehavior: .none, children: children);
             },
           ),
         ),
