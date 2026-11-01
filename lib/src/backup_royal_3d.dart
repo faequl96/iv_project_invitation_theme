@@ -356,7 +356,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           return Cylindrical3DCarousel(
             ambientPhaseNotifier: _ambientPhaseNotifier,
             tilt: smoothTilt,
-            relativeZ: relativeZ,
+            // relativeZ: relativeZ,
             itemCount: _moments.length,
             itemBuilder: (context, index, isFacingFront) => Thick3DCard(
               isFacingFront: isFacingFront,

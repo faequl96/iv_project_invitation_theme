@@ -14,7 +14,6 @@ class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
-  required final double relativeZ,
   final double cylinderSize = 220.0,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
@@ -26,6 +25,9 @@ class const Cylindrical3DCarousel({
 class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   late final ValueNotifier<double> _continuousAngle;
   double _lastAmbientPhase = .0;
+
+  final _parentMatrix = Matrix4.identity();
+  final _totalMatrix = Matrix4.identity();
 
   double get _angleStep => widget.itemCount > 0 ? (2 * math.pi) / widget.itemCount : 0;
 
@@ -66,6 +68,48 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     super.dispose();
   }
 
+  void _syncParentTransform(BuildContext context) {
+    final renderObj = context.findRenderObject();
+    if (renderObj is RenderBox && renderObj.attached && renderObj.hasSize) {
+      final size = renderObj.size;
+      final cx = size.width * .5;
+      final cy = size.height * .5;
+
+      _parentMatrix
+        ..setFrom(renderObj.getTransformTo(null))
+        ..translateByDouble(cx, cy, .0, 1.0);
+
+      final s = _parentMatrix.storage;
+      final w = s[15];
+      if (w != .0) {
+        final screenCenterX = s[12] / w;
+        final screenCenterY = s[13] / w;
+
+        s[0] -= s[3] * screenCenterX;
+        s[1] -= s[3] * screenCenterY;
+        s[4] -= s[7] * screenCenterX;
+        s[5] -= s[7] * screenCenterY;
+        s[8] -= s[11] * screenCenterX;
+        s[9] -= s[11] * screenCenterY;
+        s[12] = .0;
+        s[13] = .0;
+      }
+    } else {
+      _parentMatrix.setIdentity();
+    }
+  }
+
+  bool get _isPlaneFacingCamera {
+    final s = _totalMatrix.storage;
+    final w3 = s[15];
+    final tux = (s[0] * w3) - (s[3] * s[12]);
+    final tuy = (s[1] * w3) - (s[3] * s[13]);
+    final tvx = (s[4] * w3) - (s[7] * s[12]);
+    final tvy = (s[5] * w3) - (s[7] * s[13]);
+
+    return (tux * tvy) - (tuy * tvx) >= 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.itemCount == 0) return const SizedBox.shrink();
@@ -79,10 +123,12 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
         width: surfaceSize,
         child: CustomPaint(
           painter: ThreeDimensionSafeAreaPainter(),
-          child: ValueListenableBuilder<double>(
+          child: ValueListenableBuilder(
             valueListenable: _continuousAngle,
-            builder: (_, baseAngle, _) {
+            builder: (context, baseAngle, _) {
               final count = widget.itemCount;
+
+              _syncParentTransform(context);
 
               final itemAngles = List.generate(
                 count,
@@ -94,17 +140,6 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
               final indices = List.generate(count, (i) => i, growable: false)
                 ..sort((a, b) => itemCosines[a].compareTo(itemCosines[b]));
-
-              final scale = 650.0 / (650.0 + widget.relativeZ);
-              final offsetX = -widget.tilt.dx * (widget.relativeZ * .22);
-              final offsetY = -widget.tilt.dy * (widget.relativeZ * .18);
-
-              final stationMatrix = Matrix4.identity()
-                ..setEntry(3, 2, .0014)
-                ..translateByDouble(offsetX, offsetY, .0, 1.0)
-                ..scaleByDouble(scale, scale, 1.0, 1.0)
-                ..rotateY(widget.tilt.dx * .20)
-                ..rotateX(-widget.tilt.dy * .18);
 
               return Stack(
                 alignment: .center,
@@ -126,16 +161,11 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                         ..translateByDouble(x, -widget.tilt.dy * 15, z, 1.0)
                         ..rotateY(cardRotationY);
 
-                      final totalMatrix = stationMatrix.multiplied(cardMatrix);
-                      final s = totalMatrix.storage;
+                      _totalMatrix
+                        ..setFrom(_parentMatrix)
+                        ..multiply(cardMatrix);
 
-                      final w3 = s[15];
-                      final tux = (s[0] * w3) - (s[3] * s[12]);
-                      final tuy = (s[1] * w3) - (s[3] * s[13]);
-                      final tvx = (s[4] * w3) - (s[7] * s[12]);
-                      final tvy = (s[5] * w3) - (s[7] * s[13]);
-
-                      final isFacingFront = (tux * tvy) - (tuy * tvx) >= 0;
+                      final isFacingFront = _isPlaneFacingCamera;
 
                       return Transform(
                         key: ValueKey('moment_card_$index'),
