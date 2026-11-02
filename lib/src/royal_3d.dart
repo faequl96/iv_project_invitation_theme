@@ -1474,6 +1474,9 @@ class RoyalPerspectiveWalkwayPainter({
     final lampWorldOffsetX =
         (isMobile ? archVirtualWidth * .32 : archVirtualWidth * .28) * archWidthBoost;
 
+    final baseSpotRatioY = isMobile ? .3 : .26;
+    final tiltFactorY = (1.0 + (tilt.dy * .35)).clamp(.5, 1.6);
+
     for (double archZ = 4800; archZ >= 600; archZ -= 600) {
       final relZ = archZ - cameraZ;
       if (relZ <= zStart || relZ >= zEnd) continue;
@@ -1498,7 +1501,8 @@ class RoyalPerspectiveWalkwayPainter({
       final rightSpotX = centerX + axisX + lampSpreadX - swingOffset;
 
       final spotRadiusX = (isMobile ? w * .72 : w * .28) * scale;
-      final spotRadiusY = spotRadiusX * (isMobile ? .3 : .26);
+      final depthFlatten = .4 + (.6 * scale);
+      final spotRadiusY = spotRadiusX * baseSpotRatioY * tiltFactorY * depthFlatten;
 
       _drawFloorLightPool(canvas, Offset(leftSpotX, floorY), spotRadiusX, spotRadiusY, spotOpacity);
       _drawFloorLightPool(
