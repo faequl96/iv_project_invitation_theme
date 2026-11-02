@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/widgets/three_dimensions/thick_3d_card.dart';
@@ -15,7 +16,16 @@ class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
-  final double cylinderRadius = 220.0,
+  final double proximity = 1.0,
+  final double cylinderRadius = 265.0,
+  final double tunnelDepthRange = 680.0,
+  final double vanishingRangeX = 220.0,
+  final double vanishingRangeY = 185.0,
+  final double horizonOffsetY = 8.0,
+  // Perspektif lokal tepi kartu yang selaras dengan gradien penyusutan lorong
+  final double cardEdgePerspective = .00145,
+  // Estimasi setengah lebar visual kartu untuk mencegah tepi dalam kartu depan membengkak > 1.0x
+  final double cardHalfWidth = 105.0,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
 }) extends StatefulWidget {
@@ -30,6 +40,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
   final _parentMatrix = Matrix4.identity();
   final _totalMatrix = Matrix4.identity();
+  final _cardPerspectiveMatrix = Matrix4.identity();
 
   late Float64List _itemAngles;
   late Float64List _itemCosines;
@@ -158,8 +169,8 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     final count = widget.itemCount;
     if (count == 0) return const SizedBox.shrink();
 
-    final radius = widget.cylinderRadius;
-    final surfaceSize = radius + 400.0;
+    final radiusX = widget.cylinderRadius;
+    final surfaceSize = (radiusX * 2.0) + 320.0;
 
     return GestureDetector(
       behavior: .opaque,
@@ -174,6 +185,21 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
             builder: (innerContext, baseAngle, _) {
               _syncParentTransform(innerContext);
 
+              const focalLength = 650.0;
+              final prox = widget.proximity.clamp(.45, 1.15);
+              final pCard = widget.cardEdgePerspective * prox;
+
+              final vpX = -widget.tilt.dx * widget.vanishingRangeX;
+              final vpY = widget.horizonOffsetY - (widget.tilt.dy * widget.vanishingRangeY);
+
+              // setEntry(3, 2, pCard) memasukkan kedalaman rotasi kartu ke komponen W,
+              // sedangkan setEntry(2, 2, .01) meredam residu Z agar tidak terkena
+              // double-perspective dari Transform stasiun induk saat ditranslasi ke xCenter.
+              _cardPerspectiveMatrix
+                ..setIdentity()
+                ..setEntry(2, 2, .01)
+                ..setEntry(3, 2, pCard);
+
               for (int i = 0; i < count; i++) {
                 final angle = baseAngle + (i * _angleStep);
                 _itemAngles[i] = angle;
@@ -183,22 +209,37 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
               _sortIndicesByDepth(count);
 
-              final tiltOffsetY = -widget.tilt.dy * 15.0;
-
               final children = List.generate(count, (sortPos) {
                 final index = _sortedIndices[sortPos];
                 final itemAngle = _itemAngles[index];
                 final cosAngle = _itemCosines[index];
+                final sinAngle = math.sin(itemAngle);
 
-                final x = math.sin(itemAngle) * radius;
-                final z = radius - (cosAngle * radius);
+                final normDepth = (1.0 - cosAngle) * .5;
+                final z = normDepth * widget.tunnelDepthRange;
+                final orbitScale = focalLength / (focalLength + z);
 
-                final normalizedDepth = (cosAngle + 1.0) * .5;
-                final cardOpacity = (.65 + (normalizedDepth * .35)).clamp(.0, 1.0);
+                // Kompensasi protrusi Z negatif pada paruh depan silinder (cosAngle > 0)
+                // agar tepi dalam kartu yang berputar menjauh dari 0° tidak pernah
+                // membengkak melebihi ukuran kartu di posisi puncak depan (0°).
+                final frontProtrusion = math.max(.0, cosAngle) * sinAngle.abs();
+                final frontScaleComp = 1.0 - (pCard * widget.cardHalfWidth * frontProtrusion);
+                final depthScale = orbitScale * frontScaleComp;
+                final depthProgress = 1.0 - depthScale;
+
+                final orbitX = sinAngle * radiusX;
+                final xCenter = (vpX * depthProgress) + (orbitX * depthScale);
+                final yCenter = vpY * depthProgress;
+
+                final normalizedFront = 1.0 - normDepth;
+                final cardOpacity = (.46 + (normalizedFront * .54)).clamp(.0, 1.0);
 
                 final cardMatrix = Matrix4.identity()
-                  ..setEntry(3, 2, .0015)
-                  ..translateByDouble(x, tiltOffsetY, z, 1.0)
+                  ..translateByDouble(xCenter, yCenter, .0, 1.0)
+                  ..scaleByDouble(depthScale, depthScale, 1.0, 1.0)
+                  ..translateByDouble(.0, vpY, .0, 1.0)
+                  ..multiply(_cardPerspectiveMatrix)
+                  ..translateByDouble(.0, -vpY, .0, 1.0)
                   ..rotateY(-itemAngle);
 
                 _totalMatrix
