@@ -167,13 +167,13 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         },
         child: MouseRegion(
           onHover: (e) => _updatePointerTilt(e.localPosition, size),
-          onExit: (_) => _targetTilt = Offset.zero,
+          onExit: (_) => _targetTilt = .zero,
           child: GestureDetector(
             onPanUpdate: (details) {
               _updatePointerTilt(details.localPosition, size);
               _onScrollDelta(-details.delta.dy * 1.6);
             },
-            onPanEnd: (_) => _targetTilt = Offset.zero,
+            onPanEnd: (_) => _targetTilt = .zero,
             child: Stack(
               alignment: .center,
               clipBehavior: .none,
@@ -1289,80 +1289,72 @@ class GoldenPalaceArchPainter({
     final leftLanternCenter = Offset(leftTopAnchor.dx, leftTopAnchor.dy + chainLen);
     final rightLanternCenter = Offset(rightTopAnchor.dx, rightTopAnchor.dy + chainLen);
 
-    // Pantulan cahaya emas natural pada tiang di sekitar lentera
     _drawPillarIllumination(canvas, leftLanternCenter, w);
     _drawPillarIllumination(canvas, rightLanternCenter, w);
 
-    // Gambar lentera beserta pendaran cahayanya
     _drawHangingLantern(canvas, leftTopAnchor, leftLanternCenter);
     _drawHangingLantern(canvas, rightTopAnchor, rightLanternCenter);
   }
 
   void _drawPillarIllumination(Canvas canvas, Offset lanternCenter, double archWidth) {
-    final illuminationRadius = isMobile ? archWidth * .34 : archWidth * .28;
+    final illuminationRadius = isMobile ? archWidth * .38 : archWidth * .32;
     final glowRect = Rect.fromCircle(center: lanternCenter, radius: illuminationRadius);
 
-    // 1. Soft Ambient Scatter: pendar hangat lembut di permukaan logam tiang
     _pillarAmbientGlowPaint
-      ..strokeWidth = isMobile ? 6.5 : 5.5
+      ..strokeWidth = isMobile ? 7.0 : 6.0
       ..shader = RadialGradient(
         colors: [
-          const Color(0xFFFFE599).withValues(alpha: .38 * opacity),
-          const Color(0xFFD4AF37).withValues(alpha: .18 * opacity),
-          const Color(0xFF9C7316).withValues(alpha: .05 * opacity),
+          const Color(0xFFFFE599).withValues(alpha: .42 * opacity),
+          const Color(0xFFD4AF37).withValues(alpha: .20 * opacity),
+          const Color(0xFF9C7316).withValues(alpha: .06 * opacity),
           Colors.transparent,
         ],
-        stops: const [.0, .38, .72, 1.0],
+        stops: const [.0, .35, .70, 1.0],
       ).createShader(glowRect);
     canvas.drawPath(_archPath, _pillarAmbientGlowPaint);
 
-    // 2. Metallic Specular Highlight: kilau inti sewarna bohlam lentera pada punggung tiang
     final coreRect = Rect.fromCircle(center: lanternCenter, radius: illuminationRadius * .75);
     _pillarSpecularPaint
-      ..strokeWidth = isMobile ? 3.2 : 2.8
+      ..strokeWidth = isMobile ? 3.5 : 3.0
       ..shader = RadialGradient(
         colors: [
-          const Color(0xFFFFF4CC).withValues(alpha: .82 * opacity),
-          const Color(0xFFFFE599).withValues(alpha: .48 * opacity),
-          const Color(0xFFD4AF37).withValues(alpha: .12 * opacity),
+          const Color(0xFFFFF4CC).withValues(alpha: .88 * opacity),
+          const Color(0xFFFFE599).withValues(alpha: .52 * opacity),
+          const Color(0xFFD4AF37).withValues(alpha: .15 * opacity),
           Colors.transparent,
         ],
-        stops: const [.0, .32, .68, 1.0],
+        stops: const [.0, .30, .65, 1.0],
       ).createShader(coreRect);
     canvas.drawPath(_archPath, _pillarSpecularPaint);
   }
 
   void _drawHangingLantern(Canvas canvas, Offset topAnchor, Offset lanternCenter) {
-    // 1. Rantai gantung
     _chainPaint.color = const Color(0xFFE5C158).withValues(alpha: .8 * opacity);
     canvas.drawLine(topAnchor, lanternCenter, _chainPaint);
 
-    // 2. Outer Halo: peluruhan inverse-square lembut ke udara sekitar
-    final outerRadius = isMobile ? 95.0 : 120.0;
+    final outerRadius = isMobile ? 105.0 : 135.0;
     _outerHaloPaint.shader = RadialGradient(
       colors: [
-        const Color(0xFFFFE599).withValues(alpha: .52 * opacity),
-        const Color(0xFFD4AF37).withValues(alpha: .22 * opacity),
-        const Color(0xFF9C7316).withValues(alpha: .06 * opacity),
+        const Color(0xFFFFE599).withValues(alpha: .58 * opacity),
+        const Color(0xFFD4AF37).withValues(alpha: .25 * opacity),
+        const Color(0xFF9C7316).withValues(alpha: .07 * opacity),
         Colors.transparent,
       ],
-      stops: const [.0, .32, .68, 1.0],
+      stops: const [.0, .30, .65, 1.0],
     ).createShader(Rect.fromCircle(center: lanternCenter, radius: outerRadius));
     canvas.drawCircle(lanternCenter, outerRadius, _outerHaloPaint);
 
-    // 3. Inner Intense Bloom: korona hangat di sekeliling bohlam
-    final innerRadius = isMobile ? 36.0 : 44.0;
+    final innerRadius = isMobile ? 40.0 : 48.0;
     _innerBloomPaint.shader = RadialGradient(
       colors: [
-        const Color(0xFFFFF4CC).withValues(alpha: .92 * opacity),
-        const Color(0xFFFFE599).withValues(alpha: .48 * opacity),
+        const Color(0xFFFFF4CC).withValues(alpha: .95 * opacity),
+        const Color(0xFFFFE599).withValues(alpha: .52 * opacity),
         const Color(0xFFD4AF37).withValues(alpha: .0),
       ],
-      stops: const [.0, .45, 1.0],
+      stops: const [.0, .42, 1.0],
     ).createShader(Rect.fromCircle(center: lanternCenter, radius: innerRadius));
     canvas.drawCircle(lanternCenter, innerRadius, _innerBloomPaint);
 
-    // 4. Ornamen mahkota lentera
     _capPaint.color = const Color(0xFFD4AF37).withValues(alpha: opacity);
     canvas.drawRRect(
       RRect.fromRectAndRadius(
@@ -1376,8 +1368,7 @@ class GoldenPalaceArchPainter({
       _capPaint,
     );
 
-    // 5. Inti Lentera (Warm Incandescent Gold, bukan putih pucat)
-    final coreRadius = isMobile ? 10.5 : 12.5;
+    final coreRadius = isMobile ? 11.0 : 13.0;
     _corePaint.color = const Color(0xFFFFF4CC).withValues(alpha: opacity);
     canvas.drawOval(
       Rect.fromCenter(center: lanternCenter, width: coreRadius * 1.55, height: coreRadius * 2.0),
@@ -1401,14 +1392,14 @@ class RoyalPerspectiveWalkwayPainter({
   required final double vanishingFactorX,
   required final double vanishingFactorY,
 }) extends CustomPainter {
-  static final Path _mainPath = Path();
-  static final Path _trimAndTilesPath = Path();
+  static final _mainPath = Path();
+  static final _trimAndTilesPath = Path();
 
-  static final Paint _surfacePaint = Paint()..style = .fill;
-  static final Paint _lampFloorSpotPaint = Paint()
+  static final _surfacePaint = Paint()..style = .fill;
+  static final _lampFloorSpotPaint = Paint()
     ..style = .fill
     ..blendMode = .plus;
-  static final Paint _trimPaint = Paint()
+  static final _trimPaint = Paint()
     ..style = .stroke
     ..strokeWidth = 1.4
     ..strokeCap = .butt;
@@ -1445,7 +1436,7 @@ class RoyalPerspectiveWalkwayPainter({
     final yNear = centerY + axisNearY + (centerY * scaleNear);
     final yFar = centerY + axisFarY + (centerY * scaleFar);
 
-    final halfWidth = isMobile ? w * .34 : w * .23;
+    final halfWidth = isMobile ? w * .6 : w * .3;
     final innerTrimWidth = halfWidth * .86;
 
     final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
@@ -1462,7 +1453,6 @@ class RoyalPerspectiveWalkwayPainter({
       ..lineTo(farLeftX, yFar)
       ..close();
 
-    // 1. Render permukaan dasar karpet (Area di luar _mainPath dibiarkan gelap)
     _surfacePaint.shader = LinearGradient(
       begin: .bottomCenter,
       end: .topCenter,
@@ -1476,11 +1466,9 @@ class RoyalPerspectiveWalkwayPainter({
     ).createShader(shaderRect);
     canvas.drawPath(_mainPath, _surfacePaint);
 
-    // 2. Pendar cahaya lampu di jalan: DI-CLIP HANYA DI DALAM AREA KARPET (_mainPath)
     canvas.save();
     canvas.clipPath(_mainPath);
 
-    // Koordinat dunia horizontal lampu (selaras dengan GoldenPalaceArchPainter: .5 - .22 = .28)
     final archVirtualWidth = isMobile ? (w * 1.25).clamp(480.0, 580.0) : w;
     final archWidthBoost = isMobile ? 1.15 : 1.0;
     final lampWorldOffsetX =
@@ -1505,14 +1493,12 @@ class RoyalPerspectiveWalkwayPainter({
       final archIndex = archZ ~/ 600;
       final swingOffset = math.sin(ambientPhase + archIndex) * 9.0 * archWidthBoost * scale;
 
-      // Titik pusat jatuhnya cahaya persis vertikal di bawah lampu kiri & kanan
       final lampSpreadX = lampWorldOffsetX * scale;
       final leftSpotX = centerX + axisX - lampSpreadX + swingOffset;
       final rightSpotX = centerX + axisX + lampSpreadX - swingOffset;
 
-      // Radius elips mengikuti penyebaran cahaya dari ketinggian lampu ke lantai
-      final spotRadiusX = (isMobile ? w * .30 : w * .22) * scale;
-      final spotRadiusY = spotRadiusX * .38;
+      final spotRadiusX = (isMobile ? w * .72 : w * .28) * scale;
+      final spotRadiusY = spotRadiusX * (isMobile ? .3 : .26);
 
       _drawFloorLightPool(canvas, Offset(leftSpotX, floorY), spotRadiusX, spotRadiusY, spotOpacity);
       _drawFloorLightPool(
@@ -1526,7 +1512,6 @@ class RoyalPerspectiveWalkwayPainter({
 
     canvas.restore();
 
-    // 3. Garis trim & ubin karpet digambar di atas karpet agar ikut terekspos cahaya
     final nearInnerLeftX = centerX + axisNearX - (innerTrimWidth * scaleNear);
     final nearInnerRightX = centerX + axisNearX + (innerTrimWidth * scaleNear);
     final farInnerLeftX = centerX + axisFarX - (innerTrimWidth * scaleFar);
@@ -1591,16 +1576,15 @@ class RoyalPerspectiveWalkwayPainter({
     canvas.scale(1.0, radiusY / radiusX);
 
     final localCircle = Rect.fromCircle(center: .zero, radius: radiusX);
-    // Kurva peluruhan cahaya mengikuti spektrum warna emas lentera (Inverse-Square Falloff)
     _lampFloorSpotPaint.shader = RadialGradient(
       colors: [
-        const Color(0xFFFFF4CC).withValues(alpha: .46 * intensity),
-        const Color(0xFFFFE599).withValues(alpha: .30 * intensity),
-        const Color(0xFFD4AF37).withValues(alpha: .14 * intensity),
+        const Color(0xFFFFF4CC).withValues(alpha: .50 * intensity),
+        const Color(0xFFFFE599).withValues(alpha: .34 * intensity),
+        const Color(0xFFD4AF37).withValues(alpha: .16 * intensity),
         const Color(0xFF8A5A19).withValues(alpha: .04 * intensity),
         Colors.transparent,
       ],
-      stops: const [.0, .22, .52, .78, 1.0],
+      stops: const [.0, .25, .55, .80, 1.0],
     ).createShader(localCircle);
 
     canvas.drawCircle(.zero, radiusX, _lampFloorSpotPaint);

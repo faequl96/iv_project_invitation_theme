@@ -10,15 +10,6 @@ class const Thick3DCard({
 }) extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final cosAngleAdjustment1 = tiltDx / 8;
-    // final cosAngleAdjustment2 = tiltDx / 5.4;
-    // final cosAngleFinalAdjustment = isTiltOnLeft
-    //     ? (isCardOnLeft ? cosAngleAdjustment2 : -cosAngleAdjustment1)
-    //     : (isCardOnLeft ? cosAngleAdjustment1 : -cosAngleAdjustment2);
-    // final effectiveCosAngle = cosAngle - (.26 + cosAngleFinalAdjustment);
-
-    // final isFacingFront = isGallery1 ? effectiveCosAngle >= 0 : math.sin(cosAngle) >= .0;
-
     return Stack(
       alignment: .center,
       clipBehavior: .none,
