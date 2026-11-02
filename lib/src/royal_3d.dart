@@ -200,9 +200,10 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                     child: RepaintBoundary(
                       child: CustomPaint(
                         painter: RoyalPerspectiveWalkwayPainter(
-                          repaint: _sceneListenable,
+                          repaint: _petalsListenable,
                           cameraZNotifier: _cameraZNotifier,
                           tiltNotifier: _smoothTiltNotifier,
+                          ambientPhaseNotifier: _ambientPhaseNotifier,
                           focalLength: _focalLength,
                           vanishingFactorX: _vanishingFactorX,
                           vanishingFactorY: _vanishingFactorY,
@@ -1232,9 +1233,19 @@ class GoldenPalaceArchPainter({
 }) extends CustomPainter {
   static final _archPath = Path();
   static final _archPaint = Paint()..style = .stroke;
-  static final _chainPaint = Paint()..strokeWidth = 1.5;
-  static final _glowPaint = Paint();
+  static final _pillarAmbientGlowPaint = Paint()
+    ..style = .stroke
+    ..strokeCap = .round
+    ..blendMode = .plus;
+  static final _pillarSpecularPaint = Paint()
+    ..style = .stroke
+    ..strokeCap = .round
+    ..blendMode = .plus;
+  static final _chainPaint = Paint()..strokeWidth = 1.8;
+  static final _outerHaloPaint = Paint()..blendMode = .plus;
+  static final _innerBloomPaint = Paint()..blendMode = .plus;
   static final _corePaint = Paint();
+  static final _capPaint = Paint()..style = .fill;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1247,14 +1258,14 @@ class GoldenPalaceArchPainter({
     final shoulderY = isMobile ? h * .26 : h * .32;
 
     _archPaint
-      ..strokeWidth = isMobile ? 2.8 : 2.5
+      ..strokeWidth = isMobile ? 3.0 : 2.6
       ..shader = LinearGradient(
         begin: .topCenter,
         end: .bottomCenter,
         colors: [
-          const Color(0xFFFFE599).withValues(alpha: opacity),
-          const Color(0xFFD4AF37).withValues(alpha: opacity),
-          const Color(0xFF5A4210).withValues(alpha: opacity),
+          const Color(0xFFFFE599).withValues(alpha: opacity * .9),
+          const Color(0xFFD4AF37).withValues(alpha: opacity * .85),
+          const Color(0xFF5A4210).withValues(alpha: opacity * .7),
         ],
       ).createShader(Offset.zero & size);
 
@@ -1268,31 +1279,110 @@ class GoldenPalaceArchPainter({
 
     canvas.drawPath(_archPath, _archPaint);
 
-    final swing = math.sin(swingPhaseNotifier.value + archIndex) * 8.0;
-    final leftLanternX = isMobile ? w * .15 : w * .18;
-    final rightLanternX = isMobile ? w * .85 : w * .82;
-    final chainLen = isMobile ? 75.0 : 90.0;
+    final swing = math.sin(swingPhaseNotifier.value + archIndex) * 9.0;
+    final leftLanternX = isMobile ? w * .18 : w * .22;
+    final rightLanternX = isMobile ? w * .82 : w * .78;
+    final chainLen = isMobile ? 82.0 : 96.0;
 
-    _drawHangingLantern(canvas, Offset(leftLanternX + swing, h * .12), chainLen);
-    _drawHangingLantern(canvas, Offset(rightLanternX - swing, h * .12), chainLen);
+    final leftTopAnchor = Offset(leftLanternX + swing, h * .105);
+    final rightTopAnchor = Offset(rightLanternX - swing, h * .105);
+    final leftLanternCenter = Offset(leftTopAnchor.dx, leftTopAnchor.dy + chainLen);
+    final rightLanternCenter = Offset(rightTopAnchor.dx, rightTopAnchor.dy + chainLen);
+
+    // Pantulan cahaya emas natural pada tiang di sekitar lentera
+    _drawPillarIllumination(canvas, leftLanternCenter, w);
+    _drawPillarIllumination(canvas, rightLanternCenter, w);
+
+    // Gambar lentera beserta pendaran cahayanya
+    _drawHangingLantern(canvas, leftTopAnchor, leftLanternCenter);
+    _drawHangingLantern(canvas, rightTopAnchor, rightLanternCenter);
   }
 
-  void _drawHangingLantern(Canvas canvas, Offset topAnchor, double chainLength) {
-    _chainPaint.color = const Color(0xFFD4AF37).withValues(alpha: .7 * opacity);
+  void _drawPillarIllumination(Canvas canvas, Offset lanternCenter, double archWidth) {
+    final illuminationRadius = isMobile ? archWidth * .34 : archWidth * .28;
+    final glowRect = Rect.fromCircle(center: lanternCenter, radius: illuminationRadius);
 
-    final lanternCenter = Offset(topAnchor.dx, topAnchor.dy + chainLength);
+    // 1. Soft Ambient Scatter: pendar hangat lembut di permukaan logam tiang
+    _pillarAmbientGlowPaint
+      ..strokeWidth = isMobile ? 6.5 : 5.5
+      ..shader = RadialGradient(
+        colors: [
+          const Color(0xFFFFE599).withValues(alpha: .38 * opacity),
+          const Color(0xFFD4AF37).withValues(alpha: .18 * opacity),
+          const Color(0xFF9C7316).withValues(alpha: .05 * opacity),
+          Colors.transparent,
+        ],
+        stops: const [.0, .38, .72, 1.0],
+      ).createShader(glowRect);
+    canvas.drawPath(_archPath, _pillarAmbientGlowPaint);
+
+    // 2. Metallic Specular Highlight: kilau inti sewarna bohlam lentera pada punggung tiang
+    final coreRect = Rect.fromCircle(center: lanternCenter, radius: illuminationRadius * .75);
+    _pillarSpecularPaint
+      ..strokeWidth = isMobile ? 3.2 : 2.8
+      ..shader = RadialGradient(
+        colors: [
+          const Color(0xFFFFF4CC).withValues(alpha: .82 * opacity),
+          const Color(0xFFFFE599).withValues(alpha: .48 * opacity),
+          const Color(0xFFD4AF37).withValues(alpha: .12 * opacity),
+          Colors.transparent,
+        ],
+        stops: const [.0, .32, .68, 1.0],
+      ).createShader(coreRect);
+    canvas.drawPath(_archPath, _pillarSpecularPaint);
+  }
+
+  void _drawHangingLantern(Canvas canvas, Offset topAnchor, Offset lanternCenter) {
+    // 1. Rantai gantung
+    _chainPaint.color = const Color(0xFFE5C158).withValues(alpha: .8 * opacity);
     canvas.drawLine(topAnchor, lanternCenter, _chainPaint);
 
-    _glowPaint.shader = RadialGradient(
+    // 2. Outer Halo: peluruhan inverse-square lembut ke udara sekitar
+    final outerRadius = isMobile ? 95.0 : 120.0;
+    _outerHaloPaint.shader = RadialGradient(
       colors: [
-        const Color(0xFFFFE599).withValues(alpha: .55 * opacity),
+        const Color(0xFFFFE599).withValues(alpha: .52 * opacity),
+        const Color(0xFFD4AF37).withValues(alpha: .22 * opacity),
+        const Color(0xFF9C7316).withValues(alpha: .06 * opacity),
+        Colors.transparent,
+      ],
+      stops: const [.0, .32, .68, 1.0],
+    ).createShader(Rect.fromCircle(center: lanternCenter, radius: outerRadius));
+    canvas.drawCircle(lanternCenter, outerRadius, _outerHaloPaint);
+
+    // 3. Inner Intense Bloom: korona hangat di sekeliling bohlam
+    final innerRadius = isMobile ? 36.0 : 44.0;
+    _innerBloomPaint.shader = RadialGradient(
+      colors: [
+        const Color(0xFFFFF4CC).withValues(alpha: .92 * opacity),
+        const Color(0xFFFFE599).withValues(alpha: .48 * opacity),
         const Color(0xFFD4AF37).withValues(alpha: .0),
       ],
-    ).createShader(Rect.fromCircle(center: lanternCenter, radius: 42));
-    canvas.drawCircle(lanternCenter, 42, _glowPaint);
+      stops: const [.0, .45, 1.0],
+    ).createShader(Rect.fromCircle(center: lanternCenter, radius: innerRadius));
+    canvas.drawCircle(lanternCenter, innerRadius, _innerBloomPaint);
 
+    // 4. Ornamen mahkota lentera
+    _capPaint.color = const Color(0xFFD4AF37).withValues(alpha: opacity);
+    canvas.drawRRect(
+      RRect.fromRectAndRadius(
+        Rect.fromCenter(
+          center: Offset(lanternCenter.dx, lanternCenter.dy - 13),
+          width: 20,
+          height: 4.5,
+        ),
+        const .circular(3),
+      ),
+      _capPaint,
+    );
+
+    // 5. Inti Lentera (Warm Incandescent Gold, bukan putih pucat)
+    final coreRadius = isMobile ? 10.5 : 12.5;
     _corePaint.color = const Color(0xFFFFF4CC).withValues(alpha: opacity);
-    canvas.drawCircle(lanternCenter, 6, _corePaint);
+    canvas.drawOval(
+      Rect.fromCenter(center: lanternCenter, width: coreRadius * 1.55, height: coreRadius * 2.0),
+      _corePaint,
+    );
   }
 
   @override
@@ -1306,16 +1396,18 @@ class RoyalPerspectiveWalkwayPainter({
   required super.repaint,
   required final ValueNotifier<double> cameraZNotifier,
   required final ValueNotifier<Offset> tiltNotifier,
+  required final ValueNotifier<double> ambientPhaseNotifier,
   required final double focalLength,
   required final double vanishingFactorX,
   required final double vanishingFactorY,
 }) extends CustomPainter {
-  static final Path _glowPath = Path();
   static final Path _mainPath = Path();
   static final Path _trimAndTilesPath = Path();
 
-  static final Paint _glowPaint = Paint()..style = .fill;
   static final Paint _surfacePaint = Paint()..style = .fill;
+  static final Paint _lampFloorSpotPaint = Paint()
+    ..style = .fill
+    ..blendMode = .plus;
   static final Paint _trimPaint = Paint()
     ..style = .stroke
     ..strokeWidth = 1.4
@@ -1323,12 +1415,12 @@ class RoyalPerspectiveWalkwayPainter({
 
   @override
   void paint(Canvas canvas, Size size) {
-    _glowPath.reset();
     _mainPath.reset();
     _trimAndTilesPath.reset();
 
     final cameraZ = cameraZNotifier.value;
     final tilt = tiltNotifier.value;
+    final ambientPhase = ambientPhaseNotifier.value;
 
     final w = size.width;
     final h = size.height;
@@ -1355,28 +1447,8 @@ class RoyalPerspectiveWalkwayPainter({
 
     final halfWidth = isMobile ? w * .34 : w * .23;
     final innerTrimWidth = halfWidth * .86;
-    final glowOuterWidth = halfWidth * 1.22;
 
     final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
-
-    _glowPath
-      ..moveTo(centerX + axisNearX - (glowOuterWidth * scaleNear), yNear)
-      ..lineTo(centerX + axisNearX + (glowOuterWidth * scaleNear), yNear)
-      ..lineTo(centerX + axisFarX + (glowOuterWidth * scaleFar), yFar)
-      ..lineTo(centerX + axisFarX - (glowOuterWidth * scaleFar), yFar)
-      ..close();
-
-    _glowPaint.shader = LinearGradient(
-      begin: .bottomCenter,
-      end: .topCenter,
-      colors: [
-        const Color(0xFFD4AF37).withValues(alpha: .14),
-        const Color(0xFFD4AF37).withValues(alpha: .04),
-        Colors.transparent,
-      ],
-      stops: const [.0, .55, 1.0],
-    ).createShader(shaderRect);
-    canvas.drawPath(_glowPath, _glowPaint);
 
     final nearLeftX = centerX + axisNearX - (halfWidth * scaleNear);
     final nearRightX = centerX + axisNearX + (halfWidth * scaleNear);
@@ -1390,19 +1462,71 @@ class RoyalPerspectiveWalkwayPainter({
       ..lineTo(farLeftX, yFar)
       ..close();
 
+    // 1. Render permukaan dasar karpet (Area di luar _mainPath dibiarkan gelap)
     _surfacePaint.shader = LinearGradient(
       begin: .bottomCenter,
       end: .topCenter,
       colors: [
-        const Color(0xFFE5C158).withValues(alpha: .72),
-        const Color(0xFFB38728).withValues(alpha: .42),
-        const Color(0xFF5A4210).withValues(alpha: .14),
+        const Color(0xFFB38728).withValues(alpha: .48),
+        const Color(0xFF7D5A18).withValues(alpha: .32),
+        const Color(0xFF3D2B08).withValues(alpha: .14),
         Colors.transparent,
       ],
       stops: const [.0, .38, .78, 1.0],
     ).createShader(shaderRect);
     canvas.drawPath(_mainPath, _surfacePaint);
 
+    // 2. Pendar cahaya lampu di jalan: DI-CLIP HANYA DI DALAM AREA KARPET (_mainPath)
+    canvas.save();
+    canvas.clipPath(_mainPath);
+
+    // Koordinat dunia horizontal lampu (selaras dengan GoldenPalaceArchPainter: .5 - .22 = .28)
+    final archVirtualWidth = isMobile ? (w * 1.25).clamp(480.0, 580.0) : w;
+    final archWidthBoost = isMobile ? 1.15 : 1.0;
+    final lampWorldOffsetX =
+        (isMobile ? archVirtualWidth * .32 : archVirtualWidth * .28) * archWidthBoost;
+
+    for (double archZ = 4800; archZ >= 600; archZ -= 600) {
+      final relZ = archZ - cameraZ;
+      if (relZ <= zStart || relZ >= zEnd) continue;
+
+      final fadeFar = (1.0 - (relZ / 3400.0)).clamp(.0, 1.0);
+      final fadeNear = ((relZ + 220.0) / 320.0).clamp(.0, 1.0);
+      final spotOpacity = fadeFar * fadeNear;
+      if (spotOpacity <= .01) continue;
+
+      final scale = focalLength / (focalLength + relZ);
+      final depthProgress = 1.0 - scale;
+
+      final axisX = -tilt.dx * maxVanishingX * depthProgress;
+      final axisY = -tilt.dy * maxVanishingY * depthProgress;
+      final floorY = centerY + axisY + (centerY * scale);
+
+      final archIndex = archZ ~/ 600;
+      final swingOffset = math.sin(ambientPhase + archIndex) * 9.0 * archWidthBoost * scale;
+
+      // Titik pusat jatuhnya cahaya persis vertikal di bawah lampu kiri & kanan
+      final lampSpreadX = lampWorldOffsetX * scale;
+      final leftSpotX = centerX + axisX - lampSpreadX + swingOffset;
+      final rightSpotX = centerX + axisX + lampSpreadX - swingOffset;
+
+      // Radius elips mengikuti penyebaran cahaya dari ketinggian lampu ke lantai
+      final spotRadiusX = (isMobile ? w * .30 : w * .22) * scale;
+      final spotRadiusY = spotRadiusX * .38;
+
+      _drawFloorLightPool(canvas, Offset(leftSpotX, floorY), spotRadiusX, spotRadiusY, spotOpacity);
+      _drawFloorLightPool(
+        canvas,
+        Offset(rightSpotX, floorY),
+        spotRadiusX,
+        spotRadiusY,
+        spotOpacity,
+      );
+    }
+
+    canvas.restore();
+
+    // 3. Garis trim & ubin karpet digambar di atas karpet agar ikut terekspos cahaya
     final nearInnerLeftX = centerX + axisNearX - (innerTrimWidth * scaleNear);
     final nearInnerRightX = centerX + axisNearX + (innerTrimWidth * scaleNear);
     final farInnerLeftX = centerX + axisFarX - (innerTrimWidth * scaleFar);
@@ -1443,14 +1567,44 @@ class RoyalPerspectiveWalkwayPainter({
       begin: .bottomCenter,
       end: .topCenter,
       colors: [
-        const Color(0xFFFFF3D1).withValues(alpha: .65),
-        const Color(0xFFE5C158).withValues(alpha: .28),
+        const Color(0xFFFFF3D1).withValues(alpha: .55),
+        const Color(0xFFE5C158).withValues(alpha: .24),
         Colors.transparent,
       ],
       stops: const [.0, .6, 1.0],
     ).createShader(shaderRect);
 
     canvas.drawPath(_trimAndTilesPath, _trimPaint);
+  }
+
+  void _drawFloorLightPool(
+    Canvas canvas,
+    Offset center,
+    double radiusX,
+    double radiusY,
+    double intensity,
+  ) {
+    if (radiusX <= 1.0 || radiusY <= .5) return;
+
+    canvas.save();
+    canvas.translate(center.dx, center.dy);
+    canvas.scale(1.0, radiusY / radiusX);
+
+    final localCircle = Rect.fromCircle(center: .zero, radius: radiusX);
+    // Kurva peluruhan cahaya mengikuti spektrum warna emas lentera (Inverse-Square Falloff)
+    _lampFloorSpotPaint.shader = RadialGradient(
+      colors: [
+        const Color(0xFFFFF4CC).withValues(alpha: .46 * intensity),
+        const Color(0xFFFFE599).withValues(alpha: .30 * intensity),
+        const Color(0xFFD4AF37).withValues(alpha: .14 * intensity),
+        const Color(0xFF8A5A19).withValues(alpha: .04 * intensity),
+        Colors.transparent,
+      ],
+      stops: const [.0, .22, .52, .78, 1.0],
+    ).createShader(localCircle);
+
+    canvas.drawCircle(.zero, radiusX, _lampFloorSpotPaint);
+    canvas.restore();
   }
 
   @override
