@@ -17,14 +17,11 @@ class const Cylindrical3DCarousel({
   required final Offset tilt,
   final double proximity = 1.0,
   final double cylinderRadius = 265.0,
-  final double baseTunnelDepth = 240.0,
-  final double tunnelDepthRange = 300.0,
+  final double baseTunnelDepth = 180.0,
   final double vanishingRangeX = 220.0,
   final double vanishingRangeY = 185.0,
   final double horizonOffsetY = 8.0,
   final double cardEdgePerspective = .00145,
-  final double cardHalfWidth = 105.0,
-  final double maxCameraYaw = .18,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
 }) extends StatefulWidget {
@@ -39,7 +36,8 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
   final _parentMatrix = Matrix4.identity();
   final _totalMatrix = Matrix4.identity();
-  final _cardPerspectiveMatrix = Matrix4.identity();
+  final _perspectiveShearMatrix = Matrix4.identity();
+  final _cylinderProjectionMatrix = Matrix4.identity();
 
   late Float64List _itemAngles;
   late Float64List _itemCosines;
@@ -168,8 +166,8 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     final count = widget.itemCount;
     if (count == 0) return const SizedBox.shrink();
 
-    final radiusX = widget.cylinderRadius;
-    final surfaceSize = (radiusX * 2.0) + 320.0;
+    final radius = widget.cylinderRadius;
+    final surfaceSize = (radius * 2.0) + 320.0;
 
     return GestureDetector(
       behavior: .opaque,
@@ -186,21 +184,42 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
               const focalLength = 650.0;
               final prox = widget.proximity.clamp(.45, 1.15);
-              final pCard = widget.cardEdgePerspective * prox;
-              final cameraYaw = -widget.tilt.dx * widget.maxCameraYaw * prox;
+              final pW = (widget.cardEdgePerspective * .82) * prox;
 
               final vpX = -widget.tilt.dx * widget.vanishingRangeX;
               final vpY = widget.horizonOffsetY - (widget.tilt.dy * widget.vanishingRangeY);
 
-              _cardPerspectiveMatrix
+              final centerZ = widget.baseTunnelDepth + radius;
+              final centerScale = focalLength / (focalLength + centerZ);
+              final baseProgress = 1.0 - centerScale;
+              final anchorX = vpX * baseProgress;
+              final anchorY = (vpY * baseProgress);
+
+              final cylVpX = vpX * .36;
+              final cylVpY = vpY * .42;
+              final shearX = cylVpX * pW;
+              final shearY = cylVpY * pW;
+
+              _perspectiveShearMatrix
                 ..setIdentity()
+                ..setEntry(0, 2, shearX)
+                ..setEntry(0, 3, -shearX * radius)
+                ..setEntry(1, 2, shearY)
+                ..setEntry(1, 3, -shearY * radius)
                 ..setEntry(2, 2, .01)
-                ..setEntry(3, 2, pCard);
+                ..setEntry(3, 2, pW);
+
+              _cylinderProjectionMatrix
+                ..setIdentity()
+                ..translateByDouble(anchorX, anchorY, .0, 1.0)
+                ..multiply(_perspectiveShearMatrix);
+
+              final camAngle = math.atan(shearX);
 
               for (int i = 0; i < count; i++) {
                 final angle = baseAngle + (i * _angleStep);
                 _itemAngles[i] = angle;
-                _itemCosines[i] = math.cos(angle);
+                _itemCosines[i] = math.cos(angle - camAngle);
                 _sortedIndices[i] = i;
               }
 
@@ -209,40 +228,18 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
               final children = List.generate(count, (sortPos) {
                 final index = _sortedIndices[sortPos];
                 final itemAngle = _itemAngles[index];
-                final cosAngle = _itemCosines[index];
+                final cosAngle = math.cos(itemAngle);
                 final sinAngle = math.sin(itemAngle);
 
-                // 1. Skala ukuran kartu berdasarkan kedalaman silinder
-                final normDepth = (1.0 - cosAngle) * .5;
-                final zLocal = normDepth * widget.tunnelDepthRange;
-                final orbitScale = focalLength / (focalLength + zLocal);
+                final orbitX = sinAngle * radius;
+                final zLocal = (1.0 - cosAngle) * radius;
 
-                final frontProtrusion = math.max(.0, cosAngle) * sinAngle.abs();
-                final frontScaleComp = 1.0 - (pCard * widget.cardHalfWidth * .5 * frontProtrusion);
-                final depthScale = orbitScale * frontScaleComp;
+                final depthRatio = (1.0 + _itemCosines[index]) * .5;
+                final cardOpacity = (.44 + (depthRatio * .56)).clamp(.0, 1.0);
 
-                // 2. Proyeksi posisi sumbu silinder yang terkunci dengan kedalaman karpet & lengkungan lorong
-                final zTunnel = widget.baseTunnelDepth + zLocal;
-                final tunnelScale = focalLength / (focalLength + zTunnel);
-                final tunnelDepthProgress = 1.0 - tunnelScale;
-
-                final orbitX = sinAngle * radiusX;
-                final xCenter = (vpX * tunnelDepthProgress) + (orbitX * depthScale);
-                final yCenter = vpY * tunnelDepthProgress;
-
-                // 3. Jarak vertikal dari titik tengah kartu ke garis horizon lorong (vpY)
-                final localVpY = ((vpY - yCenter) / depthScale) * .55;
-
-                final normalizedFront = 1.0 - normDepth;
-                final cardOpacity = (.42 + (normalizedFront * .58)).clamp(.0, 1.0);
-
-                final cardMatrix = Matrix4.identity()
-                  ..translateByDouble(xCenter, yCenter, .0, 1.0)
-                  ..scaleByDouble(depthScale, depthScale, 1.0, 1.0)
-                  ..translateByDouble(.0, localVpY, .0, 1.0)
-                  ..multiply(_cardPerspectiveMatrix)
-                  ..translateByDouble(.0, -localVpY, .0, 1.0)
-                  ..rotateY(-itemAngle + cameraYaw);
+                final cardMatrix = _cylinderProjectionMatrix.clone()
+                  ..translateByDouble(orbitX, .0, zLocal, 1.0)
+                  ..rotateY(-itemAngle);
 
                 _totalMatrix
                   ..setFrom(_parentMatrix)
