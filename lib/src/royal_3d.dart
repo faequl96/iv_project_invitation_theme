@@ -333,6 +333,22 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
       final attenuatedTilt = smoothTilt * angularWeight;
 
+      // Station 3 (Carousel) mengelola rotasi 3D tiap kartunya sendiri agar tidak miring sebagai kanvas 2D datar
+      final stationMatrix = i == 3
+          ? (Matrix4.identity()
+              ..translateByDouble(tunnelOffset.dx, tunnelOffset.dy, .0, 1.0)
+              ..scaleByDouble(scale, scale, scale, 1.0))
+          : _createTunnelAlignedPerspectiveMatrix(
+              tx: tunnelOffset.dx,
+              ty: tunnelOffset.dy,
+              scale: scale,
+              perspective: .0012 * proximity,
+              tiltX: attenuatedTilt.dx,
+              tiltY: attenuatedTilt.dy,
+              maxYaw: .18,
+              maxPitch: .09,
+            );
+
       stations.add(
         KeyedSubtree(
           key: ValueKey('station_3d_$i'),
@@ -340,19 +356,10 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             ignoring: relativeZ.abs() >= 350,
             child: Transform(
               alignment: .center,
-              transform: _createTunnelAlignedPerspectiveMatrix(
-                tx: tunnelOffset.dx,
-                ty: tunnelOffset.dy,
-                scale: scale,
-                perspective: .0012 * proximity,
-                tiltX: attenuatedTilt.dx,
-                tiltY: attenuatedTilt.dy,
-                maxYaw: .18,
-                maxPitch: .09,
-              ),
+              transform: stationMatrix,
               child: Opacity(
                 opacity: opacity,
-                child: _buildStationWidgetByIndex(i, attenuatedTilt, proximity),
+                child: _buildStationWidgetByIndex(size, i, smoothTilt, attenuatedTilt, proximity),
               ),
             ),
           ),
@@ -362,14 +369,22 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     return stations;
   }
 
-  Widget _buildStationWidgetByIndex(int index, Offset attenuatedTilt, double proximity) {
+  Widget _buildStationWidgetByIndex(
+    Size size,
+    int index,
+    Offset smoothTilt,
+    Offset attenuatedTilt,
+    double proximity,
+  ) {
     return switch (index) {
       1 => _BrideGroom3DShowcase(tilt: attenuatedTilt, proximity: proximity),
       2 => _SacredEvent3DShowcase(tilt: attenuatedTilt),
       3 => Cylindrical3DCarousel(
         ambientPhaseNotifier: _ambientPhaseNotifier,
-        tilt: attenuatedTilt,
+        tilt: smoothTilt,
         proximity: proximity,
+        vanishingRangeX: size.width * _vanishingFactorX,
+        vanishingRangeY: size.height * _vanishingFactorY,
         itemCount: _moments.length,
         itemBuilder: (context, index, isFacingFront) => Thick3DCard(
           isFacingFront: isFacingFront,

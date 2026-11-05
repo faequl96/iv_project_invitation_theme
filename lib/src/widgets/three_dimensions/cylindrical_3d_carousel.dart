@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:iv_project_invitation_theme/src/widgets/three_dimensions/thick_3d_card.dart';
@@ -18,14 +17,14 @@ class const Cylindrical3DCarousel({
   required final Offset tilt,
   final double proximity = 1.0,
   final double cylinderRadius = 265.0,
-  final double tunnelDepthRange = 680.0,
+  final double baseTunnelDepth = 240.0,
+  final double tunnelDepthRange = 300.0,
   final double vanishingRangeX = 220.0,
   final double vanishingRangeY = 185.0,
   final double horizonOffsetY = 8.0,
-  // Perspektif lokal tepi kartu yang selaras dengan gradien penyusutan lorong
   final double cardEdgePerspective = .00145,
-  // Estimasi setengah lebar visual kartu untuk mencegah tepi dalam kartu depan membengkak > 1.0x
   final double cardHalfWidth = 105.0,
+  final double maxCameraYaw = .18,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
 }) extends StatefulWidget {
@@ -188,13 +187,11 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
               const focalLength = 650.0;
               final prox = widget.proximity.clamp(.45, 1.15);
               final pCard = widget.cardEdgePerspective * prox;
+              final cameraYaw = -widget.tilt.dx * widget.maxCameraYaw * prox;
 
               final vpX = -widget.tilt.dx * widget.vanishingRangeX;
               final vpY = widget.horizonOffsetY - (widget.tilt.dy * widget.vanishingRangeY);
 
-              // setEntry(3, 2, pCard) memasukkan kedalaman rotasi kartu ke komponen W,
-              // sedangkan setEntry(2, 2, .01) meredam residu Z agar tidak terkena
-              // double-perspective dari Transform stasiun induk saat ditranslasi ke xCenter.
               _cardPerspectiveMatrix
                 ..setIdentity()
                 ..setEntry(2, 2, .01)
@@ -215,32 +212,37 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                 final cosAngle = _itemCosines[index];
                 final sinAngle = math.sin(itemAngle);
 
+                // 1. Skala ukuran kartu berdasarkan kedalaman silinder
                 final normDepth = (1.0 - cosAngle) * .5;
-                final z = normDepth * widget.tunnelDepthRange;
-                final orbitScale = focalLength / (focalLength + z);
+                final zLocal = normDepth * widget.tunnelDepthRange;
+                final orbitScale = focalLength / (focalLength + zLocal);
 
-                // Kompensasi protrusi Z negatif pada paruh depan silinder (cosAngle > 0)
-                // agar tepi dalam kartu yang berputar menjauh dari 0° tidak pernah
-                // membengkak melebihi ukuran kartu di posisi puncak depan (0°).
                 final frontProtrusion = math.max(.0, cosAngle) * sinAngle.abs();
-                final frontScaleComp = 1.0 - (pCard * widget.cardHalfWidth * frontProtrusion);
+                final frontScaleComp = 1.0 - (pCard * widget.cardHalfWidth * .5 * frontProtrusion);
                 final depthScale = orbitScale * frontScaleComp;
-                final depthProgress = 1.0 - depthScale;
+
+                // 2. Proyeksi posisi sumbu silinder yang terkunci dengan kedalaman karpet & lengkungan lorong
+                final zTunnel = widget.baseTunnelDepth + zLocal;
+                final tunnelScale = focalLength / (focalLength + zTunnel);
+                final tunnelDepthProgress = 1.0 - tunnelScale;
 
                 final orbitX = sinAngle * radiusX;
-                final xCenter = (vpX * depthProgress) + (orbitX * depthScale);
-                final yCenter = vpY * depthProgress;
+                final xCenter = (vpX * tunnelDepthProgress) + (orbitX * depthScale);
+                final yCenter = vpY * tunnelDepthProgress;
+
+                // 3. Jarak vertikal dari titik tengah kartu ke garis horizon lorong (vpY)
+                final localVpY = ((vpY - yCenter) / depthScale) * .55;
 
                 final normalizedFront = 1.0 - normDepth;
-                final cardOpacity = (.46 + (normalizedFront * .54)).clamp(.0, 1.0);
+                final cardOpacity = (.42 + (normalizedFront * .58)).clamp(.0, 1.0);
 
                 final cardMatrix = Matrix4.identity()
                   ..translateByDouble(xCenter, yCenter, .0, 1.0)
                   ..scaleByDouble(depthScale, depthScale, 1.0, 1.0)
-                  ..translateByDouble(.0, vpY, .0, 1.0)
+                  ..translateByDouble(.0, localVpY, .0, 1.0)
                   ..multiply(_cardPerspectiveMatrix)
-                  ..translateByDouble(.0, -vpY, .0, 1.0)
-                  ..rotateY(-itemAngle);
+                  ..translateByDouble(.0, -localVpY, .0, 1.0)
+                  ..rotateY(-itemAngle + cameraYaw);
 
                 _totalMatrix
                   ..setFrom(_parentMatrix)
