@@ -15,7 +15,13 @@ class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
-  final double cylinderRadius = 220.0,
+  final double proximity = 1.0,
+  final double cylinderRadius = 240.0,
+  final double baseTunnelDepth = 180.0,
+  final double vanishingRangeX = 220.0,
+  final double vanishingRangeY = 185.0,
+  final double horizonOffsetY = -8.0,
+  final double cardEdgePerspective = .00145,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
 }) extends StatefulWidget {
@@ -30,6 +36,8 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
   final _parentMatrix = Matrix4.identity();
   final _totalMatrix = Matrix4.identity();
+  final _perspectiveShearMatrix = Matrix4.identity();
+  final _cylinderProjectionMatrix = Matrix4.identity();
 
   late Float64List _itemAngles;
   late Float64List _itemCosines;
@@ -159,7 +167,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     if (count == 0) return const SizedBox.shrink();
 
     final radius = widget.cylinderRadius;
-    final surfaceSize = radius + 400.0;
+    final surfaceSize = (radius * 2.0) + 320.0;
 
     return GestureDetector(
       behavior: .opaque,
@@ -174,31 +182,63 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
             builder: (innerContext, baseAngle, _) {
               _syncParentTransform(innerContext);
 
+              const focalLength = 650.0;
+              final prox = widget.proximity.clamp(.45, 1.15);
+              final pW = (widget.cardEdgePerspective * .82) * prox;
+
+              final vpX = -widget.tilt.dx * widget.vanishingRangeX;
+              final vpY = widget.horizonOffsetY - (widget.tilt.dy * widget.vanishingRangeY);
+
+              final centerZ = widget.baseTunnelDepth + radius;
+              final centerScale = focalLength / (focalLength + centerZ);
+              final baseProgress = 1.0 - centerScale;
+              final anchorX = (vpX * baseProgress);
+              final anchorY = (vpY * baseProgress);
+
+              final cylVpX = vpX * .36;
+              final cylVpY = vpY * .42;
+              final shearX = cylVpX * pW;
+              final shearY = cylVpY * pW;
+
+              _perspectiveShearMatrix
+                ..setIdentity()
+                ..setEntry(0, 2, shearX)
+                ..setEntry(0, 3, -shearX * radius)
+                ..setEntry(1, 2, shearY)
+                ..setEntry(1, 3, -shearY * radius)
+                ..setEntry(2, 2, .01)
+                ..setEntry(3, 2, pW);
+
+              _cylinderProjectionMatrix
+                ..setIdentity()
+                ..translateByDouble(anchorX, anchorY, .0, 1.0)
+                ..multiply(_perspectiveShearMatrix);
+
+              final camAngle = math.atan(shearX);
+
               for (int i = 0; i < count; i++) {
                 final angle = baseAngle + (i * _angleStep);
                 _itemAngles[i] = angle;
-                _itemCosines[i] = math.cos(angle);
+                _itemCosines[i] = math.cos(angle - camAngle);
                 _sortedIndices[i] = i;
               }
 
               _sortIndicesByDepth(count);
 
-              final tiltOffsetY = -widget.tilt.dy * 15.0;
-
               final children = List.generate(count, (sortPos) {
                 final index = _sortedIndices[sortPos];
                 final itemAngle = _itemAngles[index];
-                final cosAngle = _itemCosines[index];
+                final cosAngle = math.cos(itemAngle);
+                final sinAngle = math.sin(itemAngle);
 
-                final x = math.sin(itemAngle) * radius;
-                final z = radius - (cosAngle * radius);
+                final orbitX = sinAngle * radius;
+                final zLocal = (1.0 - cosAngle) * radius;
 
-                final normalizedDepth = (cosAngle + 1.0) * .5;
-                final cardOpacity = (.65 + (normalizedDepth * .35)).clamp(.0, 1.0);
+                final depthRatio = (1.0 + _itemCosines[index]) * .5;
+                final cardOpacity = (.44 + (depthRatio * .56)).clamp(.0, 1.0);
 
-                final cardMatrix = Matrix4.identity()
-                  ..setEntry(3, 2, .0015)
-                  ..translateByDouble(x, tiltOffsetY, z, 1.0)
+                final cardMatrix = _cylinderProjectionMatrix.clone()
+                  ..translateByDouble(orbitX, .0, zLocal, 1.0)
                   ..rotateY(-itemAngle);
 
                 _totalMatrix
