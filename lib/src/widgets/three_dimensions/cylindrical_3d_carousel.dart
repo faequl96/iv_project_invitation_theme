@@ -16,11 +16,11 @@ class const Cylindrical3DCarousel({
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
   final double proximity = 1.0,
-  final double cylinderRadius = 265.0,
+  final double cylinderRadius = 240.0,
   final double baseTunnelDepth = 180.0,
   final double vanishingRangeX = 220.0,
   final double vanishingRangeY = 185.0,
-  final double horizonOffsetY = 8.0,
+  final double horizonOffsetY = -8.0,
   final double cardEdgePerspective = .00145,
   required final int itemCount,
   required final Cylindrical3DCarouselItemBuilder itemBuilder,
@@ -192,7 +192,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
               final centerZ = widget.baseTunnelDepth + radius;
               final centerScale = focalLength / (focalLength + centerZ);
               final baseProgress = 1.0 - centerScale;
-              final anchorX = vpX * baseProgress;
+              final anchorX = (vpX * baseProgress);
               final anchorY = (vpY * baseProgress);
 
               final cylVpX = vpX * .36;
