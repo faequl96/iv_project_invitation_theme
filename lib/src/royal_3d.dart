@@ -34,6 +34,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   Offset _targetTilt = .zero;
   double _targetCameraZ = .0;
   bool _isGateOpen = false;
+  Duration _lastTickElapsed = .zero;
 
   late final AnimationController _gateController;
   late final Ticker _physicsTicker;
@@ -67,13 +68,18 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       _smoothTiltNotifier,
     ]);
 
-    _physicsTicker = createTicker((_) {
-      _ambientPhaseNotifier.value += .01;
+    _physicsTicker = createTicker((elapsed) {
+      final deltaMicros = (elapsed - _lastTickElapsed).inMicroseconds;
+      _lastTickElapsed = elapsed;
+      final dt = deltaMicros > 0 ? (deltaMicros / 16666.67).clamp(.1, 3.0) : 1.0;
+
+      _ambientPhaseNotifier.value += .01 * dt;
 
       final curTilt = _smoothTiltNotifier.value;
       if (curTilt != _targetTilt) {
-        final dx = lerpDouble(curTilt.dx, _targetTilt.dx, .07) ?? .0;
-        final dy = lerpDouble(curTilt.dy, _targetTilt.dy, .07) ?? .0;
+        final tiltFactor = 1.0 - math.pow(1.0 - .07, dt).toDouble();
+        final dx = lerpDouble(curTilt.dx, _targetTilt.dx, tiltFactor) ?? .0;
+        final dy = lerpDouble(curTilt.dy, _targetTilt.dy, tiltFactor) ?? .0;
         _smoothTiltNotifier.value =
             (dx - _targetTilt.dx).abs() < .0005 && (dy - _targetTilt.dy).abs() < .0005
             ? _targetTilt
@@ -82,7 +88,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
 
       final curCamZ = _cameraZNotifier.value;
       if (curCamZ != _targetCameraZ) {
-        final nextCamZ = lerpDouble(curCamZ, _targetCameraZ, .06) ?? .0;
+        final zFactor = 1.0 - math.pow(1.0 - .06, dt).toDouble();
+        final nextCamZ = lerpDouble(curCamZ, _targetCameraZ, zFactor) ?? .0;
         final snappedCamZ = (nextCamZ - _targetCameraZ).abs() < .05 ? _targetCameraZ : nextCamZ;
         if (curCamZ != snappedCamZ) {
           _cameraZNotifier.value = snappedCamZ;
@@ -169,14 +176,26 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           if (event is PointerScrollEvent) _onScrollDelta(event.scrollDelta.dy);
         },
         child: MouseRegion(
-          onHover: (e) => _updatePointerTilt(e.localPosition, size),
+          onHover: (e) {
+            // if (e.kind == .mouse)
+            _updatePointerTilt(e.localPosition, size);
+          },
           onExit: (_) => _targetTilt = .zero,
           child: GestureDetector(
             onPanUpdate: (details) {
-              _updatePointerTilt(details.localPosition, size);
+              final nextDx = (_targetTilt.dx + (details.delta.dx / size.width) * 1.8).clamp(
+                -1.0,
+                1.0,
+              );
+              final nextDy = (_targetTilt.dy + (details.delta.dy / size.height) * .8).clamp(
+                -.6,
+                .6,
+              );
+              _targetTilt = Offset(nextDx, nextDy);
               _onScrollDelta(-details.delta.dy * 1.6);
             },
             onPanEnd: (_) => _targetTilt = .zero,
+            onPanCancel: () => _targetTilt = .zero,
             child: Stack(
               alignment: .center,
               clipBehavior: .none,
@@ -382,12 +401,13 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     double proximity,
   ) {
     return switch (index) {
-      1 => _BrideGroom3DShowcase(tilt: attenuatedTilt, proximity: proximity),
-      2 => _SacredEvent3DShowcase(tilt: attenuatedTilt),
+      1 => const _BrideGroom3DShowcase(),
+      2 => const _SacredEvent3DShowcase(),
       3 => Cylindrical3DCarousel(
         ambientPhaseNotifier: _ambientPhaseNotifier,
         tilt: smoothTilt,
         proximity: proximity,
+        isActive: proximity > .28,
         vanishingRangeX: size.width * _vanishingFactorX,
         vanishingRangeY: size.height * _vanishingFactorY,
         itemCount: _moments.length,
@@ -662,8 +682,7 @@ Matrix4 _createTunnelAlignedPerspectiveMatrix({
 // ============================================================================
 // SEKSI 1: PROFIL MEMPELAI DENGAN KARTU HOLOGRAM 3D MULTI-LAYER
 // ============================================================================
-class const _BrideGroom3DShowcase({required final Offset tilt, required final double proximity})
-    extends StatelessWidget {
+class const _BrideGroom3DShowcase() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -699,14 +718,12 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
                 parents: 'Putra Pertama Bpk. H. Wijaya & Ibu Hj. Sekar',
                 role: 'THE GROOM',
                 icon: Icons.workspace_premium_outlined,
-                depthDirection: -1,
               ),
               _buildPerson3DCard(
                 name: 'R.A. Shinta Maharani, S.Ds.',
                 parents: 'Putri Kedua Bpk. H. Baskoro & Ibu Hj. Dewi',
                 role: 'THE BRIDE',
                 icon: Icons.diamond_outlined,
-                depthDirection: 1,
               ),
             ],
           ),
@@ -720,75 +737,61 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
     required String parents,
     required String role,
     required IconData icon,
-    required int depthDirection,
   }) {
-    return Transform.translate(
-      offset: Offset(-tilt.dx * 8.0 * depthDirection, -tilt.dy * 6.0 * depthDirection),
-      child: Container(
-        width: 280,
-        padding: const .all(24),
-        decoration: BoxDecoration(
-          borderRadius: .circular(28),
-          gradient: LinearGradient(
-            begin: .topLeft,
-            end: .bottomRight,
-            colors: [
-              const Color(0xFF17332A).withValues(alpha: .9),
-              const Color(0xFF0A1612).withValues(alpha: .92),
-            ],
+    return Container(
+      width: 280,
+      padding: const .all(24),
+      decoration: BoxDecoration(
+        borderRadius: .circular(28),
+        gradient: LinearGradient(
+          begin: .topLeft,
+          end: .bottomRight,
+          colors: [
+            const Color(0xFF17332A).withValues(alpha: .9),
+            const Color(0xFF0A1612).withValues(alpha: .92),
+          ],
+        ),
+        border: .all(color: const Color(0xFFD4AF37).withValues(alpha: .6)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: .65),
+            blurRadius: 30,
+            offset: const Offset(0, 15),
           ),
-          border: .all(color: const Color(0xFFD4AF37).withValues(alpha: .6)),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: .65),
-              blurRadius: 30,
-              offset: Offset(tilt.dx * 16, 15),
+        ],
+      ),
+      child: Column(
+        children: [
+          Container(
+            width: 82,
+            height: 82,
+            decoration: BoxDecoration(
+              shape: .circle,
+              gradient: const RadialGradient(colors: [Color(0xFFE5C158), Color(0xFF7D5A18)]),
+              boxShadow: [
+                BoxShadow(color: const Color(0xFFE5C158).withValues(alpha: .35), blurRadius: 20),
+              ],
             ),
-          ],
-        ),
-        child: Column(
-          children: [
-            Transform.translate(
-              offset: Offset(-tilt.dx * 8, -tilt.dy * 8),
-              child: Container(
-                width: 82,
-                height: 82,
-                decoration: BoxDecoration(
-                  shape: .circle,
-                  gradient: const RadialGradient(colors: [Color(0xFFE5C158), Color(0xFF7D5A18)]),
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFFE5C158).withValues(alpha: .35),
-                      blurRadius: 20,
-                    ),
-                  ],
-                ),
-                child: Icon(icon, size: 38, color: const Color(0xFF081410)),
-              ),
-            ),
-            const SizedBox(height: 18),
-            Text(
-              role,
-              style: const TextStyle(fontSize: 10, letterSpacing: 3.0, color: Color(0xFFE5C158)),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              name,
-              textAlign: .center,
-              style: const TextStyle(fontSize: 19, fontWeight: .bold, color: Color(0xFFFFF3D1)),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              parents,
-              textAlign: .center,
-              style: TextStyle(
-                fontSize: 12,
-                height: 1.5,
-                color: Colors.white.withValues(alpha: .75),
-              ),
-            ),
-          ],
-        ),
+            child: Icon(icon, size: 38, color: const Color(0xFF081410)),
+          ),
+          const SizedBox(height: 18),
+          Text(
+            role,
+            style: const TextStyle(fontSize: 10, letterSpacing: 3.0, color: Color(0xFFE5C158)),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            name,
+            textAlign: .center,
+            style: const TextStyle(fontSize: 19, fontWeight: .bold, color: Color(0xFFFFF3D1)),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            parents,
+            textAlign: .center,
+            style: TextStyle(fontSize: 12, height: 1.5, color: Colors.white.withValues(alpha: .75)),
+          ),
+        ],
       ),
     );
   }
@@ -797,7 +800,7 @@ class const _BrideGroom3DShowcase({required final Offset tilt, required final do
 // ============================================================================
 // SEKSI 2: AKAD & RESEPSI DENGAN 3D FLOATING SUNDIAL / COUNTDOWN
 // ============================================================================
-class const _SacredEvent3DShowcase({required final Offset tilt}) extends StatelessWidget {
+class const _SacredEvent3DShowcase() extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -811,7 +814,7 @@ class const _SacredEvent3DShowcase({required final Offset tilt}) extends Statele
           BoxShadow(
             color: Colors.black.withValues(alpha: .7),
             blurRadius: 40,
-            offset: Offset(tilt.dx * 22, tilt.dy * 18 + 16),
+            offset: const Offset(0, 16),
           ),
         ],
       ),
@@ -1132,13 +1135,16 @@ class VolumetricGodRaysPainter({
   required final double vanishingFactorX,
   required final double vanishingFactorY,
 }) extends CustomPainter {
-  static final Paint _bgPaint = Paint();
+  static final Shader _unitBgShader = const RadialGradient(
+    colors: [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
+    stops: [.0, .55, 1.0],
+  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+
+  static final Paint _bgPaint = Paint()..shader = _unitBgShader;
   static final Paint _rayPaint = Paint()..blendMode = .plus;
   static final Path _rayPath = Path();
 
   static Size? _cachedSize;
-  static Offset? _cachedTilt;
-  static Shader? _cachedBgShader;
   static Shader? _cachedRayBaseShader;
 
   @override
@@ -1146,34 +1152,26 @@ class VolumetricGodRaysPainter({
     final tilt = tiltNotifier.value;
     final ambientPhase = ambientPhaseNotifier.value;
     final gateOpenProgress = gateController.value;
-
     final bgRect = Offset.zero & size;
 
-    if (_cachedBgShader == null || _cachedSize != size || _cachedTilt != tilt) {
-      final vpAlignX = -tilt.dx * vanishingFactorX * 2.0;
-      final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .38;
-
-      _cachedBgShader = RadialGradient(
-        center: Alignment(vpAlignX, vpAlignY),
-        radius: 1.1,
-        colors: const [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
-        stops: const [.0, .55, 1.0],
+    if (_cachedSize != size || _cachedRayBaseShader == null) {
+      _cachedRayBaseShader = const LinearGradient(
+        begin: .topCenter,
+        end: .bottomCenter,
+        colors: [Color(0xFFFFE599), Color(0x40D4AF37), Colors.transparent],
       ).createShader(bgRect);
-
-      if (_cachedSize != size) {
-        _cachedRayBaseShader = const LinearGradient(
-          begin: .topCenter,
-          end: .bottomCenter,
-          colors: [Color(0xFFFFE599), Color(0x40D4AF37), Colors.transparent],
-        ).createShader(bgRect);
-      }
-
       _cachedSize = size;
-      _cachedTilt = tilt;
     }
 
-    _bgPaint.shader = _cachedBgShader;
-    canvas.drawRect(bgRect, _bgPaint);
+    final vpX = size.width * (.5 - tilt.dx * vanishingFactorX);
+    final vpY = size.height * (.31 - tilt.dy * vanishingFactorY);
+    final bgRadius = math.max(size.width, size.height) * 1.1;
+
+    canvas.save();
+    canvas.translate(vpX, vpY);
+    canvas.scale(bgRadius, bgRadius);
+    canvas.drawCircle(.zero, 1.0, _bgPaint);
+    canvas.restore();
 
     final sourceX = size.width * .5 - (tilt.dx * size.width * vanishingFactorX);
     final sourceY = size.height * .22 - (tilt.dy * size.height * vanishingFactorY);
@@ -1289,11 +1287,7 @@ class GoldenPalaceArchPainter({
 }) extends CustomPainter {
   static final _archPath = Path();
   static final _archPaint = Paint()..style = .stroke;
-  static final _pillarAmbientGlowPaint = Paint()
-    ..style = .stroke
-    ..strokeCap = .round
-    ..blendMode = .plus;
-  static final _pillarSpecularPaint = Paint()
+  static final _pillarGlowPaint = Paint()
     ..style = .stroke
     ..strokeCap = .round
     ..blendMode = .plus;
@@ -1316,10 +1310,8 @@ class GoldenPalaceArchPainter({
   static Size? _cachedSize;
   static bool? _cachedIsMobile;
   static Shader? _cachedArchShader;
-  static Shader? _cachedLeftAmbientShader;
-  static Shader? _cachedRightAmbientShader;
-  static Shader? _cachedLeftSpecularShader;
-  static Shader? _cachedRightSpecularShader;
+  static Shader? _cachedLeftGlowShader;
+  static Shader? _cachedRightGlowShader;
 
   static void _ensureArchGeometryAndShaders(Size size, bool isMobile) {
     if (_cachedSize == size && _cachedIsMobile == isMobile && _cachedArchShader != null) return;
@@ -1352,30 +1344,25 @@ class GoldenPalaceArchPainter({
     final lanternY = h * .105 + chainLen;
     final illuminationRadius = isMobile ? w * .38 : w * .32;
 
-    const ambientGradient = RadialGradient(
-      colors: [Color(0x6BFFE599), Color(0x33D4AF37), Color(0x0F9C7316), Colors.transparent],
-      stops: [.0, .35, .70, 1.0],
-    );
-
-    const specularGradient = RadialGradient(
-      colors: [Color(0xE0FFF4CC), Color(0x85FFE599), Color(0x26D4AF37), Colors.transparent],
-      stops: [.0, .30, .65, 1.0],
+    const combinedPillarGradient = RadialGradient(
+      colors: [
+        Color(0xE6FFF4CC),
+        Color(0x99FFE599),
+        Color(0x38D4AF37),
+        Color(0x0F9C7316),
+        Colors.transparent,
+      ],
+      stops: [.0, .24, .52, .78, 1.0],
     );
 
     final leftCenter = Offset(leftLanternX, lanternY);
     final rightCenter = Offset(rightLanternX, lanternY);
 
-    _cachedLeftAmbientShader = ambientGradient.createShader(
+    _cachedLeftGlowShader = combinedPillarGradient.createShader(
       Rect.fromCircle(center: leftCenter, radius: illuminationRadius),
     );
-    _cachedRightAmbientShader = ambientGradient.createShader(
+    _cachedRightGlowShader = combinedPillarGradient.createShader(
       Rect.fromCircle(center: rightCenter, radius: illuminationRadius),
-    );
-    _cachedLeftSpecularShader = specularGradient.createShader(
-      Rect.fromCircle(center: leftCenter, radius: illuminationRadius * .75),
-    );
-    _cachedRightSpecularShader = specularGradient.createShader(
-      Rect.fromCircle(center: rightCenter, radius: illuminationRadius * .75),
     );
   }
 
@@ -1414,40 +1401,17 @@ class GoldenPalaceArchPainter({
       (opacity * pillarProximityBoost).clamp(.0, 1.0),
     );
 
-    _drawPillarIllumination(
-      canvas,
-      _cachedLeftAmbientShader!,
-      _cachedLeftSpecularShader!,
-      pillarAlphaColor,
-    );
-    _drawPillarIllumination(
-      canvas,
-      _cachedRightAmbientShader!,
-      _cachedRightSpecularShader!,
-      pillarAlphaColor,
-    );
+    _pillarGlowPaint
+      ..strokeWidth = isMobile ? 5.5 : 4.8
+      ..shader = _cachedLeftGlowShader
+      ..color = pillarAlphaColor;
+    canvas.drawPath(_archPath, _pillarGlowPaint);
+
+    _pillarGlowPaint.shader = _cachedRightGlowShader;
+    canvas.drawPath(_archPath, _pillarGlowPaint);
 
     _drawHangingLantern(canvas, leftTopAnchor, leftLanternCenter, masterAlphaColor);
     _drawHangingLantern(canvas, rightTopAnchor, rightLanternCenter, masterAlphaColor);
-  }
-
-  void _drawPillarIllumination(
-    Canvas canvas,
-    Shader ambientShader,
-    Shader specularShader,
-    Color modulatedAlpha,
-  ) {
-    _pillarAmbientGlowPaint
-      ..strokeWidth = isMobile ? 7.0 : 6.0
-      ..shader = ambientShader
-      ..color = modulatedAlpha;
-    canvas.drawPath(_archPath, _pillarAmbientGlowPaint);
-
-    _pillarSpecularPaint
-      ..strokeWidth = isMobile ? 3.5 : 3.0
-      ..shader = specularShader
-      ..color = modulatedAlpha;
-    canvas.drawPath(_archPath, _pillarSpecularPaint);
   }
 
   void _drawHangingLantern(
@@ -1540,7 +1504,6 @@ class RoyalPerspectiveWalkwayPainter({
   ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
 
   static Size? _cachedShaderSize;
-  static double? _cachedTiltDy;
   static Shader? _cachedSurfaceShader;
   static Shader? _cachedTrimShader;
 
@@ -1579,8 +1542,10 @@ class RoyalPerspectiveWalkwayPainter({
     final halfWidth = isMobile ? w * .6 : w * .3;
     final innerTrimWidth = halfWidth * .86;
 
-    if (_cachedSurfaceShader == null || _cachedShaderSize != size || _cachedTiltDy != tilt.dy) {
-      final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
+    if (_cachedSurfaceShader == null || _cachedShaderSize != size) {
+      final baseTopY = centerY + (centerY * scaleFar);
+      final baseBottomY = centerY + (centerY * scaleNear);
+      final shaderRect = Rect.fromLTRB(.0, baseTopY, w, baseBottomY);
 
       _cachedSurfaceShader = const LinearGradient(
         begin: .bottomCenter,
@@ -1597,7 +1562,6 @@ class RoyalPerspectiveWalkwayPainter({
       ).createShader(shaderRect);
 
       _cachedShaderSize = size;
-      _cachedTiltDy = tilt.dy;
     }
 
     final nearLeftX = centerX + axisNearX - (halfWidth * scaleNear);

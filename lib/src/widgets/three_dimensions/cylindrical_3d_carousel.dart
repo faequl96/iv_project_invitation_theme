@@ -11,11 +11,34 @@ typedef Cylindrical3DCarouselItemBuilder = Thick3DCard Function(
   bool isFacingFront,
 );
 
+class _CardOpacityAnimation(var double _value)
+    extends Animation<double>
+    with AnimationEagerListenerMixin, AnimationLocalListenersMixin {
+  @override
+  double get value => _value;
+
+  set value(double newValue) {
+    if (_value == newValue) return;
+    _value = newValue;
+    notifyListeners();
+  }
+
+  @override
+  AnimationStatus get status => .forward;
+
+  @override
+  void addStatusListener(AnimationStatusListener listener) {}
+
+  @override
+  void removeStatusListener(AnimationStatusListener listener) {}
+}
+
 class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
   final double proximity = 1.0,
+  final bool isActive = true,
   final double cylinderRadius = 220.0,
   final double baseTunnelDepth = 180.0,
   final double vanishingRangeX = 220.0,
@@ -35,6 +58,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   double _angleStep = .0;
   double _cachedCamAngle = .0;
   bool _isProjectionDirty = true;
+  bool _hasParentPerspective = false;
 
   final _parentMatrix = Matrix4.identity();
   final _totalMatrix = Matrix4.identity();
@@ -46,6 +70,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   late Int32List _sortedIndices;
   late List<ValueKey<int>> _cardKeys;
   late List<Matrix4> _cardMatrices;
+  List<_CardOpacityAnimation> _cardOpacityAnimations = const [];
 
   late List<Widget?> _cachedCards;
   late Uint8List _lastFacingState;
@@ -90,18 +115,27 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   @override
   void dispose() {
     widget.ambientPhaseNotifier.removeListener(_onAutoRotate);
+    _disposeOpacityAnimations();
     _continuousAngle.dispose();
 
     super.dispose();
   }
 
+  void _disposeOpacityAnimations() {
+    for (final anim in _cardOpacityAnimations) {
+      anim.dispose();
+    }
+  }
+
   void _initBuffers(int count) {
+    _disposeOpacityAnimations();
     _angleStep = count > 0 ? (2 * math.pi) / count : .0;
     _itemAngles = Float64List(count);
     _itemCosines = Float64List(count);
     _sortedIndices = Int32List(count);
     _cardKeys = .generate(count, ValueKey.new, growable: false);
     _cardMatrices = .generate(count, (_) => .identity(), growable: false);
+    _cardOpacityAnimations = .generate(count, (_) => _CardOpacityAnimation(1.0), growable: false);
     _cachedCards = List<Widget?>.filled(count, null, growable: false);
     _lastFacingState = Uint8List(count);
   }
@@ -109,9 +143,10 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   void _onAutoRotate() {
     final currentPhase = widget.ambientPhaseNotifier.value;
     final delta = currentPhase - _lastAmbientPhase;
-
-    _continuousAngle.value += delta * .4;
     _lastAmbientPhase = currentPhase;
+
+    if (!widget.isActive) return;
+    _continuousAngle.value += delta * .4;
   }
 
   void _invalidateCardCache() {
@@ -130,22 +165,27 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
         ..translateByDouble(cx, cy, .0, 1.0);
 
       final s = _parentMatrix.storage;
-      final w = s[15];
-      if (w != .0) {
-        final screenCenterX = s[12] / w;
-        final screenCenterY = s[13] / w;
+      _hasParentPerspective = s[3].abs() > 1e-7 || s[7].abs() > 1e-7 || s[11].abs() > 1e-7;
 
-        s[0] -= s[3] * screenCenterX;
-        s[1] -= s[3] * screenCenterY;
-        s[4] -= s[7] * screenCenterX;
-        s[5] -= s[7] * screenCenterY;
-        s[8] -= s[11] * screenCenterX;
-        s[9] -= s[11] * screenCenterY;
-        s[12] = .0;
-        s[13] = .0;
+      if (_hasParentPerspective) {
+        final w = s[15];
+        if (w != .0) {
+          final screenCenterX = s[12] / w;
+          final screenCenterY = s[13] / w;
+
+          s[0] -= s[3] * screenCenterX;
+          s[1] -= s[3] * screenCenterY;
+          s[4] -= s[7] * screenCenterX;
+          s[5] -= s[7] * screenCenterY;
+          s[8] -= s[11] * screenCenterX;
+          s[9] -= s[11] * screenCenterY;
+          s[12] = .0;
+          s[13] = .0;
+        }
       }
     } else {
       _parentMatrix.setIdentity();
+      _hasParentPerspective = false;
     }
 
     const focalLength = 650.0;
@@ -183,15 +223,15 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
     _isProjectionDirty = false;
   }
 
-  bool get _isFacingFront {
-    final s = _totalMatrix.storage;
+  static bool _checkIsFacingFront(Matrix4 matrix) {
+    final s = matrix.storage;
     final w3 = s[15];
     final tux = (s[0] * w3) - (s[3] * s[12]);
     final tuy = (s[1] * w3) - (s[3] * s[13]);
     final tvx = (s[4] * w3) - (s[7] * s[12]);
     final tvy = (s[5] * w3) - (s[7] * s[13]);
 
-    return (tux * tvy) - (tuy * tvx) >= 0;
+    return (tux * tvy) - (tuy * tvx) >= .0;
   }
 
   void _sortIndicesByDepth(int count) {
@@ -253,17 +293,20 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
                 final depthRatio = (1.0 + _itemCosines[index]) * .5;
                 final cardOpacity = (.44 + (depthRatio * .56)).clamp(.0, 1.0);
+                _cardOpacityAnimations[index].value = cardOpacity;
 
                 final cardMatrix = _cardMatrices[index]
                   ..setFrom(_cylinderProjectionMatrix)
                   ..translateByDouble(orbitX, .0, zLocal, 1.0)
                   ..rotateY(-itemAngle);
 
-                _totalMatrix
-                  ..setFrom(_parentMatrix)
-                  ..multiply(cardMatrix);
+                final effectiveMatrix = _hasParentPerspective
+                    ? (_totalMatrix
+                        ..setFrom(_parentMatrix)
+                        ..multiply(cardMatrix))
+                    : cardMatrix;
 
-                final isFacingFront = _isFacingFront;
+                final isFacingFront = _checkIsFacingFront(effectiveMatrix);
                 final targetState = isFacingFront ? 2 : 1;
                 if (_lastFacingState[index] != targetState) {
                   _lastFacingState[index] = targetState;
@@ -276,9 +319,10 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
                   key: _cardKeys[index],
                   alignment: .center,
                   transform: cardMatrix,
-                  child: cardOpacity >= .999
-                      ? cardWidget
-                      : Opacity(opacity: cardOpacity, child: cardWidget),
+                  child: FadeTransition(
+                    opacity: _cardOpacityAnimations[index],
+                    child: RepaintBoundary(child: cardWidget),
+                  ),
                 );
               }, growable: false);
 
