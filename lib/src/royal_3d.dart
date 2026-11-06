@@ -20,7 +20,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     {'title': 'Prewedding Session', 'year': '2026', 'caption': 'Taman Sari'},
     {'title': 'Menuju Pelaminan', 'year': '2026', 'caption': 'Jakarta'},
     {'title': 'Janji Suci Abadi', 'year': '2026', 'caption': 'Nusantara'},
-    {'title': 'Pertemuan Pertama', 'year': '2023', 'caption': 'Yogyakarta'},
+    {'title': 'Telah Resmi', 'year': '2026', 'caption': 'Yogyakarta'},
   ];
 
   static const _stationZPositions = [.0, 1000.0, 2200.0, 3400.0, 4600.0];

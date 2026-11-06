@@ -16,7 +16,7 @@ class const Cylindrical3DCarousel({
   required final ValueNotifier<double> ambientPhaseNotifier,
   required final Offset tilt,
   final double proximity = 1.0,
-  final double cylinderRadius = 240.0,
+  final double cylinderRadius = 220.0,
   final double baseTunnelDepth = 180.0,
   final double vanishingRangeX = 220.0,
   final double vanishingRangeY = 185.0,
@@ -192,8 +192,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
               final centerZ = widget.baseTunnelDepth + radius;
               final centerScale = focalLength / (focalLength + centerZ);
               final baseProgress = 1.0 - centerScale;
-              final anchorX = (vpX * baseProgress);
-              final anchorY = (vpY * baseProgress);
+              final anchorY = (vpY * baseProgress) * .72;
 
               final cylVpX = vpX * .36;
               final cylVpY = vpY * .42;
@@ -211,7 +210,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
               _cylinderProjectionMatrix
                 ..setIdentity()
-                ..translateByDouble(anchorX, anchorY, .0, 1.0)
+                ..translateByDouble(.0, anchorY, .0, 1.0)
                 ..multiply(_perspectiveShearMatrix);
 
               final camAngle = math.atan(shearX);
