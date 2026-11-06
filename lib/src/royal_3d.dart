@@ -23,10 +23,10 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     {'title': 'Telah Resmi', 'year': '2026', 'caption': 'Yogyakarta'},
   ];
 
-  static const _stationZPositions = [.0, 1000.0, 2200.0, 3400.0, 4600.0];
+  static const _stationZPositions = [.0, 1200.0, 2800.0, 4400.0, 6000.0];
   static const _stationLabels = ['Gerbang', 'Mempelai', 'Acara', 'Galeri 3D', 'Amplop & RSVP'];
 
-  static const _maxCameraZ = 4800.0;
+  static const _maxCameraZ = 6200.0;
   static const _focalLength = 650.0;
   static const _vanishingFactorX = .34;
   static const _vanishingFactorY = .22;
@@ -84,19 +84,21 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       if (curCamZ != _targetCameraZ) {
         final nextCamZ = lerpDouble(curCamZ, _targetCameraZ, .06) ?? .0;
         final snappedCamZ = (nextCamZ - _targetCameraZ).abs() < .05 ? _targetCameraZ : nextCamZ;
-        _cameraZNotifier.value = snappedCamZ;
+        if (curCamZ != snappedCamZ) {
+          _cameraZNotifier.value = snappedCamZ;
 
-        int closestIndex = 0;
-        double minDiff = .infinity;
-        for (int i = 0; i < _stationZPositions.length; i++) {
-          final diff = (snappedCamZ - _stationZPositions[i]).abs();
-          if (diff < minDiff) {
-            minDiff = diff;
-            closestIndex = i;
+          int closestIndex = 0;
+          double minDiff = .infinity;
+          for (int i = 0; i < _stationZPositions.length; i++) {
+            final diff = (snappedCamZ - _stationZPositions[i]).abs();
+            if (diff < minDiff) {
+              minDiff = diff;
+              closestIndex = i;
+            }
           }
-        }
-        if (_activeStationNotifier.value != closestIndex) {
-          _activeStationNotifier.value = closestIndex;
+          if (_activeStationNotifier.value != closestIndex) {
+            _activeStationNotifier.value = closestIndex;
+          }
         }
       }
     })..start();
@@ -161,6 +163,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     final size = MediaQuery.sizeOf(context);
 
     return Scaffold(
+      backgroundColor: const Color(0xFF010302),
       body: Listener(
         onPointerSignal: (event) {
           if (event is PointerScrollEvent) _onScrollDelta(event.scrollDelta.dy);
@@ -178,7 +181,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               alignment: .center,
               clipBehavior: .none,
               children: [
-                // 1. DEEP SKY & VOLUMETRIC GOD RAYS (Repaint via Listenable, 0 Widget rebuild)
+                // 1. DEEP SKY & VOLUMETRIC GOD RAYS
                 Positioned.fill(
                   child: RepaintBoundary(
                     child: CustomPaint(
@@ -194,7 +197,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                   ),
                 ),
 
-                // 1.5. JALAN KARPET KERATON 3D (Repaint via Listenable, 0 Widget rebuild)
+                // 1.5. JALAN KARPET KERATON 3D
                 Positioned.fill(
                   child: IgnorePointer(
                     child: RepaintBoundary(
@@ -231,7 +234,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                   },
                 ),
 
-                // 5. PARTIKEL KELOPAK BUNGA EMAS 3D (Repaint via Listenable, 0 Widget rebuild)
+                // 5. PARTIKEL KELOPAK BUNGA EMAS 3D
                 Positioned.fill(
                   child: IgnorePointer(
                     child: RepaintBoundary(
@@ -265,7 +268,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     final archVirtualWidth = isMobile ? (size.width * 1.25).clamp(480.0, 580.0) : size.width;
     final archWidthBoost = isMobile ? 1.15 : 1.0;
 
-    for (double z = 4800; z >= 400; z -= 600) {
+    for (double z = 6600; z >= 400; z -= 600) {
       final relativeZ = z - currentCameraZ;
       if (relativeZ <= -420 || relativeZ >= 3600) continue;
 
@@ -333,7 +336,6 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
       final tunnelOffset = _project3DTunnelAxisOffset(size, scale, smoothTilt);
       final attenuatedTilt = smoothTilt * angularWeight;
 
-      // Station 3 (Carousel) mengelola rotasi 3D tiap kartunya sendiri agar tidak miring sebagai kanvas 2D datar
       final stationMatrix = i == 3
           ? (Matrix4.identity()
               ..translateByDouble(tunnelOffset.dx, tunnelOffset.dy, .0, 1.0)
@@ -349,6 +351,10 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               maxPitch: .09,
             );
 
+      final stationContent = RepaintBoundary(
+        child: _buildStationWidgetByIndex(size, i, smoothTilt, attenuatedTilt, proximity),
+      );
+
       stations.add(
         KeyedSubtree(
           key: ValueKey('station_3d_$i'),
@@ -357,10 +363,9 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             child: Transform(
               alignment: .center,
               transform: stationMatrix,
-              child: Opacity(
-                opacity: opacity,
-                child: _buildStationWidgetByIndex(size, i, smoothTilt, attenuatedTilt, proximity),
-              ),
+              child: opacity >= .999
+                  ? stationContent
+                  : Opacity(opacity: opacity, child: stationContent),
             ),
           ),
         ),
@@ -414,67 +419,68 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           math.min(size.height * .78, 560.0),
         );
 
-        return Opacity(
-          opacity: gateOpacity,
-          child: Transform(
+        final gateContent = Transform(
+          alignment: .center,
+          transform: _createTunnelAlignedPerspectiveMatrix(
+            tx: tunnelOffset.dx * .35,
+            ty: tunnelOffset.dy * .35,
+            scale: cameraPushScale,
+            perspective: .0008,
+            tiltX: smoothTilt.dx,
+            tiltY: smoothTilt.dy,
+            maxYaw: .09,
+            maxPitch: .045,
+          ),
+          child: Stack(
             alignment: .center,
-            transform: _createTunnelAlignedPerspectiveMatrix(
-              tx: tunnelOffset.dx * .35,
-              ty: tunnelOffset.dy * .35,
-              scale: cameraPushScale,
-              perspective: .0008,
-              tiltX: smoothTilt.dx,
-              tiltY: smoothTilt.dy,
-              maxYaw: .09,
-              maxPitch: .045,
-            ),
-            child: Stack(
-              alignment: .center,
-              children: [
-                Row(
-                  mainAxisSize: .min,
-                  children: [
-                    Transform(
-                      alignment: .centerLeft,
-                      transform: Matrix4.identity()
-                        ..setEntry(3, 2, .0012)
-                        ..rotateY(-doorSwingAngle),
-                      child: RepaintBoundary(
-                        child: CustomPaint(
-                          size: gateSize,
-                          painter: const OrnateRoyalDoorPainter(isLeftDoor: true),
-                        ),
+            children: [
+              Row(
+                mainAxisSize: .min,
+                children: [
+                  Transform(
+                    alignment: .centerLeft,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, .0012)
+                      ..rotateY(-doorSwingAngle),
+                    child: RepaintBoundary(
+                      child: CustomPaint(
+                        size: gateSize,
+                        painter: const OrnateRoyalDoorPainter(isLeftDoor: true),
                       ),
-                    ),
-                    Transform(
-                      alignment: .centerRight,
-                      transform: Matrix4.identity()
-                        ..setEntry(3, 2, .0012)
-                        ..rotateY(doorSwingAngle),
-                      child: RepaintBoundary(
-                        child: CustomPaint(
-                          size: gateSize,
-                          painter: const OrnateRoyalDoorPainter(isLeftDoor: false),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                if (curve < .85)
-                  Opacity(
-                    opacity: (1.0 - curve * 1.4).clamp(.0, 1.0),
-                    child: Transform(
-                      alignment: .center,
-                      transform: Matrix4.identity()
-                        ..translateByDouble(-smoothTilt.dx * 14.0, -smoothTilt.dy * 10.0, .0, 1.0)
-                        ..scaleByDouble(1.0 + curve * .3, 1.0 + curve * .3, 1.0, 1.0),
-                      child: _buildCenterRoyalSealMedallion(smoothTilt),
                     ),
                   ),
-              ],
-            ),
+                  Transform(
+                    alignment: .centerRight,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, .0012)
+                      ..rotateY(doorSwingAngle),
+                    child: RepaintBoundary(
+                      child: CustomPaint(
+                        size: gateSize,
+                        painter: const OrnateRoyalDoorPainter(isLeftDoor: false),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              if (curve < .85)
+                Opacity(
+                  opacity: (1.0 - curve * 1.4).clamp(.0, 1.0),
+                  child: Transform(
+                    alignment: .center,
+                    transform: Matrix4.identity()
+                      ..translateByDouble(-smoothTilt.dx * 14.0, -smoothTilt.dy * 10.0, .0, 1.0)
+                      ..scaleByDouble(1.0 + curve * .3, 1.0 + curve * .3, 1.0, 1.0),
+                    child: _buildCenterRoyalSealMedallion(smoothTilt),
+                  ),
+                ),
+            ],
           ),
         );
+
+        return gateOpacity >= .999
+            ? gateContent
+            : Opacity(opacity: gateOpacity, child: gateContent);
       },
     );
   }
@@ -624,6 +630,8 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   }
 }
 
+final Matrix4 _perspectiveScratch = .identity();
+
 Matrix4 _createTunnelAlignedPerspectiveMatrix({
   double tx = .0,
   double ty = .0,
@@ -639,10 +647,14 @@ Matrix4 _createTunnelAlignedPerspectiveMatrix({
   final yaw = (-tiltX * maxYaw) + extraRotateY;
   final pitch = tiltY * maxPitch;
 
+  _perspectiveScratch
+    ..setIdentity()
+    ..setEntry(3, 2, perspective);
+
   return .identity()
     ..translateByDouble(tx, ty, .0, 1.0)
     ..scaleByDouble(scale * scaleXMultiplier, scale, scale, 1.0)
-    ..multiply(.identity()..setEntry(3, 2, perspective))
+    ..multiply(_perspectiveScratch)
     ..rotateY(yaw)
     ..rotateX(pitch * math.cos(yaw));
 }
@@ -1109,7 +1121,7 @@ class _HolographicGiftAndRsvpShowcaseState()
 }
 
 // ============================================================================
-// CUSTOM PAINTERS: ZERO-ALLOCATION LOOP & DIRECT REPAINT LISTENABLES
+// CUSTOM PAINTERS: ZERO-ALLOCATION LOOP & HARDWARE ALPHA MODULATION
 // ============================================================================
 
 class VolumetricGodRaysPainter({
@@ -1124,56 +1136,71 @@ class VolumetricGodRaysPainter({
   static final Paint _rayPaint = Paint()..blendMode = .plus;
   static final Path _rayPath = Path();
 
+  static Size? _cachedSize;
+  static Offset? _cachedTilt;
+  static Shader? _cachedBgShader;
+  static Shader? _cachedRayBaseShader;
+
   @override
   void paint(Canvas canvas, Size size) {
     final tilt = tiltNotifier.value;
     final ambientPhase = ambientPhaseNotifier.value;
     final gateOpenProgress = gateController.value;
 
-    final vpAlignX = -tilt.dx * vanishingFactorX * 2.0;
-    final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .38;
-
     final bgRect = Offset.zero & size;
-    _bgPaint.shader = RadialGradient(
-      center: Alignment(vpAlignX, vpAlignY),
-      radius: 1.1,
-      colors: const [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
-      stops: const [.0, .55, 1.0],
-    ).createShader(bgRect);
+
+    if (_cachedBgShader == null || _cachedSize != size || _cachedTilt != tilt) {
+      final vpAlignX = -tilt.dx * vanishingFactorX * 2.0;
+      final vpAlignY = -tilt.dy * vanishingFactorY * 2.0 - .38;
+
+      _cachedBgShader = RadialGradient(
+        center: Alignment(vpAlignX, vpAlignY),
+        radius: 1.1,
+        colors: const [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
+        stops: const [.0, .55, 1.0],
+      ).createShader(bgRect);
+
+      if (_cachedSize != size) {
+        _cachedRayBaseShader = const LinearGradient(
+          begin: .topCenter,
+          end: .bottomCenter,
+          colors: [Color(0xFFFFE599), Color(0x40D4AF37), Colors.transparent],
+        ).createShader(bgRect);
+      }
+
+      _cachedSize = size;
+      _cachedTilt = tilt;
+    }
+
+    _bgPaint.shader = _cachedBgShader;
     canvas.drawRect(bgRect, _bgPaint);
 
     final sourceX = size.width * .5 - (tilt.dx * size.width * vanishingFactorX);
     final sourceY = size.height * .22 - (tilt.dy * size.height * vanishingFactorY);
 
     const rayCount = 9;
-    final baseIntensity = .07 + (gateOpenProgress * .11);
-    _rayPaint.shader = LinearGradient(
-      begin: .topCenter,
-      end: .bottomCenter,
-      colors: [
-        const Color(0xFFFFE599).withValues(alpha: baseIntensity),
-        const Color(0xFFD4AF37).withValues(alpha: baseIntensity * .25),
-        Colors.transparent,
-      ],
-    ).createShader(bgRect);
+    final baseIntensity = (.07 + (gateOpenProgress * .11)).clamp(.0, 1.0);
+
+    _rayPaint
+      ..shader = _cachedRayBaseShader
+      ..color = Color.fromRGBO(255, 255, 255, baseIntensity);
 
     final rayLen = size.height * 1.5;
     final endY = size.height * 1.2;
 
+    _rayPath.reset();
     for (int i = 0; i < rayCount; i++) {
       final spread = (i - rayCount / 2) * .16;
       final sway = math.sin(ambientPhase + i) * .04 - (tilt.dx * .08);
       final angle = spread + sway;
 
       _rayPath
-        ..reset()
         ..moveTo(sourceX, sourceY)
         ..lineTo(sourceX + math.sin(angle - .06) * rayLen, endY)
         ..lineTo(sourceX + math.sin(angle + .06) * rayLen, endY)
         ..close();
-
-      canvas.drawPath(_rayPath, _rayPaint);
     }
+    canvas.drawPath(_rayPath, _rayPaint);
   }
 
   @override
@@ -1181,7 +1208,8 @@ class VolumetricGodRaysPainter({
 }
 
 class const OrnateRoyalDoorPainter({required final bool isLeftDoor}) extends CustomPainter {
-  static final _doorPath = Path();
+  static final _leftDoorPath = Path();
+  static final _rightDoorPath = Path();
   static final _filigreePath = Path();
   static final _fillPaint = Paint();
   static final _goldBorder = Paint()
@@ -1193,36 +1221,31 @@ class const OrnateRoyalDoorPainter({required final bool isLeftDoor}) extends Cus
     ..strokeWidth = 1.2
     ..color = const Color(0xFFD4AF37).withValues(alpha: .45);
 
-  @override
-  void paint(Canvas canvas, Size size) {
+  static Size? _cachedSize;
+  static Shader? _cachedFillShader;
+
+  static void _ensureGeometryCached(Size size) {
+    if (_cachedSize == size && _cachedFillShader != null) return;
+    _cachedSize = size;
+
     final w = size.width;
     final h = size.height;
 
-    _doorPath.reset();
-    if (isLeftDoor) {
-      _doorPath
-        ..moveTo(.0, h)
-        ..lineTo(.0, h * .25)
-        ..quadraticBezierTo(.0, .0, w, .0)
-        ..lineTo(w, h)
-        ..close();
-    } else {
-      _doorPath
-        ..moveTo(.0, h)
-        ..lineTo(.0, .0)
-        ..quadraticBezierTo(w, .0, w, h * .25)
-        ..lineTo(w, h)
-        ..close();
-    }
+    _leftDoorPath
+      ..reset()
+      ..moveTo(.0, h)
+      ..lineTo(.0, h * .25)
+      ..quadraticBezierTo(.0, .0, w, .0)
+      ..lineTo(w, h)
+      ..close();
 
-    _fillPaint.shader = const LinearGradient(
-      begin: .topLeft,
-      end: .bottomRight,
-      colors: [Color(0xFF152C24), Color(0xFF0A1713), Color(0xFF060E0B)],
-    ).createShader(Offset.zero & size);
-
-    canvas.drawPath(_doorPath, _fillPaint);
-    canvas.drawPath(_doorPath, _goldBorder);
+    _rightDoorPath
+      ..reset()
+      ..moveTo(.0, h)
+      ..lineTo(.0, .0)
+      ..quadraticBezierTo(w, .0, w, h * .25)
+      ..lineTo(w, h)
+      ..close();
 
     _filigreePath.reset();
     for (double y = h * .22; y < h * .88; y += 70) {
@@ -1232,6 +1255,23 @@ class const OrnateRoyalDoorPainter({required final bool isLeftDoor}) extends Cus
           ..addOval(Rect.fromCircle(center: Offset(x, y), radius: 8));
       }
     }
+
+    _cachedFillShader = const LinearGradient(
+      begin: .topLeft,
+      end: .bottomRight,
+      colors: [Color(0xFF152C24), Color(0xFF0A1713), Color(0xFF060E0B)],
+    ).createShader(Offset.zero & size);
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    _ensureGeometryCached(size);
+
+    final activePath = isLeftDoor ? _leftDoorPath : _rightDoorPath;
+    _fillPaint.shader = _cachedFillShader;
+
+    canvas.drawPath(activePath, _fillPaint);
+    canvas.drawPath(activePath, _goldBorder);
     canvas.drawPath(_filigreePath, _filigreePaint);
   }
 
@@ -1263,27 +1303,34 @@ class GoldenPalaceArchPainter({
   static final _corePaint = Paint();
   static final _capPaint = Paint()..style = .fill;
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (opacity <= .0) return;
+  static final Shader _unitOuterHaloShader = const RadialGradient(
+    colors: [Color(0x94FFE599), Color(0x40D4AF37), Color(0x129C7316), Colors.transparent],
+    stops: [.0, .30, .65, 1.0],
+  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+
+  static final Shader _unitInnerBloomShader = const RadialGradient(
+    colors: [Color(0xF2FFF4CC), Color(0x85FFE599), Color(0x00D4AF37)],
+    stops: [.0, .42, 1.0],
+  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+
+  static Size? _cachedSize;
+  static bool? _cachedIsMobile;
+  static Shader? _cachedArchShader;
+  static Shader? _cachedLeftAmbientShader;
+  static Shader? _cachedRightAmbientShader;
+  static Shader? _cachedLeftSpecularShader;
+  static Shader? _cachedRightSpecularShader;
+
+  static void _ensureArchGeometryAndShaders(Size size, bool isMobile) {
+    if (_cachedSize == size && _cachedIsMobile == isMobile && _cachedArchShader != null) return;
+    _cachedSize = size;
+    _cachedIsMobile = isMobile;
 
     final w = size.width;
     final h = size.height;
     final leftPillarX = isMobile ? w * .02 : w * .06;
     final rightPillarX = isMobile ? w * .98 : w * .94;
     final shoulderY = isMobile ? h * .26 : h * .32;
-
-    _archPaint
-      ..strokeWidth = isMobile ? 3.0 : 2.6
-      ..shader = LinearGradient(
-        begin: .topCenter,
-        end: .bottomCenter,
-        colors: [
-          const Color(0xFFFFE599).withValues(alpha: opacity * .9),
-          const Color(0xFFD4AF37).withValues(alpha: opacity * .85),
-          const Color(0xFF5A4210).withValues(alpha: opacity * .7),
-        ],
-      ).createShader(Offset.zero & size);
 
     _archPath
       ..reset()
@@ -1292,6 +1339,60 @@ class GoldenPalaceArchPainter({
       ..quadraticBezierTo(leftPillarX, h * .03, w * .5, h * .015)
       ..quadraticBezierTo(rightPillarX, h * .03, rightPillarX, shoulderY)
       ..lineTo(rightPillarX, h);
+
+    _cachedArchShader = const LinearGradient(
+      begin: .topCenter,
+      end: .bottomCenter,
+      colors: [Color(0xE6FFE599), Color(0xD9D4AF37), Color(0xB35A4210)],
+    ).createShader(Offset.zero & size);
+
+    final leftLanternX = isMobile ? w * .18 : w * .22;
+    final rightLanternX = isMobile ? w * .82 : w * .78;
+    final chainLen = isMobile ? 82.0 : 96.0;
+    final lanternY = h * .105 + chainLen;
+    final illuminationRadius = isMobile ? w * .38 : w * .32;
+
+    const ambientGradient = RadialGradient(
+      colors: [Color(0x6BFFE599), Color(0x33D4AF37), Color(0x0F9C7316), Colors.transparent],
+      stops: [.0, .35, .70, 1.0],
+    );
+
+    const specularGradient = RadialGradient(
+      colors: [Color(0xE0FFF4CC), Color(0x85FFE599), Color(0x26D4AF37), Colors.transparent],
+      stops: [.0, .30, .65, 1.0],
+    );
+
+    final leftCenter = Offset(leftLanternX, lanternY);
+    final rightCenter = Offset(rightLanternX, lanternY);
+
+    _cachedLeftAmbientShader = ambientGradient.createShader(
+      Rect.fromCircle(center: leftCenter, radius: illuminationRadius),
+    );
+    _cachedRightAmbientShader = ambientGradient.createShader(
+      Rect.fromCircle(center: rightCenter, radius: illuminationRadius),
+    );
+    _cachedLeftSpecularShader = specularGradient.createShader(
+      Rect.fromCircle(center: leftCenter, radius: illuminationRadius * .75),
+    );
+    _cachedRightSpecularShader = specularGradient.createShader(
+      Rect.fromCircle(center: rightCenter, radius: illuminationRadius * .75),
+    );
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (opacity <= .0) return;
+
+    _ensureArchGeometryAndShaders(size, isMobile);
+
+    final w = size.width;
+    final h = size.height;
+    final masterAlphaColor = Color.fromRGBO(255, 255, 255, opacity);
+
+    _archPaint
+      ..strokeWidth = isMobile ? 3.0 : 2.6
+      ..shader = _cachedArchShader
+      ..color = masterAlphaColor;
 
     canvas.drawPath(_archPath, _archPaint);
 
@@ -1305,71 +1406,78 @@ class GoldenPalaceArchPainter({
     final leftLanternCenter = Offset(leftTopAnchor.dx, leftTopAnchor.dy + chainLen);
     final rightLanternCenter = Offset(rightTopAnchor.dx, rightTopAnchor.dy + chainLen);
 
-    _drawPillarIllumination(canvas, leftLanternCenter, w);
-    _drawPillarIllumination(canvas, rightLanternCenter, w);
+    final pillarProximityBoost = (1.0 - (swing / (w * .16))).clamp(.78, 1.22);
+    final pillarAlphaColor = Color.fromRGBO(
+      255,
+      255,
+      255,
+      (opacity * pillarProximityBoost).clamp(.0, 1.0),
+    );
 
-    _drawHangingLantern(canvas, leftTopAnchor, leftLanternCenter);
-    _drawHangingLantern(canvas, rightTopAnchor, rightLanternCenter);
+    _drawPillarIllumination(
+      canvas,
+      _cachedLeftAmbientShader!,
+      _cachedLeftSpecularShader!,
+      pillarAlphaColor,
+    );
+    _drawPillarIllumination(
+      canvas,
+      _cachedRightAmbientShader!,
+      _cachedRightSpecularShader!,
+      pillarAlphaColor,
+    );
+
+    _drawHangingLantern(canvas, leftTopAnchor, leftLanternCenter, masterAlphaColor);
+    _drawHangingLantern(canvas, rightTopAnchor, rightLanternCenter, masterAlphaColor);
   }
 
-  void _drawPillarIllumination(Canvas canvas, Offset lanternCenter, double archWidth) {
-    final illuminationRadius = isMobile ? archWidth * .38 : archWidth * .32;
-    final glowRect = Rect.fromCircle(center: lanternCenter, radius: illuminationRadius);
-
+  void _drawPillarIllumination(
+    Canvas canvas,
+    Shader ambientShader,
+    Shader specularShader,
+    Color modulatedAlpha,
+  ) {
     _pillarAmbientGlowPaint
       ..strokeWidth = isMobile ? 7.0 : 6.0
-      ..shader = RadialGradient(
-        colors: [
-          const Color(0xFFFFE599).withValues(alpha: .42 * opacity),
-          const Color(0xFFD4AF37).withValues(alpha: .20 * opacity),
-          const Color(0xFF9C7316).withValues(alpha: .06 * opacity),
-          Colors.transparent,
-        ],
-        stops: const [.0, .35, .70, 1.0],
-      ).createShader(glowRect);
+      ..shader = ambientShader
+      ..color = modulatedAlpha;
     canvas.drawPath(_archPath, _pillarAmbientGlowPaint);
 
-    final coreRect = Rect.fromCircle(center: lanternCenter, radius: illuminationRadius * .75);
     _pillarSpecularPaint
       ..strokeWidth = isMobile ? 3.5 : 3.0
-      ..shader = RadialGradient(
-        colors: [
-          const Color(0xFFFFF4CC).withValues(alpha: .88 * opacity),
-          const Color(0xFFFFE599).withValues(alpha: .52 * opacity),
-          const Color(0xFFD4AF37).withValues(alpha: .15 * opacity),
-          Colors.transparent,
-        ],
-        stops: const [.0, .30, .65, 1.0],
-      ).createShader(coreRect);
+      ..shader = specularShader
+      ..color = modulatedAlpha;
     canvas.drawPath(_archPath, _pillarSpecularPaint);
   }
 
-  void _drawHangingLantern(Canvas canvas, Offset topAnchor, Offset lanternCenter) {
+  void _drawHangingLantern(
+    Canvas canvas,
+    Offset topAnchor,
+    Offset lanternCenter,
+    Color masterAlphaColor,
+  ) {
     _chainPaint.color = const Color(0xFFE5C158).withValues(alpha: .8 * opacity);
     canvas.drawLine(topAnchor, lanternCenter, _chainPaint);
 
     final outerRadius = isMobile ? 105.0 : 135.0;
-    _outerHaloPaint.shader = RadialGradient(
-      colors: [
-        const Color(0xFFFFE599).withValues(alpha: .58 * opacity),
-        const Color(0xFFD4AF37).withValues(alpha: .25 * opacity),
-        const Color(0xFF9C7316).withValues(alpha: .07 * opacity),
-        Colors.transparent,
-      ],
-      stops: const [.0, .30, .65, 1.0],
-    ).createShader(Rect.fromCircle(center: lanternCenter, radius: outerRadius));
-    canvas.drawCircle(lanternCenter, outerRadius, _outerHaloPaint);
-
     final innerRadius = isMobile ? 40.0 : 48.0;
-    _innerBloomPaint.shader = RadialGradient(
-      colors: [
-        const Color(0xFFFFF4CC).withValues(alpha: .95 * opacity),
-        const Color(0xFFFFE599).withValues(alpha: .52 * opacity),
-        const Color(0xFFD4AF37).withValues(alpha: .0),
-      ],
-      stops: const [.0, .42, 1.0],
-    ).createShader(Rect.fromCircle(center: lanternCenter, radius: innerRadius));
-    canvas.drawCircle(lanternCenter, innerRadius, _innerBloomPaint);
+
+    _outerHaloPaint
+      ..shader = _unitOuterHaloShader
+      ..color = masterAlphaColor;
+    _innerBloomPaint
+      ..shader = _unitInnerBloomShader
+      ..color = masterAlphaColor;
+
+    canvas.save();
+    canvas.translate(lanternCenter.dx, lanternCenter.dy);
+    canvas.scale(outerRadius, outerRadius);
+    canvas.drawCircle(.zero, 1.0, _outerHaloPaint);
+
+    final innerScaleRatio = innerRadius / outerRadius;
+    canvas.scale(innerScaleRatio, innerScaleRatio);
+    canvas.drawCircle(.zero, 1.0, _innerBloomPaint);
+    canvas.restore();
 
     _capPaint.color = const Color(0xFFD4AF37).withValues(alpha: opacity);
     canvas.drawRRect(
@@ -1420,6 +1528,22 @@ class RoyalPerspectiveWalkwayPainter({
     ..strokeWidth = 1.4
     ..strokeCap = .butt;
 
+  static final Shader _unitFloorSpotShader = const RadialGradient(
+    colors: [
+      Color(0x80FFF4CC),
+      Color(0x57FFE599),
+      Color(0x29D4AF37),
+      Color(0x0A8A5A19),
+      Colors.transparent,
+    ],
+    stops: [.0, .25, .55, .80, 1.0],
+  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+
+  static Size? _cachedShaderSize;
+  static double? _cachedTiltDy;
+  static Shader? _cachedSurfaceShader;
+  static Shader? _cachedTrimShader;
+
   @override
   void paint(Canvas canvas, Size size) {
     _mainPath.reset();
@@ -1455,7 +1579,26 @@ class RoyalPerspectiveWalkwayPainter({
     final halfWidth = isMobile ? w * .6 : w * .3;
     final innerTrimWidth = halfWidth * .86;
 
-    final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
+    if (_cachedSurfaceShader == null || _cachedShaderSize != size || _cachedTiltDy != tilt.dy) {
+      final shaderRect = Rect.fromLTRB(.0, math.min(yFar, yNear), w, math.max(yFar, yNear));
+
+      _cachedSurfaceShader = const LinearGradient(
+        begin: .bottomCenter,
+        end: .topCenter,
+        colors: [Color(0x7AB38728), Color(0x527D5A18), Color(0x243D2B08), Colors.transparent],
+        stops: [.0, .38, .78, 1.0],
+      ).createShader(shaderRect);
+
+      _cachedTrimShader = const LinearGradient(
+        begin: .bottomCenter,
+        end: .topCenter,
+        colors: [Color(0x8CFFF3D1), Color(0x3DE5C158), Colors.transparent],
+        stops: [.0, .6, 1.0],
+      ).createShader(shaderRect);
+
+      _cachedShaderSize = size;
+      _cachedTiltDy = tilt.dy;
+    }
 
     final nearLeftX = centerX + axisNearX - (halfWidth * scaleNear);
     final nearRightX = centerX + axisNearX + (halfWidth * scaleNear);
@@ -1469,17 +1612,7 @@ class RoyalPerspectiveWalkwayPainter({
       ..lineTo(farLeftX, yFar)
       ..close();
 
-    _surfacePaint.shader = LinearGradient(
-      begin: .bottomCenter,
-      end: .topCenter,
-      colors: [
-        const Color(0xFFB38728).withValues(alpha: .48),
-        const Color(0xFF7D5A18).withValues(alpha: .32),
-        const Color(0xFF3D2B08).withValues(alpha: .14),
-        Colors.transparent,
-      ],
-      stops: const [.0, .38, .78, 1.0],
-    ).createShader(shaderRect);
+    _surfacePaint.shader = _cachedSurfaceShader;
     canvas.drawPath(_mainPath, _surfacePaint);
 
     canvas.save();
@@ -1493,7 +1626,9 @@ class RoyalPerspectiveWalkwayPainter({
     final baseSpotRatioY = isMobile ? .3 : .26;
     final tiltFactorY = (1.0 + (tilt.dy * .35)).clamp(.5, 1.6);
 
-    for (double archZ = 4800; archZ >= 600; archZ -= 600) {
+    _lampFloorSpotPaint.shader = _unitFloorSpotShader;
+
+    for (double archZ = 6600; archZ >= 600; archZ -= 600) {
       final relZ = archZ - cameraZ;
       if (relZ <= zStart || relZ >= zEnd) continue;
 
@@ -1520,14 +1655,9 @@ class RoyalPerspectiveWalkwayPainter({
       final depthFlatten = .4 + (.6 * scale);
       final spotRadiusY = spotRadiusX * baseSpotRatioY * tiltFactorY * depthFlatten;
 
-      _drawFloorLightPool(canvas, Offset(leftSpotX, floorY), spotRadiusX, spotRadiusY, spotOpacity);
-      _drawFloorLightPool(
-        canvas,
-        Offset(rightSpotX, floorY),
-        spotRadiusX,
-        spotRadiusY,
-        spotOpacity,
-      );
+      _lampFloorSpotPaint.color = Color.fromRGBO(255, 255, 255, spotOpacity);
+      _drawFloorLightPool(canvas, Offset(leftSpotX, floorY), spotRadiusX, spotRadiusY);
+      _drawFloorLightPool(canvas, Offset(rightSpotX, floorY), spotRadiusX, spotRadiusY);
     }
 
     canvas.restore();
@@ -1568,46 +1698,17 @@ class RoyalPerspectiveWalkwayPainter({
         ..lineTo(centerX + axisX + halfTileW, ty);
     }
 
-    _trimPaint.shader = LinearGradient(
-      begin: .bottomCenter,
-      end: .topCenter,
-      colors: [
-        const Color(0xFFFFF3D1).withValues(alpha: .55),
-        const Color(0xFFE5C158).withValues(alpha: .24),
-        Colors.transparent,
-      ],
-      stops: const [.0, .6, 1.0],
-    ).createShader(shaderRect);
-
+    _trimPaint.shader = _cachedTrimShader;
     canvas.drawPath(_trimAndTilesPath, _trimPaint);
   }
 
-  void _drawFloorLightPool(
-    Canvas canvas,
-    Offset center,
-    double radiusX,
-    double radiusY,
-    double intensity,
-  ) {
+  void _drawFloorLightPool(Canvas canvas, Offset center, double radiusX, double radiusY) {
     if (radiusX <= 1.0 || radiusY <= .5) return;
 
     canvas.save();
     canvas.translate(center.dx, center.dy);
-    canvas.scale(1.0, radiusY / radiusX);
-
-    final localCircle = Rect.fromCircle(center: .zero, radius: radiusX);
-    _lampFloorSpotPaint.shader = RadialGradient(
-      colors: [
-        const Color(0xFFFFF4CC).withValues(alpha: .50 * intensity),
-        const Color(0xFFFFE599).withValues(alpha: .34 * intensity),
-        const Color(0xFFD4AF37).withValues(alpha: .16 * intensity),
-        const Color(0xFF8A5A19).withValues(alpha: .04 * intensity),
-        Colors.transparent,
-      ],
-      stops: const [.0, .25, .55, .80, 1.0],
-    ).createShader(localCircle);
-
-    canvas.drawCircle(.zero, radiusX, _lampFloorSpotPaint);
+    canvas.scale(radiusX, radiusY);
+    canvas.drawCircle(.zero, 1.0, _lampFloorSpotPaint);
     canvas.restore();
   }
 
@@ -1651,10 +1752,12 @@ class Floating3DPetalsPainter({
     final camZMod = (cameraZNotifier.value * .8) % 1600.0;
     final tilt = tiltNotifier.value;
 
-    final halfW = size.width * .5;
-    final halfH = size.height * .5;
-    final maxVanishingX = size.width * vanishingFactorX;
-    final maxVanishingY = size.height * vanishingFactorY;
+    final w = size.width;
+    final h = size.height;
+    final halfW = w * .5;
+    final halfH = h * .5;
+    final maxVanishingX = w * vanishingFactorX;
+    final maxVanishingY = h * vanishingFactorY;
 
     for (int i = 0; i < 34; i++) {
       final zPos = (_baseZList[i] - camZMod + 1600.0) % 1600.0;
@@ -1667,11 +1770,15 @@ class Floating3DPetalsPainter({
       final screenX =
           halfW -
           (tilt.dx * maxVanishingX * oneMinusDepth) +
-          (_baseXMultList[i] * size.width + swayX) * depthScale;
+          (_baseXMultList[i] * w + swayX) * depthScale;
       final screenY =
           halfH -
           (tilt.dy * maxVanishingY * oneMinusDepth) +
-          (_baseYMultList[i] * size.height + swayY) * depthScale;
+          (_baseYMultList[i] * h + swayY) * depthScale;
+
+      if (screenX < -16.0 || screenX > w + 16.0 || screenY < -16.0 || screenY > h + 16.0) {
+        continue;
+      }
 
       final opacity = (1.0 - (zPos / 1600.0)).clamp(.15, .85);
       _petalPaint.color = const Color(0xFFFFE599).withValues(alpha: opacity);
