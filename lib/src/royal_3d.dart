@@ -43,6 +43,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
   late final Listenable _petalsListenable;
 
   final _ambientPhaseNotifier = ValueNotifier(.0);
+  final _carouselAngleNotifier = ValueNotifier(.0);
   final _smoothTiltNotifier = ValueNotifier(Offset.zero);
   final _cameraZNotifier = ValueNotifier(.0);
   final _activeStationNotifier = ValueNotifier(0);
@@ -116,6 +117,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     _physicsTicker.dispose();
     _gateController.dispose();
     _ambientPhaseNotifier.dispose();
+    _carouselAngleNotifier.dispose();
     _smoothTiltNotifier.dispose();
     _cameraZNotifier.dispose();
     _activeStationNotifier.dispose();
@@ -202,16 +204,14 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               children: [
                 // 1. DEEP SKY & VOLUMETRIC GOD RAYS
                 Positioned.fill(
-                  child: RepaintBoundary(
-                    child: CustomPaint(
-                      painter: VolumetricGodRaysPainter(
-                        repaint: _bgRaysListenable,
-                        tiltNotifier: _smoothTiltNotifier,
-                        ambientPhaseNotifier: _ambientPhaseNotifier,
-                        gateController: _gateController,
-                        vanishingFactorX: _vanishingFactorX,
-                        vanishingFactorY: _vanishingFactorY,
-                      ),
+                  child: CustomPaint(
+                    painter: VolumetricGodRaysPainter(
+                      repaint: _bgRaysListenable,
+                      tiltNotifier: _smoothTiltNotifier,
+                      ambientPhaseNotifier: _ambientPhaseNotifier,
+                      gateController: _gateController,
+                      vanishingFactorX: _vanishingFactorX,
+                      vanishingFactorY: _vanishingFactorY,
                     ),
                   ),
                 ),
@@ -219,17 +219,15 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                 // 1.5. JALAN KARPET KERATON 3D
                 Positioned.fill(
                   child: IgnorePointer(
-                    child: RepaintBoundary(
-                      child: CustomPaint(
-                        painter: RoyalPerspectiveWalkwayPainter(
-                          repaint: _petalsListenable,
-                          cameraZNotifier: _cameraZNotifier,
-                          tiltNotifier: _smoothTiltNotifier,
-                          ambientPhaseNotifier: _ambientPhaseNotifier,
-                          focalLength: _focalLength,
-                          vanishingFactorX: _vanishingFactorX,
-                          vanishingFactorY: _vanishingFactorY,
-                        ),
+                    child: CustomPaint(
+                      painter: RoyalPerspectiveWalkwayPainter(
+                        repaint: _petalsListenable,
+                        cameraZNotifier: _cameraZNotifier,
+                        tiltNotifier: _smoothTiltNotifier,
+                        ambientPhaseNotifier: _ambientPhaseNotifier,
+                        focalLength: _focalLength,
+                        vanishingFactorX: _vanishingFactorX,
+                        vanishingFactorY: _vanishingFactorY,
                       ),
                     ),
                   ),
@@ -256,16 +254,14 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
                 // 5. PARTIKEL KELOPAK BUNGA EMAS 3D
                 Positioned.fill(
                   child: IgnorePointer(
-                    child: RepaintBoundary(
-                      child: CustomPaint(
-                        painter: Floating3DPetalsPainter(
-                          repaint: _petalsListenable,
-                          ambientPhaseNotifier: _ambientPhaseNotifier,
-                          cameraZNotifier: _cameraZNotifier,
-                          tiltNotifier: _smoothTiltNotifier,
-                          vanishingFactorX: _vanishingFactorX,
-                          vanishingFactorY: _vanishingFactorY,
-                        ),
+                    child: CustomPaint(
+                      painter: Floating3DPetalsPainter(
+                        repaint: _petalsListenable,
+                        ambientPhaseNotifier: _ambientPhaseNotifier,
+                        cameraZNotifier: _cameraZNotifier,
+                        tiltNotifier: _smoothTiltNotifier,
+                        vanishingFactorX: _vanishingFactorX,
+                        vanishingFactorY: _vanishingFactorY,
                       ),
                     ),
                   ),
@@ -370,10 +366,6 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
               maxPitch: .09,
             );
 
-      final stationContent = RepaintBoundary(
-        child: _buildStationWidgetByIndex(size, i, smoothTilt, attenuatedTilt, proximity),
-      );
-
       stations.add(
         KeyedSubtree(
           key: ValueKey('station_3d_$i'),
@@ -382,9 +374,10 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
             child: Transform(
               alignment: .center,
               transform: stationMatrix,
-              child: opacity >= .999
-                  ? stationContent
-                  : Opacity(opacity: opacity, child: stationContent),
+              child: Opacity(
+                opacity: opacity,
+                child: _buildStationWidgetByIndex(size, i, smoothTilt, attenuatedTilt, proximity),
+              ),
             ),
           ),
         ),
@@ -401,17 +394,18 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
     double proximity,
   ) {
     return switch (index) {
-      1 => const _BrideGroom3DShowcase(),
-      2 => const _SacredEvent3DShowcase(),
+      1 => const RepaintBoundary(child: _BrideGroom3DShowcase()),
+      2 => const RepaintBoundary(child: _SacredEvent3DShowcase()),
       3 => Cylindrical3DCarousel(
         ambientPhaseNotifier: _ambientPhaseNotifier,
+        angleNotifier: _carouselAngleNotifier,
         tilt: smoothTilt,
         proximity: proximity,
         isActive: proximity > .28,
         vanishingRangeX: size.width * _vanishingFactorX,
         vanishingRangeY: size.height * _vanishingFactorY,
         itemCount: _moments.length,
-        itemBuilder: (context, index, isFacingFront) => Thick3DCard(
+        itemBuilder: (_, index, isFacingFront) => Thick3DCard(
           isFacingFront: isFacingFront,
           frontCard: _CardFront(item: _moments[index]),
           backCard: const _CardBack(),
@@ -498,9 +492,7 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
           ),
         );
 
-        return gateOpacity >= .999
-            ? gateContent
-            : Opacity(opacity: gateOpacity, child: gateContent);
+        return Opacity(opacity: gateOpacity, child: gateContent);
       },
     );
   }
@@ -513,15 +505,6 @@ class _Royal3DWorldSceneState() extends State<Royal3DWorldScene> with TickerProv
         borderRadius: .circular(180),
         gradient: const RadialGradient(colors: [Color(0xFF162E26), Color(0xFF091410)], radius: .9),
         border: .all(color: const Color(0xFFE5C158), width: 2.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: .8),
-            blurRadius: 45,
-            spreadRadius: 8,
-            offset: Offset(smoothTilt.dx * 22, smoothTilt.dy * 18 + 16),
-          ),
-          BoxShadow(color: const Color(0xFFD4AF37).withValues(alpha: .28), blurRadius: 40),
-        ],
       ),
       child: Column(
         mainAxisSize: .min,
@@ -752,25 +735,15 @@ class const _BrideGroom3DShowcase() extends StatelessWidget {
           ],
         ),
         border: .all(color: const Color(0xFFD4AF37).withValues(alpha: .6)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: .65),
-            blurRadius: 30,
-            offset: const Offset(0, 15),
-          ),
-        ],
       ),
       child: Column(
         children: [
           Container(
             width: 82,
             height: 82,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: .circle,
-              gradient: const RadialGradient(colors: [Color(0xFFE5C158), Color(0xFF7D5A18)]),
-              boxShadow: [
-                BoxShadow(color: const Color(0xFFE5C158).withValues(alpha: .35), blurRadius: 20),
-              ],
+              gradient: RadialGradient(colors: [Color(0xFFE5C158), Color(0xFF7D5A18)]),
             ),
             child: Icon(icon, size: 38, color: const Color(0xFF081410)),
           ),
@@ -810,13 +783,6 @@ class const _SacredEvent3DShowcase() extends StatelessWidget {
         borderRadius: .circular(32),
         color: const Color(0xFF0D1E19).withValues(alpha: .88),
         border: .all(color: const Color(0xFFE5C158).withValues(alpha: .55)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: .7),
-            blurRadius: 40,
-            offset: const Offset(0, 16),
-          ),
-        ],
       ),
       child: Column(
         mainAxisSize: .min,
@@ -907,9 +873,6 @@ class const _SacredEvent3DShowcase() extends StatelessWidget {
           begin: .topLeft,
           end: .bottomRight,
         ),
-        boxShadow: [
-          BoxShadow(color: const Color(0xFFE5C158).withValues(alpha: .35), blurRadius: 16),
-        ],
       ),
       child: Column(
         children: [
