@@ -36,6 +36,7 @@ class _CardOpacityAnimation(var double _value)
 class const Cylindrical3DCarousel({
   super.key,
   required final ValueNotifier<double> ambientPhaseNotifier,
+  final ValueNotifier<double>? angleNotifier,
   required final Offset tilt,
   final double proximity = 1.0,
   final bool isActive = true,
@@ -53,7 +54,9 @@ class const Cylindrical3DCarousel({
 }
 
 class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
-  late final ValueNotifier<double> _continuousAngle;
+  ValueNotifier<double>? _internalAngleNotifier;
+  ValueNotifier<double> get _continuousAngle => widget.angleNotifier ?? _internalAngleNotifier!;
+
   double _lastAmbientPhase = .0;
   double _angleStep = .0;
   double _cachedCamAngle = .0;
@@ -79,7 +82,9 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   void initState() {
     super.initState();
 
-    _continuousAngle = ValueNotifier<double>(.0);
+    if (widget.angleNotifier == null) {
+      _internalAngleNotifier = ValueNotifier<double>(.0);
+    }
     _lastAmbientPhase = widget.ambientPhaseNotifier.value;
     _initBuffers(widget.itemCount);
 
@@ -89,6 +94,15 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   @override
   void didUpdateWidget(covariant Cylindrical3DCarousel oldWidget) {
     super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.angleNotifier != widget.angleNotifier) {
+      if (widget.angleNotifier == null && _internalAngleNotifier == null) {
+        _internalAngleNotifier = ValueNotifier<double>(oldWidget.angleNotifier?.value ?? .0);
+      } else if (widget.angleNotifier != null && _internalAngleNotifier != null) {
+        _internalAngleNotifier!.dispose();
+        _internalAngleNotifier = null;
+      }
+    }
 
     if (oldWidget.itemCount != widget.itemCount) {
       _initBuffers(widget.itemCount);
@@ -116,7 +130,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
   void dispose() {
     widget.ambientPhaseNotifier.removeListener(_onAutoRotate);
     _disposeOpacityAnimations();
-    _continuousAngle.dispose();
+    _internalAngleNotifier?.dispose();
 
     super.dispose();
   }
@@ -183,6 +197,7 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
           s[13] = .0;
         }
       }
+      _isProjectionDirty = false;
     } else {
       _parentMatrix.setIdentity();
       _hasParentPerspective = false;
@@ -197,7 +212,9 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
     final centerZ = widget.baseTunnelDepth + radius;
     final centerScale = focalLength / (focalLength + centerZ);
-    final baseProgress = 1.0 - centerScale;
+    final baseProgress = (1.0 - centerScale) * prox;
+
+    final anchorX = (vpX * baseProgress) * .58;
     final anchorY = (vpY * baseProgress) * .72;
 
     final cylVpX = vpX * .36;
@@ -216,11 +233,10 @@ class _Cylindrical3DCarouselState() extends State<Cylindrical3DCarousel> {
 
     _cylinderProjectionMatrix
       ..setIdentity()
-      ..translateByDouble(.0, anchorY, .0, 1.0)
+      ..translateByDouble(anchorX, anchorY, .0, 1.0)
       ..multiply(_perspectiveShearMatrix);
 
     _cachedCamAngle = math.atan(shearX);
-    _isProjectionDirty = false;
   }
 
   static bool _checkIsFacingFront(Matrix4 matrix) {
