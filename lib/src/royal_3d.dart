@@ -1099,32 +1099,32 @@ class VolumetricGodRaysPainter({
   required final double vanishingFactorY,
 }) extends CustomPainter {
   static final Shader _unitBgShader = const RadialGradient(
-    colors: [Color(0xFF0D211B), Color(0xFF050D0A), Color(0xFF010302)],
+    colors: [Color(0xFF07120E), Color(0xFF050D0A), Color(0xFF010302)],
     stops: [.0, .55, 1.0],
-  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+  ).createShader(.fromCircle(center: .zero, radius: 1.0));
 
   static final Paint _bgPaint = Paint()..shader = _unitBgShader;
-  static final Paint _rayPaint = Paint()..blendMode = .plus;
-  static final Path _rayPath = Path();
+  // static final Paint _rayPaint = Paint()..blendMode = .plus;
+  // static final Path _rayPath = Path();
 
-  static Size? _cachedSize;
-  static Shader? _cachedRayBaseShader;
+  // static Size? _cachedSize;
+  // static Shader? _cachedRayBaseShader;
 
   @override
   void paint(Canvas canvas, Size size) {
     final tilt = tiltNotifier.value;
-    final ambientPhase = ambientPhaseNotifier.value;
-    final gateOpenProgress = gateController.value;
-    final bgRect = Offset.zero & size;
+    // final ambientPhase = ambientPhaseNotifier.value;
+    // final gateOpenProgress = gateController.value;
+    // final bgRect = Offset.zero & size;
 
-    if (_cachedSize != size || _cachedRayBaseShader == null) {
-      _cachedRayBaseShader = const LinearGradient(
-        begin: .topCenter,
-        end: .bottomCenter,
-        colors: [Color(0xFFFFE599), Color(0x40D4AF37), Colors.transparent],
-      ).createShader(bgRect);
-      _cachedSize = size;
-    }
+    // if (_cachedSize != size || _cachedRayBaseShader == null) {
+    //   _cachedRayBaseShader = const LinearGradient(
+    //     begin: .topCenter,
+    //     end: .bottomCenter,
+    //     colors: [Color(0xFFFFE599), Color(0x40D4AF37), Colors.transparent],
+    //   ).createShader(bgRect);
+    //   _cachedSize = size;
+    // }
 
     final vpX = size.width * (.5 - tilt.dx * vanishingFactorX);
     final vpY = size.height * (.31 - tilt.dy * vanishingFactorY);
@@ -1136,32 +1136,32 @@ class VolumetricGodRaysPainter({
     canvas.drawCircle(.zero, 1.0, _bgPaint);
     canvas.restore();
 
-    final sourceX = size.width * .5 - (tilt.dx * size.width * vanishingFactorX);
-    final sourceY = size.height * .22 - (tilt.dy * size.height * vanishingFactorY);
+    // final sourceX = size.width * .5 - (tilt.dx * size.width * vanishingFactorX);
+    // final sourceY = size.height * .22 - (tilt.dy * size.height * vanishingFactorY);
 
-    const rayCount = 9;
-    final baseIntensity = (.07 + (gateOpenProgress * .11)).clamp(.0, 1.0);
+    // const rayCount = 9;
+    // final baseIntensity = (.07 + (gateOpenProgress * .11)).clamp(.0, 1.0);
 
-    _rayPaint
-      ..shader = _cachedRayBaseShader
-      ..color = Color.fromRGBO(255, 255, 255, baseIntensity);
+    // _rayPaint
+    //   ..shader = _cachedRayBaseShader
+    //   ..color = Color.fromRGBO(255, 255, 255, baseIntensity);
 
-    final rayLen = size.height * 1.5;
-    final endY = size.height * 1.2;
+    // final rayLen = size.height * 1.5;
+    // final endY = size.height * 1.2;
 
-    _rayPath.reset();
-    for (int i = 0; i < rayCount; i++) {
-      final spread = (i - rayCount / 2) * .16;
-      final sway = math.sin(ambientPhase + i) * .04 - (tilt.dx * .08);
-      final angle = spread + sway;
+    // _rayPath.reset();
+    // for (int i = 0; i < rayCount; i++) {
+    //   final spread = (i - rayCount / 2) * .16;
+    //   final sway = math.sin(ambientPhase + i) * .04 - (tilt.dx * .08);
+    //   final angle = spread + sway;
 
-      _rayPath
-        ..moveTo(sourceX, sourceY)
-        ..lineTo(sourceX + math.sin(angle - .06) * rayLen, endY)
-        ..lineTo(sourceX + math.sin(angle + .06) * rayLen, endY)
-        ..close();
-    }
-    canvas.drawPath(_rayPath, _rayPaint);
+    //   _rayPath
+    //     ..moveTo(sourceX, sourceY)
+    //     ..lineTo(sourceX + math.sin(angle - .06) * rayLen, endY)
+    //     ..lineTo(sourceX + math.sin(angle + .06) * rayLen, endY)
+    //     ..close();
+    // }
+    // canvas.drawPath(_rayPath, _rayPaint);
   }
 
   @override
@@ -1212,8 +1212,8 @@ class const OrnateRoyalDoorPainter({required final bool isLeftDoor}) extends Cus
     for (double y = h * .22; y < h * .88; y += 70) {
       for (double x = w * .22; x < w * .85; x += 60) {
         _filigreePath
-          ..addOval(Rect.fromCircle(center: Offset(x, y), radius: 22))
-          ..addOval(Rect.fromCircle(center: Offset(x, y), radius: 8));
+          ..addOval(.fromCircle(center: Offset(x, y), radius: 22))
+          ..addOval(.fromCircle(center: Offset(x, y), radius: 8));
       }
     }
 
@@ -1263,12 +1263,12 @@ class GoldenPalaceArchPainter({
   static final Shader _unitOuterHaloShader = const RadialGradient(
     colors: [Color(0x94FFE599), Color(0x40D4AF37), Color(0x129C7316), Colors.transparent],
     stops: [.0, .30, .65, 1.0],
-  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+  ).createShader(.fromCircle(center: .zero, radius: 1.0));
 
   static final Shader _unitInnerBloomShader = const RadialGradient(
     colors: [Color(0xF2FFF4CC), Color(0x85FFE599), Color(0x00D4AF37)],
     stops: [.0, .42, 1.0],
-  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+  ).createShader(.fromCircle(center: .zero, radius: 1.0));
 
   static Size? _cachedSize;
   static bool? _cachedIsMobile;
@@ -1322,10 +1322,10 @@ class GoldenPalaceArchPainter({
     final rightCenter = Offset(rightLanternX, lanternY);
 
     _cachedLeftGlowShader = combinedPillarGradient.createShader(
-      Rect.fromCircle(center: leftCenter, radius: illuminationRadius),
+      .fromCircle(center: leftCenter, radius: illuminationRadius),
     );
     _cachedRightGlowShader = combinedPillarGradient.createShader(
-      Rect.fromCircle(center: rightCenter, radius: illuminationRadius),
+      .fromCircle(center: rightCenter, radius: illuminationRadius),
     );
   }
 
@@ -1408,8 +1408,8 @@ class GoldenPalaceArchPainter({
 
     _capPaint.color = const Color(0xFFD4AF37).withValues(alpha: opacity);
     canvas.drawRRect(
-      RRect.fromRectAndRadius(
-        Rect.fromCenter(
+      .fromRectAndRadius(
+        .fromCenter(
           center: Offset(lanternCenter.dx, lanternCenter.dy - 13),
           width: 20,
           height: 4.5,
@@ -1422,7 +1422,7 @@ class GoldenPalaceArchPainter({
     final coreRadius = isMobile ? 11.0 : 13.0;
     _corePaint.color = const Color(0xFFFFF4CC).withValues(alpha: opacity);
     canvas.drawOval(
-      Rect.fromCenter(center: lanternCenter, width: coreRadius * 1.55, height: coreRadius * 2.0),
+      .fromCenter(center: lanternCenter, width: coreRadius * 1.55, height: coreRadius * 2.0),
       _corePaint,
     );
   }
@@ -1464,7 +1464,7 @@ class RoyalPerspectiveWalkwayPainter({
       Colors.transparent,
     ],
     stops: [.0, .25, .55, .80, 1.0],
-  ).createShader(Rect.fromCircle(center: .zero, radius: 1.0));
+  ).createShader(.fromCircle(center: .zero, radius: 1.0));
 
   static Size? _cachedShaderSize;
   static Shader? _cachedSurfaceShader;
@@ -1579,7 +1579,7 @@ class RoyalPerspectiveWalkwayPainter({
       final rightSpotX = centerX + axisX + lampSpreadX - swingOffset;
 
       final spotRadiusX = (isMobile ? w * .72 : w * .28) * scale;
-      final depthFlatten = .4 + (.6 * scale);
+      final depthFlatten = (isMobile ? .6 : .4) + (.6 * scale);
       final spotRadiusY = spotRadiusX * baseSpotRatioY * tiltFactorY * depthFlatten;
 
       _lampFloorSpotPaint.color = Color.fromRGBO(255, 255, 255, spotOpacity);
